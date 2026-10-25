@@ -80,7 +80,7 @@ replayed token for token on every config, so each config prefills and decodes ex
 At long context, per-turn time is dominated by attention over the cached prefix. The config change barely helps
 there; FP8 attention (patch 01) is what cuts it by a third.
 
-#### Agentic caching (interim, verification pending)
+#### Agentic caching
 
 Each turn's prompt is the previous prompt plus the model's output and a tool result. Attention KV can be reused
 token by token, but the GDN recurrent state can only resume where it was saved, and stock vLLM saves it every
@@ -92,25 +92,24 @@ prefilled per turn when ~1,740 are new.
   <img alt="With block-aligned GDN state caching every turn recomputes the old tail; a finer unit or a per-session state removes it" src="docs/img/mech-agentic-cache-light.svg">
 </picture>
 
-Two fixes measured so far, each as an A/B on one server with the same turns (`kernels/cache-granularity`,
-`kernels/session-cache`):
+Three options were measured by their authors (A/B on one server with the same turns) and then re-run by a second
+agent (`kernels/*/VERIFY.md`). All three verdicts are "partially confirmed": the mechanism and correctness hold,
+but each has a cost the author's report missed.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/agentic-cache-dark.svg">
   <img alt="Finer GDN state caching cuts tokens prefilled per agent turn by 55-71% and per-turn TTFT by 20-56%" src="docs/img/agentic-cache-light.svg">
 </picture>
 
-- `--prefix-match-unit 16` (a vLLM v0.32 flag, no code change): tokens prefilled per turn 4,759 → 1,765, TTFT p50
-  486 → 330 ms with one agent and 1,040 → 827 ms with 8 agents; 8-agent wall time 261 → 171 s. Prefix-cache
-  correctness check: TV 0.122, same as stock.
-- Session state cache (patch, `VLLM_SESSION_STATE_CACHE=1`): keeps each session's GDN state at the end of its
-  turn. Same effect when the client resends the history exactly. When the client rewrites history (e.g. drops
-  reasoning) the prefix no longer matches and nothing is saved; in the first such run TTFT p50 even rose
-  (203 → 355 ms), which is still being checked.
-- CPU offload of idle sessions (`--kv-offloading-backend native`): stores both attention KV and GDN state for this
-  hybrid model; the 64-session idle/think benchmark is still running.
+| option | what it does | measured gain | cost the verification found |
+|---|---|---|---|
+| `--prefix-match-unit 16` (vLLM flag, no patch) | GDN state saved every 16 tokens, so a hit lands inside a block | tokens prefilled per later turn 4,759 → 1,765; 1 agent: TTFT p50 488 → 343 ms, wall 184 → 149 s; 8 agents: wall 262 → 173 s (TTFT did not reproduce: 964 → 1,002 ms) | 3 extra pool blocks per idle session, so fewer idle sessions stay cached (-13% at 56 sessions of 90k; 48 sessions cross the pool limit and thrash, 14.5x slower). 32 agents on ~100k contexts: wall -18% but TTFT p50 +32%. Each hit splits the turn's prefill into 1-3 chunks (+35-65 ms of TTFT at 1 agent); the whole prompt is re-hashed per turn (4.6 → 23 ms at 126k). Restored state is bit-identical to the producer's. |
+| session state cache (`VLLM_SESSION_STATE_CACHE=1`, patch) | keeps each session's exact end-of-turn state | on top of unit 16 only ~7% TTFT at 1 agent, nothing at 8; unit 16 already gets 90-95% of the token savings | with the default limits 250 idle sessions pinned 1,024 of 2,200 blocks and evicted the active agents' history (prefill per turn 2,592 → 47,661, TTFT p50 1.6 → 69 s). MTP acceptance lower in 5 of 5 pairs. V2 runner only. Not recommended. |
+| CPU offload of idle sessions (`--kv-offloading-size 96`, vLLM native, no patch) | stores attention KV and GDN state in host RAM | 64 idle sessions of 60-126k tokens: 71% → 0.6% of later turns lose their prefix, TTFT p50 198 s → 2.2 s (verified 175 s → 2.9 s), 31.6 → 182 tok/s; restoring 100k tokens takes 21-34 ms over PCIe, TTFT +15 ms vs a GPU hit | the tier must hold the whole live working set: 13.3 KB per token (96 GiB ≈ 7.7M tokens ≈ 70 sessions of 110k); 12 GiB gave zero hits, 64 GiB at 1.45x over capacity collapsed like no offload. Branching or edited histories get no reuse. 103 GB of pinned /dev/shm and +105 s startup. LMCache + MTP returns wrong state: do not combine. |
 
-These numbers come from the agents' own runs on the production config and are not yet in the tables above.
+What this means for deployment: turn on `--prefix-match-unit 16` for long single-tenant sessions, size the offload
+tier to the live working set when many sessions idle between turns, and skip the session state cache.
+Every hit, GPU or CPU, still ends one 2,128-token block early because of vLLM's MTP checkpoint rule.
 
 KV cache capacity drops with the larger CUDA graphs and the 64-token block: 3.98M tokens (production),
 3.54M (tuned), 3.37M (optimized), that is 30, 27 and 26 concurrent 131k sessions. At 32 long sessions the
