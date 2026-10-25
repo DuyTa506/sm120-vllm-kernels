@@ -98,8 +98,9 @@ Two fixes measured so far, each as an A/B on one server with the same turns (`ke
   486 → 330 ms with one agent and 1,040 → 827 ms with 8 agents; 8-agent wall time 261 → 171 s. Prefix-cache
   correctness check: TV 0.122, same as stock.
 - Session state cache (patch, `VLLM_SESSION_STATE_CACHE=1`): keeps each session's GDN state at the end of its
-  turn. Same effect when the client resends the history exactly; no gain when the client rewrites history
-  (e.g. drops reasoning), because the prefix then no longer matches.
+  turn. Same effect when the client resends the history exactly. When the client rewrites history (e.g. drops
+  reasoning) the prefix no longer matches and nothing is saved; in the first such run TTFT p50 even rose
+  (203 → 355 ms), which is still being checked.
 - CPU offload of idle sessions (`--kv-offloading-backend native`): stores both attention KV and GDN state for this
   hybrid model; the 64-session idle/think benchmark is still running.
 

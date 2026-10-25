@@ -48,7 +48,7 @@ A/B on one server (production config), same recorded turns. "prefilled" = tokens
 | `--prefix-match-unit 16` | long, 4 sessions, 8 agents | 4,759 / 1,040 ms (p90 2,890) | 1,765 / 827 ms (p90 2,448) |
 | session state cache | long, 4 sessions from turn 20, 1 agent | 5,460 / 532 ms | 2,415 / 351 ms |
 | session state cache | short, 4 sessions, history resent exactly | 4,172 / 219 ms | 1,213 / 96 ms |
-| session state cache | short, history as recorded (rewritten) | 4,460 / 203 ms | 4,460 / 355 ms |
+| session state cache | short, history as recorded (rewritten), stage 1 run | 4,460 / 203 ms | 4,460 / 355 ms (regression, being checked) |
 
 Truly new tokens per long-session turn: ~1,740. Prefix-cache check with `--prefix-match-unit 16`: TV 0.122
 (stock 0.12-0.13).
