@@ -403,7 +403,7 @@ def diagram_gdn_fusion(t):
 def chart_kernels(t):
     """ms saved per forward / decode step by each kernel; fill = verification status"""
     groups = [("Prefill: ms saved per 8k-token forward", [
-                  ("MoE b12x fix + hybrid dispatch", 9.5, "pending"),
+                  ("MoE b12x fix + hybrid dispatch", 9.5, "nogain"),
                   ("GDN fused conv + post-conv", 5.6, "confirmed"),
                   ("FP8 attention in one kernel", 1.0, "confirmed")]),
               ("Decode: ms saved per MTP-2 step", [
@@ -425,11 +425,16 @@ def chart_kernels(t):
             s.text(x0 - 12, y + 16, name, anchor="end", color=t["ink2"])
             if kind == "confirmed":
                 s.hbar(x0, y + 2, X(v), 20, t["s"][2])
+            elif kind == "nogain":
+                s.rect(x0, y + 2, X(v) - x0, 20, t["surface"], stroke=t["s"][1], r=4, dash="5 4")
             elif kind == "planned":
                 s.rect(x0, y + 2, X(v) - x0, 20, t["surface"], stroke=t["muted"], r=4, dash="5 4")
             else:
                 s.rect(x0, y + 2, max(X(v) - x0, 3), 20, t["box"], stroke=t["s"][1] if kind == "pending" else t["s"][0], r=4)
-            s.text(X(v) + 8, y + 17, f"{v:g} ms", weight=600)
+            if kind == "nogain":
+                s.text(x0 + 10, y + 17, f"{v:g} ms at the kernel, none end-to-end", weight=600)
+            else:
+                s.text(X(v) + 8, y + 17, f"{v:g} ms", weight=600)
             y += 34
         for k in range(0, 6):
             s.line(X(vmax * k / 5), top - 2, X(vmax * k / 5), y - 6, t["grid"])
@@ -437,13 +442,14 @@ def chart_kernels(t):
         s.line(x0, top - 2, x0, y - 6, t["axis"])
         y += 30
     lx = 20
-    for name, color, fill, dash in [("confirmed by a second agent", t["s"][2], t["s"][2], None),
-                                    ("measured by the author, check running", t["s"][1], t["box"], None),
+    for name, color, fill, dash in [("confirmed", t["s"][2], t["s"][2], None),
+                                    ("author's number, check running", t["s"][1], t["box"], None),
                                     ("partly confirmed", t["s"][0], t["box"], None),
-                                    ("planned", t["muted"], t["surface"], "5 4")]:
+                                    ("planned", t["muted"], t["surface"], "5 4"),
+                                    ("kernel only, no end-to-end gain", t["s"][1], t["surface"], "5 4")]:
         s.rect(lx, y - 9, 12, 12, fill, stroke=color, r=2, dash=dash)
         s.text(lx + 18, y, name, size=11, color=t["ink2"])
-        lx += 40 + 6.2 * len(name)
+        lx += 36 + 5.9 * len(name)
     s.save("kernel-gains", "Milliseconds saved per forward or decode step by each kernel, with its verification status")
 
 
@@ -464,9 +470,10 @@ def diagram_moe(t):
     node(s, 280, 216, 200, 44, "CUTLASS FP4 MoE", "small M: stock path")
     arrow(s, 210, 256, 280, 292, ">= 1024", color=t["s"][1], above=False)
     node(s, 280, 272, 200, 44, "b12x, scales fixed", "631 vs 871 us per layer at 8k", hot=True)
-    s.text(510, 242, "8k TTFT -4.7%; NLL, needles 20/20,", size=11, color=t["ink2"])
-    s.text(510, 258, "MTP acceptance unchanged (author)", size=11, color=t["ink2"])
-    s.text(510, 294, "independent verification still running", size=11, color=t["muted"])
+    s.text(510, 242, "author: 8k TTFT -4.7%, NLL and needles ok", size=11, color=t["ink2"])
+    s.text(510, 258, "verifier A/B vs CUTLASS: 8k TTFT 192.6 vs", size=11, color=t["ink2"])
+    s.text(510, 274, "191.8 ms, decode ITL 6.54 vs 6.51: no gain", size=11, color=t["ink2"])
+    s.text(510, 294, "final verdict still pending", size=11, color=t["muted"])
     s.save("mech-moe", "Stock b12x loses precision in the block scales and zeroes 1-3 token outputs; the hybrid uses CUTLASS below 1024 tokens and the fixed b12x above")
 
 

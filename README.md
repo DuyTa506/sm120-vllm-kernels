@@ -189,7 +189,7 @@ bit-identical and would save about 5 ms per step (~18%) (`kernels/decode-rooflin
 - `fp8-attn-glue`: confirmed, bitwise identical; the claimed gain was slightly overstated.
 - `gdn-conv-fusion`: confirmed, bit-exact, speedup reproduces within about 2%.
 - `decode-roofline` (skinny BF16): partly confirmed. About -0.6 ms per step at c=1, nothing at c >= 4, numerics match cuBLAS. Not integrated: its on/off flag is not part of vLLM's compile-cache key and the end-to-end quality evidence is only kernel-level.
-- `moe-nvfp4`: author measurements only so far (needles 20/20, TTFT and decode match next); the before/after check is still running.
+- `moe-nvfp4`: the kernel is 28% faster at 8k tokens, but the first end-to-end A/B against the CUTLASS backend (same server, same seeds) shows no gain: 8k TTFT 192.6 and 188.3 ms vs 191.8 and 187.7 ms, decode ITL 6.54 vs 6.51 ms, quality equal. Not integrated; the verifier's final verdict is pending.
 - `dense-fp8-gemm`, `cache-granularity`, `kv-offload`, `session-cache`: measurements or checks still queued for the GPU.
 
 <picture>
