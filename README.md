@@ -189,8 +189,10 @@ bit-identical and would save about 5 ms per step (~18%) (`kernels/decode-rooflin
 - `fp8-attn-glue`: confirmed, bitwise identical; the claimed gain was slightly overstated.
 - `gdn-conv-fusion`: confirmed, bit-exact, speedup reproduces within about 2%.
 - `decode-roofline` (skinny BF16): partly confirmed. About -0.6 ms per step at c=1, nothing at c >= 4, numerics match cuBLAS. Not integrated: its on/off flag is not part of vLLM's compile-cache key and the end-to-end quality evidence is only kernel-level.
-- `moe-nvfp4`: the kernel is 28% faster at 8k tokens, but the first end-to-end A/B against the CUTLASS backend (same server, same seeds) shows no gain: 8k TTFT 192.6 and 188.3 ms vs 191.8 and 187.7 ms, decode ITL 6.54 vs 6.51 ms, quality equal. Not integrated; the verifier's final verdict is pending.
-- `dense-fp8-gemm`, `cache-granularity`, `kv-offload`, `session-cache`: measurements or checks still queued for the GPU.
+- `moe-nvfp4`: partly confirmed. The diagnosis, the scale fix and the kernel speedup reproduce (9.0 ms per 8k prefill, 225 us per layer at 8k tokens). The end-to-end TTFT gain does not resolve from noise (-4.5 ms pooled, from +1 ms in the first A/B pair to -7 ms in the second), decode is unchanged, and the patch as shipped halves the KV cache (3.37M to 1.77M tokens). Not in next.
+- `dense-fp8-gemm` (skinny FP8 decode GEMM): partly confirmed. Reproduces at kernel level (-223 us per c=1 step with cold weights; -78 us at c=16; nothing at c=64) and in situ (about -0.15 ms per step at c=1, -0.06 ms at c=4, because MTP-2 rounds the c=4 batch to M=18). The wall-clock gain sits inside the host noise.
+- Ideas taken from DeepGEMM, measured in `kernels/pdl-swapab`: PDL is worth 1-2% at c=1 and nothing at c >= 16 (37% of kernel boundaries already overlap, FlashInfer enables PDL on SM120); swap-AB is already in FlashInfer's CUTLASS MoE decode tile, and its padding costs at most ~0.13 ms per step. b12x is 13-16% faster than CUTLASS at M=4-8 (0.25-0.32 ms per step) but needs a numerics check first.
+- `cache-granularity`, `kv-offload`, `session-cache`: measurements or checks still queued for the GPU.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/mech-gdn-fusion-dark.svg">
