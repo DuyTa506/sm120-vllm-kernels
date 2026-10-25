@@ -1,0 +1,15 @@
+--- a/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
++++ b/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
+@@ -285,6 +285,12 @@
+         wrapper = self._wrapper
+         assert wrapper is not None
+ 
++        # bench patch: vLLM marks skipped tokens with expert id -1 (dummy/profile runs); the b12x
++        # dynamic kernel reads out of bounds on negative ids, so route them to expert 0 with weight 0.
++        _skip = topk_ids < 0
++        topk_ids = topk_ids.masked_fill(_skip, 0)
++        topk_weights = topk_weights.masked_fill(_skip, 0.0)
++
+         wrapper_output = wrapper.run(
+             x=hidden_states,
+             w1_weight=w1,

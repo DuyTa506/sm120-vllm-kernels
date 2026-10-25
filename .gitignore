@@ -1,0 +1,14 @@
+.cache/
+.build/
+build/
+results/nsys/raw/
+__pycache__/
+*.pyc
+microbench/bin/
+# large or regenerable: raw trajectories (committed as .json.xz), nsys traces, captured tensors, vendored sources
+results/agentic/trajectories_*.json
+*.sqlite
+*.nsys-rep
+*.pt
+kernels/kv-offload/src/
+kernels/dense-fp8-gemm/microbench/mma_kind_rate

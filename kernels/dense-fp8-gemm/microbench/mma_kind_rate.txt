@@ -1,0 +1,3 @@
+NVIDIA RTX PRO 6000 Blackwell Workstation Edition  SMs=188  cc=12.0  iters=200000 warps/block=8
+FP8 e4m3 kind::f8f6f4    2045.0 FLOP/clk/SM   avg SM clock 2.87 GHz    1102.6 TFLOPS (register-resident)   18 ms
+FP8 e4m3 -> FP32 acc     2045.0 FLOP/clk/SM   avg SM clock 2.86 GHz    1098.8 TFLOPS (register-resident)   18 ms

@@ -1,0 +1,96 @@
+[
+ {
+  "target": 25000,
+  "task": 5,
+  "turn": 9,
+  "lenA": 25200,
+  "lenB": 29002,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 1741.7128086090088,
+   "gpu": 597.8314876556396,
+   "cpu": 521.3873386383057
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 21280,
+   "cpu": 21280
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 305070080.0,
+   "kv_offload_load_time_total": 0.005892864227294922,
+   "kv_offload_store_bytes_total": 113311744.0,
+   "kv_offload_store_time_total": 0.005464735984802245,
+   "external_prefix_cache_hits_total": 21280.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": 51.769405883637724,
+  "tv_top20": {
+   "cold_gpu": 0.6462953112794332,
+   "cold_cpu": 0.0211985712327227,
+   "gpu_cpu": 0.6256485005431249
+  },
+  "top1_agree": {
+   "cold_gpu": false,
+   "cold_cpu": true,
+   "gpu_cpu": false
+  },
+  "text_equal": {
+   "cold_gpu": false,
+   "cold_cpu": true,
+   "gpu_cpu": false
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+   "gpu": "Now let me read the remaining modules. Let me continue with ElementTree.py and then read the other files.\n\n<tool_call>\n<function=read_file>\n<",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree"
+  }
+ },
+ {
+  "target": 100000,
+  "task": 0,
+  "turn": 40,
+  "lenA": 100195,
+  "lenB": 100769,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 6080.725908279419,
+   "gpu": 478.57141494750977,
+   "cpu": 401.04007720947266
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 97888,
+   "cpu": 97888
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 1167982592.0,
+   "kv_offload_load_time_total": 0.021843135833740236,
+   "kv_offload_store_bytes_total": 0.0,
+   "kv_offload_store_time_total": 0.0,
+   "external_prefix_cache_hits_total": 97888.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": 53.471378875731894,
+  "tv_top20": {
+   "cold_gpu": 0.007119697344929655,
+   "cold_cpu": 0.005340450639539073,
+   "gpu_cpu": 0.001792392853037984
+  },
+  "top1_agree": {
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+  }
+ }
+]

@@ -1,0 +1,108 @@
+2026-10-25 06:21:08,401 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[AutoTuner]: Tuning trtllm::fused_moe::gemm1:   0%|          | 0/22 [00:00<?, ?profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:   5%|▍         | 1/22 [00:00<00:03,  6.02profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  14%|█▎        | 3/22 [00:00<00:02,  8.82profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  23%|██▎       | 5/22 [00:00<00:01,  9.25profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  27%|██▋       | 6/22 [00:00<00:01,  8.99profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  32%|███▏      | 7/22 [00:00<00:01,  8.60profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  36%|███▋      | 8/22 [00:00<00:01,  8.22profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  41%|████      | 9/22 [00:01<00:01,  7.95profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  45%|████▌     | 10/22 [00:01<00:01,  7.73profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  50%|█████     | 11/22 [00:01<00:01,  7.57profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  55%|█████▍    | 12/22 [00:01<00:01,  7.45profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  59%|█████▉    | 13/22 [00:01<00:01,  7.34profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  64%|██████▎   | 14/22 [00:01<00:01,  7.27profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  68%|██████▊   | 15/22 [00:01<00:00,  7.21profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  73%|███████▎  | 16/22 [00:02<00:00,  7.14profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  77%|███████▋  | 17/22 [00:02<00:00,  7.06profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  82%|████████▏ | 18/22 [00:02<00:00,  6.97profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  86%|████████▋ | 19/22 [00:02<00:00,  6.86profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  91%|█████████ | 20/22 [00:02<00:00,  6.69profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1:  95%|█████████▌| 21/22 [00:02<00:00,  6.07profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1: 100%|██████████| 22/22 [00:03<00:00,  4.96profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm1: 100%|██████████| 22/22 [00:03<00:00,  6.97profile/s]
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:   0%|          | 0/22 [00:00<?, ?profile/s]2026-10-25 06:21:11,767 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:   5%|▍         | 1/22 [00:00<00:03,  5.49profile/s]2026-10-25 06:21:11,944 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:   9%|▉         | 2/22 [00:00<00:03,  5.60profile/s]2026-10-25 06:21:12,125 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  14%|█▎        | 3/22 [00:00<00:03,  5.55profile/s]2026-10-25 06:21:12,311 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  18%|█▊        | 4/22 [00:00<00:03,  5.48profile/s]2026-10-25 06:21:12,506 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  23%|██▎       | 5/22 [00:00<00:03,  5.35profile/s]2026-10-25 06:21:12,712 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  27%|██▋       | 6/22 [00:01<00:03,  5.18profile/s]2026-10-25 06:21:12,924 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  32%|███▏      | 7/22 [00:01<00:02,  5.02profile/s]2026-10-25 06:21:13,147 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  36%|███▋      | 8/22 [00:01<00:02,  4.83profile/s]2026-10-25 06:21:13,372 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  41%|████      | 9/22 [00:01<00:02,  4.70profile/s]2026-10-25 06:21:13,598 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  45%|████▌     | 10/22 [00:02<00:02,  4.61profile/s]2026-10-25 06:21:13,824 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  50%|█████     | 11/22 [00:02<00:02,  4.55profile/s]2026-10-25 06:21:14,053 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  55%|█████▍    | 12/22 [00:02<00:02,  4.49profile/s]2026-10-25 06:21:14,293 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  59%|█████▉    | 13/22 [00:02<00:02,  4.39profile/s]2026-10-25 06:21:14,535 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  64%|██████▎   | 14/22 [00:02<00:01,  4.31profile/s]2026-10-25 06:21:14,777 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  68%|██████▊   | 15/22 [00:03<00:01,  4.25profile/s]2026-10-25 06:21:15,023 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  73%|███████▎  | 16/22 [00:03<00:01,  4.19profile/s]2026-10-25 06:21:15,276 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  77%|███████▋  | 17/22 [00:03<00:01,  4.12profile/s]2026-10-25 06:21:15,533 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  82%|████████▏ | 18/22 [00:03<00:00,  4.05profile/s]2026-10-25 06:21:15,794 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  86%|████████▋ | 19/22 [00:04<00:00,  3.98profile/s]2026-10-25 06:21:16,068 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  91%|█████████ | 20/22 [00:04<00:00,  3.88profile/s]2026-10-25 06:21:16,410 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  95%|█████████▌| 21/22 [00:04<00:00,  3.53profile/s]2026-10-25 06:21:16,900 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2: 100%|██████████| 22/22 [00:05<00:00,  2.90profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm2: 100%|██████████| 22/22 [00:05<00:00,  4.14profile/s]
+2026-10-25 06:21:16,902 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:59] profiler_stop
+2026-10-25 06:21:17,165 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 06:21:17,174 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:59] profiler_stop
+2026-10-25 06:21:17,331 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 06:21:17,341 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:59] profiler_stop
+2026-10-25 06:21:17,399 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 06:21:17,408 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:59] profiler_stop
+2026-10-25 06:21:17,464 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 06:21:17,473 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 06:21:17 413:413 SyncActivityProfilerHandler.cpp:59] profiler_stop
+
+== layer 19, M=8192 tokens: CUTLASS fused MoE kernels (eager, per call)  total 895.0 us
+   grouped_gemm             x 1.0     334.8 us
+   grouped_gemm             x 1.0     238.4 us
+   expandInputRows          x 1.0     137.9 us
+   doActivation             x 1.0      95.5 us
+   blockExpertPrefixSum     x 1.0      41.7 us
+   nvfp4_quant(vllm)        x 1.0      23.1 us
+   Memset (Device)          x 1.0       8.0 us
+   mergeExpertPrefixSum     x 1.0       7.5 us
+   computeStridesTmaWS      x 1.0       5.9 us
+   globalExpertPrefixSum    x 1.0       2.2 us
+   grouped GEMMs total 573.3 us -> 719 TFLOPS (NVFP4 peak ~2200)
+   router: F.linear 2048->256 33.1 us + shared_expert_gate 2048->1 12.3 us; fused 2048->264 36.3 us; ideal(max(bytes/1.8TB/s, flops/550T)) 18.6 us
+
+== layer 19, M=4096 tokens: CUTLASS fused MoE kernels (eager, per call)  total 559.6 us
+   grouped_gemm             x 1.0     247.8 us
+   grouped_gemm             x 1.0     159.2 us
+   expandInputRows          x 1.0      68.9 us
+   doActivation             x 1.0      41.3 us
+   blockExpertPrefixSum     x 1.0      14.5 us
+   nvfp4_quant(vllm)        x 1.0      12.4 us
+   computeStridesTmaWS      x 1.0       5.0 us
+   mergeExpertPrefixSum     x 1.0       4.4 us
+   Memset (Device)          x 1.0       4.2 us
+   globalExpertPrefixSum    x 1.0       1.8 us
+   grouped GEMMs total 407.0 us -> 507 TFLOPS (NVFP4 peak ~2200)
+   router: F.linear 2048->256 20.4 us + shared_expert_gate 2048->1 8.5 us; fused 2048->264 23.1 us; ideal(max(bytes/1.8TB/s, flops/550T)) 9.3 us
+
+== layer 19, M=48 tokens: CUTLASS fused MoE kernels (eager, per call)  total 83.1 us
+   grouped_gemm             x 1.0      42.9 us
+   grouped_gemm             x 1.0      26.7 us
+   expandInputRows          x 1.0       3.2 us
+   buildExpertMaps          x 1.0       3.1 us
+   doActivation             x 1.0       3.0 us
+   computeStridesTmaWS      x 1.0       1.9 us
+   nvfp4_quant(vllm)        x 1.0       1.5 us
+   Memset (Device)          x 1.0       0.8 us
+   grouped GEMMs total 69.6 us -> 35 TFLOPS (NVFP4 peak ~2200)
+   router: F.linear 2048->256 6.9 us + shared_expert_gate 2048->1 5.2 us; fused 2048->264 7.4 us; ideal(max(bytes/1.8TB/s, flops/550T)) 0.1 us
+
+== layer 19, M=12 tokens: CUTLASS fused MoE kernels (eager, per call)  total 41.9 us
+   grouped_gemm             x 1.0      16.8 us
+   grouped_gemm             x 1.0      12.9 us
+   buildExpertMaps          x 1.0       3.2 us
+   expandInputRows          x 1.0       2.7 us
+   doActivation             x 1.0       2.7 us
+   computeStridesTmaWS      x 1.0       1.9 us
+   nvfp4_quant(vllm)        x 1.0       1.0 us
+   Memset (Device)          x 1.0       0.8 us
+   grouped GEMMs total 29.6 us -> 20 TFLOPS (NVFP4 peak ~2200)
+   router: F.linear 2048->256 6.6 us + shared_expert_gate 2048->1 5.2 us; fused 2048->264 7.0 us; ideal(max(bytes/1.8TB/s, flops/550T)) 0.0 us
+
+== layer 19, M=3 tokens: CUTLASS fused MoE kernels (eager, per call)  total 33.3 us
+   grouped_gemm             x 1.0      11.7 us
+   grouped_gemm             x 1.0       9.4 us
+   buildExpertMaps          x 1.0       3.1 us
+   expandInputRows          x 1.0       2.7 us
+   doActivation             x 1.0       2.7 us
+   computeStridesTmaWS      x 1.0       2.0 us
+   nvfp4_quant(vllm)        x 1.0       1.0 us
+   Memset (Device)          x 1.0       0.8 us
+   grouped GEMMs total 21.1 us -> 7 TFLOPS (NVFP4 peak ~2200)
+   router: F.linear 2048->256 10.1 us + shared_expert_gate 2048->1 5.0 us; fused 2048->264 10.0 us; ideal(max(bytes/1.8TB/s, flops/550T)) 0.0 us

@@ -1,0 +1,56 @@
+13964 kernels, kernel-time sum 152.5 ms/req, span 168.2 ms/req
+
+== by category (ms/req, % of kernel time, launches/req)
+  gdn/fla        66.54 ms   43.6%      486
+  fa/attn        40.69 ms   26.7%      290
+  moe-gemm       14.41 ms    9.4%      424
+  gemm            6.63 ms    4.3%      562
+  elementwise     5.70 ms    3.7%      837
+  conv1d          4.96 ms    3.3%       60
+  moe-route       4.83 ms    3.2%      166
+  other           4.27 ms    2.8%      154
+  norm/act        3.41 ms    2.2%      266
+  nvfp4-quant     0.93 ms    0.6%      240
+  rope/kv         0.12 ms    0.1%        6
+
+== top 40 kernels
+    31.40 ms  20.6% x   160  avg   196.2 us [gdn/fla] void cutlass::device_kernel<enable_sm120_family<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int
+    27.35 ms  17.9% x    22  avg  1243.0 us [fa/attn] void flashinfer::BatchPrefillWithPagedKVCacheKernel<(bool)1, flashinfer::KernelTraits<(flashinfer::MaskMode)1,
+    17.81 ms  11.7% x    80  avg   222.7 us [gdn/fla] void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cutlass::gemm::GroupProblemShape<cute::tuple<
+     6.68 ms   4.4% x    40  avg   167.1 us [gdn/fla] void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cutlass::gemm::GroupProblemShape<cute::tuple<
+     6.25 ms   4.1% x    40  avg   156.2 us [gdn/fla] void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cutlass::gemm::GroupProblemShape<cute::tuple<
+     6.04 ms   4.0% x    60  avg   100.7 us [fa/attn] kernel_cutlass_kernel_flashinfergdn_kernelsdelta_rule_dsldelta_rule_cp_sm120CPDeltaRulePrefillSm120_object_at_
+     5.49 ms   3.6% x    80  avg    68.6 us [moe-gemm] void tensorrt_llm::kernels::cutlass_kernels::expandInputRowsKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, (tensorrt_llm
+     4.96 ms   3.3% x    60  avg    82.6 us [conv1d] _causal_conv1d_fwd_kernel
+     4.21 ms   2.8% x    60  avg    70.2 us [fa/attn] kernel_cutlass_kernel_flashinfergdn_kernelsdelta_rule_dsldelta_rule_cp_sm120CPDeltaRuleMNPrecomputeSm120_objec
+     3.44 ms   2.3% x    60  avg    57.4 us [other] _fused_post_conv_kernel
+     3.29 ms   2.2% x    80  avg    41.2 us [moe-gemm] void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16, t
+     3.24 ms   2.1% x    78  avg    41.5 us [gemm] triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_fused_add_rms_norm_mul_reciprocal_unsqueeze
+     3.16 ms   2.1% x   180  avg    17.6 us [elementwise] void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::dire
+     2.07 ms   1.4% x    82  avg    25.2 us [moe-route] void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_128x64_64x4_tn_align8>(T1::Params)
+     1.92 ms   1.3% x     6  avg   320.3 us [gdn/fla] void cutlass::device_kernel<enable_sm120_family<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int
+     1.71 ms   1.1% x    84  avg    20.4 us [moe-gemm] triton_red_fused__to_copy_add_fused_add_rms_norm_moe_forward_shared_1
+     1.68 ms   1.1% x     2  avg   837.8 us [moe-gemm] void fused_moe::run_global<fused_moe::Fused_Moe_Kernel_sm80<cutlass::bfloat16_t, cutlass::bfloat16_t, cutlass:
+     1.53 ms   1.0% x    60  avg    25.5 us [fa/attn] kernel_cutlass_kernel_flashinfergdn_kernelsdelta_rule_dsldelta_rule_cp_sm120CPDeltaRuleFixupHmmaSm120_object_a
+     1.53 ms   1.0% x    24  avg    63.8 us [norm/act] _fused_qk_rmsnorm_rope_gate_kernel
+     1.36 ms   0.9% x     8  avg   169.7 us [moe-route] void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_128x256_32x3_tn_align8>(T1::Params)
+     1.27 ms   0.8% x    80  avg    15.8 us [gdn/fla] void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int, int>, cutlass::gem
+     1.09 ms   0.7% x    60  avg    18.1 us [norm/act] layer_norm_fwd_kernel
+     1.02 ms   0.7% x    82  avg    12.4 us [gemm] void tensorrt_llm::kernels::cutlass_kernels::blockExpertPrefixSumKernel<(int)1024>(const int *, int *, int *, 
+     0.97 ms   0.6% x    60  avg    16.2 us [fa/attn] kernel_cutlass_kernel_flashinfergdn_kernelsdelta_rule_dsldelta_rule_cp_sm120CPDeltaRuleTPrecomputeSm120_object
+     0.93 ms   0.6% x   240  avg     3.9 us [nvfp4-quant] void vllm::cvt_fp16_to_fp4<__nv_bfloat16, (bool)0, (bool)0>(int, int, int, int, const T1 *, const float *, uns
+     0.92 ms   0.6% x    84  avg    10.9 us [elementwise] void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::Bina
+     0.84 ms   0.5% x    60  avg    14.0 us [moe-route] void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x128_64x3_tn_align8>(T1::Params)
+     0.76 ms   0.5% x    40  avg    18.9 us [gdn/fla] void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int, int>, cutlass::gem
+     0.59 ms   0.4% x    86  avg     6.9 us [gemm] std::enable_if<T7, void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, 
+     0.58 ms   0.4% x    60  avg     9.6 us [gemm] triton_red_fused__to_copy_abs_amax_clamp_cutlass_scaled_mm_div_mul_reciprocal_unsqueeze_view_0
+     0.51 ms   0.3% x    24  avg    21.3 us [fa/attn] void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, unsigned char, (vllm::Fp8KVCacheDataType)1>(const T1 
+     0.51 ms   0.3% x    58  avg     8.8 us [other] triton_poi_fused_zeros_3
+     0.50 ms   0.3% x    84  avg     6.0 us [moe-gemm] void vllm::moe::topkGating<(int)8, (int)256, (int)4, (int)16, (int)32, int, __nv_bfloat16, (vllm::moe::Scoring
+     0.49 ms   0.3% x    68  avg     7.2 us [elementwise] void at::native::index_elementwise_kernel<(int)128, (int)4, void at::native::gpu_index_kernel<void at::native:
+     0.46 ms   0.3% x    20  avg    23.2 us [gemm] triton_red_fused__to_copy_abs_amax_clamp_cutlass_scaled_mm_div_mul_reciprocal_sigmoid_unsqueeze_view_0
+     0.46 ms   0.3% x    40  avg    11.4 us [gdn/fla] void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int, int>, cutlass::gem
+     0.45 ms   0.3% x     1  avg   450.4 us [moe-gemm] void cutlass::Kernel<cutlass::gemm::kernel::MoeFCGemm<cutlass::gemm::threadblock::MmaMultistage<cutlass::gemm:
+     0.45 ms   0.3% x    84  avg     5.3 us [norm/act] triton_poi_fused_mul_silu_slice_0
+     0.44 ms   0.3% x     1  avg   439.9 us [moe-gemm] void cutlass::Kernel<cutlass::gemm::kernel::MoeFCGemm<cutlass::gemm::threadblock::MmaMultistage<cutlass::gemm:
+     0.41 ms   0.3% x     1  avg   410.1 us [moe-route] void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8>(T1::Params)

@@ -1,0 +1,3 @@
+Mean TTFT (ms):                          205.79    
+Median TTFT (ms):                        208.87    
+P99 TTFT (ms):                           233.76    

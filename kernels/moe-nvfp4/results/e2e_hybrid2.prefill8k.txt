@@ -1,0 +1,2 @@
+Mean TTFT (ms):                          182.77    
+Median TTFT (ms):                        187.04    

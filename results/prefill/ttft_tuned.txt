@@ -1,0 +1,6 @@
+prefill 2048: Mean TTFT (ms): 84.21  Median TTFT (ms): 85.56  
+prefill 4096: Mean TTFT (ms): 109.78  Median TTFT (ms): 110.28  
+prefill 5000: Mean TTFT (ms): 151.00  Median TTFT (ms): 157.43  
+prefill 8192: Mean TTFT (ms): 223.95  Median TTFT (ms): 230.23  
+prefill 16384: Mean TTFT (ms): 448.92  Median TTFT (ms): 470.31  
+prefill 32768: Mean TTFT (ms): 1005.91  Median TTFT (ms): 1100.37  

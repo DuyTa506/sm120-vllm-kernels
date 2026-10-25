@@ -1,0 +1,1 @@
+sh: 1: /home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/bench/bench_decode.sh: Permission denied

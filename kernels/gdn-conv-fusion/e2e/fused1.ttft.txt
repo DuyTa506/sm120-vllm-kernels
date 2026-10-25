@@ -1,0 +1,2 @@
+input 8192: Mean TTFT (ms): 194.49  Median TTFT (ms): 194.81  
+input 16384: Mean TTFT (ms): 319.23  Median TTFT (ms): 323.06  

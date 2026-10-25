@@ -1,0 +1,6 @@
+#include "../gemm_template.cuh"
+void run_sk_128x64x128_coop(torch::Tensor& o, torch::Tensor const& a, torch::Tensor const& b, torch::Tensor const& sa,
+             torch::Tensor const& sb, int raster, int swizzle, int splits, int decomp) {
+  Sm120Fp8Gemm<Shape<Int<128>, Int<64>, Int<128>>, cutlass::gemm::KernelTmaWarpSpecializedCooperative, 0, cutlass::gemm::StreamKScheduler, cutlass::epilogue::collective::EpilogueTileAuto>::run(
+      o, a, b, sa, sb, raster, swizzle, splits, decomp);
+}

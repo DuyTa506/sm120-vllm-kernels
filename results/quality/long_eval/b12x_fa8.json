@@ -1,0 +1,182 @@
+{
+ "nll": [
+  {
+   "doc": "licenses",
+   "tokens": 6349,
+   "nll": 0.1768716364559964,
+   "nll_last_half": 0.2262322159440148
+  },
+  {
+   "doc": "licenses",
+   "tokens": 12918,
+   "nll": 0.17517999552629301,
+   "nll_last_half": 0.1571751658187755
+  },
+  {
+   "doc": "py_stdlib",
+   "tokens": 6855,
+   "nll": 0.6223948057101891,
+   "nll_last_half": 0.5361434901886291
+  },
+  {
+   "doc": "py_stdlib",
+   "tokens": 13128,
+   "nll": 0.544253795684608,
+   "nll_last_half": 0.4772399126395739
+  },
+  {
+   "doc": "py_email",
+   "tokens": 7689,
+   "nll": 0.8508887410287335,
+   "nll_last_half": 0.5677584701869871
+  },
+  {
+   "doc": "py_email",
+   "tokens": 15224,
+   "nll": 0.8167947072825351,
+   "nll_last_half": 0.798882575788079
+  }
+ ],
+ "needle": [
+  {
+   "chars": 60000,
+   "depth": 0.05,
+   "ok": true,
+   "ans": "915965",
+   "prompt_tokens": 13081
+  },
+  {
+   "chars": 60000,
+   "depth": 0.05,
+   "ok": true,
+   "ans": "107855",
+   "prompt_tokens": 15277
+  },
+  {
+   "chars": 60000,
+   "depth": 0.25,
+   "ok": true,
+   "ans": "136622",
+   "prompt_tokens": 13105
+  },
+  {
+   "chars": 60000,
+   "depth": 0.25,
+   "ok": true,
+   "ans": "903713",
+   "prompt_tokens": 13208
+  },
+  {
+   "chars": 60000,
+   "depth": 0.5,
+   "ok": true,
+   "ans": "118274",
+   "prompt_tokens": 13063
+  },
+  {
+   "chars": 60000,
+   "depth": 0.5,
+   "ok": true,
+   "ans": "462900",
+   "prompt_tokens": 15016
+  },
+  {
+   "chars": 60000,
+   "depth": 0.75,
+   "ok": true,
+   "ans": "586065",
+   "prompt_tokens": 13186
+  },
+  {
+   "chars": 60000,
+   "depth": 0.75,
+   "ok": true,
+   "ans": "291984",
+   "prompt_tokens": 13061
+  },
+  {
+   "chars": 60000,
+   "depth": 0.95,
+   "ok": true,
+   "ans": "627521",
+   "prompt_tokens": 13191
+  },
+  {
+   "chars": 60000,
+   "depth": 0.95,
+   "ok": true,
+   "ans": "167698",
+   "prompt_tokens": 13189
+  },
+  {
+   "chars": 120000,
+   "depth": 0.05,
+   "ok": true,
+   "ans": "730680",
+   "prompt_tokens": 28976
+  },
+  {
+   "chars": 120000,
+   "depth": 0.05,
+   "ok": true,
+   "ans": "707128",
+   "prompt_tokens": 26256
+  },
+  {
+   "chars": 120000,
+   "depth": 0.25,
+   "ok": true,
+   "ans": "964426",
+   "prompt_tokens": 26189
+  },
+  {
+   "chars": 120000,
+   "depth": 0.25,
+   "ok": true,
+   "ans": "604403",
+   "prompt_tokens": 26320
+  },
+  {
+   "chars": 120000,
+   "depth": 0.5,
+   "ok": true,
+   "ans": "361254",
+   "prompt_tokens": 28143
+  },
+  {
+   "chars": 120000,
+   "depth": 0.5,
+   "ok": true,
+   "ans": "655914",
+   "prompt_tokens": 28859
+  },
+  {
+   "chars": 120000,
+   "depth": 0.75,
+   "ok": true,
+   "ans": "174017",
+   "prompt_tokens": 26322
+  },
+  {
+   "chars": 120000,
+   "depth": 0.75,
+   "ok": true,
+   "ans": "250752",
+   "prompt_tokens": 26666
+  },
+  {
+   "chars": 120000,
+   "depth": 0.95,
+   "ok": true,
+   "ans": "275230",
+   "prompt_tokens": 26341
+  },
+  {
+   "chars": 120000,
+   "depth": 0.95,
+   "ok": true,
+   "ans": "716068",
+   "prompt_tokens": 26286
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+case       piece                                                 us  notes
+8k         K index_select                                      18.4  
+8k         V index_select                                      18.4  
+8k         Q clamp+cast (q_scale=1)                           114.7  
+8k         Q div+clamp+cast (q_scale!=1)                      155.6  
+8k         Q fused Triton quant (alt.)                         71.6  
+8k         FMHA only (FlashInfer, pre-gathered KV, fp8 Q)     862.2    637.6 TFLOPS
+8k         FMHA only (strided KV, fp8 Q pre-quantised)        858.1    640.7 TFLOPS
+8k         A baseline: gather+torch quant+FMHA                958.5    573.6 TFLOPS
+8k         B strided KV + torch quant                         948.2    579.8 TFLOPS
+8k         C strided KV + Triton quant                        902.1    609.4 TFLOPS
+8k         D new: strided KV + bf16 Q in kernel               868.4    633.1 TFLOPS
+8k         => saved per layer (A - D)                          90.1  x10 layers = 0.901 ms
+16k        K index_select                                      26.6  
+16k        V index_select                                      28.7  
+16k        Q clamp+cast (q_scale=1)                           290.8  
+16k        Q div+clamp+cast (q_scale!=1)                      469.0  
+16k        Q fused Triton quant (alt.)                        139.3  
+16k        FMHA only (FlashInfer, pre-gathered KV, fp8 Q)    3457.6    636.0 TFLOPS
+16k        FMHA only (strided KV, fp8 Q pre-quantised)       3451.9    637.0 TFLOPS
+16k        A baseline: gather+torch quant+FMHA               3738.6    588.2 TFLOPS
+16k        B strided KV + torch quant                        3710.0    592.7 TFLOPS
+16k        C strided KV + Triton quant                       3563.5    617.1 TFLOPS
+16k        D new: strided KV + bf16 Q in kernel              3466.2    634.4 TFLOPS
+16k        => saved per layer (A - D)                         272.4  x10 layers = 2.724 ms
+32k        K index_select                                      47.1  
+32k        V index_select                                      47.1  
+32k        Q clamp+cast (q_scale=1)                           632.8  
+32k        Q div+clamp+cast (q_scale!=1)                      997.4  
+32k        Q fused Triton quant (alt.)                        268.3  
+32k        FMHA only (FlashInfer, pre-gathered KV, fp8 Q)   13746.7    639.9 TFLOPS
+32k        FMHA only (strided KV, fp8 Q pre-quantised)      13722.6    641.0 TFLOPS
+32k        A baseline: gather+torch quant+FMHA              14411.3    610.4 TFLOPS
+32k        B strided KV + torch quant                       14287.9    615.6 TFLOPS
+32k        C strided KV + Triton quant                      13941.2    630.9 TFLOPS
+32k        D new: strided KV + bf16 Q in kernel             13732.4    640.5 TFLOPS
+32k        => saved per layer (A - D)                         678.9  x10 layers = 6.789 ms
+32k-chunk  K index_select                                      49.2  
+32k-chunk  V index_select                                      49.2  
+32k-chunk  Q clamp+cast (q_scale=1)                           290.8  
+32k-chunk  Q div+clamp+cast (q_scale!=1)                      469.0  
+32k-chunk  Q fused Triton quant (alt.)                        139.3  
+32k-chunk  FMHA only (FlashInfer, pre-gathered KV, fp8 Q)   10336.3    638.2 TFLOPS
+32k-chunk  FMHA only (strided KV, fp8 Q pre-quantised)      10315.8    639.5 TFLOPS
+32k-chunk  A baseline: gather+torch quant+FMHA              10649.1    619.5 TFLOPS
+32k-chunk  B strided KV + torch quant                       10570.2    624.1 TFLOPS
+32k-chunk  C strided KV + Triton quant                      10422.3    633.0 TFLOPS
+32k-chunk  D new: strided KV + bf16 Q in kernel             10325.0    638.9 TFLOPS
+32k-chunk  => saved per layer (A - D)                         324.1  x10 layers = 3.241 ms
+varlen     K index_select                                      24.6  
+varlen     V index_select                                      24.6  
+varlen     Q clamp+cast (q_scale=1)                           114.7  
+varlen     Q div+clamp+cast (q_scale!=1)                      157.7  
+varlen     Q fused Triton quant (alt.)                         69.6  
+varlen     FMHA only (FlashInfer, pre-gathered KV, fp8 Q)     395.3    562.2 TFLOPS
+varlen     FMHA only (strided KV, fp8 Q pre-quantised)        393.2    565.1 TFLOPS
+varlen     A baseline: gather+torch quant+FMHA                497.7    446.5 TFLOPS
+varlen     B strided KV + torch quant                         489.5    454.0 TFLOPS
+varlen     C strided KV + Triton quant                        446.5    497.7 TFLOPS
+varlen     D new: strided KV + bf16 Q in kernel               405.5    548.0 TFLOPS
+varlen     => saved per layer (A - D)                          92.2  x10 layers = 0.922 ms

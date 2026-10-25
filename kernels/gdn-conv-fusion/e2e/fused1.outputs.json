@@ -1,0 +1,14 @@
+{
+ "single": [
+  " Paris, a city renowned for its rich history, culture, and iconic landmarks. Paris is situated in the north-central part of France, along the Seine River. It is the most populous city in France and serves as the country's political, economic, and cultural center.\nParis is home to numerous world-famous attractions",
+  "\n\n<think>\n\n</think>\n\nThis code implements the **inference-only architecture for the Qwen3Next model** within the **vLLM** framework. It defines the core neural network components required to run the model, focusing on efficiency and compatibility with vLLM's distributed execution engine.\n\nHere is a summary of"
+ ],
+ "batch": [
+  "",
+  "\n\n<think>\n\n</think>\n\nThis code snippet is part of a **vLLM** (a high-throughput LLM inference engine) implementation for a specific model architecture, likely **Qwen3-Next** or a similar MoE (Mixture of Experts) model. It handles the configuration and initialization of a **",
+  "\n\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - The user provided a snippet of Python code (likely from a large language model framework like vLLM or similar, given the context of MoE, EP, TP, gate, experts, etc.).\n  ",
+  "\n\n<think>\n\n</think>\n\nThis code snippet defines two key components of a large language model architecture, specifically tailored for **Qwen3Next** (a hypothetical or future version of the Qwen model family). It handles **attention mechanisms** and **mixture-of-experts (MoE) feed-forward networks**, with optimizations",
+  "\n\n<think>\nHere's a thinking process:\n\n1.  **Understand User Request:** The user has provided a snippet of Python code (likely from a large language model implementation, specifically related to Qwen3/Next architecture) and asked me to \"Explain the code above:\".\n\n2.  **An",
+  "\n# 1. Qwen3NextSparseMoeBlock is a MoE block that is used in the Qwen3Next model.\n# 2. Qwen3NextMLP is a MLP block that is used in the Qwen3Next model.\n# 3. Qwen3Next"
+ ]
+}

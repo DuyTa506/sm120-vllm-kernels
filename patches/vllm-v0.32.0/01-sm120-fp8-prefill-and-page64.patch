@@ -1,0 +1,125 @@
+--- a/vllm/v1/attention/backends/flashinfer.py
++++ b/vllm/v1/attention/backends/flashinfer.py
+@@ -103,6 +103,85 @@
+ 
+ logger = init_logger(__name__)
+ 
++# bench patch: route causal FP8-KV prefill through FlashInfer's SM120 FP8 FMHA
++# (FP8 Q/K/V on the tensor cores) instead of the FA2 bf16-Q kernel.
++import os as _os
++
++_SM120_FP8_PREFILL = _os.environ.get("VLLM_SM120_FP8_PREFILL", "0") == "1"
++# Only real prefills: spec-decode verification steps (query len 1+k) also land on the
++# prefill path on SM120 and must keep the bf16 kernel.
++_SM120_FP8_MIN_Q = int(_os.environ.get("VLLM_SM120_FP8_PREFILL_MIN_Q", "256"))
++
++
++_FMHA_FN_CACHE: dict = {}
++
++
++def _sm120_fmha_fn(hq, hkv, d, page, out_dtype, device):
++    key = (hq, hkv, d, page, out_dtype)
++    fn = _FMHA_FN_CACHE.get(key)
++    if fn is None:
++        from flashinfer.attention.cute_dsl.sm120_fmha import _use_balanced_scheduler
++        from flashinfer.cute_dsl.attention.fmha.sm120 import (
++            SM120FusedMultiHeadAttentionFP8ForwardTMA as K,
++            compile_sm120_fmha_fp8_paged_kernel,
++        )
++
++        fn = compile_sm120_fmha_fp8_paged_kernel(
++            in_dtype=torch.float8_e4m3fn,
++            out_dtype=out_dtype,
++            num_qo_heads=hq,
++            num_kv_heads=hkv,
++            head_dim=d,
++            is_causal=True,
++            kv_tile=K.SEQ_KV_TILES[0],
++            q_tile=K.SEQ_Q_TILES[0],
++            num_tokens_per_page=page,
++            device=device,
++            with_lse=False,
++            balanced_scheduler=_use_balanced_scheduler(True),
++        )
++        _FMHA_FN_CACHE[key] = fn
++    return fn
++
++
++def _sm120_fp8_paged_prefill(impl, layer, attn_metadata, wrapper, query, kv_cache_tuple, out):
++    from cutlass.cute.typing import Float32, Int32
++
++    k, v = kv_cache_tuple
++    if getattr(wrapper, "_kv_layout", "NHD") == "NHD":
++        k, v = k.transpose(1, 2), v.transpose(1, 2)
++    page = k.shape[2]
++    # Block table / lengths depend only on the step's plan: build once, share across layers.
++    meta = getattr(attn_metadata, "_sm120_fp8_meta", None)
++    if meta is None:
++        idx = wrapper._paged_kv_indices_buf
++        indptr = wrapper._paged_kv_indptr_buf
++        max_pages = -(-wrapper._max_kv_len // page)
++        bt = indptr[:-1, None] + torch.arange(
++            max_pages, device=idx.device, dtype=indptr.dtype
++        )[None, :]
++        bt = bt.clamp_(max=max(idx.shape[0] - 1, 0)).to(torch.int32)
++        seqlens = (
++            (indptr[1:] - indptr[:-1] - 1) * page + wrapper._paged_kv_last_page_len_buf
++        ).to(torch.int32)
++        meta = (idx, bt, seqlens, wrapper._qo_indptr_buf.to(torch.int32), Int32(wrapper._max_q_len))
++        attn_metadata._sm120_fp8_meta = meta
++    idx, bt, seqlens, cu_q, max_q = meta
++    # The kernel needs compact [Hkv, page, D] planes; vLLM packs K|V per row, so
++    # gather this batch's pages (indices are absolute offsets used by indptr).
++    kc = k.index_select(0, idx)
++    vc = v.index_select(0, idx)
++    q_scale = layer._q_scale_float
++    q = query if q_scale == 1.0 else query / q_scale
++    q8 = q.clamp(-448.0, 448.0).to(torch.float8_e4m3fn)
++    if out.dim() == 2:
++        out = out.view(out.shape[0], -1, query.shape[-1])
++    fn = _sm120_fmha_fn(q8.shape[1], kc.shape[1], q8.shape[2], page, out.dtype, q8.device)
++    sm_scale = impl.scale * q_scale * layer._k_scale_float
++    fn(q8, kc, vc, out, None, Float32(sm_scale * 1.4426950408889634),
++       Float32(layer._v_scale_float), seqlens, cu_q, bt, None, max_q, False)
++
++
+ trtllm_workspace_buffer = None
+ 
+ 
+@@ -475,6 +554,10 @@
+                 and can_use_trtllm_attention(num_qo_heads, num_kv_heads)
+             )
+         if not use_large_pages:
++            # bench patch: a 64-token kernel page makes the hybrid block size a multiple
++            # of 64, which GDN's in-forward prefill checkpoint needs.
++            if _os.environ.get("VLLM_FI_KERNEL_PAGE64", "0") == "1":
++                return [64]
+             return [16, 32, 64]
+         return [16, 32, 64, 128, 256, 512, 1024]
+ 
+@@ -2259,6 +2342,25 @@
+                             v_scale=layer._v_scale_float,
+                             out=out_prefill,
+                         )
++                    elif (
++                        _SM120_FP8_PREFILL
++                        and prefill_wrapper._max_q_len >= _SM120_FP8_MIN_Q
++                        and not self.is_kvcache_nvfp4
++                        and kv_cache_permute.dtype == torch.float8_e4m3fn
++                        and attn_metadata.causal
++                        and self.window_left == -1
++                        and not self.logits_soft_cap
++                        and not needs_fp8_out_prefill
++                    ):
++                        _sm120_fp8_paged_prefill(
++                            self,
++                            layer,
++                            attn_metadata,
++                            prefill_wrapper,
++                            prefill_query,
++                            kv_cache_tuple,
++                            out_prefill,
++                        )
+                     else:
+                         prefill_wrapper.run(
+                             prefill_query,

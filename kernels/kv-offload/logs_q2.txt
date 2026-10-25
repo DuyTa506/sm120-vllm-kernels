@@ -1,0 +1,44 @@
+[18:08:08] w780_native: serve --enable-prompt-tokens-details --kv-offloading-size 96 --kv-offloading-backend native  FLAGS=-e VLLM_SERVER_DEV_MODE=1 -v /home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/kernels/kv-offload:/work:ro 
+[18:11:44] w780_native: server rc=0 after 216s
+[18:11:44] w780_native: python3 idle_bench.py results/w780_native.json --sessions 64 --turns 6 --think 5,30 --stagger 3 --seed 0 --duration 780 --tag native
+64 sessions x 6 turns, first-turn context total 5.68M tokens, max 123596
+  t=    15s turns done 2/384 in flight 4
+  t=    30s turns done 4/384 in flight 7
+  t=    45s turns done 7/384 in flight 11
+  t=    60s turns done 12/384 in flight 16
+  t=    75s turns done 15/384 in flight 21
+  t=    90s turns done 22/384 in flight 24
+  t=   105s turns done 26/384 in flight 30
+  t=   120s turns done 32/384 in flight 35
+  t=   135s turns done 38/384 in flight 38
+  t=   150s turns done 40/384 in flight 47
+  t=   165s turns done 45/384 in flight 52
+  t=   180s turns done 51/384 in flight 52
+  t=   195s turns done 57/384 in flight 59
+  t=   210s turns done 64/384 in flight 57
+  t=   225s turns done 70/384 in flight 58
+  t=   240s turns done 75/384 in flight 59
+  t=   255s turns done 81/384 in flight 58
+  t=   270s turns done 86/384 in flight 57
+  t=   285s turns done 90/384 in flight 61
+  t=   300s turns done 95/384 in flight 58
+  t=   315s turns done 102/384 in flight 55
+  t=   330s turns done 106/384 in flight 57
+  t=   345s turns done 126/384 in flight 41
+  t=   360s turns done 172/384 in flight 16
+  t=   375s turns done 205/384 in flight 18
+  t=   390s turns done 238/384 in flight 21
+  t=   405s turns done 260/384 in flight 30
+  t=   420s turns done 300/384 in flight 12
+  t=   435s turns done 317/384 in flight 12
+  t=   450s turns done 333/384 in flight 9
+  t=   465s turns done 344/384 in flight 2
+  t=   480s turns done 354/384 in flight 4
+  t=   495s turns done 360/384 in flight 4
+  t=   510s turns done 370/384 in flight 1
+  t=   525s turns done 376/384 in flight 0
+  t=   540s turns done 380/384 in flight 0
+  t=   555s turns done 382/384 in flight 1
+  t=   570s turns done 384/384 in flight 0
+SUMMARY {"tag": "native", "url": "http://127.0.0.1:8121", "sessions": 64, "turns": 6, "think": "5,30", "start": "60000,120000", "wall_s": 570.1530199050903, "turns_done": 384, "first_turn_ctx_total_tokens": 5684979, "later_turns": 320, "duration": 780.0, "censored_inflight": 0, "censored_later_waiting": 0, "censored_first_waiting": 0, "later_turns_per_s": 0.5612528370949755, "ttft_later_p50_ms": 2231.7323684692383, "ttft_later_p90_ms": 101786.67283058167, "ttft_later_p99_ms": 134841.75610542297, "ttft_later_mean_ms": 26407.00805708766, "ttft_first_mean_ms": 67851.89634561539, "later_recompute_mean": 4342.28125, "later_recompute_p50": 3977, "later_recompute_p90": 6724, "later_turns_evicted_gt8k": 2, "later_frac_evicted": 0.00625, "later_cached_frac": 0.9531916980742076, "ttft_later_nonevicted_p50_ms": 2231.7323684692383, "ttft_later_evicted_p50_ms": 118018.17417144775, "out_tok_s": 182.19494832684052, "computed_prompt_tok_s": 12408.088272824807, "later_computed_prompt_tokens": 1389530, "gpu_prefix_hit_rate": 0.2695306332037763, "external_hit_tokens": 18762576.0, "external_query_tokens": 25837085.0, "total_hit_rate": 0.7999885780604048, "preemptions": 0.0, "kv_usage_max": 0.964795008912656}
+[18:21:21] w780_native: done after 793s

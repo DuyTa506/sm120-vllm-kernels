@@ -1,0 +1,24 @@
+compiled kernels in 7.7s
+1. in-kernel BF16->E4M3 Q conversion (every BF16 bit pattern in Q)
+  [OK ] all-bf16 Q, q_scale=1.0: attention output new vs baseline: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+  [OK ] all-bf16 Q, q_scale=0.7071: attention output new vs baseline: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+  formula bf16(x*fp32(1/s)) then f32->e4m3 vs torch, q_scale=1.0: mismatches=0
+  formula bf16(x*fp32(1/s)) then f32->e4m3 vs torch, q_scale=0.7071: mismatches=0
+  formula bf16(x*fp32(1/s)) then f32->e4m3 vs torch, q_scale=3.0: mismatches=0
+  Triton fused q_quant vs torch, all bf16 values, q_scale=1.0: mismatches=0
+  Triton fused q_quant vs torch, all bf16 values, q_scale=0.7071: mismatches=0
+  Triton fused q_quant vs torch, all bf16 values, q_scale=3.0: mismatches=0
+2. varlen batches, new vs baseline (expect bitwise equal)
+  [OK ] HND single 8k: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+    vs fp32 reference: new max_abs=1.909e-03  baseline max_abs=1.909e-03  (|ref| max 0.127)
+  [OK ] HND single 8k chunk on 8k prefix: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+    vs fp32 reference: new max_abs=6.270e-05  baseline max_abs=6.270e-05  (|ref| max 0.002)
+  [OK ] HND varlen mix + prefixes: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+    vs fp32 reference: new max_abs=2.258e-03  baseline max_abs=2.258e-03  (|ref| max 0.156)
+  [OK ] HND tiny + odd: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+    vs fp32 reference: new max_abs=2.220e-03  baseline max_abs=2.220e-03  (|ref| max 0.127)
+  [OK ] NHD single 8k: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+  [OK ] NHD single 8k chunk on 8k prefix: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+  [OK ] NHD varlen mix + prefixes: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+  [OK ] NHD tiny + odd: max_abs=0.000e+00 max_rel(to max|ref|)=0.000e+00 nan_match=True
+ALL OK

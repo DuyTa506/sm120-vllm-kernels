@@ -1,0 +1,14 @@
+{
+ "single": [
+  " Paris, a city renowned for its rich history, culture, and iconic landmarks. Situated in the north-central part of the country, along the Seine River, Paris is not only the political and administrative center of France but also a global hub for art, fashion, gastronomy, and culture.\nParis is home to",
+  "\n\n<think>\n\n</think>\n\nThis code implements the **inference-only architecture for the Qwen3Next language model** within the **vLLM** framework. It defines the core neural network components required to process text and generate predictions, specifically optimized for high-performance distributed inference.\n\nHere is a summary of the key components"
+ ],
+ "batch": [
+  "",
+  "\n\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - The user provides a snippet of Python code (PyTorch/transformers style, likely from vLLM or a similar LLM inference framework).\n   - The code defines a function `_should_replicate",
+  "\n\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - The user provided a snippet of Python code (likely from a deep learning framework, specifically vLLM, given the imports/context clues like `vllm_config`, `parallel_config`, `GateLinear`, `",
+  "\n\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - The user provided a snippet of Python code, specifically a PyTorch module class `Qwen3NextAttention` (and part of `Qwen3NextMoE` above it, though the prompt cuts",
+  "\n\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - The user provided a snippet of Python code (PyTorch/Hugging Face Transformers style) defining a neural network layer, likely an attention layer for a transformer model (specifically Qwen3 or similar, given",
+  "\n# 1. Qwen3NextAttention is a custom attention implementation that supports\n#    fused QK RMSNorm, RoPE, and gate. It is used when the model has\n#    fused_qk_norm_rope_gate=True.\n# 2. Qwen3NextDecoderLayer is a"
+ ]
+}

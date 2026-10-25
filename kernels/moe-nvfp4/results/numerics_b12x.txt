@@ -1,0 +1,40 @@
+== layer 0 (captured inputs, 4096 tokens; a1_gscale=131.0 a2_gscale=157.0; |x|max=19.88)
+  cutlass         vs fp32 ref: rel_l2 0.0753 cos 0.997179 max_abs 0.0090   | vs cutlass: rel_l2 0.0000
+  b12x_vllm       vs fp32 ref: rel_l2 0.1937 cos 0.981135 max_abs 0.0304   | vs cutlass: rel_l2 0.1948
+  b12x_act1       vs fp32 ref: rel_l2 0.0760 cos 0.997144 max_abs 0.0080   | vs cutlass: rel_l2 0.0741
+  b12x_static     vs fp32 ref: rel_l2 0.0753 cos 0.997177 max_abs 0.0075   | vs cutlass: rel_l2 0.0163
+  probe_fc2_mult2 vs fp32 ref: rel_l2 0.7542 cos 0.996831 max_abs 0.1106   | vs cutlass: rel_l2 0.7521
+  probe_fc2_mult8 vs fp32 ref: rel_l2 0.9853 cos 0.987544 max_abs 0.1449   | vs cutlass: rel_l2 0.9852
+  probe_static_as_mult vs fp32 ref: rel_l2 1.0000 cos 0.000000 max_abs 0.1472   | vs cutlass: rel_l2 1.0000
+== layer 9 (captured inputs, 4096 tokens; a1_gscale=80.5 a2_gscale=123.5; |x|max=31.75)
+  cutlass         vs fp32 ref: rel_l2 0.1264 cos 0.991986 max_abs 0.0174   | vs cutlass: rel_l2 0.0000
+  b12x_vllm       vs fp32 ref: rel_l2 0.2583 cos 0.967173 max_abs 0.0394   | vs cutlass: rel_l2 0.2633
+  b12x_act1       vs fp32 ref: rel_l2 0.1267 cos 0.991947 max_abs 0.0173   | vs cutlass: rel_l2 0.1289
+  b12x_static     vs fp32 ref: rel_l2 0.1266 cos 0.991966 max_abs 0.0166   | vs cutlass: rel_l2 0.0236
+  probe_fc2_mult2 vs fp32 ref: rel_l2 0.7540 cos 0.991863 max_abs 0.1408   | vs cutlass: rel_l2 0.7533
+  probe_fc2_mult8 vs fp32 ref: rel_l2 0.9848 cos 0.989981 max_abs 0.1812   | vs cutlass: rel_l2 0.9847
+  probe_static_as_mult vs fp32 ref: rel_l2 1.0000 cos 0.000000 max_abs 0.1840   | vs cutlass: rel_l2 1.0000
+== layer 19 (captured inputs, 4096 tokens; a1_gscale=53.8 a2_gscale=105.5; |x|max=50.00)
+  cutlass         vs fp32 ref: rel_l2 0.1360 cos 0.990733 max_abs 0.0255   | vs cutlass: rel_l2 0.0000
+  b12x_vllm       vs fp32 ref: rel_l2 0.2865 cos 0.962561 max_abs 0.0761   | vs cutlass: rel_l2 0.2932
+  b12x_act1       vs fp32 ref: rel_l2 0.1360 cos 0.990717 max_abs 0.0260   | vs cutlass: rel_l2 0.1410
+  b12x_static     vs fp32 ref: rel_l2 0.1362 cos 0.990711 max_abs 0.0255   | vs cutlass: rel_l2 0.0248
+  probe_fc2_mult2 vs fp32 ref: rel_l2 0.7541 cos 0.990686 max_abs 0.2241   | vs cutlass: rel_l2 0.7538
+  probe_fc2_mult8 vs fp32 ref: rel_l2 0.9847 cos 0.989430 max_abs 0.2914   | vs cutlass: rel_l2 0.9846
+  probe_static_as_mult vs fp32 ref: rel_l2 1.0000 cos 0.000000 max_abs 0.2959   | vs cutlass: rel_l2 1.0000
+== layer 29 (captured inputs, 4096 tokens; a1_gscale=48.2 a2_gscale=107.5; |x|max=55.50)
+  cutlass         vs fp32 ref: rel_l2 0.1379 cos 0.990479 max_abs 0.0310   | vs cutlass: rel_l2 0.0000
+  b12x_vllm       vs fp32 ref: rel_l2 0.2741 cos 0.964906 max_abs 0.0732   | vs cutlass: rel_l2 0.2803
+  b12x_act1       vs fp32 ref: rel_l2 0.1379 cos 0.990465 max_abs 0.0300   | vs cutlass: rel_l2 0.1428
+  b12x_static     vs fp32 ref: rel_l2 0.1380 cos 0.990458 max_abs 0.0313   | vs cutlass: rel_l2 0.0268
+  probe_fc2_mult2 vs fp32 ref: rel_l2 0.7538 cos 0.990454 max_abs 0.2789   | vs cutlass: rel_l2 0.7538
+  probe_fc2_mult8 vs fp32 ref: rel_l2 0.9846 cos 0.989730 max_abs 0.3609   | vs cutlass: rel_l2 0.9846
+  probe_static_as_mult vs fp32 ref: rel_l2 1.0000 cos 0.000000 max_abs 0.3664   | vs cutlass: rel_l2 1.0000
+== layer 39 (captured inputs, 4096 tokens; a1_gscale=81.5 a2_gscale=5.1; |x|max=29.00)
+  cutlass         vs fp32 ref: rel_l2 0.0997 cos 0.995021 max_abs 0.6622   | vs cutlass: rel_l2 0.0000
+  b12x_vllm       vs fp32 ref: rel_l2 0.1849 cos 0.983461 max_abs 0.9432   | vs cutlass: rel_l2 0.1918
+  b12x_act1       vs fp32 ref: rel_l2 0.0995 cos 0.995033 max_abs 0.5582   | vs cutlass: rel_l2 0.1026
+  b12x_static     vs fp32 ref: rel_l2 0.0997 cos 0.995014 max_abs 0.7872   | vs cutlass: rel_l2 0.0216
+  probe_fc2_mult2 vs fp32 ref: rel_l2 0.7529 cos 0.995033 max_abs 9.2872   | vs cutlass: rel_l2 0.7518
+  probe_fc2_mult8 vs fp32 ref: rel_l2 0.9845 cos 0.995013 max_abs 12.0411   | vs cutlass: rel_l2 0.9845
+  probe_static_as_mult vs fp32 ref: rel_l2 1.0000 cos 0.000000 max_abs 12.2247   | vs cutlass: rel_l2 1.0000

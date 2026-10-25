@@ -1,0 +1,1 @@
+vLLM cutlass_scaled_mm 8192x12288x2048: 674.8 us/call, 611 TFLOPS; mean SM clock 1895 MHz, power 591 W; clock-scaled peak 729 TFLOPS -> 83.9%

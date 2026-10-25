@@ -1,0 +1,186 @@
+--- a/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py
++++ b/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py
+@@ -3,6 +3,13 @@
+ """Inference-only Qwen3-Next/Qwen3.5 model."""
+ 
+ import os
++import dataclasses as _dc
++import functools as _ft
++import math as _math
++
++# bench patch: export the mid-prefill Mamba checkpoint from inside one forward pass
++# (FlashInfer state_checkpoints) so the scheduler stops splitting long prompts.
++_GDN_INTERNAL_CKPT = os.environ.get("VLLM_GDN_INTERNAL_CKPT", "0") == "1"
+ from typing import Literal
+ 
+ import torch
+@@ -241,6 +248,9 @@
+     output_final_state: bool,
+     cu_seqlens: torch.Tensor | None = None,
+     use_qk_l2norm_in_kernel: bool = True,
++    output: torch.Tensor | None = None,
++    g_is_exp: bool = False,
++    ckpt_kwargs: dict | None = None,
+ ):
+     from flashinfer.gdn_prefill import (
+         chunk_gated_delta_rule as chunk_gated_delta_rule_fi,
+@@ -266,12 +276,14 @@
+         q=q,
+         k=k,
+         v=v,
+-        g=torch.exp(fi_g),
++        g=fi_g if g_is_exp else torch.exp(fi_g),
+         beta=fi_beta,
+         initial_state=fi_state,
+         output_final_state=output_final_state,
+         cu_seqlens=cu_seqlens,
++        output=output,
+         backend="flashinfer",
++        **(ckpt_kwargs or {}),
+     )
+     # FlashInfer returns (output, state) when output_final_state=True,
+     # or just output when output_final_state=False.
+@@ -323,6 +335,9 @@
+         use_qk_l2norm_in_kernel: bool = True,
+         core_attn_out: torch.Tensor | None = None,
+         aiter_prefill_metadata: object | None = None,
++        output: torch.Tensor | None = None,
++        g_is_exp: bool = False,
++        ckpt_kwargs: dict | None = None,
+     ):
+         o, final_state = fi_chunk_gated_delta_rule(
+             q=q,
+@@ -334,6 +349,9 @@
+             output_final_state=output_final_state,
+             cu_seqlens=cu_seqlens,
+             use_qk_l2norm_in_kernel=use_qk_l2norm_in_kernel,
++            output=output,
++            g_is_exp=g_is_exp,
++            ckpt_kwargs=ckpt_kwargs,
+         )
+         if core_attn_out is not None:
+             o_flat = o.squeeze(0).reshape(-1)
+@@ -452,6 +470,20 @@
+ 
+ @PluggableLayer.register("qwen_gated_delta_net_attention")
+ class QwenGatedDeltaNetAttention(GatedDeltaNetAttention):
++    def get_kv_cache_spec(self, vllm_config):
++        from vllm.v1.kv_cache_interface import MambaSpec
++
++        spec = super().get_kv_cache_spec(vllm_config)
++        if (
++            _GDN_INTERNAL_CKPT
++            and isinstance(spec, MambaSpec)
++            and getattr(self, "gdn_prefill_backend", None) == "flashinfer"
++        ):
++            return _dc.replace(
++                spec, num_prefill_checkpoint_blocks=1, prefill_checkpoint_alignment=64
++            )
++        return spec
++
+     def get_state_shape(
+         self,
+     ) -> tuple[tuple[int, ...], tuple[int, ...], tuple[int, ...], tuple[int, ...]]:
+@@ -1445,6 +1477,7 @@
+         # 1.2: Process the remaining part
+         if attn_metadata.num_prefills > 0:
+             assert mixed_qkv_non_spec is not None
++            raw_qkv_non_spec = mixed_qkv_non_spec
+             mixed_qkv_non_spec_T = mixed_qkv_non_spec.transpose(0, 1)
+             # - "cache_indices" updates the conv_state cache in positions
+             #   pointed to by "state_indices_tensor"
+@@ -1521,7 +1554,7 @@
+                 head_k_dim=self.head_k_dim,
+                 head_v_dim=self.head_v_dim,
+                 apply_l2norm=True,
+-                output_g_exp=False,
++                output_g_exp=self.gdn_prefill_backend == "flashinfer",
+             )
+             query_non_spec = query_non_spec.unsqueeze(0)
+             key_non_spec = key_non_spec.unsqueeze(0)
+@@ -1598,6 +1631,50 @@
+             assert prefill_has_initial_state is not None
+             initial_state = ssm_state[prefill_state_indices]
+             initial_state[~prefill_has_initial_state, ...] = 0
++            # bench patch: FlashInfer writes the prefill output straight into core_attn_out
++            # (saves a full-size copy per layer) and takes the exp(g) the post-conv kernel made.
++            direct_out = (
++                self.gdn_prefill_backend == "flashinfer"
++                and spec_sequence_masks is None
++                and not split_non_spec
++            )
++            fi_kwargs = (
++                {"output": core_attn_out[:num_actual_tokens], "g_is_exp": True}
++                if direct_out
++                else (
++                    {"g_is_exp": True} if self.gdn_prefill_backend == "flashinfer" else {}
++                )
++            )
++            ckpt = attn_metadata.checkpoint if _GDN_INTERNAL_CKPT else None
++            ckpt_row0 = attn_metadata.num_decodes if split_non_spec else 0
++            ckpt_offsets = ckpt.offsets[ckpt_row0:] if ckpt is not None and ckpt.offsets else []
++            use_ckpt = self.gdn_prefill_backend == "flashinfer" and any(ckpt_offsets)
++            if use_ckpt:
++                # Per-step values, shared by every GDN layer of this forward.
++                step = getattr(attn_metadata, "_gdn_ckpt_step", None)
++                if step is None:
++                    every_n = _ft.reduce(_math.gcd, [o for o in ckpt_offsets if o > 0])
++                    pf_cu = attn_metadata.prefill_query_start_loc
++                    cu_starts = torch.zeros(pf_cu.shape[0], dtype=torch.int64, device=pf_cu.device)
++                    cu_starts[1:] = ((pf_cu[1:] - pf_cu[:-1]) // every_n).cumsum(0)
++                    offs_dev = ckpt.checkpoint_offsets[ckpt_row0:]
++                    sel = (cu_starts[:-1] + offs_dev.to(torch.int64) // every_n - 1).clamp_(min=0)
++                    max_ckpts = query_non_spec.shape[1] // every_n + len(ckpt_offsets)
++                    buf = torch.empty(
++                        (max_ckpts, *ssm_state.shape[1:]), dtype=torch.float32, device=ssm_state.device
++                    )
++                    meta = _dc.replace(
++                        ckpt, checkpoint_offsets=offs_dev, state_indices=ckpt.state_indices[ckpt_row0:]
++                    )
++                    step = (every_n, cu_starts, sel, buf, meta)
++                    attn_metadata._gdn_ckpt_step = step
++                every_n, ckpt_cu_starts, ckpt_sel, state_ckpts, ckpt_meta = step
++                fi_kwargs = dict(fi_kwargs)
++                fi_kwargs["ckpt_kwargs"] = {
++                    "state_checkpoints": state_ckpts,
++                    "checkpoint_cu_starts": ckpt_cu_starts,
++                    "checkpoint_every_n_tokens": every_n,
++                }
+             (
+                 core_attn_out_non_spec,
+                 last_recurrent_state,
+@@ -1614,9 +1691,25 @@
+                 chunk_offsets=attn_metadata.chunk_offsets,
+                 use_qk_l2norm_in_kernel=False,
+                 aiter_prefill_metadata=attn_metadata.aiter_prefill_metadata,
++                **fi_kwargs,
+             )
+             # Init cache
+             ssm_state[prefill_state_indices] = last_recurrent_state.to(ssm_state.dtype)
++            if use_ckpt and os.environ.get("VLLM_GDN_CKPT_SKIP_EXPORT", "0") != "1":
++                from vllm.model_executor.layers.mamba.kda_checkpoint import (
++                    FlashKDAPrefillCheckpointExporter,
++                )
++
++                FlashKDAPrefillCheckpointExporter().export(
++                    ckpt_meta,
++                    raw_qkv=raw_qkv_non_spec[num_decode_tokens:]
++                    if split_non_spec
++                    else raw_qkv_non_spec,
++                    conv_state=conv_state,
++                    recurrent_checkpoint=state_ckpts.index_select(0, ckpt_sel),
++                    recurrent_state=ssm_state,
++                    cu_seqlens=attn_metadata.prefill_query_start_loc,
++                )
+ 
+             if split_non_spec:
+                 # Stitch the peeled decode outputs in front of the prefill
+@@ -1655,7 +1748,7 @@
+             )
+         elif spec_sequence_masks is not None:
+             core_attn_out[:num_actual_tokens] = core_attn_out_spec.squeeze(0)
+-        else:
++        elif not (attn_metadata.num_prefills > 0 and direct_out):
+             core_attn_out[:num_actual_tokens] = core_attn_out_non_spec.squeeze(0)
+ 
+     def _forward_core_decode_aiter(

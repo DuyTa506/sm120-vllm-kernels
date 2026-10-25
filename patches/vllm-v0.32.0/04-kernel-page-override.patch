@@ -1,0 +1,14 @@
+--- a/vllm/v1/attention/backends/flashinfer.py
++++ b/vllm/v1/attention/backends/flashinfer.py
+@@ -556,6 +556,11 @@
+         if not use_large_pages:
+             # bench patch: a 64-token kernel page makes the hybrid block size a multiple
+             # of 64, which GDN's in-forward prefill checkpoint needs.
++            # VLLM_FI_KERNEL_PAGES (e.g. "16") pins the kernel page sizes; with --block-size 2176 it
++            # keeps a 64-aligned manager block (for the checkpoint) on 16-token kernel pages.
++            pages = _os.environ.get("VLLM_FI_KERNEL_PAGES")
++            if pages:
++                return [int(x) for x in pages.split(",")]
+             if _os.environ.get("VLLM_FI_KERNEL_PAGE64", "0") == "1":
+                 return [64]
+             return [16, 32, 64]

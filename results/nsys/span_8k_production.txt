@@ -1,0 +1,6 @@
+13724 standalone kernels, 8 graph launches; 4 busy windows
+  window 0: 3431 kernels +   2 graphs  span  343.7 ms  GPU busy  147.5 ms =  43%
+  window 1: 3431 kernels +   2 graphs  span  377.2 ms  GPU busy  146.7 ms =  39%
+  window 2: 3431 kernels +   2 graphs  span  377.6 ms  GPU busy  149.6 ms =  40%
+  window 3: 3431 kernels +   2 graphs  span  377.5 ms  GPU busy  149.6 ms =  40%
+  overall: span 1476.0 ms, busy 40%

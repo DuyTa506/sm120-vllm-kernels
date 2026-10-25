@@ -1,0 +1,12 @@
+case                  T     conv     post     base    fused    saved GB/s fused    copy   chain(base/fused)
+   variants: f1g=194.6 f1c=190.5 f2g=188.4 f2c=190.5 f4g=188.4 f4c=192.5
+8k single          8192    196.6    194.5    376.8    190.4    186.4       1426   186.4   370.4/183.6 us
+   variants: f1g=102.4 f1c=98.3 f2g=98.3 f2c=97.3 f4g=98.3 f4c=98.3
+4k single          4096    108.5     98.3    153.6     98.3     55.3       1381    96.3   146.2/75.8 us
+   variants: f1g=373.8 f1c=380.9 f2g=370.7 f2c=383.0 f4g=372.7 f4c=385.0
+16k single        16384    383.0    381.0    755.7    370.7    385.0       1465   370.7   751.0/370.4 us
+   variants: f1g=196.6 f1c=192.5 f2g=188.4 f2c=194.5 f4g=190.4 f4c=196.6
+varlen 8k          8192    196.6    192.5    376.8    188.4    188.4       1441   188.4   371.8/184.5 us
+   variants: f1g=198.7 f1c=198.7 f2g=192.5 f2c=198.7 f4g=196.6 f4c=202.8
+varlen 64x128      8192    200.7    192.5    380.9    192.5    188.4       1411   186.4   375.8/188.0 us
+times in us per layer-call (median); fused variant for the headline/chain: f2g; floor bytes = read x + write q,k,v (+a,b,g,beta); copy = x.copy_ of the same bytes (practical floor)

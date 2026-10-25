@@ -1,0 +1,4 @@
+decode c=1: Output token throughput (tok/s): 353.40  Median TPOT (ms): 2.70  Median ITL (ms): 6.74  
+decode c=4: Output token throughput (tok/s): 866.60  Median TPOT (ms): 3.87  Median ITL (ms): 8.35  
+decode c=16: Output token throughput (tok/s): 1859.29  Median TPOT (ms): 7.42  Median ITL (ms): 13.97  
+decode c=64: Output token throughput (tok/s): 3492.26  Median TPOT (ms): 16.51  Median ITL (ms): 28.67  

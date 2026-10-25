@@ -1,0 +1,9 @@
+cca3ab06be586c793583d28d1a3d7f336831a0b4b8dfcfbde606d4290a8f409f
+waiting for decode-agent on :8105 (CONFIG=optimized)
+ready
+greedy c=1: Output token throughput (tok/s): 400.96  Median TPOT (ms): 2.22  Median ITL (ms): 6.36  Acceptance length: 2.70  
+greedy c=4: Output token throughput (tok/s): 1117.25  Median TPOT (ms): 3.06  Median ITL (ms): 7.96  Acceptance length: 2.72  
+greedy c=64: Output token throughput (tok/s): 4665.35  Median TPOT (ms): 12.85  Median ITL (ms): 27.42  Acceptance length: 2.72  
+default-sampling c=1: Output token throughput (tok/s): 349.53  Median TPOT (ms): 2.66  Median ITL (ms): 6.57  Acceptance length: 2.42  
+saved 12
+saved 12

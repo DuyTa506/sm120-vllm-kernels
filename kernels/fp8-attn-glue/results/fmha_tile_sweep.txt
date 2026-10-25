@@ -1,0 +1,41 @@
+FMHA tile/scheduler sweep (glue-free kernel, bf16 Q, strided KV)
+8k         q_tile=128 kv_tile=128 balanced=1     827.4 us   664.4 TFLOPS
+8k         q_tile=128 kv_tile=128 balanced=0     958.5 us   573.6 TFLOPS
+8k         q_tile=128 kv_tile= 64 balanced=1    1155.1 us   475.9 TFLOPS
+8k         q_tile=128 kv_tile= 64 balanced=0    1368.0 us   401.9 TFLOPS
+8k         q_tile= 64 kv_tile=128 balanced=1    1589.2 us   345.9 TFLOPS
+8k         q_tile= 64 kv_tile=128 balanced=0    1738.7 us   316.2 TFLOPS
+8k         q_tile= 64 kv_tile= 64 balanced=1    1103.9 us   498.0 TFLOPS
+8k         q_tile= 64 kv_tile= 64 balanced=0    1209.4 us   454.6 TFLOPS
+16k        q_tile=128 kv_tile=128 balanced=1    3272.7 us   671.9 TFLOPS
+16k        q_tile=128 kv_tile=128 balanced=0    3635.2 us   604.9 TFLOPS
+16k        q_tile=128 kv_tile= 64 balanced=1    4856.8 us   452.8 TFLOPS
+16k        q_tile=128 kv_tile= 64 balanced=0    5187.1 us   423.9 TFLOPS
+16k        q_tile= 64 kv_tile=128 balanced=1    6446.6 us   341.1 TFLOPS
+16k        q_tile= 64 kv_tile=128 balanced=0    6686.7 us   328.9 TFLOPS
+16k        q_tile= 64 kv_tile= 64 balanced=1    4811.3 us   457.1 TFLOPS
+16k        q_tile= 64 kv_tile= 64 balanced=0    4986.4 us   441.0 TFLOPS
+32k        q_tile=128 kv_tile=128 balanced=1   13714.9 us   641.4 TFLOPS
+32k        q_tile=128 kv_tile=128 balanced=0   14175.2 us   620.5 TFLOPS
+32k        q_tile=128 kv_tile= 64 balanced=1   19514.4 us   450.7 TFLOPS
+32k        q_tile=128 kv_tile= 64 balanced=0   20061.2 us   438.5 TFLOPS
+32k        q_tile= 64 kv_tile=128 balanced=1   25600.5 us   343.6 TFLOPS
+32k        q_tile= 64 kv_tile=128 balanced=0   25955.8 us   338.9 TFLOPS
+32k        q_tile= 64 kv_tile= 64 balanced=1   19339.3 us   454.8 TFLOPS
+32k        q_tile= 64 kv_tile= 64 balanced=0   19675.1 us   447.1 TFLOPS
+32k-chunk  q_tile=128 kv_tile=128 balanced=1   10320.4 us   639.2 TFLOPS
+32k-chunk  q_tile=128 kv_tile=128 balanced=0   10672.1 us   618.2 TFLOPS
+32k-chunk  q_tile=128 kv_tile= 64 balanced=1   14730.2 us   447.9 TFLOPS
+32k-chunk  q_tile=128 kv_tile= 64 balanced=0   15150.6 us   435.4 TFLOPS
+32k-chunk  q_tile= 64 kv_tile=128 balanced=1   19302.9 us   341.8 TFLOPS
+32k-chunk  q_tile= 64 kv_tile=128 balanced=0   19482.1 us   338.6 TFLOPS
+32k-chunk  q_tile= 64 kv_tile= 64 balanced=1   14535.2 us   453.9 TFLOPS
+32k-chunk  q_tile= 64 kv_tile= 64 balanced=0   14762.5 us   446.9 TFLOPS
+varlen     q_tile=128 kv_tile=128 balanced=1     450.6 us   493.2 TFLOPS
+varlen     q_tile=128 kv_tile=128 balanced=0     463.9 us   479.1 TFLOPS
+varlen     q_tile=128 kv_tile= 64 balanced=1     561.2 us   396.0 TFLOPS
+varlen     q_tile=128 kv_tile= 64 balanced=0     608.3 us   365.3 TFLOPS
+varlen     q_tile= 64 kv_tile=128 balanced=1     731.1 us   303.9 TFLOPS
+varlen     q_tile= 64 kv_tile=128 balanced=0     776.7 us   286.1 TFLOPS
+varlen     q_tile= 64 kv_tile= 64 balanced=1     520.2 us   427.2 TFLOPS
+varlen     q_tile= 64 kv_tile= 64 balanced=0     557.1 us   398.9 TFLOPS

@@ -1,0 +1,217 @@
+# model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
+--- a/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
++++ b/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+ 
++import os
+ from typing import Any
+ 
+ import torch
+@@ -27,6 +28,16 @@
+ )
+ 
+ 
++# bench patch (VLLM_B12X_FIX_SCALES=1): keep the checkpoint's e4m3 block scales and apply the per-expert
++# weight global scale (~3e-5) in fp32 via w1_alpha/w2_alpha, instead of baking it into the e4m3 block
++# scales. The bake pushes every block scale into the e4m3 subnormal range: 13-47% mean scale error and
++# up to 36% of blocks flushed to zero on real weights, ~15-20% relative error per expert matmul.
++_B12X_FIX_SCALES = os.environ.get("VLLM_B12X_FIX_SCALES", "0") == "1"
++# Masking of negative expert ids (needed for b12x to run at all in vLLM) without the scale fix,
++# to reproduce the original b12x numerics.
++_B12X_MASK_NEG_IDS = _B12X_FIX_SCALES or os.environ.get("VLLM_B12X_NEGFIX_ONLY", "0") == "1"
++
++
+ class FlashInferB12xExperts(mk.FusedMoEExpertsModular):
+     """FlashInfer CuteDSL fused MoE expert for SM12x (SM120/SM121,
+     RTX Pro 6000 / DGX Spark).
+@@ -92,6 +103,9 @@
+         self.w2_sf_mma: torch.Tensor | None = None
+ 
+     def process_weights_after_loading(self, layer: torch.nn.Module) -> None:
++        if _B12X_FIX_SCALES:
++            self._process_weights_fixed_scales(layer)
++            return
+         # Normalise block scales to absorb the per-expert weight global scale
+         # (w_gs).  vLLM's NVFP4 convention stores:
+         #   block_scale = max_abs * w_gs / fp4_max,  g1_alphas = 1/w_gs
+@@ -157,6 +171,70 @@
+             num_groups=num_experts_w2,
+         )
+ 
++    def _process_weights_fixed_scales(self, layer: torch.nn.Module) -> None:
++        # Keep the checkpoint e4m3 block scales untouched; apply the per-expert weight global scale
++        # (w*_weight_scale_2, ~3e-5) in fp32 through the kernel alphas.
++        # b12x interprets input_global_scale / fc2_input_scale as reciprocal (dequant-style) scales,
++        # i.e. activations are quantized with multiplier 1/scale, and launch folds
++        # w1_alpha *= input_global_scale (FC2 is not folded). So, with the CUTLASS path's calibrated
++        # static scales a13 = w13_input_scale = 1/a1_gscale and a2 = 1/a2_gscale:
++        #   input_global_scale = a13, w1_alpha = w13_weight_scale_2
++        #   fc2_input_scale    = a2,  w2_alpha = w2_weight_scale_2 * a2
++        # VLLM_B12X_ACT_SCALES=dynamic uses unit activation scales instead (pure per-16 dynamic
++        # block scaling; equally accurate vs an fp32 reference, but further from the CUTLASS path).
++        dev = layer.w13_weight.device
++        w13_s2 = layer.w13_weight_scale_2.to(torch.float32).view(-1)
++        w2_s2 = layer.w2_weight_scale_2.to(torch.float32).view(-1)
++        hybrid_min = int(os.environ.get("VLLM_B12X_HYBRID_MIN_TOKENS", "1024"))
++        # b12x's direct-micro kernel (<= 3 tokens) reads the activation scales in multiplier form,
++        # its MMA kernels in reciprocal form: static scales are only safe when <= 3-token batches
++        # never reach b12x (hybrid threshold >= 4); otherwise fall back to unit scales.
++        if (
++            os.environ.get("VLLM_B12X_ACT_SCALES", "static") == "dynamic"
++            or self.a1_gscale is None
++            or hybrid_min < 4
++        ):
++            a13 = torch.ones(self.num_local_experts, dtype=torch.float32, device=dev)
++            a2 = torch.ones_like(a13)
++        else:
++            a13 = (1.0 / self.a1_gscale.to(torch.float32)).expand(self.num_local_experts)
++            a2 = (1.0 / self.a2_gscale.to(torch.float32)).expand(self.num_local_experts)
++        self._input_global_scale = a13.contiguous()
++        self._fc2_input_scale = a2.contiguous()
++        self._w1_alpha = w13_s2.contiguous()
++        self._w2_alpha = (w2_s2 * a2).contiguous()
++        # Hybrid dispatch: batches with fewer than this many tokens (decode, MTP verify, small
++        # chunks) run the FlashInfer CUTLASS fused MoE exactly like the FLASHINFER_CUTLASS backend
++        # (same weights, same swizzled block scales, same static scales), larger ones run b12x.
++        # b12x's direct-micro kernel (<= 3 tokens) reads input/fc2 scales in multiplier form while
++        # its MMA kernels read them in reciprocal form, so static scales are only valid when the
++        # tiny-batch band never reaches b12x: the default threshold keeps b12x on its dynamic
++        # (>= 1024 routed rows) kernel.
++        self._hybrid_min_tokens = hybrid_min
++        if self.a1_gscale is not None and self.a2_gscale is not None:
++            a1g = self.a1_gscale.to(torch.float32)
++            a2g = self.a2_gscale.to(torch.float32)
++            self._cutlass_g1 = (w13_s2 / a1g).contiguous()   # w13_weight_scale_2 * a13
++            self._cutlass_g2 = (w2_s2 / a2g).contiguous()    # w2_weight_scale_2 * a2
++        else:
++            self._hybrid_min_tokens = 0
++
++        assert self.w1_scale is not None and self.w2_scale is not None
++        num_experts_w1, m1, k1_sf = self.w1_scale.shape
++        self.w1_sf_mma = flashinfer_convert_sf_to_mma_layout(
++            self.w1_scale.reshape(num_experts_w1 * m1, k1_sf),
++            m=m1,
++            k=k1_sf * 16,
++            num_groups=num_experts_w1,
++        )
++        num_experts_w2, m2, k2_sf = self.w2_scale.shape
++        self.w2_sf_mma = flashinfer_convert_sf_to_mma_layout(
++            self.w2_scale.reshape(num_experts_w2 * m2, k2_sf),
++            m=m2,
++            k=k2_sf * 16,
++            num_groups=num_experts_w2,
++        )
++
+     @staticmethod
+     def activation_format() -> mk.FusedMoEActivationFormat:
+         return mk.FusedMoEActivationFormat.Standard
+@@ -250,6 +328,42 @@
+             activation=self._activation_str,
+         )
+ 
++    def _apply_cutlass(self, output, hidden_states, w1, w2, topk_weights, topk_ids, activation):
++        """Same call as FlashInferExperts.apply for NVFP4 (FLASHINFER_CUTLASS backend)."""
++        from vllm import _custom_ops as ops
++        from vllm.model_executor.layers.quantization.utils.flashinfer_utils import (
++            activation_to_flashinfer_type,
++        )
++        from vllm.utils.flashinfer import flashinfer_cutlass_fused_moe
++
++        a1q, a1q_scale = ops.scaled_fp4_quant(
++            hidden_states, self.a1_gscale, is_sf_swizzled_layout=True
++        )
++        par = self.moe_config.moe_parallel_config
++        flashinfer_cutlass_fused_moe(
++            input=a1q,
++            token_selected_experts=topk_ids.to(torch.int),
++            token_final_scales=topk_weights,
++            fc1_expert_weights=w1.view(torch.long),
++            fc2_expert_weights=w2.view(torch.long),
++            output=output,
++            output_dtype=self.out_dtype,
++            quant_scales=[
++                self.a1_gscale,
++                self.w1_scale.view(torch.int32),
++                self._cutlass_g1,
++                self.a2_gscale,
++                self.w2_scale.view(torch.int32),
++                self._cutlass_g2,
++            ],
++            input_sf=a1q_scale,
++            tp_size=par.tp_size,
++            tp_rank=par.tp_rank,
++            ep_size=par.ep_size,
++            ep_rank=par.ep_rank,
++            activation_type=activation_to_flashinfer_type(activation),
++        )
++
+     def apply(
+         self,
+         output: torch.Tensor,
+@@ -285,6 +399,40 @@
+         wrapper = self._wrapper
+         assert wrapper is not None
+ 
++        if _B12X_FIX_SCALES and getattr(self, "_hybrid_min_tokens", 0) > 0:
++            from flashinfer.autotuner import AutoTuner
++
++            small = hidden_states.shape[0] < self._hybrid_min_tokens
++            if small or AutoTuner.get().is_tuning_mode:
++                # In the autotune warmup pass (max tokens) also run CUTLASS so its tactics
++                # get tuned for all token buckets; b12x then overwrites the output.
++                self._apply_cutlass(output, hidden_states, w1, w2, topk_weights, topk_ids,
++                                    activation)
++                if small:
++                    return
++        if _B12X_MASK_NEG_IDS:
++            # vLLM marks skipped tokens with expert id -1 (dummy/profile runs); the b12x dynamic
++            # kernel reads out of bounds on negative ids, so route them to expert 0 with weight 0.
++            skip = topk_ids < 0
++            topk_ids = topk_ids.masked_fill(skip, 0)
++            topk_weights = topk_weights.masked_fill(skip, 0.0)
++        if _B12X_FIX_SCALES and getattr(self, "_w1_alpha", None) is not None:
++            wrapper_output = wrapper.run(
++                x=hidden_states,
++                w1_weight=w1,
++                w1_weight_sf=self.w1_sf_mma,
++                w1_alpha=self._w1_alpha,
++                fc2_input_scale=self._fc2_input_scale,
++                w2_weight=w2,
++                w2_weight_sf=self.w2_sf_mma,
++                w2_alpha=self._w2_alpha,
++                token_selected_experts=topk_ids.to(torch.int32),
++                token_final_scales=topk_weights,
++                input_global_scale=self._input_global_scale,
++            )
++            output.copy_(wrapper_output)
++            return
++
+         wrapper_output = wrapper.run(
+             x=hidden_states,
+             w1_weight=w1,
+# model_executor/layers/fused_moe/oracle/unquantized.py
+--- a/vllm/model_executor/layers/fused_moe/oracle/unquantized.py
++++ b/vllm/model_executor/layers/fused_moe/oracle/unquantized.py
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+ 
++import os
+ from enum import Enum
+ from typing import TYPE_CHECKING
+ 
+@@ -305,6 +306,12 @@
+     runner_backend = moe_config.moe_backend
+     # 'humming' is quantization-only; an unquantized layer (e.g. excluded via
+     # modules_to_not_convert) falls through to auto instead of erroring.
++    if runner_backend in ["flashinfer_b12x", "b12x"] and "1" in (
++        os.environ.get("VLLM_B12X_FIX_SCALES", "0"),
++        os.environ.get("VLLM_B12X_NEGFIX_ONLY", "0"),
++    ):
++        # bench patch: b12x is NVFP4-only; the unquantized MTP MoE layer falls back to auto.
++        runner_backend = "auto"
+     if runner_backend not in ["auto", "humming"]:
+         requested_backend = map_unquantized_backend(runner_backend)
+         if (

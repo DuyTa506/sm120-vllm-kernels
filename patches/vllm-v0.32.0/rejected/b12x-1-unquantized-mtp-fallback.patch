@@ -1,0 +1,11 @@
+--- a/vllm/model_executor/layers/fused_moe/oracle/unquantized.py
++++ b/vllm/model_executor/layers/fused_moe/oracle/unquantized.py
+@@ -305,6 +305,8 @@
+     runner_backend = moe_config.moe_backend
+     # 'humming' is quantization-only; an unquantized layer (e.g. excluded via
+     # modules_to_not_convert) falls through to auto instead of erroring.
++    if runner_backend in ["flashinfer_b12x", "b12x"]:
++        runner_backend = "auto"  # bench patch: unquantized MTP layer falls back to auto
+     if runner_backend not in ["auto", "humming"]:
+         requested_backend = map_unquantized_backend(runner_backend)
+         if (
