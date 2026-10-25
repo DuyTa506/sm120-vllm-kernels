@@ -72,10 +72,38 @@ replayed token for token on every config, so each config prefills and decodes ex
 | short sessions, 32 agents, turns/s | 4.37 | 5.44 | **6.03 (+38%)** |
 
 At long context, per-turn time is dominated by attention over the cached prefix. The config change barely helps
-there; FP8 attention (patch 01) is what cuts it by a third. Each turn still prefills ~2,150 tokens when only
-~1,000 are new, because the GDN state is only cached at 2128-token block boundaries. Finer cache granularity,
-KV offload for idle sessions, and per-session state reuse are under investigation (`kernels/cache-*`,
-`kernels/kv-offload`, `kernels/session-cache`).
+there; FP8 attention (patch 01) is what cuts it by a third.
+
+#### Agentic caching (interim, verification pending)
+
+Each turn's prompt is the previous prompt plus the model's output and a tool result. Attention KV can be reused
+token by token, but the GDN recurrent state can only resume where it was saved, and stock vLLM saves it every
+2128 tokens. So every turn recomputes the tail since the last boundary: on the long sessions ~4,760 tokens are
+prefilled per turn when ~1,740 are new.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/mech-agentic-cache-dark.svg">
+  <img alt="With block-aligned GDN state caching every turn recomputes the old tail; a finer unit or a per-session state removes it" src="docs/img/mech-agentic-cache-light.svg">
+</picture>
+
+Two fixes measured so far, each as an A/B on one server with the same turns (`kernels/cache-granularity`,
+`kernels/session-cache`):
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/agentic-cache-dark.svg">
+  <img alt="Finer GDN state caching cuts tokens prefilled per agent turn by 55-71% and per-turn TTFT by 20-56%" src="docs/img/agentic-cache-light.svg">
+</picture>
+
+- `--prefix-match-unit 16` (a vLLM v0.32 flag, no code change): tokens prefilled per turn 4,759 → 1,765, TTFT p50
+  486 → 330 ms with one agent and 1,040 → 827 ms with 8 agents; 8-agent wall time 261 → 171 s. Prefix-cache
+  correctness check: TV 0.122, same as stock.
+- Session state cache (patch, `VLLM_SESSION_STATE_CACHE=1`): keeps each session's GDN state at the end of its
+  turn. Same effect when the client resends the history exactly; no gain when the client rewrites history
+  (e.g. drops reasoning), because the prefix then no longer matches.
+- CPU offload of idle sessions (`--kv-offloading-backend native`): stores both attention KV and GDN state for this
+  hybrid model; the 64-session idle/think benchmark is still running.
+
+These numbers come from the agents' own runs on the production config and are not yet in the tables above.
 
 KV cache capacity drops with the larger CUDA graphs and the 64-token block: 3.98M tokens (production),
 3.54M (tuned), 3.37M (optimized), that is 30, 27 and 26 concurrent 131k sessions. At 32 long sessions the

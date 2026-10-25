@@ -263,7 +263,7 @@ def diagram_agentic_cache(t):
     x0, x1 = 210, 800
     seg = [("cached", 0.58), ("old tail", 0.22), ("new", 0.20)]
     rows = [("stock", "state saved every 2128 tokens", (0.58, 0.22)),
-            ("--prefix-match-unit 16", "state saved every 16 tokens", (0.795, 0.005)),
+            ("--prefix-match-unit 16", "state saved every 16 tokens", (0.80, 0.0)),
             ("session state cache", "state kept at the end of turn N", (0.80, 0.0))]
     for i, (name, sub, (c, waste)) in enumerate(rows):
         y = 84 + i * 76
@@ -274,7 +274,7 @@ def diagram_agentic_cache(t):
         s.text(x0 + w * c / 2, y + 20, "prefix from cache", anchor="middle", size=11, color=t["ink2"])
         if waste > 0.01:
             s.rect(x0 + w * c, y, w * waste, 30, t["s"][1], r=4)
-            s.text(x0 + w * (c + waste / 2), y + 20, "recomputed old tokens", anchor="middle", size=11, color=t["surface"])
+            s.text(x0 + w * (c + waste / 2), y + 20, "recomputed tail", anchor="middle", size=11, color=t["surface"])
         s.rect(x0 + w * (c + waste), y, w * (1 - c - waste), 30, t["s"][3], r=4)
         s.text(x0 + w * (c + waste + (1 - c - waste) / 2), y + 20, "new tokens", anchor="middle", size=11, color=t["surface"])
         if i == 0:

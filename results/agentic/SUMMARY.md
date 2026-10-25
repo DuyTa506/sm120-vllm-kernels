@@ -37,3 +37,28 @@ More agents than sessions replay copies under separate cache salts. TTFT is for 
 | long | 32 | production | 2.32 | 349 | 1584 | 3785 | 94.2% | 851 |
 | long | 32 | tuned | 2.36 | 354 | 1498 | 3266 | 94.2% | 842 |
 | long | 32 | optimized | 3.42 | 513 | 997 | 1992 | 94.0% | 577 |
+
+## Caching experiments (interim, from `kernels/cache-granularity` and `kernels/session-cache`)
+
+A/B on one server (production config), same recorded turns. "prefilled" = tokens prefilled per follow-up turn.
+
+| experiment | workload | stock: prefilled / TTFT p50 | finer: prefilled / TTFT p50 |
+|---|---|---|---|
+| `--prefix-match-unit 16` | long, 4 sessions, 1 agent | 4,759 / 486 ms | 1,765 / 330 ms |
+| `--prefix-match-unit 16` | long, 4 sessions, 8 agents | 4,759 / 1,040 ms (p90 2,890) | 1,765 / 827 ms (p90 2,448) |
+| session state cache | long, 4 sessions from turn 20, 1 agent | 5,460 / 532 ms | 2,415 / 351 ms |
+| session state cache | short, 4 sessions, history resent exactly | 4,172 / 219 ms | 1,213 / 96 ms |
+| session state cache | short, history as recorded (rewritten) | 4,460 / 203 ms | 4,460 / 355 ms |
+
+Truly new tokens per long-session turn: ~1,740. Prefix-cache check with `--prefix-match-unit 16`: TV 0.122
+(stock 0.12-0.13).
+
+## next config, smoke replay (page 64, before the page-16 change)
+
+| set | agents | turns/s | out tok/s | TTFT p50 | TTFT p90 |
+|---|---:|---:|---:|---:|---:|
+| short | 1 | 1.41 | 362 | 111 ms | 144 ms |
+| short | 8 | 3.08 | 789 | 136 ms | 224 ms |
+
+TTFT matches or beats optimized; turns/s at 8 agents is below optimized (3.66), within the decode run-to-run
+spread seen elsewhere (MTP acceptance on replayed turns). A full replay on next with page 16 is queued.
