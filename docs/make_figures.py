@@ -400,12 +400,146 @@ def diagram_gdn_fusion(t):
     s.save("mech-gdn-fusion", "The fused kernel reads mixed_qkv once and writes q, k, v, removing the HBM round trip of the conv output")
 
 
+def chart_kernels(t):
+    """ms saved per forward / decode step by each kernel; fill = verification status"""
+    groups = [("Prefill: ms saved per 8k-token forward", [
+                  ("MoE b12x fix + hybrid dispatch", 9.5, "pending"),
+                  ("GDN fused conv + post-conv", 5.6, "confirmed"),
+                  ("FP8 attention in one kernel", 1.0, "confirmed")]),
+              ("Decode: ms saved per MTP-2 step", [
+                  ("GDN state replay (not built yet)", 5.0, "planned"),
+                  ("Kernel page 16 instead of 64 (c=64)", 1.1, "confirmed"),
+                  ("Skinny BF16 GEMM (c=1 only)", 0.6, "partial"),
+                  ("Skinny FP8 GEMM (c<=4)", 0.19, "pending")])]
+    rows = sum(len(g[1]) for g in groups)
+    s = Svg(760, 84 + 34 * rows + 54 * len(groups) + 40, t, "What each kernel saves",
+            "per-kernel numbers from kernels/*/README.md; fill shows how far each has been independently verified")
+    x0, x1, vmax = 300, 690, 10.0
+    X = lambda v: x0 + (x1 - x0) * v / vmax
+    y = 70
+    for title, items in groups:
+        s.text(20, y + 12, title, weight=600)
+        y += 24
+        top = y
+        for name, v, kind in items:
+            s.text(x0 - 12, y + 16, name, anchor="end", color=t["ink2"])
+            if kind == "confirmed":
+                s.hbar(x0, y + 2, X(v), 20, t["s"][2])
+            elif kind == "planned":
+                s.rect(x0, y + 2, X(v) - x0, 20, t["surface"], stroke=t["muted"], r=4, dash="5 4")
+            else:
+                s.rect(x0, y + 2, max(X(v) - x0, 3), 20, t["box"], stroke=t["s"][1] if kind == "pending" else t["s"][0], r=4)
+            s.text(X(v) + 8, y + 17, f"{v:g} ms", weight=600)
+            y += 34
+        for k in range(0, 6):
+            s.line(X(vmax * k / 5), top - 2, X(vmax * k / 5), y - 6, t["grid"])
+            s.text(X(vmax * k / 5), y + 6, f"{vmax * k / 5:g}", size=11, color=t["muted"], anchor="middle")
+        s.line(x0, top - 2, x0, y - 6, t["axis"])
+        y += 30
+    lx = 20
+    for name, color, fill, dash in [("confirmed by a second agent", t["s"][2], t["s"][2], None),
+                                    ("measured by the author, check running", t["s"][1], t["box"], None),
+                                    ("partly confirmed", t["s"][0], t["box"], None),
+                                    ("planned", t["muted"], t["surface"], "5 4")]:
+        s.rect(lx, y - 9, 12, 12, fill, stroke=color, r=2, dash=dash)
+        s.text(lx + 18, y, name, size=11, color=t["ink2"])
+        lx += 40 + 6.2 * len(name)
+    s.save("kernel-gains", "Milliseconds saved per forward or decode step by each kernel, with its verification status")
+
+
+def diagram_moe(t):
+    s = Svg(760, 330, t, "kernels/moe-nvfp4: fix the b12x scales, use it only where it wins",
+            "NVFP4 MoE, 256 experts top-8; the token count of the step picks the backend")
+    s.text(20, 84, "bug in stock b12x", weight=600)
+    node(s, 20, 96, 150, 46, "block scales", "e4m3, per 16 values")
+    arrow(s, 170, 119, 230, 119, "baked into")
+    node(s, 230, 96, 190, 46, "e4m3 subnormals", "precision lost", ghost=True)
+    arrow(s, 420, 119, 480, 119)
+    node(s, 480, 96, 250, 46, "quality drop vs CUTLASS", "NLL, long-context needles")
+    s.text(20, 166, "also: a scale-convention mismatch in FlashInfer zeroes the output for 1-3 token steps (decode with MTP)",
+           size=11, color=t["ink2"])
+    s.text(20, 206, "fix + hybrid dispatch (VLLM_B12X_FIX_SCALES, VLLM_B12X_HYBRID_MIN_TOKENS)", weight=600)
+    node(s, 20, 216, 190, 52, "tokens in the step", "decode 1-192, prefill 8k+")
+    arrow(s, 210, 232, 280, 238, "< 1024", color=t["s"][0])
+    node(s, 280, 216, 200, 44, "CUTLASS FP4 MoE", "small M: stock path")
+    arrow(s, 210, 256, 280, 292, ">= 1024", color=t["s"][1], above=False)
+    node(s, 280, 272, 200, 44, "b12x, scales fixed", "631 vs 871 us per layer at 8k", hot=True)
+    s.text(510, 242, "8k TTFT -4.7%; NLL, needles 20/20,", size=11, color=t["ink2"])
+    s.text(510, 258, "MTP acceptance unchanged (author)", size=11, color=t["ink2"])
+    s.text(510, 294, "independent verification still running", size=11, color=t["muted"])
+    s.save("mech-moe", "Stock b12x loses precision in the block scales and zeroes 1-3 token outputs; the hybrid uses CUTLASS below 1024 tokens and the fixed b12x above")
+
+
+def diagram_skinny(t):
+    s = Svg(760, 300, t, "kernels/decode-roofline, dense-fp8-gemm: skinny GEMMs for decode",
+            "decode multiplies 1-3 token rows by small weights; cuBLAS launches only 4-16 CTAs there")
+    s.text(20, 84, "cuBLAS, M = 2-3 rows", weight=600)
+    node(s, 20, 96, 130, 46, "router 256x2048", "or in_proj_ba 64x2048")
+    arrow(s, 150, 119, 220, 119, "launch")
+    node(s, 220, 96, 200, 46, "4-16 single-warp CTAs", "of 188 SMs (wmma 16x16)", ghost=True)
+    arrow(s, 420, 119, 480, 119)
+    node(s, 480, 96, 250, 46, "11.5 us / 7.3 us", "router M=2-3 / in_proj_ba")
+    s.text(20, 186, "skinny kernel (VLLM_SKINNY_BF16_GEMM, VLLM_SM120_SKINNY_FP8)", weight=600)
+    node(s, 20, 198, 130, 46, "same weights", "same rows (M <= 16)")
+    arrow(s, 150, 221, 220, 221, "launch")
+    node(s, 220, 198, 200, 46, "weights spread over CTAs", "fp32 accumulate, one bf16 round", hot=True)
+    arrow(s, 420, 221, 480, 221)
+    node(s, 480, 198, 250, 46, "2.6-3.4 us / 1.6-2.0 us", "matches cuBLAS to bf16 rounding")
+    s.text(20, 276, "x40 router + x30 in_proj_ba per step = ~0.6 ms at c=1, nothing at c >= 4 (verifier); FP8 variant ~0.19 ms",
+           size=11, color=t["ink2"])
+    s.save("mech-skinny", "A skinny GEMM spreads the K dimension over many CTAs where cuBLAS uses 4 to 16, cutting the router and in_proj_ba cost at M=1 to 3")
+
+
+def diagram_page(t):
+    s = Svg(760, 290, t, "patch 04: the cache block and the kernel page are different things",
+            "block 2176 tokens (a multiple of 64) for the GDN checkpoint; the attention kernel can still read 16-token pages")
+    s.text(20, 84, "before (optimized): one size for both", weight=600)
+    node(s, 20, 96, 210, 46, "cache block = 2176", "GDN checkpoint aligned")
+    arrow(s, 230, 119, 290, 119, "forces")
+    node(s, 290, 96, 210, 46, "kernel page = 64", "page64 costs decode", ghost=True)
+    arrow(s, 500, 119, 560, 119)
+    node(s, 560, 96, 170, 46, "c=64 decode -4%", "3532 vs ~3680 tok/s")
+    s.text(20, 186, "after (patch 04, VLLM_FI_KERNEL_PAGES=16)", weight=600)
+    node(s, 20, 198, 210, 46, "cache block = 2176", "unchanged")
+    arrow(s, 230, 221, 290, 221, "viewed as")
+    node(s, 290, 198, 210, 46, "kernel page = 16", "136 pages per block", hot=True)
+    arrow(s, 500, 221, 560, 221)
+    node(s, 560, 198, 170, 46, "decode back to par", "prefill unchanged")
+    s.text(20, 274, "KV capacity does not depend on page size: the drop from 3.98M to 3.37M tokens comes from the memory of patches 01/02",
+           size=11, color=t["ink2"])
+    s.save("mech-page", "Patch 04 keeps the 2176-token cache block for the GDN checkpoint but lets the attention kernel use 16-token pages")
+
+
+def diagram_replay(t):
+    s = Svg(760, 300, t, "next lever (not built): replay accepted tokens from one committed state",
+            "GDN decode with MTP-2 verifies 3 positions per step; at c=64 the state writes are 10.6 ms of a 29 ms step")
+    s.text(20, 84, "now", weight=600)
+    node(s, 20, 96, 130, 46, "state s0 (fp32)", "read")
+    arrow(s, 150, 119, 200, 119)
+    for i, x in enumerate((200, 330, 460)):
+        node(s, x, 96, 110, 46, f"position {i + 1}", "writes a state")
+        if i < 2:
+            arrow(s, x + 110, 119, x + 130, 119)
+    arrow(s, 570, 119, 620, 119)
+    node(s, 620, 96, 110, 46, "accepted", "keeps one", ghost=True)
+    s.text(20, 166, "every speculative position writes a full fp32 state to HBM, and only one of the three is kept", size=11, color=t["ink2"])
+    s.text(20, 210, "replay (decode-roofline README section 5)", weight=600)
+    node(s, 20, 222, 130, 46, "state s0", "committed")
+    arrow(s, 150, 245, 200, 245)
+    node(s, 200, 222, 270, 46, "verify 3 positions, no state writes", "outputs only", hot=True)
+    arrow(s, 470, 245, 520, 245, "accepted n")
+    node(s, 520, 222, 210, 46, "replay n tokens once", "write one state")
+    s.text(20, 290, "about -5 ms per step at c=64 (~-18%); needs a new GDN decode kernel and GPU time to verify", size=11, color=t["ink2"])
+    s.save("mech-replay", "Replaying only the accepted tokens from one committed GDN state avoids writing a state for every speculative position")
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     for t in THEMES.values():
         for fn in (chart_span, chart_throughput, chart_ttft, lambda t: chart_agentic(t, "short"),
                    lambda t: chart_agentic(t, "long"), chart_cache, diagram_graphs, diagram_split, diagram_fp8attn,
-                   diagram_gdn_fusion, diagram_agentic_cache):
+                   diagram_gdn_fusion, diagram_agentic_cache, chart_kernels, diagram_moe, diagram_skinny,
+                   diagram_page, diagram_replay):
             try:
                 fn(t)
             except FileNotFoundError as ex:

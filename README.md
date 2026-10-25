@@ -162,6 +162,12 @@ Each area has its own directory with a README, benchmarks and correctness tests.
 every claimed gain before it is integrated. Numbers below are from each area's README; "next" is the candidate
 config that stacks the verified pieces on top of optimized.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/kernel-gains-dark.svg">
+  <img alt="Milliseconds saved per forward or decode step by each kernel, with its verification status" src="docs/img/kernel-gains-light.svg">
+</picture>
+
+
 | area | what | written in | result | status |
 |---|---|---|---|---|
 | [`fp8-attn-glue`](kernels/fp8-attn-glue) | FP8 FMHA prefill as one kernel: reads vLLM's packed K/V cache through strided TMA descriptors (no gather) and quantizes BF16 Q to e4m3 inside the kernel | CuTe DSL (FlashInfer kernel subclass) | bitwise identical output; −90 µs per attention call at 8k, −679 µs at 32k (~−1 ms per 8k forward, −7.5 ms per 32k) | patch 03, in next (8k span −11.7 ms with 05) |
@@ -178,9 +184,37 @@ Not implemented yet, largest known decode lever: at c=64 the GDN fp32 state is w
 speculative positions (10.6 ms of a 29 ms step). Replaying accepted tokens from one committed state instead is
 bit-identical and would save about 5 ms per step (~18%) (`kernels/decode-roofline/README.md` §5).
 
+**Status of each kernel** (second-agent checks are in `kernels/*/VERIFY.md`):
+
+- `fp8-attn-glue`: confirmed, bitwise identical; the claimed gain was slightly overstated.
+- `gdn-conv-fusion`: confirmed, bit-exact, speedup reproduces within about 2%.
+- `decode-roofline` (skinny BF16): partly confirmed. About -0.6 ms per step at c=1, nothing at c >= 4, numerics match cuBLAS. Not integrated: its on/off flag is not part of vLLM's compile-cache key and the end-to-end quality evidence is only kernel-level.
+- `moe-nvfp4`: author measurements only so far (needles 20/20, TTFT and decode match next); the before/after check is still running.
+- `dense-fp8-gemm`, `cache-granularity`, `kv-offload`, `session-cache`: measurements or checks still queued for the GPU.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/mech-gdn-fusion-dark.svg">
   <img alt="The fused kernel reads mixed_qkv once and writes q, k, v, removing the HBM round trip of the conv output" src="docs/img/mech-gdn-fusion-light.svg">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/mech-page-dark.svg">
+  <img alt="Patch 04 keeps the 2176-token cache block for the GDN checkpoint but lets the attention kernel use 16-token pages" src="docs/img/mech-page-light.svg">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/mech-moe-dark.svg">
+  <img alt="Stock b12x loses precision in the block scales and zeroes 1-3 token outputs; the hybrid uses CUTLASS below 1024 tokens and the fixed b12x above" src="docs/img/mech-moe-light.svg">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/mech-skinny-dark.svg">
+  <img alt="A skinny GEMM spreads the weights over many CTAs where cuBLAS uses 4 to 16, cutting the router and in_proj_ba cost at M=1 to 3" src="docs/img/mech-skinny-light.svg">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/mech-replay-dark.svg">
+  <img alt="Replaying only the accepted tokens from one committed GDN state avoids writing a state for every speculative position" src="docs/img/mech-replay-light.svg">
 </picture>
 
 ## Quality
