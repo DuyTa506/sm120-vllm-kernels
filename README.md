@@ -11,7 +11,7 @@ and the attention/GDN projections are FP8. MTP-2 speculative decoding is on.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/prefill-span-dark.svg">
-  <img alt="8k prefill GPU time per request: 369 ms with vLLM defaults, 163 ms tuned, 133 ms optimized" src="docs/img/prefill-span-light.svg">
+  <img alt="8k prefill GPU time per request: 369 ms with vLLM defaults, 163 ms tuned, 133 ms optimized, 125 ms next" src="docs/img/prefill-span-light.svg">
 </picture>
 
 8k-token single-request prefill, GPU span from nsys (`results/nsys/`):
@@ -21,6 +21,11 @@ and the attention/GDN projections are FP8. MTP-2 speculative decoding is on.
 | production (vLLM defaults) | 369 | |
 | tuned (config only) | 163 | −56% |
 | optimized (tuned + patches 01, 02) | 133 | −64% |
+| next (optimized + patches 03, 04, 05) | 125 | −66% |
+
+`next` is measured against optimized in the same session (137 → 125 ms at 8k, 574 → 551 ms at 32k;
+`results/next/SUMMARY.md`). It has not been through the throughput sweep and the agentic replay yet, so the
+tables below still compare production, tuned and optimized.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/throughput-dark.svg">
@@ -44,8 +49,9 @@ Serving throughput, total tok/s (`results/throughput/COMPARISON.md`, one run per
   <img alt="Single-request TTFT by prompt length, tuned vs optimized" src="docs/img/ttft-light.svg">
 </picture>
 
-Single-request median TTFT (`results/prefill/`): 8k 230 → 202 ms, 32k 1100 → 885 ms (tuned → optimized).
-Decode tok/s at c=1/4/16/64 is unchanged within run-to-run noise (`results/decode/`).
+Single-request median TTFT (`results/prefill/`): 8k 230 → 202 → 190 ms, 32k 1100 → 885 → 856 ms
+(tuned → optimized → next). Decode at c=64 is unchanged by patches 01/02/03/05; the 64-token kernel page of
+optimized costs ~4% at c=64, which patch 04 removes (`results/decode_ab/SUMMARY.md`).
 
 ### Agentic workloads
 
@@ -132,6 +138,14 @@ optimized config still wins and the prefix hit rate stays at 94%.
 
 8k span breakdown: 163 (tuned) → 151 (FP8 attention) → 145.5 (GDN in place) → 133 ms (internal checkpoint).
 
+**next** adds three more patches, also env-gated (`CONFIG=next`, after `scripts/build_patched.sh`):
+
+| flag | patch | effect |
+|---|---|---|
+| `VLLM_SM120_FP8_PREFILL_NOGLUE=1` | 03 | The FP8 FMHA reads K/V straight from vLLM's packed cache through strided TMA descriptors and quantizes Q inside the kernel: 4-5 launches per attention call become 1, output bitwise identical. |
+| `VLLM_FI_KERNEL_PAGES=16`, `--block-size 2176` | 04 | Keeps the 64-aligned cache block that the checkpoint needs, but runs attention on 16-token pages. Removes the ~4% decode loss of the 64-token page. |
+| `VLLM_GDN_FUSED_CONV=1` | 05 | GDN causal conv1d and post-conv prep in one Triton kernel; the 128 MB conv output never goes to HBM (377 → 190 µs per layer at 8k). |
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/mech-fp8-attention-dark.svg">
   <img alt="Stock FA2 dequantizes the FP8 KV cache to bf16; patch 01 quantizes Q to FP8 and runs the SM120 FP8 FMHA" src="docs/img/mech-fp8-attention-light.svg">
@@ -150,15 +164,15 @@ config that stacks the verified pieces on top of optimized.
 
 | area | what | written in | result | status |
 |---|---|---|---|---|
-| [`fp8-attn-glue`](kernels/fp8-attn-glue) | FP8 FMHA prefill as one kernel: reads vLLM's packed K/V cache through strided TMA descriptors (no gather) and quantizes BF16 Q to e4m3 inside the kernel | CuTe DSL (FlashInfer kernel subclass) | bitwise identical output; −90 µs per attention call at 8k, −679 µs at 32k (~−1 ms per 8k forward, −7.5 ms per 32k) | verified, in next |
-| [`gdn-conv-fusion`](kernels/gdn-conv-fusion) | GDN prefill: causal conv1d + post-conv prep (q/k l2-norm, v, g, beta) in one pass, conv output never goes to HBM | Triton | 377 → 190 µs per layer at 8k, at the `copy_()` floor; ~−5.6 ms per 8k forward, −11 ms at 16k | in next, end-to-end run queued |
+| [`fp8-attn-glue`](kernels/fp8-attn-glue) | FP8 FMHA prefill as one kernel: reads vLLM's packed K/V cache through strided TMA descriptors (no gather) and quantizes BF16 Q to e4m3 inside the kernel | CuTe DSL (FlashInfer kernel subclass) | bitwise identical output; −90 µs per attention call at 8k, −679 µs at 32k (~−1 ms per 8k forward, −7.5 ms per 32k) | patch 03, in next (8k span −11.7 ms with 05) |
+| [`gdn-conv-fusion`](kernels/gdn-conv-fusion) | GDN prefill: causal conv1d + post-conv prep (q/k l2-norm, v, g, beta) in one pass, conv output never goes to HBM | Triton | 377 → 190 µs per layer at 8k, at the `copy_()` floor; ~−5.6 ms per 8k forward, −11 ms at 16k | patch 05, in next |
 | [`moe-nvfp4`](kernels/moe-nvfp4) | found the b12x quality bug (block scales baked into e4m3 subnormals) and a scale-convention mismatch inside FlashInfer that zeroes 1-3 token outputs; fix + hybrid backend (b12x for ≥1024 tokens, CUTLASS below) | vLLM integration patch | MoE 28% faster at 8k tokens (631 vs 871 µs per layer); 8k TTFT −4.7%; NLL, needles, MTP acceptance unchanged | verification running |
 | [`dense-fp8-gemm`](kernels/dense-fp8-gemm) | prefill: 13 CUTLASS configs and cuBLASLt swept, nothing beats vLLM (84% of the power-capped peak). Decode: new skinny-M FP8 tensor-core GEMV | CUDA C++ | prefill: no change shipped; decode: −1 to −3 µs per call, ~−0.19 ms per step at c ≤ 4 | tests queued |
 | [`decode-roofline`](kernels/decode-roofline) | byte model of an MTP-2 decode step; skinny BF16 GEMM for the MoE router and GDN `in_proj_ba` (cuBLAS runs a 4-16 CTA kernel there) | Triton | c=1 ITL −9% (6.36 → 5.77 ms); no change at c ≥ 4 | verification running |
 | [`cache-granularity`](kernels/cache-granularity) | finer prefix-match unit, so an agent turn re-prefills ~1,000 new tokens instead of ~2,150 | scheduler config | — | measuring |
 | [`kv-offload`](kernels/kv-offload) | vLLM's native CPU offload for idle agent sessions; checked that it stores both attention KV and GDN state for this hybrid | connector config | — | measuring |
 | [`session-cache`](kernels/session-cache) | keep each session's latest GDN state across turns (per-tenant reuse) | scheduler patch | — | measuring |
-| kernel page (patch 04) | decouple the cache block (2176, needed by the checkpoint) from the attention kernel page (16 instead of 64) | 6-line patch | decode +4% at c=64, prefill unchanged or faster (`results/decode_ab/SUMMARY.md`) | verified, in next |
+| kernel page (patch 04) | decouple the cache block (2176, needed by the checkpoint) from the attention kernel page (16 instead of 64) | 6-line patch | decode +4% at c=64, prefill unchanged or faster (`results/decode_ab/SUMMARY.md`) | patch 04, in next |
 
 Not implemented yet, largest known decode lever: at c=64 the GDN fp32 state is written after each of the 3
 speculative positions (10.6 ms of a 29 ms step). Replaying accepted tokens from one committed state instead is
@@ -190,8 +204,8 @@ keeps about 60% of the kernel-side gain.
 Figures are generated from `results/` by `python3 docs/make_figures.py` (light and dark SVG).
 
 ```
-patches/vllm-v0.32.0/   shipped patches (01, 02), kernel page override (04), rejected b12x MoE patches
-scripts/                serve.sh (CONFIG=production|tuned|optimized), build_patched.sh, nsys_capture.sh
+patches/vllm-v0.32.0/   patches 01-05 (optimized = 01, 02; next = 01-05) and rejected b12x MoE patches
+scripts/                serve.sh (CONFIG=production|tuned|optimized|next), build_patched.sh, nsys_capture.sh
 bench/                  throughput_sweep.sh, bench_prefill.sh, bench_decode.sh, nsys analysis, compare_sweeps.py
 eval/                   NLL, needle, prefix-cache checkpoint and quality probes
 microbench/             tensor-core issue rate (mma_rate.cu), GEMM, attention and MoE microbenchmarks
@@ -204,7 +218,7 @@ docs/upstream-issues.md bugs and limitations found in vLLM / FlashInfer, for rep
 
 ```sh
 scripts/build_patched.sh                 # pristine files from the image + patches -> build/
-CONFIG=optimized scripts/serve.sh        # or production / tuned; NSYS=1 to profile
+CONFIG=next scripts/serve.sh             # or production / tuned / optimized; NSYS=1 to profile
 bench/throughput_sweep.sh results/throughput/optimized.tsv
 python3 eval/nll_lic.py out.json 10
 ```

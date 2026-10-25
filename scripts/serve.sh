@@ -2,10 +2,12 @@
 # Start a vLLM v0.32.0 bench server for unsloth/Qwen3.6-35B-A3B-NVFP4-Fast on one SM120 GPU.
 # Model flags mirror the production deployment (MTP-2, prefix caching, async scheduling).
 #
-# usage: CONFIG=<production|tuned|optimized> scripts/serve.sh [extra vllm serve args]
+# usage: CONFIG=<production|tuned|optimized|next> scripts/serve.sh [extra vllm serve args]
 #   production  vLLM defaults for batching and CUDA graph sizes
 #   tuned       + --max-num-batched-tokens 16384, CUDA graphs captured up to 16384 tokens
 #   optimized   tuned + patches 01/02 with all three env flags on
+#   next        optimized + one-kernel FP8 attention (03), 16-token kernel pages under a 2176 block (04),
+#               fused GDN conv (05); needs a build/ made from all five patches (scripts/build_patched.sh)
 # env: FLAGS     extra docker args, e.g. FLAGS="-e VLLM_SM120_FP8_PREFILL=0" to ablate one patch
 #      NSYS=1    run under `nsys launch` so scripts/nsys_capture.sh can record a window
 #      NOSPEC=1  drop MTP speculative decoding
@@ -34,6 +36,18 @@ case $CONFIG in
       -v $D/.cache/flashinfer:/root/.cache/flashinfer
       -v $D/build/vllm/v1/attention/backends/flashinfer.py:$PKG/v1/attention/backends/flashinfer.py:ro
       -v $D/build/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:$PKG/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:ro"
+    ;;
+  next)
+    [ -f $D/build/vllm/v1/attention/backends/sm120_fp8_fmha_glue.py ] || { echo "build/ predates patches 03-05: run scripts/build_patched.sh" >&2; exit 1; }
+    VARGS="$TUNED --block-size 2176"
+    B=$D/build/vllm
+    DOCKER="$DOCKER -e VLLM_SM120_FP8_PREFILL=1 -e VLLM_SM120_FP8_PREFILL_NOGLUE=1 -e VLLM_FI_KERNEL_PAGES=16
+      -e VLLM_GDN_INTERNAL_CKPT=1 -e VLLM_GDN_FUSED_CONV=1
+      -v $D/.cache/flashinfer:/root/.cache/flashinfer
+      -v $B/v1/attention/backends/flashinfer.py:$PKG/v1/attention/backends/flashinfer.py:ro
+      -v $B/v1/attention/backends/sm120_fp8_fmha_glue.py:$PKG/v1/attention/backends/sm120_fp8_fmha_glue.py:ro
+      -v $B/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:$PKG/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:ro
+      -v $B/model_executor/layers/mamba/ops/fused_conv_post_conv.py:$PKG/model_executor/layers/mamba/ops/fused_conv_post_conv.py:ro"
     ;;
   *) echo "unknown CONFIG=$CONFIG" >&2; exit 1 ;;
 esac

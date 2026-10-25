@@ -14,8 +14,8 @@ THEMES = {
                  axis="#383835", box="#262624", s=["#3987e5", "#d95926", "#199e70", "#9479e0"]),
 }
 # colour follows the entity in every chart
-SLOT = {"optimized": 0, "tuned": 1, "production": 2}
-LABEL = {"production": "production", "tuned": "tuned (config)", "optimized": "optimized (config + patches)"}
+SLOT = {"optimized": 0, "tuned": 1, "production": 2, "next": 3}
+LABEL = {"production": "production", "tuned": "tuned (config)", "optimized": "optimized (config + patches)", "next": "next (+ patches 03-05)"}
 
 
 class Svg:
@@ -108,7 +108,8 @@ def chart_span(t):
              ("tuned: CUDA graphs to 16k tokens", span("tuned")),
              ("+ FP8 attention prefill (patch 01)", span("fp8attn")),
              ("+ GDN output in place (patch 02)", span("fp8attn_gdn_inplace")),
-             ("+ in-forward checkpoint (patch 02)", span("optimized"))]
+             ("+ in-forward checkpoint (patch 02)", span("optimized")),
+             ("next: + one-kernel attn, fused GDN conv", span("next"))]
     s = Svg(720, 76 + 44 * len(steps) + 30, t, "8k-token prefill, GPU time per request",
             "nsys GPU span, single request, lower is better")
     x0, x1, vmax = 270, 650, nice_max(max(v for _, v in steps))
@@ -124,7 +125,7 @@ def chart_span(t):
         s.hbar(x0, y + 2, X(v), 22, t["s"][0])
         s.text(X(v) + 8, y + 18, f"{v:.0f} ms", weight=600)
     s.line(x0, top - 6, x0, top + 44 * len(steps) - 10, t["axis"])
-    s.save("prefill-span", "8k prefill GPU time per request: 369 ms with vLLM defaults, 163 ms tuned, 133 ms optimized")
+    s.save("prefill-span", "8k prefill GPU time per request: 369 ms with vLLM defaults, 163 ms tuned, 133 ms optimized, 125 ms next")
 
 
 def chart_throughput(t):
@@ -186,10 +187,10 @@ def line_chart(t, name, title, subtitle, series, xs, xlabel, ylabel, label, logx
 
 
 def chart_ttft(t):
-    series = {"tuned": ttft("tuned"), "optimized": ttft("optimized")}
+    series = {"tuned": ttft("tuned"), "optimized": ttft("optimized"), "next": ttft("next")}
     xs = sorted(series["tuned"])
     line_chart(t, "ttft", "Single-request TTFT by prompt length", "median of 8 requests, lower is better",
-               series, xs, "prompt tokens", "ms", "TTFT by prompt length: optimized is 12-17% lower than tuned from 5k tokens up")
+               series, xs, "prompt tokens", "ms", "TTFT by prompt length: optimized is 12-17% lower than tuned from 5k tokens up; next is lower still")
 
 
 def chart_agentic(t, kind):

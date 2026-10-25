@@ -1,0 +1,54 @@
+=== optimized
+-- 8192
+Mean TTFT (ms):                          208.52    
+
+3000 standalone kernels, 176 graph launches; 4 busy windows
+  window 0:  747 kernels +  44 graphs  span  136.8 ms  GPU busy  123.8 ms =  91%
+  window 1:  750 kernels +  44 graphs  span  136.5 ms  GPU busy  123.5 ms =  91%
+  window 2:  750 kernels +  44 graphs  span  137.1 ms  GPU busy  124.5 ms =  91%
+  window 3:  750 kernels +  44 graphs  span  136.9 ms  GPU busy  124.8 ms =  91%
+  overall: span 547.3 ms, busy 91%
+-- 32768
+Mean TTFT (ms):                          770.11    
+
+5980 standalone kernels, 352 graph launches; 4 busy windows
+  window 0: 1489 kernels +  88 graphs  span  571.5 ms  GPU busy  561.2 ms =  98%
+  window 1: 1489 kernels +  88 graphs  span  572.7 ms  GPU busy  562.3 ms =  98%
+  window 2: 1489 kernels +  88 graphs  span  575.1 ms  GPU busy  563.5 ms =  98%
+  window 3: 1489 kernels +  88 graphs  span  576.0 ms  GPU busy  563.3 ms =  98%
+  overall: span 2295.4 ms, busy 98%
+=== next
+-- 8192
+Mean TTFT (ms):                          167.68    
+
+2712 standalone kernels, 176 graph launches; 4 busy windows
+  window 0:  678 kernels +  44 graphs  span  124.8 ms  GPU busy  117.0 ms =  94%
+  window 1:  678 kernels +  44 graphs  span  124.8 ms  GPU busy  116.7 ms =  94%
+  window 2:  678 kernels +  44 graphs  span  125.0 ms  GPU busy  117.7 ms =  94%
+  window 3:  678 kernels +  44 graphs  span  125.8 ms  GPU busy  118.0 ms =  94%
+  overall: span 500.4 ms, busy 94%
+-- 32768
+Mean TTFT (ms):                          715.30    
+
+5404 standalone kernels, 352 graph launches; 4 busy windows
+  window 0: 1345 kernels +  88 graphs  span  552.1 ms  GPU busy  538.2 ms =  97%
+  window 1: 1345 kernels +  88 graphs  span  550.5 ms  GPU busy  539.7 ms =  98%
+  window 2: 1345 kernels +  88 graphs  span  551.6 ms  GPU busy  540.8 ms =  98%
+  window 3: 1345 kernels +  88 graphs  span  551.5 ms  GPU busy  540.8 ms =  98%
+  overall: span 2205.7 ms, busy 98%
+next_p16: hits/prompt=6709  mean TV(top20)=0.1180  max TV=0.2916  top1 agree=10/12
+  per-prompt TV: 0.057 0.126 0.049 0.031 0.068 0.292 0.169 0.118 0.075 0.058 0.144 0.227
+prefill 2048: Mean TTFT (ms): 73.77  Median TTFT (ms): 72.44  
+prefill 4096: Mean TTFT (ms): 109.34  Median TTFT (ms): 109.33  
+prefill 5000: Mean TTFT (ms): 116.14  Median TTFT (ms): 119.00  
+prefill 8192: Mean TTFT (ms): 188.33  Median TTFT (ms): 189.75  
+prefill 16384: Mean TTFT (ms): 365.06  Median TTFT (ms): 383.49  
+prefill 32768: Mean TTFT (ms): 791.39  Median TTFT (ms): 856.32  
+decode c=1: Output token throughput (tok/s): 313.66  Median TPOT (ms): 2.73  Median ITL (ms): 6.53  
+decode c=4: Output token throughput (tok/s): 799.06  Median TPOT (ms): 3.97  Median ITL (ms): 8.19  
+decode c=16: Output token throughput (tok/s): 1883.82  Median TPOT (ms): 7.44  Median ITL (ms): 14.19  
+decode c=64: Output token throughput (tok/s): 3561.30  Median TPOT (ms): 15.67  Median ITL (ms): 28.91  
+decode c=1: Output token throughput (tok/s): 300.15  Median TPOT (ms): 2.96  Median ITL (ms): 6.56  
+decode c=4: Output token throughput (tok/s): 887.05  Median TPOT (ms): 3.83  Median ITL (ms): 8.33  
+decode c=16: Output token throughput (tok/s): 1963.54  Median TPOT (ms): 7.14  Median ITL (ms): 14.07  
+decode c=64: Output token throughput (tok/s): 3629.92  Median TPOT (ms): 15.62  Median ITL (ms): 28.85  

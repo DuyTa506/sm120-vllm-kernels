@@ -1,5 +1,5 @@
 #!/bin/bash
-# Extract the pristine vLLM files from the image and apply our patches into sm120-vllm/build/vllm/.
+# Extract the pristine vLLM files from the image and apply patches 01-05 into build/vllm/ (all env-gated, default off).
 # The patched files are then bind-mounted over the image's copies by serve.sh (CONFIG=optimized).
 set -e
 D=$(cd "$(dirname "$0")/.." && pwd)

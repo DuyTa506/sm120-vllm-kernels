@@ -1,0 +1,9 @@
+-- 8192
+Mean TTFT (ms):                          167.68    
+
+2712 standalone kernels, 176 graph launches; 4 busy windows
+  window 0:  678 kernels +  44 graphs  span  124.8 ms  GPU busy  117.0 ms =  94%
+  window 1:  678 kernels +  44 graphs  span  124.8 ms  GPU busy  116.7 ms =  94%
+  window 2:  678 kernels +  44 graphs  span  125.0 ms  GPU busy  117.7 ms =  94%
+  window 3:  678 kernels +  44 graphs  span  125.8 ms  GPU busy  118.0 ms =  94%
+  overall: span 500.4 ms, busy 94%
