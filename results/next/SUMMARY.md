@@ -43,4 +43,20 @@ page-64 loss. c=1-16 are within the MTP acceptance spread.
 - Patch 03 output is bitwise identical to patch 01's path; patch 05 is checked against the unfused kernels in
   `kernels/gdn-conv-fusion/test_correctness.py`.
 
-Not yet run on next: the 7-scenario throughput sweep and the full agentic replay (1-32 agents).
+## Throughput sweep (`results/throughput/next.tsv`, `vllm bench serve`, random prompts, fixed seeds, one run per config)
+
+| scenario | optimized total tok/s | next | change | median TTFT optimized / next (ms) |
+|---|---:|---:|---:|---:|
+| long-doc 32k, c=2 | 30923 | 30633 | -0.9% | 1193 / 1020 |
+| prefill-heavy 8k, c=8 | 40748 | 40880 | +0.3% | 372 / 448 |
+| rag 4k, c=16 | 23485 | 23394 | -0.4% | 201 / 212 |
+| shared-prefix, c=16 | 26780 | 26427 | -1.3% | 261 / 238 |
+| mixed-len 4k, c=32 | 18372 | 19677 | +7.1% | 251 / 217 |
+| chat 1k, c=32 | 7928 | 8166 | +3.0% | 167 / 152 |
+| decode-heavy, c=64 | 4498 | 4579 | +1.8% | 173 / 182 |
+
+Most rows are inside single-run noise. The gain of `next` is prefill latency (span and TTFT above), not mixed-load
+throughput. Long-doc median TPOT is worse (6.0 -> 7.5 ms); not yet re-measured.
+
+The agentic replay of `next` was not run: agentic runs are reserved for the final combination of kernels that win
+their individual A/B.
