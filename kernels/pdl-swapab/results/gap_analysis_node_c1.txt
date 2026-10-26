@@ -1,0 +1,61 @@
+graph sizes (kernels: launches): {30: 326, 1072: 323, 38: 323, 29: 87, 27: 30, 5: 3, 25: 3, 6: 3}
+
+=== target verify graph: 1072 kernels/launch, 323 launches, streams 2
+  node-trace span   4883.8 us | sum of kernel durations   5548.1 us | gap total     41.7 us (0.9% of span) | mean gap 39 ns
+  gaps: 1071 per launch; <2us 1071, <1us 1071, <0.5us 1071; overlapped(neg) 674
+  gap percentiles (ns): p10 0  p50 0  p90 96  p99 320  max 577080
+  top neighbour pairs by total gap (us per launch / pairs per launch / mean gap ns / mean dur of 2nd kernel):
+       11.2 us x 40.0     280 ns   triton:red_fused__to_copy_abs_add_a -> fp8_gemm
+        4.4 us x 10.0     444 ns   xqa_attn -> triton:red_fused__to_copy_abs_amax_
+        3.8 us x 40.0      95 ns   doActivation -> memset
+        3.8 us x 40.0      95 ns   memset -> moe_grouped_gemm
+        3.8 us x 40.0      95 ns   fp8_gemm -> triton:red_fused__to_copy_add_fused
+        3.8 us x 39.0      97 ns   moe_grouped_gemm -> triton:red_fused__to_copy_abs_add_a
+        3.8 us x 40.0      94 ns   triton:red_fused__to_copy_abs_amax_ -> fp8_gemm
+        3.0 us x 30.0      98 ns   bf16_wmma_gemm -> triton:poi_fused_zeros
+        2.9 us x 30.0      98 ns   conv1d -> gdn_decode
+        2.8 us x 30.0      95 ns   gdn_decode -> triton:red_fused__to_copy_abs_amax_
+        2.8 us x 30.0      93 ns   fp8_gemm -> bf16_wmma_gemm
+        1.0 us x 10.0      99 ns   fp8_gemm -> rope_kvwrite
+        1.0 us x 10.0      98 ns   rope_kvwrite -> rope_kvwrite
+        0.4 us x  0.0  120574 ns   elementwise -> bf16_wmma_gemm
+
+=== MTP drafter graph (38 kernels): 38 kernels/launch, 323 launches, streams 2
+  node-trace span    544.9 us | sum of kernel durations    554.6 us | gap total      6.6 us (1.2% of span) | mean gap 178 ns
+  gaps: 37 per launch; <2us 37, <1us 35, <0.5us 35; overlapped(neg) 11
+  gap percentiles (ns): p10 0  p50 96  p90 352  p99 2592  max 3264
+  top neighbour pairs by total gap (us per launch / pairs per launch / mean gap ns / mean dur of 2nd kernel):
+        2.2 us x  1.0    2151 ns   memset -> void at::native::reduce_kernel<(int)512,
+        1.3 us x  1.0    1329 ns   fp8_gemm -> memset
+        0.5 us x  1.0     485 ns   finalizeMoe -> triton:red_fused__to_copy_add_fused
+        0.4 us x  1.0     370 ns   rope_kvwrite -> xqa_attn
+        0.3 us x  3.0      94 ns   memcpy -> memcpy
+        0.2 us x  1.0     227 ns   xqa_attn -> triton:poi_fused_mul_sigmoid_view
+        0.2 us x  4.0      49 ns   bf16_wmma_gemm -> bf16_wmma_gemm
+        0.1 us x  1.0     103 ns   expandInputRows -> void fused_moe::run_global<fused_moe::Fu
+        0.1 us x  1.0     102 ns   bf16_wmma_gemm -> triton:red_fused__to_copy_add_fused
+        0.1 us x  1.0     102 ns   triton:poi_fused_mul_sigmoid_view -> bf16_wmma_gemm
+        0.1 us x  1.0     100 ns   elementwise -> triton:red_fused
+        0.1 us x  1.0     100 ns   triton:red_fused__to_copy_add_fused -> elementwise
+        0.1 us x  1.0     100 ns   elementwise -> triton:red_fused__to_copy_abs_amax_
+        0.1 us x  1.0      99 ns   bf16_wmma_gemm -> rope_kvwrite
+
+=== MTP drafter graph (30 kernels): 30 kernels/launch, 326 launches, streams 2
+  node-trace span    470.5 us | sum of kernel durations    483.9 us | gap total      5.2 us (1.1% of span) | mean gap 180 ns
+  gaps: 29 per launch; <2us 29, <1us 28, <0.5us 27; overlapped(neg) 11
+  gap percentiles (ns): p10 0  p50 96  p90 448  p99 2144  max 2720
+  top neighbour pairs by total gap (us per launch / pairs per launch / mean gap ns / mean dur of 2nd kernel):
+        1.4 us x  1.0    1354 ns   fp8_gemm -> memset
+        1.3 us x  1.0    1272 ns   memset -> void at::native::reduce_kernel<(int)512,
+        0.5 us x  1.0     477 ns   finalizeMoe -> triton:red_fused__to_copy_add_fused
+        0.4 us x  1.0     444 ns   xqa_attn -> triton:poi_fused_mul_sigmoid_view
+        0.3 us x  1.0     340 ns   rope_kvwrite -> xqa_attn
+        0.2 us x  1.0     211 ns   void at::native::reduce_kernel<(int)512, -> _update_draft_inputs_kernel
+        0.1 us x  1.0     104 ns   bf16_wmma_gemm -> rope_kvwrite
+        0.1 us x  1.0     104 ns   gemv -> triton:red_fused__to_copy_add_fused
+        0.1 us x  1.0     102 ns   triton:red_fused__to_copy_add_rms_n -> bf16_wmma_gemm
+        0.1 us x  1.0     101 ns   triton:red_fused__to_copy_add_fused -> gemv
+        0.1 us x  1.0     100 ns   triton:red_fused__to_copy_add_fused -> triton:red_fused__to_copy_abs_amax_
+        0.1 us x  1.0      98 ns   triton:red_fused__to_copy_abs_amax_ -> fp8_gemm
+        0.1 us x  1.0      94 ns   gemv -> triton:red_fused__to_copy_add_rms_n
+        0.1 us x  1.0      91 ns   triton:red_fused -> gemv

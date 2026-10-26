@@ -1,0 +1,154 @@
+
+=== STAGE ours_cold start 18:38:39
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2:  95%|█████████▌| 21/22 [00:04<00:00,  3.65profile/s]2026-10-25 18:39:07,812 - INFO - autotuner.py:2473 - flashinfer.jit: [Autotuner]: Skipped 2 unsupported tactic(s) for trtllm::fused_moe::gemm2 (enable debug logs to see details)
+[AutoTuner]: Tuning trtllm::fused_moe::gemm2: 100%|██████████| 22/22 [00:05<00:00,  2.97profile/s][AutoTuner]: Tuning trtllm::fused_moe::gemm2: 100%|██████████| 22/22 [00:05<00:00,  4.20profile/s]
+2026-10-25 18:39:07,813 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 3, 'seed': 0, 'active': 21, 'max_count': 2, 'warm_us': 33.54559987783432, 'cold_us': 44.122666120529175, 'cold_min': 43.78133515516917, 'cold_max': 45.706664522488914, 'gpu': '2790 MHz, 388.74 W, 55, 4450 MiB'}
+2026-10-25 18:39:07,885 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:07,891 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 3, 'seed': 1, 'active': 23, 'max_count': 2, 'warm_us': 33.68320018053055, 'cold_us': 45.72533319393794, 'cold_min': 45.4720010360082, 'cold_max': 46.00533346335093, 'gpu': '2790 MHz, 388.74 W, 55, 4394 MiB'}
+2026-10-25 18:39:07,942 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:07,949 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 3, 'seed': 2, 'active': 21, 'max_count': 2, 'warm_us': 32.93440043926239, 'cold_us': 43.3306669195493, 'cold_min': 42.965332667032875, 'cold_max': 43.99466514587402, 'gpu': '2790 MHz, 388.74 W, 55, 4394 MiB'}
+2026-10-25 18:39:08,012 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,017 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 12, 'seed': 0, 'active': 64, 'max_count': 9, 'warm_us': 50.13120174407959, 'cold_us': 93.21333467960358, 'cold_min': 92.91199843088786, 'cold_max': 93.6906635761261, 'gpu': '2790 MHz, 388.74 W, 55, 4394 MiB'}
+2026-10-25 18:39:08,081 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,087 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 12, 'seed': 1, 'active': 60, 'max_count': 7, 'warm_us': 51.08799934387207, 'cold_us': 88.8266662756602, 'cold_min': 88.33600083986919, 'cold_max': 89.0880028406779, 'gpu': '2790 MHz, 388.74 W, 55, 4394 MiB'}
+2026-10-25 18:39:08,151 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,156 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 12, 'seed': 2, 'active': 65, 'max_count': 5, 'warm_us': 53.20320129394531, 'cold_us': 94.12266810735066, 'cold_min': 93.56799721717834, 'cold_max': 94.94400024414062, 'gpu': '2790 MHz, 388.74 W, 55, 4394 MiB'}
+2026-10-25 18:39:08,244 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,249 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 48, 'seed': 0, 'active': 147, 'max_count': 34, 'warm_us': 194.14080381393433, 'cold_us': 194.21866536140442, 'cold_min': 193.00800561904907, 'cold_max': 195.18399238586426, 'gpu': '2790 MHz, 388.74 W, 55, 4394 MiB'}
+2026-10-25 18:39:08,358 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,364 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 48, 'seed': 1, 'active': 137, 'max_count': 29, 'warm_us': 181.65119886398315, 'cold_us': 181.16266528765362, 'cold_min': 180.32532930374146, 'cold_max': 182.29333559672037, 'gpu': '2865 MHz, 343.64 W, 54, 4394 MiB'}
+2026-10-25 18:39:08,468 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,473 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 48, 'seed': 2, 'active': 128, 'max_count': 39, 'warm_us': 172.42559790611267, 'cold_us': 171.74399892489114, 'cold_min': 171.0453430811564, 'cold_max': 172.9546586672465, 'gpu': '2865 MHz, 343.64 W, 54, 4394 MiB'}
+2026-10-25 18:39:08,574 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,580 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 192, 'seed': 0, 'active': 194, 'max_count': 137, 'warm_us': 252.5887966156006, 'cold_us': 252.25866834322613, 'cold_min': 251.2106696764628, 'cold_max': 254.1173299153646, 'gpu': '2865 MHz, 343.64 W, 54, 4394 MiB'}
+2026-10-25 18:39:08,713 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,719 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 192, 'seed': 1, 'active': 200, 'max_count': 133, 'warm_us': 259.7632050514221, 'cold_us': 259.65332984924316, 'cold_min': 258.2826614379883, 'cold_max': 261.3813281059265, 'gpu': '2865 MHz, 343.64 W, 54, 4396 MiB'}
+2026-10-25 18:39:08,851 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,856 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 192, 'seed': 2, 'active': 198, 'max_count': 146, 'warm_us': 259.6768021583557, 'cold_us': 258.42667619387305, 'cold_min': 256.6666603088379, 'cold_max': 259.8293423652649, 'gpu': '2857 MHz, 292.99 W, 54, 4394 MiB'}
+2026-10-25 18:39:08,990 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-10-25 18:39:08,996 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'T': 8192, 'seed': 0, 'active': 243, 'max_count': 6007, 'warm_us': 852.5728225708008, 'cold_us': 858.4933280944824, 'cold_min': 855.130672454834, 'cold_max': 867.4666881561279, 'gpu': '2857 MHz, 292.99 W, 54, 4984 MiB'}
+
+=== STAGE graph_safety_more start 18:39:11
+MODE fp8_labels128_G288_w2
+SM120GemmDesc(gemm_type=1, kernel_type=0, m=102528, n=4096, k=256, num_groups=288, major_a=0, major_b=0, mma_kind=1, a_dtype=Float8_e4m3fn, b_dtype=Float8_e4m3fn, cd_dtype=BFloat16, with_accumulation=0, num_sms=188, tc_util=100, compiled_dims=nk, max_gran_k=128, cd_n_contiguous=1, ensure_zero_padding=1, expected_m=102528, expected_n=4096, expected_k=256, expected_num_groups=1): SM120GemmConfig(layout=Layout(swap_ab=0, block_m=128, block_n=128, block_k=64, cluster_m=1, cluster_n=1), storage_config=StorageConfig(load_block_m=128, load_block_n=128, store_block_m=64, store_block_n=0, swizzle_a_mode=64, swizzle_b_mode=64, swizzle_cd_mode=128), pipeline_config=PipelineConfig(smem_size=86272, num_stages=4, num_tma_store_stages=0), launch_config=LaunchConfig(num_sms=188, num_sms_per_cluster=1, num_threads=384, num_tma_threads=128, num_math_threads=256, num_non_epilogue_threads=0, num_epilogue_threads=0), split_k=1), LayoutInfo(num_waves=137, last_wave_util=64, num_cycles=974650)
+{'mode': 'fp8_labels128_G288_w2', 'G': 288, 'N': 4096, 'K': 256, 'replays_done': 1000, 'replays_requested': 1000, 'routings': 48, 'bitwise_mismatch_vs_eager': 0, 'ref_mismatch': 0, 'worst_calc_diff_vs_fp32': 1.3908945099005976e-06, 'error': None, 'bad_routings': [], 'seconds': 11.968270063400269, 'gpu': '2842 MHz, 364.57 W, 56, 8594 MiB'}
+MODE fp8_masked_G288
+SM120GemmDesc(gemm_type=2, kernel_type=0, m=192, n=512, k=4096, num_groups=288, major_a=0, major_b=0, mma_kind=1, a_dtype=Float8_e4m3fn, b_dtype=Float8_e4m3fn, cd_dtype=BFloat16, with_accumulation=0, num_sms=188, tc_util=100, compiled_dims=nk, max_gran_k=128, cd_n_contiguous=1, ensure_zero_padding=1, expected_m=8, expected_n=512, expected_k=4096, expected_num_groups=288): SM120GemmConfig(layout=Layout(swap_ab=0, block_m=32, block_n=64, block_k=128, cluster_m=1, cluster_n=1), storage_config=StorageConfig(load_block_m=32, load_block_n=64, store_block_m=32, store_block_n=0, swizzle_a_mode=128, swizzle_b_mode=128, swizzle_cd_mode=128), pipeline_config=PipelineConfig(smem_size=93056, num_stages=7, num_tma_store_stages=0), launch_config=LaunchConfig(num_sms=188, num_sms_per_cluster=1, num_threads=384, num_tma_threads=128, num_math_threads=256, num_non_epilogue_threads=0, num_epilogue_threads=0), split_k=1), LayoutInfo(num_waves=13, last_wave_util=48, num_cycles=413876)
+{'mode': 'fp8_masked_G288', 'G': 288, 'N': 512, 'K': 4096, 'replays_done': 1000, 'replays_requested': 1000, 'routings': 48, 'bitwise_mismatch_vs_eager': 0, 'ref_mismatch': 0, 'worst_calc_diff_vs_fp32': 1.5257960795933556e-06, 'error': None, 'bad_routings': [], 'seconds': 0.9760944843292236, 'gpu': '2835 MHz, 276.67 W, 55, 2576 MiB'}
+MODE fp8_masked_G288_w2
+SM120GemmDesc(gemm_type=2, kernel_type=0, m=192, n=4096, k=256, num_groups=288, major_a=0, major_b=0, mma_kind=1, a_dtype=Float8_e4m3fn, b_dtype=Float8_e4m3fn, cd_dtype=BFloat16, with_accumulation=0, num_sms=188, tc_util=100, compiled_dims=nk, max_gran_k=128, cd_n_contiguous=1, ensure_zero_padding=1, expected_m=8, expected_n=4096, expected_k=256, expected_num_groups=288): SM120GemmConfig(layout=Layout(swap_ab=0, block_m=32, block_n=64, block_k=128, cluster_m=1, cluster_n=1), storage_config=StorageConfig(load_block_m=32, load_block_n=64, store_block_m=32, store_block_n=0, swizzle_a_mode=128, swizzle_b_mode=128, swizzle_cd_mode=128), pipeline_config=PipelineConfig(smem_size=93056, num_stages=7, num_tma_store_stages=0), launch_config=LaunchConfig(num_sms=188, num_sms_per_cluster=1, num_threads=384, num_tma_threads=128, num_math_threads=256, num_non_epilogue_threads=0, num_epilogue_threads=0), split_k=1), LayoutInfo(num_waves=99, last_wave_util=8, num_cycles=382614)
+{'mode': 'fp8_masked_G288_w2', 'G': 288, 'N': 4096, 'K': 256, 'replays_done': 1000, 'replays_requested': 1000, 'routings': 48, 'bitwise_mismatch_vs_eager': 0, 'ref_mismatch': 0, 'worst_calc_diff_vs_fp32': 1.4308722373623795e-06, 'error': None, 'bad_routings': [], 'seconds': 1.3012773990631104, 'gpu': '2835 MHz, 340.45 W, 55, 2162 MiB'}
+MODE fp8_psum128_G288
+SM120GemmDesc(gemm_type=5, kernel_type=0, m=102528, n=512, k=4096, num_groups=288, major_a=0, major_b=0, mma_kind=1, a_dtype=Float8_e4m3fn, b_dtype=Float8_e4m3fn, cd_dtype=BFloat16, with_accumulation=0, num_sms=188, tc_util=100, compiled_dims=nk, max_gran_k=128, cd_n_contiguous=1, ensure_zero_padding=1, expected_m=256, expected_n=512, expected_k=4096, expected_num_groups=288): SM120GemmConfig(layout=Layout(swap_ab=0, block_m=128, block_n=128, block_k=128, cluster_m=1, cluster_n=1), storage_config=StorageConfig(load_block_m=128, load_block_n=128, store_block_m=128, store_block_n=0, swizzle_a_mode=128, swizzle_b_mode=128, swizzle_cd_mode=128), pipeline_config=PipelineConfig(smem_size=100608, num_stages=2, num_tma_store_stages=0), launch_config=LaunchConfig(num_sms=188, num_sms_per_cluster=1, num_threads=384, num_tma_threads=128, num_math_threads=256, num_non_epilogue_threads=0, num_epilogue_threads=0), split_k=1), LayoutInfo(num_waves=13, last_wave_util=48, num_cycles=1045321)
+{'mode': 'fp8_psum128_G288', 'G': 288, 'N': 512, 'K': 4096, 'replays_done': 1000, 'replays_requested': 1000, 'routings': 48, 'bitwise_mismatch_vs_eager': 0, 'ref_mismatch': 0, 'worst_calc_diff_vs_fp32': 1.511179057667178e-06, 'error': None, 'bad_routings': [], 'seconds': 3.974989175796509, 'gpu': '2662 MHz, 350.31 W, 57, 3314 MiB'}
+MODE fp8_masked_w2
+SM120GemmDesc(gemm_type=2, kernel_type=0, m=192, n=2048, k=512, num_groups=256, major_a=0, major_b=0, mma_kind=1, a_dtype=Float8_e4m3fn, b_dtype=Float8_e4m3fn, cd_dtype=BFloat16, with_accumulation=0, num_sms=188, tc_util=100, compiled_dims=nk, max_gran_k=128, cd_n_contiguous=1, ensure_zero_padding=1, expected_m=8, expected_n=2048, expected_k=512, expected_num_groups=256): SM120GemmConfig(layout=Layout(swap_ab=0, block_m=32, block_n=64, block_k=128, cluster_m=1, cluster_n=1), storage_config=StorageConfig(load_block_m=32, load_block_n=64, store_block_m=32, store_block_n=0, swizzle_a_mode=128, swizzle_b_mode=128, swizzle_cd_mode=128), pipeline_config=PipelineConfig(smem_size=93056, num_stages=7, num_tma_store_stages=0), launch_config=LaunchConfig(num_sms=188, num_sms_per_cluster=1, num_threads=384, num_tma_threads=128, num_math_threads=256, num_non_epilogue_threads=0, num_epilogue_threads=0), split_k=1), LayoutInfo(num_waves=44, last_wave_util=108, num_cycles=252101)
+{'mode': 'fp8_masked_w2', 'G': 256, 'N': 2048, 'K': 512, 'replays_done': 1000, 'replays_requested': 1000, 'routings': 48, 'bitwise_mismatch_vs_eager': 0, 'ref_mismatch': 0, 'worst_calc_diff_vs_fp32': 1.4450427741063976e-06, 'error': None, 'bad_routings': [], 'seconds': 1.0446557998657227, 'gpu': '2835 MHz, 305.79 W, 55, 1650 MiB'}
+MODE fp8_labels128_w2
+SM120GemmDesc(gemm_type=1, kernel_type=0, m=98432, n=2048, k=512, num_groups=256, major_a=0, major_b=0, mma_kind=1, a_dtype=Float8_e4m3fn, b_dtype=Float8_e4m3fn, cd_dtype=BFloat16, with_accumulation=0, num_sms=188, tc_util=100, compiled_dims=nk, max_gran_k=128, cd_n_contiguous=1, ensure_zero_padding=1, expected_m=98432, expected_n=2048, expected_k=512, expected_num_groups=1): SM120GemmConfig(layout=Layout(swap_ab=0, block_m=128, block_n=128, block_k=64, cluster_m=1, cluster_n=1), storage_config=StorageConfig(load_block_m=128, load_block_n=128, store_block_m=64, store_block_n=0, swizzle_a_mode=64, swizzle_b_mode=64, swizzle_cd_mode=128), pipeline_config=PipelineConfig(smem_size=86272, num_stages=4, num_tma_store_stages=0), launch_config=LaunchConfig(num_sms=188, num_sms_per_cluster=1, num_threads=384, num_tma_threads=128, num_math_threads=256, num_non_epilogue_threads=0, num_epilogue_threads=0), split_k=1), LayoutInfo(num_waves=66, last_wave_util=84, num_cycles=807079)
+{'mode': 'fp8_labels128_w2', 'G': 256, 'N': 2048, 'K': 512, 'replays_done': 1000, 'replays_requested': 1000, 'routings': 48, 'bitwise_mismatch_vs_eager': 0, 'ref_mismatch': 0, 'worst_calc_diff_vs_fp32': 1.4394446812282524e-06, 'error': None, 'bad_routings': [], 'seconds': 6.603620767593384, 'gpu': '2805 MHz, 343.98 W, 57, 4470 MiB'}
+
+=== STAGE grouped_repeat start 18:39:52
+   {'kind': 'contiguous', 'fmt': 'fp8', 'routing': 'L19', 'gemm': 1, 'N': 1024, 'K': 2048, 'layout': 'labels', 'align': 64, 'm_total': 74112, 'rows_valid': 65536, 'active': 243, 'max_count': 6007, 'us': 672.136, 'us_min': 649.832, 'us_max': 676.896, 'tflops_useful': 408.962, 'tflops_padded': 462.478, 'w_TBps': 0.758, 'pad_overhead': 1.131, 'calc_diff': 0.0, 'layout_swap': 0, 'block_m': 64, 'block_n': 128, 'block_k': 64, 'stages': 6, 'kernel': 'void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<0u, 1024u, 2048u, 128u, 128u, 256u, 64u, 128u, 64u, 64u, 64u, 128u, 6u, 128u, 256u, 188u, (deep_gemm::GemmType)1, false, cutlass::bfloat16_t, deep_gemm::epilogue::transform::EpilogueIdentity, false, false, false, true, false, 64u, 1u, 128u>(cutlass::bfloat16_t*, cutlass::bfloat16_t const*, __nv_fp8_e4m3*, __nv_fp8_e4m3*, int*, CUtensorMap_st*, float*, u'}
+   {'kind': 'contiguous', 'fmt': 'fp8', 'routing': 'L19', 'gemm': 1, 'N': 1024, 'K': 2048, 'layout': 'psum', 'align': 64, 'm_total': 74112, 'rows_valid': 65536, 'active': 243, 'max_count': 6007, 'us': 640.536, 'us_min': 624.576, 'us_max': 649.16, 'tflops_useful': 429.137, 'tflops_padded': 485.294, 'w_TBps': 0.796, 'pad_overhead': 1.131, 'calc_diff': 0.0, 'layout_swap': 0, 'block_m': 64, 'block_n': 128, 'block_k': 128, 'stages': 3, 'kernel': 'void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<0u, 1024u, 2048u, 128u, 128u, 256u, 64u, 128u, 128u, 128u, 128u, 128u, 3u, 128u, 256u, 188u, (deep_gemm::GemmType)5, false, cutlass::bfloat16_t, deep_gemm::epilogue::transform::EpilogueIdentity, false, false, false, true, false, 64u, 1u, 128u>(cutlass::bfloat16_t*, cutlass::bfloat16_t const*, __nv_fp8_e4m3*, __nv_fp8_e4m3*, int*, CUtensorMap_st*, float*'}
+   {'kind': 'contiguous', 'fmt': 'fp8', 'routing': 'L19', 'gemm': 1, 'N': 1024, 'K': 2048, 'layout': 'labels', 'align': 128, 'm_total': 83456, 'rows_valid': 65536, 'active': 243, 'max_count': 6007, 'us': 637.272, 'us_min': 624.656, 'us_max': 641.88, 'tflops_useful': 431.335, 'tflops_padded': 549.279, 'w_TBps': 0.8, 'pad_overhead': 1.273, 'calc_diff': 0.0, 'layout_swap': 0, 'block_m': 128, 'block_n': 128, 'block_k': 64, 'stages': 4, 'kernel': 'void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<0u, 1024u, 2048u, 128u, 128u, 256u, 128u, 128u, 64u, 64u, 64u, 128u, 4u, 128u, 256u, 188u, (deep_gemm::GemmType)1, false, cutlass::bfloat16_t, deep_gemm::epilogue::transform::EpilogueIdentity, false, false, false, true, false, 64u, 1u, 128u>(cutlass::bfloat16_t*, cutlass::bfloat16_t const*, __nv_fp8_e4m3*, __nv_fp8_e4m3*, int*, CUtensorMap_st*, float*, '}
+   {'kind': 'loop_scaled_mm', 'fmt': 'fp8', 'routing': 'L19', 'gemm': 1, 'N': 1024, 'K': 2048, 'layout': 'loop', 'align': 16, 'm_total': 67408, 'rows_valid': 65536, 'active': 243, 'max_count': 6007, 'us': 2950.176, 'us_min': 2945.872, 'us_max': 2982.032, 'tflops_useful': 93.173, 'w_TBps': 0.173}
+   {'kind': 'contiguous', 'fmt': 'fp8', 'routing': 'L19', 'gemm': 1, 'N': 1024, 'K': 2048, 'layout': 'psum', 'align': 128, 'm_total': 83456, 'rows_valid': 65536, 'active': 243, 'max_count': 6007, 'us': 594.468, 'us_min': 591.736, 'us_max': 600.256, 'tflops_useful': 462.393, 'tflops_padded': 588.829, 'w_TBps': 0.857, 'pad_overhead': 1.273, 'calc_diff': 0.0, 'layout_swap': 0, 'block_m': 128, 'block_n': 128, 'block_k': 128, 'stages': 2, 'kernel': 'void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<0u, 1024u, 2048u, 128u, 128u, 256u, 128u, 128u, 128u, 128u, 128u, 128u, 2u, 128u, 256u, 188u, (deep_gemm::GemmType)5, false, cutlass::bfloat16_t, deep_gemm::epilogue::transform::EpilogueIdentity, false, false, false, true, false, 128u, 1u, 128u>(cutlass::bfloat16_t*, cutlass::bfloat16_t const*, __nv_fp8_e4m3*, __nv_fp8_e4m3*, int*, CUtensorMap_st*, floa'}
+
+=== STAGE tests_gemm start 18:39:57
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[8-0] PASSED    
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[8-1] PASSED    
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[8-127] PASSED  
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[8-128] PASSED  
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[8-129] PASSED  
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[24-0] PASSED   
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[24-1] PASSED   
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[24-127] PASSED 
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[24-128] PASSED 
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[24-129] PASSED 
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[128-0] PASSED  
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[128-1] PASSED  
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[128-127] PASSED
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[128-128] PASSED
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_contract[128-129] PASSED
+tests/test_sm120_gemm.py::test_sm120_hc_strided_output[0] PASSED        
+tests/test_sm120_gemm.py::test_sm120_hc_strided_output[1] PASSED        
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_graph[False-None] PASSED
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_graph[False-3] PASSED   
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_graph[False-16] PASSED  
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_graph[True-None] PASSED 
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_graph[True-3] PASSED    
+tests/test_sm120_gemm.py::test_sm120_hc_prenorm_graph[True-16] PASSED   
+tests/test_sm120_gemm.py::test_sm120_fp8_einsum_contract[dtype0-bhr,hdr->bhd] PASSED
+tests/test_sm120_gemm.py::test_sm120_fp8_einsum_contract[dtype0-bhd,hdr->bhr] PASSED
+tests/test_sm120_gemm.py::test_sm120_fp8_einsum_contract[dtype0-bhd,bhr->hdr] PASSED
+tests/test_sm120_gemm.py::test_sm120_fp8_einsum_contract[dtype1-bhr,hdr->bhd] PASSED
+tests/test_sm120_gemm.py::test_sm120_fp8_einsum_contract[dtype1-bhd,hdr->bhr] PASSED
+tests/test_sm120_gemm.py::test_sm120_fp8_einsum_contract[dtype1-bhd,bhr->hdr] PASSED
+tests/test_sm120_gemm.py::test_sm120_bf16_batch_reduction[dtype0] PASSED
+tests/test_sm120_gemm.py::test_sm120_bf16_batch_reduction[dtype1] PASSED
+tests/test_sm120_gemm.py::test_sm120_bf16_batch_reduction_empty_graph[dtype0] PASSED
+tests/test_sm120_gemm.py::test_sm120_bf16_batch_reduction_empty_graph[dtype1] PASSED
+tests/test_sm120_gemm.py::test_sm120_dense_fp8_fp4_formats_alpha PASSED 
+tests/test_sm120_gemm.py::test_sm120_dense_fp8_fp4_swap_boundary PASSED 
+tests/test_sm120_gemm.py::test_sm120_dense_fp8_fp4_tails_large PASSED   
+tests/test_sm120_gemm.py::test_sm120_dense_fp8_fp4_graph_pdl PASSED     
+tests/test_sm120_gemm.py::test_sm120_dense_fp8_fp4_explicit_rejections PASSED
+tests/test_sm120_gemm.py::test_sm120_dense_scaling_defaults PASSED      
+tests/test_sm120_gemm.py::test_sm120_dense_scaling_blockwise_tails PASSED
+tests/test_sm120_gemm.py::test_sm120_dense_scaling_graph PASSED         
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[labels-a32-n1-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[labels-a32-n1-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[labels-a64-n33-graph-padded-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[labels-a64-n33-graph-padded-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[labels-a128-n65-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[labels-a128-n65-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[labels-a32-n72-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[labels-a32-n72-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[psum-a32-n33-graph-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[psum-a32-n33-graph-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[psum-a64-n1-padded-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[psum-a64-n1-padded-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[psum-a128-n65-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[psum-a128-n65-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[psum-a64-n72-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[psum-a64-n72-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[masked-a32-n8-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[masked-a32-n8-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[masked-a64-n24-graph-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[masked-a64-n24-graph-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[masked-a128-n72-fp8b] PASSED
+tests/test_sm120_gemm.py::test_sm120_grouped_tma_layout_contract[masked-a128-n72-fp4b] PASSED
+tests/test_sm120_gemm.py::test_sm120_quant_grouped_formats PASSED       
+tests/test_sm120_gemm.py::test_sm120_quant_grouped_block_scales PASSED  
+tests/test_sm120_gemm.py::test_sm120_quant_grouped_defaults PASSED      
+tests/test_sm120_gemm.py::test_sm120_quant_grouped_graph_mutation PASSED
+tests/test_sm120_gemm.py::test_sm120_quant_grouped_all_empty PASSED     
+tests/test_sm120_gemm.py::test_sm120_quant_grouped_zero_m PASSED        
+tests/test_sm120_gemm.py::test_sm120_k_grouped_fp8_contracts PASSED     
+tests/test_sm120_gemm.py::test_sm120_k_grouped_fp8_graph PASSED         
+tests/test_sm120_gemm.py::test_sm120_k_grouped_fp8_empty PASSED         
+tests/test_sm120_gemm.py::test_sm120_k_grouped_fp4_unsupported_rejection PASSED
+============================= slowest 5 durations ==============================
+162.81s call     tests/test_sm120_gemm.py::test_sm120_quant_grouped_formats
+102.01s call     tests/test_sm120_gemm.py::test_sm120_k_grouped_fp8_contracts
+101.40s call     tests/test_sm120_gemm.py::test_sm120_dense_scaling_blockwise_tails
+58.00s call     tests/test_sm120_gemm.py::test_sm120_quant_grouped_block_scales
+54.95s call     tests/test_sm120_gemm.py::test_sm120_quant_grouped_defaults
+=========== 73 passed, 1 deselected, 2 warnings in 647.81s (0:10:47) ===========
+
+=== STAGE end start 18:50:47
+exit=0

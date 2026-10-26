@@ -1,0 +1,23 @@
+# L=16 layers, M=16, E=6 tiny kernels/layer, 160 kernels per graph, weights 538 MB, reps=100 x samples=9 x rounds=4
+# output checksum plain                                            4da6b9c5 (== plain)
+# output checksum gemm-only PDL, wait+trigger                      4da6b9c5 (== plain)
+# output checksum gemm-only PDL, +weight regs before wait          4da6b9c5 (== plain)
+# output checksum gemm-only PDL, +L2 bulk prefetch before wait     4da6b9c5 (== plain)
+# output checksum all PDL, wait+trigger                            4da6b9c5 (== plain)
+# output checksum all PDL, +weight regs before wait                4da6b9c5 (== plain)
+# output checksum all PDL, +L2 bulk prefetch before wait           4da6b9c5 (== plain)
+# output checksum glue/tiny PDL only (gemm plain)                  4da6b9c5 (== plain)
+
+config (chain of real-shaped skinny kernels)        median us     min us  us/kernel  vs plain
+plain                                                   476.1      475.7      2.976     +0.0%  (+0.0 us)
+gemm-only PDL, wait+trigger                             477.6      477.3      2.985     +0.3%  (+1.5 us)
+gemm-only PDL, +weight regs before wait                 479.1      478.8      2.994     +0.6%  (+3.0 us)
+gemm-only PDL, +L2 bulk prefetch before wait            502.4      502.0      3.140     +5.5%  (+26.3 us)
+all PDL, wait+trigger                                   468.6      467.9      2.929     -1.6%  (-7.6 us)
+all PDL, +weight regs before wait                       485.3      484.0      3.033     +1.9%  (+9.2 us)
+all PDL, +L2 bulk prefetch before wait                  445.0      443.7      2.781     -6.5%  (-31.1 us)
+glue/tiny PDL only (gemm plain)                         453.5      453.3      2.834     -4.8%  (-22.7 us)
+
+floor: chain of 600 dependent tiny elementwise kernels (4 CTAs each, ~no work)
+  plain         417.5 us  = 0.696 us/kernel
+  all PDL       311.4 us  = 0.519 us/kernel

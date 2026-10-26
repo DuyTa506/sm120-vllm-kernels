@@ -3,11 +3,13 @@
 # Run inside ONE hold of the GPU lock:
 #   flock $LOCK sg docker -c "kernels/cache-granularity/run_config.sh <label> <production|optimized> [vllm args]"
 # env: STEPS   space-separated subset of: short1 short8 long1 long8 hotcold ckpt  (default: all)
-#      PORT    (8117)   NAME (cache-granularity)
+#      PORT    (default: first free port in 8121-8130)   NAME (cache-granularity)
 set -u
 H=$(cd "$(dirname "$0")" && pwd); D=$(cd $H/../.. && pwd)
 LABEL=$1; CFG=$2; shift 2
-export PORT=${PORT:-8117} NAME=${NAME:-cache-granularity}
+# first free port in 8121-8130 (other agents also use the 8110-8130 range)
+if [ -z "${PORT:-}" ]; then for p in $(seq 8121 8130); do ss -ltn | grep -q "127.0.0.1:$p " || { PORT=$p; break; }; done; fi
+export PORT NAME=${NAME:-cache-granularity}
 export BENCH_URL=http://127.0.0.1:$PORT
 O=$H/results/$LABEL; mkdir -p $O
 STEPS=${STEPS:-"short1 short8 long1 long8 hotcold"}

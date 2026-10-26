@@ -14,7 +14,8 @@ unsloth/Qwen3.6-35B-A3B-NVFP4-Fast under vLLM v0.32.0 on one RTX PRO 6000 Blackw
 * **Decode (M ≤ 64): a new skinny-M tensor-core GEMV beats vLLM's CUTLASS kernels by 1-3 µs per call.**
   It is shipped as a patch gated by `VLLM_SM120_SKINNY_FP8=1`. Per MTP-2 decode step that saves about
   **0.19 ms at c=1 and c=4 (about 3% of the 6.5 ms step)** and about 0.13 ms at c=16 (kernel-level
-  estimate; end-to-end in the e2e section). The kernel reaches the DRAM floor: 1.45-1.67 TB/s on
+  estimate). **Measured end to end: c=1 median ITL drops 6.48 → 6.31 ms and 6.51 → 6.40 ms in two
+  A/B runs (-0.11 to -0.17 ms, -1.7 to -2.6%).** At c ≥ 4 the change is within benchmark noise. The kernel reaches the DRAM floor: 1.45-1.67 TB/s on
   cold weights, versus 1.0-1.3 TB/s for vLLM on the small-N shapes.
 * lm_head (248320 x 2048 FP8, 508 MB) is already close to bandwidth speed in vLLM: 1.62 TB/s, 315 µs.
   The skinny kernel gets 1.65 TB/s (309.5 µs). lm_head runs **3 times per decode step**: one verify call
@@ -167,7 +168,25 @@ bits exactly.
 
 ## 5. End-to-end
 
-RESULTS_E2E
+`e2e_decode.sh off|on` A/B uses the same `CONFIG=optimized` server (patches 01/02, MTP-2, CUDA
+graphs), run back to back, with `bench/bench_decode.sh` (random 128-in/512-out). Run 2 uses
+`quick_decode.sh` (16 / 32 prompts). Logs are in `results/e2e_*`.
+
+| run | c | median ITL off → on (ms) | Δ | median TPOT off → on (ms) |
+|---|---|---|---|---|
+| 1 | 1 | 6.48 → 6.31 | **-0.17 (-2.6%)** | 2.97 → 2.85 |
+| 1 | 4 | 8.03 → 8.12 | +0.09 | 3.94 → 3.65 |
+| 1 | 16 | 14.30 → 14.13 | -0.17 | 7.37 → 7.49 |
+| 1 | 64 | 28.71 → 28.62 | -0.09 (path not used at M=192) | 15.72 → 15.74 |
+| 2 | 1 | 6.51 → 6.40 | **-0.11 (-1.7%)** | 2.83 → 2.82 |
+| 2 | 4 | 8.35 → 8.22 | -0.13 | 3.71 → 3.71 |
+
+The c=1 step time drops by 0.11-0.17 ms. The kernel-level estimate was 0.19 ms, so this is
+consistent. At c ≥ 4 the change is inside the run-to-run noise of this benchmark (about ±0.15 ms
+median ITL). Output tok/s is dominated by the MTP acceptance rate on random prompts (for example,
+305 vs 338 tok/s at c=1 in run 2), so it is not a usable A/B metric here. The server log confirms
+the path is active ("SM120 skinny FP8 GEMM loaded"). The first start adds about 1 min of nvcc JIT,
+which is cached afterwards.
 
 ## 6. Patch
 

@@ -1,0 +1,12 @@
+filler alone: 12.90 us per layer
+  M | skinny+topk   fused  fused+pf   (router cost per layer = chain time minus filler)   | saved vs skinny+topk: fused  fused+pf  (us/layer)
+      cluster: 5.74  cluster+pf: 4.90  (saved vs skinny+topk -0.56 / 0.28)
+  1 |        5.18    4.36      4.77                                                       |   0.82     0.41
+      cluster: 5.79  cluster+pf: 5.23  (saved vs skinny+topk 2.41 / 2.97)
+  3 |        8.20    4.97      4.77                                                       |   3.23     3.43
+      cluster: 5.79  cluster+pf: 5.43  (saved vs skinny+topk 1.23 / 1.59)
+  4 |        7.02    4.97      4.77                                                       |   2.05     2.25
+      cluster: 5.97  cluster+pf: 6.66  (saved vs skinny+topk 1.05 / 0.36)
+  8 |        7.02    5.48      4.79                                                       |   1.54     2.23
+      cluster: 7.33  cluster+pf: 6.81  (saved vs skinny+topk -0.20 / 0.31)
+ 16 |        7.12    6.92      6.71                                                       |   0.20     0.41

@@ -1,0 +1,12 @@
+=== fp4 warm
+=== fp4 timed
+done
+=== dense extra M (c=16/64 MTP-2 sizes)
+  skinny         326.5 us    99.7 TFLOPS    1606 GB/s
+  skinny         320.6 us   152.3 TFLOPS    1661 GB/s
+  skinny          20.1 us    80.0 TFLOPS    1292 GB/s
+  skinny          20.6 us   117.3 TFLOPS    1284 GB/s
+  skinny           8.8 us    61.0 TFLOPS     983 GB/s
+  skinny           9.2 us    87.2 TFLOPS     951 GB/s
+end
+exit=0

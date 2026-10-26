@@ -1,0 +1,56 @@
+  M | cublas+topk skinny+topk skinnyNoRule gemm only topk only | fused dflt fused best (nt,nw,split) | saved vs skinny+topk  us/layer  us/step(41 layers)
+      cluster (nt,nw,cs)=(1,8,8): 12.29
+      cluster (nt,nw,cs)=(1,8,16): 9.16
+      cluster (nt,nw,cs)=(1,16,8): 8.24
+      cluster (nt,nw,cs)=(1,16,16): 6.50
+      cluster variant best (nt,nw,cs)=(1, 16, 16): 6.50 us/layer  (split-K best 5.63, skinny+topk 6.20, cublas+topk 6.76)
+  1 |        6.76        6.20         6.25      3.02      3.53 |       5.61       5.63 (1, 4, 4) |   0.56       23
+      cluster (nt,nw,cs)=(1,8,8): 12.34
+      cluster (nt,nw,cs)=(1,8,16): 9.22
+      cluster (nt,nw,cs)=(1,16,8): 8.37
+      cluster (nt,nw,cs)=(1,16,16): 6.66
+      cluster variant best (nt,nw,cs)=(1, 16, 16): 6.66 us/layer  (split-K best 5.68, skinny+topk 6.86, cublas+topk 14.95)
+  2 |       14.95        6.86         6.86      3.69      3.58 |       5.68       5.68 (1, 4, 4) |   1.18       48
+      cluster (nt,nw,cs)=(1,8,8): 12.34
+      cluster (nt,nw,cs)=(1,8,16): 9.22
+      cluster (nt,nw,cs)=(1,16,8): 8.35
+      cluster (nt,nw,cs)=(1,16,16): 6.71
+      cluster variant best (nt,nw,cs)=(1, 16, 16): 6.71 us/layer  (split-K best 5.73, skinny+topk 8.32, cublas+topk 14.95)
+  3 |       14.95        8.32         8.35      5.12      3.58 |       5.73       5.73 (1, 4, 4) |   2.59      106
+      cluster (nt,nw,cs)=(1,8,8): 12.39
+      cluster (nt,nw,cs)=(1,8,16): 9.27
+      cluster (nt,nw,cs)=(1,16,8): 8.40
+      cluster (nt,nw,cs)=(1,16,16): 6.76
+      cluster variant best (nt,nw,cs)=(1, 16, 16): 6.76 us/layer  (split-K best 5.79, skinny+topk 7.83, cublas+topk 7.83)
+  4 |        7.83        9.11         9.11      5.84      3.64 |       5.79       5.79 (1, 4, 4) |   2.05       84
+      cluster (nt,nw,cs)=(1,8,8): 12.13
+      cluster (nt,nw,cs)=(1,8,16): 9.37
+      cluster (nt,nw,cs)=(1,16,8): 8.42
+      cluster (nt,nw,cs)=(1,16,16): 6.91
+      cluster variant best (nt,nw,cs)=(1, 16, 16): 6.91 us/layer  (split-K best 5.99, skinny+topk 7.83, cublas+topk 7.83)
+  6 |        7.83        9.01         9.01      5.73      3.64 |       5.99       5.99 (1, 12, 2) |   1.84       76
+      cluster (nt,nw,cs)=(1,8,8): 12.44
+      cluster (nt,nw,cs)=(1,8,16): 9.42
+      cluster (nt,nw,cs)=(1,16,8): 8.42
+      cluster (nt,nw,cs)=(1,16,16): 7.01
+      cluster variant best (nt,nw,cs)=(1, 16, 16): 7.01 us/layer  (split-K best 6.09, skinny+topk 7.88, cublas+topk 7.88)
+  8 |        7.88        9.06         9.06      5.79      3.64 |       6.09       6.09 (1, 12, 2) |   1.79       73
+      cluster (nt,nw,cs)=(2,8,8): 11.29
+      cluster (nt,nw,cs)=(2,8,16): 9.27
+      cluster (nt,nw,cs)=(2,16,8): 8.19
+      cluster (nt,nw,cs)=(2,16,16): 7.68
+      cluster variant best (nt,nw,cs)=(2, 16, 16): 7.68 us/layer  (split-K best 6.50, skinny+topk 7.94, cublas+topk 7.94)
+ 12 |        7.94        9.22         9.22      5.94      3.69 |       6.50       6.50 (2, 12, 2) |   1.43       59
+      cluster (nt,nw,cs)=(2,8,8): 11.31
+      cluster (nt,nw,cs)=(2,8,16): 9.42
+      cluster (nt,nw,cs)=(2,16,8): 8.29
+      cluster (nt,nw,cs)=(2,16,16): 7.88
+      cluster variant best (nt,nw,cs)=(2, 16, 16): 7.88 us/layer  (split-K best 7.12, skinny+topk 8.04, cublas+topk 8.04)
+ 16 |        8.04        9.37         9.37      6.09      3.69 |       7.12       7.12 (2, 16, 2) |   0.92       38
+      cluster (nt,nw,cs)=(3,8,8): 11.90
+      cluster (nt,nw,cs)=(3,8,16): 11.67
+      cluster (nt,nw,cs)=(3,16,8): 8.29
+      cluster (nt,nw,cs)=(3,16,16): 8.88
+      cluster variant best (nt,nw,cs)=(3, 16, 8): 8.29 us/layer  (split-K best 9.11, skinny+topk 8.29, cublas+topk 8.29)
+ 24 |        8.29        9.96         9.96      6.66      3.74 |       9.11       9.11 (3, 16, 2) |  -0.82      -34
+{"1": {"cluster": 6.50240033864975, "cluster_cfg": [1, 16, 16], "cublas": 6.758400052785873, "skinny": 6.195199862122536, "skinny_all": 6.245600059628487, "gemm": 3.0215999111533165, "topk": 3.5331999883055687, "fused": 5.605999939143658, "fused_best": 5.631199851632118, "cfg": [1, 4, 4]}, "2": {"cluster": 6.656000018119812, "cluster_cfg": [1, 16, 16], "cublas": 14.950400590896606, "skinny": 6.860800087451935, "skinny_all": 6.860800087451935, "gemm": 3.6855999380350113, "topk": 3.5840000957250595, "fused": 5.6832000613212585, "fused_best": 5.6832000613212585, "cfg": [1, 4, 4]}, "3": {"cluster": 6.707199662923813, "cluster_cfg": [1, 16, 16], "cublas": 14.950400590896606, "skinny": 8.32040011882782, "skinny_all": 8.345600217580795, "gemm": 5.119999870657921, "topk": 3.5840000957250595, "fused": 5.734400078654289, "fused_best": 5.734400078654289, "cfg": [1, 4, 4]}, "4": {"cluster": 6.758400052785873, "cluster_cfg": [1, 16, 16], "cublas": 7.833600044250488, "skinny": 7.833600044250488, "skinny_all": 9.114400297403336, "gemm": 5.836800113320351, "topk": 3.63520011305809, "fused": 5.78560009598732, "fused_best": 5.78560009598732, "cfg": [1, 4, 4]}, "6": {"cluster": 6.911999732255936, "cluster_cfg": [1, 16, 16], "cublas": 7.833600044250488, "skinny": 7.833600044250488, "skinny_all": 9.011200070381165, "gemm": 5.734400078654289, "topk": 3.63520011305809, "fused": 5.990400165319443, "fused_best": 5.990400165319443, "cfg": [1, 12, 2]}, "8": {"cluster": 7.014399766921997, "cluster_cfg": [1, 16, 16], "cublas": 7.884799689054489, "skinny": 7.884799689054489, "skinny_all": 9.062399715185165, "gemm": 5.78560009598732, "topk": 3.63520011305809, "fused": 6.092799827456474, "fused_best": 6.092399917542934, "cfg": [1, 12, 2]}, "12": {"cluster": 7.680000364780426, "cluster_cfg": [2, 16, 16], "cublas": 7.93600007891655, "skinny": 7.93600007891655, "skinny_all": 9.216000139713287, "gemm": 5.938399955630302, "topk": 3.686000034213066, "fused": 6.50160014629364, "fused_best": 6.50240033864975, "cfg": [2, 12, 2]}, "16": {"cluster": 7.884799689054489, "cluster_cfg": [2, 16, 16], "cublas": 8.038400113582611, "skinny": 8.038400113582611, "skinny_all": 9.36959981918335, "gemm": 6.092799827456474, "topk": 3.686400130391121, "fused": 7.1167998015880585, "fused_best": 7.1167998015880585, "cfg": [2, 16, 2]}, "24": {"cluster": 8.294399827718735, "cluster_cfg": [3, 16, 8], "cublas": 8.293599635362625, "skinny": 8.294399827718735, "skinny_all": 9.957999736070633, "gemm": 6.656000018119812, "topk": 3.7376001477241516, "fused": 9.113600105047226, "fused_best": 9.114400297403336, "cfg": [3, 16, 2]}}

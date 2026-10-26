@@ -1,0 +1,74 @@
+[20261026-031225] start session-cache-verify port 8121 CONFIG=production STOCK=0 DEBUGDUMP=1 VENV= args: 
+82ef771067f2e8eb2f67fb79c13eeffe47626995c5faa68c68a50fb53cdaa577
+waiting for session-cache-verify on :8121 (CONFIG=production)
+ready
+server up after 153s
++ S=../../results/agentic/trajectories_short_production.json
++ O=verify_results/F
++ mkdir -p verify_results/F
++ python3 verify_state_fork.py ../../results/agentic/trajectories_short_production.json verify_results/F/cases.json --sessions 0,1,2,3,4,5
+{"session": "4-chain-0", "turn": 0, "kind": "chain", "sid": "vfst-4102835-1792959298-S-4", "n": 1160, "prev_n": null, "cached": 0, "prompt": 1132, "t_done": 1792959299.4589436}
+{"session": "5-chain-0", "turn": 0, "kind": "chain", "sid": "vfst-4102835-1792959298-S-5", "n": 1162, "prev_n": null, "cached": 0, "prompt": 1134, "t_done": 1792959299.6903737}
+{"session": "2-chain-0", "turn": 0, "kind": "chain", "sid": "vfst-4102835-1792959298-S-2", "n": 1173, "prev_n": null, "cached": 0, "prompt": 1129, "t_done": 1792959300.2882252}
+{"session": "1-chain-0", "turn": 0, "kind": "chain", "sid": "vfst-4102835-1792959298-S-1", "n": 1180, "prev_n": null, "cached": 0, "prompt": 1128, "t_done": 1792959300.8588243}
+{"session": "0-chain-0", "turn": 0, "kind": "chain", "sid": "vfst-4102835-1792959298-S-0", "n": 1207, "prev_n": null, "cached": 0, "prompt": 1156, "t_done": 1792959300.8560781}
+{"session": "3-chain-0", "turn": 0, "kind": "chain", "sid": "vfst-4102835-1792959298-S-3", "n": 1220, "prev_n": null, "cached": 0, "prompt": 1150, "t_done": 1792959302.0999348}
+{"session": "5-chain-1", "turn": 1, "kind": "chain", "sid": "vfst-4102835-1792959298-S-5", "n": 1234, "prev_n": 1162, "cached": 1161, "prompt": 1209, "t_done": 1792959303.5834422}
+{"session": "2-chain-1", "turn": 1, "kind": "chain", "sid": "vfst-4102835-1792959298-S-2", "n": 1239, "prev_n": 1173, "cached": 1173, "prompt": 1211, "t_done": 1792959304.1605144}
+{"session": "4-chain-1", "turn": 1, "kind": "chain", "sid": "vfst-4102835-1792959298-S-4", "n": 4827, "prev_n": 1160, "cached": 1160, "prompt": 4771, "t_done": 1792959304.4492445}
+{"session": "1-chain-1", "turn": 1, "kind": "chain", "sid": "vfst-4102835-1792959298-S-1", "n": 4336, "prev_n": 1180, "cached": 1180, "prompt": 4290, "t_done": 1792959305.2735815}
+{"session": "0-chain-1", "turn": 1, "kind": "chain", "sid": "vfst-4102835-1792959298-S-0", "n": 4664, "prev_n": 1207, "cached": 1207, "prompt": 4607, "t_done": 1792959305.5618331}
+{"session": "5-forkEarlyB-2", "turn": 2, "kind": "forkEarlyB", "sid": "vfst-4102835-1792959298-S-5", "n": 2063, "prev_n": 1234, "cached": 1234, "prompt": 2054, "t_done": 1792959306.2766995}
+{"session": "3-chain-1", "turn": 1, "kind": "chain", "sid": "vfst-4102835-1792959298-S-3", "n": 5120, "prev_n": 1220, "cached": 1219, "prompt": 5063, "t_done": 1792959306.5558937}
+{"session": "2-forkEarlyB-2", "turn": 2, "kind": "forkEarlyB", "sid": "vfst-4102835-1792959298-S-2", "n": 4599, "prev_n": 1239, "cached": 1239, "prompt": 4585, "t_done": 1792959307.570939}
+{"session": "5-forkEarlyA-2", "turn": 2, "kind": "forkEarlyA", "sid": "vfst-4102835-1792959298-S-5", "n": 2088, "prev_n": 1234, "cached": 1234, "prompt": 2061, "t_done": 1792959306.981633}
+{"session": "4-forkEarlyB-2", "turn": 2, "kind": "forkEarlyB", "sid": "vfst-4102835-1792959298-S-4", "n": 7696, "prev_n": 4827, "cached": 4827, "prompt": 7678, "t_done": 1792959309.104898}
+{"session": "0-forkEarlyB-2", "turn": 2, "kind": "forkEarlyB", "sid": "vfst-4102835-1792959298-S-0", "n": 4869, "prev_n": 4664, "cached": 4664, "prompt": 4851, "t_done": 1792959310.222906}
+{"session": "2-forkEarlyA-2", "turn": 2, "kind": "forkEarlyA", "sid": "vfst-4102835-1792959298-S-2", "n": 4634, "prev_n": 1239, "cached": 1239, "prompt": 4592, "t_done": 1792959308.6658947}
+{"session": "3-forkEarlyB-2", "turn": 2, "kind": "forkEarlyB", "sid": "vfst-4102835-1792959298-S-3", "n": 7059, "prev_n": 5120, "cached": 5120, "prompt": 7040, "t_done": 1792959311.0143967}
+{"session": "4-forkEarlyA-2", "turn": 2, "kind": "forkEarlyA", "sid": "vfst-4102835-1792959298-S-4", "n": 7741, "prev_n": 4827, "cached": 4827, "prompt": 7685, "t_done": 1792959310.4613178}
+{"session": "5-afterForkEarly-3", "turn": 3, "kind": "afterForkEarly", "sid": "vfst-4102835-1792959298-S-5", "n": 5963, "prev_n": 2088, "cached": 2088, "prompt": 5908, "t_done": 1792959314.1750104}
+{"session": "0-forkEarlyA-2", "turn": 2, "kind": "forkEarlyA", "sid": "vfst-4102835-1792959298-S-0", "n": 4914, "prev_n": 4664, "cached": 4664, "prompt": 4858, "t_done": 1792959311.5562391}
+{"session": "3-forkEarlyA-2", "turn": 2, "kind": "forkEarlyA", "sid": "vfst-4102835-1792959298-S-3", "n": 7104, "prev_n": 5120, "cached": 5120, "prompt": 7047, "t_done": 1792959312.5602071}
+{"session": "0-afterForkEarly-3", "turn": 3, "kind": "afterForkEarly", "sid": "vfst-4102835-1792959298-S-0", "n": 7878, "prev_n": 4914, "cached": 4914, "prompt": 7831, "t_done": 1792959318.7013705}
+{"session": "5-chain-4", "turn": 4, "kind": "chain", "sid": "vfst-4102835-1792959298-S-5", "n": 7611, "prev_n": 5963, "cached": 5962, "prompt": 7556, "t_done": 1792959318.7277792}
+{"session": "0-chain-4", "turn": 4, "kind": "chain", "sid": "vfst-4102835-1792959298-S-0", "n": 7979, "prev_n": 7878, "cached": 7877, "prompt": 7919, "t_done": 1792959322.053946}
+{"session": "5-forkLateB-5", "turn": 5, "kind": "forkLateB", "sid": "vfst-4102835-1792959298-S-5", "n": 8888, "prev_n": 7611, "cached": 7611, "prompt": 8723, "t_done": 1792959324.832928}
+{"session": "5-forkLateA-5", "turn": 5, "kind": "forkLateA", "sid": "vfst-4102835-1792959298-S-5", "n": 8785, "prev_n": 7611, "cached": 7611, "prompt": 8730, "t_done": 1792959322.0557663}
+{"session": "0-forkLateB-5", "turn": 5, "kind": "forkLateB", "sid": "vfst-4102835-1792959298-S-0", "n": 10186, "prev_n": 7979, "cached": 7979, "prompt": 10015, "t_done": 1792959328.4776185}
+{"session": "0-forkLateA-5", "turn": 5, "kind": "forkLateA", "sid": "vfst-4102835-1792959298-S-0", "n": 10079, "prev_n": 7979, "cached": 7979, "prompt": 10022, "t_done": 1792959325.975202}
+{"session": "0-afterForkLate-6", "turn": 6, "kind": "afterForkLate", "sid": "vfst-4102835-1792959298-S-0", "n": 13613, "prev_n": 10079, "cached": 2128, "prompt": 13556, "t_done": 1792959332.461796}
+{"session": "2-afterForkEarly-3", "turn": 3, "kind": "afterForkEarly", "sid": "vfst-4102835-1792959298-S-2", "n": 8172, "prev_n": 4634, "cached": 4634, "prompt": 7305, "t_done": 1792959334.9949691}
+{"session": "3-afterForkEarly-3", "turn": 3, "kind": "afterForkEarly", "sid": "vfst-4102835-1792959298-S-3", "n": 9025, "prev_n": 7104, "cached": 7104, "prompt": 8133, "t_done": 1792959337.4475162}
+{"session": "2-chain-4", "turn": 4, "kind": "chain", "sid": "vfst-4102835-1792959298-S-2", "n": 8268, "prev_n": 8172, "cached": 8172, "prompt": 8200, "t_done": 1792959339.0329497}
+{"session": "4-afterForkEarly-3", "turn": 3, "kind": "afterForkEarly", "sid": "vfst-4102835-1792959298-S-4", "n": 11585, "prev_n": 7741, "cached": 7740, "prompt": 10425, "t_done": 1792959342.6437345}
+{"session": "5-afterForkLate-6", "turn": 6, "kind": "afterForkLate", "sid": "vfst-4102835-1792959298-S-5", "n": 10898, "prev_n": 8785, "cached": 2128, "prompt": 9798, "t_done": 1792959346.618268}
+{"session": "1-forkEarlyB-2", "turn": 2, "kind": "forkEarlyB", "sid": "vfst-4102835-1792959298-S-1", "n": 5203, "prev_n": 4336, "cached": 4335, "prompt": 4553, "t_done": 1792959328.330339}
+{"session": "1-forkEarlyA-2", "turn": 2, "kind": "forkEarlyA", "sid": "vfst-4102835-1792959298-S-1", "n": 6510, "prev_n": 4336, "cached": 4335, "prompt": 4560, "t_done": 1792959349.892292}
+{"session": "1-afterForkEarly-3", "turn": 3, "kind": "afterForkEarly", "sid": "vfst-4102835-1792959298-S-1", "n": 6606, "prev_n": 6510, "cached": 6510, "prompt": 6538, "t_done": 1792959353.3877418}
+{"session": "4-chain-4", "turn": 4, "kind": "chain", "sid": "vfst-4102835-1792959298-S-4", "n": 13084, "prev_n": 11585, "cached": 11585, "prompt": 11613, "t_done": 1792959357.466101}
+{"session": "4-forkLateB-5", "turn": 5, "kind": "forkLateB", "sid": "vfst-4102835-1792959298-S-4", "n": 13179, "prev_n": 13084, "cached": 13083, "prompt": 13107, "t_done": 1792959360.558237}
+{"session": "2-forkLateB-5", "turn": 5, "kind": "forkLateB", "sid": "vfst-4102835-1792959298-S-2", "n": 10312, "prev_n": 8268, "cached": 8267, "prompt": 8353, "t_done": 1792959361.718542}
+{"session": "4-forkLateA-5", "turn": 5, "kind": "forkLateA", "sid": "vfst-4102835-1792959298-S-4", "n": 13138, "prev_n": 13084, "cached": 13083, "prompt": 13114, "t_done": 1792959360.404461}
+{"session": "2-forkLateA-5", "turn": 5, "kind": "forkLateA", "sid": "vfst-4102835-1792959298-S-2", "n": 9013, "prev_n": 8268, "cached": 8267, "prompt": 8360, "t_done": 1792959349.4804666}
+{"session": "4-afterForkLate-6", "turn": 6, "kind": "afterForkLate", "sid": "vfst-4102835-1792959298-S-4", "n": 13366, "prev_n": 13138, "cached": 0, "prompt": 13300, "t_done": 1792959368.6402302}
+{"session": "1-chain-4", "turn": 4, "kind": "chain", "sid": "vfst-4102835-1792959298-S-1", "n": 11433, "prev_n": 6606, "cached": 6606, "prompt": 9424, "t_done": 1792959373.0935395}
+{"session": "3-chain-4", "turn": 4, "kind": "chain", "sid": "vfst-4102835-1792959298-S-3", "n": 12357, "prev_n": 9025, "cached": 9024, "prompt": 9053, "t_done": 1792959374.7809057}
+{"session": "3-forkLateB-5", "turn": 5, "kind": "forkLateB", "sid": "vfst-4102835-1792959298-S-3", "n": 12453, "prev_n": 12357, "cached": 12357, "prompt": 12381, "t_done": 1792959378.8078845}
+{"session": "3-forkLateA-5", "turn": 5, "kind": "forkLateA", "sid": "vfst-4102835-1792959298-S-3", "n": 12412, "prev_n": 12357, "cached": 12357, "prompt": 12388, "t_done": 1792959378.6464503}
+{"session": "3-afterForkLate-6", "turn": 6, "kind": "afterForkLate", "sid": "vfst-4102835-1792959298-S-3", "n": 12622, "prev_n": 12412, "cached": 0, "prompt": 12574, "t_done": 1792959383.6233199}
+{"session": "2-afterForkLate-6", "turn": 6, "kind": "afterForkLate", "sid": "vfst-4102835-1792959298-S-2", "n": 11203, "prev_n": 9013, "cached": 0, "prompt": 9041, "t_done": 1792959388.0898361}
+{"session": "1-forkLateB-5", "turn": 5, "kind": "forkLateB", "sid": "vfst-4102835-1792959298-S-1", "n": 20508, "prev_n": 11433, "cached": 11432, "prompt": 11454, "t_done": 1792959409.1155882}
+{"session": "1-forkLateA-5", "turn": 5, "kind": "forkLateA", "sid": "vfst-4102835-1792959298-S-1", "n": 14479, "prev_n": 11433, "cached": 11432, "prompt": 11461, "t_done": 1792959395.352606}
+{"session": "1-afterForkLate-6", "turn": 6, "kind": "afterForkLate", "sid": "vfst-4102835-1792959298-S-1", "n": 14534, "prev_n": 14479, "cached": 0, "prompt": 14510, "t_done": 1792959415.9512274}
++ docker exec session-cache-verify python3 /w/state_check_analyze.py /tmp/ssdump /w/verify_results/F/cases.json
++ docker cp session-cache-verify:/tmp/ssdump/meta.jsonl verify_results/F/meta.jsonl
++ docker exec session-cache-verify ls /tmp/ssdump
++ docker logs session-cache-verify
++ grep 'Session state cache:'
++ tail -1
+(EngineCore pid=337) INFO 10-25 20:16:58 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 55, 'finished': 360, 'hit': 42, 'miss_no_entry': 320, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 323}
+stage exit 0 after 277s
+(EngineCore pid=337) INFO 10-25 20:16:57 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 53, 'finished': 358, 'hit': 42, 'miss_no_entry': 318, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 321}
+(EngineCore pid=337) INFO 10-25 20:16:57 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 54, 'finished': 359, 'hit': 42, 'miss_no_entry': 319, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 322}
+(EngineCore pid=337) INFO 10-25 20:16:58 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 55, 'finished': 360, 'hit': 42, 'miss_no_entry': 320, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 323}

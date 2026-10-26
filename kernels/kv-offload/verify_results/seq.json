@@ -1,0 +1,1562 @@
+[
+ {
+  "target": 30000,
+  "task": 7,
+  "turn": 16,
+  "lenA": 29987,
+  "lenB": 37070,
+  "lenC": 22368,
+  "cut": 19368,
+  "reset_ok": true,
+  "cmp": {
+   "A: cold2 vs cold (noise)": {
+    "tv": 0.0555893713976542,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 117
+   },
+   "A: cpu-retry vs cold": {
+    "tv": 0.019658427676159773,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 117
+   },
+   "B: cold2 vs cold (noise)": {
+    "tv": 0.2559728601546865,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 5
+   },
+   "B: gpu-hit vs cold": {
+    "tv": 0.20197865148708785,
+    "top1": false,
+    "text_eq": false,
+    "common_prefix_chars": 0
+   },
+   "B: cpu vs cold": {
+    "tv": 0.24178526418003016,
+    "top1": false,
+    "text_eq": false,
+    "common_prefix_chars": 0
+   },
+   "B: mixed gpu+cpu vs cold": {
+    "tv": 0.20381405245248457,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 5
+   },
+   "C: cold2 vs cold (noise)": {
+    "tv": 0.040380013297220484,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 57
+   },
+   "C: cpu-divergent vs cold": {
+    "tv": 0.15794198872128515,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 57
+   },
+   "C: cpu-divergent(2nd) vs cold": {
+    "tv": 0.13829838666005148,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 57
+   }
+  },
+  "runs": {
+   "coldA": {
+    "ttft_ms": 1187.60085105896,
+    "cached": 0,
+    "len": 29987,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 29987.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0,
+     "kv_offload_store_bytes_total": 400949248.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n500\n</parameter>\n<parameter=path>\nimportlib/_bootstrap_external"
+   },
+   "coldA2": {
+    "ttft_ms": 1212.4781608581543,
+    "cached": 0,
+    "len": 29987,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 29987.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0,
+     "kv_offload_store_bytes_total": 400949248.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n500\n</parameter>\n<parameter=path>\nimportlib/_bootstrap_external"
+   },
+   "cpuB": {
+    "ttft_ms": 652.918815612793,
+    "cached": 27664,
+    "len": 37070,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 37070.0,
+     "external_prefix_cache_hits_total": 27664.0,
+     "kv_offload_load_bytes_total": 376979456.0,
+     "kv_offload_store_bytes_total": 137281536.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n750\n</parameter>\n<parameter=path>\nimportlib/_bootstrap_external"
+   },
+   "cpuC": {
+    "ttft_ms": 887.0837688446045,
+    "cached": 0,
+    "len": 22368,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 22368.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 10.0,
+     "spec_decode_num_draft_tokens_total": 10.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+   },
+   "cpuA": {
+    "ttft_ms": 354.5820713043213,
+    "cached": 27664,
+    "len": 29987,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 29987.0,
+     "external_prefix_cache_hits_total": 27664.0,
+     "kv_offload_load_bytes_total": 376979456.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n500\n</parameter>\n<parameter=path>\nimportlib/_bootstrap_external"
+   },
+   "cpuC2": {
+    "ttft_ms": 338.4511470794678,
+    "cached": 19152,
+    "len": 22368,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 22368.0,
+     "external_prefix_cache_hits_total": 19152.0,
+     "kv_offload_load_bytes_total": 281100288.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 10.0,
+     "spec_decode_num_draft_tokens_total": 10.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+   },
+   "mixB": {
+    "ttft_ms": 375.6387233734131,
+    "cached": 34048,
+    "len": 37070,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 37070.0,
+     "external_prefix_cache_hits_total": 34048.0,
+     "kv_offload_load_bytes_total": 448888832.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "This is a very large file. Let me continue reading it in chunks:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n75"
+   },
+   "coldB": {
+    "ttft_ms": 1886.7487907409668,
+    "cached": 0,
+    "len": 37070,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 37070.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 472858624.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "This file is very long. Let me continue reading it in chunks:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n750"
+   },
+   "coldB2": {
+    "ttft_ms": 1717.9067134857178,
+    "cached": 0,
+    "len": 37070,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 37070.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 472858624.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "This is a very large file. Let me continue reading it in chunks:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n75"
+   },
+   "coldC": {
+    "ttft_ms": 981.4238548278809,
+    "cached": 0,
+    "len": 22368,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 22368.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 305070080.0,
+     "spec_decode_num_accepted_tokens_total": 10.0,
+     "spec_decode_num_draft_tokens_total": 10.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+   },
+   "coldC2": {
+    "ttft_ms": 969.3021774291992,
+    "cached": 0,
+    "len": 22368,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 22368.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 305070080.0,
+     "spec_decode_num_accepted_tokens_total": 10.0,
+     "spec_decode_num_draft_tokens_total": 10.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+   },
+   "gpuB": {
+    "ttft_ms": 600.6946563720703,
+    "cached": 27664,
+    "len": 37070,
+    "d": {
+     "prefix_cache_hits_total": 27664.0,
+     "prefix_cache_queries_total": 37070.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 137281536.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n750\n</parameter>\n<parameter=path>\nimportlib/_bootstrap_external"
+   }
+  }
+ },
+ {
+  "target": 30000,
+  "task": 5,
+  "turn": 11,
+  "lenA": 30278,
+  "lenB": 33706,
+  "lenC": 22549,
+  "cut": 19549,
+  "reset_ok": true,
+  "cmp": {
+   "A: cold2 vs cold (noise)": {
+    "tv": 0.1312139039136675,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 102
+   },
+   "A: cpu-retry vs cold": {
+    "tv": 0.05411590562865409,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 102
+   },
+   "B: cold2 vs cold (noise)": {
+    "tv": 0.0012048787735335384,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 98
+   },
+   "B: gpu-hit vs cold": {
+    "tv": 0.00037731456254670373,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 98
+   },
+   "B: cpu vs cold": {
+    "tv": 0.0009558759361608818,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 98
+   },
+   "B: mixed gpu+cpu vs cold": {
+    "tv": 0.0006070917725756532,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 98
+   },
+   "C: cold2 vs cold (noise)": {
+    "tv": 0.2341806324174848,
+    "top1": false,
+    "text_eq": false,
+    "common_prefix_chars": 0
+   },
+   "C: cpu-divergent vs cold": {
+    "tv": 0.408305506037595,
+    "top1": false,
+    "text_eq": false,
+    "common_prefix_chars": 0
+   },
+   "C: cpu-divergent(2nd) vs cold": {
+    "tv": 0.454385537349459,
+    "top1": false,
+    "text_eq": false,
+    "common_prefix_chars": 0
+   }
+  },
+  "runs": {
+   "coldA": {
+    "ttft_ms": 1462.4278545379639,
+    "cached": 0,
+    "len": 30278,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 30278.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 400949248.0,
+     "spec_decode_num_accepted_tokens_total": 21.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "Now let me read the other etree modules:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/__init__.py\n"
+   },
+   "coldA2": {
+    "ttft_ms": 2312.453031539917,
+    "cached": 0,
+    "len": 30278,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 30278.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 400949248.0,
+     "spec_decode_num_accepted_tokens_total": 21.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "Now let me read the other etree modules:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/ElementPath.py\n"
+   },
+   "cpuB": {
+    "ttft_ms": 964.4215106964111,
+    "cached": 27664,
+    "len": 33706,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 33706.0,
+     "external_prefix_cache_hits_total": 27664.0,
+     "kv_offload_load_bytes_total": 376979456.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n423\n</parameter>\n<parameter=path>\nxml/etree/"
+   },
+   "cpuC": {
+    "ttft_ms": 1849.1554260253906,
+    "cached": 0,
+    "len": 22549,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 22549.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 19.0,
+     "spec_decode_num_draft_tokens_total": 26.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "It seems the file content got mixed up. Let me re-read the ElementTree.py file more carefully.\n\n<tool_call>\n<function=read_file>\n<parameter"
+   },
+   "cpuA": {
+    "ttft_ms": 519.9344158172607,
+    "cached": 27664,
+    "len": 30278,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 30278.0,
+     "external_prefix_cache_hits_total": 27664.0,
+     "kv_offload_load_bytes_total": 376979456.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 21.0,
+     "spec_decode_num_draft_tokens_total": 24.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "Now let me read the other etree modules:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/ElementPath.py\n"
+   },
+   "cpuC2": {
+    "ttft_ms": 523.6122608184814,
+    "cached": 19152,
+    "len": 22549,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 22549.0,
+     "external_prefix_cache_hits_total": 19152.0,
+     "kv_offload_load_bytes_total": 281100288.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 26.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "It seems the file content got mixed up. Let me re-read the ElementTree.py file from the correct position.\n\n<tool_call>\n<function=read_file>\n"
+   },
+   "mixB": {
+    "ttft_ms": 540.3463840484619,
+    "cached": 29792,
+    "len": 33706,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 33706.0,
+     "external_prefix_cache_hits_total": 29792.0,
+     "kv_offload_load_bytes_total": 400949248.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n423\n</parameter>\n<parameter=path>\nxml/etree/"
+   },
+   "coldB": {
+    "ttft_ms": 2866.4684295654297,
+    "cached": 0,
+    "len": 33706,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 33706.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 424919040.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n423\n</parameter>\n<parameter=path>\nxml/etree/"
+   },
+   "coldB2": {
+    "ttft_ms": 2761.573314666748,
+    "cached": 0,
+    "len": 33706,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 33706.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 424919040.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n423\n</parameter>\n<parameter=path>\nxml/etree/"
+   },
+   "coldC": {
+    "ttft_ms": 2489.715099334717,
+    "cached": 0,
+    "len": 22549,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 22549.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 305070080.0,
+     "spec_decode_num_accepted_tokens_total": 19.0,
+     "spec_decode_num_draft_tokens_total": 28.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "The file seems to have some content from a different module mixed in. Let me check the line count and continue reading the ElementTree.py file properly.\n\n<tool_call>"
+   },
+   "coldC2": {
+    "ttft_ms": 1547.8148460388184,
+    "cached": 0,
+    "len": 22549,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 22549.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 305070080.0,
+     "spec_decode_num_accepted_tokens_total": 19.0,
+     "spec_decode_num_draft_tokens_total": 28.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "It seems the file got mixed up with something else. Let me re-read the ElementTree.py file from where I left off.\n\n<tool_call>\n<function=read"
+   },
+   "gpuB": {
+    "ttft_ms": 994.5554733276367,
+    "cached": 27664,
+    "len": 33706,
+    "d": {
+     "prefix_cache_hits_total": 27664.0,
+     "prefix_cache_queries_total": 33706.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n423\n</parameter>\n<parameter=path>\nxml/etree/"
+   }
+  }
+ },
+ {
+  "target": 60000,
+  "task": 6,
+  "turn": 22,
+  "lenA": 59969,
+  "lenB": 63458,
+  "lenC": 40957,
+  "cut": 37957,
+  "reset_ok": true,
+  "cmp": {
+   "A: cold2 vs cold (noise)": {
+    "tv": 0.08967699808765148,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 106
+   },
+   "A: cpu-retry vs cold": {
+    "tv": 0.3043425808248276,
+    "top1": false,
+    "text_eq": false,
+    "common_prefix_chars": 0
+   },
+   "B: cold2 vs cold (noise)": {
+    "tv": 0.0005296461640463065,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 111
+   },
+   "B: gpu-hit vs cold": {
+    "tv": 0.00017849388894144088,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 111
+   },
+   "B: cpu vs cold": {
+    "tv": 0.0005998086040526008,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 111
+   },
+   "B: mixed gpu+cpu vs cold": {
+    "tv": 0.0005687500119635843,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 111
+   },
+   "C: cold2 vs cold (noise)": {
+    "tv": 0.3394738066291362,
+    "top1": false,
+    "text_eq": false,
+    "common_prefix_chars": 0
+   },
+   "C: cpu-divergent vs cold": {
+    "tv": 0.13186166165358879,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 44
+   },
+   "C: cpu-divergent(2nd) vs cold": {
+    "tv": 0.13147581695994914,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 11
+   }
+  },
+  "runs": {
+   "coldA": {
+    "ttft_ms": 5557.687997817993,
+    "cached": 0,
+    "len": 59969,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 59969.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 736526336.0,
+     "spec_decode_num_accepted_tokens_total": 18.0,
+     "spec_decode_num_draft_tokens_total": 18.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/loader.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "coldA2": {
+    "ttft_ms": 4066.0741329193115,
+    "cached": 0,
+    "len": 59969,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 59969.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 736526336.0,
+     "spec_decode_num_accepted_tokens_total": 18.0,
+     "spec_decode_num_draft_tokens_total": 18.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/loader.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "cpuB": {
+    "ttft_ms": 814.4233226776123,
+    "cached": 57456,
+    "len": 63458,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 63458.0,
+     "external_prefix_cache_hits_total": 57456.0,
+     "kv_offload_load_bytes_total": 712556544.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/loader.py\n</parameter>\n<parameter=start_line>\n250\n</"
+   },
+   "cpuC": {
+    "ttft_ms": 2680.8829307556152,
+    "cached": 0,
+    "len": 40957,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 40957.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 113311744.0,
+     "spec_decode_num_accepted_tokens_total": 21.0,
+     "spec_decode_num_draft_tokens_total": 24.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "Now let me read the remaining unittest files. Let me continue with case.py from line 750:\n\n<tool_call>\n<function=read_file>\n<"
+   },
+   "cpuA": {
+    "ttft_ms": 577.2738456726074,
+    "cached": 57456,
+    "len": 59969,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 59969.0,
+     "external_prefix_cache_hits_total": 57456.0,
+     "kv_offload_load_bytes_total": 712556544.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "Now let me read the remaining unittest files:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/loader.py\n</parameter>\n</"
+   },
+   "cpuC2": {
+    "ttft_ms": 585.120439529419,
+    "cached": 38304,
+    "len": 40957,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 40957.0,
+     "external_prefix_cache_hits_total": 38304.0,
+     "kv_offload_load_bytes_total": 496828416.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 21.0,
+     "spec_decode_num_draft_tokens_total": 24.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "Now let me continue reading the remaining unittest files. Let me read case.py from line 750:\n\n<tool_call>\n<function=read_file>\n<"
+   },
+   "mixB": {
+    "ttft_ms": 587.099552154541,
+    "cached": 59584,
+    "len": 63458,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 63458.0,
+     "external_prefix_cache_hits_total": 59584.0,
+     "kv_offload_load_bytes_total": 736526336.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/loader.py\n</parameter>\n<parameter=start_line>\n250\n</"
+   },
+   "coldB": {
+    "ttft_ms": 4147.247791290283,
+    "cached": 0,
+    "len": 63458,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 63458.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 760496128.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/loader.py\n</parameter>\n<parameter=start_line>\n250\n</"
+   },
+   "coldB2": {
+    "ttft_ms": 2964.3330574035645,
+    "cached": 0,
+    "len": 63458,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 63458.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 760496128.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/loader.py\n</parameter>\n<parameter=start_line>\n250\n</"
+   },
+   "coldC": {
+    "ttft_ms": 1951.181173324585,
+    "cached": 0,
+    "len": 40957,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 40957.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 520798208.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "Now let me read the remaining unittest files:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/case.py\n</parameter>\n"
+   },
+   "coldC2": {
+    "ttft_ms": 2362.7285957336426,
+    "cached": 0,
+    "len": 40957,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 40957.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 520798208.0,
+     "spec_decode_num_accepted_tokens_total": 21.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "Let me continue reading the remaining unittest files:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/case.py\n</parameter>\n"
+   },
+   "gpuB": {
+    "ttft_ms": 787.4114513397217,
+    "cached": 57456,
+    "len": 63458,
+    "d": {
+     "prefix_cache_hits_total": 57456.0,
+     "prefix_cache_queries_total": 63458.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nunittest/loader.py\n</parameter>\n<parameter=start_line>\n250\n</"
+   }
+  }
+ },
+ {
+  "target": 60000,
+  "task": 5,
+  "turn": 21,
+  "lenA": 60046,
+  "lenB": 63354,
+  "lenC": 41005,
+  "cut": 38005,
+  "reset_ok": true,
+  "cmp": {
+   "A: cold2 vs cold (noise)": {
+    "tv": 0.006584457396385737,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 102
+   },
+   "A: cpu-retry vs cold": {
+    "tv": 0.0030306501312092502,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 102
+   },
+   "B: cold2 vs cold (noise)": {
+    "tv": 0.000384347908798369,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 102
+   },
+   "B: gpu-hit vs cold": {
+    "tv": 9.522115475478645e-05,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 102
+   },
+   "B: cpu vs cold": {
+    "tv": 0.004278946588196079,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 102
+   },
+   "B: mixed gpu+cpu vs cold": {
+    "tv": 0.0037133007346386968,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 102
+   },
+   "C: cold2 vs cold (noise)": {
+    "tv": 0.17987433379456944,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 4
+   },
+   "C: cpu-divergent vs cold": {
+    "tv": 0.12130760803831554,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 115
+   },
+   "C: cpu-divergent(2nd) vs cold": {
+    "tv": 0.12906915386446868,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 4
+   }
+  },
+  "runs": {
+   "coldA": {
+    "ttft_ms": 3759.7832679748535,
+    "cached": 0,
+    "len": 60046,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 60046.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 736526336.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1600\n</parameter>\n<parameter=path>\nxml/dom/minid"
+   },
+   "coldA2": {
+    "ttft_ms": 5001.818418502808,
+    "cached": 0,
+    "len": 60046,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 60046.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 736526336.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1600\n</parameter>\n<parameter=path>\nxml/dom/minid"
+   },
+   "cpuB": {
+    "ttft_ms": 1159.799337387085,
+    "cached": 57456,
+    "len": 63354,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 63354.0,
+     "external_prefix_cache_hits_total": 57456.0,
+     "kv_offload_load_bytes_total": 712556544.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2008\n</parameter>\n<parameter=path>\nxml/dom/minid"
+   },
+   "cpuC": {
+    "ttft_ms": 3493.985652923584,
+    "cached": 0,
+    "len": 41005,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 41005.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 113311744.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 24.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "That's the wrong file. Let me check the correct path:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/"
+   },
+   "cpuA": {
+    "ttft_ms": 477.5419235229492,
+    "cached": 57456,
+    "len": 60046,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 60046.0,
+     "external_prefix_cache_hits_total": 57456.0,
+     "kv_offload_load_bytes_total": 712556544.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1600\n</parameter>\n<parameter=path>\nxml/dom/minid"
+   },
+   "cpuC2": {
+    "ttft_ms": 432.6815605163574,
+    "cached": 38304,
+    "len": 41005,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 41005.0,
+     "external_prefix_cache_hits_total": 38304.0,
+     "kv_offload_load_bytes_total": 496828416.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 18.0,
+     "spec_decode_num_draft_tokens_total": 26.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "That seems to have read the wrong file. Let me check the actual content of ElementInclude.py:\n\n<tool_call>\n<function=grep>\n<parameter="
+   },
+   "mixB": {
+    "ttft_ms": 487.0939254760742,
+    "cached": 59584,
+    "len": 63354,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 63354.0,
+     "external_prefix_cache_hits_total": 59584.0,
+     "kv_offload_load_bytes_total": 736526336.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2008\n</parameter>\n<parameter=path>\nxml/dom/minid"
+   },
+   "coldB": {
+    "ttft_ms": 3797.642946243286,
+    "cached": 0,
+    "len": 63354,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 63354.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 760496128.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2008\n</parameter>\n<parameter=path>\nxml/dom/minid"
+   },
+   "coldB2": {
+    "ttft_ms": 3644.1924571990967,
+    "cached": 0,
+    "len": 63354,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 63354.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 760496128.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2008\n</parameter>\n<parameter=path>\nxml/dom/minid"
+   },
+   "coldC": {
+    "ttft_ms": 2241.1930561065674,
+    "cached": 0,
+    "len": 41005,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 41005.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 520798208.0,
+     "spec_decode_num_accepted_tokens_total": 19.0,
+     "spec_decode_num_draft_tokens_total": 24.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "That's the wrong file. Let me check the correct path:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/"
+   },
+   "coldC2": {
+    "ttft_ms": 2119.115114212036,
+    "cached": 0,
+    "len": 41005,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 41005.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 520798208.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "That file seems to have been corrupted. Let me re-read it:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree"
+   },
+   "gpuB": {
+    "ttft_ms": 734.0800762176514,
+    "cached": 57456,
+    "len": 63354,
+    "d": {
+     "prefix_cache_hits_total": 57456.0,
+     "prefix_cache_queries_total": 63354.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2008\n</parameter>\n<parameter=path>\nxml/dom/minid"
+   }
+  }
+ },
+ {
+  "target": 100000,
+  "task": 0,
+  "turn": 40,
+  "lenA": 100195,
+  "lenB": 100769,
+  "lenC": 65897,
+  "cut": 62897,
+  "reset_ok": true,
+  "cmp": {
+   "A: cold2 vs cold (noise)": {
+    "tv": 0.006951608862352039,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 106
+   },
+   "A: cpu-retry vs cold": {
+    "tv": 0.001716945693783791,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 106
+   },
+   "B: cold2 vs cold (noise)": {
+    "tv": 0.0007758316980265939,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 114
+   },
+   "B: gpu-hit vs cold": {
+    "tv": 0.0006175474062790708,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 114
+   },
+   "B: cpu vs cold": {
+    "tv": 0.00045860133039441717,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 114
+   },
+   "B: mixed gpu+cpu vs cold": {
+    "tv": 0.022223479915784616,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 114
+   },
+   "C: cold2 vs cold (noise)": {
+    "tv": 0.3718001813395266,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 111
+   },
+   "C: cpu-divergent vs cold": {
+    "tv": 0.35643360492353465,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 111
+   },
+   "C: cpu-divergent(2nd) vs cold": {
+    "tv": 0.3659434369403492,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 111
+   }
+  },
+  "runs": {
+   "coldA": {
+    "ttft_ms": 6154.339551925659,
+    "cached": 0,
+    "len": 100195,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 100195.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 1191952384.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/text.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "coldA2": {
+    "ttft_ms": 7464.563369750977,
+    "cached": 0,
+    "len": 100195,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 100195.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 1191952384.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/text.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "cpuB": {
+    "ttft_ms": 572.9455947875977,
+    "cached": 97888,
+    "len": 100769,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 100769.0,
+     "external_prefix_cache_hits_total": 97888.0,
+     "kv_offload_load_bytes_total": 1167982592.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "cpuC": {
+    "ttft_ms": 4223.057508468628,
+    "cached": 0,
+    "len": 65897,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 65897.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=write_file>\n<parameter=path>\ntest_logging_review.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "cpuA": {
+    "ttft_ms": 605.6733131408691,
+    "cached": 97888,
+    "len": 100195,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 100195.0,
+     "external_prefix_cache_hits_total": 97888.0,
+     "kv_offload_load_bytes_total": 1167982592.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/text.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "cpuC2": {
+    "ttft_ms": 554.7771453857422,
+    "cached": 61712,
+    "len": 65897,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 65897.0,
+     "external_prefix_cache_hits_total": 61712.0,
+     "kv_offload_load_bytes_total": 760496128.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=write_file>\n<parameter=path>\ntest_logging_review.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "mixB": {
+    "ttft_ms": 627.4135112762451,
+    "cached": 97888,
+    "len": 100769,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 100769.0,
+     "external_prefix_cache_hits_total": 97888.0,
+     "kv_offload_load_bytes_total": 1167982592.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "coldB": {
+    "ttft_ms": 7052.931308746338,
+    "cached": 0,
+    "len": 100769,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 100769.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 1191952384.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "coldB2": {
+    "ttft_ms": 6160.082817077637,
+    "cached": 0,
+    "len": 100769,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 100769.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 1191952384.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "coldC": {
+    "ttft_ms": 2873.3882904052734,
+    "cached": 0,
+    "len": 65897,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 65897.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 784465920.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=write_file>\n<parameter=path>\ntest_logging_review.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "coldC2": {
+    "ttft_ms": 2870.290756225586,
+    "cached": 0,
+    "len": 65897,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 65897.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 784465920.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=write_file>\n<parameter=path>\ntest_logging_review.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "gpuB": {
+    "ttft_ms": 424.2513179779053,
+    "cached": 97888,
+    "len": 100769,
+    "d": {
+     "prefix_cache_hits_total": 97888.0,
+     "prefix_cache_queries_total": 100769.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+   }
+  }
+ },
+ {
+  "target": 100000,
+  "task": 5,
+  "turn": 34,
+  "lenA": 99288,
+  "lenB": 102647,
+  "lenC": 65335,
+  "cut": 62335,
+  "reset_ok": true,
+  "cmp": {
+   "A: cold2 vs cold (noise)": {
+    "tv": 0.028042716544029535,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 58
+   },
+   "A: cpu-retry vs cold": {
+    "tv": 0.010670735383865617,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 44
+   },
+   "B: cold2 vs cold (noise)": {
+    "tv": 0.004472660852388911,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 55
+   },
+   "B: gpu-hit vs cold": {
+    "tv": 0.007913615137612257,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 99
+   },
+   "B: cpu vs cold": {
+    "tv": 0.010621645054530515,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 99
+   },
+   "B: mixed gpu+cpu vs cold": {
+    "tv": 0.012411966318476476,
+    "top1": true,
+    "text_eq": true,
+    "common_prefix_chars": 99
+   },
+   "C: cold2 vs cold (noise)": {
+    "tv": 0.06831714433496047,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 4
+   },
+   "C: cpu-divergent vs cold": {
+    "tv": 0.06796104685330219,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 47
+   },
+   "C: cpu-divergent(2nd) vs cold": {
+    "tv": 0.1468041591113658,
+    "top1": true,
+    "text_eq": false,
+    "common_prefix_chars": 57
+   }
+  },
+  "runs": {
+   "coldA": {
+    "ttft_ms": 5654.588937759399,
+    "cached": 0,
+    "len": 99288,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 99288.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 1167982592.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nxml/sax/saxutils.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "coldA2": {
+    "ttft_ms": 5731.162548065186,
+    "cached": 0,
+    "len": 99288,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 99288.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 1167982592.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 20.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=path>\nxml/sax/xmlreader.py\n</parameter>\n</function>\n</tool_call>"
+   },
+   "cpuB": {
+    "ttft_ms": 819.5040225982666,
+    "cached": 95760,
+    "len": 102647,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 102647.0,
+     "external_prefix_cache_hits_total": 95760.0,
+     "kv_offload_load_bytes_total": 1144012800.0,
+     "kv_offload_store_bytes_total": 113311744.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax"
+   },
+   "cpuC": {
+    "ttft_ms": 2826.153039932251,
+    "cached": 0,
+    "len": 65335,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 65335.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 89341952.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "That's the wrong file. Let me continue reading the minidom.py file:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n"
+   },
+   "cpuA": {
+    "ttft_ms": 487.5035285949707,
+    "cached": 95760,
+    "len": 99288,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 99288.0,
+     "external_prefix_cache_hits_total": 95760.0,
+     "kv_offload_load_bytes_total": 1144012800.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n387\n</parameter>\n<parameter=path>\nxml/sax/handler"
+   },
+   "cpuC2": {
+    "ttft_ms": 356.4910888671875,
+    "cached": 61712,
+    "len": 65335,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 65335.0,
+     "external_prefix_cache_hits_total": 61712.0,
+     "kv_offload_load_bytes_total": 760496128.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 20.0,
+     "spec_decode_num_draft_tokens_total": 24.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "That's the wrong file. Let me continue reading minidom.py:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n20"
+   },
+   "mixB": {
+    "ttft_ms": 438.6105537414551,
+    "cached": 100016,
+    "len": 102647,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 102647.0,
+     "external_prefix_cache_hits_total": 100016.0,
+     "kv_offload_load_bytes_total": 1191952384.0,
+     "kv_offload_store_bytes_total": 0.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax"
+   },
+   "coldB": {
+    "ttft_ms": 6050.025939941406,
+    "cached": 0,
+    "len": 102647,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 102647.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 1215922176.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax"
+   },
+   "coldB2": {
+    "ttft_ms": 6051.160573959351,
+    "cached": 0,
+    "len": 102647,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 102647.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 1215922176.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n387\n</parameter>\n<parameter=path>\nxml/sax/sax"
+   },
+   "coldC": {
+    "ttft_ms": 2851.526975631714,
+    "cached": 0,
+    "len": 65335,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 65335.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 784465920.0,
+     "spec_decode_num_accepted_tokens_total": 19.0,
+     "spec_decode_num_draft_tokens_total": 28.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "That's the wrong file. Let me continue reading minidom.py from where I left off:\n\n<tool_call>\n<function=read_file>\n<parameter=end"
+   },
+   "coldC2": {
+    "ttft_ms": 2844.559669494629,
+    "cached": 0,
+    "len": 65335,
+    "d": {
+     "prefix_cache_hits_total": 0.0,
+     "prefix_cache_queries_total": 65335.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 784465920.0,
+     "spec_decode_num_accepted_tokens_total": 18.0,
+     "spec_decode_num_draft_tokens_total": 26.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "That last file seems to be from a different module. Let me continue reading the minidom file from where I left off:\n\n<tool_call>\n<function=read"
+   },
+   "gpuB": {
+    "ttft_ms": 838.1397724151611,
+    "cached": 95760,
+    "len": 102647,
+    "d": {
+     "prefix_cache_hits_total": 95760.0,
+     "prefix_cache_queries_total": 102647.0,
+     "external_prefix_cache_hits_total": 0.0,
+     "kv_offload_load_bytes_total": 0.0,
+     "kv_offload_store_bytes_total": 113311744.0,
+     "spec_decode_num_accepted_tokens_total": 22.0,
+     "spec_decode_num_draft_tokens_total": 22.0,
+     "kv_offload_allocation_failure_total": 0
+    },
+    "text": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax"
+   }
+  }
+ }
+]

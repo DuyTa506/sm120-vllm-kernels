@@ -1,0 +1,8 @@
+# regenerable: DeepGEMM source tree + submodules + build outputs + JIT cache (see setup.sh)
+src/
+home/
+bin/
+ours_ref/skinny/.build/
+data/*.pt
+results/warm_*.log
+__pycache__/

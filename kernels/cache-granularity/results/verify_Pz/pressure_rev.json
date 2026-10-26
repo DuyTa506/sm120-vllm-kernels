@@ -1,0 +1,471 @@
+{
+ "summary": {
+  "tag": "Pz",
+  "n": 56,
+  "order": "rev",
+  "prompt_tokens_total": 5068560,
+  "warm_s": 268.4,
+  "hot_s": 62.6,
+  "errors": 0,
+  "hot_ok": 56,
+  "n_good": 56,
+  "full_hit_at_T": 0,
+  "partial_or_miss": 56,
+  "cached_mean": 71668,
+  "kv_usage_before": 0.0,
+  "kv_usage_after_warm": 0.0,
+  "kv_usage_idle_after": 0.0,
+  "wrong": [],
+  "error_samples": []
+ },
+ "rows": [
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 8220-2914-1122.\n\n<tool_call>\n<function=read_file>",
+   "ttft_s": 34.696
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 2485-1572-2375.\n\n<tool_call>\n<function=read_file>",
+   "ttft_s": 37.145
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 2612-6810-4879.\n\nHowever, I notice this was",
+   "ttft_s": 33.222
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 1285-1504-1259.\n\n<tool_call>\n<function=finish>",
+   "ttft_s": 28.983
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 6670-8933-8594.\n\nHowever, I notice this is a",
+   "ttft_s": 29.602
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 3433-2495-3999.\n\nLet me continue reading the zipfile",
+   "ttft_s": 24.423
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 2874-1239-9242.\n\nLet me continue reading the zipfile",
+   "ttft_s": 20.62
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 8974-5093-2057.\n\nI notice this was embedded in",
+   "ttft_s": 16.725
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 88448,
+   "T_A": 88320,
+   "text": " 9865-8633-2123.\n\nHowever, I notice this appears to",
+   "ttft_s": 15.171
+  },
+  {
+   "ok": true,
+   "cached": 0,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 2457-9438-1753.\n\nHowever, I notice this is",
+   "ttft_s": 10.025
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 5416-2033-5954. Remember it exactly.\n\n\")\n ",
+   "ttft_s": 9.599
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 8881-6820-5365.\n\nHowever, I notice this was",
+   "ttft_s": 4.169
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 5082-4277-8428.\n\nI cannot continue with the import",
+   "ttft_s": 4.64
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 9686-1316-9324.\n\nHowever, I notice this appears",
+   "ttft_s": 4.662
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 2156-1094-6464.\n\nHowever, I notice this appears",
+   "ttft_s": 3.784
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 3355-8746-7182.\n\nHowever, I notice this appears",
+   "ttft_s": 10.522
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 3737-1887-2249.\n\n<tool_call>\n<function=finish>",
+   "ttft_s": 2.501
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 9135-3687-2234.\n\nHowever, I notice this was",
+   "ttft_s": 2.502
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 4524-3363-1444.\n\nLet me continue reading the zipfile",
+   "ttft_s": 2.479
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 6672-2816-9678.\n\n<tool_call>\n<function=finish",
+   "ttft_s": 2.503
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": " 3313-6003-8440.\n\nHowever, I notice that this appears",
+   "ttft_s": 2.525
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 1648-7819-5534.\n\nLet me continue reading the zipfile",
+   "ttft_s": 2.502
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 1658-3905-5451.\n\nHowever, I should note that",
+   "ttft_s": 2.496
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 3532-5919-3532.\n\nHowever, I notice this was",
+   "ttft_s": 2.497
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 8610-1672-7327.\n\nHowever, I notice this was embedded",
+   "ttft_s": 1.848
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 6727-9124-6598.\n\nI notice the file content was corrupted",
+   "ttft_s": 1.872
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 8669-8797-1742.\n\nLet me continue reading the zipfile",
+   "ttft_s": 2.499
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 8714-3784-8202.\n\n<tool_call>\n<function=read_file>",
+   "ttft_s": 2.465
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 9506-8174-5844.\n\nLet me continue reading the remaining files",
+   "ttft_s": 2.467
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": " 5506-3029-4041.\n\nNow let me continue reading the remaining",
+   "ttft_s": 2.466
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 7821-8144-2957.\n\n<tool_call>\n<function=read_file>",
+   "ttft_s": 2.512
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 9680-2689-8949.\n\nI'll continue reading the remaining files",
+   "ttft_s": 2.504
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 7173-5185-4136.\n\nHowever, I notice that the",
+   "ttft_s": 3.077
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 6658-2772-3575.\n\n<tool_call>\n<function=finish>",
+   "ttft_s": 2.437
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 5412-3537-6300.\n\nHowever, I notice this was",
+   "ttft_s": 3.11
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 8318-2159-2286.\n\nHowever, I notice this appears",
+   "ttft_s": 2.495
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 7475-4508-1782.\n\n<tool_call>\n<function=finish>",
+   "ttft_s": 2.48
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": **5688-1622-4594**\n\nHowever, I should note that",
+   "ttft_s": 2.469
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ":\n\n9302-2436-6193\n\nI cannot continue with the importlib",
+   "ttft_s": 2.517
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 6007-8550-2085.\n\nWait, I need to stop and",
+   "ttft_s": 2.477
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 5217-2196-7984.\n\nHowever, I notice this appears",
+   "ttft_s": 2.311
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": " 4307-2659-7498.\n\nHowever, I notice this was embedded",
+   "ttft_s": 2.333
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 4188-8529-9200.\n\nLet me continue reading the zipfile",
+   "ttft_s": 2.488
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ":\n\n4871-6918-4360\n\nHowever, I notice this appears to",
+   "ttft_s": 2.487
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 9438-7900-3862.\n\nI notice this code appeared in",
+   "ttft_s": 2.532
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ":\n\n4330-5944-1988\n\nI cannot assist with this request as",
+   "ttft_s": 2.499
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ":\n\n6775-9754-3507\n\nI'll continue the review of the",
+   "ttft_s": 2.545
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 9185-9995-8740.\n\nHowever, I notice this appears",
+   "ttft_s": 2.505
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 6468-3272-3145.\n\nI'll continue the review of",
+   "ttft_s": 2.894
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ":\n\n1787-3704-3374.\n\nI cannot continue with the import",
+   "ttft_s": 2.895
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 9946-2142-6329.\n\nHowever, I notice this appears",
+   "ttft_s": 2.707
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 3802-1027-1996.\n\nHowever, I notice this was",
+   "ttft_s": 2.697
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 2435-3429-4555.\n\nHowever, I notice this appears",
+   "ttft_s": 2.698
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 1653-8090-7413.\n\nHowever, I notice this was",
+   "ttft_s": 2.732
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 6315-4393-7245.\n\n<tool_call>\n<function=finish>",
+   "ttft_s": 2.681
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 5588-9806-5989.\n\nHowever, I notice this appears",
+   "ttft_s": 2.72
+  }
+ ]
+}

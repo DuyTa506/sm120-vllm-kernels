@@ -1,0 +1,44 @@
+fadf85ee2747da7e79df634f5fae859a250dd01b1fb500fc409753f58aa7ddbd
+waiting for gdn-replay-srv on :8121 (CONFIG=tuned)
+ready
+== server log (replay lines)
+(APIServer pid=1) INFO 10-25 23:38:11 [config.py:688] Mamba cache mode is set to 'align' for Qwen3_5MoeForConditionalGeneration by default when prefix caching is enabled
+(EngineCore pid=337) INFO 10-25 23:38:24 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49
+(EngineCore pid=337) INFO 10-25 23:38:27 [qwen_gdn_linear_attn.py:621] GDN spec decode kernel: cuda
+(EngineCore pid=337) INFO 10-25 23:38:27 [qwen_gdn_linear_attn.py:639] GDN state replay enabled (VLLM_GDN_STATE_REPLAY=1)
+(EngineCore pid=337) INFO 10-25 23:38:44 [interface.py:1096] Setting attention block size to 2128 tokens to ensure that attention page size is >= mamba page size.
+(EngineCore pid=337) WARNING 10-25 23:38:46 [decorators.py:333] [backbone] Compiling model again due to a load failure from /root/.cache/vllm/torch_compile_cache/torch_aot_compile/5562881ef405a42ef0487b1a7ecf7547d03c1404
+(EngineCore pid=337) INFO 10-25 23:39:32 [decorators.py:319] [eagle_head] Directly load AOT compilation from path /root/.cache/vllm/torch_compile_cache/torch_aot_compile/d1b4af12c1064963e4ac8da6a4df05475dcb54651da54db6d4
+== probe (cold, 2 passes + long generation crossing the 2176 block boundary)
+saved 14 total tokens 6756
+saved 12 total tokens 1411
+prompt 10: diverge@6  len 17/20  max|dlp| on shared prefix 0.151
+prompt 11: diverge@0  len 160/160  max|dlp| on shared prefix 0
+SUMMARY identical prompts 1/12; shared-prefix tokens 346/1567
+== bench_decode (c=1,4,16,64)
+decode c=1: Output token throughput (tok/s): 317.84  Median TPOT (ms): 2.94  Median ITL (ms): 6.70  
+decode c=4: Output token throughput (tok/s): 978.58  Median TPOT (ms): 3.70  Median ITL (ms): 8.36  
+decode c=16: Output token throughput (tok/s): 1871.68  Median TPOT (ms): 7.49  Median ITL (ms): 14.23  
+decode c=64: Output token throughput (tok/s): 3767.24  Median TPOT (ms): 14.96  Median ITL (ms): 26.20  
+spec decode over bench_decode: accepted 143161 / drafted 246048 = 0.5818
+== stress (finish mid-step, aborts)
+stress: ok=163 aborted=37 failed=0 in 7s
+preemptions: 0
+== prefix-cache checkpoint check (eval/ckpt_dist.py)
+gdnreplay: hits/prompt=6739  mean TV(top20)=0.1130  max TV=0.2485  top1 agree=11/12
+  per-prompt TV: 0.026 0.145 0.028 0.093 0.058 0.248 0.030 0.119 0.117 0.126 0.120 0.245
+== post-stress probe
+saved 12 total tokens 1408
+== errors / check lines
+      1 (EngineCore pid=337) INFO 10-25 23:38:42 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 8.04 GiB. Available RAM: 209.59 GiB.
+      1 (EngineCore pid=337) INFO 10-25 23:38:29 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 22.02 GiB. Available RAM: 209.11 GiB.
+      1 Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:11<00:00,  2.33s/it]
+      1 Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:11<00:00,  2.05s/it]
+      1 Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:00<00:00,  2.51it/s]
+      1 Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:00<00:00,  2.46it/s]
+      1 Loading safetensors checkpoint shards:  80% Completed | 4/5 [00:10<00:02,  2.84s/it]
+      1 Loading safetensors checkpoint shards:  60% Completed | 3/5 [00:08<00:05,  2.76s/it]
+      1 Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  2.22it/s]
+      1 Loading safetensors checkpoint shards:  40% Completed | 2/5 [00:05<00:07,  2.60s/it]
+      1 Loading safetensors checkpoint shards:  20% Completed | 1/5 [00:02<00:08,  2.19s/it]
+      1 Loading safetensors checkpoint shards:   0% Completed | 0/5 [00:00<?, ?it/s]

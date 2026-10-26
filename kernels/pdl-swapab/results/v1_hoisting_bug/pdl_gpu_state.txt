@@ -1,0 +1,2 @@
+name, clocks.current.sm [MHz], power.draw [W], memory.used [MiB]
+NVIDIA RTX PRO 6000 Blackwell Workstation Edition, 2850 MHz, 136.88 W, 16 MiB

@@ -1,0 +1,16 @@
+PDL=0 compile+first run 6.1s; max|compiled-eager| 1.909e-01
+USDT:2026-10-25 16:39:17 60:60 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 16:39:17 60:60 SyncActivityProfilerHandler.cpp:59] profiler_stop
+PDL=0 L=12 M=4: graph replay median 125.0 us (min 125.0), kernels in graph 35, 3.57 us/kernel
+PDL=1 compile+first run 4.3s; max|compiled-eager| 1.909e-01
+USDT:2026-10-25 16:39:28 282:282 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 16:39:28 282:282 SyncActivityProfilerHandler.cpp:59] profiler_stop
+PDL=1 L=12 M=4: graph replay median 125.1 us (min 125.1), kernels in graph 35, 3.57 us/kernel
+PDL=0 compile+first run 1.7s; max|compiled-eager| 1.909e-01
+USDT:2026-10-25 16:39:38 497:497 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 16:39:38 497:497 SyncActivityProfilerHandler.cpp:59] profiler_stop
+PDL=0 L=12 M=4: graph replay median 125.0 us (min 125.0), kernels in graph 35, 3.57 us/kernel
+PDL=1 compile+first run 2.7s; max|compiled-eager| 1.909e-01
+USDT:2026-10-25 16:39:49 708:708 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 16:39:49 708:708 SyncActivityProfilerHandler.cpp:59] profiler_stop
+PDL=1 L=12 M=4: graph replay median 125.1 us (min 125.0), kernels in graph 35, 3.57 us/kernel

@@ -1,0 +1,3 @@
+(EngineCore pid=337) INFO 10-25 12:38:29 [interface.py:1096] Setting attention block size to 2128 tokens to ensure that attention page size is >= mamba page size.
+(EngineCore pid=337) INFO 10-25 12:39:32 [kv_cache_utils.py:2327] GPU KV cache size: 3,976,441 tokens, Maximum concurrency for 131,072 tokens per request: 30.34x
+(EngineCore pid=337) INFO 10-25 12:39:32 [kv_cache_utils.py:853] kv cache group sizes (2128, 2128, 2128, 2128)

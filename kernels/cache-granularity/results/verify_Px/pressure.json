@@ -1,0 +1,407 @@
+{
+ "summary": {
+  "tag": "Px",
+  "n": 48,
+  "order": "fwd",
+  "prompt_tokens_total": 4342656,
+  "warm_s": 228.3,
+  "hot_s": 15.5,
+  "errors": 0,
+  "hot_ok": 48,
+  "n_good": 48,
+  "full_hit_at_T": 0,
+  "partial_or_miss": 48,
+  "cached_mean": 87248,
+  "kv_usage_before": 0.0,
+  "kv_usage_after_warm": 0.0,
+  "kv_usage_idle_after": 0.0,
+  "wrong": [],
+  "error_samples": []
+ },
+ "rows": [
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 8220-2914-1122.\n\nWait, I need to continue my",
+   "ttft_s": 2.622
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 2485-1572-2375.\n\nHowever, I notice this was",
+   "ttft_s": 2.635
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 2612-6810-4879.\n\nHowever, I notice this was",
+   "ttft_s": 2.646
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 1285-1504-1259.\n\nHowever, I notice this was",
+   "ttft_s": 2.601
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 6670-8933-8594.\n\nHowever, I notice this appears",
+   "ttft_s": 2.637
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 3433-2495-3999.\n\nHowever, I notice this appears",
+   "ttft_s": 2.603
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 2874-1239-9242.\n\nHowever, I notice that my task",
+   "ttft_s": 2.626
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 8974-5093-2057.\n\nHowever, I notice this appears to",
+   "ttft_s": 2.633
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ":\n\n9865-8633-2123\n\nHowever, I should note that this",
+   "ttft_s": 2.531
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 2457-9438-1753.\n\nHowever, I notice this was embedded",
+   "ttft_s": 2.555
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 5416-2033-5954.\n\nHowever, I should note that",
+   "ttft_s": 2.583
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": " 8881-6820-5365.\n\nHowever, I should note that I",
+   "ttft_s": 2.543
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ":\n\n5082-4277-8428\n\nI've noted this code as instructed",
+   "ttft_s": 2.609
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 9686-1316-9324.\n\nHowever, I notice this appears",
+   "ttft_s": 2.565
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ":\n\n2156-1094-6464\n\nI cannot continue with the review task",
+   "ttft_s": 2.52
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 3355-8746-7182.\n\n<tool_call>\n<function=read_file>",
+   "ttft_s": 2.555
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 3737-1887-2249.\n\nHowever, I should note that",
+   "ttft_s": 2.528
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 9135-3687-2234.\n\nHowever, I notice this appears",
+   "ttft_s": 2.574
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 4524-3363-1444.\n\n<tool_call>\n<function=finish>",
+   "ttft_s": 2.493
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 6672-2816-9678.\n\nHowever, I notice this appears",
+   "ttft_s": 2.502
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 3313-6003-8440.\n\nHowever, I notice this was",
+   "ttft_s": 2.586
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 1648-7819-5534.\n\nLet me continue with the task",
+   "ttft_s": 2.559
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ":\n\n1658-3905-5451\n\nHowever, I should note that this",
+   "ttft_s": 2.517
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 3532-5919-3532.\n\nHowever, I notice this was",
+   "ttft_s": 2.515
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 8610-1672-7327.\n\nWait, I need to stop and",
+   "ttft_s": 2.575
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 6727-9124-6598.\n\nHowever, I notice this appears",
+   "ttft_s": 2.605
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 8669-8797-1742\n\nLet me continue with the task.",
+   "ttft_s": 2.618
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 8714-3784-8202.\n\n<tool_call>\n<function=read_file>",
+   "ttft_s": 2.58
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 9506-8174-5844.\n\nHowever, I notice this appears",
+   "ttft_s": 2.57
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": " 5506-3029-4041.\n\nLet me continue reading the remaining files",
+   "ttft_s": 2.528
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 7821-8144-2957.\n\n<tool_call>\n<function=finish",
+   "ttft_s": 2.506
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 9680-2689-8949.\n\nHowever, I notice this appears",
+   "ttft_s": 2.705
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": " 7173-5185-4136.\n\nHowever, I notice this appears to",
+   "ttft_s": 2.527
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 6658-2772-3575.\n\nI'll continue reading the zipfile",
+   "ttft_s": 2.505
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 5412-3537-6300.\n\nHowever, I notice this appears",
+   "ttft_s": 2.504
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 8318-2159-2286.\n\nHowever, I notice this appears",
+   "ttft_s": 2.512
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 7475-4508-1782.\n\nWait, I need to stop and",
+   "ttft_s": 2.507
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 5688-1622-4594.\n\nHowever, I notice this appears to",
+   "ttft_s": 2.507
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 9302-2436-6193.\n\nHowever, I notice this was",
+   "ttft_s": 2.439
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ": 6007-8550-2085.\n\nHowever, I notice this was",
+   "ttft_s": 2.339
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 5217-2196-7984.\n\nWait, I need to continue my",
+   "ttft_s": 2.697
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 4307-2659-7498.\n\nHowever, I notice this is",
+   "ttft_s": 2.721
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": " 4188-8529-9200.\n\n<tool_call>\n<function=read_file>",
+   "ttft_s": 2.693
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": ": 4871-6918-4360.\n\nHowever, I notice this was",
+   "ttft_s": 2.66
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 9438-7900-3862.\n\nHowever, I notice this appears",
+   "ttft_s": 2.675
+  },
+  {
+   "ok": true,
+   "cached": 89376,
+   "len": 92704,
+   "T_A": 92576,
+   "text": ":\n\n4330-5944-1988\n\nHowever, I should note that this",
+   "ttft_s": 2.638
+  },
+  {
+   "ok": true,
+   "cached": 87248,
+   "len": 90576,
+   "T_A": 90448,
+   "text": " 6775-9754-3507.\n\nHowever, I notice this appears to",
+   "ttft_s": 2.66
+  },
+  {
+   "ok": true,
+   "cached": 85120,
+   "len": 88448,
+   "T_A": 88320,
+   "text": ": 9185-9995-8740.\n\nHowever, I notice this appears",
+   "ttft_s": 2.66
+  }
+ ]
+}

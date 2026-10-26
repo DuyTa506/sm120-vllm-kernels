@@ -39,7 +39,15 @@ def cmp(name, got, ref):
 
 
 def server_inputs(T, layer=0, seed=0, strided_ab=True, contiguous_x=False):
-    x, a, b = make_inputs(T, layer=layer, seed=seed)
+    if T <= 16384:
+        x, a, b = make_inputs(T, layer=layer, seed=seed)
+    else:  # the real-text token source holds ~16k tokens: stitch 16k pieces
+        parts = [make_inputs(min(16384, T - s), layer=layer, seed=seed + s) for s in range(0, T, 16384)]
+        buf = torch.zeros(T, QKVZ, dtype=parts[0][0].dtype, device=dev)
+        buf[:, :DIM] = torch.cat([p[0] for p in parts])
+        x = buf[:, :DIM]
+        a = torch.cat([p[1] for p in parts])
+        b = torch.cat([p[2] for p in parts])
     if contiguous_x:
         x = x.contiguous()
     if strided_ab:
@@ -104,6 +112,16 @@ def run(title, lens, init, *, num_lines=None, strided_ab=True, contiguous_x=Fals
 
 
 MODE = os.environ.get("MODE", "all")
+SKIP = int(os.environ.get("SKIP", "0"))  # skip the first N correctness cases (already run)
+_n = [0]
+_run = run
+
+
+def run(*a, **k):
+    _n[0] += 1
+    if _n[0] > SKIP:
+        _run(*a, **k)
+
 
 if MODE in ("all", "correct"):
     run("server layout 8k varlen", [3000, 2000, 1500, 1000, 500, 192],

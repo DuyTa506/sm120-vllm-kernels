@@ -1,0 +1,4 @@
+(APIServer pid=1) INFO 10-25 21:41:58 [api_utils.py:286] non-default args: {'model_tag': 'unsloth/Qwen3.6-35B-A3B-NVFP4-Fast', 'enable_prompt_tokens_details': True, 'model': 'unsloth/Qwen3.6-35B-A3B-NVFP4-Fast', 'max_model_len': 131072, 'served_model_name': ['bench'], 'gpu_memory_utilization': 0.78,
+(EngineCore pid=336) INFO 10-25 21:43:14 [interface.py:1096] Setting attention block size to 2128 tokens to ensure that attention page size is >= mamba page size.
+(EngineCore pid=336) INFO 10-25 21:44:16 [kv_cache_utils.py:2327] GPU KV cache size: 3,976,441 tokens, Maximum concurrency for 131,072 tokens per request: 30.34x
+(EngineCore pid=336) INFO 10-25 21:44:16 [kv_cache_utils.py:853] kv cache group sizes (2128, 2128, 2128, 2128)

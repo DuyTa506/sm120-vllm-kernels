@@ -1,20 +1,25 @@
 """Engine-level hot-vs-cold check of the GDN recurrent state (needs the dump hook, see make_dump_build.py).
 
 The end-to-end check (hot_cold.py) cannot resolve small state errors on this server: two identical cold runs already
-differ by ~0.1 total variation in the first-token distribution (the server is not bit-deterministic). The input of
-GDN layer 0 is the token embedding, so its state after a prefill depends only on the tokens and on the chunking of the
-recurrence. Comparing that state between a hot prefill (resumed from a prefix-cache Mamba checkpoint) and a cold
-prefill of the same prompt therefore isolates exactly the property that matters: the restored checkpoint is the
-state of the right position. A checkpoint that is off by one 16-token hash unit is emulated by a cold run of the same
-prompt with 16 tokens removed before the hit position (drop16), which gives the error scale to compare against.
+differ by ~0.1 total variation in the first-token distribution (the server is not bit-deterministic). GDN layer 0 is
+deterministic (its input is the token embedding; two identical cold runs give bit-identical layer-0 states), so its
+state isolates exactly the property that matters: a prefix-cache hit at position T resumes from the state of the
+first T tokens.
 
-For each recorded (session, turn k) pair: cold1(turn k), cold2(turn k), drop16, warm(turn k-1, 64 decode tokens),
-hot(turn k). Reports relative L2 error of the final layer-0 (and layer-2) recurrent state and the max abs error of
-the conv state, each against cold1.
+For each recorded (session, turn k) pair (prev = prompt of turn k-1, cur = prompt of turn k):
+  warm    prev under salt H, decoding 64 tokens (as an agent turn; the request keeps running after its prompt-tail
+          checkpoint was registered). All its prefill chunks are dumped; the chunk ending exactly at T (when the
+          scheduler split there) gives the state that was stored for position T.
+  hot     cur under salt H; cached_tokens = T; its first prefill chunk's initial state is the restored checkpoint.
+  pre     cold run of cur[:T] (fresh salt): state of the first T tokens computed from scratch (other chunking).
+  pre16   cold run of cur[:T-16]: what a checkpoint one 16-token unit too early would hold (error scale).
+  cold    cold run of cur: final state, compared with the hot run's final state.
+Checks (layer 0): restored == warm chunk-end state (bit-exact expected when that chunk exists);
+rel L2(restored, pre) ~ chunking-order noise; rel L2(pre16, pre) = off-by-one-unit scale; rel L2(hot final, cold).
 
 usage: BENCH_URL=... python3 state_check.py <dump_dir> <out.json> <tag>
 """
-import glob, json, os, sys, time, urllib.request
+import json, os, sys, time, urllib.request
 
 import torch
 
@@ -30,23 +35,23 @@ def post(body):
 
 
 def run(dump, prompt, salt, n=1):
+    """Send one request; return its layer-0/2 dumps in order as {layer: [(chunk_start, chunk_end, dict)]}."""
     before = set(os.listdir(dump))
     j = post({"model": "bench", "prompt": prompt, "max_tokens": n, "min_tokens": n, "ignore_eos": True,
               "temperature": 0, "cache_salt": salt})
     time.sleep(0.2)
     new = sorted(set(os.listdir(dump)) - before - {"ENABLE"})
-    last = {}
-    for f in new:  # <counter>_<layer>.pt, increasing counter: keep the final prefill chunk per layer
-        last[f.split("_")[1][:-3]] = f
-    out = {}
-    for layer, f in last.items():
+    cached = (j.get("usage", {}).get("prompt_tokens_details") or {}).get("cached_tokens") or 0
+    out, pos = {}, {}
+    for f in new:  # <counter>_<layer>.pt in execution order
+        layer = f.split("_")[1][:-3]
         d = torch.load(os.path.join(dump, f))
-        assert d["state"].shape[0] == 1, f"expected one prefill row, got {d['qlens']}"
-        out[layer] = d
-    for f in new:
         os.remove(os.path.join(dump, f))
-    cached = (j.get("usage", {}).get("prompt_tokens_details") or {}).get("cached_tokens")
-    return out, cached, len(new)
+        assert len(d["qlens"]) == 1, f"expected one prefill row per step, got {d['qlens']}"
+        start = pos.get(layer, cached)
+        pos[layer] = start + d["qlens"][0]
+        out.setdefault(layer, []).append((start, pos[layer], d))
+    return out, cached
 
 
 def rel(a, b):
@@ -70,31 +75,36 @@ def main():
     try:
         for kind, s, k, prev, cur in pairs():
             salt = f"sc-{tag}-{stamp}-{kind}-{s}-{k}"
-            c1, _, n1 = run(dump, cur, salt + "-c1")
-            c2, _, _ = run(dump, cur, salt + "-c2")
-            t = len(prev) - 32
-            dr, _, _ = run(dump, cur[:t - 16] + cur[t:], salt + "-drop")
-            run(dump, prev, salt + "-hot", n=64)
-            h, hc, nh = run(dump, cur, salt + "-hot")
-            row = {"kind": kind, "session": s, "turn": k, "len": len(cur), "prev_len": len(prev), "hot_cached": hc,
-                   "cold_chunks": n1, "hot_chunks": nh}
-            for layer in sorted(c1):
-                ref = c1[layer]
-                for name, x in (("cold2", c2), ("hot", h), ("drop16", dr)):
-                    row[f"L{layer}_{name}_state_rel"] = rel(x[layer]["state"], ref["state"])
-                    row[f"L{layer}_{name}_conv_maxabs"] = (x[layer]["conv"] - ref["conv"]).abs().max().item()
-                row[f"L{layer}_hot_has_init"] = h[layer]["has_init"]
+            warm, _ = run(dump, prev, salt + "-hot", n=64)
+            hot, T = run(dump, cur, salt + "-hot")
+            row = {"kind": kind, "session": s, "turn": k, "len": len(cur), "prev_len": len(prev), "hit": T,
+                   "hot_chunks": [(a, b) for a, b, _ in hot["0"]], "warm_chunk_ends": [b for _, b, _ in warm["0"]]}
+            if T == 0:
+                rows.append(row); print(json.dumps(row), flush=True); continue
+            pre, _ = run(dump, cur[:T], salt + "-pre")
+            pre16, _ = run(dump, cur[:T - 16], salt + "-pre16")
+            cold, _ = run(dump, cur, salt + "-cold")
+            for layer in ("0", "2"):
+                restored = hot[layer][0][2]["init"]
+                row[f"L{layer}_hot_has_init"] = hot[layer][0][2]["has_init"][0]
+                ref = pre[layer][-1][2]["state"]
+                ends = {b: d["state"] for _, b, d in warm[layer]}
+                if T in ends:
+                    row[f"L{layer}_restored_vs_warm_maxabs"] = (restored - ends[T]).abs().max().item()
+                row[f"L{layer}_restored_vs_pre_rel"] = rel(restored, ref)
+                row[f"L{layer}_pre16_vs_pre_rel"] = rel(pre16[layer][-1][2]["state"], ref)
+                row[f"L{layer}_hot_final_vs_cold_rel"] = rel(hot[layer][-1][2]["state"], cold[layer][-1][2]["state"])
             print(json.dumps(row), flush=True)
             rows.append(row)
     finally:
         os.remove(os.path.join(dump, "ENABLE"))
-    summ = {"tag": tag, "n": len(rows)}
-    for key in rows[0]:
-        if key.endswith("_rel") or key.endswith("_maxabs"):
-            v = [r[key] for r in rows]
-            summ[key] = {"mean": sum(v) / len(v), "max": max(v)}
-    summ["hot_cached_mean"] = sum(r["hot_cached"] or 0 for r in rows) / len(rows)
-    summ["prev_len_mean"] = sum(r["prev_len"] for r in rows) / len(rows)
+    summ = {"tag": tag, "n": len(rows), "hit_mean": sum(r["hit"] for r in rows) / len(rows),
+            "prev_len_mean": sum(r["prev_len"] for r in rows) / len(rows)}
+    keys = sorted({k for r in rows for k in r if k.startswith("L") and not k.endswith("has_init")})
+    for key in keys:
+        v = [r[key] for r in rows if key in r]
+        summ[key] = {"n": len(v), "mean": sum(v) / len(v), "min": min(v), "max": max(v)}
+    summ["has_init_all"] = all(r.get("L0_hot_has_init", True) for r in rows)
     print("STATECHECK", json.dumps(summ), flush=True)
     json.dump({"summary": summ, "rows": rows}, open(out, "w"), indent=1)
 

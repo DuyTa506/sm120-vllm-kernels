@@ -1,0 +1,751 @@
+{
+ "probes": [
+  {
+   "i": 3,
+   "task": 0,
+   "turn": 11,
+   "cut": 15379,
+   "sleep": 44.72884048631913,
+   "sleep2": 85.23629553544637,
+   "lenA": 23859,
+   "lenB": 28075,
+   "lenC": 18379,
+   "B": {
+    "cached_hot": 21280,
+    "ttft_hot": 42.19342827796936,
+    "ttft_cold": 12.253612756729126,
+    "hot_vs_cold": {
+     "tv": 0.036920766492697515,
+     "top1": true,
+     "text_eq": false
+    },
+    "cold2_vs_cold": {
+     "tv": 0.02052827048610038,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.016413694295841257,
+     "top1": true,
+     "text_eq": false
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/charset.py\n</parameter>\n<parameter=start_line>\n245\n",
+     "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/charset.py\n</parameter>\n<parameter=start_line>\n245\n",
+     "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/charset.py\n</parameter>\n<parameter=start_line>\n250\n"
+    ]
+   },
+   "t_end": 219.9039752483368
+  },
+  {
+   "i": 1,
+   "task": 5,
+   "turn": 7,
+   "cut": 6893,
+   "sleep": 86.6230404722684,
+   "sleep2": 112.77632505144818,
+   "lenA": 18404,
+   "lenB": 21654,
+   "lenC": 9893,
+   "B": {
+    "cached_hot": 14896,
+    "ttft_hot": 50.39754009246826,
+    "ttft_cold": 8.81856083869934,
+    "hot_vs_cold": {
+     "tv": 0.00532527679233796,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.0018104614908608704,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.0036165258210595123,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nxml/etree",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nxml/etree",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nxml/etree"
+    ]
+   },
+   "t_end": 253.56744837760925
+  },
+  {
+   "i": 5,
+   "task": 5,
+   "turn": 10,
+   "cut": 15936,
+   "sleep": 118.10040844743361,
+   "sleep2": 43.7266144494205,
+   "lenA": 29002,
+   "lenB": 30278,
+   "lenC": 18936,
+   "B": {
+    "cached_hot": 25536,
+    "ttft_hot": 62.88606309890747,
+    "ttft_cold": 17.20470142364502,
+    "hot_vs_cold": {
+     "tv": 0.05165591276502283,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.17165512467182228,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.21940155104672152,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "Now let me read the other etree modules:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/ElementPath.py\n",
+     "Now let me read the other etree modules:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/ElementPath.py\n",
+     "Now let me read the other etree modules:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/ElementPath.py\n"
+    ]
+   },
+   "t_end": 301.474951505661
+  },
+  {
+   "i": 0,
+   "task": 3,
+   "turn": 6,
+   "cut": 16378,
+   "sleep": 71.58587971385387,
+   "sleep2": 43.86291389014499,
+   "lenA": 18470,
+   "lenB": 21817,
+   "lenC": 19378,
+   "B": {
+    "cached_hot": 14896,
+    "ttft_hot": 37.65572190284729,
+    "ttft_cold": 1.7218637466430664,
+    "hot_vs_cold": {
+     "tv": 0.0007607161472683495,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.0002119819331296879,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.0006862779193555219,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nlogging/__init__.",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nlogging/__init__.",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nlogging/__init__."
+    ]
+   },
+   "C": {
+    "cached_hot": 0,
+    "hot_vs_cold": {
+     "tv": 0.4071587538678643,
+     "top1": false,
+     "text_eq": false
+    },
+    "texts": [
+     "<tool_call>\n<function=grep>\n<parameter=path>\n.\n</parameter>\n<parameter=pattern>\nconftest\"\n</parameter",
+     "Let me check the test setup properly:\n\n<tool_call>\n<function=grep>\n<parameter=path>\n.\n</parameter>\n<parameter=pattern"
+    ]
+   },
+   "t_end": 304.02690076828003
+  },
+  {
+   "i": 7,
+   "task": 3,
+   "turn": 5,
+   "cut": 9988,
+   "sleep": 94.56021558089637,
+   "sleep2": 48.24445699548731,
+   "lenA": 15178,
+   "lenB": 18470,
+   "lenC": 12988,
+   "B": {
+    "cached_hot": 12768,
+    "ttft_hot": 49.07871651649475,
+    "ttft_cold": 29.584477424621582,
+    "hot_vs_cold": {
+     "tv": 0.0005521796164842898,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.00045129585728747646,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.00012883715386117242,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1500\n</parameter>\n<parameter=path>\nlogging/__init__.",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1500\n</parameter>\n<parameter=path>\nlogging/__init__.",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1500\n</parameter>\n<parameter=path>\nlogging/__init__."
+    ]
+   },
+   "t_end": 304.51376843452454
+  },
+  {
+   "i": 9,
+   "task": 0,
+   "turn": 10,
+   "cut": 14332,
+   "sleep": 89.5207674538843,
+   "sleep2": 79.71315960907934,
+   "lenA": 21922,
+   "lenB": 23859,
+   "lenC": 17332,
+   "B": {
+    "cached_hot": 19152,
+    "ttft_hot": 13.66063380241394,
+    "ttft_cold": 39.59387922286987,
+    "hot_vs_cold": {
+     "tv": 0.030540972161367304,
+     "top1": true,
+     "text_eq": false
+    },
+    "cold2_vs_cold": {
+     "tv": 0.020759045704585664,
+     "top1": true,
+     "text_eq": false
+    },
+    "hot_vs_cold2": {
+     "tv": 0.022298919639201775,
+     "top1": true,
+     "text_eq": false
+    },
+    "texts": [
+     "Now let me read the remaining modules. Let me continue with charset, base64mime, quoprimime, encoders, contentmanager, header,",
+     "Now let me read the remaining core modules. Let me continue with charset, base64mime, quoprimime, header, feedparser, generator,",
+     "Now let me read the remaining core modules. Let me read the charset module:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nemail/"
+    ]
+   },
+   "t_end": 309.4203381538391
+  },
+  {
+   "i": 2,
+   "task": 2,
+   "turn": 5,
+   "cut": 5259,
+   "sleep": 74.69165469299087,
+   "sleep2": 45.588433885969515,
+   "lenA": 15275,
+   "lenB": 18801,
+   "lenC": 8259,
+   "B": {
+    "cached_hot": 12768,
+    "ttft_hot": 52.16855502128601,
+    "ttft_cold": 6.664814472198486,
+    "hot_vs_cold": {
+     "tv": 0.0003278042908909531,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.00019405529883351438,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.00016931171180773055,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1300\n</parameter>\n<parameter=path>\nhttp/client.py\n",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1300\n</parameter>\n<parameter=path>\nhttp/client.py\n",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1300\n</parameter>\n<parameter=path>\nhttp/client.py\n"
+    ]
+   },
+   "C": {
+    "cached_hot": 0,
+    "hot_vs_cold": {
+     "tv": 0.026760530589997993,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>",
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+    ]
+   },
+   "t_end": 309.6180069446564
+  },
+  {
+   "i": 11,
+   "task": 4,
+   "turn": 12,
+   "cut": 12013,
+   "sleep": 59.874126788603945,
+   "sleep2": 54.38133996665145,
+   "lenA": 22595,
+   "lenB": 25618,
+   "lenC": 15013,
+   "B": {
+    "cached_hot": 19152,
+    "ttft_hot": 12.2517991065979,
+    "ttft_cold": 43.66113090515137,
+    "hot_vs_cold": {
+     "tv": 0.05876075144007879,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.005231246116560544,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.06397251551651358,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n500\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py\n",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n500\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py\n",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n500\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py\n"
+    ]
+   },
+   "t_end": 310.8640937805176
+  },
+  {
+   "i": 13,
+   "task": 3,
+   "turn": 7,
+   "cut": 16426,
+   "sleep": 63.03502119121492,
+   "sleep2": 118.41398779940657,
+   "lenA": 21817,
+   "lenB": 25307,
+   "lenC": 19426,
+   "B": {
+    "cached_hot": 19152,
+    "ttft_hot": 2.3042194843292236,
+    "ttft_cold": 54.559122800827026,
+    "hot_vs_cold": {
+     "tv": 7.078731069152088e-05,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 3.160165755738214e-05,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 8.636490327617025e-05,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2000\n</parameter>\n<parameter=path>\nlogging/__init__.",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2000\n</parameter>\n<parameter=path>\nlogging/__init__.",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2000\n</parameter>\n<parameter=path>\nlogging/__init__."
+    ]
+   },
+   "t_end": 342.43439531326294
+  },
+  {
+   "i": 4,
+   "task": 2,
+   "turn": 6,
+   "cut": 13087,
+   "sleep": 86.63975235683259,
+   "sleep2": 44.94896386689123,
+   "lenA": 18801,
+   "lenB": 22354,
+   "lenC": 16087,
+   "B": {
+    "cached_hot": 14896,
+    "ttft_hot": 75.3856749534607,
+    "ttft_cold": 12.72178602218628,
+    "hot_vs_cold": {
+     "tv": 0.00022223193803125855,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.0005092566048903815,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.00047211893965519994,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1577\n</parameter>\n<parameter=path>\nhttp/client.py\n",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1577\n</parameter>\n<parameter=path>\nhttp/client.py\n",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1577\n</parameter>\n<parameter=path>\nhttp/client.py\n"
+    ]
+   },
+   "C": {
+    "cached_hot": 0,
+    "hot_vs_cold": {
+     "tv": 0.10134328541693119,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>",
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+    ]
+   },
+   "t_end": 343.5887506008148
+  },
+  {
+   "i": 6,
+   "task": 1,
+   "turn": 7,
+   "cut": 8341,
+   "sleep": 51.540406668595004,
+   "sleep2": 49.42337904626947,
+   "lenA": 16903,
+   "lenB": 20426,
+   "lenC": 11341,
+   "B": {
+    "cached_hot": 12768,
+    "ttft_hot": 75.20254421234131,
+    "ttft_cold": 22.09664249420166,
+    "hot_vs_cold": {
+     "tv": 0.001041881199233442,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.014946319586773314,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.015376791719937456,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1500\n</parameter>\n<parameter=path>\nasyncio/base_events",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1500\n</parameter>\n<parameter=path>\nasyncio/base_events",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1500\n</parameter>\n<parameter=path>\nasyncio/base_events"
+    ]
+   },
+   "C": {
+    "cached_hot": 0,
+    "hot_vs_cold": {
+     "tv": 0.03819562839949323,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>",
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+    ]
+   },
+   "t_end": 349.85446858406067
+  },
+  {
+   "i": 8,
+   "task": 5,
+   "turn": 9,
+   "cut": 17553,
+   "sleep": 69.79180341805849,
+   "sleep2": 83.81955725676463,
+   "lenA": 25200,
+   "lenB": 29002,
+   "lenC": 20553,
+   "B": {
+    "cached_hot": 21280,
+    "ttft_hot": 54.450377464294434,
+    "ttft_cold": 30.561581134796143,
+    "hot_vs_cold": {
+     "tv": 0.08821441893284891,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.1111970966128253,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.02301915743984797,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree"
+    ]
+   },
+   "C": {
+    "cached_hot": 0,
+    "hot_vs_cold": {
+     "tv": 0.19038211983824593,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "It seems the file got mixed up. Let me re-read the ElementTree.py file from where I left off.\n\n<tool_call>\n<function=read_file>\n",
+     "It seems the file got mixed up. Let me re-read the ElementTree.py file from where I left off.\n\n<tool_call>\n<function=read_file>\n"
+    ]
+   },
+   "t_end": 389.71790313720703
+  },
+  {
+   "i": 10,
+   "task": 5,
+   "turn": 7,
+   "cut": 10575,
+   "sleep": 65.13177363014333,
+   "sleep2": 86.8449490806111,
+   "lenA": 18404,
+   "lenB": 21654,
+   "lenC": 13575,
+   "B": {
+    "cached_hot": 14896,
+    "ttft_hot": 27.344917058944702,
+    "ttft_cold": 39.75569248199463,
+    "hot_vs_cold": {
+     "tv": 0.020075236331043144,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.02436917150528592,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.005162185968068256,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nxml/etree",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nxml/etree",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1750\n</parameter>\n<parameter=path>\nxml/etree"
+    ]
+   },
+   "C": {
+    "cached_hot": 0,
+    "hot_vs_cold": {
+     "tv": 0.23705718981458318,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "It seems the file content got mixed up. Let me re-read the ElementTree.py file properly.\n\n<tool_call>\n<function=read_file>\n<parameter=end",
+     "It seems the file content got mixed up. Let me re-read the ElementTree.py file properly.\n\n<tool_call>\n<function=read_file>\n<parameter=end"
+    ]
+   },
+   "t_end": 396.02292490005493
+  },
+  {
+   "i": 15,
+   "task": 4,
+   "turn": 14,
+   "cut": 16340,
+   "sleep": 116.96152667296877,
+   "sleep2": 46.20963857446364,
+   "lenA": 28946,
+   "lenB": 32255,
+   "lenC": 19340,
+   "B": {
+    "cached_hot": 25536,
+    "ttft_hot": 0.5325987339019775,
+    "ttft_cold": 65.55226802825928,
+    "hot_vs_cold": {
+     "tv": 0.00015013609272355636,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.003021033672330842,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.0030162450807002983,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1000\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1000\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1000\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py"
+    ]
+   },
+   "t_end": 397.45304560661316
+  },
+  {
+   "i": 14,
+   "task": 1,
+   "turn": 6,
+   "cut": 8403,
+   "sleep": 53.19696829148586,
+   "sleep2": 67.36446449278863,
+   "lenA": 13293,
+   "lenB": 16903,
+   "lenC": 11403,
+   "B": {
+    "cached_hot": 10640,
+    "ttft_hot": 2.4588088989257812,
+    "ttft_cold": 56.96497821807861,
+    "hot_vs_cold": {
+     "tv": 0.17974775773337023,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.17303485233863666,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.006746833081757377,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1250\n</parameter>\n<parameter=path>\nasyncio/base_events",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1250\n</parameter>\n<parameter=path>\nasyncio/base_events",
+     "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1250\n</parameter>\n<parameter=path>\nasyncio/base_events"
+    ]
+   },
+   "C": {
+    "cached_hot": 0,
+    "hot_vs_cold": {
+     "tv": 0.1640641183156677,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>",
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+    ]
+   },
+   "t_end": 406.9683566093445
+  },
+  {
+   "i": 12,
+   "task": 7,
+   "turn": 14,
+   "cut": 11774,
+   "sleep": 85.95389682069367,
+   "sleep2": 82.01572030491612,
+   "lenA": 25627,
+   "lenB": 26441,
+   "lenC": 14774,
+   "B": {
+    "cached_hot": 23408,
+    "ttft_hot": 1.4867942333221436,
+    "ttft_cold": 50.416831254959106,
+    "hot_vs_cold": {
+     "tv": 0.012179244014994752,
+     "top1": true,
+     "text_eq": true
+    },
+    "cold2_vs_cold": {
+     "tv": 0.011712388849401813,
+     "top1": true,
+     "text_eq": true
+    },
+    "hot_vs_cold2": {
+     "tv": 0.008781058593973743,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "Now let me read `_bootstrap_external.py`:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n250\n</parameter>\n",
+     "Now let me read `_bootstrap_external.py`:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n250\n</parameter>\n",
+     "Now let me read `_bootstrap_external.py`:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n250\n</parameter>\n"
+    ]
+   },
+   "C": {
+    "cached_hot": 0,
+    "hot_vs_cold": {
+     "tv": 0.15635878577544962,
+     "top1": true,
+     "text_eq": true
+    },
+    "texts": [
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>",
+     "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+    ]
+   },
+   "t_end": 425.87595319747925
+  }
+ ],
+ "metric_delta": {
+  "vllm:spec_decode_num_drafts_total": 29733.0,
+  "vllm:spec_decode_num_drafts_created": 0.0,
+  "vllm:spec_decode_num_draft_tokens_total": 59466.0,
+  "vllm:spec_decode_num_draft_tokens_created": 0.0,
+  "vllm:spec_decode_num_accepted_tokens_total": 53504.0,
+  "vllm:spec_decode_num_accepted_tokens_created": 0.0,
+  "vllm:spec_decode_num_accepted_tokens_per_pos_total": 53504.0,
+  "vllm:spec_decode_num_accepted_tokens_per_pos_created": 0.0,
+  "vllm:kv_offload_total_bytes_total": 192303104000.0,
+  "vllm:kv_offload_total_bytes_created": 0.0,
+  "vllm:kv_offload_total_time_total": 4.550869664281608,
+  "vllm:kv_offload_total_time_created": 0.0,
+  "vllm:kv_offload_size_bucket": 11556.0,
+  "vllm:kv_offload_size_count": 1968.0,
+  "vllm:kv_offload_size_sum": 192303104000.0,
+  "vllm:kv_offload_size_created": 0.0,
+  "vllm:kv_offload_cpu_cache_usage_perc": 0.0,
+  "vllm:kv_offload_cpu_cache_write_usage_perc": 0.0,
+  "vllm:kv_offload_cpu_cache_read_usage_perc": 0.0,
+  "vllm:kv_offload_cpu_allocation_size_bucket": 19553.0,
+  "vllm:kv_offload_cpu_allocation_size_count": 1853.0,
+  "vllm:kv_offload_cpu_allocation_size_sum": 3384.0,
+  "vllm:kv_offload_cpu_allocation_size_created": 1792969762.2450507,
+  "vllm:kv_offload_load_bytes_total": 112673275904.0,
+  "vllm:kv_offload_load_bytes_created": 1792969999.343349,
+  "vllm:kv_offload_load_time_total": 2.3389139506816856,
+  "vllm:kv_offload_load_time_created": 1792969999.3433914,
+  "vllm:kv_offload_load_size_bucket": 116.0,
+  "vllm:kv_offload_load_size_count": 115.0,
+  "vllm:kv_offload_load_size_sum": 112673275904.0,
+  "vllm:kv_offload_load_size_created": 1792969999.3434424,
+  "vllm:kv_offload_store_bytes_total": 79629828096.0,
+  "vllm:kv_offload_store_bytes_created": 1792969762.3984008,
+  "vllm:kv_offload_store_time_total": 2.211955713599923,
+  "vllm:kv_offload_store_time_created": 1792969762.3984697,
+  "vllm:kv_offload_store_size_bucket": 11440.0,
+  "vllm:kv_offload_store_size_count": 1853.0,
+  "vllm:kv_offload_store_size_sum": 79629828096.0,
+  "vllm:kv_offload_store_size_created": 1792969762.3985424,
+  "vllm:kv_offload_lookup_sync_delay_seconds_bucket": 12493.0,
+  "vllm:kv_offload_lookup_sync_delay_seconds_count": 1138.0,
+  "vllm:kv_offload_lookup_sync_delay_seconds_sum": 0.027026041876524687,
+  "vllm:kv_offload_lookup_sync_delay_seconds_created": 1792969762.2447395,
+  "vllm:prefix_cache_queries_total": 26297297.0,
+  "vllm:prefix_cache_queries_created": 0.0,
+  "vllm:prefix_cache_hits_total": 10280368.0,
+  "vllm:prefix_cache_hits_created": 0.0,
+  "vllm:external_prefix_cache_queries_total": 16016929.0,
+  "vllm:external_prefix_cache_queries_created": 0.0,
+  "vllm:external_prefix_cache_hits_total": 9335536.0,
+  "vllm:external_prefix_cache_hits_created": 0.0,
+  "vllm:num_preemptions_total": 0.0,
+  "vllm:num_preemptions_created": 0.0,
+  "vllm:request_num_preemptions_bucket": 2752.0,
+  "vllm:request_num_preemptions_count": 344.0,
+  "vllm:request_num_preemptions_sum": 0.0,
+  "vllm:request_num_preemptions_created": 0.0
+ }
+}

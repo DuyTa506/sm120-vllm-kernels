@@ -1,0 +1,40 @@
+== 5. cluster variant (thread block clusters + DSMEM hand-off)
+PASS cluster cs=8 nw=8 M=1 injected logits (+ shared gate)
+PASS cluster cs=8 nw=8 M=3 injected logits (+ shared gate)
+PASS cluster cs=8 nw=8 M=8 injected logits (+ shared gate)
+PASS cluster cs=8 nw=8 M=16 injected logits (+ shared gate)
+PASS cluster cs=8 nw=8 M=24 injected logits (+ shared gate)
+PASS cluster cs=8 nw=8 M=32 injected logits (+ shared gate)
+PASS cluster cs=8 nw=8 M=45 injected logits (+ shared gate)
+PASS cluster cs=8 nw=16 M=1 injected logits (+ shared gate)
+PASS cluster cs=8 nw=16 M=3 injected logits (+ shared gate)
+PASS cluster cs=8 nw=16 M=8 injected logits (+ shared gate)
+PASS cluster cs=8 nw=16 M=16 injected logits (+ shared gate)
+PASS cluster cs=8 nw=16 M=24 injected logits (+ shared gate)
+PASS cluster cs=8 nw=16 M=32 injected logits (+ shared gate)
+PASS cluster cs=8 nw=16 M=45 injected logits (+ shared gate)
+PASS cluster cs=16 nw=8 M=1 injected logits (+ shared gate)
+PASS cluster cs=16 nw=8 M=3 injected logits (+ shared gate)
+PASS cluster cs=16 nw=8 M=8 injected logits (+ shared gate)
+PASS cluster cs=16 nw=8 M=16 injected logits (+ shared gate)
+PASS cluster cs=16 nw=8 M=24 injected logits (+ shared gate)
+PASS cluster cs=16 nw=8 M=32 injected logits (+ shared gate)
+PASS cluster cs=16 nw=8 M=45 injected logits (+ shared gate)
+PASS cluster cs=16 nw=16 M=1 injected logits (+ shared gate)
+PASS cluster cs=16 nw=16 M=3 injected logits (+ shared gate)
+PASS cluster cs=16 nw=16 M=8 injected logits (+ shared gate)
+PASS cluster cs=16 nw=16 M=16 injected logits (+ shared gate)
+PASS cluster cs=16 nw=16 M=24 injected logits (+ shared gate)
+PASS cluster cs=16 nw=16 M=32 injected logits (+ shared gate)
+PASS cluster cs=16 nw=16 M=45 injected logits (+ shared gate)
+PASS cluster E=128 k=8 ties M=24
+PASS cluster E=64 k=6 ties M=24
+PASS cluster sigmoid + bias + scale
+PASS cluster padding rows -> ids -1
+   cluster: top-8 set differs from the exact-logit routing in 0 of 2132 rows; rows with all 256 logits bit-exact 2048/2132 (ordered ids identical on 2048/2048, max rel weight diff 1.2e-07); logits bitwise equal to the split-K kernel on 2032/2132 rows
+PASS cluster real weights: top-8 set == exact routing on >= 99.9% of rows
+PASS cluster real weights: bit-exact-logit rows route identically (ordered ids, weights < 1e-6 rel)
+PASS cluster bitwise repeatable
+PASS cluster: CUDA graph replays with new inputs == eager
+PASS cluster completes and is correct while another stream saturates the SMs
+ALL PASSED []

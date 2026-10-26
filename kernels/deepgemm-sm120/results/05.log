@@ -1,0 +1,95 @@
+USDT:2026-10-25 20:52:01 59:59 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:01 59:59 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=3 per-call kernel time (us), cold rotation:
+       33.4 us x2.0  _ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJlllEEEEENS1_10collective13CollectiveMmaINS1_
+        3.1 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::fusedBuildExpertMapsSortFirstTokenKernel<32, 8, 9>(int const*, int*, int*, long*, long, int, in
+        2.7 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16, tensorrt_llm::kernels::cutlass_
+        2.7 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::expandInputRowsKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, (tensorrt_llm::kernels::cutlass_kernels::Tm
+        1.9 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::computeStridesTmaWarpSpecializedKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat
+        0.8 us x1.0  Memset (Device)
+   total kernel time 44.6 us
+USDT:2026-10-25 20:52:01 59:59 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:01 59:59 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=12 per-call kernel time (us), cold rotation:
+       79.9 us x2.0  _ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJlllEEEEENS1_10collective13CollectiveMmaINS1_
+        3.2 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::fusedBuildExpertMapsSortFirstTokenKernel<32, 8, 9>(int const*, int*, int*, long*, long, int, in
+        2.9 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16, tensorrt_llm::kernels::cutlass_
+        2.8 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::expandInputRowsKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, (tensorrt_llm::kernels::cutlass_kernels::Tm
+        1.9 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::computeStridesTmaWarpSpecializedKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat
+        0.8 us x1.0  Memset (Device)
+   total kernel time 91.6 us
+USDT:2026-10-25 20:52:01 59:59 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:01 59:59 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=48 per-call kernel time (us), cold rotation:
+      178.3 us x2.0  _ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJlllEEEEENS1_10collective13CollectiveMmaINS1_
+        4.6 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16, tensorrt_llm::kernels::cutlass_
+        3.6 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::expandInputRowsKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, (tensorrt_llm::kernels::cutlass_kernels::Tm
+        3.5 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::fusedBuildExpertMapsSortFirstTokenKernel<64, 8, 9>(int const*, int*, int*, long*, long, int, in
+        2.7 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::computeStridesTmaWarpSpecializedKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat
+        1.3 us x1.0  Memset (Device)
+   total kernel time 194.0 us
+USDT:2026-10-25 20:52:01 59:59 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:01 59:59 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=192 per-call kernel time (us), cold rotation:
+      231.1 us x2.0  _ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJlllEEEEENS1_10collective13CollectiveMmaINS1_
+        6.0 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::expandInputRowsKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, (tensorrt_llm::kernels::cutlass_kernels::Tm
+        5.5 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16, tensorrt_llm::kernels::cutlass_
+        2.8 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::computeStridesTmaWarpSpecializedKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat
+        2.2 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::blockExpertPrefixSumKernel<256>(int const*, int*, int*, long, long, int)
+        1.3 us x1.0  tensorrt_llm::kernels::cutlass_kernels::mergeExpertPrefixSumKernel(int const*, int const*, int const*, int*, int*, int*, int)
+        1.2 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::globalExpertPrefixSumKernel<256>(int const*, int*, long*, long, long)
+        1.2 us x1.0  Memset (Device)
+   total kernel time 251.4 us
+USDT:2026-10-25 20:52:02 59:59 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:02 59:59 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=8192 per-call kernel time (us), cold rotation:
+      572.0 us x2.0  _ZN7cutlass13device_kernelINS_4gemm6kernel13GemmUniversalINS1_17GroupProblemShapeIN4cute5tupleIJlllEEEEENS1_10collective13CollectiveMmaINS1_
+      139.1 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::expandInputRowsKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, (tensorrt_llm::kernels::cutlass_kernels::Tm
+       96.1 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16, tensorrt_llm::kernels::cutlass_
+       21.5 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::blockExpertPrefixSumKernel<1024>(int const*, int*, int*, long, long, int)
+        7.9 us x1.0  Memset (Device)
+        7.5 us x1.0  tensorrt_llm::kernels::cutlass_kernels::mergeExpertPrefixSumKernel(int const*, int const*, int const*, int*, int*, int*, int)
+        5.9 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::computeStridesTmaWarpSpecializedKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat
+        2.2 us x1.0  void tensorrt_llm::kernels::cutlass_kernels::globalExpertPrefixSumLargeKernel<1024>(int const*, int*, long*, long, long, long)
+   total kernel time 852.3 us
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=48 fp8 labels al=32: gemm kernels g1 203.9 + g2 101.8 = 305.7 us (all kernels 305.7)
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=192 fp4 labels al=32: gemm kernels g1 140.9 + g2 70.3 = 211.2 us (all kernels 211.2)
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=192 fp4 psum al=32: gemm kernels g1 145.4 + g2 72.7 = 218.1 us (all kernels 218.1)
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=192 fp8 labels al=32: gemm kernels g1 269.4 + g2 134.6 = 403.9 us (all kernels 403.9)
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=8192 fp4 psum al=128: gemm kernels g1 353.0 + g2 358.6 = 711.6 us (all kernels 711.6)
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=8192 fp4 psum al=64: gemm kernels g1 365.2 + g2 324.3 = 689.5 us (all kernels 689.5)
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=8192 fp4 labels al=128: gemm kernels g1 385.7 + g2 463.0 = 848.7 us (all kernels 848.7)
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 20:52:08 234:234 SyncActivityProfilerHandler.cpp:59] profiler_stop
+T=8192 fp8 psum al=128: gemm kernels g1 579.3 + g2 437.9 = 1017.2 us (all kernels 1017.2)
+exit=0

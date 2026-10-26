@@ -1,0 +1,45 @@
+b1431143489ad16a24cea961875b40bd13cdc10e8c1caa6b85d77f6a3a02292c
+waiting for gdn-replay-srv on :8121 (CONFIG=tuned)
+ready
+== server log (replay lines)
+(APIServer pid=1) INFO 10-25 20:46:54 [api_utils.py:286] non-default args: {'model_tag': 'unsloth/Qwen3.6-35B-A3B-NVFP4-Fast', 'model': 'unsloth/Qwen3.6-35B-A3B-NVFP4-Fast', 'max_model_len': 131072, 'served_model_name': 
+(APIServer pid=1) WARNING 10-25 20:46:54 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_GDN_STATE_REPLAY_CHECK
+(APIServer pid=1) WARNING 10-25 20:46:54 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_GDN_STATE_REPLAY_MIN_REQS
+(APIServer pid=1) INFO 10-25 20:46:59 [config.py:688] Mamba cache mode is set to 'align' for Qwen3_5MoeForConditionalGeneration by default when prefix caching is enabled
+(EngineCore pid=336) INFO 10-25 20:47:13 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49
+(EngineCore pid=336) INFO 10-25 20:47:16 [qwen_gdn_linear_attn.py:621] GDN spec decode kernel: cuda
+(EngineCore pid=336) INFO 10-25 20:47:16 [qwen_gdn_linear_attn.py:639] GDN state replay enabled (VLLM_GDN_STATE_REPLAY=1)
+(EngineCore pid=336) INFO 10-25 20:47:34 [interface.py:1096] Setting attention block size to 2128 tokens to ensure that attention page size is >= mamba page size.
+(EngineCore pid=336) WARNING 10-25 20:47:36 [decorators.py:333] [backbone] Compiling model again due to a load failure from /root/.cache/vllm/torch_compile_cache/torch_aot_compile/b1b9368b6e061a74af2523b9817114116c58f037
+(EngineCore pid=336) INFO 10-25 20:48:18 [decorators.py:319] [eagle_head] Directly load AOT compilation from path /root/.cache/vllm/torch_compile_cache/torch_aot_compile/be37c1970ad9371c767675215cc1c954c097c848f28df5a1c0
+(EngineCore pid=336) WARNING 10-25 20:49:22 [gdn_state_replay.py:254] GDN replay SHADOW step=1 rows=64 bad_rows=0 (total rows=64 bad=0) armed=64/64 out_mismatch=0 row0: acc=1 n=2 q=3 src=1 slot=2 si=[1, 2, 3]
+(EngineCore pid=336) WARNING 10-25 20:49:22 [gdn_state_replay.py:254] GDN replay SHADOW step=2 rows=2 bad_rows=0 (total rows=66 bad=0) armed=2/2 out_mismatch=0 row0: acc=2 n=3 q=3 src=2 slot=3 si=[1, 2, 3]
+(EngineCore pid=336) WARNING 10-25 20:49:22 [gdn_state_replay.py:254] GDN replay SHADOW step=3 rows=2 bad_rows=0 (total rows=68 bad=0) armed=2/2 out_mismatch=0 row0: acc=3 n=1 q=1 src=3 slot=1 si=[1, 2, 3]
+== probe (cold, 2 passes + long generation crossing the 2176 block boundary)
+saved 14 total tokens 6742
+saved 12 total tokens 1542
+prompt 10: IDENTICAL  len 19/19  max|dlp| on shared prefix 0
+prompt 11: IDENTICAL  len 160/160  max|dlp| on shared prefix 0
+SUMMARY identical prompts 10/12; shared-prefix tokens 1352/1542
+== short bench (check mode is slow: c=1 and c=8 only)
+Output token throughput (tok/s): 98.57  Median ITL (ms): 20.44  
+Output token throughput (tok/s): 661.97  Median ITL (ms): 22.98  
+spec decode over bench_decode: accepted 3826 / drafted 9278 = 0.4124
+== stress (finish mid-step, aborts)
+stress: ok=46 aborted=14 failed=0 in 3s
+preemptions: 0
+== post-stress probe
+saved 12 total tokens 1542
+== errors / check lines
+      1 (EngineCore pid=336) WARNING 10-25 20:51:09 [gdn_state_replay.py:254] GDN replay SHADOW step=6 rows=16 bad_rows=0 (total rows=100 bad=0) armed=16/16 out_mismatch=0 row0: acc=1 n=1 q=3 src=14 slot=14 si=[14, 2, 4]
+      1 (EngineCore pid=336) WARNING 10-25 20:51:09 [gdn_state_replay.py:254] GDN replay SHADOW step=5 rows=16 bad_rows=0 (total rows=84 bad=0) armed=16/16 out_mismatch=0 row0: acc=1 n=1 q=3 src=14 slot=14 si=[14, 2, 4]
+      1 (EngineCore pid=336) WARNING 10-25 20:49:45 [gdn_state_replay.py:254] GDN replay SHADOW step=4 rows=0 bad_rows=0 (total rows=68 bad=0) armed=0/0 out_mismatch=0 row0: acc=3 n=1 q=1 src=0 slot=0 si=[0, 0, 0]
+      1 (EngineCore pid=336) WARNING 10-25 20:49:22 [gdn_state_replay.py:254] GDN replay SHADOW step=3 rows=2 bad_rows=0 (total rows=68 bad=0) armed=2/2 out_mismatch=0 row0: acc=3 n=1 q=1 src=3 slot=1 si=[1, 2, 3]
+      1 (EngineCore pid=336) WARNING 10-25 20:49:22 [gdn_state_replay.py:254] GDN replay SHADOW step=2 rows=2 bad_rows=0 (total rows=66 bad=0) armed=2/2 out_mismatch=0 row0: acc=2 n=3 q=3 src=2 slot=3 si=[1, 2, 3]
+      1 (EngineCore pid=336) WARNING 10-25 20:49:22 [gdn_state_replay.py:254] GDN replay SHADOW step=1 rows=64 bad_rows=0 (total rows=64 bad=0) armed=64/64 out_mismatch=0 row0: acc=1 n=2 q=3 src=1 slot=2 si=[1, 2, 3]
+      1 (EngineCore pid=336) INFO 10-25 20:47:31 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 8.04 GiB. Available RAM: 208.68 GiB.
+      1 (EngineCore pid=336) INFO 10-25 20:47:17 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 22.02 GiB. Available RAM: 208.56 GiB.
+      1 (APIServer pid=1) WARNING 10-25 20:46:54 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_GDN_STATE_REPLAY_CHECK
+      1 Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:12<00:00,  2.55s/it]
+      1 Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:12<00:00,  2.24s/it]
+      1 Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:00<00:00,  2.21it/s]

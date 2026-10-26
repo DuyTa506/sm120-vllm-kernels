@@ -1,0 +1,25 @@
+NVIDIA RTX PRO 6000 Blackwell Workstation Edition sm_120, SMs 188, clusterLaunch attr 1, smem/block optin 99 KB, L2 128 MB
+cluster 2: NonPortableClusterSizeAllowed -> no error
+cluster 2: max active clusters -> no error 188
+cluster 2: launch -> no error
+cluster 2: DSMEM neighbour read correct
+cluster 2: empty-kernel chain: 0.52 us per kernel (min of 30 replays)
+cluster 2: cluster-exchange (2 cluster barriers + DSMEM read) chain: 0.96 us per kernel (min of 30 replays)
+cluster 4: NonPortableClusterSizeAllowed -> no error
+cluster 4: max active clusters -> no error 94
+cluster 4: launch -> no error
+cluster 4: DSMEM neighbour read correct
+cluster 4: empty-kernel chain: 0.51 us per kernel (min of 30 replays)
+cluster 4: cluster-exchange (2 cluster barriers + DSMEM read) chain: 0.96 us per kernel (min of 30 replays)
+cluster 8: NonPortableClusterSizeAllowed -> no error
+cluster 8: max active clusters -> no error 46
+cluster 8: launch -> no error
+cluster 8: DSMEM neighbour read correct
+cluster 8: empty-kernel chain: 0.51 us per kernel (min of 30 replays)
+cluster 8: cluster-exchange (2 cluster barriers + DSMEM read) chain: 0.96 us per kernel (min of 30 replays)
+cluster 16: NonPortableClusterSizeAllowed -> no error
+cluster 16: max active clusters -> no error 20
+cluster 16: launch -> no error
+cluster 16: DSMEM neighbour read correct
+cluster 16: empty-kernel chain: 0.50 us per kernel (min of 30 replays)
+cluster 16: cluster-exchange (2 cluster barriers + DSMEM read) chain: 0.98 us per kernel (min of 30 replays)

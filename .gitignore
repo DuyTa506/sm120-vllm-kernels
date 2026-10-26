@@ -12,3 +12,6 @@ results/agentic/trajectories_*.json
 *.pt
 kernels/kv-offload/src/
 kernels/dense-fp8-gemm/microbench/mma_kind_rate
+kernels/deepgemm-sm120/src/
+kernels/deepgemm-sm120/home/
+kernels/deepgemm-sm120/ours_ref/

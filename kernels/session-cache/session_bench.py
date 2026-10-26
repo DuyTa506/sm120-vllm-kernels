@@ -46,7 +46,10 @@ def metrics():
     out = {}
     for name in ("vllm:prefix_cache_hits_total", "vllm:prefix_cache_queries_total",
                  "vllm:spec_decode_num_accepted_tokens_total", "vllm:spec_decode_num_draft_tokens_total",
-                 "vllm:num_preemptions_total"):
+                 "vllm:num_preemptions_total",
+                 # engine steps, and server-side prefill time (first scheduled -> first token)
+                 "vllm:iteration_tokens_total_count", "vllm:request_prefill_time_seconds_sum",
+                 "vllm:request_prefill_time_seconds_count"):
         out[name] = sum(float(l.split()[-1]) for l in m.splitlines() if l.startswith(name))
     return out
 

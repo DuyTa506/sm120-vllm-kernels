@@ -19,6 +19,13 @@ ARGS="--enable-prompt-tokens-details"
 [ -n "${OFFLOAD:-}" ] && ARGS="$ARGS --kv-offloading-size $OFFLOAD --kv-offloading-backend ${BACKEND:-native}"
 echo "[$(date +%T)] $LABEL: serve $ARGS ${EXTRA:-} FLAGS=$FLAGS"
 T0=$(date +%s)
+# other jobs sometimes leave a server on the GPU: wait (holding the lock) until >= 80 GB is free, at most 10 min
+for i in $(seq 1 60); do
+  FREE=$(nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits | head -1)
+  [ "$FREE" -ge 80000 ] && break
+  [ $i = 1 ] && echo "[$(date +%T)] $LABEL: only $FREE MiB free, waiting"; sleep 10
+done
+[ "$FREE" -ge 80000 ] || { echo "[$(date +%T)] $LABEL: GPU still busy ($FREE MiB free), giving up"; exit 1; }
 KVT=(); [ -n "${KVT_FILE:-}" ] && KVT=(--kv-transfer-config "$(cat $KVT_FILE)")
 CONFIG=production NAME=$NAME PORT=$PORT FLAGS="$FLAGS" $R/scripts/serve.sh $ARGS ${EXTRA:-} "${KVT[@]}" > $D/logs/$LABEL.serve.log 2>&1
 rc=$?

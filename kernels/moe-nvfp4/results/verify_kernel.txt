@@ -1,0 +1,53 @@
+== layer 19: B12xMoEWrapper(max_num_tokens=16384) persistent buffers 579.7 MiB/layer (+ MMA-layout scale copies 48.0 MiB/layer); x40 layers = 24.52 GiB
+     M  routing   cutlass  b12x_int  b12x_raw  int/cut  raw/cut top1 expert rows
+  1024     real     321.7     318.6     309.6    0.990    0.963              571   (pass1 321.6/318.7/309.3, pass2 321.7/318.4/310.0; rel_l2 b12x vs cut 0.0266)
+  2048     real     387.7     343.5     332.2    0.886    0.857             1137   (pass1 387.5/343.8/331.9, pass2 387.9/343.2/332.5; rel_l2 b12x vs cut 0.0257)
+  4096     real     561.0     460.0     447.7    0.820    0.798             2918   (pass1 558.7/458.2/444.9, pass2 563.4/461.7/450.5; rel_l2 b12x vs cut 0.0249)
+  8192     real     903.1     677.4     659.3    0.750    0.730             6007   (pass1 900.8/675.4/656.0, pass2 905.5/679.5/662.5; rel_l2 b12x vs cut 0.0239)
+ 16384     real    1623.2    1254.4    1208.1    0.773    0.744            11958   (pass1 1619.3/1254.6/1205.8, pass2 1627.1/1254.2/1210.4; rel_l2 b12x vs cut 0.0240)
+  8192 balanced     897.5     674.2     654.3    0.751    0.729              310   (pass1 896.0/671.8/650.6, pass2 898.9/676.6/658.0; rel_l2 b12x vs cut 0.0269)
+== layer 0: B12xMoEWrapper(max_num_tokens=16384) persistent buffers 580.0 MiB/layer (+ MMA-layout scale copies 48.0 MiB/layer); x40 layers = 24.53 GiB
+     M  routing   cutlass  b12x_int  b12x_raw  int/cut  raw/cut top1 expert rows
+  1024     real     355.5     337.8     329.2    0.950    0.926              304   (pass1 355.7/338.0/328.9, pass2 355.3/337.7/329.5; rel_l2 b12x vs cut 0.0165)
+  2048     real     412.1     404.5     393.2    0.982    0.954              622   (pass1 412.2/405.1/393.0, pass2 412.0/404.0/393.4; rel_l2 b12x vs cut 0.0171)
+  4096     real     561.3     459.2     445.6    0.818    0.794             1074   (pass1 559.8/458.1/443.7, pass2 562.9/460.2/447.6; rel_l2 b12x vs cut 0.0166)
+  8192     real     895.3     666.9     646.5    0.745    0.722             2056   (pass1 893.3/664.0/642.2, pass2 897.3/669.9/650.9; rel_l2 b12x vs cut 0.0160)
+ 16384     real    1609.0    1239.4    1198.2    0.770    0.745             4120   (pass1 1606.3/1240.1/1197.2, pass2 1611.6/1238.7/1199.3; rel_l2 b12x vs cut 0.0157)
+  8192 balanced     890.9     665.2     643.9    0.747    0.723              310   (pass1 890.2/663.6/640.1, pass2 891.7/666.8/647.8; rel_l2 b12x vs cut 0.0227)
+== layer 39: B12xMoEWrapper(max_num_tokens=16384) persistent buffers 580.0 MiB/layer (+ MMA-layout scale copies 48.0 MiB/layer); x40 layers = 24.53 GiB
+     M  routing   cutlass  b12x_int  b12x_raw  int/cut  raw/cut top1 expert rows
+  1024     real     337.3     322.4     314.1    0.956    0.931              585   (pass1 337.2/322.8/314.1, pass2 337.5/322.0/314.2; rel_l2 b12x vs cut 0.0196)
+  2048     real     398.1     384.3     373.3    0.965    0.938             1192   (pass1 398.2/384.8/373.1, pass2 397.9/383.7/373.4; rel_l2 b12x vs cut 0.0210)
+  4096     real     568.3     460.7     447.1    0.811    0.787             2631   (pass1 566.1/458.6/444.4, pass2 570.5/462.8/449.9; rel_l2 b12x vs cut 0.0218)
+  8192     real     904.8     685.0     664.5    0.757    0.734             5823   (pass1 903.0/682.6/661.3, pass2 906.6/687.4/667.6; rel_l2 b12x vs cut 0.0220)
+ 16384     real    1645.8    1269.2    1227.3    0.771    0.746            11616   (pass1 1643.7/1270.0/1226.0, pass2 1647.9/1268.4/1228.6; rel_l2 b12x vs cut 0.0219)
+  8192 balanced     900.4     677.6     660.2    0.753    0.733              310   (pass1 898.7/675.2/656.6, pass2 902.1/679.9/663.8; rel_l2 b12x vs cut 0.0263)
+======
+== layer 19
+ [1] M=8192: cutlass vs ref rel_l2 0.1334 max_abs 0.0341 | b12x vs ref 0.1334 max_abs 0.0348 | b12x vs cutlass 0.0238 max_abs 0.0127 (ref absmax 0.411); finite b12x True
+     per-token rel err b12x vs cutlass p50 0.0229 p99 0.0535 max 0.0946
+ [2] batch invariance rows[:2048] (2048-batch vs 8192-batch): b12x max_abs 3.906e-03, cutlass max_abs 0.000e+00
+ [3] hybrid switch: same 1023 tokens via CUTLASS (M=1023) vs b12x (M=1024): rel_l2 0.0264 max_abs 0.0059
+ [4] 64 zero rows: b12x finite True zero-row absmax 0.000e+00; other rows vs unpadded b12x max_abs 2.271e-02; cutlass finite True
+ [5] expert id -1 on every 7th token: b12x(masked) vs cutlass(masked, same) rel_l2 0.0255; finite True
+ [6] rerun bitwise equal: b12x False cutlass True (max_abs 1.95e-03 / 0.00e+00)
+ [7] M=1000: cutlass vs ref 0.1449 b12x vs ref 0.1451 b12x vs cutlass 0.0263
+ [7] M=1024: cutlass vs ref 0.1450 b12x vs ref 0.1451 b12x vs cutlass 0.0264
+ [7] M=1025: cutlass vs ref 0.1450 b12x vs ref 0.1451 b12x vs cutlass 0.0264
+ [7] M=1100: cutlass vs ref 0.1445 b12x vs ref 0.1447 b12x vs cutlass 0.0261
+ [7] M=1536: cutlass vs ref 0.1423 b12x vs ref 0.1425 b12x vs cutlass 0.0258
+ [7] M=3000: cutlass vs ref 0.1421 b12x vs ref 0.1422 b12x vs cutlass 0.0255
+== layer 39
+ [1] M=8192: cutlass vs ref rel_l2 0.1001 max_abs 1.1027 | b12x vs ref 0.1002 max_abs 1.2589 | b12x vs cutlass 0.0219 max_abs 0.2891 (ref absmax 12.225); finite b12x True
+     per-token rel err b12x vs cutlass p50 0.0198 p99 0.0484 max 0.0999
+ [2] batch invariance rows[:2048] (2048-batch vs 8192-batch): b12x max_abs 1.250e-01, cutlass max_abs 0.000e+00
+ [3] hybrid switch: same 1023 tokens via CUTLASS (M=1023) vs b12x (M=1024): rel_l2 0.0194 max_abs 0.1719
+ [4] 64 zero rows: b12x finite True zero-row absmax 0.000e+00; other rows vs unpadded b12x max_abs 8.281e-01; cutlass finite True
+ [5] expert id -1 on every 7th token: b12x(masked) vs cutlass(masked, same) rel_l2 0.0207; finite True
+ [6] rerun bitwise equal: b12x False cutlass True (max_abs 3.12e-02 / 0.00e+00)
+ [7] M=1000: cutlass vs ref 0.0924 b12x vs ref 0.0926 b12x vs cutlass 0.0193
+ [7] M=1024: cutlass vs ref 0.0925 b12x vs ref 0.0927 b12x vs cutlass 0.0194
+ [7] M=1025: cutlass vs ref 0.0925 b12x vs ref 0.0927 b12x vs cutlass 0.0194
+ [7] M=1100: cutlass vs ref 0.0929 b12x vs ref 0.0930 b12x vs cutlass 0.0195
+ [7] M=1536: cutlass vs ref 0.0952 b12x vs ref 0.0954 b12x vs cutlass 0.0205
+ [7] M=3000: cutlass vs ref 0.0983 b12x vs ref 0.0984 b12x vs cutlass 0.0215

@@ -1,0 +1,554 @@
+{
+ "summary": {
+  "tag": "P16x",
+  "n": 34,
+  "cold_ok": 34,
+  "hot_ok_where_cold_ok": 34,
+  "hot_ok_all": 34,
+  "failures": [],
+  "tv_mean": 0.1411,
+  "cold2_tv_mean": [
+   0.0343,
+   0.0554,
+   0.0554
+  ]
+ },
+ "rows": [
+  {
+   "case": "ext",
+   "len": 9712,
+   "expect": "8220-2914-1122",
+   "cold_ok": true,
+   "cold_text": " 8220-2914-1122.\n\n<tool_call>\n<function=read_file>",
+   "cold2_tv": 0.0343,
+   "cold2_agree": 24,
+   "cold2_ok": true,
+   "hot_ok": true,
+   "hot_text": " 8220-2914-1122.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 9584,
+   "tv": 0.1762,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "tiny",
+   "len": 9652,
+   "expect": "0-2914-1122",
+   "cold_ok": true,
+   "cold_text": "0-2914-1122.\n\n<tool_call>\n<function=read_file>\n<parameter=end",
+   "hot_ok": true,
+   "hot_text": "0-2914-1122.\n\n<tool_call>\n<function=read_file>\n<parameter=end",
+   "hot_cached": 9632,
+   "tv": 0.0,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "trunc",
+   "len": 9145,
+   "expect": "8220-2914-1122",
+   "cold_ok": true,
+   "cold_text": ":\n\n8220-2914-1122\n\nI'll use this code to access",
+   "hot_ok": true,
+   "hot_text": ":\n\n8220-2914-1122\n\nI've stored this in my memory",
+   "hot_cached": 6384,
+   "tv": 0.0545,
+   "agree": 18,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "swap",
+   "len": 9712,
+   "expect": "2485-1572-2375",
+   "cold_ok": true,
+   "cold_text": ": 2485-1572-2375.\n\n<tool_call>\n<function=read_file",
+   "hot_ok": true,
+   "hot_text": " 2485-1572-2375.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 6384,
+   "tv": 0.2163,
+   "agree": 0,
+   "stale": "8220-2914-1122",
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "div_in",
+   "len": 9653,
+   "expect": "2612-6810-4879",
+   "cold_ok": true,
+   "cold_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 6384,
+   "tv": 0.0903,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "div_at",
+   "len": 9658,
+   "expect": "2612-6810-4879",
+   "cold_ok": true,
+   "cold_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 6384,
+   "tv": 0.0536,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "div_after",
+   "len": 9680,
+   "expect": "2612-6810-4879",
+   "cold_ok": true,
+   "cold_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 9584,
+   "tv": 0.3781,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "ext",
+   "len": 30992,
+   "expect": "1285-1504-1259",
+   "cold_ok": true,
+   "cold_text": ": 1285-1504-1259.\n\nLet me continue with the review",
+   "cold2_tv": 0.0554,
+   "cold2_agree": 18,
+   "cold2_ok": true,
+   "hot_ok": true,
+   "hot_text": ": 1285-1504-1259.\n\nI'll continue with the review",
+   "hot_cached": 30864,
+   "tv": 0.1141,
+   "agree": 18,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "tiny",
+   "len": 30932,
+   "expect": "5-1504-1259",
+   "cold_ok": true,
+   "cold_text": "5-1504-1259.\n\nLet me continue with the review of the importlib and",
+   "hot_ok": true,
+   "hot_text": "5-1504-1259.\n\n<tool_call>\n<function=read_file>\n<parameter=end",
+   "hot_cached": 30912,
+   "tv": 0.0,
+   "agree": 13,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "trunc",
+   "len": 30425,
+   "expect": "1285-1504-1259",
+   "cold_ok": true,
+   "cold_text": ": 1285-1504-1259.\n\n<tool_call>\n<function=read_file",
+   "hot_ok": true,
+   "hot_text": ": 1285-1504-1259.\n\n<tool_call>\n<function=read_file",
+   "hot_cached": 27664,
+   "tv": 0.116,
+   "agree": 24,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "swap",
+   "len": 30992,
+   "expect": "6670-8933-8594",
+   "cold_ok": true,
+   "cold_text": ": 6670-8933-8594.\n\nLet me continue with the review",
+   "hot_ok": true,
+   "hot_text": ": 6670-8933-8594.\n\nLet me continue with the review",
+   "hot_cached": 27664,
+   "tv": 0.1982,
+   "agree": 24,
+   "stale": "1285-1504-1259",
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "div_in",
+   "len": 30933,
+   "expect": "3433-2495-3999",
+   "cold_ok": true,
+   "cold_text": " 3433-2495-3999.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 3433-2495-3999.\n\nLet me continue with the review.",
+   "hot_cached": 27664,
+   "tv": 0.1057,
+   "agree": 17,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "div_at",
+   "len": 30938,
+   "expect": "3433-2495-3999",
+   "cold_ok": true,
+   "cold_text": " 3433-2495-3999.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 3433-2495-3999.\n\nLet me continue reviewing the importlib",
+   "hot_cached": 27664,
+   "tv": 0.1535,
+   "agree": 17,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "div_after",
+   "len": 30960,
+   "expect": "3433-2495-3999",
+   "cold_ok": true,
+   "cold_text": ": 3433-2495-3999.\n\n<tool_call>\n<function=read_file",
+   "hot_ok": true,
+   "hot_text": " 3433-2495-3999.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 30864,
+   "tv": 0.1184,
+   "agree": 0,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "ext",
+   "len": 75680,
+   "expect": "2874-1239-9242",
+   "cold_ok": true,
+   "cold_text": ": 2874-1239-9242.\n\nI notice this appears to be",
+   "cold2_tv": 0.0554,
+   "cold2_agree": 18,
+   "cold2_ok": true,
+   "hot_ok": true,
+   "hot_text": ": 2874-1239-9242.\n\nI notice this appears to be",
+   "hot_cached": 75552,
+   "tv": 0.1102,
+   "agree": 24,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "tiny",
+   "len": 75620,
+   "expect": "4-1239-9242",
+   "cold_ok": true,
+   "cold_text": "4-1239-9242.\n\nHowever, I notice this was embedded in the file content",
+   "hot_ok": true,
+   "hot_text": "4-1239-9242.\n\nHowever, I notice this was embedded in the output of",
+   "hot_cached": 75600,
+   "tv": 0.0001,
+   "agree": 22,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "trunc",
+   "len": 75113,
+   "expect": "2874-1239-9242",
+   "cold_ok": true,
+   "cold_text": " 2874-1239-9242.\n\nHowever, I notice this appears to",
+   "hot_ok": true,
+   "hot_text": " 2874-1239-9242.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 72352,
+   "tv": 0.0535,
+   "agree": 17,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "swap",
+   "len": 75680,
+   "expect": "8974-5093-2057",
+   "cold_ok": true,
+   "cold_text": ": 8974-5093-2057\n\nI notice this was embedded in the",
+   "hot_ok": true,
+   "hot_text": " 8974-5093-2057.\n\nHowever, I notice this is a",
+   "hot_cached": 72352,
+   "tv": 0.5007,
+   "agree": 0,
+   "stale": "2874-1239-9242",
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "div_in",
+   "len": 75621,
+   "expect": "9865-8633-2123",
+   "cold_ok": true,
+   "cold_text": " 9865-8633-2123.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 9865-8633-2123.\n\nWait, I need to continue reading",
+   "hot_cached": 72352,
+   "tv": 0.1497,
+   "agree": 17,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "div_at",
+   "len": 75626,
+   "expect": "9865-8633-2123",
+   "cold_ok": true,
+   "cold_text": " 9865-8633-2123.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 9865-8633-2123.\n\nLet me continue reading the importlib",
+   "hot_cached": 72352,
+   "tv": 0.0969,
+   "agree": 17,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "div_after",
+   "len": 75648,
+   "expect": "9865-8633-2123",
+   "cold_ok": true,
+   "cold_text": " 9865-8633-2123.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 9865-8633-2123.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 75552,
+   "tv": 0.1489,
+   "agree": 24,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "live",
+   "i": 0,
+   "hot_ok": true,
+   "hot_cached": 39376,
+   "hot_text": ": 2457-9438-1753.\n\nI'll continue reading the remaining",
+   "cold_ok": true,
+   "len": 39504
+  },
+  {
+   "case": "live",
+   "i": 1,
+   "hot_ok": true,
+   "hot_cached": 39376,
+   "hot_text": " 2457-9438-1753.\n\n<tool_call>\n<function=read_file>",
+   "cold_ok": true,
+   "len": 39504
+  },
+  {
+   "case": "live",
+   "i": 2,
+   "hot_ok": true,
+   "hot_cached": 39376,
+   "hot_text": ": 2457-9438-1753.\n\n<tool_call>\n<function=read_file",
+   "cold_ok": true,
+   "len": 39504
+  },
+  {
+   "case": "live",
+   "i": 3,
+   "hot_ok": true,
+   "hot_cached": 39376,
+   "hot_text": " 2457-9438-1753.\n\n<tool_call>\n<function=read_file>",
+   "cold_ok": true,
+   "len": 39504
+  },
+  {
+   "case": "race",
+   "len": 30992,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 0,
+   "hot_text": ": 5416-2033-5954.\n\nNow let me continue with the",
+   "tv": 0.1528
+  },
+  {
+   "case": "siblings",
+   "i": 0,
+   "len": 21635,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 21504,
+   "hot_text": ": 8881-6820-5365\n\nHowever, I should note that this",
+   "tv": 0.153
+  },
+  {
+   "case": "siblings",
+   "i": 1,
+   "len": 21732,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 21600,
+   "hot_text": ": 5082-4277-8428\n\nHowever, I should note that I",
+   "tv": 0.0703
+  },
+  {
+   "case": "siblings",
+   "i": 2,
+   "len": 21829,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 21696,
+   "hot_text": ": 9686-1316-9324.\n\nHowever, I should note that",
+   "tv": 0.1967
+  },
+  {
+   "case": "siblings",
+   "i": 3,
+   "len": 21926,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 21808,
+   "hot_text": ": 2156-1094-6464.\n\nHowever, I should note that",
+   "tv": 0.1315
+  },
+  {
+   "case": "siblings",
+   "i": 4,
+   "len": 22023,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 21904,
+   "hot_text": " 3355-8746-7182.\n\nHowever, I notice this appears to",
+   "tv": 0.0925
+  },
+  {
+   "case": "siblings",
+   "i": 5,
+   "len": 22120,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 22000,
+   "hot_text": ": 3737-1887-2249\n\nLet me continue reading the importlib",
+   "tv": 0.2694
+  },
+  {
+   "case": "siblings",
+   "i": 6,
+   "len": 22217,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 22096,
+   "hot_text": ": 9135-3687-2234.\n\nI notice this was embedded in",
+   "tv": 0.164
+  },
+  {
+   "case": "siblings",
+   "i": 7,
+   "len": 22314,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 22192,
+   "hot_text": ": 4524-3363-1444.\n\nI apologize, but I cannot",
+   "tv": 0.1683
+  }
+ ]
+}

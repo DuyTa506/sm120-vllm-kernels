@@ -1,0 +1,5 @@
+./cluster_probe exit 0
+test_correctness.py exit 0
+test_cluster.py exit 1
+bench_graph.py exit 0
+bench_prefetch.py exit 0

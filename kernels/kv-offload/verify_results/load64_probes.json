@@ -1,0 +1,310 @@
+[
+ {
+  "i": 1,
+  "task": 7,
+  "turn": 20,
+  "cut": 29969,
+  "sleep": 111.19644836776197,
+  "sleep2": 68.11984946845895,
+  "lenA": 47683,
+  "lenB": 51087,
+  "lenC": 32969,
+  "B": {
+   "cached_hot": 0,
+   "ttft_hot": 175.32891178131104,
+   "ttft_cold": 15.477565288543701,
+   "hot_vs_cold": {
+    "tv": 0.00014325558645147498,
+    "top1": true,
+    "text_eq": true
+   },
+   "cold2_vs_cold": {
+    "tv": 0.00019383219847744898,
+    "top1": true,
+    "text_eq": true
+   },
+   "hot_vs_cold2": {
+    "tv": 7.815401449976175e-05,
+    "top1": true,
+    "text_eq": true
+   },
+   "texts": [
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1745\n</parameter>\n<parameter=path>\nimportlib/_bootstrap",
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1745\n</parameter>\n<parameter=path>\nimportlib/_bootstrap",
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1745\n</parameter>\n<parameter=path>\nimportlib/_bootstrap"
+   ]
+  },
+  "t_end": 669.0671513080597
+ },
+ {
+  "i": 3,
+  "task": 1,
+  "turn": 23,
+  "cut": 18868,
+  "sleep": 119.43268647995195,
+  "sleep2": 175.75929745408533,
+  "lenA": 52296,
+  "lenB": 54658,
+  "lenC": 21868,
+  "B": {
+   "cached_hot": 0,
+   "ttft_hot": 281.1436767578125,
+   "ttft_cold": 42.78819942474365,
+   "hot_vs_cold": {
+    "tv": 0.0747969039629508,
+    "top1": true,
+    "text_eq": false
+   },
+   "cold2_vs_cold": {
+    "tv": 0.07372691084322112,
+    "top1": true,
+    "text_eq": false
+   },
+   "hot_vs_cold2": {
+    "tv": 0.0967449279458538,
+    "top1": true,
+    "text_eq": false
+   },
+   "texts": [
+    "Now let me continue reading the remaining modules. I'll read them in batches.\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nasyncio",
+    "Now let me continue reading the remaining modules. I'll read them more efficiently.\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nasyncio",
+    "Now let me continue reading the remaining modules more efficiently.\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nasyncio/locks.py\n</"
+   ]
+  },
+  "t_end": 734.1426217556
+ },
+ {
+  "i": 5,
+  "task": 0,
+  "turn": 17,
+  "cut": 24504,
+  "sleep": 115.53526645110922,
+  "sleep2": 196.6757147830088,
+  "lenA": 37402,
+  "lenB": 41326,
+  "lenC": 27504,
+  "B": {
+   "cached_hot": 0,
+   "ttft_hot": 309.2678167819977,
+   "ttft_cold": 67.33929061889648,
+   "hot_vs_cold": {
+    "tv": 0.20527335238794905,
+    "top1": true,
+    "text_eq": true
+   },
+   "cold2_vs_cold": {
+    "tv": 0.42894206190522843,
+    "top1": false,
+    "text_eq": false
+   },
+   "hot_vs_cold2": {
+    "tv": 0.6205472672794057,
+    "top1": false,
+    "text_eq": false
+   },
+   "texts": [
+    "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/contentmanager.py\n</parameter>\n<parameter=start_line>\n251\n",
+    "Now let me read the header module:\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nemail/header.py\n</parameter>\n</function",
+    "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/contentmanager.py\n</parameter>\n<parameter=start_line>\n251\n"
+   ]
+  },
+  "t_end": 736.6109509468079
+ },
+ {
+  "i": 7,
+  "task": 4,
+  "turn": 23,
+  "cut": 21840,
+  "sleep": 103.18745537427081,
+  "sleep2": 174.2576902768044,
+  "lenA": 58023,
+  "lenB": 61447,
+  "lenC": 24840,
+  "B": {
+   "cached_hot": 0,
+   "ttft_hot": 222.25571393966675,
+   "ttft_cold": 100.89610242843628,
+   "hot_vs_cold": {
+    "tv": 0.009942094682308215,
+    "top1": true,
+    "text_eq": true
+   },
+   "cold2_vs_cold": {
+    "tv": 0.0017911317835092953,
+    "top1": true,
+    "text_eq": true
+   },
+   "hot_vs_cold2": {
+    "tv": 0.011497274875407987,
+    "top1": true,
+    "text_eq": true
+   },
+   "texts": [
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n281\n</parameter>\n<parameter=path>\nmultiprocessing/reduction.py",
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n281\n</parameter>\n<parameter=path>\nmultiprocessing/reduction.py",
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n281\n</parameter>\n<parameter=path>\nmultiprocessing/reduction.py"
+   ]
+  },
+  "t_end": 740.728175163269
+ },
+ {
+  "i": 9,
+  "task": 0,
+  "turn": 22,
+  "cut": 34037,
+  "sleep": 68.79045649626524,
+  "sleep2": 68.34416379527258,
+  "lenA": 53614,
+  "lenB": 56417,
+  "lenC": 37037,
+  "B": {
+   "cached_hot": 51072,
+   "ttft_hot": 162.18864583969116,
+   "ttft_cold": 124.41324496269226,
+   "hot_vs_cold": {
+    "tv": 0.21223552465190432,
+    "top1": true,
+    "text_eq": true
+   },
+   "cold2_vs_cold": {
+    "tv": 0.08505009858089706,
+    "top1": true,
+    "text_eq": true
+   },
+   "hot_vs_cold2": {
+    "tv": 0.19040698536111894,
+    "top1": true,
+    "text_eq": true
+   },
+   "texts": [
+    "This file is very large. Let me continue reading the remaining modules more efficiently. Let me read the feedparser, generator, message, parser, and policy modules",
+    "This file is very large. Let me continue reading the remaining modules more efficiently. Let me read the feedparser, generator, message, parser, and policy modules",
+    "This file is very large. Let me continue reading the remaining modules more efficiently. Let me read the feedparser, generator, message, parser, and policy modules"
+   ]
+  },
+  "t_end": 743.1042003631592
+ },
+ {
+  "i": 0,
+  "task": 2,
+  "turn": 15,
+  "cut": 42163,
+  "sleep": 115.27528949924428,
+  "sleep2": 66.76009930775373,
+  "lenA": 48152,
+  "lenB": 52065,
+  "lenC": 45163,
+  "B": {
+   "cached_hot": 44688,
+   "ttft_hot": 125.72594094276428,
+   "ttft_cold": 3.241208553314209,
+   "hot_vs_cold": {
+    "tv": 0.037979226829489045,
+    "top1": true,
+    "text_eq": false
+   },
+   "cold2_vs_cold": {
+    "tv": 0.26465281465088186,
+    "top1": true,
+    "text_eq": false
+   },
+   "hot_vs_cold2": {
+    "tv": 0.2311930509860251,
+    "top1": true,
+    "text_eq": true
+   },
+   "texts": [
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n900\n</parameter>\n<parameter=path>\nhttp/cookiejar.py",
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1000\n</parameter>\n<parameter=path>\nhttp/cookiejar",
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n1000\n</parameter>\n<parameter=path>\nhttp/cookiejar"
+   ]
+  },
+  "C": {
+   "cached_hot": 0,
+   "hot_vs_cold": {
+    "tv": 0.03052743192142528,
+    "top1": true,
+    "text_eq": true
+   },
+   "texts": [
+    "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>",
+    "<tool_call>\n<function=run_tests>\n</function>\n</tool_call>"
+   ]
+  },
+  "t_end": 743.1058692932129
+ },
+ {
+  "i": 11,
+  "task": 4,
+  "turn": 13,
+  "cut": 17018,
+  "sleep": 123.44581269190854,
+  "sleep2": 101.96737956091553,
+  "lenA": 25618,
+  "lenB": 28946,
+  "lenC": 20018,
+  "B": {
+   "cached_hot": 23408,
+   "ttft_hot": 6.612838983535767,
+   "ttft_cold": 150.5070242881775,
+   "hot_vs_cold": {
+    "tv": 0.007261196687899412,
+    "top1": true,
+    "text_eq": false
+   },
+   "cold2_vs_cold": {
+    "tv": 0.012033032100452113,
+    "top1": true,
+    "text_eq": true
+   },
+   "hot_vs_cold2": {
+    "tv": 0.004849777360011553,
+    "top1": true,
+    "text_eq": false
+   },
+   "texts": [
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n750\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py\n",
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n750\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py\n",
+    "<tool_call>\n<function=read_file>\n<parameter=end_line>\n800\n</parameter>\n<parameter=path>\nmultiprocessing/connection.py\n"
+   ]
+  },
+  "t_end": 745.7489643096924
+ },
+ {
+  "i": 15,
+  "task": 1,
+  "turn": 14,
+  "cut": 26993,
+  "sleep": 81.27783485247068,
+  "sleep2": 128.4548340666128,
+  "lenA": 35346,
+  "lenB": 36518,
+  "lenC": 29993,
+  "B": {
+   "cached_hot": 31920,
+   "ttft_hot": 0.4045248031616211,
+   "ttft_cold": 214.83513593673706,
+   "hot_vs_cold": {
+    "tv": 0.052935205938592564,
+    "top1": true,
+    "text_eq": true
+   },
+   "cold2_vs_cold": {
+    "tv": 0.08433453840030827,
+    "top1": true,
+    "text_eq": true
+   },
+   "hot_vs_cold2": {
+    "tv": 0.13544390320461272,
+    "top1": true,
+    "text_eq": true
+   },
+   "texts": [
+    "<tool_call>\n<function=read_file>\n<parameter=path>\nasyncio/constants.py\n</parameter>\n</function>\n</tool_call>",
+    "<tool_call>\n<function=read_file>\n<parameter=path>\nasyncio/constants.py\n</parameter>\n</function>\n</tool_call>",
+    "<tool_call>\n<function=read_file>\n<parameter=path>\nasyncio/constants.py\n</parameter>\n</function>\n</tool_call>"
+   ]
+  },
+  "t_end": 808.1333892345428
+ }
+]

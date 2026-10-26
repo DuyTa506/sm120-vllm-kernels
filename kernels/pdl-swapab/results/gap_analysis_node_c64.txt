@@ -1,0 +1,43 @@
+graph sizes (kernels: launches): {33: 174, 41: 123, 1302: 109, 39: 73, 29: 68, 30: 68, 1112: 43, 1072: 38}
+
+=== target verify graph: 1302 kernels/launch, 109 launches, streams 41
+  node-trace span  24749.1 us | sum of kernel durations  26188.9 us | gap total     74.0 us (0.3% of span) | mean gap 57 ns
+  gaps: 1301 per launch; <2us 1301, <1us 1262, <0.5us 1261; overlapped(neg) 987
+  gap percentiles (ns): p10 0  p50 0  p90 96  p99 1248  max 1856
+  top neighbour pairs by total gap (us per launch / pairs per launch / mean gap ns / mean dur of 2nd kernel):
+       46.4 us x 39.0    1190 ns   finalizeMoe -> triton:red_fused__to_copy_abs_add_a
+        3.8 us x 40.0      96 ns   fp8_gemm -> triton:red_fused__to_copy_add_fused
+        3.8 us x 40.0      94 ns   triton:red_fused__to_copy_abs_add_a -> fp8_gemm
+        3.0 us x 30.0     102 ns   bf16_wmma_gemm -> triton:poi_fused_zeros
+        3.0 us x 30.0     101 ns   conv1d -> gdn_decode
+        3.0 us x 45.1      66 ns   void cutlass::Kernel2<cutlass_80_tensoro -> bf16_wmma_gemm
+        2.5 us x 27.8      91 ns   fp8_gemm -> void cutlass::Kernel2<cutlass_80_tensoro
+        2.2 us x 10.0     221 ns   xqa_attn -> triton:red_fused__to_copy_abs_amax_
+
+=== MTP drafter graph (41 kernels): 41 kernels/launch, 123 launches, streams 2
+  node-trace span   1340.5 us | sum of kernel durations   1357.4 us | gap total      6.9 us (0.5% of span) | mean gap 172 ns
+  gaps: 40 per launch; <2us 39, <1us 38, <0.5us 38; overlapped(neg) 15
+  gap percentiles (ns): p10 0  p50 96  p90 352  p99 2272  max 3264
+  top neighbour pairs by total gap (us per launch / pairs per launch / mean gap ns / mean dur of 2nd kernel):
+        2.0 us x  1.0    2024 ns   fp8_gemm -> memset
+        1.7 us x  1.0    1728 ns   memset -> void at::native::reduce_kernel<(int)512,
+        0.4 us x  1.0     440 ns   xqa_attn -> triton:poi_fused_mul_sigmoid_view
+        0.4 us x  1.0     388 ns   rope_kvwrite -> xqa_attn
+        0.3 us x  1.0     296 ns   finalizeMoe -> triton:red_fused__to_copy_add_fused
+        0.2 us x  3.0      63 ns   void cutlass::Kernel2<cutlass_80_tensoro -> bf16_wmma_gemm
+        0.2 us x  2.0      93 ns   memcpy -> memcpy
+        0.1 us x  1.0     124 ns   void cutlass::Kernel2<cutlass_80_tensoro -> rope_kvwrite
+
+=== MTP drafter graph (39 kernels): 39 kernels/launch, 73 launches, streams 2
+  node-trace span    590.6 us | sum of kernel durations    629.4 us | gap total      6.8 us (1.2% of span) | mean gap 179 ns
+  gaps: 38 per launch; <2us 37, <1us 36, <0.5us 36; overlapped(neg) 13
+  gap percentiles (ns): p10 0  p50 96  p90 352  p99 2592  max 3264
+  top neighbour pairs by total gap (us per launch / pairs per launch / mean gap ns / mean dur of 2nd kernel):
+        2.0 us x  1.0    1991 ns   memset -> void at::native::reduce_kernel<(int)512,
+        1.8 us x  1.0    1813 ns   fp8_gemm -> memset
+        0.5 us x  1.0     496 ns   finalizeMoe -> triton:red_fused__to_copy_add_fused
+        0.4 us x  1.0     362 ns   rope_kvwrite -> xqa_attn
+        0.2 us x  1.0     229 ns   xqa_attn -> triton:poi_fused_mul_sigmoid_view
+        0.2 us x  2.0      93 ns   memcpy -> memcpy
+        0.1 us x  3.5      31 ns   bf16_wmma_gemm -> bf16_wmma_gemm
+        0.1 us x  1.0      99 ns   void at::native::reduce_kernel<(int)512, -> elementwise

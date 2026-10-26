@@ -1,0 +1,11 @@
+=== patched files, VLLM_SKINNY_BF16_GEMM=1
+greedy c=1 seed 501: Output token throughput (tok/s): 435.02  Median ITL (ms): 5.80  Acceptance length: 2.71  
+(APIServer pid=1) WARNING 10-25 15:20:01 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_SKINNY_BF16_GEMM
+(EngineCore pid=335) INFO 10-25 15:20:24 [utils.py:694] VLLM_SKINNY_BF16_GEMM=1: skinny BF16 GEMM for M<=16 small linears.
+(EngineCore pid=335) WARNING 10-25 15:20:49 [decorators.py:333] [backbone] Compiling model again due to a load failure from /root/.cache/vllm/torch_compile_cache/torch_aot_compile/683d4d9db6ec721f3c5261735c6a6cf09da19fb25d46b32da5273fe333f44eae/rank_0_0/model, reason: Source code has changed since the last compilation. Recompiling the model.
+(EngineCore pid=335) WARNING 10-25 15:21:46 [decorators.py:333] [eagle_head] Compiling model again due to a load failure from /root/.cache/vllm/torch_compile_cache/torch_aot_compile/a80e440dd4e00bd43461500354c0c7bf2122aa19d0cf109fae39ee52fb1ef37a/rank_0_0/model, reason: Source code has changed since the last compilation. Recompiling the model.
+=== patched files, VLLM_SKINNY_BF16_GEMM=0
+greedy c=1 seed 501: Output token throughput (tok/s): 427.46  Median ITL (ms): 6.09  Acceptance length: 2.77  
+(APIServer pid=1) WARNING 10-25 15:24:07 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_SKINNY_BF16_GEMM
+(EngineCore pid=336) INFO 10-25 15:24:46 [decorators.py:319] [backbone] Directly load AOT compilation from path /root/.cache/vllm/torch_compile_cache/torch_aot_compile/683d4d9db6ec721f3c5261735c6a6cf09da19fb25d46b32da5273fe333f44eae/rank_0_0/model
+(EngineCore pid=336) INFO 10-25 15:25:05 [decorators.py:319] [eagle_head] Directly load AOT compilation from path /root/.cache/vllm/torch_compile_cache/torch_aot_compile/a80e440dd4e00bd43461500354c0c7bf2122aa19d0cf109fae39ee52fb1ef37a/rank_0_0/model

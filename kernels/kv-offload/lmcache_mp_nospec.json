@@ -1,0 +1,1 @@
+{"kv_connector": "LMCacheMPConnector", "kv_role": "kv_both", "kv_connector_extra_config": {"lmcache.mp.autostart": true, "lmcache.mp.autostart.wait_timeout": 300, "lmcache.mp.autostart.server_args": "--l1-size-gb 96 --eviction-policy LRU --chunk-size 2096"}}

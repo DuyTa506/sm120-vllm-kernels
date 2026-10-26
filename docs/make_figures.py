@@ -407,7 +407,7 @@ def chart_kernels(t):
                   ("GDN fused conv + post-conv", 5.6, "confirmed"),
                   ("FP8 attention in one kernel", 1.0, "confirmed")]),
               ("Decode: ms saved per MTP-2 step", [
-                  ("GDN state replay (not built yet)", 5.0, "planned"),
+                  ("GDN state replay (c=64 only)", 2.4, "pending"),
                   ("Kernel page 16 instead of 64 (c=64)", 1.1, "confirmed"),
                   ("Skinny BF16 GEMM (c=1 only)", 0.6, "partial"),
                   ("Skinny FP8 GEMM (c=1 only)", 0.15, "partial")])]
@@ -443,9 +443,8 @@ def chart_kernels(t):
         y += 30
     lx = 20
     for name, color, fill, dash in [("confirmed", t["s"][2], t["s"][2], None),
-                                    ("author's number, check running", t["s"][1], t["box"], None),
+                                    ("author's number, not re-run", t["s"][1], t["box"], None),
                                     ("partly confirmed", t["s"][0], t["box"], None),
-                                    ("planned", t["muted"], t["surface"], "5 4"),
                                     ("kernel only, no clear end-to-end gain", t["s"][1], t["surface"], "5 4")]:
         s.rect(lx, y - 9, 12, 12, fill, stroke=color, r=2, dash=dash)
         s.text(lx + 18, y, name, size=11, color=t["ink2"])
@@ -518,8 +517,8 @@ def diagram_page(t):
 
 
 def diagram_replay(t):
-    s = Svg(760, 300, t, "next lever (not built): replay accepted tokens from one committed state",
-            "GDN decode with MTP-2 verifies 3 positions per step; at c=64 the state writes are 10.6 ms of a 29 ms step")
+    s = Svg(760, 300, t, "kernels/gdn-replay: write one state per step instead of three",
+            "GDN decode with MTP-2 verifies 3 positions per step; at c=64 the state traffic is 16 GB and 10.2 ms of a 29 ms step")
     s.text(20, 84, "now", weight=600)
     node(s, 20, 96, 130, 46, "state s0 (fp32)", "read")
     arrow(s, 150, 119, 200, 119)
@@ -530,14 +529,14 @@ def diagram_replay(t):
     arrow(s, 570, 119, 620, 119)
     node(s, 620, 96, 110, 46, "accepted", "keeps one", ghost=True)
     s.text(20, 166, "every speculative position writes a full fp32 state to HBM, and only one of the three is kept", size=11, color=t["ink2"])
-    s.text(20, 210, "replay (decode-roofline README section 5)", weight=600)
+    s.text(20, 210, "replay (VLLM_GDN_STATE_REPLAY, default off)", weight=600)
     node(s, 20, 222, 130, 46, "state s0", "committed")
     arrow(s, 150, 245, 200, 245)
     node(s, 200, 222, 270, 46, "verify 3 positions, no state writes", "outputs only", hot=True)
     arrow(s, 470, 245, 520, 245, "accepted n")
     node(s, 520, 222, 210, 46, "replay n tokens once", "write one state")
-    s.text(20, 290, "about -5 ms per step at c=64 (~-18%); needs a new GDN decode kernel and GPU time to verify", size=11, color=t["ink2"])
-    s.save("mech-replay", "Replaying only the accepted tokens from one committed GDN state avoids writing a state for every speculative position")
+    s.text(20, 290, "built and bit-exact: -2.4 ms per step at c=64 (-8% ITL, +7% tok/s), nothing at c <= 16; a deferred form (-5.6 ms) is not integrated", size=11, color=t["ink2"])
+    s.save("mech-replay", "Replaying only the accepted tokens into one state avoids writing a state for every speculative position: -2.4 ms per step at c=64")
 
 
 if __name__ == "__main__":

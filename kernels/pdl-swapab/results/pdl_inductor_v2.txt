@@ -1,0 +1,34 @@
+PDL=0 compile+first run 7.2s; max|compiled-eager| 1.909e-01
+USDT:2026-10-25 17:12:18 57:57 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 17:12:18 57:57 SyncActivityProfilerHandler.cpp:59] profiler_stop
+PDL=0: consecutive kernel pairs 34, overlapping 0, mean non-overlapped gap 0.10 us
+        2728.92 +  2.85 triton_red_fused__to_copy_abs_add_amax_div_mean_mul_pow_rsqrt_0
+        2731.86 +  0.93 memcpy32_post
+        2732.89 +  8.83 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8
+        2741.82 +  2.27 triton_red_fused__to_copy_abs_add_amax_div_mean_mul_pow_rsqrt_1
+        2744.22 +  0.70 memcpy32_post
+        2745.05 +  8.51 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8
+        2753.65 +  2.24 triton_red_fused__to_copy_abs_add_amax_div_mean_mul_pow_rsqrt_1
+        2755.99 +  0.71 memcpy32_post
+        2756.82 +  8.51 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8
+        2765.43 +  2.08 triton_red_fused__to_copy_abs_add_amax_div_mean_mul_pow_rsqrt_1
+        2767.64 +  0.70 memcpy32_post
+        2768.44 +  7.68 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8
+PDL=0 L=12 M=4: graph replay median 125.1 us (min 125.0), kernels in graph 35, 3.57 us/kernel
+PDL=1 compile+first run 5.8s; max|compiled-eager| 1.909e-01
+USDT:2026-10-25 17:12:30 283:283 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-10-25 17:12:30 283:283 SyncActivityProfilerHandler.cpp:59] profiler_stop
+PDL=1: consecutive kernel pairs 34, overlapping 0, mean non-overlapped gap 0.10 us
+        2871.35 +  2.78 triton_red_fused__to_copy_abs_add_amax_div_mean_mul_pow_rsqrt_0
+        2874.23 +  0.93 memcpy32_post
+        2875.25 +  8.61 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8
+        2883.99 +  2.11 triton_red_fused__to_copy_abs_add_amax_div_mean_mul_pow_rsqrt_1
+        2886.20 +  0.74 memcpy32_post
+        2887.03 +  7.87 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8
+        2895.00 +  2.01 triton_red_fused__to_copy_abs_add_amax_div_mean_mul_pow_rsqrt_1
+        2897.11 +  0.67 memcpy32_post
+        2897.88 +  7.52 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8
+        2905.53 +  1.92 triton_red_fused__to_copy_abs_add_amax_div_mean_mul_pow_rsqrt_1
+        2907.51 +  0.70 memcpy32_post
+        2908.31 +  7.52 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8
+PDL=1 L=12 M=4: graph replay median 125.1 us (min 125.0), kernels in graph 35, 3.57 us/kernel

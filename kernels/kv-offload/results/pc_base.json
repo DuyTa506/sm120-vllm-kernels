@@ -1,0 +1,158 @@
+[
+ {
+  "target": 25000,
+  "task": 5,
+  "turn": 9,
+  "lenA": 25200,
+  "lenB": 29002,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 825.6649971008301,
+   "cold2": 820.9688663482666,
+   "gpu": 318.45760345458984,
+   "cpu": 827.0082473754883
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 21280,
+   "cpu": 0
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 0.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.40270456815704714,
+   "cold_gpu": 0.033577602256130996,
+   "cold_cpu": 0.47908342947263005,
+   "gpu_cpu": 0.5124284918807192
+  },
+  "top1_agree": {
+   "cold_cold2": false,
+   "cold_gpu": true,
+   "cold_cpu": false,
+   "gpu_cpu": false
+  },
+  "text_equal": {
+   "cold_cold2": false,
+   "cold_gpu": false,
+   "cold_cpu": false,
+   "gpu_cpu": false
+  },
+  "texts": {
+   "cold": "Now let me read the remaining files. Let me continue with the rest of ElementTree.py and then move to other modules.\n\n<tool_call>\n<function=read_file",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+   "gpu": "Now let me read the remaining modules. Let me continue with the rest of ElementTree.py and then the other files.\n\n<tool_call>\n<function=read_file>",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree"
+  }
+ },
+ {
+  "target": 50000,
+  "task": 0,
+  "turn": 21,
+  "lenA": 50110,
+  "lenB": 53614,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 2054.7966957092285,
+   "cold2": 2112.940788269043,
+   "gpu": 475.44240951538086,
+   "cpu": 2095.5703258514404
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 46816,
+   "cpu": 0
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 0.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.09232451659001849,
+   "cold_gpu": 0.166527577968002,
+   "cold_cpu": 0.1869951110114586,
+   "gpu_cpu": 0.042298501708729126
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "This is a very large file. Let me continue reading it in chunks:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n60",
+   "cold2": "This is a very large file. Let me continue reading it in chunks:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n60",
+   "gpu": "This is a very large file. Let me continue reading it in chunks:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n60",
+   "cpu": "This is a very large file. Let me continue reading it in chunks:\n\n<tool_call>\n<function=read_file>\n<parameter=end_line>\n60"
+  }
+ },
+ {
+  "target": 100000,
+  "task": 0,
+  "turn": 40,
+  "lenA": 100195,
+  "lenB": 100769,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 5731.949329376221,
+   "cold2": 5725.0049114227295,
+   "gpu": 394.35696601867676,
+   "cpu": 5682.103395462036
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 97888,
+   "cpu": 0
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 0.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.0011186818841603858,
+   "cold_gpu": 0.005097750292427498,
+   "cold_cpu": 0.00359389887425652,
+   "gpu_cpu": 0.0019885160006056475
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+  }
+ }
+]

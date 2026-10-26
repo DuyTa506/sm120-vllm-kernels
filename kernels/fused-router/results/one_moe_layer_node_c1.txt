@@ -1,0 +1,21 @@
+kernels per step 1031 steps 323 step 100
+   8 +    0.00us dur   1.73 s29 g=(2,1,1) b=256 triton_red_fused__to_copy_add_fused_add_rms_norm_moe_forward_shared_1
+   9 +    1.54us dur   1.41 s29 g=(128,1,1) b=128 void vllm::cvt_fp16_to_fp4<__nv_bfloat16, (bool)0, (bool)0>(int, int, int, int, const T1 *, const float *, uns
+  10 +    1.98us dur  11.78 s10156 g=(8,2,1) b=32 void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8>(T1::Params)
+  11 +    2.34us dur   4.93 s29 g=(1,8,1) b=384 void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int, int>, cutlass::gem
+  12 +    7.36us dur   1.12 s29 g=(3,1,1) b=256 triton_poi_fused_mul_silu_slice_0
+  13 +    8.35us dur   1.18 s29 g=(128,1,1) b=32 void vllm::cvt_fp16_to_fp4<__nv_bfloat16, (bool)0, (bool)0>(int, int, int, int, const T1 *, const float *, uns
+  14 +    8.90us dur   3.26 s29 g=(1,16,1) b=384 void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int, int>, cutlass::gem
+  15 +   12.26us dur   2.14 s29 g=(1,1,1) b=32 std::enable_if<!T7, void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16,
+  16 +   13.86us dur   4.22 s10156 g=(1,1,1) b=32 void vllm::moe::topkGating<(int)8, (int)256, (int)4, (int)16, (int)32, int, __nv_bfloat16, (vllm::moe::Scoring
+  17 +   14.50us dur   1.09 s29 g=(1,1,1) b=128 void at::native::vectorized_elementwise_kernel<(int)4, at::native::sigmoid_kernel_cuda(at::TensorIteratorBase 
+  18 +   15.68us dur   1.98 s29 g=(12,1,1) b=128 void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::Bina
+  19 +   17.89us dur   1.31 s10156 g=(128,1,1) b=128 void vllm::cvt_fp16_to_fp4<__nv_bfloat16, (bool)0, (bool)0>(int, int, int, int, const T1 *, const float *, uns
+  20 +   18.46us dur   3.42 s10156 g=(1,1,1) b=32 void tensorrt_llm::kernels::cutlass_kernels::fusedBuildExpertMapsSortFirstTokenKernel<(int)32, (int)8, (int)9>
+  21 +   21.60us dur   3.23 s10156 g=(24,1,1) b=256 void tensorrt_llm::kernels::cutlass_kernels::expandInputRowsKernel<__nv_fp4_e2m1, __nv_fp4_e2m1, (tensorrt_llm
+  22 +   24.54us dur   2.05 s10156 g=(8,1,1) b=32 void tensorrt_llm::kernels::cutlass_kernels::computeStridesTmaWarpSpecializedKernel<__nv_fp4_e2m1, __nv_fp4_e2
+  23 +   26.46us dur  20.09 s10156 g=(1,188,1) b=384 void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cutlass::gemm::GroupProblemShape<cute::tuple<
+  24 +   46.40us dur   2.98 s10156 g=(24,1,1) b=64 void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_fp4_e2m1, __nv_bfloat16, __nv_bfloat16, t
+  25 +   50.34us dur  13.63 s10156 g=(1,188,1) b=384 void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cutlass::gemm::GroupProblemShape<cute::tuple<
+  26 +   64.06us dur   2.91 s10156 g=(2,1,1) b=256 triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_fused_add_rms_norm_mul_reciprocal_unsqueeze
+  27 +   67.07us dur  19.97 s10156 g=(1,192,1) b=384 void cutlass::device_kernel<enable_sm120_family<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int

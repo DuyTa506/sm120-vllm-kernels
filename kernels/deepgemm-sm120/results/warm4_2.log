@@ -1,0 +1,21 @@
+routing L0: total 65536 max 2056 active 256
+routing L19: total 65536 max 6007 active 243
+routing uniform: total 65536 max 256 active 256
+GPU NVIDIA RTX PRO 6000 Blackwell Workstation Edition SMs 188 pdl False 2610 MHz, 74.80 W, 56, 4566 MiB
+CASE prefill fp4 gemm1 L19 align=128 labels m_total=83456
+CASE prefill fp4 gemm1 uniform align=128 labels m_total=65536
+CASE prefill fp4 gemm2 L19 align=128 labels m_total=83456
+CASE prefill fp4 gemm2 uniform align=128 labels m_total=65536
+CASE decode fp4 gemm1 T=3 seed=0 psum32 m_total=672
+CASE decode fp4 gemm1 T=48 seed=0 masked exp_m=2 align=32
+CASE decode fp4 gemm1 T=48 seed=0 masked exp_m=2 align=64
+CASE decode fp4 gemm1 T=48 seed=0 masked exp_m=34 align=64
+CASE decode fp4 gemm1 T=48 seed=0 masked exp_m=2 align=128
+CASE decode fp4 gemm1 T=192 seed=0 labels32 m_total=6496
+CASE decode fp4 gemm2 T=3 seed=0 psum32 m_total=672
+CASE decode fp4 gemm2 T=48 seed=0 masked exp_m=2 align=32
+CASE decode fp4 gemm2 T=48 seed=0 masked exp_m=2 align=64
+CASE decode fp4 gemm2 T=48 seed=0 masked exp_m=34 align=64
+CASE decode fp4 gemm2 T=48 seed=0 masked exp_m=2 align=128
+CASE decode fp4 gemm2 T=192 seed=0 labels32 m_total=6496
+done 2610 MHz, 95.66 W, 53, 1868 MiB

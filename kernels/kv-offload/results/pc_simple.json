@@ -1,0 +1,210 @@
+[
+ {
+  "target": 25000,
+  "task": 5,
+  "turn": 9,
+  "lenA": 25200,
+  "lenB": 29002,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 887.2170448303223,
+   "cold2": 820.626974105835,
+   "gpu": 322.3564624786377,
+   "cpu": 341.8262004852295
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 21280,
+   "cpu": 21280
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 21280.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.12644095818825113,
+   "cold_gpu": 0.05119071584727976,
+   "cold_cpu": 0.39727853252518786,
+   "gpu_cpu": 0.34693636187627
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree"
+  }
+ },
+ {
+  "target": 25000,
+  "task": 3,
+  "turn": 8,
+  "lenA": 25307,
+  "lenB": 28524,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 970.5469608306885,
+   "cold2": 968.1355953216553,
+   "gpu": 406.62455558776855,
+   "cpu": 420.67813873291016
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 21280,
+   "cpu": 21280
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 21280.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.0005802614172174886,
+   "cold_gpu": 0.0008625670223461762,
+   "cold_cpu": 0.002140138081099139,
+   "gpu_cpu": 0.0029301135577181905
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2345\n</parameter>\n<parameter=path>\nlogging/__init__.",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2345\n</parameter>\n<parameter=path>\nlogging/__init__.",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2345\n</parameter>\n<parameter=path>\nlogging/__init__.",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2345\n</parameter>\n<parameter=path>\nlogging/__init__."
+  }
+ },
+ {
+  "target": 100000,
+  "task": 0,
+  "turn": 40,
+  "lenA": 100195,
+  "lenB": 100769,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 5814.087390899658,
+   "cold2": 5747.225522994995,
+   "gpu": 378.434419631958,
+   "cpu": 418.22338104248047
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 97888,
+   "cpu": 97888
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 97888.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.003425596757241899,
+   "cold_gpu": 0.007325801232956086,
+   "cold_cpu": 0.010405990651731237,
+   "gpu_cpu": 0.0030858445981018375
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+  }
+ },
+ {
+  "target": 100000,
+  "task": 5,
+  "turn": 34,
+  "lenA": 99288,
+  "lenB": 102647,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 6000.848293304443,
+   "cold2": 5834.263563156128,
+   "gpu": 804.1586875915527,
+   "cpu": 818.657398223877
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 95760,
+   "cpu": 95760
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 95760.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.002692718790241942,
+   "cold_gpu": 0.046512760885818905,
+   "cold_cpu": 0.016049221317022175,
+   "gpu_cpu": 0.030978931194539643
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": false,
+   "gpu_cpu": false
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nxml/sax/xmlreader.py\n</parameter>\n</function>\n</tool_call>"
+  }
+ }
+]

@@ -1,0 +1,16 @@
+323 launches, 1072 nodes; boundaries by consumer family
+consumer family                              bound/step already overlap mean ovl ns mean gap ns (rest)  owner
+MoE routing/permute glue                          200.0             80%         365                130  FlashInfer (PDL on)
+norm/quant/act fused Triton                       190.0              0%           0                333  inductor (env switch exists)
+NVFP4 MoE/shared-expert GEMM (CUTLASS)            160.0             75%         436                 95  FlashInfer (PDL on)
+NVFP4 act quant (vLLM _C)                         120.0             67%         194             107234  vLLM C++
+FP8 dense GEMM (CUTLASS, vLLM _C)                  80.0              0%           0                187  vLLM C++ (patchable: skinny FP8 is ours)
+ATen elementwise                                   80.0              0%         256                125  PyTorch
+BF16 router/in_proj_ba GEMM (cuBLAS)               69.0              0%         352                180  cuBLAS (patchable: skinny BF16 is ours, Triton)
+memset node (MoE output zero)                      41.0              0%           0                 95  FlashInfer, not PDL-able
+gemv (shared_expert_gate)                          40.0              0%           0                 96  cuBLAS
+GDN conv1d update                                  30.0             97%         195                323  vLLM Triton (launch_pdl)
+GDN recurrent decode                               30.0              0%          32                 98  vLLM
+rope / kv write                                    20.0              0%           0                 99  vLLM/FlashInfer
+XQA decode attention                               10.0            100%         196                  0  FlashInfer (PDL on)
+total                                            1070.0             37%

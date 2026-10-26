@@ -6,7 +6,9 @@
 set -u
 H=$(cd "$(dirname "$0")" && pwd); D=$(cd $H/../.. && pwd)
 LABEL=$1; KIND=$2; shift 2
-export PORT=${PORT:-8117} NAME=${NAME:-cache-granularity}
+# first free port in 8121-8130 (other agents also use the 8110-8130 range)
+if [ -z "${PORT:-}" ]; then for p in $(seq 8121 8130); do ss -ltn | grep -q "127.0.0.1:$p " || { PORT=$p; break; }; done; fi
+export PORT NAME=${NAME:-cache-granularity}
 export BENCH_URL=http://127.0.0.1:$PORT
 PKG=/usr/local/lib/python3.12/dist-packages/vllm
 IMG=vllm/vllm-openai:v0.32.0

@@ -1,0 +1,917 @@
+(APIServer pid=1) INFO 10-25 20:12:38 [api_utils.py:347] 
+(APIServer pid=1) INFO 10-25 20:12:38 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=1) INFO 10-25 20:12:38 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.32.0
+(APIServer pid=1) INFO 10-25 20:12:38 [api_utils.py:347]   █▄█▀ █     █     █     █  model   unsloth/Qwen3.6-35B-A3B-NVFP4-Fast
+(APIServer pid=1) INFO 10-25 20:12:38 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=1) INFO 10-25 20:12:38 [api_utils.py:347] 
+(APIServer pid=1) INFO 10-25 20:12:38 [api_utils.py:286] non-default args: {'model_tag': 'unsloth/Qwen3.6-35B-A3B-NVFP4-Fast', 'enable_prompt_tokens_details': True, 'model': 'unsloth/Qwen3.6-35B-A3B-NVFP4-Fast', 'max_model_len': 131072, 'served_model_name': ['bench'], 'gpu_memory_utilization': 0.78, 'enable_prefix_caching': True, 'language_model_only': True, 'max_num_seqs': 64, 'enable_chunked_prefill': True, 'async_scheduling': True, 'speculative_config': {'method': 'mtp', 'num_speculative_tokens': 2}}
+(APIServer pid=1) INFO 10-25 20:12:38 [arg_utils.py:916] HF_HUB_OFFLINE is True, replace model_id [unsloth/Qwen3.6-35B-A3B-NVFP4-Fast] to model_path [/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66]
+(APIServer pid=1) WARNING 10-25 20:12:38 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_SESSION_STATE_DEBUG_DIR
+(APIServer pid=1) WARNING 10-25 20:12:38 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_SESSION_STATE_CACHE
+(APIServer pid=1) WARNING 10-25 20:12:38 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_SESSION_STATE_LOG
+(APIServer pid=1) INFO 10-25 20:12:38 [model.py:733] Resolved architecture: Qwen3_5MoeForConditionalGeneration
+(APIServer pid=1) INFO 10-25 20:12:38 [model.py:2152] Using max model len 131072
+(APIServer pid=1) INFO 10-25 20:12:41 [model.py:951] All limits of multimodal modalities supported by the model are set to 0, running in text-only mode.
+(APIServer pid=1) INFO 10-25 20:12:41 [model.py:1008] Disabled mm_prefix attention mode because multimodal inputs are configuration-disabled. Attention backends without mm_prefix support may now be selected.
+(APIServer pid=1) INFO 10-25 20:12:42 [model.py:733] Resolved architecture: Qwen3_5MoeMTP
+(APIServer pid=1) INFO 10-25 20:12:42 [model.py:2152] Using max model len 262144
+(APIServer pid=1) WARNING 10-25 20:12:42 [speculative.py:1381] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(APIServer pid=1) INFO 10-25 20:12:42 [speculative.py:1669] Overriding draft model max model len from 262144 to 131072
+(APIServer pid=1) INFO 10-25 20:12:42 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(APIServer pid=1) INFO 10-25 20:12:42 [config.py:688] Mamba cache mode is set to 'align' for Qwen3_5MoeForConditionalGeneration by default when prefix caching is enabled
+(APIServer pid=1) INFO 10-25 20:12:42 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+(EngineCore pid=337) INFO 10-25 20:12:57 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66', num_spec_tokens=2), tokenizer='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=131072, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=compressed-tensors, quantization_config=None, enforce_eager=False, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, custom_histogram_buckets=None, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=bench, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::qwen4_exp_qsa_prepare_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'cudagraph_decoder_replay': True, 'decoder_replay_cudagraph_capture_sizes': [], 'decoder_replay_trim_threshold': 768, 'compile_sizes': [], 'compile_ranges_endpoints': [8192], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 384, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(EngineCore pid=337) INFO 10-25 20:12:57 [parallel_state.py:1906] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_b9590ee0786f4a2ebdcb4a08a2d279f9 backend=nccl
+(EngineCore pid=337) INFO 10-25 20:12:57 [parallel_state.py:2350] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 0, EPLB rank N/A
+(EngineCore pid=337) INFO 10-25 20:12:57 [gpu_worker.py:518] Using V2 Model Runner
+(EngineCore pid=337) INFO 10-25 20:12:58 [model_runner.py:400] Loading model from scratch...
+(EngineCore pid=337) INFO 10-25 20:13:00 [cuda.py:565] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+(EngineCore pid=337) INFO 10-25 20:13:00 [mm_encoder_attention.py:372] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+(EngineCore pid=337) INFO 10-25 20:13:00 [__init__.py:797] Selected CutlassFP8ScaledMMLinearKernel for CompressedTensorsW8A8Fp8
+(EngineCore pid=337) INFO 10-25 20:13:00 [deep_gemm.py:198] deep_gemm not found in site-packages, trying vendored vllm.third_party.deep_gemm
+(EngineCore pid=337) INFO 10-25 20:13:00 [deep_gemm.py:225] DeepGEMM PDL enabled on vllm.third_party.deep_gemm.
+(EngineCore pid=337) INFO 10-25 20:13:00 [deep_gemm.py:137] DeepGEMM E8M0 enabled on current platform.
+(EngineCore pid=337) INFO 10-25 20:13:00 [qwen_gdn_linear_attn.py:221] Using FlashInfer GDN prefill kernel (requested=auto, head_k_dim=128).
+(EngineCore pid=337) INFO 10-25 20:13:00 [qwen_gdn_linear_attn.py:620] GDN spec decode kernel: cuda
+(EngineCore pid=337) INFO 10-25 20:13:00 [__init__.py:1240] Using FlashInferCutlassNvFp4LinearKernel for NVFP4 GEMM
+(EngineCore pid=337) INFO 10-25 20:13:01 [nvfp4.py:314] Using 'FLASHINFER_CUTLASS' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTEDSL_BATCHED', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+(EngineCore pid=337) INFO 10-25 20:13:01 [cuda.py:506] Using FLASHINFER attention backend out of potential backends: ['FLASHINFER', 'TRITON_ATTN'].
+(EngineCore pid=337) INFO 10-25 20:13:02 [base_loader.py:82] Initializing model took 3.414398 seconds
+(EngineCore pid=337) INFO 10-25 20:13:02 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 22.02 GiB. Available RAM: 202.62 GiB.
+(EngineCore pid=337) INFO 10-25 20:13:02 [weight_utils.py:1131] Auto-prefetch is disabled because the filesystem (EXT4) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.
+Loading safetensors checkpoint shards:   0% Completed | 0/5 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  20% Completed | 1/5 [00:02<00:10,  2.74s/it]
+Loading safetensors checkpoint shards:  40% Completed | 2/5 [00:06<00:09,  3.22s/it]
+Loading safetensors checkpoint shards:  60% Completed | 3/5 [00:10<00:06,  3.46s/it]
+Loading safetensors checkpoint shards:  80% Completed | 4/5 [00:13<00:03,  3.50s/it]
+Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:14<00:00,  2.53s/it]
+Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:14<00:00,  2.88s/it]
+
+(EngineCore pid=337) INFO 10-25 20:13:16 [default_loader.py:501] Loading weights took 14.44 seconds
+(EngineCore pid=337) INFO 10-25 20:13:17 [nvfp4.py:629] Using MoEPrepareAndFinalizeNoDPEPModular
+(EngineCore pid=337) INFO 10-25 20:13:17 [unquantized.py:364] Using FlashInfer CUTLASS Unquantized MoE backend out of potential backends: ['FlashInfer TRTLLM', 'FlashInfer CUTLASS', 'TRITON', 'BATCHED_TRITON'].
+(EngineCore pid=337) INFO 10-25 20:13:17 [base_loader.py:82] Initializing model took 0.014555 seconds
+(EngineCore pid=337) INFO 10-25 20:13:18 [weight_utils.py:825] Skipped 3/5 safetensors shard(s) holding no weights the model loads
+(EngineCore pid=337) INFO 10-25 20:13:18 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 8.04 GiB. Available RAM: 203.54 GiB.
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  1.74it/s]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.86it/s]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.84it/s]
+
+(EngineCore pid=337) INFO 10-25 20:13:19 [default_loader.py:501] Loading weights took 1.13 seconds
+(EngineCore pid=337) INFO 10-25 20:13:19 [unquantized.py:528] Using MoEPrepareAndFinalizeNoDPEPModular
+(EngineCore pid=337) INFO 10-25 20:13:19 [unquantized.py:529] Using FlashInferExperts MoE backend
+(EngineCore pid=337) INFO 10-25 20:13:21 [model_runner.py:432] Model loading took 21.22 GiB memory and 22.574769 seconds
+(EngineCore pid=337) INFO 10-25 20:13:21 [topk_topp_sampler.py:124] Using FlashInfer for top-p & top-k sampling.
+(EngineCore pid=337) INFO 10-25 20:13:21 [torch_utils.py:295] Reducing Torch threads from 32 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore pid=337) INFO 10-25 20:13:21 [interface.py:1096] Setting attention block size to 2128 tokens to ensure that attention page size is >= mamba page size.
+(EngineCore pid=337) INFO 10-25 20:13:21 [utils.py:347] Using LBNHC KV cache layout.
+(EngineCore pid=337) INFO 10-25 20:13:23 [caching.py:342] reconstructed serializable fn from standalone compile artifacts. num_artifacts=14 num_submods=41
+(EngineCore pid=337) INFO 10-25 20:13:23 [decorators.py:319] [backbone] Directly load AOT compilation from path /root/.cache/vllm/torch_compile_cache/torch_aot_compile/73ec7a54c0d9fff62ebea46b27c52ad90a16582064ee84927902be884e7b0b73/rank_0_0/model
+(EngineCore pid=337) INFO 10-25 20:13:23 [monitor.py:62] [backbone] torch.compile took 0.78 s in total
+(EngineCore pid=337) INFO 10-25 20:13:41 [monitor.py:91] [backbone] Initial profiling/warmup run took 18.39 s
+(EngineCore pid=337) INFO 10-25 20:13:41 [caching.py:342] reconstructed serializable fn from standalone compile artifacts. num_artifacts=2 num_submods=2
+(EngineCore pid=337) INFO 10-25 20:13:41 [decorators.py:319] [eagle_head] Directly load AOT compilation from path /root/.cache/vllm/torch_compile_cache/torch_aot_compile/cb03faaf209ca7fd7d62b4834978e410bfb819b8e96026b6e585ed42d2ab97c4/rank_0_0/model
+(EngineCore pid=337) INFO 10-25 20:13:41 [monitor.py:62] [eagle_head] torch.compile took 0.09 s in total
+(EngineCore pid=337) INFO 10-25 20:13:42 [monitor.py:91] [eagle_head] Initial profiling/warmup run took 0.07 s
+(EngineCore pid=337) WARNING 10-25 20:13:43 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 10.00% KV cache memory
+(EngineCore pid=337) INFO 10-25 20:13:43 [flashinfer.py:966] FlashInfer resolved query dtypes: prefill=torch.bfloat16, decode=torch.bfloat16, decode_backend=xqa, kv_cache_dtype=torch.float8_e4m3fn, arch=sm120
+(EngineCore pid=337) INFO 10-25 20:13:43 [speculator.py:318] Attention backend(s) FLASHINFER cannot update draft decode metadata in place; falling back to rebuilding attention metadata eagerly.
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/46 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   2%|▏         | 1/46 [00:07<05:27,  7.27s/it]Capturing CUDA graphs (PIECEWISE):   4%|▍         | 2/46 [00:07<02:17,  3.13s/it]Capturing CUDA graphs (PIECEWISE):   7%|▋         | 3/46 [00:07<01:18,  1.82s/it]Capturing CUDA graphs (PIECEWISE):   9%|▊         | 4/46 [00:08<00:50,  1.20s/it]Capturing CUDA graphs (PIECEWISE):  11%|█         | 5/46 [00:08<00:35,  1.17it/s]Capturing CUDA graphs (PIECEWISE):  13%|█▎        | 6/46 [00:08<00:25,  1.55it/s]Capturing CUDA graphs (PIECEWISE):  15%|█▌        | 7/46 [00:08<00:20,  1.92it/s]Capturing CUDA graphs (PIECEWISE):  17%|█▋        | 8/46 [00:08<00:16,  2.33it/s]Capturing CUDA graphs (PIECEWISE):  20%|█▉        | 9/46 [00:09<00:14,  2.64it/s]2026-10-25 20:13:53,548 - INFO - core.py:564 - flashinfer.jit: Building JIT module xqa_input_bf16_kv_cache_e4m3_output_bf16_page_size_16_head_dim_256_head_group_ratio_8_use_sliding_window_False_use_spec_dec_True_spec_q_seq_len_3; this can take several minutes on first use.
+Capturing CUDA graphs (PIECEWISE):  22%|██▏       | 10/46 [00:19<02:00,  3.33s/it]Capturing CUDA graphs (PIECEWISE):  24%|██▍       | 11/46 [00:19<01:25,  2.43s/it]Capturing CUDA graphs (PIECEWISE):  26%|██▌       | 12/46 [00:20<01:01,  1.82s/it]Capturing CUDA graphs (PIECEWISE):  28%|██▊       | 13/46 [00:20<00:45,  1.39s/it]Capturing CUDA graphs (PIECEWISE):  30%|███       | 14/46 [00:20<00:34,  1.08s/it]Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 15/46 [00:21<00:27,  1.15it/s]Capturing CUDA graphs (PIECEWISE):  35%|███▍      | 16/46 [00:21<00:21,  1.38it/s]Capturing CUDA graphs (PIECEWISE):  37%|███▋      | 17/46 [00:21<00:16,  1.71it/s]Capturing CUDA graphs (PIECEWISE):  39%|███▉      | 18/46 [00:22<00:13,  2.05it/s]Capturing CUDA graphs (PIECEWISE):  41%|████▏     | 19/46 [00:22<00:11,  2.40it/s]Capturing CUDA graphs (PIECEWISE):  43%|████▎     | 20/46 [00:22<00:09,  2.72it/s]Capturing CUDA graphs (PIECEWISE):  46%|████▌     | 21/46 [00:22<00:08,  2.99it/s]Capturing CUDA graphs (PIECEWISE):  48%|████▊     | 22/46 [00:23<00:07,  3.21it/s]Capturing CUDA graphs (PIECEWISE):  50%|█████     | 23/46 [00:23<00:06,  3.36it/s]Capturing CUDA graphs (PIECEWISE):  52%|█████▏    | 24/46 [00:23<00:06,  3.51it/s]2026-10-25 20:14:07,836 - INFO - core.py:564 - flashinfer.jit: Building JIT module xqa_input_bf16_kv_cache_e4m3_output_bf16_page_size_16_head_dim_256_head_group_ratio_8_use_sliding_window_False_use_spec_dec_True_spec_q_seq_len_2; this can take several minutes on first use.
+Capturing CUDA graphs (PIECEWISE):  54%|█████▍    | 25/46 [00:33<01:08,  3.27s/it]Capturing CUDA graphs (PIECEWISE):  57%|█████▋    | 26/46 [00:34<00:47,  2.37s/it]Capturing CUDA graphs (PIECEWISE):  59%|█████▊    | 27/46 [00:34<00:32,  1.73s/it]Capturing CUDA graphs (PIECEWISE):  61%|██████    | 28/46 [00:34<00:23,  1.29s/it]Capturing CUDA graphs (PIECEWISE):  63%|██████▎   | 29/46 [00:34<00:16,  1.02it/s]Capturing CUDA graphs (PIECEWISE):  65%|██████▌   | 30/46 [00:35<00:12,  1.32it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 31/46 [00:35<00:09,  1.63it/s]Capturing CUDA graphs (PIECEWISE):  70%|██████▉   | 32/46 [00:35<00:07,  1.99it/s]Capturing CUDA graphs (PIECEWISE):  72%|███████▏  | 33/46 [00:35<00:05,  2.35it/s]Capturing CUDA graphs (PIECEWISE):  74%|███████▍  | 34/46 [00:36<00:04,  2.65it/s]Capturing CUDA graphs (PIECEWISE):  76%|███████▌  | 35/46 [00:36<00:03,  2.97it/s]Capturing CUDA graphs (PIECEWISE):  78%|███████▊  | 36/46 [00:36<00:03,  3.17it/s]Capturing CUDA graphs (PIECEWISE):  80%|████████  | 37/46 [00:36<00:02,  3.37it/s]Capturing CUDA graphs (PIECEWISE):  83%|████████▎ | 38/46 [00:37<00:02,  3.53it/s]Capturing CUDA graphs (PIECEWISE):  85%|████████▍ | 39/46 [00:37<00:01,  3.53it/s]Capturing CUDA graphs (PIECEWISE):  87%|████████▋ | 40/46 [00:37<00:01,  3.64it/s]Capturing CUDA graphs (PIECEWISE):  89%|████████▉ | 41/46 [00:37<00:01,  3.75it/s]Capturing CUDA graphs (PIECEWISE):  91%|█████████▏| 42/46 [00:38<00:01,  3.99it/s]Capturing CUDA graphs (PIECEWISE):  93%|█████████▎| 43/46 [00:38<00:00,  4.42it/s]Capturing CUDA graphs (PIECEWISE):  96%|█████████▌| 44/46 [00:38<00:00,  4.76it/s]Capturing CUDA graphs (PIECEWISE):  98%|█████████▊| 45/46 [00:38<00:00,  4.88it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 46/46 [00:39<00:00,  4.09it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 46/46 [00:39<00:00,  1.18it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):  50%|█████     | 1/2 [00:00<00:00,  6.38it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00,  6.25it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00,  6.27it/s]
+(EngineCore pid=337) INFO 10-25 20:14:23 [speculator.py:110] Capturing model for speculator...
+Capturing prefill CUDA graphs (PIECEWISE):   0%|          | 0/46 [00:00<?, ?it/s]Capturing prefill CUDA graphs (PIECEWISE):  22%|██▏       | 10/46 [00:00<00:00, 90.14it/s]Capturing prefill CUDA graphs (PIECEWISE):  50%|█████     | 23/46 [00:00<00:00, 108.48it/s]Capturing prefill CUDA graphs (PIECEWISE):  80%|████████  | 37/46 [00:00<00:00, 118.34it/s]Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 46/46 [00:00<00:00, 92.54it/s] 
+Capturing prefill CUDA graphs (FULL):   0%|          | 0/27 [00:00<?, ?it/s]Capturing prefill CUDA graphs (FULL):  44%|████▍     | 12/27 [00:00<00:00, 119.93it/s]Capturing prefill CUDA graphs (FULL):  89%|████████▉ | 24/27 [00:00<00:00, 113.69it/s]Capturing prefill CUDA graphs (FULL): 100%|██████████| 27/27 [00:00<00:00, 113.87it/s]
+Capturing decode CUDA graphs (FULL):   0%|          | 0/14 [00:00<?, ?it/s]Capturing decode CUDA graphs (FULL): 100%|██████████| 14/14 [00:00<00:00, 135.10it/s]Capturing decode CUDA graphs (FULL): 100%|██████████| 14/14 [00:00<00:00, 134.89it/s]
+(EngineCore pid=337) INFO 10-25 20:14:24 [model_runner.py:1135] Graph capturing finished in 41 secs, took 1.32 GiB
+(EngineCore pid=337) INFO 10-25 20:14:25 [gpu_worker.py:759] Available KV cache memory: 50.12 GiB
+(EngineCore pid=337) INFO 10-25 20:14:25 [gpu_worker.py:774] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.7800 is equivalent to --gpu-memory-utilization=0.7656 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.7944. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(EngineCore pid=337) WARNING 10-25 20:14:25 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 10.00% KV cache memory
+(EngineCore pid=337) INFO 10-25 20:14:25 [kv_cache_utils.py:2327] GPU KV cache size: 3,976,441 tokens, Maximum concurrency for 131,072 tokens per request: 30.34x
+(EngineCore pid=337) INFO 10-25 20:14:25 [kv_cache_utils.py:853] kv cache group sizes (2128, 2128, 2128, 2128)
+(EngineCore pid=337) INFO 10-25 20:14:25 [kv_cache_utils.py:854] kv lcm block sizes 2128
+(EngineCore pid=337) INFO 10-25 20:14:25 [kernel_warmup.py:176] JIT kernel warmup starting.
+(EngineCore pid=337) INFO 10-25 20:14:25 [kernel_warmup.py:189] JIT kernel warmup finished in 0.00s.
+(EngineCore pid=337) INFO 10-25 20:14:25 [qwen_triton_warmup.py:296] Warming up Qwen GDN Triton kernels for model_type=qwen3_5_moe_text.
+(EngineCore pid=337) INFO 10-25 20:14:25 [mamba_triton_warmup.py:42] Warmed Mamba batch_memcpy_kernel.
+(EngineCore pid=337) INFO 10-25 20:14:25 [kernel_warmup.py:98] Warming up ll_bf16 router GEMM kernels for shapes: ((2048, 256),).
+(EngineCore pid=337) INFO 10-25 20:14:27 [cache.py:361] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+(EngineCore pid=337) INFO 10-25 20:14:27 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+(EngineCore pid=337) INFO 10-25 20:14:27 [kernel_warmup.py:460] Using FlashInfer autotune cache file: /root/.cache/vllm/flashinfer_autotune_cache/0.7.0.post1/120f/7d5a2720ed2651dee7438c0efa5189e870deb4acadcf79f13ac0898bcc2f5ae5/autotune_configs_dp0_rank0.json
+2026-10-25 20:14:27,183 - INFO - autotuner.py:3691 - flashinfer.jit: [Autotuner]: Loaded 126 configs from /root/.cache/vllm/flashinfer_autotune_cache/0.7.0.post1/120f/7d5a2720ed2651dee7438c0efa5189e870deb4acadcf79f13ac0898bcc2f5ae5/autotune_configs_dp0_rank0.json
+2026-10-25 20:14:27,183 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+(EngineCore pid=337) INFO 10-25 20:14:27 [kernel_warmup.py:367] Running FlashInfer autotune with 8192 tokens and token buckets (1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 768, 1024, 1280, 1536, 1792, 2048, 2560, 3072, 3584, 4096, 8192).
+[AutoTuner]: Tuning fp4_gemm:   0%|          | 0/21 [00:00<?, ?profile/s]2026-10-25 20:14:27,203 - INFO - core.py:564 - flashinfer.jit: Building JIT module trtllm_utils; this can take several minutes on first use.
+[AutoTuner]: Tuning fp4_gemm:   5%|▍         | 1/21 [00:06<02:11,  6.57s/profile][AutoTuner]: Tuning fp4_gemm:  14%|█▍        | 3/21 [00:06<00:31,  1.76s/profile][AutoTuner]: Tuning fp4_gemm:  24%|██▍       | 5/21 [00:06<00:14,  1.12profile/s][AutoTuner]: Tuning fp4_gemm:  33%|███▎      | 7/21 [00:07<00:07,  1.84profile/s][AutoTuner]: Tuning fp4_gemm:  43%|████▎     | 9/21 [00:07<00:04,  2.73profile/s][AutoTuner]: Tuning fp4_gemm:  52%|█████▏    | 11/21 [00:07<00:02,  3.80profile/s][AutoTuner]: Tuning fp4_gemm:  62%|██████▏   | 13/21 [00:07<00:01,  5.03profile/s][AutoTuner]: Tuning fp4_gemm:  71%|███████▏  | 15/21 [00:07<00:00,  6.34profile/s][AutoTuner]: Tuning fp4_gemm:  81%|████████  | 17/21 [00:07<00:00,  7.65profile/s][AutoTuner]: Tuning fp4_gemm:  90%|█████████ | 19/21 [00:07<00:00,  8.86profile/s][AutoTuner]: Tuning fp4_gemm: 100%|██████████| 21/21 [00:08<00:00,  9.83profile/s][AutoTuner]: Tuning fp4_gemm: 100%|██████████| 21/21 [00:08<00:00,  2.62profile/s]
+[AutoTuner]: Tuning fp4_gemm:   0%|          | 0/21 [00:00<?, ?profile/s][AutoTuner]: Tuning fp4_gemm:  10%|▉         | 2/21 [00:00<00:01, 14.41profile/s][AutoTuner]: Tuning fp4_gemm:  19%|█▉        | 4/21 [00:00<00:01, 14.35profile/s][AutoTuner]: Tuning fp4_gemm:  29%|██▊       | 6/21 [00:00<00:01, 14.36profile/s][AutoTuner]: Tuning fp4_gemm:  38%|███▊      | 8/21 [00:00<00:00, 14.43profile/s][AutoTuner]: Tuning fp4_gemm:  48%|████▊     | 10/21 [00:00<00:00, 14.39profile/s][AutoTuner]: Tuning fp4_gemm:  57%|█████▋    | 12/21 [00:00<00:00, 14.43profile/s][AutoTuner]: Tuning fp4_gemm:  67%|██████▋   | 14/21 [00:00<00:00, 14.46profile/s][AutoTuner]: Tuning fp4_gemm:  76%|███████▌  | 16/21 [00:01<00:00, 14.44profile/s][AutoTuner]: Tuning fp4_gemm:  86%|████████▌ | 18/21 [00:01<00:00, 14.34profile/s][AutoTuner]: Tuning fp4_gemm:  95%|█████████▌| 20/21 [00:01<00:00, 14.20profile/s][AutoTuner]: Tuning fp4_gemm: 100%|██████████| 21/21 [00:01<00:00, 14.24profile/s]
+2026-10-25 20:14:36,706 - INFO - autotuner.py:1992 - flashinfer.jit: [Autotuner]: Config cache hit for trtllm::fused_moe::gemm1 (runner=MoERunner, source=config file)
+2026-10-25 20:14:36,711 - INFO - autotuner.py:1992 - flashinfer.jit: [Autotuner]: Config cache hit for trtllm::fused_moe::gemm2 (runner=MoERunner, source=config file)
+2026-10-25 20:14:37,709 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+2026-10-25 20:14:37,711 - INFO - autotuner.py:3554 - flashinfer.jit: [Autotuner]: Saved 126 configs to /root/.cache/vllm/flashinfer_autotune_cache/0.7.0.post1/120f/7d5a2720ed2651dee7438c0efa5189e870deb4acadcf79f13ac0898bcc2f5ae5/autotune_configs_dp0_rank0.json (0 new, 126 from previous config)
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/46 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   2%|▏         | 1/46 [00:00<00:11,  4.03it/s]Capturing CUDA graphs (PIECEWISE):   4%|▍         | 2/46 [00:00<00:10,  4.18it/s]Capturing CUDA graphs (PIECEWISE):   7%|▋         | 3/46 [00:00<00:10,  4.19it/s]Capturing CUDA graphs (PIECEWISE):   9%|▊         | 4/46 [00:00<00:09,  4.23it/s]Capturing CUDA graphs (PIECEWISE):  11%|█         | 5/46 [00:01<00:09,  4.18it/s]Capturing CUDA graphs (PIECEWISE):  13%|█▎        | 6/46 [00:01<00:09,  4.15it/s]Capturing CUDA graphs (PIECEWISE):  15%|█▌        | 7/46 [00:01<00:09,  4.18it/s]Capturing CUDA graphs (PIECEWISE):  17%|█▋        | 8/46 [00:01<00:09,  4.11it/s]Capturing CUDA graphs (PIECEWISE):  20%|█▉        | 9/46 [00:02<00:09,  4.07it/s]Capturing CUDA graphs (PIECEWISE):  22%|██▏       | 10/46 [00:02<00:09,  3.95it/s]Capturing CUDA graphs (PIECEWISE):  24%|██▍       | 11/46 [00:02<00:09,  3.77it/s]Capturing CUDA graphs (PIECEWISE):  26%|██▌       | 12/46 [00:03<00:09,  3.66it/s]Capturing CUDA graphs (PIECEWISE):  28%|██▊       | 13/46 [00:03<00:09,  3.65it/s]Capturing CUDA graphs (PIECEWISE):  30%|███       | 14/46 [00:03<00:08,  3.62it/s]Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 15/46 [00:03<00:08,  3.72it/s]Capturing CUDA graphs (PIECEWISE):  35%|███▍      | 16/46 [00:04<00:07,  3.76it/s]Capturing CUDA graphs (PIECEWISE):  37%|███▋      | 17/46 [00:04<00:06,  4.28it/s]Capturing CUDA graphs (PIECEWISE):  39%|███▉      | 18/46 [00:04<00:06,  4.57it/s]Capturing CUDA graphs (PIECEWISE):  41%|████▏     | 19/46 [00:04<00:05,  4.88it/s]Capturing CUDA graphs (PIECEWISE):  43%|████▎     | 20/46 [00:04<00:05,  5.06it/s]Capturing CUDA graphs (PIECEWISE):  46%|████▌     | 21/46 [00:04<00:04,  5.13it/s]Capturing CUDA graphs (PIECEWISE):  48%|████▊     | 22/46 [00:05<00:04,  5.35it/s]Capturing CUDA graphs (PIECEWISE):  50%|█████     | 23/46 [00:05<00:04,  5.30it/s]Capturing CUDA graphs (PIECEWISE):  52%|█████▏    | 24/46 [00:05<00:04,  5.42it/s]Capturing CUDA graphs (PIECEWISE):  54%|█████▍    | 25/46 [00:05<00:03,  5.37it/s]Capturing CUDA graphs (PIECEWISE):  57%|█████▋    | 26/46 [00:05<00:03,  5.39it/s]Capturing CUDA graphs (PIECEWISE):  59%|█████▊    | 27/46 [00:06<00:03,  5.45it/s]Capturing CUDA graphs (PIECEWISE):  61%|██████    | 28/46 [00:06<00:03,  5.23it/s]Capturing CUDA graphs (PIECEWISE):  63%|██████▎   | 29/46 [00:06<00:03,  5.36it/s]Capturing CUDA graphs (PIECEWISE):  65%|██████▌   | 30/46 [00:06<00:03,  5.25it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 31/46 [00:06<00:02,  5.40it/s]Capturing CUDA graphs (PIECEWISE):  70%|██████▉   | 32/46 [00:07<00:02,  5.48it/s]Capturing CUDA graphs (PIECEWISE):  72%|███████▏  | 33/46 [00:07<00:02,  5.43it/s]Capturing CUDA graphs (PIECEWISE):  74%|███████▍  | 34/46 [00:07<00:02,  5.57it/s]Capturing CUDA graphs (PIECEWISE):  76%|███████▌  | 35/46 [00:07<00:01,  5.55it/s]Capturing CUDA graphs (PIECEWISE):  78%|███████▊  | 36/46 [00:07<00:01,  5.55it/s]Capturing CUDA graphs (PIECEWISE):  80%|████████  | 37/46 [00:07<00:01,  5.58it/s]Capturing CUDA graphs (PIECEWISE):  83%|████████▎ | 38/46 [00:08<00:01,  5.48it/s]Capturing CUDA graphs (PIECEWISE):  85%|████████▍ | 39/46 [00:08<00:01,  5.62it/s]Capturing CUDA graphs (PIECEWISE):  87%|████████▋ | 40/46 [00:08<00:01,  5.61it/s]Capturing CUDA graphs (PIECEWISE):  89%|████████▉ | 41/46 [00:08<00:00,  5.74it/s]Capturing CUDA graphs (PIECEWISE):  91%|█████████▏| 42/46 [00:08<00:00,  5.74it/s]Capturing CUDA graphs (PIECEWISE):  93%|█████████▎| 43/46 [00:08<00:00,  5.57it/s]Capturing CUDA graphs (PIECEWISE):  96%|█████████▌| 44/46 [00:09<00:00,  5.71it/s]Capturing CUDA graphs (PIECEWISE):  98%|█████████▊| 45/46 [00:09<00:00,  5.68it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 46/46 [00:09<00:00,  5.63it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 46/46 [00:09<00:00,  4.84it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/27 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):   4%|▎         | 1/27 [00:00<00:03,  6.56it/s]Capturing CUDA graphs (FULL):   7%|▋         | 2/27 [00:00<00:03,  6.38it/s]Capturing CUDA graphs (FULL):  11%|█         | 3/27 [00:00<00:03,  6.42it/s]Capturing CUDA graphs (FULL):  15%|█▍        | 4/27 [00:00<00:03,  6.48it/s]Capturing CUDA graphs (FULL):  19%|█▊        | 5/27 [00:00<00:03,  6.45it/s]Capturing CUDA graphs (FULL):  22%|██▏       | 6/27 [00:00<00:03,  6.46it/s]Capturing CUDA graphs (FULL):  26%|██▌       | 7/27 [00:01<00:03,  6.56it/s]Capturing CUDA graphs (FULL):  30%|██▉       | 8/27 [00:01<00:02,  6.54it/s]Capturing CUDA graphs (FULL):  33%|███▎      | 9/27 [00:01<00:02,  6.46it/s]Capturing CUDA graphs (FULL):  37%|███▋      | 10/27 [00:01<00:02,  6.53it/s]Capturing CUDA graphs (FULL):  41%|████      | 11/27 [00:01<00:02,  6.59it/s]Capturing CUDA graphs (FULL):  44%|████▍     | 12/27 [00:01<00:02,  6.54it/s]Capturing CUDA graphs (FULL):  48%|████▊     | 13/27 [00:01<00:02,  6.57it/s]Capturing CUDA graphs (FULL):  52%|█████▏    | 14/27 [00:02<00:01,  6.55it/s]Capturing CUDA graphs (FULL):  56%|█████▌    | 15/27 [00:02<00:01,  6.39it/s]Capturing CUDA graphs (FULL):  59%|█████▉    | 16/27 [00:02<00:01,  6.44it/s]Capturing CUDA graphs (FULL):  63%|██████▎   | 17/27 [00:02<00:01,  6.47it/s]Capturing CUDA graphs (FULL):  67%|██████▋   | 18/27 [00:02<00:01,  6.49it/s]Capturing CUDA graphs (FULL):  70%|███████   | 19/27 [00:02<00:01,  6.46it/s]Capturing CUDA graphs (FULL):  74%|███████▍  | 20/27 [00:03<00:01,  6.42it/s]Capturing CUDA graphs (FULL):  78%|███████▊  | 21/27 [00:03<00:00,  6.43it/s]Capturing CUDA graphs (FULL):  81%|████████▏ | 22/27 [00:03<00:00,  6.47it/s]Capturing CUDA graphs (FULL):  85%|████████▌ | 23/27 [00:03<00:00,  6.36it/s]Capturing CUDA graphs (FULL):  89%|████████▉ | 24/27 [00:03<00:00,  6.41it/s]Capturing CUDA graphs (FULL):  93%|█████████▎| 25/27 [00:03<00:00,  6.30it/s]Capturing CUDA graphs (FULL):  96%|█████████▋| 26/27 [00:04<00:00,  6.18it/s]Capturing CUDA graphs (FULL): 100%|██████████| 27/27 [00:04<00:00,  6.30it/s]Capturing CUDA graphs (FULL): 100%|██████████| 27/27 [00:04<00:00,  6.43it/s]
+(EngineCore pid=337) INFO 10-25 20:14:52 [speculator.py:110] Capturing model for speculator...
+Capturing prefill CUDA graphs (PIECEWISE):   0%|          | 0/46 [00:00<?, ?it/s]Capturing prefill CUDA graphs (PIECEWISE):  24%|██▍       | 11/46 [00:00<00:00, 102.19it/s]Capturing prefill CUDA graphs (PIECEWISE):  48%|████▊     | 22/46 [00:00<00:00, 100.33it/s]Capturing prefill CUDA graphs (PIECEWISE):  72%|███████▏  | 33/46 [00:00<00:00, 103.88it/s]Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 46/46 [00:00<00:00, 112.18it/s]
+Capturing prefill CUDA graphs (FULL):   0%|          | 0/27 [00:00<?, ?it/s]Capturing prefill CUDA graphs (FULL):  41%|████      | 11/27 [00:00<00:00, 105.42it/s]Capturing prefill CUDA graphs (FULL):  89%|████████▉ | 24/27 [00:00<00:00, 114.91it/s]Capturing prefill CUDA graphs (FULL): 100%|██████████| 27/27 [00:00<00:00, 112.86it/s]
+Capturing decode CUDA graphs (FULL):   0%|          | 0/14 [00:00<?, ?it/s]Capturing decode CUDA graphs (FULL): 100%|██████████| 14/14 [00:00<00:00, 135.47it/s]Capturing decode CUDA graphs (FULL): 100%|██████████| 14/14 [00:00<00:00, 135.27it/s]
+(EngineCore pid=337) INFO 10-25 20:14:54 [model_runner.py:1135] Graph capturing finished in 16 secs, took 0.46 GiB
+(EngineCore pid=337) INFO 10-25 20:14:54 [gpu_worker.py:971] CUDA graph pool memory: 0.46 GiB (actual), 1.37 GiB (estimated), difference: 0.91 GiB (198.3%).
+(EngineCore pid=337) INFO 10-25 20:14:54 [gpu_worker.py:1034] Free memory on device (94.41/94.97 GiB) on startup. Desired GPU memory utilization is (0.78, 74.08 GiB). Actual usage is 21.74 GiB for consumed memory (weights + non-torch), 2.22 GiB for peak activation, and 0.46 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=53167619707` (49.52 GiB) to fit into requested memory, or `--kv-cache-memory=74999458304` (69.85 GiB) to fully utilize gpu memory. Current kv cache memory in use is 50.12 GiB.
+(EngineCore pid=337) INFO 10-25 20:14:54 [jit_monitor.py:84] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+(EngineCore pid=337) INFO 10-25 20:14:55 [core.py:395] init engine (profile, create kv cache, warmup model) took 94.09 s (compilation: 0.87 s)
+(EngineCore pid=337) INFO 10-25 20:14:55 [session_state_cache.py:137] Session state cache enabled: attention groups [[3]], mamba groups [0, 1, 2] (block 2128), ttl 600s, max 256 sessions, min free 44 blocks
+(EngineCore pid=337) INFO 10-25 20:14:55 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+(APIServer pid=1) INFO 10-25 20:14:55 [entry.py:136] Supported tasks: ['generate']
+(APIServer pid=1) INFO 10-25 20:14:55 [factories.py:89] Scale-out endpoints are disabled. Restart vllm serve with --enable-scale-out to enable them.
+(APIServer pid=1) INFO 10-25 20:14:57 [hf.py:648] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(APIServer pid=1) WARNING 10-25 20:14:57 [model.py:1893] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_k': 20, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(APIServer pid=1) WARNING 10-25 20:14:57 [serving.py:262] The chat template requires system-first ordering, so inline system messages in /v1/messages requests (e.g. Claude Code's per-turn reminders) are merged into the leading system prompt. Each new one changes the prompt prefix, so the rest of the conversation misses the prefix cache. Pass a --chat-template that accepts non-leading system messages to avoid this.
+(APIServer pid=1) INFO 10-25 20:14:58 [entry.py:140] Starting vLLM server on http://0.0.0.0:8000
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:186] Available routes are:
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /openapi.json, Methods: GET, HEAD
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /docs, Methods: GET, HEAD
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /redoc, Methods: GET, HEAD
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /load, Methods: GET
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /version, Methods: GET
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /kv_event_sources, Methods: GET
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /health, Methods: GET
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /metrics, Methods: GET
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /tokenize, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /detokenize, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/models, Methods: GET
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/systemone, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /ping, Methods: GET
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /ping, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /invocations, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/chat/completions, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/chat/completions/batch, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/responses, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/responses/{response_id}, Methods: GET
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/completions, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/messages, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/messages/count_tokens, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /generative_scoring, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /scale_elastic_ep, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /is_scaling_elastic_ep, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/chat/completions/render, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/messages/render, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/completions/render, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/responses/render, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/chat/completions/derender, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /v1/completions/derender, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /inference/v1/generate, Methods: POST
+(APIServer pid=1) INFO 10-25 20:14:58 [launcher.py:195] Route: /inference/v1/abort_requests, Methods: POST
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     172.17.0.1:40774 - "GET /health HTTP/1.1" 200 OK
+INFO:     172.17.0.1:40784 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:40790 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:40804 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:40820 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:40822 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:40836 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) WARNING 10-25 20:14:59 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _gumbel_sample_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(EngineCore pid=337) INFO 10-25 20:14:59 [session_state_cache.py:186] Session state cache: 0 sessions, 0 retained blocks, stats {'finished': 1, 'miss_no_entry': 6}
+INFO:     172.17.0.1:40840 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) WARNING 10-25 20:14:59 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _session_snapshot_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(EngineCore pid=337) INFO 10-25 20:14:59 [session_state_cache.py:186] Session state cache: 1 sessions, 4 retained blocks, stats {'finished': 2, 'miss_no_entry': 7, 'retained_inflight': 1}
+INFO:     172.17.0.1:40856 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:14:59 [session_state_cache.py:186] Session state cache: 2 sessions, 8 retained blocks, stats {'finished': 3, 'miss_no_entry': 7, 'retained_inflight': 1, 'retained_no_inflight': 1}
+INFO:     172.17.0.1:40870 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:00 [session_state_cache.py:186] Session state cache: 3 sessions, 12 retained blocks, stats {'finished': 4, 'miss_no_entry': 9, 'retained_inflight': 1, 'retained_no_inflight': 2}
+INFO:     172.17.0.1:40874 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:00 [session_state_cache.py:186] Session state cache: 4 sessions, 16 retained blocks, stats {'finished': 5, 'miss_no_entry': 9, 'retained_inflight': 1, 'retained_no_inflight': 3}
+INFO:     172.17.0.1:40876 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:00 [session_state_cache.py:186] Session state cache: 5 sessions, 20 retained blocks, stats {'finished': 6, 'miss_no_entry': 10, 'retained_inflight': 1, 'retained_no_inflight': 4}
+INFO:     172.17.0.1:40884 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:00 [session_state_cache.py:186] Session state cache: 6 sessions, 24 retained blocks, stats {'finished': 7, 'miss_no_entry': 11, 'retained_inflight': 2, 'retained_no_inflight': 4}
+INFO:     172.17.0.1:40892 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:00 [session_state_cache.py:186] Session state cache: 7 sessions, 28 retained blocks, stats {'finished': 8, 'miss_no_entry': 12, 'retained_inflight': 2, 'retained_no_inflight': 5}
+INFO:     172.17.0.1:40906 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:00 [session_state_cache.py:186] Session state cache: 8 sessions, 32 retained blocks, stats {'finished': 9, 'miss_no_entry': 13, 'retained_inflight': 2, 'retained_no_inflight': 6}
+(EngineCore pid=337) INFO 10-25 20:15:00 [session_state_cache.py:186] Session state cache: 9 sessions, 36 retained blocks, stats {'finished': 10, 'miss_no_entry': 13, 'retained_inflight': 3, 'retained_no_inflight': 6}
+(EngineCore pid=337) INFO 10-25 20:15:00 [session_state_cache.py:186] Session state cache: 10 sessions, 40 retained blocks, stats {'finished': 11, 'miss_no_entry': 13, 'retained_inflight': 4, 'retained_no_inflight': 6}
+INFO:     172.17.0.1:40922 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:40934 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:40946 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 11 sessions, 44 retained blocks, stats {'finished': 12, 'miss_no_entry': 14, 'retained_inflight': 4, 'retained_no_inflight': 7}
+INFO:     172.17.0.1:40954 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 12 sessions, 48 retained blocks, stats {'finished': 13, 'miss_no_entry': 17, 'retained_inflight': 4, 'retained_no_inflight': 8}
+INFO:     172.17.0.1:53778 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 13 sessions, 52 retained blocks, stats {'finished': 14, 'miss_no_entry': 18, 'retained_inflight': 4, 'retained_no_inflight': 9}
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 14 sessions, 56 retained blocks, stats {'finished': 15, 'miss_no_entry': 18, 'retained_inflight': 4, 'retained_no_inflight': 10}
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 15 sessions, 60 retained blocks, stats {'finished': 16, 'miss_no_entry': 18, 'retained_inflight': 4, 'retained_no_inflight': 11}
+INFO:     172.17.0.1:53794 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53804 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53816 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 16 sessions, 64 retained blocks, stats {'finished': 17, 'miss_no_entry': 19, 'retained_inflight': 4, 'retained_no_inflight': 12}
+INFO:     172.17.0.1:53818 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 17 sessions, 68 retained blocks, stats {'finished': 18, 'miss_no_entry': 22, 'retained_inflight': 4, 'retained_no_inflight': 13}
+INFO:     172.17.0.1:53828 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 18 sessions, 72 retained blocks, stats {'finished': 19, 'miss_no_entry': 23, 'retained_inflight': 4, 'retained_no_inflight': 14}
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 19 sessions, 76 retained blocks, stats {'finished': 20, 'miss_no_entry': 23, 'retained_inflight': 4, 'retained_no_inflight': 15}
+(EngineCore pid=337) INFO 10-25 20:15:01 [session_state_cache.py:186] Session state cache: 20 sessions, 80 retained blocks, stats {'finished': 21, 'miss_no_entry': 23, 'retained_inflight': 4, 'retained_no_inflight': 16}
+INFO:     172.17.0.1:53838 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53854 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53866 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 21 sessions, 84 retained blocks, stats {'finished': 22, 'miss_no_entry': 24, 'retained_inflight': 4, 'retained_no_inflight': 17}
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 22 sessions, 88 retained blocks, stats {'finished': 23, 'miss_no_entry': 24, 'retained_inflight': 4, 'retained_no_inflight': 18}
+INFO:     172.17.0.1:53880 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53892 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 23 sessions, 92 retained blocks, stats {'finished': 24, 'miss_no_entry': 27, 'retained_inflight': 4, 'retained_no_inflight': 19}
+INFO:     172.17.0.1:53908 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 24 sessions, 96 retained blocks, stats {'finished': 25, 'miss_no_entry': 29, 'retained_inflight': 4, 'retained_no_inflight': 20}
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 25 sessions, 100 retained blocks, stats {'finished': 26, 'miss_no_entry': 29, 'retained_inflight': 4, 'retained_no_inflight': 21}
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 26 sessions, 104 retained blocks, stats {'finished': 27, 'miss_no_entry': 29, 'retained_inflight': 4, 'retained_no_inflight': 22}
+INFO:     172.17.0.1:53924 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53938 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53946 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 27 sessions, 108 retained blocks, stats {'finished': 28, 'hit': 1, 'miss_no_entry': 29, 'retained_inflight': 4, 'retained_no_inflight': 23}
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 28 sessions, 112 retained blocks, stats {'finished': 29, 'hit': 1, 'miss_no_entry': 29, 'retained_inflight': 4, 'retained_no_inflight': 24}
+INFO:     172.17.0.1:53956 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53972 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 29 sessions, 116 retained blocks, stats {'finished': 30, 'hit': 2, 'miss_no_entry': 33, 'retained_inflight': 4, 'retained_no_inflight': 25}
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 30 sessions, 120 retained blocks, stats {'finished': 31, 'hit': 2, 'miss_no_entry': 33, 'retained_inflight': 4, 'retained_no_inflight': 26}
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 31 sessions, 124 retained blocks, stats {'finished': 32, 'hit': 2, 'miss_no_entry': 33, 'retained_inflight': 4, 'retained_no_inflight': 27}
+INFO:     172.17.0.1:53986 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53992 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:53994 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:02 [session_state_cache.py:186] Session state cache: 32 sessions, 128 retained blocks, stats {'finished': 33, 'hit': 2, 'miss_no_entry': 33, 'retained_inflight': 4, 'retained_no_inflight': 28}
+INFO:     172.17.0.1:54008 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 33 sessions, 132 retained blocks, stats {'finished': 34, 'hit': 2, 'miss_no_entry': 37, 'retained_inflight': 4, 'retained_no_inflight': 29}
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 34 sessions, 136 retained blocks, stats {'finished': 35, 'hit': 2, 'miss_no_entry': 37, 'retained_inflight': 4, 'retained_no_inflight': 30}
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 35 sessions, 140 retained blocks, stats {'finished': 36, 'hit': 2, 'miss_no_entry': 37, 'retained_inflight': 4, 'retained_no_inflight': 31}
+INFO:     172.17.0.1:54018 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54010 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54022 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 36 sessions, 144 retained blocks, stats {'finished': 37, 'hit': 2, 'miss_no_entry': 37, 'retained_inflight': 4, 'retained_no_inflight': 32}
+INFO:     172.17.0.1:54036 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 37 sessions, 148 retained blocks, stats {'finished': 38, 'hit': 3, 'miss_no_entry': 40, 'retained_inflight': 4, 'retained_no_inflight': 33}
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 38 sessions, 152 retained blocks, stats {'finished': 39, 'hit': 3, 'miss_no_entry': 40, 'retained_inflight': 4, 'retained_no_inflight': 34}
+INFO:     172.17.0.1:54040 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54042 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 39 sessions, 156 retained blocks, stats {'finished': 40, 'hit': 3, 'miss_no_entry': 40, 'retained_inflight': 4, 'retained_no_inflight': 35}
+INFO:     172.17.0.1:54050 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 40 sessions, 160 retained blocks, stats {'finished': 41, 'hit': 5, 'miss_no_entry': 41, 'retained_inflight': 4, 'retained_no_inflight': 36}
+INFO:     172.17.0.1:54060 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 40 sessions, 160 retained blocks, stats {'finished': 42, 'hit': 5, 'miss_no_entry': 41, 'retained_inflight': 5, 'retained_no_inflight': 36}
+INFO:     172.17.0.1:54070 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 41 sessions, 164 retained blocks, stats {'finished': 43, 'hit': 5, 'miss_no_entry': 43, 'retained_inflight': 5, 'retained_no_inflight': 37}
+INFO:     172.17.0.1:54076 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:03 [session_state_cache.py:186] Session state cache: 42 sessions, 168 retained blocks, stats {'finished': 44, 'hit': 5, 'miss_no_entry': 43, 'retained_inflight': 5, 'retained_no_inflight': 38}
+INFO:     172.17.0.1:54092 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 43 sessions, 172 retained blocks, stats {'finished': 45, 'hit': 6, 'miss_no_entry': 44, 'retained_inflight': 5, 'retained_no_inflight': 39}
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 43 sessions, 172 retained blocks, stats {'finished': 46, 'hit': 6, 'miss_no_entry': 44, 'retained_inflight': 6, 'retained_no_inflight': 39}
+INFO:     172.17.0.1:54100 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54112 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 44 sessions, 176 retained blocks, stats {'finished': 47, 'hit': 6, 'miss_no_entry': 46, 'retained_inflight': 6, 'retained_no_inflight': 40}
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 45 sessions, 180 retained blocks, stats {'finished': 48, 'hit': 6, 'miss_no_entry': 46, 'retained_inflight': 6, 'retained_no_inflight': 41}
+INFO:     172.17.0.1:54116 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54126 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 46 sessions, 184 retained blocks, stats {'finished': 49, 'hit': 6, 'miss_no_entry': 46, 'retained_inflight': 6, 'retained_no_inflight': 42}
+INFO:     172.17.0.1:54142 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 46 sessions, 184 retained blocks, stats {'finished': 50, 'hit': 6, 'miss_no_entry': 49, 'retained_inflight': 7, 'retained_no_inflight': 42}
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 47 sessions, 188 retained blocks, stats {'finished': 51, 'hit': 6, 'miss_no_entry': 49, 'retained_inflight': 7, 'retained_no_inflight': 43}
+INFO:     172.17.0.1:54150 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54152 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 48 sessions, 192 retained blocks, stats {'finished': 52, 'hit': 6, 'miss_no_entry': 51, 'retained_inflight': 7, 'retained_no_inflight': 44}
+INFO:     172.17.0.1:54164 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 49 sessions, 196 retained blocks, stats {'finished': 53, 'hit': 6, 'miss_no_entry': 51, 'retained_inflight': 7, 'retained_no_inflight': 45}
+(EngineCore pid=337) INFO 10-25 20:15:04 [session_state_cache.py:186] Session state cache: 50 sessions, 200 retained blocks, stats {'finished': 54, 'hit': 6, 'miss_no_entry': 51, 'retained_inflight': 7, 'retained_no_inflight': 46}
+INFO:     172.17.0.1:54170 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54180 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:05 [session_state_cache.py:186] Session state cache: 51 sessions, 204 retained blocks, stats {'finished': 55, 'hit': 6, 'miss_no_entry': 54, 'retained_inflight': 7, 'retained_no_inflight': 47}
+INFO:     172.17.0.1:54188 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:05 [session_state_cache.py:186] Session state cache: 51 sessions, 204 retained blocks, stats {'finished': 56, 'hit': 6, 'miss_no_entry': 54, 'retained_inflight': 7, 'retained_no_inflight': 48}
+(EngineCore pid=337) INFO 10-25 20:15:05 [session_state_cache.py:186] Session state cache: 52 sessions, 208 retained blocks, stats {'finished': 57, 'hit': 6, 'miss_no_entry': 54, 'retained_inflight': 7, 'retained_no_inflight': 49}
+(EngineCore pid=337) INFO 10-25 20:15:05 [session_state_cache.py:186] Session state cache: 53 sessions, 212 retained blocks, stats {'finished': 58, 'hit': 6, 'miss_no_entry': 54, 'retained_inflight': 7, 'retained_no_inflight': 50}
+INFO:     172.17.0.1:54190 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54204 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54214 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54216 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:05 [session_state_cache.py:186] Session state cache: 54 sessions, 216 retained blocks, stats {'finished': 59, 'hit': 8, 'miss_no_entry': 57, 'retained_inflight': 7, 'retained_no_inflight': 51}
+INFO:     172.17.0.1:54218 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:05 [session_state_cache.py:186] Session state cache: 54 sessions, 216 retained blocks, stats {'finished': 60, 'hit': 8, 'miss_no_entry': 57, 'retained_inflight': 8, 'retained_no_inflight': 51}
+(EngineCore pid=337) INFO 10-25 20:15:05 [session_state_cache.py:186] Session state cache: 55 sessions, 220 retained blocks, stats {'finished': 61, 'hit': 8, 'miss_no_entry': 57, 'retained_inflight': 8, 'retained_no_inflight': 52}
+INFO:     172.17.0.1:54228 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54238 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:05 [session_state_cache.py:186] Session state cache: 56 sessions, 224 retained blocks, stats {'finished': 62, 'hit': 8, 'miss_no_entry': 58, 'retained_inflight': 8, 'retained_no_inflight': 53}
+INFO:     172.17.0.1:54244 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 57 sessions, 228 retained blocks, stats {'finished': 63, 'hit': 8, 'miss_no_entry': 61, 'retained_inflight': 8, 'retained_no_inflight': 54}
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 58 sessions, 232 retained blocks, stats {'finished': 64, 'hit': 8, 'miss_no_entry': 61, 'retained_inflight': 8, 'retained_no_inflight': 55}
+INFO:     172.17.0.1:54252 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54268 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54272 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 59 sessions, 236 retained blocks, stats {'finished': 65, 'hit': 8, 'miss_no_entry': 61, 'retained_inflight': 8, 'retained_no_inflight': 56}
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 59 sessions, 236 retained blocks, stats {'finished': 66, 'hit': 8, 'miss_no_entry': 61, 'retained_inflight': 8, 'retained_no_inflight': 57}
+INFO:     172.17.0.1:54280 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 60 sessions, 240 retained blocks, stats {'finished': 67, 'hit': 10, 'miss_no_entry': 62, 'retained_inflight': 8, 'retained_no_inflight': 58}
+INFO:     172.17.0.1:54290 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 61 sessions, 244 retained blocks, stats {'finished': 68, 'hit': 10, 'miss_no_entry': 63, 'retained_inflight': 8, 'retained_no_inflight': 59}
+INFO:     172.17.0.1:54298 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 61 sessions, 244 retained blocks, stats {'finished': 69, 'hit': 10, 'miss_no_entry': 65, 'retained_inflight': 9, 'retained_no_inflight': 59}
+INFO:     172.17.0.1:54306 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 62 sessions, 248 retained blocks, stats {'finished': 70, 'hit': 10, 'miss_no_entry': 67, 'retained_inflight': 9, 'retained_no_inflight': 60}
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 62 sessions, 248 retained blocks, stats {'finished': 71, 'hit': 10, 'miss_no_entry': 67, 'retained_inflight': 10, 'retained_no_inflight': 60}
+(EngineCore pid=337) INFO 10-25 20:15:06 [session_state_cache.py:186] Session state cache: 63 sessions, 252 retained blocks, stats {'finished': 72, 'hit': 10, 'miss_no_entry': 67, 'retained_inflight': 10, 'retained_no_inflight': 61}
+INFO:     172.17.0.1:54312 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54320 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54322 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 64 sessions, 256 retained blocks, stats {'finished': 73, 'hit': 10, 'miss_no_entry': 67, 'retained_inflight': 10, 'retained_no_inflight': 62}
+INFO:     172.17.0.1:54336 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 65 sessions, 260 retained blocks, stats {'finished': 74, 'hit': 10, 'miss_no_entry': 70, 'retained_inflight': 10, 'retained_no_inflight': 63}
+INFO:     172.17.0.1:54344 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 66 sessions, 264 retained blocks, stats {'finished': 75, 'hit': 10, 'miss_no_entry': 71, 'retained_inflight': 10, 'retained_no_inflight': 64}
+INFO:     172.17.0.1:54354 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 67 sessions, 268 retained blocks, stats {'finished': 76, 'hit': 10, 'miss_no_entry': 72, 'retained_inflight': 10, 'retained_no_inflight': 65}
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 67 sessions, 268 retained blocks, stats {'finished': 77, 'hit': 10, 'miss_no_entry': 72, 'retained_inflight': 10, 'retained_no_inflight': 66}
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 68 sessions, 272 retained blocks, stats {'finished': 78, 'hit': 10, 'miss_no_entry': 72, 'retained_inflight': 10, 'retained_no_inflight': 67}
+INFO:     172.17.0.1:54364 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54380 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54382 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 69 sessions, 276 retained blocks, stats {'finished': 79, 'hit': 10, 'miss_no_entry': 73, 'retained_inflight': 10, 'retained_no_inflight': 68}
+INFO:     172.17.0.1:54398 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 70 sessions, 280 retained blocks, stats {'finished': 80, 'hit': 12, 'miss_no_entry': 74, 'retained_inflight': 10, 'retained_no_inflight': 69}
+(EngineCore pid=337) INFO 10-25 20:15:07 [session_state_cache.py:186] Session state cache: 71 sessions, 284 retained blocks, stats {'finished': 81, 'hit': 12, 'miss_no_entry': 74, 'retained_inflight': 10, 'retained_no_inflight': 70}
+INFO:     172.17.0.1:54404 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54412 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 72 sessions, 288 retained blocks, stats {'finished': 82, 'hit': 12, 'miss_no_entry': 77, 'retained_inflight': 10, 'retained_no_inflight': 71}
+INFO:     172.17.0.1:54426 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 73 sessions, 292 retained blocks, stats {'finished': 83, 'hit': 12, 'miss_no_entry': 77, 'retained_inflight': 10, 'retained_no_inflight': 72}
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 74 sessions, 296 retained blocks, stats {'finished': 84, 'hit': 12, 'miss_no_entry': 77, 'retained_inflight': 10, 'retained_no_inflight': 73}
+INFO:     172.17.0.1:54428 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54440 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 75 sessions, 300 retained blocks, stats {'finished': 85, 'hit': 12, 'miss_no_entry': 78, 'retained_inflight': 10, 'retained_no_inflight': 74}
+INFO:     172.17.0.1:54448 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-25 20:15:08 [loggers.py:335] Engine 000: Avg prompt throughput: 14349.9 tokens/s, Avg generation throughput: 54.2 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 15.6%, Prefix cache hit rate: 10.1%
+(APIServer pid=1) INFO 10-25 20:15:08 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.83, Accepted throughput: 30.71 tokens/s, Drafted throughput: 33.61 tokens/s, Accepted: 402 tokens, Drafted: 440 tokens, Per-position acceptance rate: 0.941, 0.886, Avg Draft acceptance rate: 91.4%
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 76 sessions, 304 retained blocks, stats {'finished': 86, 'hit': 12, 'miss_no_entry': 81, 'retained_inflight': 10, 'retained_no_inflight': 75}
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 76 sessions, 304 retained blocks, stats {'finished': 87, 'hit': 12, 'miss_no_entry': 81, 'retained_inflight': 11, 'retained_no_inflight': 75}
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 77 sessions, 308 retained blocks, stats {'finished': 88, 'hit': 12, 'miss_no_entry': 81, 'retained_inflight': 11, 'retained_no_inflight': 76}
+INFO:     172.17.0.1:54460 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54472 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54478 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54482 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 78 sessions, 312 retained blocks, stats {'finished': 89, 'hit': 12, 'miss_no_entry': 81, 'retained_inflight': 11, 'retained_no_inflight': 77}
+INFO:     172.17.0.1:54496 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:08 [session_state_cache.py:186] Session state cache: 79 sessions, 316 retained blocks, stats {'finished': 90, 'hit': 14, 'miss_no_entry': 83, 'retained_inflight': 11, 'retained_no_inflight': 78}
+INFO:     172.17.0.1:54506 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54522 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:09 [session_state_cache.py:186] Session state cache: 80 sessions, 320 retained blocks, stats {'finished': 91, 'hit': 14, 'miss_no_entry': 84, 'retained_inflight': 11, 'retained_no_inflight': 79}
+(EngineCore pid=337) INFO 10-25 20:15:09 [session_state_cache.py:186] Session state cache: 80 sessions, 320 retained blocks, stats {'finished': 92, 'hit': 14, 'miss_no_entry': 84, 'retained_inflight': 12, 'retained_no_inflight': 79}
+INFO:     172.17.0.1:54526 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:09 [session_state_cache.py:186] Session state cache: 81 sessions, 324 retained blocks, stats {'finished': 93, 'hit': 16, 'miss_no_entry': 84, 'retained_inflight': 12, 'retained_no_inflight': 80}
+INFO:     172.17.0.1:54542 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:09 [session_state_cache.py:186] Session state cache: 82 sessions, 328 retained blocks, stats {'finished': 94, 'hit': 16, 'miss_no_entry': 85, 'retained_inflight': 12, 'retained_no_inflight': 81}
+INFO:     172.17.0.1:54546 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:09 [session_state_cache.py:186] Session state cache: 83 sessions, 332 retained blocks, stats {'finished': 95, 'hit': 16, 'miss_no_entry': 86, 'retained_inflight': 12, 'retained_no_inflight': 82}
+INFO:     172.17.0.1:54562 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:09 [session_state_cache.py:186] Session state cache: 84 sessions, 336 retained blocks, stats {'finished': 96, 'hit': 16, 'miss_no_entry': 88, 'retained_inflight': 12, 'retained_no_inflight': 83}
+INFO:     172.17.0.1:54568 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:09 [session_state_cache.py:186] Session state cache: 85 sessions, 340 retained blocks, stats {'finished': 97, 'hit': 16, 'miss_no_entry': 88, 'retained_inflight': 12, 'retained_no_inflight': 84}
+(EngineCore pid=337) INFO 10-25 20:15:09 [session_state_cache.py:186] Session state cache: 86 sessions, 344 retained blocks, stats {'finished': 98, 'hit': 16, 'miss_no_entry': 88, 'retained_inflight': 12, 'retained_no_inflight': 85}
+INFO:     172.17.0.1:54580 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54596 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54610 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:10 [session_state_cache.py:186] Session state cache: 87 sessions, 348 retained blocks, stats {'finished': 99, 'hit': 18, 'miss_no_entry': 90, 'retained_inflight': 12, 'retained_no_inflight': 86}
+(EngineCore pid=337) INFO 10-25 20:15:10 [session_state_cache.py:186] Session state cache: 88 sessions, 352 retained blocks, stats {'finished': 100, 'hit': 18, 'miss_no_entry': 90, 'retained_inflight': 12, 'retained_no_inflight': 87}
+INFO:     172.17.0.1:54616 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54632 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:10 [session_state_cache.py:186] Session state cache: 89 sessions, 356 retained blocks, stats {'finished': 101, 'hit': 18, 'miss_no_entry': 90, 'retained_inflight': 12, 'retained_no_inflight': 88}
+(EngineCore pid=337) INFO 10-25 20:15:10 [session_state_cache.py:186] Session state cache: 89 sessions, 356 retained blocks, stats {'finished': 102, 'hit': 18, 'miss_no_entry': 92, 'retained_inflight': 13, 'retained_no_inflight': 88}
+(EngineCore pid=337) INFO 10-25 20:15:10 [session_state_cache.py:186] Session state cache: 89 sessions, 356 retained blocks, stats {'finished': 103, 'hit': 18, 'miss_no_entry': 92, 'retained_inflight': 13, 'retained_no_inflight': 89}
+INFO:     172.17.0.1:54644 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54654 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:10 [session_state_cache.py:186] Session state cache: 90 sessions, 360 retained blocks, stats {'finished': 104, 'hit': 18, 'miss_no_entry': 92, 'retained_inflight': 13, 'retained_no_inflight': 90}
+INFO:     172.17.0.1:54666 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:10 [session_state_cache.py:186] Session state cache: 91 sessions, 364 retained blocks, stats {'finished': 105, 'hit': 18, 'miss_no_entry': 95, 'retained_inflight': 13, 'retained_no_inflight': 91}
+INFO:     172.17.0.1:54678 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:10 [session_state_cache.py:186] Session state cache: 92 sessions, 368 retained blocks, stats {'finished': 106, 'hit': 18, 'miss_no_entry': 95, 'retained_inflight': 13, 'retained_no_inflight': 92}
+INFO:     172.17.0.1:54690 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 93 sessions, 372 retained blocks, stats {'finished': 107, 'hit': 18, 'miss_no_entry': 96, 'retained_inflight': 13, 'retained_no_inflight': 93}
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 93 sessions, 372 retained blocks, stats {'finished': 108, 'hit': 18, 'miss_no_entry': 96, 'retained_inflight': 13, 'retained_no_inflight': 94}
+INFO:     172.17.0.1:54692 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 94 sessions, 376 retained blocks, stats {'finished': 109, 'hit': 18, 'miss_no_entry': 97, 'retained_inflight': 13, 'retained_no_inflight': 95}
+INFO:     172.17.0.1:54694 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 95 sessions, 380 retained blocks, stats {'finished': 110, 'hit': 19, 'miss_no_entry': 98, 'retained_inflight': 13, 'retained_no_inflight': 96}
+INFO:     172.17.0.1:47930 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 96 sessions, 384 retained blocks, stats {'finished': 111, 'hit': 19, 'miss_no_entry': 98, 'retained_inflight': 13, 'retained_no_inflight': 97}
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 96 sessions, 384 retained blocks, stats {'finished': 112, 'hit': 19, 'miss_no_entry': 98, 'retained_inflight': 14, 'retained_no_inflight': 97}
+INFO:     172.17.0.1:47936 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:47938 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 97 sessions, 388 retained blocks, stats {'finished': 113, 'hit': 19, 'miss_no_entry': 101, 'retained_inflight': 14, 'retained_no_inflight': 98}
+INFO:     172.17.0.1:47956 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 98 sessions, 392 retained blocks, stats {'finished': 114, 'hit': 19, 'miss_no_entry': 101, 'retained_inflight': 14, 'retained_no_inflight': 99}
+(EngineCore pid=337) INFO 10-25 20:15:11 [session_state_cache.py:186] Session state cache: 99 sessions, 396 retained blocks, stats {'finished': 115, 'hit': 19, 'miss_no_entry': 101, 'retained_inflight': 14, 'retained_no_inflight': 100}
+INFO:     172.17.0.1:47980 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:47972 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:12 [session_state_cache.py:186] Session state cache: 100 sessions, 400 retained blocks, stats {'finished': 116, 'hit': 19, 'miss_no_entry': 104, 'retained_inflight': 14, 'retained_no_inflight': 101}
+INFO:     172.17.0.1:47990 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:12 [session_state_cache.py:186] Session state cache: 101 sessions, 404 retained blocks, stats {'finished': 117, 'hit': 19, 'miss_no_entry': 104, 'retained_inflight': 14, 'retained_no_inflight': 102}
+(EngineCore pid=337) INFO 10-25 20:15:12 [session_state_cache.py:186] Session state cache: 102 sessions, 408 retained blocks, stats {'finished': 118, 'hit': 19, 'miss_no_entry': 104, 'retained_inflight': 14, 'retained_no_inflight': 103}
+INFO:     172.17.0.1:47994 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:47996 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:12 [session_state_cache.py:186] Session state cache: 103 sessions, 412 retained blocks, stats {'finished': 119, 'hit': 19, 'miss_no_entry': 105, 'retained_inflight': 14, 'retained_no_inflight': 104}
+INFO:     172.17.0.1:48010 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:12 [session_state_cache.py:186] Session state cache: 103 sessions, 412 retained blocks, stats {'finished': 120, 'hit': 19, 'miss_no_entry': 108, 'retained_inflight': 15, 'retained_no_inflight': 104}
+INFO:     172.17.0.1:48016 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:13 [session_state_cache.py:186] Session state cache: 104 sessions, 416 retained blocks, stats {'finished': 121, 'hit': 19, 'miss_no_entry': 108, 'retained_inflight': 15, 'retained_no_inflight': 105}
+(EngineCore pid=337) INFO 10-25 20:15:13 [session_state_cache.py:186] Session state cache: 105 sessions, 420 retained blocks, stats {'finished': 122, 'hit': 19, 'miss_no_entry': 108, 'retained_inflight': 15, 'retained_no_inflight': 106}
+INFO:     172.17.0.1:48024 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:48030 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:13 [session_state_cache.py:186] Session state cache: 106 sessions, 424 retained blocks, stats {'finished': 123, 'hit': 19, 'miss_no_entry': 111, 'retained_inflight': 15, 'retained_no_inflight': 107}
+INFO:     172.17.0.1:48038 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:13 [session_state_cache.py:186] Session state cache: 107 sessions, 428 retained blocks, stats {'finished': 124, 'hit': 19, 'miss_no_entry': 111, 'retained_inflight': 15, 'retained_no_inflight': 108}
+INFO:     172.17.0.1:48054 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:13 [session_state_cache.py:186] Session state cache: 108 sessions, 432 retained blocks, stats {'finished': 125, 'hit': 19, 'miss_no_entry': 112, 'retained_inflight': 15, 'retained_no_inflight': 109}
+(EngineCore pid=337) INFO 10-25 20:15:13 [session_state_cache.py:186] Session state cache: 109 sessions, 436 retained blocks, stats {'finished': 126, 'hit': 19, 'miss_no_entry': 112, 'retained_inflight': 15, 'retained_no_inflight': 110}
+INFO:     172.17.0.1:48056 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:48072 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:13 [session_state_cache.py:186] Session state cache: 110 sessions, 440 retained blocks, stats {'finished': 127, 'hit': 19, 'miss_no_entry': 115, 'retained_inflight': 15, 'retained_no_inflight': 111}
+INFO:     172.17.0.1:48086 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:14 [session_state_cache.py:186] Session state cache: 111 sessions, 444 retained blocks, stats {'finished': 128, 'hit': 19, 'miss_no_entry': 115, 'retained_inflight': 15, 'retained_no_inflight': 112}
+INFO:     172.17.0.1:48102 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:14 [session_state_cache.py:186] Session state cache: 112 sessions, 448 retained blocks, stats {'finished': 129, 'hit': 19, 'miss_no_entry': 116, 'retained_inflight': 15, 'retained_no_inflight': 113}
+(EngineCore pid=337) INFO 10-25 20:15:14 [session_state_cache.py:186] Session state cache: 112 sessions, 448 retained blocks, stats {'finished': 130, 'hit': 19, 'miss_no_entry': 116, 'retained_inflight': 15, 'retained_no_inflight': 114}
+(EngineCore pid=337) INFO 10-25 20:15:14 [session_state_cache.py:186] Session state cache: 113 sessions, 452 retained blocks, stats {'finished': 131, 'hit': 19, 'miss_no_entry': 116, 'retained_inflight': 15, 'retained_no_inflight': 115}
+INFO:     172.17.0.1:48116 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:48130 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:48142 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:14 [session_state_cache.py:186] Session state cache: 114 sessions, 456 retained blocks, stats {'finished': 132, 'hit': 20, 'miss_no_entry': 119, 'retained_inflight': 15, 'retained_no_inflight': 116}
+INFO:     172.17.0.1:48144 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:14 [session_state_cache.py:186] Session state cache: 115 sessions, 460 retained blocks, stats {'finished': 133, 'hit': 20, 'miss_no_entry': 120, 'retained_inflight': 15, 'retained_no_inflight': 117}
+INFO:     172.17.0.1:48154 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:14 [session_state_cache.py:186] Session state cache: 116 sessions, 464 retained blocks, stats {'finished': 134, 'hit': 20, 'miss_no_entry': 121, 'retained_inflight': 15, 'retained_no_inflight': 118}
+INFO:     172.17.0.1:48156 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:14 [session_state_cache.py:186] Session state cache: 117 sessions, 468 retained blocks, stats {'finished': 135, 'hit': 20, 'miss_no_entry': 122, 'retained_inflight': 15, 'retained_no_inflight': 119}
+INFO:     172.17.0.1:48160 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:15 [session_state_cache.py:186] Session state cache: 118 sessions, 472 retained blocks, stats {'finished': 136, 'hit': 20, 'miss_no_entry': 123, 'retained_inflight': 15, 'retained_no_inflight': 120}
+INFO:     172.17.0.1:48168 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:15 [session_state_cache.py:186] Session state cache: 119 sessions, 476 retained blocks, stats {'finished': 137, 'hit': 20, 'miss_no_entry': 124, 'retained_inflight': 15, 'retained_no_inflight': 121}
+INFO:     172.17.0.1:48172 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:15 [session_state_cache.py:186] Session state cache: 120 sessions, 480 retained blocks, stats {'finished': 138, 'hit': 20, 'miss_no_entry': 125, 'retained_inflight': 15, 'retained_no_inflight': 122}
+INFO:     172.17.0.1:48184 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:15 [session_state_cache.py:186] Session state cache: 121 sessions, 484 retained blocks, stats {'finished': 139, 'hit': 20, 'miss_no_entry': 126, 'retained_inflight': 15, 'retained_no_inflight': 123}
+INFO:     172.17.0.1:48200 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:15 [session_state_cache.py:186] Session state cache: 122 sessions, 488 retained blocks, stats {'finished': 140, 'hit': 20, 'miss_no_entry': 127, 'retained_inflight': 15, 'retained_no_inflight': 124}
+INFO:     172.17.0.1:48210 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:15 [session_state_cache.py:186] Session state cache: 123 sessions, 492 retained blocks, stats {'finished': 141, 'hit': 20, 'miss_no_entry': 128, 'retained_inflight': 15, 'retained_no_inflight': 125}
+INFO:     172.17.0.1:48222 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:15 [session_state_cache.py:186] Session state cache: 124 sessions, 496 retained blocks, stats {'finished': 142, 'hit': 20, 'miss_no_entry': 129, 'retained_inflight': 15, 'retained_no_inflight': 126}
+INFO:     172.17.0.1:48226 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:16 [session_state_cache.py:186] Session state cache: 125 sessions, 500 retained blocks, stats {'finished': 143, 'hit': 20, 'miss_no_entry': 130, 'retained_inflight': 15, 'retained_no_inflight': 127}
+INFO:     172.17.0.1:48240 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:16 [session_state_cache.py:186] Session state cache: 126 sessions, 504 retained blocks, stats {'finished': 144, 'hit': 20, 'miss_no_entry': 131, 'retained_inflight': 15, 'retained_no_inflight': 128}
+INFO:     172.17.0.1:48248 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:16 [session_state_cache.py:186] Session state cache: 127 sessions, 508 retained blocks, stats {'finished': 145, 'hit': 20, 'miss_no_entry': 132, 'retained_inflight': 15, 'retained_no_inflight': 129}
+INFO:     172.17.0.1:48252 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:16 [session_state_cache.py:186] Session state cache: 128 sessions, 512 retained blocks, stats {'finished': 146, 'hit': 20, 'miss_no_entry': 133, 'retained_inflight': 15, 'retained_no_inflight': 130}
+INFO:     172.17.0.1:48254 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:16 [session_state_cache.py:186] Session state cache: 129 sessions, 516 retained blocks, stats {'finished': 147, 'hit': 21, 'miss_no_entry': 133, 'retained_inflight': 15, 'retained_no_inflight': 131}
+INFO:     172.17.0.1:48256 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:16 [session_state_cache.py:186] Session state cache: 130 sessions, 520 retained blocks, stats {'finished': 148, 'hit': 21, 'miss_no_entry': 134, 'retained_inflight': 15, 'retained_no_inflight': 132}
+INFO:     172.17.0.1:48272 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:16 [session_state_cache.py:186] Session state cache: 131 sessions, 524 retained blocks, stats {'finished': 149, 'hit': 21, 'miss_no_entry': 136, 'retained_inflight': 15, 'retained_no_inflight': 133}
+INFO:     172.17.0.1:48274 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:17 [session_state_cache.py:186] Session state cache: 132 sessions, 528 retained blocks, stats {'finished': 150, 'hit': 21, 'miss_no_entry': 136, 'retained_inflight': 15, 'retained_no_inflight': 134}
+INFO:     172.17.0.1:48278 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:17 [session_state_cache.py:186] Session state cache: 133 sessions, 532 retained blocks, stats {'finished': 151, 'hit': 21, 'miss_no_entry': 137, 'retained_inflight': 15, 'retained_no_inflight': 135}
+INFO:     172.17.0.1:48294 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:17 [session_state_cache.py:186] Session state cache: 134 sessions, 536 retained blocks, stats {'finished': 152, 'hit': 21, 'miss_no_entry': 139, 'retained_inflight': 15, 'retained_no_inflight': 136}
+INFO:     172.17.0.1:48304 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:17 [session_state_cache.py:186] Session state cache: 135 sessions, 540 retained blocks, stats {'finished': 153, 'hit': 21, 'miss_no_entry': 139, 'retained_inflight': 15, 'retained_no_inflight': 137}
+INFO:     172.17.0.1:48314 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:17 [session_state_cache.py:186] Session state cache: 136 sessions, 544 retained blocks, stats {'finished': 154, 'hit': 22, 'miss_no_entry': 139, 'retained_inflight': 15, 'retained_no_inflight': 138}
+INFO:     172.17.0.1:48316 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:18 [session_state_cache.py:186] Session state cache: 137 sessions, 548 retained blocks, stats {'finished': 155, 'hit': 23, 'miss_no_entry': 140, 'retained_inflight': 15, 'retained_no_inflight': 139}
+INFO:     172.17.0.1:48330 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-25 20:15:18 [loggers.py:335] Engine 000: Avg prompt throughput: 35545.2 tokens/s, Avg generation throughput: 87.1 tokens/s, Running: 7 reqs, Waiting: 0 reqs, GPU KV cache usage: 28.5%, Prefix cache hit rate: 12.0%
+(APIServer pid=1) INFO 10-25 20:15:18 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.74, Accepted throughput: 50.70 tokens/s, Drafted throughput: 58.20 tokens/s, Accepted: 507 tokens, Drafted: 582 tokens, Per-position acceptance rate: 0.914, 0.828, Avg Draft acceptance rate: 87.1%
+(EngineCore pid=337) INFO 10-25 20:15:18 [session_state_cache.py:186] Session state cache: 138 sessions, 552 retained blocks, stats {'finished': 156, 'hit': 23, 'miss_no_entry': 141, 'retained_inflight': 15, 'retained_no_inflight': 140}
+INFO:     172.17.0.1:48342 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:18 [session_state_cache.py:186] Session state cache: 139 sessions, 556 retained blocks, stats {'finished': 157, 'hit': 24, 'miss_no_entry': 141, 'retained_inflight': 15, 'retained_no_inflight': 141}
+INFO:     172.17.0.1:48344 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:18 [session_state_cache.py:186] Session state cache: 139 sessions, 556 retained blocks, stats {'finished': 158, 'hit': 24, 'miss_no_entry': 141, 'retained_inflight': 15, 'retained_no_inflight': 142}
+INFO:     172.17.0.1:48356 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:19 [session_state_cache.py:186] Session state cache: 139 sessions, 556 retained blocks, stats {'finished': 159, 'hit': 24, 'miss_no_entry': 143, 'retained_inflight': 16, 'retained_no_inflight': 142}
+INFO:     172.17.0.1:48358 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:19 [session_state_cache.py:186] Session state cache: 140 sessions, 560 retained blocks, stats {'finished': 160, 'hit': 24, 'miss_no_entry': 143, 'retained_inflight': 16, 'retained_no_inflight': 143}
+INFO:     172.17.0.1:48364 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:19 [session_state_cache.py:186] Session state cache: 141 sessions, 564 retained blocks, stats {'finished': 161, 'hit': 24, 'miss_no_entry': 145, 'retained_inflight': 16, 'retained_no_inflight': 144}
+INFO:     172.17.0.1:48376 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:19 [session_state_cache.py:186] Session state cache: 142 sessions, 568 retained blocks, stats {'finished': 162, 'hit': 24, 'miss_no_entry': 145, 'retained_inflight': 16, 'retained_no_inflight': 145}
+INFO:     172.17.0.1:48378 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:19 [session_state_cache.py:186] Session state cache: 143 sessions, 572 retained blocks, stats {'finished': 163, 'hit': 24, 'miss_no_entry': 147, 'retained_inflight': 16, 'retained_no_inflight': 146}
+INFO:     172.17.0.1:48386 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:19 [session_state_cache.py:186] Session state cache: 144 sessions, 576 retained blocks, stats {'finished': 164, 'hit': 24, 'miss_no_entry': 147, 'retained_inflight': 16, 'retained_no_inflight': 147}
+INFO:     172.17.0.1:48398 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:20 [session_state_cache.py:186] Session state cache: 145 sessions, 580 retained blocks, stats {'finished': 165, 'hit': 24, 'miss_no_entry': 149, 'retained_inflight': 16, 'retained_no_inflight': 148}
+(EngineCore pid=337) INFO 10-25 20:15:20 [session_state_cache.py:186] Session state cache: 146 sessions, 584 retained blocks, stats {'finished': 166, 'hit': 24, 'miss_no_entry': 149, 'retained_inflight': 16, 'retained_no_inflight': 149}
+INFO:     172.17.0.1:48406 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:48408 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:20 [session_state_cache.py:186] Session state cache: 147 sessions, 588 retained blocks, stats {'finished': 167, 'hit': 24, 'miss_no_entry': 151, 'retained_inflight': 16, 'retained_no_inflight': 150}
+INFO:     172.17.0.1:48416 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:20 [session_state_cache.py:186] Session state cache: 148 sessions, 592 retained blocks, stats {'finished': 168, 'hit': 24, 'miss_no_entry': 151, 'retained_inflight': 16, 'retained_no_inflight': 151}
+INFO:     172.17.0.1:48432 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:21 [session_state_cache.py:186] Session state cache: 149 sessions, 596 retained blocks, stats {'finished': 169, 'hit': 24, 'miss_no_entry': 153, 'retained_inflight': 16, 'retained_no_inflight': 152}
+INFO:     172.17.0.1:55766 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:21 [session_state_cache.py:186] Session state cache: 150 sessions, 600 retained blocks, stats {'finished': 170, 'hit': 24, 'miss_no_entry': 153, 'retained_inflight': 16, 'retained_no_inflight': 153}
+INFO:     172.17.0.1:55782 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55790 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:22 [session_state_cache.py:186] Session state cache: 151 sessions, 604 retained blocks, stats {'finished': 171, 'hit': 27, 'miss_no_entry': 153, 'retained_inflight': 16, 'retained_no_inflight': 154}
+(EngineCore pid=337) INFO 10-25 20:15:22 [session_state_cache.py:186] Session state cache: 151 sessions, 604 retained blocks, stats {'finished': 172, 'hit': 27, 'miss_no_entry': 153, 'retained_inflight': 17, 'retained_no_inflight': 154}
+INFO:     172.17.0.1:55792 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:22 [session_state_cache.py:186] Session state cache: 151 sessions, 604 retained blocks, stats {'finished': 173, 'hit': 27, 'miss_no_entry': 154, 'retained_inflight': 18, 'retained_no_inflight': 154}
+INFO:     172.17.0.1:55800 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:22 [session_state_cache.py:186] Session state cache: 152 sessions, 608 retained blocks, stats {'finished': 174, 'hit': 27, 'miss_no_entry': 155, 'retained_inflight': 18, 'retained_no_inflight': 155}
+INFO:     172.17.0.1:55804 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:23 [session_state_cache.py:186] Session state cache: 153 sessions, 612 retained blocks, stats {'finished': 175, 'hit': 27, 'miss_no_entry': 156, 'retained_inflight': 18, 'retained_no_inflight': 156}
+INFO:     172.17.0.1:55820 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:23 [session_state_cache.py:186] Session state cache: 154 sessions, 616 retained blocks, stats {'finished': 176, 'hit': 27, 'miss_no_entry': 157, 'retained_inflight': 18, 'retained_no_inflight': 157}
+INFO:     172.17.0.1:55822 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:23 [session_state_cache.py:186] Session state cache: 155 sessions, 620 retained blocks, stats {'finished': 177, 'hit': 27, 'miss_no_entry': 158, 'retained_inflight': 18, 'retained_no_inflight': 158}
+INFO:     172.17.0.1:55826 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:24 [session_state_cache.py:186] Session state cache: 156 sessions, 624 retained blocks, stats {'finished': 178, 'hit': 27, 'miss_no_entry': 159, 'retained_inflight': 18, 'retained_no_inflight': 159}
+INFO:     172.17.0.1:55844 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55842 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:24 [session_state_cache.py:186] Session state cache: 157 sessions, 628 retained blocks, stats {'finished': 179, 'hit': 29, 'miss_no_entry': 159, 'retained_inflight': 18, 'retained_no_inflight': 160}
+INFO:     172.17.0.1:55864 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:25 [session_state_cache.py:186] Session state cache: 157 sessions, 628 retained blocks, stats {'finished': 180, 'hit': 29, 'miss_no_entry': 160, 'retained_inflight': 18, 'retained_no_inflight': 161}
+INFO:     172.17.0.1:55866 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:25 [session_state_cache.py:186] Session state cache: 158 sessions, 632 retained blocks, stats {'finished': 181, 'hit': 29, 'miss_no_entry': 161, 'retained_inflight': 18, 'retained_no_inflight': 162}
+INFO:     172.17.0.1:55878 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:25 [session_state_cache.py:186] Session state cache: 159 sessions, 636 retained blocks, stats {'finished': 182, 'hit': 29, 'miss_no_entry': 162, 'retained_inflight': 18, 'retained_no_inflight': 163}
+(EngineCore pid=337) INFO 10-25 20:15:25 [session_state_cache.py:186] Session state cache: 159 sessions, 636 retained blocks, stats {'finished': 183, 'hit': 29, 'miss_no_entry': 162, 'retained_inflight': 18, 'retained_no_inflight': 164}
+INFO:     172.17.0.1:55880 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:26 [session_state_cache.py:186] Session state cache: 160 sessions, 640 retained blocks, stats {'finished': 184, 'hit': 29, 'miss_no_entry': 163, 'retained_inflight': 18, 'retained_no_inflight': 165}
+INFO:     172.17.0.1:55894 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:26 [session_state_cache.py:186] Session state cache: 161 sessions, 644 retained blocks, stats {'finished': 185, 'hit': 29, 'miss_no_entry': 164, 'retained_inflight': 18, 'retained_no_inflight': 166}
+INFO:     172.17.0.1:55902 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:26 [session_state_cache.py:186] Session state cache: 162 sessions, 648 retained blocks, stats {'finished': 186, 'hit': 29, 'miss_no_entry': 165, 'retained_inflight': 18, 'retained_no_inflight': 167}
+INFO:     172.17.0.1:55904 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:27 [session_state_cache.py:186] Session state cache: 163 sessions, 652 retained blocks, stats {'finished': 187, 'hit': 29, 'miss_no_entry': 166, 'retained_inflight': 18, 'retained_no_inflight': 168}
+INFO:     172.17.0.1:55910 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:27 [session_state_cache.py:186] Session state cache: 164 sessions, 656 retained blocks, stats {'finished': 188, 'hit': 29, 'miss_no_entry': 167, 'retained_inflight': 18, 'retained_no_inflight': 169}
+INFO:     172.17.0.1:55926 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:27 [session_state_cache.py:186] Session state cache: 165 sessions, 660 retained blocks, stats {'finished': 189, 'hit': 29, 'miss_no_entry': 168, 'retained_inflight': 18, 'retained_no_inflight': 170}
+INFO:     172.17.0.1:55932 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:28 [session_state_cache.py:186] Session state cache: 166 sessions, 664 retained blocks, stats {'finished': 190, 'hit': 29, 'miss_no_entry': 169, 'retained_inflight': 18, 'retained_no_inflight': 171}
+INFO:     172.17.0.1:55940 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:28 [session_state_cache.py:186] Session state cache: 167 sessions, 668 retained blocks, stats {'finished': 191, 'hit': 29, 'miss_no_entry': 170, 'retained_inflight': 18, 'retained_no_inflight': 172}
+(APIServer pid=1) INFO 10-25 20:15:28 [loggers.py:335] Engine 000: Avg prompt throughput: 24362.4 tokens/s, Avg generation throughput: 260.3 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 33.3%, Prefix cache hit rate: 13.2%
+(APIServer pid=1) INFO 10-25 20:15:28 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.70, Accepted throughput: 161.79 tokens/s, Drafted throughput: 189.99 tokens/s, Accepted: 1618 tokens, Drafted: 1900 tokens, Per-position acceptance rate: 0.906, 0.797, Avg Draft acceptance rate: 85.2%
+(EngineCore pid=337) INFO 10-25 20:15:28 [session_state_cache.py:186] Session state cache: 167 sessions, 668 retained blocks, stats {'finished': 192, 'hit': 29, 'miss_no_entry': 170, 'retained_inflight': 19, 'retained_no_inflight': 172}
+INFO:     172.17.0.1:55956 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:28 [session_state_cache.py:186] Session state cache: 167 sessions, 668 retained blocks, stats {'finished': 193, 'hit': 29, 'miss_no_entry': 170, 'retained_inflight': 19, 'retained_no_inflight': 173}
+INFO:     172.17.0.1:55964 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:28 [session_state_cache.py:186] Session state cache: 168 sessions, 672 retained blocks, stats {'finished': 194, 'hit': 29, 'miss_no_entry': 171, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 174}
+INFO:     172.17.0.1:55980 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:29 [session_state_cache.py:186] Session state cache: 169 sessions, 676 retained blocks, stats {'finished': 195, 'hit': 29, 'miss_no_entry': 172, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 175}
+INFO:     172.17.0.1:55984 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:29 [session_state_cache.py:186] Session state cache: 170 sessions, 680 retained blocks, stats {'finished': 196, 'hit': 29, 'miss_no_entry': 173, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 176}
+INFO:     172.17.0.1:55986 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:29 [session_state_cache.py:186] Session state cache: 171 sessions, 684 retained blocks, stats {'finished': 197, 'hit': 29, 'miss_no_entry': 174, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 177}
+INFO:     172.17.0.1:56000 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:30 [session_state_cache.py:186] Session state cache: 172 sessions, 688 retained blocks, stats {'finished': 198, 'hit': 29, 'miss_no_entry': 175, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 178}
+INFO:     172.17.0.1:56014 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:30 [session_state_cache.py:186] Session state cache: 173 sessions, 692 retained blocks, stats {'finished': 199, 'hit': 29, 'miss_no_entry': 176, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 179}
+INFO:     172.17.0.1:56026 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:30 [session_state_cache.py:186] Session state cache: 174 sessions, 696 retained blocks, stats {'finished': 200, 'hit': 29, 'miss_no_entry': 177, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 180}
+INFO:     172.17.0.1:56030 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:30 [session_state_cache.py:186] Session state cache: 175 sessions, 700 retained blocks, stats {'finished': 201, 'hit': 29, 'miss_no_entry': 178, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 181}
+INFO:     172.17.0.1:56038 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:31 [session_state_cache.py:186] Session state cache: 176 sessions, 704 retained blocks, stats {'finished': 202, 'hit': 29, 'miss_no_entry': 179, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 182}
+INFO:     172.17.0.1:37964 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:31 [session_state_cache.py:186] Session state cache: 177 sessions, 708 retained blocks, stats {'finished': 203, 'hit': 29, 'miss_no_entry': 180, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 183}
+INFO:     172.17.0.1:37974 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:31 [session_state_cache.py:186] Session state cache: 178 sessions, 712 retained blocks, stats {'finished': 204, 'hit': 29, 'miss_no_entry': 181, 'miss_tail_mismatch': 1, 'retained_inflight': 19, 'retained_no_inflight': 184}
+INFO:     172.17.0.1:37990 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:32 [session_state_cache.py:186] Session state cache: 179 sessions, 716 retained blocks, stats {'finished': 205, 'hit': 29, 'miss_no_entry': 181, 'miss_tail_mismatch': 2, 'retained_inflight': 19, 'retained_no_inflight': 185}
+INFO:     172.17.0.1:37998 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:32 [session_state_cache.py:186] Session state cache: 179 sessions, 716 retained blocks, stats {'finished': 206, 'hit': 29, 'miss_no_entry': 182, 'miss_tail_mismatch': 2, 'retained_inflight': 20, 'retained_no_inflight': 185}
+INFO:     172.17.0.1:38010 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:33 [session_state_cache.py:186] Session state cache: 180 sessions, 720 retained blocks, stats {'finished': 207, 'hit': 29, 'miss_no_entry': 183, 'miss_tail_mismatch': 2, 'retained_inflight': 20, 'retained_no_inflight': 186}
+INFO:     172.17.0.1:38026 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:33 [session_state_cache.py:186] Session state cache: 181 sessions, 724 retained blocks, stats {'finished': 208, 'hit': 29, 'miss_no_entry': 184, 'miss_tail_mismatch': 2, 'retained_inflight': 20, 'retained_no_inflight': 187}
+INFO:     172.17.0.1:38036 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:34 [session_state_cache.py:186] Session state cache: 182 sessions, 728 retained blocks, stats {'finished': 209, 'hit': 29, 'miss_no_entry': 185, 'miss_tail_mismatch': 2, 'retained_inflight': 20, 'retained_no_inflight': 188}
+INFO:     172.17.0.1:38050 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:34 [session_state_cache.py:186] Session state cache: 183 sessions, 732 retained blocks, stats {'finished': 210, 'hit': 29, 'miss_no_entry': 186, 'miss_tail_mismatch': 2, 'retained_inflight': 20, 'retained_no_inflight': 189}
+(EngineCore pid=337) INFO 10-25 20:15:34 [session_state_cache.py:186] Session state cache: 184 sessions, 736 retained blocks, stats {'finished': 211, 'hit': 29, 'miss_no_entry': 186, 'miss_tail_mismatch': 2, 'retained_inflight': 20, 'retained_no_inflight': 190}
+INFO:     172.17.0.1:38066 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:35 [session_state_cache.py:186] Session state cache: 184 sessions, 736 retained blocks, stats {'finished': 212, 'hit': 29, 'miss_no_entry': 187, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 190}
+INFO:     172.17.0.1:38072 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:35 [session_state_cache.py:186] Session state cache: 185 sessions, 740 retained blocks, stats {'finished': 213, 'hit': 29, 'miss_no_entry': 188, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 191}
+INFO:     172.17.0.1:38076 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:36 [session_state_cache.py:186] Session state cache: 186 sessions, 744 retained blocks, stats {'finished': 214, 'hit': 29, 'miss_no_entry': 189, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 192}
+INFO:     172.17.0.1:38080 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:36 [session_state_cache.py:186] Session state cache: 187 sessions, 748 retained blocks, stats {'finished': 215, 'hit': 29, 'miss_no_entry': 190, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 193}
+INFO:     172.17.0.1:38096 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:36 [session_state_cache.py:186] Session state cache: 188 sessions, 752 retained blocks, stats {'finished': 216, 'hit': 29, 'miss_no_entry': 191, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 194}
+INFO:     172.17.0.1:38112 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:37 [session_state_cache.py:186] Session state cache: 189 sessions, 756 retained blocks, stats {'finished': 217, 'hit': 29, 'miss_no_entry': 192, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 195}
+INFO:     172.17.0.1:38114 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:37 [session_state_cache.py:186] Session state cache: 190 sessions, 760 retained blocks, stats {'finished': 218, 'hit': 30, 'miss_no_entry': 192, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 196}
+INFO:     172.17.0.1:38130 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:37 [session_state_cache.py:186] Session state cache: 190 sessions, 760 retained blocks, stats {'finished': 219, 'hit': 30, 'miss_no_entry': 193, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 197}
+INFO:     172.17.0.1:38146 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:38 [session_state_cache.py:186] Session state cache: 191 sessions, 764 retained blocks, stats {'finished': 220, 'hit': 30, 'miss_no_entry': 194, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 198}
+INFO:     172.17.0.1:38148 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-25 20:15:38 [loggers.py:335] Engine 000: Avg prompt throughput: 27438.1 tokens/s, Avg generation throughput: 266.8 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 37.2%, Prefix cache hit rate: 11.1%
+(APIServer pid=1) INFO 10-25 20:15:38 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.79, Accepted throughput: 169.47 tokens/s, Drafted throughput: 189.16 tokens/s, Accepted: 1695 tokens, Drafted: 1892 tokens, Per-position acceptance rate: 0.936, 0.856, Avg Draft acceptance rate: 89.6%
+(EngineCore pid=337) INFO 10-25 20:15:38 [session_state_cache.py:186] Session state cache: 192 sessions, 768 retained blocks, stats {'finished': 221, 'hit': 30, 'miss_no_entry': 195, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 199}
+INFO:     172.17.0.1:38158 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:39 [session_state_cache.py:186] Session state cache: 193 sessions, 772 retained blocks, stats {'finished': 222, 'hit': 30, 'miss_no_entry': 196, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 200}
+(EngineCore pid=337) INFO 10-25 20:15:39 [session_state_cache.py:186] Session state cache: 193 sessions, 772 retained blocks, stats {'finished': 223, 'hit': 30, 'miss_no_entry': 196, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 201}
+INFO:     172.17.0.1:38172 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:38180 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:39 [session_state_cache.py:186] Session state cache: 194 sessions, 776 retained blocks, stats {'finished': 224, 'hit': 30, 'miss_no_entry': 198, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 202}
+INFO:     172.17.0.1:38188 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:39 [session_state_cache.py:186] Session state cache: 195 sessions, 780 retained blocks, stats {'finished': 225, 'hit': 30, 'miss_no_entry': 199, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 203}
+INFO:     172.17.0.1:38204 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:40 [session_state_cache.py:186] Session state cache: 196 sessions, 784 retained blocks, stats {'finished': 226, 'hit': 30, 'miss_no_entry': 200, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 204}
+INFO:     172.17.0.1:38218 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:40 [session_state_cache.py:186] Session state cache: 197 sessions, 788 retained blocks, stats {'finished': 227, 'hit': 30, 'miss_no_entry': 201, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 205}
+INFO:     172.17.0.1:38220 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:40 [session_state_cache.py:186] Session state cache: 198 sessions, 792 retained blocks, stats {'finished': 228, 'hit': 31, 'miss_no_entry': 201, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 206}
+INFO:     172.17.0.1:38230 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:41 [session_state_cache.py:186] Session state cache: 199 sessions, 796 retained blocks, stats {'finished': 229, 'hit': 31, 'miss_no_entry': 202, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 207}
+INFO:     172.17.0.1:47524 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:41 [session_state_cache.py:186] Session state cache: 200 sessions, 800 retained blocks, stats {'finished': 230, 'hit': 31, 'miss_no_entry': 203, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 208}
+INFO:     172.17.0.1:47534 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:42 [session_state_cache.py:186] Session state cache: 201 sessions, 804 retained blocks, stats {'finished': 231, 'hit': 31, 'miss_no_entry': 204, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 209}
+INFO:     172.17.0.1:47548 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:47540 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:42 [session_state_cache.py:186] Session state cache: 202 sessions, 808 retained blocks, stats {'finished': 232, 'hit': 33, 'miss_no_entry': 204, 'miss_tail_mismatch': 2, 'retained_inflight': 21, 'retained_no_inflight': 210}
+INFO:     172.17.0.1:47564 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:43 [session_state_cache.py:186] Session state cache: 202 sessions, 808 retained blocks, stats {'finished': 233, 'hit': 33, 'miss_no_entry': 205, 'miss_tail_mismatch': 2, 'retained_inflight': 22, 'retained_no_inflight': 210}
+INFO:     172.17.0.1:47580 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:43 [session_state_cache.py:186] Session state cache: 203 sessions, 812 retained blocks, stats {'finished': 234, 'hit': 33, 'miss_no_entry': 206, 'miss_tail_mismatch': 2, 'retained_inflight': 22, 'retained_no_inflight': 211}
+INFO:     172.17.0.1:47596 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:44 [session_state_cache.py:186] Session state cache: 204 sessions, 816 retained blocks, stats {'finished': 235, 'hit': 33, 'miss_no_entry': 207, 'miss_tail_mismatch': 2, 'retained_inflight': 22, 'retained_no_inflight': 212}
+INFO:     172.17.0.1:47610 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:44 [session_state_cache.py:186] Session state cache: 205 sessions, 820 retained blocks, stats {'finished': 236, 'hit': 33, 'miss_no_entry': 208, 'miss_tail_mismatch': 2, 'retained_inflight': 22, 'retained_no_inflight': 213}
+INFO:     172.17.0.1:47614 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:45 [session_state_cache.py:186] Session state cache: 206 sessions, 824 retained blocks, stats {'finished': 237, 'hit': 33, 'miss_no_entry': 209, 'miss_tail_mismatch': 2, 'retained_inflight': 22, 'retained_no_inflight': 214}
+INFO:     172.17.0.1:47620 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:45 [session_state_cache.py:186] Session state cache: 207 sessions, 828 retained blocks, stats {'finished': 238, 'hit': 33, 'miss_no_entry': 210, 'miss_tail_mismatch': 2, 'retained_inflight': 22, 'retained_no_inflight': 215}
+INFO:     172.17.0.1:47622 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:46 [session_state_cache.py:186] Session state cache: 208 sessions, 832 retained blocks, stats {'finished': 239, 'hit': 34, 'miss_no_entry': 210, 'miss_tail_mismatch': 2, 'retained_inflight': 22, 'retained_no_inflight': 216}
+INFO:     172.17.0.1:47626 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:47 [session_state_cache.py:186] Session state cache: 208 sessions, 832 retained blocks, stats {'finished': 240, 'hit': 34, 'miss_no_entry': 211, 'miss_tail_mismatch': 2, 'retained_inflight': 23, 'retained_no_inflight': 216}
+INFO:     172.17.0.1:47636 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:47 [session_state_cache.py:186] Session state cache: 209 sessions, 836 retained blocks, stats {'finished': 241, 'hit': 34, 'miss_no_entry': 212, 'miss_tail_mismatch': 2, 'retained_inflight': 23, 'retained_no_inflight': 217}
+INFO:     172.17.0.1:47642 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:47 [session_state_cache.py:186] Session state cache: 210 sessions, 840 retained blocks, stats {'finished': 242, 'hit': 34, 'miss_no_entry': 213, 'miss_tail_mismatch': 2, 'retained_inflight': 23, 'retained_no_inflight': 218}
+INFO:     172.17.0.1:47652 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-25 20:15:48 [loggers.py:335] Engine 000: Avg prompt throughput: 18812.1 tokens/s, Avg generation throughput: 312.8 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 41.3%, Prefix cache hit rate: 11.9%
+(APIServer pid=1) INFO 10-25 20:15:48 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.85, Accepted throughput: 201.49 tokens/s, Drafted throughput: 217.99 tokens/s, Accepted: 2015 tokens, Drafted: 2180 tokens, Per-position acceptance rate: 0.952, 0.896, Avg Draft acceptance rate: 92.4%
+(EngineCore pid=337) INFO 10-25 20:15:48 [session_state_cache.py:186] Session state cache: 211 sessions, 844 retained blocks, stats {'finished': 243, 'hit': 34, 'miss_no_entry': 214, 'miss_tail_mismatch': 2, 'retained_inflight': 23, 'retained_no_inflight': 219}
+INFO:     172.17.0.1:47662 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:49 [session_state_cache.py:186] Session state cache: 212 sessions, 848 retained blocks, stats {'finished': 244, 'hit': 34, 'miss_no_entry': 215, 'miss_tail_mismatch': 2, 'retained_inflight': 23, 'retained_no_inflight': 220}
+(EngineCore pid=337) INFO 10-25 20:15:49 [session_state_cache.py:186] Session state cache: 213 sessions, 852 retained blocks, stats {'finished': 245, 'hit': 34, 'miss_no_entry': 215, 'miss_tail_mismatch': 2, 'retained_inflight': 23, 'retained_no_inflight': 221}
+(EngineCore pid=337) INFO 10-25 20:15:49 [session_state_cache.py:186] Session state cache: 213 sessions, 852 retained blocks, stats {'finished': 246, 'hit': 34, 'miss_no_entry': 215, 'miss_tail_mismatch': 2, 'retained_inflight': 24, 'retained_no_inflight': 221}
+INFO:     172.17.0.1:47678 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:50 [session_state_cache.py:186] Session state cache: 213 sessions, 852 retained blocks, stats {'finished': 247, 'hit': 34, 'miss_no_entry': 216, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 221}
+INFO:     172.17.0.1:47690 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:50 [session_state_cache.py:186] Session state cache: 214 sessions, 856 retained blocks, stats {'finished': 248, 'hit': 34, 'miss_no_entry': 217, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 222}
+INFO:     172.17.0.1:47692 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:50 [session_state_cache.py:186] Session state cache: 215 sessions, 860 retained blocks, stats {'finished': 249, 'hit': 34, 'miss_no_entry': 218, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 223}
+INFO:     172.17.0.1:47704 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:51 [session_state_cache.py:186] Session state cache: 216 sessions, 864 retained blocks, stats {'finished': 250, 'hit': 34, 'miss_no_entry': 219, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 224}
+INFO:     172.17.0.1:47716 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:51 [session_state_cache.py:186] Session state cache: 217 sessions, 868 retained blocks, stats {'finished': 251, 'hit': 34, 'miss_no_entry': 220, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 225}
+INFO:     172.17.0.1:50262 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:51 [session_state_cache.py:186] Session state cache: 218 sessions, 872 retained blocks, stats {'finished': 252, 'hit': 34, 'miss_no_entry': 221, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 226}
+INFO:     172.17.0.1:50264 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:51 [session_state_cache.py:186] Session state cache: 219 sessions, 876 retained blocks, stats {'finished': 253, 'hit': 34, 'miss_no_entry': 222, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 227}
+INFO:     172.17.0.1:50270 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:52 [session_state_cache.py:186] Session state cache: 220 sessions, 880 retained blocks, stats {'finished': 254, 'hit': 34, 'miss_no_entry': 223, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 228}
+INFO:     172.17.0.1:50280 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:52 [session_state_cache.py:186] Session state cache: 221 sessions, 884 retained blocks, stats {'finished': 255, 'hit': 34, 'miss_no_entry': 224, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 229}
+INFO:     172.17.0.1:50296 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:52 [session_state_cache.py:186] Session state cache: 222 sessions, 888 retained blocks, stats {'finished': 256, 'hit': 34, 'miss_no_entry': 225, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 230}
+INFO:     172.17.0.1:50312 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:53 [session_state_cache.py:186] Session state cache: 223 sessions, 892 retained blocks, stats {'finished': 257, 'hit': 34, 'miss_no_entry': 226, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 231}
+INFO:     172.17.0.1:50318 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:53 [session_state_cache.py:186] Session state cache: 224 sessions, 896 retained blocks, stats {'finished': 258, 'hit': 35, 'miss_no_entry': 226, 'miss_tail_mismatch': 2, 'retained_inflight': 25, 'retained_no_inflight': 232}
+INFO:     172.17.0.1:50330 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:53 [session_state_cache.py:186] Session state cache: 224 sessions, 896 retained blocks, stats {'finished': 259, 'hit': 35, 'miss_no_entry': 227, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 232}
+INFO:     172.17.0.1:50340 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:53 [session_state_cache.py:186] Session state cache: 225 sessions, 900 retained blocks, stats {'finished': 260, 'hit': 35, 'miss_no_entry': 228, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 233}
+INFO:     172.17.0.1:50354 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:54 [session_state_cache.py:186] Session state cache: 226 sessions, 904 retained blocks, stats {'finished': 261, 'hit': 35, 'miss_no_entry': 229, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 234}
+INFO:     172.17.0.1:50360 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:54 [session_state_cache.py:186] Session state cache: 227 sessions, 908 retained blocks, stats {'finished': 262, 'hit': 35, 'miss_no_entry': 230, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 235}
+INFO:     172.17.0.1:50366 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:54 [session_state_cache.py:186] Session state cache: 228 sessions, 912 retained blocks, stats {'finished': 263, 'hit': 35, 'miss_no_entry': 231, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 236}
+INFO:     172.17.0.1:50378 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:55 [session_state_cache.py:186] Session state cache: 229 sessions, 916 retained blocks, stats {'finished': 264, 'hit': 35, 'miss_no_entry': 232, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 237}
+INFO:     172.17.0.1:50392 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:57 [session_state_cache.py:186] Session state cache: 230 sessions, 920 retained blocks, stats {'finished': 265, 'hit': 36, 'miss_no_entry': 232, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 238}
+INFO:     172.17.0.1:50408 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:57 [session_state_cache.py:186] Session state cache: 230 sessions, 920 retained blocks, stats {'finished': 266, 'hit': 36, 'miss_no_entry': 233, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 239}
+INFO:     172.17.0.1:50412 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:58 [session_state_cache.py:186] Session state cache: 231 sessions, 924 retained blocks, stats {'finished': 267, 'hit': 36, 'miss_no_entry': 234, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 240}
+INFO:     172.17.0.1:50418 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-25 20:15:58 [loggers.py:335] Engine 000: Avg prompt throughput: 15548.9 tokens/s, Avg generation throughput: 508.7 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 43.3%, Prefix cache hit rate: 11.6%
+(APIServer pid=1) INFO 10-25 20:15:58 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.82, Accepted throughput: 326.98 tokens/s, Drafted throughput: 358.98 tokens/s, Accepted: 3270 tokens, Drafted: 3590 tokens, Per-position acceptance rate: 0.952, 0.870, Avg Draft acceptance rate: 91.1%
+(EngineCore pid=337) INFO 10-25 20:15:58 [session_state_cache.py:186] Session state cache: 232 sessions, 928 retained blocks, stats {'finished': 268, 'hit': 36, 'miss_no_entry': 235, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 241}
+INFO:     172.17.0.1:50420 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:59 [session_state_cache.py:186] Session state cache: 233 sessions, 932 retained blocks, stats {'finished': 269, 'hit': 36, 'miss_no_entry': 236, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 242}
+INFO:     172.17.0.1:50428 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:15:59 [session_state_cache.py:186] Session state cache: 234 sessions, 936 retained blocks, stats {'finished': 270, 'hit': 36, 'miss_no_entry': 237, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 243}
+INFO:     172.17.0.1:50430 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:00 [session_state_cache.py:186] Session state cache: 235 sessions, 940 retained blocks, stats {'finished': 271, 'hit': 36, 'miss_no_entry': 238, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 244}
+INFO:     172.17.0.1:50444 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:50456 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:00 [session_state_cache.py:186] Session state cache: 236 sessions, 944 retained blocks, stats {'finished': 272, 'hit': 38, 'miss_no_entry': 238, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 245}
+(EngineCore pid=337) INFO 10-25 20:16:00 [session_state_cache.py:186] Session state cache: 236 sessions, 944 retained blocks, stats {'finished': 273, 'hit': 38, 'miss_no_entry': 238, 'miss_tail_mismatch': 2, 'retained_inflight': 26, 'retained_no_inflight': 246}
+INFO:     172.17.0.1:50464 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:01 [session_state_cache.py:186] Session state cache: 236 sessions, 944 retained blocks, stats {'finished': 274, 'hit': 38, 'miss_no_entry': 239, 'miss_tail_mismatch': 2, 'retained_inflight': 27, 'retained_no_inflight': 246}
+INFO:     172.17.0.1:50474 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:01 [session_state_cache.py:186] Session state cache: 237 sessions, 948 retained blocks, stats {'finished': 275, 'hit': 38, 'miss_no_entry': 240, 'miss_tail_mismatch': 2, 'retained_inflight': 27, 'retained_no_inflight': 247}
+INFO:     172.17.0.1:55208 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:01 [session_state_cache.py:186] Session state cache: 238 sessions, 952 retained blocks, stats {'finished': 276, 'hit': 38, 'miss_no_entry': 240, 'miss_tail_mismatch': 2, 'retained_inflight': 27, 'retained_no_inflight': 248}
+INFO:     172.17.0.1:55214 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:02 [session_state_cache.py:186] Session state cache: 238 sessions, 952 retained blocks, stats {'finished': 277, 'hit': 38, 'miss_no_entry': 242, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 248}
+(EngineCore pid=337) INFO 10-25 20:16:02 [session_state_cache.py:186] Session state cache: 239 sessions, 956 retained blocks, stats {'finished': 278, 'hit': 38, 'miss_no_entry': 242, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 249}
+INFO:     172.17.0.1:55228 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55232 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:03 [session_state_cache.py:186] Session state cache: 240 sessions, 960 retained blocks, stats {'finished': 279, 'hit': 38, 'miss_no_entry': 245, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 250}
+INFO:     172.17.0.1:55246 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:03 [session_state_cache.py:186] Session state cache: 241 sessions, 964 retained blocks, stats {'finished': 280, 'hit': 38, 'miss_no_entry': 245, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 251}
+INFO:     172.17.0.1:55262 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:03 [session_state_cache.py:186] Session state cache: 242 sessions, 968 retained blocks, stats {'finished': 281, 'hit': 38, 'miss_no_entry': 247, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 252}
+(EngineCore pid=337) INFO 10-25 20:16:03 [session_state_cache.py:186] Session state cache: 243 sessions, 972 retained blocks, stats {'finished': 282, 'hit': 38, 'miss_no_entry': 247, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 253}
+INFO:     172.17.0.1:55278 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55282 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:04 [session_state_cache.py:186] Session state cache: 244 sessions, 976 retained blocks, stats {'finished': 283, 'hit': 38, 'miss_no_entry': 250, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 254}
+(EngineCore pid=337) INFO 10-25 20:16:04 [session_state_cache.py:186] Session state cache: 245 sessions, 980 retained blocks, stats {'finished': 284, 'hit': 38, 'miss_no_entry': 250, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 255}
+INFO:     172.17.0.1:55288 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55292 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:04 [session_state_cache.py:186] Session state cache: 246 sessions, 984 retained blocks, stats {'finished': 285, 'hit': 38, 'miss_no_entry': 253, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 256}
+(EngineCore pid=337) INFO 10-25 20:16:04 [session_state_cache.py:186] Session state cache: 247 sessions, 988 retained blocks, stats {'finished': 286, 'hit': 38, 'miss_no_entry': 253, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 257}
+INFO:     172.17.0.1:55296 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55306 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:05 [session_state_cache.py:186] Session state cache: 248 sessions, 992 retained blocks, stats {'finished': 287, 'hit': 38, 'miss_no_entry': 256, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 258}
+(EngineCore pid=337) INFO 10-25 20:16:05 [session_state_cache.py:186] Session state cache: 249 sessions, 996 retained blocks, stats {'finished': 288, 'hit': 38, 'miss_no_entry': 256, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 259}
+INFO:     172.17.0.1:55312 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55324 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:06 [session_state_cache.py:186] Session state cache: 250 sessions, 1000 retained blocks, stats {'finished': 289, 'hit': 38, 'miss_no_entry': 259, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 260}
+INFO:     172.17.0.1:55334 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:06 [session_state_cache.py:186] Session state cache: 251 sessions, 1004 retained blocks, stats {'finished': 290, 'hit': 38, 'miss_no_entry': 259, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 261}
+INFO:     172.17.0.1:55344 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:06 [session_state_cache.py:186] Session state cache: 252 sessions, 1008 retained blocks, stats {'finished': 291, 'hit': 38, 'miss_no_entry': 261, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 262}
+(EngineCore pid=337) INFO 10-25 20:16:06 [session_state_cache.py:186] Session state cache: 253 sessions, 1012 retained blocks, stats {'finished': 292, 'hit': 38, 'miss_no_entry': 261, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 263}
+INFO:     172.17.0.1:55348 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55360 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:07 [session_state_cache.py:186] Session state cache: 254 sessions, 1016 retained blocks, stats {'finished': 293, 'hit': 38, 'miss_no_entry': 263, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 264}
+(EngineCore pid=337) INFO 10-25 20:16:07 [session_state_cache.py:186] Session state cache: 255 sessions, 1020 retained blocks, stats {'finished': 294, 'hit': 38, 'miss_no_entry': 263, 'miss_tail_mismatch': 2, 'retained_inflight': 28, 'retained_no_inflight': 265}
+INFO:     172.17.0.1:55370 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:55386 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:07 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'finished': 295, 'hit': 38, 'miss_no_entry': 264, 'miss_tail_mismatch': 3, 'retained_inflight': 28, 'retained_no_inflight': 266}
+INFO:     172.17.0.1:55402 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:08 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 1, 'finished': 296, 'hit': 38, 'miss_no_entry': 265, 'miss_tail_mismatch': 3, 'retained_inflight': 28, 'retained_no_inflight': 267}
+INFO:     172.17.0.1:55408 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-25 20:16:08 [loggers.py:335] Engine 000: Avg prompt throughput: 31597.5 tokens/s, Avg generation throughput: 106.3 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 48.2%, Prefix cache hit rate: 10.8%
+(APIServer pid=1) INFO 10-25 20:16:08 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.82, Accepted throughput: 66.69 tokens/s, Drafted throughput: 73.39 tokens/s, Accepted: 667 tokens, Drafted: 734 tokens, Per-position acceptance rate: 0.943, 0.875, Avg Draft acceptance rate: 90.9%
+(EngineCore pid=337) INFO 10-25 20:16:08 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 2, 'finished': 297, 'hit': 38, 'miss_no_entry': 265, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 28, 'retained_no_inflight': 268}
+INFO:     172.17.0.1:55416 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:09 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 2, 'finished': 298, 'hit': 38, 'miss_no_entry': 266, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 268}
+INFO:     172.17.0.1:55422 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:09 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 3, 'finished': 299, 'hit': 38, 'miss_no_entry': 267, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 269}
+INFO:     172.17.0.1:55434 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:09 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 4, 'finished': 300, 'hit': 38, 'miss_no_entry': 268, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 270}
+INFO:     172.17.0.1:55448 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:10 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 5, 'finished': 301, 'hit': 38, 'miss_no_entry': 269, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 271}
+INFO:     172.17.0.1:55460 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:10 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 6, 'finished': 302, 'hit': 38, 'miss_no_entry': 270, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 272}
+(EngineCore pid=337) INFO 10-25 20:16:13 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 7, 'finished': 303, 'hit': 38, 'miss_no_entry': 270, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 273}
+INFO:     172.17.0.1:41184 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:13 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 7, 'finished': 304, 'hit': 38, 'miss_no_entry': 271, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 274}
+INFO:     172.17.0.1:41198 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:14 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 8, 'finished': 305, 'hit': 38, 'miss_no_entry': 272, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 275}
+INFO:     172.17.0.1:41200 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:14 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 9, 'finished': 306, 'hit': 38, 'miss_no_entry': 273, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 29, 'retained_no_inflight': 276}
+(EngineCore pid=337) INFO 10-25 20:16:14 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 9, 'finished': 307, 'hit': 38, 'miss_no_entry': 273, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 276}
+INFO:     172.17.0.1:41208 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:41210 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:15 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 10, 'finished': 308, 'hit': 38, 'miss_no_entry': 276, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 277}
+INFO:     172.17.0.1:41222 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:15 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 11, 'finished': 309, 'hit': 38, 'miss_no_entry': 276, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 278}
+INFO:     172.17.0.1:41238 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:16 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 12, 'finished': 310, 'hit': 38, 'miss_no_entry': 278, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 279}
+INFO:     172.17.0.1:41246 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:16 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 13, 'finished': 311, 'hit': 38, 'miss_no_entry': 278, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 280}
+INFO:     172.17.0.1:41252 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:16 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 14, 'finished': 312, 'hit': 38, 'miss_no_entry': 280, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 281}
+INFO:     172.17.0.1:41262 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:16 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 15, 'finished': 313, 'hit': 38, 'miss_no_entry': 280, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 282}
+INFO:     172.17.0.1:41272 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:41264 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:17 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 16, 'finished': 314, 'hit': 40, 'miss_no_entry': 281, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 283}
+INFO:     172.17.0.1:41286 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:17 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 17, 'finished': 315, 'hit': 40, 'miss_no_entry': 282, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 284}
+INFO:     172.17.0.1:41292 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-25 20:16:18 [loggers.py:335] Engine 000: Avg prompt throughput: 20628.1 tokens/s, Avg generation throughput: 321.0 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 48.1%, Prefix cache hit rate: 10.7%
+(APIServer pid=1) INFO 10-25 20:16:18 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.88, Accepted throughput: 208.39 tokens/s, Drafted throughput: 221.39 tokens/s, Accepted: 2084 tokens, Drafted: 2214 tokens, Per-position acceptance rate: 0.960, 0.922, Avg Draft acceptance rate: 94.1%
+(EngineCore pid=337) INFO 10-25 20:16:18 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 18, 'finished': 316, 'hit': 40, 'miss_no_entry': 283, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 285}
+INFO:     172.17.0.1:41294 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     172.17.0.1:41304 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:18 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 19, 'finished': 317, 'hit': 42, 'miss_no_entry': 283, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 30, 'retained_no_inflight': 286}
+(EngineCore pid=337) INFO 10-25 20:16:18 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 19, 'finished': 318, 'hit': 42, 'miss_no_entry': 283, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 31, 'retained_no_inflight': 286}
+INFO:     172.17.0.1:41314 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:19 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 19, 'finished': 319, 'hit': 42, 'miss_no_entry': 284, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 286}
+INFO:     172.17.0.1:41316 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:19 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 20, 'finished': 320, 'hit': 42, 'miss_no_entry': 285, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 287}
+INFO:     172.17.0.1:41330 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:19 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 21, 'finished': 321, 'hit': 42, 'miss_no_entry': 286, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 288}
+INFO:     172.17.0.1:41334 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:20 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 22, 'finished': 322, 'hit': 42, 'miss_no_entry': 287, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 289}
+INFO:     172.17.0.1:41344 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:20 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 23, 'finished': 323, 'hit': 42, 'miss_no_entry': 288, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 290}
+INFO:     172.17.0.1:41356 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:20 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 24, 'finished': 324, 'hit': 42, 'miss_no_entry': 289, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 291}
+INFO:     172.17.0.1:41362 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:21 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 25, 'finished': 325, 'hit': 42, 'miss_no_entry': 290, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 292}
+INFO:     172.17.0.1:39074 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:21 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 26, 'finished': 326, 'hit': 42, 'miss_no_entry': 291, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 293}
+INFO:     172.17.0.1:39088 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:22 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 27, 'finished': 327, 'hit': 42, 'miss_no_entry': 292, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 294}
+INFO:     172.17.0.1:39092 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:22 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 28, 'finished': 328, 'hit': 42, 'miss_no_entry': 293, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 295}
+INFO:     172.17.0.1:39104 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:22 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 29, 'finished': 329, 'hit': 42, 'miss_no_entry': 294, 'miss_short_prompt': 1, 'miss_tail_mismatch': 3, 'retained_inflight': 32, 'retained_no_inflight': 296}
+INFO:     172.17.0.1:39106 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:23 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 30, 'finished': 330, 'hit': 42, 'miss_no_entry': 294, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 32, 'retained_no_inflight': 297}
+INFO:     172.17.0.1:39114 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:24 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 30, 'finished': 331, 'hit': 42, 'miss_no_entry': 295, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 33, 'retained_no_inflight': 297}
+INFO:     172.17.0.1:39126 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:24 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 31, 'finished': 332, 'hit': 42, 'miss_no_entry': 296, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 33, 'retained_no_inflight': 298}
+INFO:     172.17.0.1:39132 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:25 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 32, 'finished': 333, 'hit': 42, 'miss_no_entry': 297, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 33, 'retained_no_inflight': 299}
+INFO:     172.17.0.1:39148 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:25 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 33, 'finished': 334, 'hit': 42, 'miss_no_entry': 298, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 33, 'retained_no_inflight': 300}
+INFO:     172.17.0.1:39156 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:26 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 34, 'finished': 335, 'hit': 42, 'miss_no_entry': 299, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 33, 'retained_no_inflight': 301}
+(EngineCore pid=337) INFO 10-25 20:16:28 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 35, 'finished': 336, 'hit': 42, 'miss_no_entry': 299, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 33, 'retained_no_inflight': 302}
+INFO:     172.17.0.1:39160 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 10-25 20:16:28 [loggers.py:335] Engine 000: Avg prompt throughput: 22478.2 tokens/s, Avg generation throughput: 353.0 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 47.5%, Prefix cache hit rate: 10.6%
+(APIServer pid=1) INFO 10-25 20:16:28 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.92, Accepted throughput: 230.68 tokens/s, Drafted throughput: 240.78 tokens/s, Accepted: 2307 tokens, Drafted: 2408 tokens, Per-position acceptance rate: 0.974, 0.942, Avg Draft acceptance rate: 95.8%
+(EngineCore pid=337) INFO 10-25 20:16:28 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 35, 'finished': 337, 'hit': 42, 'miss_no_entry': 300, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 34, 'retained_no_inflight': 302}
+INFO:     172.17.0.1:39172 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:29 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 36, 'finished': 338, 'hit': 42, 'miss_no_entry': 301, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 34, 'retained_no_inflight': 303}
+INFO:     172.17.0.1:39178 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:29 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 37, 'finished': 339, 'hit': 42, 'miss_no_entry': 302, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 34, 'retained_no_inflight': 304}
+INFO:     172.17.0.1:39192 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:30 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 38, 'finished': 340, 'hit': 42, 'miss_no_entry': 303, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 34, 'retained_no_inflight': 305}
+INFO:     172.17.0.1:39202 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:30 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 39, 'finished': 341, 'hit': 42, 'miss_no_entry': 304, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 34, 'retained_no_inflight': 306}
+(EngineCore pid=337) INFO 10-25 20:16:35 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 40, 'finished': 342, 'hit': 42, 'miss_no_entry': 304, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 34, 'retained_no_inflight': 307}
+(APIServer pid=1) INFO 10-25 20:16:38 [loggers.py:335] Engine 000: Avg prompt throughput: 5600.7 tokens/s, Avg generation throughput: 499.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 46.4%, Prefix cache hit rate: 10.5%
+(APIServer pid=1) INFO 10-25 20:16:38 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.94, Accepted throughput: 329.36 tokens/s, Drafted throughput: 338.96 tokens/s, Accepted: 3294 tokens, Drafted: 3390 tokens, Per-position acceptance rate: 0.983, 0.960, Avg Draft acceptance rate: 97.2%
+(APIServer pid=1) INFO 10-25 20:16:48 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 440.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 46.5%, Prefix cache hit rate: 10.5%
+(APIServer pid=1) INFO 10-25 20:16:48 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.00, Accepted throughput: 293.74 tokens/s, Drafted throughput: 293.94 tokens/s, Accepted: 2938 tokens, Drafted: 2940 tokens, Per-position acceptance rate: 0.999, 0.999, Avg Draft acceptance rate: 99.9%
+(EngineCore pid=337) INFO 10-25 20:16:49 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 40, 'finished': 343, 'hit': 42, 'miss_no_entry': 304, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 307}
+INFO:     172.17.0.1:39212 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:49 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 40, 'finished': 344, 'hit': 42, 'miss_no_entry': 305, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 308}
+INFO:     172.17.0.1:39224 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:50 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 41, 'finished': 345, 'hit': 42, 'miss_no_entry': 306, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 309}
+INFO:     172.17.0.1:39240 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:50 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 42, 'finished': 346, 'hit': 42, 'miss_no_entry': 307, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 310}
+INFO:     172.17.0.1:39252 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:51 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 43, 'finished': 347, 'hit': 42, 'miss_no_entry': 308, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 311}
+INFO:     172.17.0.1:34106 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:52 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 44, 'finished': 348, 'hit': 42, 'miss_no_entry': 309, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 312}
+INFO:     172.17.0.1:34112 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:52 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 45, 'finished': 349, 'hit': 42, 'miss_no_entry': 310, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 313}
+INFO:     172.17.0.1:34124 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:53 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 46, 'finished': 350, 'hit': 42, 'miss_no_entry': 311, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 314}
+INFO:     172.17.0.1:34134 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:53 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 47, 'finished': 351, 'hit': 42, 'miss_no_entry': 312, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 315}
+INFO:     172.17.0.1:34140 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:54 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 48, 'finished': 352, 'hit': 42, 'miss_no_entry': 313, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 316}
+INFO:     172.17.0.1:34150 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:54 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 49, 'finished': 353, 'hit': 42, 'miss_no_entry': 314, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 317}
+INFO:     172.17.0.1:34154 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:55 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 50, 'finished': 354, 'hit': 42, 'miss_no_entry': 315, 'miss_short_prompt': 1, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 318}
+INFO:     172.17.0.1:34158 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:55 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 51, 'finished': 355, 'hit': 42, 'miss_no_entry': 315, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 35, 'retained_no_inflight': 319}
+INFO:     172.17.0.1:34162 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:56 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 51, 'finished': 356, 'hit': 42, 'miss_no_entry': 316, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 319}
+INFO:     172.17.0.1:34172 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:56 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 52, 'finished': 357, 'hit': 42, 'miss_no_entry': 317, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 320}
+INFO:     172.17.0.1:34188 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:57 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 53, 'finished': 358, 'hit': 42, 'miss_no_entry': 318, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 321}
+INFO:     172.17.0.1:34196 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:57 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 54, 'finished': 359, 'hit': 42, 'miss_no_entry': 319, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 322}
+INFO:     172.17.0.1:34198 - "POST /v1/completions HTTP/1.1" 200 OK
+(EngineCore pid=337) INFO 10-25 20:16:58 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 55, 'finished': 360, 'hit': 42, 'miss_no_entry': 320, 'miss_short_prompt': 2, 'miss_tail_mismatch': 4, 'retained_inflight': 36, 'retained_no_inflight': 323}
+(APIServer pid=1) INFO 10-25 20:16:58 [loggers.py:335] Engine 000: Avg prompt throughput: 27650.0 tokens/s, Avg generation throughput: 32.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 45.6%, Prefix cache hit rate: 9.4%
+(APIServer pid=1) INFO 10-25 20:16:58 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.97, Accepted throughput: 20.50 tokens/s, Drafted throughput: 20.80 tokens/s, Accepted: 205 tokens, Drafted: 208 tokens, Per-position acceptance rate: 0.990, 0.981, Avg Draft acceptance rate: 98.6%

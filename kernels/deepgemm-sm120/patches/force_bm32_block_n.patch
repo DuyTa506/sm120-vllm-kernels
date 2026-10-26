@@ -1,0 +1,12 @@
+--- /tmp/claude-1000/-home-aiqk3-Desktop-duy-dev-training-space-gpu-unlock/2207ad44-a66d-418b-840d-33bbf11f51c5/scratchpad/sm120.hpp.orig	2026-10-26 03:52:55.141319339 +0700
++++ src/csrc/jit_kernels/heuristics/sm120.hpp	2026-10-26 03:52:55.158369994 +0700
+@@ -99,7 +99,8 @@
+             // BLOCK_M < 64 (kNWarps=4): BLOCK_N=64 only. Even kNTilesPerWarp (ldmatrix.x2)
+             // requires BLOCK_N % 64; measured vs BN=128: never worse, -1.6% on thin-N decode,
+             // and doubles SM fill at tiny M.
+-            if (block_m < 64 and block_n != 64)
++            // [study patch] DG_FORCE_BM32_BN overrides the BLOCK_N used by the BLOCK_M<64 (decode) path; default 64 (upstream)
++            if (block_m < 64 and block_n != deep_jit::get_env<int>("DG_FORCE_BM32_BN", 64))
+                 continue;
+             if (!is_small_n and (block_n > 128 or block_n > mn_major_b_max_n))
+                 continue;

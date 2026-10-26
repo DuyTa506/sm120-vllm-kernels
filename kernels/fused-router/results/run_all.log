@@ -1,0 +1,3 @@
+test_correctness.py exit 0
+bench_graph.py exit 0
+bench_ablate.py exit 0

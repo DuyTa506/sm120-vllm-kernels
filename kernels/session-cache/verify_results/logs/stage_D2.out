@@ -1,0 +1,30 @@
+[20261026-041234] start session-cache-verify port 8121 CONFIG=production STOCK=0 DEBUGDUMP=0 VENV= args: 
+39e762c46e421c3f3ada8ce0fbf920cd2ab431c1fb742461be3ce8607ce19d5e
+waiting for session-cache-verify on :8121 (CONFIG=production)
+ready
+server up after 143s
++ L=../../results/agentic/trajectories_long_production.json
++ O=verify_results/D2
++ mkdir -p verify_results/D2
++ python3 session_bench.py ../../results/agentic/trajectories_long_production.json verify_results/D2/c32_before.json --start 20 --turns 4 --copies 4 --conc 32 --consistent --session-id --tag vd1
+{"turns": 128, "later_turns": 96, "prefill_mean": 2592.34375, "prefill_median": 3046.0, "prefill_p90": 3439, "ttft_mean_ms": 11191.05949997902, "ttft_p50_ms": 1728.8994789123535, "ttft_p90_ms": 45007.70950317383, "first_turn_ttft_ms": 35043.4223562479, "recorded_extends_generated": 0.0, "tag": "vd1", "conc": 32, "wall_s": 99.0068666934967, "session_id": true, "consistent": true, "natural_stop": false, "think": 0, "metrics_delta": {"vllm:prefix_cache_hits_total": 5500339.0, "vllm:prefix_cache_queries_total": 7494428.0, "vllm:spec_decode_num_accepted_tokens_total": 11456.0, "vllm:spec_decode_num_draft_tokens_total": 13952.0, "vllm:num_preemptions_total": 0.0, "vllm:iteration_tokens_total_count": 1576.0, "vllm:request_prefill_time_seconds_sum": 198.2563649918884, "vllm:request_prefill_time_seconds_count": 128.0}, "spec_accept_rate": 0.8211009174311926}
++ docker logs session-cache-verify
++ grep 'Session state cache:'
++ tail -1
+(EngineCore pid=335) INFO 10-25 21:16:44 [session_state_cache.py:186] Session state cache: 32 sessions, 128 retained blocks, stats {'finished': 128, 'hit': 115, 'miss_no_entry': 293, 'retained_inflight': 73, 'retained_no_inflight': 54}
++ python3 verify_junk_sessions.py 250 16 nosid
+created 250 idle sessions in 4.8s; ['vllm:kv_cache_usage_perc{engine="0",model_name="bench"} 0.057040998217468775']
++ docker logs session-cache-verify
++ grep 'Session state cache:'
++ tail -1
+(EngineCore pid=335) INFO 10-25 21:16:44 [session_state_cache.py:186] Session state cache: 32 sessions, 128 retained blocks, stats {'finished': 128, 'hit': 115, 'miss_no_entry': 293, 'retained_inflight': 73, 'retained_no_inflight': 54}
++ python3 session_bench.py ../../results/agentic/trajectories_long_production.json verify_results/D2/c32_after.json --start 20 --turns 4 --copies 4 --conc 32 --consistent --session-id --tag vd2
+{"turns": 128, "later_turns": 96, "prefill_mean": 2592.2916666666665, "prefill_median": 3045.5, "prefill_p90": 3439, "ttft_mean_ms": 11220.03697603941, "ttft_p50_ms": 1584.470272064209, "ttft_p90_ms": 43363.22045326233, "first_turn_ttft_ms": 35435.95099449158, "recorded_extends_generated": 0.0, "tag": "vd2", "conc": 32, "wall_s": 99.55632138252258, "session_id": true, "consistent": true, "natural_stop": false, "think": 0, "metrics_delta": {"vllm:prefix_cache_hits_total": 5500344.0, "vllm:prefix_cache_queries_total": 7494428.0, "vllm:spec_decode_num_accepted_tokens_total": 11399.0, "vllm:spec_decode_num_draft_tokens_total": 14066.0, "vllm:num_preemptions_total": 0.0, "vllm:iteration_tokens_total_count": 1553.0, "vllm:request_prefill_time_seconds_sum": 194.43434162111953, "vllm:request_prefill_time_seconds_count": 128.0}, "spec_accept_rate": 0.8103938575287928}
++ docker logs session-cache-verify
++ grep 'Session state cache:'
++ tail -1
+(EngineCore pid=335) INFO 10-25 21:18:38 [session_state_cache.py:186] Session state cache: 64 sessions, 256 retained blocks, stats {'finished': 256, 'hit': 228, 'miss_no_entry': 586, 'retained_inflight': 150, 'retained_no_inflight': 105}
+stage exit 0 after 365s
+(EngineCore pid=335) INFO 10-25 21:18:38 [session_state_cache.py:186] Session state cache: 64 sessions, 256 retained blocks, stats {'finished': 254, 'hit': 228, 'miss_no_entry': 586, 'retained_inflight': 150, 'retained_no_inflight': 103}
+(EngineCore pid=335) INFO 10-25 21:18:38 [session_state_cache.py:186] Session state cache: 64 sessions, 256 retained blocks, stats {'finished': 255, 'hit': 228, 'miss_no_entry': 586, 'retained_inflight': 150, 'retained_no_inflight': 104}
+(EngineCore pid=335) INFO 10-25 21:18:38 [session_state_cache.py:186] Session state cache: 64 sessions, 256 retained blocks, stats {'finished': 256, 'hit': 228, 'miss_no_entry': 586, 'retained_inflight': 150, 'retained_no_inflight': 105}

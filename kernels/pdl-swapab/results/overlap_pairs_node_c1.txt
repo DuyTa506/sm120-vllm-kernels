@@ -1,0 +1,30 @@
+323 launches of the 1031-kernel graph; same-stream consecutive pairs by (first, second)
+  pairs/launch  overlapped%  mean overlap ns  mean gap ns (non-overlapped)
+   119.0      0.0%          0         99   cutlass_grouped_gemm -> triton
+    80.0      0.0%          0        187   triton -> cutlass_grouped_gemm
+    80.0    100.0%        553        192   fp4_quant -> cutlass_grouped_gemm
+    41.0    100.0%        183        107   triton -> fp4_quant
+    40.0      0.0%          0         96   cutlass_grouped_gemm -> gemv
+    40.0      0.0%        256        153   gemv -> elementwise
+    40.0      0.0%          0         96   elementwise -> elementwise
+    40.0      0.0%          0        130   bf16_wmma_gemm -> topkGating
+    40.0     99.9%        205         79   topkGating -> fp4_quant
+    40.0    100.0%        701          0   fp4_quant -> BuildExpertMaps
+    40.0    100.0%        306          0   BuildExpertMaps -> expandInputRows
+    40.0    100.0%        257          0   expandInputRows -> computeStrides
+    40.0    100.0%        201          0   computeStrides -> cutlass_grouped_gemm
+    40.0    100.0%        196          0   cutlass_grouped_gemm -> doActivation
+    40.0      0.0%          0        930   doActivation -> cutlass_grouped_gemm
+    39.0      0.0%          0     107378   elementwise -> fp4_quant
+    39.0      0.0%          0        247   triton -> bf16_wmma_gemm
+    30.0      0.0%        352         93   cutlass_grouped_gemm -> bf16_wmma_gemm
+    30.0      0.0%          0         98   bf16_wmma_gemm -> triton
+    30.0     96.6%        195        323   triton -> conv1d
+    30.0      0.0%         32         98   conv1d -> gdn_decode
+    30.0      0.0%          0         95   gdn_decode -> triton
+    10.0      0.0%          0         99   cutlass_grouped_gemm -> rope_kvwrite
+    10.0      0.0%          0         98   rope_kvwrite -> rope_kvwrite
+    10.0    100.0%        196          0   rope_kvwrite -> xqa_attn
+    10.0      0.0%          0        444   xqa_attn -> triton
+     1.0      0.0%          0      41291   elementwise -> triton
+total same-stream pairs/launch 1029, overlapped 400 (39%)

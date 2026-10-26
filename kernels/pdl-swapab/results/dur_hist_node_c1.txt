@@ -1,0 +1,26 @@
+target graph 1072 kernels, 323 launches
+  dur [ 0.0,  1.5) us:    300 kernels,    324.3 us
+  dur [ 1.5,  2.5) us:    183 kernels,    354.3 us
+  dur [ 2.5,  4.0) us:    275 kernels,    848.2 us
+  dur [ 4.0,  8.0) us:     44 kernels,    207.7 us
+  dur [ 8.0, 20.0) us:    226 kernels,   2664.4 us
+  dur [20.0, 99.0) us:     44 kernels,   1122.4 us
+  median span 4883.8 us, union busy 4838.9 us, idle 41.7 us
+  kernels per stream (all launches): {29: 106913, 10156: 239343}
+  same-stream consecutive gaps total 4285.8 us
+  idle gap directly before a <3us kernel: 23.0 us
+  <3us kernels in one launch, by name (count, total us):
+     120  152.0 us  void vllm::cvt_fp16_to_fp4<__nv_bfloat16, (bool)0, (bool)0>(int, int, 
+      40   52.8 us  triton_red_fused__to_copy_abs_amax_clamp_cutlass_scaled_mm_div_mul_rec
+      40   71.8 us  triton_red_fused__to_copy_add_fused_add_rms_norm_moe_forward_shared_1
+      40   42.7 us  triton_poi_fused_mul_silu_slice_0
+      40   86.6 us  std::enable_if<!T7, void>::type internal::gemvx::kernel<int, int, __nv
+      40   41.3 us  void at::native::vectorized_elementwise_kernel<(int)4, at::native::sig
+      40   66.3 us  void at::native::elementwise_kernel<(int)128, (int)4, void at::native:
+      40   85.5 us  void tensorrt_llm::kernels::cutlass_kernels::computeStridesTmaWarpSpec
+      40   29.7 us  memset
+      38  110.9 us  void tensorrt_llm::kernels::cutlass_kernels::doActivationKernel<__nv_f
+      37  105.0 us  void tensorrt_llm::kernels::cutlass_kernels::expandInputRowsKernel<__n
+      35  100.0 us  void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cute:
+      34   98.4 us  triton_red_fused__to_copy_abs_add_amax_clamp_cutlass_scaled_mm_div_fus
+      29   20.9 us  triton_poi_fused_zeros_3

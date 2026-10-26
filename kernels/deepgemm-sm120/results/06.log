@@ -1,0 +1,34 @@
+   call sequence (us): fusedBuildExper=3.2; expandInputRows=2.7; computeStridesT=1.9; _ZN7cutlass13device_kernelIN=20.5; doActivationKer=2.7; Memset =0.8; _ZN7cutlass13device_kernelIN=13.0
+T=3 per-call kernel time (us), cold rotation:
+   total kernel time 44.9 us
+   call sequence (us): fusedBuildExper=3.3; expandInputRows=2.9; computeStridesT=2.0; _ZN7cutlass13device_kernelIN=51.3; doActivationKer=2.9; Memset =0.8; _ZN7cutlass13device_kernelIN=28.6
+T=12 per-call kernel time (us), cold rotation:
+   total kernel time 91.8 us
+   call sequence (us): fusedBuildExper=3.5; expandInputRows=3.6; computeStridesT=2.8; _ZN7cutlass13device_kernelIN=112.9; doActivationKer=4.4; Memset =1.3; _ZN7cutlass13device_kernelIN=64.7
+T=48 per-call kernel time (us), cold rotation:
+   total kernel time 193.2 us
+   call sequence (us): blockExpertPref=2.3; globalExpertPre=1.2; mergeExpertPrefixSum=1.3; expandInputRows=5.9; computeStridesT=2.6; _ZN7cutlass13device_kernelIN=150.4; doActivationKer=5.9; Memset =1.2; _ZN7cutlass13device_kernelIN=81.4
+T=192 per-call kernel time (us), cold rotation:
+   total kernel time 252.2 us
+   call sequence (us): blockExpertPref=21.6; globalExpertPre=2.2; mergeExpertPrefixSum=7.5; expandInputRows=140.3; computeStridesT=6.2; _ZN7cutlass13device_kernelIN=334.5; doActivationKer=96.0; Memset =8.0; _ZN7cutlass13device_kernelIN=240.9
+T=8192 per-call kernel time (us), cold rotation:
+   total kernel time 857.2 us
+== DG_FORCE_BM32_BN=64
+T=3 fp4 labels al=32: gemm kernels g1 12.9 + g2 5.6 = 18.5 us (all kernels 18.5)
+T=3 fp8 labels al=32: gemm kernels g1 29.3 + g2 10.1 = 39.4 us (all kernels 39.4)
+T=12 fp4 labels al=32: gemm kernels g1 46.3 + g2 24.4 = 70.7 us (all kernels 70.7)
+T=12 fp8 labels al=32: gemm kernels g1 86.8 + g2 43.2 = 130.0 us (all kernels 130.0)
+T=48 fp4 labels al=32: gemm kernels g1 105.6 + g2 53.2 = 158.8 us (all kernels 158.8)
+T=48 fp8 labels al=32: gemm kernels g1 204.0 + g2 101.9 = 305.9 us (all kernels 305.9)
+T=192 fp4 labels al=32: gemm kernels g1 140.9 + g2 70.4 = 211.3 us (all kernels 211.3)
+T=192 fp8 labels al=32: gemm kernels g1 269.7 + g2 134.6 = 404.2 us (all kernels 404.2)
+== DG_FORCE_BM32_BN=128
+T=3 fp4 labels al=32: gemm kernels g1 12.0 + g2 4.8 = 16.8 us (all kernels 16.8)
+T=3 fp8 labels al=32: gemm kernels g1 29.4 + g2 9.8 = 39.2 us (all kernels 39.2)
+T=12 fp4 labels al=32: gemm kernels g1 46.2 + g2 24.8 = 71.1 us (all kernels 71.1)
+T=12 fp8 labels al=32: gemm kernels g1 86.9 + g2 43.5 = 130.4 us (all kernels 130.4)
+T=48 fp4 labels al=32: gemm kernels g1 106.1 + g2 53.0 = 159.1 us (all kernels 159.1)
+T=48 fp8 labels al=32: gemm kernels g1 205.1 + g2 102.0 = 307.1 us (all kernels 307.1)
+T=192 fp4 labels al=32: gemm kernels g1 141.2 + g2 71.7 = 212.8 us (all kernels 212.8)
+T=192 fp8 labels al=32: gemm kernels g1 269.3 + g2 135.3 = 404.6 us (all kernels 404.6)
+exit=0

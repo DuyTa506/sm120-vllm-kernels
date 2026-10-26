@@ -1,0 +1,227 @@
+lock acquired 01:38:17
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 full3: commit state[n-1] == verbatim copy (all 1 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 full3: commit state[n-1] == production (all 1 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 mixed: commit state[n-1] == verbatim copy (all 1 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 mixed: commit state[n-1] == production (all 1 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=1 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 full3: commit state[n-1] == verbatim copy (all 2 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 full3: commit state[n-1] == production (all 2 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 mixed: commit state[n-1] == verbatim copy (all 2 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 mixed: commit state[n-1] == production (all 2 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=2 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 full3: commit state[n-1] == verbatim copy (all 5 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 full3: commit state[n-1] == production (all 5 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 mixed: commit state[n-1] == verbatim copy (all 5 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 mixed: commit state[n-1] == production (all 5 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=5 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 full3: commit state[n-1] == verbatim copy (all 16 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 full3: commit state[n-1] == production (all 16 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 mixed: commit state[n-1] == verbatim copy (all 16 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 mixed: commit state[n-1] == production (all 16 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=16 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 full3: commit state[n-1] == verbatim copy (all 64 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 full3: commit state[n-1] == production (all 64 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 mixed: commit state[n-1] == verbatim copy (all 64 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 mixed: commit state[n-1] == production (all 64 rows)
+PASS [dt=bfloat16,w=bfloat16,silu] B=64 mixed: commit boundary state[m-1] == production
+PASS [dt=float32,w=float32,silu] B=1 full3: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=1 full3: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=1 full3: verify out == production
+PASS [dt=float32,w=float32,silu] B=1 full3: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=1 full3: commit state[n-1] == verbatim copy (all 1 rows)
+PASS [dt=float32,w=float32,silu] B=1 full3: commit state[n-1] == production (all 1 rows)
+PASS [dt=float32,w=float32,silu] B=1 mixed: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=1 mixed: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=1 mixed: verify out == production
+PASS [dt=float32,w=float32,silu] B=1 mixed: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=1 mixed: commit state[n-1] == verbatim copy (all 1 rows)
+PASS [dt=float32,w=float32,silu] B=1 mixed: commit state[n-1] == production (all 1 rows)
+PASS [dt=float32,w=float32,silu] B=1 mixed: commit boundary state[m-1] == production
+PASS [dt=float32,w=float32,silu] B=2 full3: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=2 full3: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=2 full3: verify out == production
+PASS [dt=float32,w=float32,silu] B=2 full3: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=2 full3: commit state[n-1] == verbatim copy (all 2 rows)
+PASS [dt=float32,w=float32,silu] B=2 full3: commit state[n-1] == production (all 2 rows)
+PASS [dt=float32,w=float32,silu] B=2 mixed: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=2 mixed: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=2 mixed: verify out == production
+PASS [dt=float32,w=float32,silu] B=2 mixed: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=2 mixed: commit state[n-1] == verbatim copy (all 2 rows)
+PASS [dt=float32,w=float32,silu] B=2 mixed: commit state[n-1] == production (all 2 rows)
+PASS [dt=float32,w=float32,silu] B=2 mixed: commit boundary state[m-1] == production
+PASS [dt=float32,w=float32,silu] B=5 full3: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=5 full3: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=5 full3: verify out == production
+PASS [dt=float32,w=float32,silu] B=5 full3: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=5 full3: commit state[n-1] == verbatim copy (all 5 rows)
+PASS [dt=float32,w=float32,silu] B=5 full3: commit state[n-1] == production (all 5 rows)
+PASS [dt=float32,w=float32,silu] B=5 mixed: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=5 mixed: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=5 mixed: verify out == production
+PASS [dt=float32,w=float32,silu] B=5 mixed: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=5 mixed: commit state[n-1] == verbatim copy (all 5 rows)
+PASS [dt=float32,w=float32,silu] B=5 mixed: commit state[n-1] == production (all 5 rows)
+PASS [dt=float32,w=float32,silu] B=5 mixed: commit boundary state[m-1] == production
+PASS [dt=float32,w=float32,silu] B=16 full3: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=16 full3: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=16 full3: verify out == production
+PASS [dt=float32,w=float32,silu] B=16 full3: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=16 full3: commit state[n-1] == verbatim copy (all 16 rows)
+PASS [dt=float32,w=float32,silu] B=16 full3: commit state[n-1] == production (all 16 rows)
+PASS [dt=float32,w=float32,silu] B=16 mixed: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=16 mixed: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=16 mixed: verify out == production
+PASS [dt=float32,w=float32,silu] B=16 mixed: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=16 mixed: commit state[n-1] == verbatim copy (all 16 rows)
+PASS [dt=float32,w=float32,silu] B=16 mixed: commit state[n-1] == production (all 16 rows)
+PASS [dt=float32,w=float32,silu] B=16 mixed: commit boundary state[m-1] == production
+PASS [dt=float32,w=float32,silu] B=64 full3: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=64 full3: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=64 full3: verify out == production
+PASS [dt=float32,w=float32,silu] B=64 full3: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=64 full3: commit state[n-1] == verbatim copy (all 64 rows)
+PASS [dt=float32,w=float32,silu] B=64 full3: commit state[n-1] == production (all 64 rows)
+PASS [dt=float32,w=float32,silu] B=64 mixed: base copy == production (out)
+PASS [dt=float32,w=float32,silu] B=64 mixed: base copy == production (state)
+PASS [dt=float32,w=float32,silu] B=64 mixed: verify out == production
+PASS [dt=float32,w=float32,silu] B=64 mixed: verify leaves state untouched
+PASS [dt=float32,w=float32,silu] B=64 mixed: commit state[n-1] == verbatim copy (all 64 rows)
+PASS [dt=float32,w=float32,silu] B=64 mixed: commit state[n-1] == production (all 64 rows)
+PASS [dt=float32,w=float32,silu] B=64 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 full3: commit state[n-1] == verbatim copy (all 1 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 full3: commit state[n-1] == production (all 1 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 mixed: commit state[n-1] == verbatim copy (all 1 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 mixed: commit state[n-1] == production (all 1 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=1 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 full3: commit state[n-1] == verbatim copy (all 2 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 full3: commit state[n-1] == production (all 2 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 mixed: commit state[n-1] == verbatim copy (all 2 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 mixed: commit state[n-1] == production (all 2 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=2 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 full3: commit state[n-1] == verbatim copy (all 5 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 full3: commit state[n-1] == production (all 5 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 mixed: commit state[n-1] == verbatim copy (all 5 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 mixed: commit state[n-1] == production (all 5 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=5 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 full3: commit state[n-1] == verbatim copy (all 16 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 full3: commit state[n-1] == production (all 16 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 mixed: commit state[n-1] == verbatim copy (all 16 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 mixed: commit state[n-1] == production (all 16 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=16 mixed: commit boundary state[m-1] == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 full3: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 full3: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 full3: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 full3: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 full3: commit state[n-1] == verbatim copy (all 64 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 full3: commit state[n-1] == production (all 64 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 mixed: base copy == production (out)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 mixed: base copy == production (state)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 mixed: verify out == production
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 mixed: verify leaves state untouched
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 mixed: commit state[n-1] == verbatim copy (all 64 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 mixed: commit state[n-1] == production (all 64 rows)
+PASS [dt=bfloat16,w=bfloat16,sigmoid] B=64 mixed: commit boundary state[m-1] == production
+PASS marker set to epoch by verify
+PASS commit skips rows whose marker != epoch
+PASS marker+idx_mapping commit: final states == production (2 boundary rows)
+PASS in-kernel boundary state == production
+PASS chain 40 steps B=8: verify+commit outputs and states bitwise == production
+PASS chain 40 steps B=8: deferred outputs bitwise == production
+PASS chain 40 steps B=8: deferred base+flush state == production state
+PASS chain 40 steps B=64: verify+commit outputs and states bitwise == production
+PASS chain 40 steps B=64: deferred outputs bitwise == production
+PASS chain 40 steps B=64: deferred base+flush state == production state
+TOTAL FAILS: 0
+NVIDIA RTX PRO 6000 Blackwell Workstation Edition
+{"read_TBs": 1.635, "copy_TBs(r+w)": 1.48}
+{"B": 1, "layers": 256, "touched_MB": 512.0, "prod_us": 9.47, "prod_min_us": 9.46, "base_us": 9.47, "base_min_us": 9.45, "verify_us": 7.87, "verify_min_us": 7.86, "commit_us": 2.9, "commit_min_us": 2.89, "deferred_us": 12.4, "deferred_min_us": 12.39, "verify+commit_us": 10.77, "prod_TBs": 0.89, "base_TBs": 0.89, "verify_TBs": 0.27, "commit_TBs": 1.45, "deferred_TBs": 0.34}
+{"B": 2, "layers": 229, "touched_MB": 916.0, "prod_us": 10.94, "prod_min_us": 10.92, "base_us": 11.08, "base_min_us": 10.93, "verify_us": 7.84, "verify_min_us": 7.83, "commit_us": 5.78, "commit_min_us": 5.76, "deferred_us": 13.63, "deferred_min_us": 13.59, "verify+commit_us": 13.62, "prod_TBs": 1.53, "base_TBs": 1.51, "verify_TBs": 0.53, "commit_TBs": 1.45, "deferred_TBs": 0.62}
+{"B": 4, "layers": 123, "touched_MB": 984.0, "prod_us": 22.81, "prod_min_us": 22.66, "base_us": 22.81, "base_min_us": 22.68, "verify_us": 9.06, "verify_min_us": 9.04, "commit_us": 11.71, "commit_min_us": 11.61, "deferred_us": 15.5, "deferred_min_us": 15.46, "verify+commit_us": 20.77, "prod_TBs": 1.47, "base_TBs": 1.47, "verify_TBs": 0.93, "commit_TBs": 1.43, "deferred_TBs": 1.08}
+{"B": 8, "layers": 64, "touched_MB": 1024.0, "prod_us": 46.21, "prod_min_us": 46.1, "base_us": 46.26, "base_min_us": 46.09, "verify_us": 15.4, "verify_min_us": 15.34, "commit_us": 23.21, "commit_min_us": 22.96, "deferred_us": 22.84, "deferred_min_us": 22.77, "verify+commit_us": 38.62, "prod_TBs": 1.45, "base_TBs": 1.45, "verify_TBs": 1.09, "commit_TBs": 1.45, "deferred_TBs": 1.47}
+{"B": 16, "layers": 32, "touched_MB": 1024.0, "prod_us": 94.78, "prod_min_us": 94.45, "base_us": 94.67, "base_min_us": 94.47, "verify_us": 27.95, "verify_min_us": 27.85, "commit_us": 47.02, "commit_min_us": 46.71, "deferred_us": 49.07, "deferred_min_us": 48.78, "verify+commit_us": 74.98, "prod_TBs": 1.42, "base_TBs": 1.42, "verify_TBs": 1.2, "commit_TBs": 1.43, "deferred_TBs": 1.37}
+{"B": 32, "layers": 16, "touched_MB": 1024.0, "prod_us": 196.27, "prod_min_us": 194.79, "base_us": 196.9, "base_min_us": 195.06, "verify_us": 47.85, "verify_min_us": 47.62, "commit_us": 94.24, "commit_min_us": 94.01, "deferred_us": 97.92, "deferred_min_us": 97.37, "verify+commit_us": 142.09, "prod_TBs": 1.37, "base_TBs": 1.36, "verify_TBs": 1.4, "commit_TBs": 1.42, "deferred_TBs": 1.37}
+{"B": 64, "layers": 8, "touched_MB": 1024.0, "prod_us": 389.98, "prod_min_us": 387.87, "base_us": 389.5, "base_min_us": 386.53, "verify_us": 93.73, "verify_min_us": 93.35, "commit_us": 188.0, "commit_min_us": 187.73, "deferred_us": 202.18, "deferred_min_us": 201.57, "verify+commit_us": 281.74, "prod_TBs": 1.38, "base_TBs": 1.38, "verify_TBs": 1.43, "commit_TBs": 1.43, "deferred_TBs": 1.33}
+
+ us per layer; saved = production op - (verify+commit) / - deferred; x30 = ms per 30-layer step
+ B | L | prod | base copy | verify | commit | v+c | saved | x30 ms | deferred | saved | x30 ms | TB/s prod, verify, commit
+  1| 256|     9.5 |     9.5 |     7.9 |     2.9 |    10.8 |    -1.3 |  -0.04 |    12.4 |    -2.9 |  -0.09 | 0.89, 0.27, 1.45
+  2| 229|    10.9 |    11.1 |     7.8 |     5.8 |    13.6 |    -2.7 |  -0.08 |    13.6 |    -2.7 |  -0.08 | 1.53, 0.53, 1.45
+  4| 123|    22.8 |    22.8 |     9.1 |    11.7 |    20.8 |     2.0 |   0.06 |    15.5 |     7.3 |   0.22 | 1.47, 0.93, 1.43
+  8|  64|    46.2 |    46.3 |    15.4 |    23.2 |    38.6 |     7.6 |   0.23 |    22.8 |    23.4 |   0.70 | 1.45, 1.09, 1.45
+ 16|  32|    94.8 |    94.7 |    28.0 |    47.0 |    75.0 |    19.8 |   0.59 |    49.1 |    45.7 |   1.37 | 1.42, 1.20, 1.43
+ 32|  16|   196.3 |   196.9 |    47.8 |    94.2 |   142.1 |    54.2 |   1.63 |    97.9 |    98.4 |   2.95 | 1.37, 1.40, 1.42
+ 64|   8|   390.0 |   389.5 |    93.7 |   188.0 |   281.7 |   108.2 |   3.25 |   202.2 |   187.8 |   5.63 | 1.38, 1.43, 1.43
+done 01:38:39

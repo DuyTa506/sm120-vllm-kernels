@@ -1,0 +1,20 @@
+##### v2 microbench config index 0
+=== target verify graph: 60 kernels/launch, 16 launches, streams 1
+  node-trace span    182.3 us | sum of kernel durations    176.8 us | gap total      5.5 us (3.0% of span) | mean gap 94 ns
+  gaps: 59 per launch; <2us 59, <1us 59, <0.5us 59; overlapped(neg) 0
+  gap percentiles (ns): p10 64  p50 96  p90 96  p99 128  max 128
+##### v2 microbench config index 4
+=== target verify graph: 60 kernels/launch, 16 launches, streams 1
+  node-trace span    168.2 us | sum of kernel durations   2812.5 us | gap total      0.7 us (0.4% of span) | mean gap 12 ns
+  gaps: 59 per launch; <2us 59, <1us 59, <0.5us 58; overlapped(neg) 58
+  gap percentiles (ns): p10 0  p50 0  p90 0  p99 672  max 704
+##### v2 microbench config index 6
+=== target verify graph: 60 kernels/launch, 16 launches, streams 1
+  node-trace span    163.7 us | sum of kernel durations   2961.6 us | gap total      0.7 us (0.4% of span) | mean gap 11 ns
+  gaps: 59 per launch; <2us 59, <1us 59, <0.5us 58; overlapped(neg) 58
+  gap percentiles (ns): p10 0  p50 0  p90 0  p99 672  max 1056
+##### v2 microbench config index 7
+=== target verify graph: 60 kernels/launch, 16 launches, streams 1
+  node-trace span    170.0 us | sum of kernel durations    204.6 us | gap total      2.2 us (1.3% of span) | mean gap 37 ns
+  gaps: 59 per launch; <2us 59, <1us 59, <0.5us 58; overlapped(neg) 42
+  gap percentiles (ns): p10 0  p50 0  p90 96  p99 512  max 512

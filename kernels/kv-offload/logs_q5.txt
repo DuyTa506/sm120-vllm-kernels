@@ -1,0 +1,79 @@
+[23:40:37] w600s48_base: serve --enable-prompt-tokens-details  FLAGS=-e VLLM_SERVER_DEV_MODE=1 -v /home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/kernels/kv-offload:/work:ro 
+[23:43:05] w600s48_base: server rc=0 after 148s
+[23:43:05] w600s48_base: python3 idle_bench.py results/w600s48_base.json --sessions 48 --turns 6 --think 5,30 --stagger 5 --seed 1 --duration 600 --tag base48
+48 sessions x 6 turns, first-turn context total 4.32M tokens, max 122476
+  t=    15s turns done 1/288 in flight 3
+  t=    30s turns done 4/288 in flight 4
+  t=    45s turns done 8/288 in flight 5
+  t=    60s turns done 13/288 in flight 8
+  t=    75s turns done 19/288 in flight 9
+  t=    90s turns done 26/288 in flight 11
+  t=   105s turns done 32/288 in flight 14
+  t=   120s turns done 39/288 in flight 18
+  t=   135s turns done 49/288 in flight 19
+  t=   150s turns done 56/288 in flight 24
+  t=   165s turns done 69/288 in flight 20
+  t=   180s turns done 73/288 in flight 29
+  t=   195s turns done 82/288 in flight 33
+  t=   210s turns done 93/288 in flight 29
+  t=   225s turns done 102/288 in flight 33
+  t=   240s turns done 112/288 in flight 34
+  t=   255s turns done 118/288 in flight 36
+  t=   270s turns done 130/288 in flight 30
+  t=   285s turns done 135/288 in flight 37
+  t=   300s turns done 144/288 in flight 34
+  t=   315s turns done 150/288 in flight 34
+  t=   330s turns done 161/288 in flight 30
+  t=   345s turns done 169/288 in flight 29
+  t=   360s turns done 198/288 in flight 9
+  t=   375s turns done 221/288 in flight 6
+  t=   390s turns done 229/288 in flight 18
+  t=   405s turns done 235/288 in flight 18
+  t=   420s turns done 239/288 in flight 18
+  t=   435s turns done 260/288 in flight 6
+  t=   450s turns done 273/288 in flight 1
+  t=   465s turns done 278/288 in flight 1
+  t=   480s turns done 284/288 in flight 0
+  t=   495s turns done 287/288 in flight 1
+  t=   510s turns done 288/288 in flight 0
+SUMMARY {"tag": "base48", "url": "http://127.0.0.1:8121", "sessions": 48, "turns": 6, "think": "5,30", "start": "60000,120000", "wall_s": 510.09345960617065, "turns_done": 288, "first_turn_ctx_total_tokens": 4316754, "later_turns": 240, "duration": 600.0, "censored_inflight": 0, "censored_later_waiting": 0, "censored_first_waiting": 0, "later_turns_per_s": 0.47050201385702434, "ttft_later_p50_ms": 20113.902807235718, "ttft_later_p90_ms": 44636.20162010193, "ttft_later_p99_ms": 55225.82721710205, "ttft_later_mean_ms": 21027.463303009667, "ttft_first_mean_ms": 23327.0359536012, "later_recompute_mean": 10869.775, "later_recompute_p50": 4102, "later_recompute_p90": 7236, "later_turns_evicted_gt8k": 18, "later_frac_evicted": 0.075, "later_cached_frac": 0.8839416453916789, "ttft_later_nonevicted_p50_ms": 19140.02275466919, "ttft_later_evicted_p50_ms": 42985.24975776672, "out_tok_s": 104.98076184184856, "computed_prompt_tok_s": 13576.92373736176, "later_computed_prompt_tokens": 2608746, "gpu_prefix_hit_rate": 0.741534089136348, "external_hit_tokens": 0.0, "external_query_tokens": 0.0, "total_hit_rate": 0.741534089136348, "preemptions": 0.0, "kv_usage_max": 0.6452762923351159}
+[23:51:42] w600s48_base: python3 pcie_correct.py results/pc_base.json --targets 25000,50000,100000 --reps 1 --tag pcb
+{"target": 25000, "task": 5, "turn": 9, "lenA": 25200, "lenB": 29002, "reset_ok": true, "ttft_ms": {"cold": 825.6649971008301, "cold2": 820.9688663482666, "gpu": 318.45760345458984, "cpu": 827.0082473754883}, "cached": {"cold": 0, "gpu": 21280, "cpu": 0}, "cpu_path_metrics": {"kv_offload_load_bytes_total": 0, "kv_offload_load_time_total": 0, "kv_offload_store_bytes_total": 0, "kv_offload_store_time_total": 0, "external_prefix_cache_hits_total": 0.0, "prefix_cache_hits_total": 0.0}, "load_GBps": null, "tv_top20": {"cold_cold2": 0.40270456815704714, "cold_gpu": 0.033577602256130996, "cold_cpu": 0.47908342947263005, "gpu_cpu": 0.5124284918807192}, "top1_agree": {"cold_cold2": false, "cold_gpu": true, "cold_cpu": false, "gpu_cpu": false}, "text_equal": {"cold_cold2": false, "cold_gpu": false, "cold_cpu": false, "gpu_cpu": false}}
+{"target": 50000, "task": 0, "turn": 21, "lenA": 50110, "lenB": 53614, "reset_ok": true, "ttft_ms": {"cold": 2054.7966957092285, "cold2": 2112.940788269043, "gpu": 475.44240951538086, "cpu": 2095.5703258514404}, "cached": {"cold": 0, "gpu": 46816, "cpu": 0}, "cpu_path_metrics": {"kv_offload_load_bytes_total": 0, "kv_offload_load_time_total": 0, "kv_offload_store_bytes_total": 0, "kv_offload_store_time_total": 0, "external_prefix_cache_hits_total": 0.0, "prefix_cache_hits_total": 0.0}, "load_GBps": null, "tv_top20": {"cold_cold2": 0.09232451659001849, "cold_gpu": 0.166527577968002, "cold_cpu": 0.1869951110114586, "gpu_cpu": 0.042298501708729126}, "top1_agree": {"cold_cold2": true, "cold_gpu": true, "cold_cpu": true, "gpu_cpu": true}, "text_equal": {"cold_cold2": true, "cold_gpu": true, "cold_cpu": true, "gpu_cpu": true}}
+{"target": 100000, "task": 0, "turn": 40, "lenA": 100195, "lenB": 100769, "reset_ok": true, "ttft_ms": {"cold": 5731.949329376221, "cold2": 5725.0049114227295, "gpu": 394.35696601867676, "cpu": 5682.103395462036}, "cached": {"cold": 0, "gpu": 97888, "cpu": 0}, "cpu_path_metrics": {"kv_offload_load_bytes_total": 0, "kv_offload_load_time_total": 0, "kv_offload_store_bytes_total": 0, "kv_offload_store_time_total": 0, "external_prefix_cache_hits_total": 0.0, "prefix_cache_hits_total": 0.0}, "load_GBps": null, "tv_top20": {"cold_cold2": 0.0011186818841603858, "cold_gpu": 0.005097750292427498, "cold_cpu": 0.00359389887425652, "gpu_cpu": 0.0019885160006056475}, "top1_agree": {"cold_cold2": true, "cold_gpu": true, "cold_cpu": true, "gpu_cpu": true}, "text_equal": {"cold_cold2": true, "cold_gpu": true, "cold_cpu": true, "gpu_cpu": true}}
+[23:52:39] w600s48_base: done after 722s
+[00:23:25] w600s48_native: serve --enable-prompt-tokens-details --kv-offloading-size 96 --kv-offloading-backend native  FLAGS=-e VLLM_SERVER_DEV_MODE=1 -v /home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/kernels/kv-offload:/work:ro 
+[00:27:57] w600s48_native: server rc=0 after 272s
+[00:27:57] w600s48_native: python3 idle_bench.py results/w600s48_native.json --sessions 48 --turns 6 --think 5,30 --stagger 5 --seed 1 --duration 600 --tag native48
+48 sessions x 6 turns, first-turn context total 4.32M tokens, max 122476
+  t=    15s turns done 1/288 in flight 3
+  t=    30s turns done 4/288 in flight 4
+  t=    45s turns done 8/288 in flight 5
+  t=    60s turns done 12/288 in flight 9
+  t=    75s turns done 19/288 in flight 7
+  t=    90s turns done 24/288 in flight 13
+  t=   105s turns done 31/288 in flight 14
+  t=   120s turns done 37/288 in flight 19
+  t=   135s turns done 43/288 in flight 23
+  t=   150s turns done 55/288 in flight 23
+  t=   165s turns done 65/288 in flight 22
+  t=   180s turns done 68/288 in flight 30
+  t=   195s turns done 80/288 in flight 28
+  t=   210s turns done 90/288 in flight 30
+  t=   225s turns done 96/288 in flight 37
+  t=   240s turns done 106/288 in flight 36
+  t=   255s turns done 113/288 in flight 34
+  t=   270s turns done 125/288 in flight 30
+  t=   285s turns done 133/288 in flight 34
+  t=   300s turns done 171/288 in flight 11
+  t=   315s turns done 196/288 in flight 7
+  t=   330s turns done 220/288 in flight 5
+  t=   345s turns done 239/288 in flight 6
+  t=   360s turns done 257/288 in flight 2
+  t=   375s turns done 272/288 in flight 1
+  t=   390s turns done 280/288 in flight 0
+  t=   405s turns done 283/288 in flight 0
+  t=   420s turns done 287/288 in flight 0
+  t=   435s turns done 288/288 in flight 0
+SUMMARY {"tag": "native48", "url": "http://127.0.0.1:8121", "sessions": 48, "turns": 6, "think": "5,30", "start": "60000,120000", "wall_s": 435.12108421325684, "turns_done": 288, "first_turn_ctx_total_tokens": 4316754, "later_turns": 240, "duration": 600.0, "censored_inflight": 0, "censored_later_waiting": 0, "censored_first_waiting": 0, "later_turns_per_s": 0.5515706057635529, "ttft_later_p50_ms": 3380.146026611328, "ttft_later_p90_ms": 38154.27660942078, "ttft_later_p99_ms": 42733.75582695007, "ttft_later_mean_ms": 13430.674720803896, "ttft_first_mean_ms": 25285.86898247401, "later_recompute_mean": 4343.908333333334, "later_recompute_p50": 4028, "later_recompute_p90": 6678, "later_turns_evicted_gt8k": 1, "later_frac_evicted": 0.004166666666666667, "later_cached_frac": 0.9536193846021613, "ttft_later_nonevicted_p50_ms": 3003.0925273895264, "ttft_later_evicted_p50_ms": 24676.944255828857, "out_tok_s": 123.06919141099274, "computed_prompt_tok_s": 12316.783062099013, "later_computed_prompt_tokens": 1042538, "gpu_prefix_hit_rate": 0.6580648455160951, "external_hit_tokens": 3802736.0, "external_query_tokens": 9162028.0, "total_hit_rate": 0.7999863853347364, "preemptions": 0.0, "kv_usage_max": 0.7589126559714795}
+[00:35:18] w600s48_native: done after 713s

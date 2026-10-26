@@ -1,0 +1,554 @@
+{
+ "summary": {
+  "tag": "P",
+  "n": 34,
+  "cold_ok": 34,
+  "hot_ok_where_cold_ok": 34,
+  "hot_ok_all": 34,
+  "failures": [],
+  "tv_mean": 0.1466,
+  "cold2_tv_mean": [
+   0.0729,
+   0.2665,
+   0.0833
+  ]
+ },
+ "rows": [
+  {
+   "case": "ext",
+   "len": 9712,
+   "expect": "8220-2914-1122",
+   "cold_ok": true,
+   "cold_text": " 8220-2914-1122.\n\nI notice there was a line in",
+   "cold2_tv": 0.0729,
+   "cold2_agree": 17,
+   "cold2_ok": true,
+   "hot_ok": true,
+   "hot_text": ": 8220-2914-1122.\n\n<tool_call>\n<function=read_file",
+   "hot_cached": 6384,
+   "tv": 0.2314,
+   "agree": 0,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "tiny",
+   "len": 9652,
+   "expect": "0-2914-1122",
+   "cold_ok": true,
+   "cold_text": "0-2914-1122.\n\n<tool_call>\n<function=read_file>\n<parameter=end",
+   "hot_ok": true,
+   "hot_text": "0-2914-1122.\n\n<tool_call>\n<function=read_file>\n<parameter=end",
+   "hot_cached": 6384,
+   "tv": 0.0001,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "trunc",
+   "len": 9145,
+   "expect": "8220-2914-1122",
+   "cold_ok": true,
+   "cold_text": ":\n\n**8220-2914-1122**\n\nI'll continue reviewing the",
+   "hot_ok": true,
+   "hot_text": " 8220-2914-1122.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 6384,
+   "tv": 0.2657,
+   "agree": 0,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "swap",
+   "len": 9712,
+   "expect": "2485-1572-2375",
+   "cold_ok": true,
+   "cold_text": " 2485-1572-2375.\n\n<tool_call>\n<function=finish>",
+   "hot_ok": true,
+   "hot_text": ": 2485-1572-2375.\n\nI notice this appears to be",
+   "hot_cached": 6384,
+   "tv": 0.2767,
+   "agree": 0,
+   "stale": "8220-2914-1122",
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "div_in",
+   "len": 9653,
+   "expect": "2612-6810-4879",
+   "cold_ok": true,
+   "cold_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 6384,
+   "tv": 0.1302,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "div_at",
+   "len": 9658,
+   "expect": "2612-6810-4879",
+   "cold_ok": true,
+   "cold_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 6384,
+   "tv": 0.0984,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "div_after",
+   "len": 9680,
+   "expect": "2612-6810-4879",
+   "cold_ok": true,
+   "cold_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 2612-6810-4879.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 6384,
+   "tv": 0.0566,
+   "agree": 24,
+   "P_A": 9608,
+   "T_A": 9584,
+   "B0": 8512,
+   "needle": [
+    9031,
+    9065
+   ]
+  },
+  {
+   "case": "ext",
+   "len": 30992,
+   "expect": "1285-1504-1259",
+   "cold_ok": true,
+   "cold_text": ": 1285-1504-1259.\n\n<tool_call>\n<function=read_file",
+   "cold2_tv": 0.2665,
+   "cold2_agree": 0,
+   "cold2_ok": true,
+   "hot_ok": true,
+   "hot_text": ": 1285-1504-1259.\n\nLet me continue with the review",
+   "hot_cached": 27664,
+   "tv": 0.1375,
+   "agree": 18,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "tiny",
+   "len": 30932,
+   "expect": "5-1504-1259",
+   "cold_ok": true,
+   "cold_text": "5-1504-1259.\n\n<tool_call>\n<function=read_file>\n<parameter=end",
+   "hot_ok": true,
+   "hot_text": "5-1504-1259.\n\n<tool_call>\n<function=read_file>\n<parameter=end",
+   "hot_cached": 27664,
+   "tv": 0.0,
+   "agree": 24,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "trunc",
+   "len": 30425,
+   "expect": "1285-1504-1259",
+   "cold_ok": true,
+   "cold_text": ": **1285-1504-1259**\n\nI'll continue reviewing the import",
+   "hot_ok": true,
+   "hot_text": " 1285-1504-1259.\n\nLet me continue reading the file:",
+   "hot_cached": 27664,
+   "tv": 0.5089,
+   "agree": 0,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "swap",
+   "len": 30992,
+   "expect": "6670-8933-8594",
+   "cold_ok": true,
+   "cold_text": ": **6670-8933-8594**\n\nLet me continue with the review",
+   "hot_ok": true,
+   "hot_text": ": 6670-8933-8594.\n\nLet me continue with the task",
+   "hot_cached": 27664,
+   "tv": 0.0714,
+   "agree": 1,
+   "stale": "1285-1504-1259",
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "div_in",
+   "len": 30933,
+   "expect": "3433-2495-3999",
+   "cold_ok": true,
+   "cold_text": " 3433-2495-3999.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 3433-2495-3999.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 27664,
+   "tv": 0.1882,
+   "agree": 24,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "div_at",
+   "len": 30938,
+   "expect": "3433-2495-3999",
+   "cold_ok": true,
+   "cold_text": ": 3433-2495-3999.\n\nLet me continue reading the import",
+   "hot_ok": true,
+   "hot_text": ": 3433-2495-3999.\n\n<tool_call>\n<function=read_file",
+   "hot_cached": 27664,
+   "tv": 0.0548,
+   "agree": 18,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "div_after",
+   "len": 30960,
+   "expect": "3433-2495-3999",
+   "cold_ok": true,
+   "cold_text": ": 3433-2495-3999.\n\n<tool_call>\n<function=read_file",
+   "hot_ok": true,
+   "hot_text": ": 3433-2495-3999.\n\nLet me continue reading the import",
+   "hot_cached": 27664,
+   "tv": 0.1555,
+   "agree": 18,
+   "P_A": 30888,
+   "T_A": 30864,
+   "B0": 29792,
+   "needle": [
+    30311,
+    30345
+   ]
+  },
+  {
+   "case": "ext",
+   "len": 75680,
+   "expect": "2874-1239-9242",
+   "cold_ok": true,
+   "cold_text": ": 2874-1239-9242.\n\nHowever, I notice this was",
+   "cold2_tv": 0.0833,
+   "cold2_agree": 18,
+   "cold2_ok": true,
+   "hot_ok": true,
+   "hot_text": ":\n\n2874-1239-9242\n\nI notice this code appeared in the",
+   "hot_cached": 72352,
+   "tv": 0.0721,
+   "agree": 1,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "tiny",
+   "len": 75620,
+   "expect": "4-1239-9242",
+   "cold_ok": true,
+   "cold_text": "4-1239-9242.\n\nI apologize for the interruption. Let me continue reading the",
+   "hot_ok": true,
+   "hot_text": "4-1239-9242.\n\nLet me continue reading the remaining files to complete the review",
+   "hot_cached": 72352,
+   "tv": 0.0001,
+   "agree": 13,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "trunc",
+   "len": 75113,
+   "expect": "2874-1239-9242",
+   "cold_ok": true,
+   "cold_text": " 2874-1239-9242.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": ": 2874-1239-9242.\n\n<tool_call>\n<function=read_file",
+   "hot_cached": 72352,
+   "tv": 0.3254,
+   "agree": 0,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "swap",
+   "len": 75680,
+   "expect": "8974-5093-2057",
+   "cold_ok": true,
+   "cold_text": ": 8974-5093-2057.\n\nHowever, I notice this appears",
+   "hot_ok": true,
+   "hot_text": ": 8974-5093-2057.\n\nHowever, I notice this appears",
+   "hot_cached": 72352,
+   "tv": 0.0971,
+   "agree": 24,
+   "stale": "2874-1239-9242",
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "div_in",
+   "len": 75621,
+   "expect": "9865-8633-2123",
+   "cold_ok": true,
+   "cold_text": " 9865-8633-2123.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": ":\n\n9865-8633-2123\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 72352,
+   "tv": 0.104,
+   "agree": 0,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "div_at",
+   "len": 75626,
+   "expect": "9865-8633-2123",
+   "cold_ok": true,
+   "cold_text": " 9865-8633-2123.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 9865-8633-2123.\n\n<tool_call>\n<function=finish>",
+   "hot_cached": 72352,
+   "tv": 0.0713,
+   "agree": 21,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "div_after",
+   "len": 75648,
+   "expect": "9865-8633-2123",
+   "cold_ok": true,
+   "cold_text": " 9865-8633-2123.\n\n<tool_call>\n<function=read_file>",
+   "hot_ok": true,
+   "hot_text": " 9865-8633-2123.\n\n<tool_call>\n<function=read_file>",
+   "hot_cached": 72352,
+   "tv": 0.0838,
+   "agree": 24,
+   "P_A": 75576,
+   "T_A": 75552,
+   "B0": 74480,
+   "needle": [
+    74999,
+    75033
+   ]
+  },
+  {
+   "case": "live",
+   "i": 0,
+   "hot_ok": true,
+   "hot_cached": 36176,
+   "hot_text": " 2457-9438-1753.\n\n<tool_call>\n<function=read_file>",
+   "cold_ok": true,
+   "len": 39504
+  },
+  {
+   "case": "live",
+   "i": 1,
+   "hot_ok": true,
+   "hot_cached": 36176,
+   "hot_text": " 2457-9438-1753.\n\n<tool_call>\n<function=read_file>",
+   "cold_ok": true,
+   "len": 39504
+  },
+  {
+   "case": "live",
+   "i": 2,
+   "hot_ok": true,
+   "hot_cached": 36176,
+   "hot_text": ": 2457-9438-1753.\n\n<tool_call>\n<function=read_file",
+   "cold_ok": true,
+   "len": 39504
+  },
+  {
+   "case": "live",
+   "i": 3,
+   "hot_ok": true,
+   "hot_cached": 36176,
+   "hot_text": ":\n\n2457-9438-1753\n\nI noticed this code was embedded in",
+   "cold_ok": true,
+   "len": 39504
+  },
+  {
+   "case": "race",
+   "len": 30992,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 0,
+   "hot_text": ": 5416-2033-5954.\n\nI'll continue reviewing the import",
+   "tv": 0.2077
+  },
+  {
+   "case": "siblings",
+   "i": 0,
+   "len": 21635,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 19152,
+   "hot_text": " 8881-6820-5365.\n\nI'll continue reading the importlib",
+   "tv": 0.0939
+  },
+  {
+   "case": "siblings",
+   "i": 1,
+   "len": 21732,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 19152,
+   "hot_text": ": 5082-4277-8428\n\nI notice this was embedded in the",
+   "tv": 0.1924
+  },
+  {
+   "case": "siblings",
+   "i": 2,
+   "len": 21829,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 19152,
+   "hot_text": ": 9686-1316-9324\n\nHowever, I should note that I",
+   "tv": 0.1342
+  },
+  {
+   "case": "siblings",
+   "i": 3,
+   "len": 21926,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 19152,
+   "hot_text": ": 2156-1094-6464.\n\nI apologize, but I cannot",
+   "tv": 0.035
+  },
+  {
+   "case": "siblings",
+   "i": 4,
+   "len": 22023,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 19152,
+   "hot_text": ":\n\n3355-8746-7182\n\nI notice this code was embedded within",
+   "tv": 0.1547
+  },
+  {
+   "case": "siblings",
+   "i": 5,
+   "len": 22120,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 19152,
+   "hot_text": ": 3737-1887-2249\n\nI notice there was an injection attempt",
+   "tv": 0.1091
+  },
+  {
+   "case": "siblings",
+   "i": 6,
+   "len": 22217,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 19152,
+   "hot_text": ": 9135-3687-2234.\n\nI notice this was embedded in",
+   "tv": 0.3803
+  },
+  {
+   "case": "siblings",
+   "i": 7,
+   "len": 22314,
+   "hot_ok": true,
+   "cold_ok": true,
+   "hot_cached": 19152,
+   "hot_text": " 4524-3363-1444.\n\nHowever, I notice this was embedded",
+   "tv": 0.1615
+  }
+ ]
+}

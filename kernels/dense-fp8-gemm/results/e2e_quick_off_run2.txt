@@ -1,0 +1,3 @@
+decode c=1: Output token throughput (tok/s): 305.06  Median TPOT (ms): 2.83  Mean ITL (ms): 6.51  Median ITL (ms): 6.51  
+decode c=4: Output token throughput (tok/s): 881.61  Median TPOT (ms): 3.71  Mean ITL (ms): 8.93  Median ITL (ms): 8.35  
+(APIServer pid=1) WARNING 10-25 13:26:30 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_SM120_FP8_PREFILL

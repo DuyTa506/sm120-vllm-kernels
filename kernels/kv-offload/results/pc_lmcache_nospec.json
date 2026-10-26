@@ -1,0 +1,210 @@
+[
+ {
+  "target": 25000,
+  "task": 5,
+  "turn": 9,
+  "lenA": 25200,
+  "lenB": 29002,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 1035.6099605560303,
+   "cold2": 1079.2856216430664,
+   "gpu": 389.2385959625244,
+   "cpu": 400.12168884277344
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 25152,
+   "cpu": 25152
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 25152.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.5075883042008618,
+   "cold_gpu": 0.467853577217317,
+   "cold_cpu": 0.5029681945651503,
+   "gpu_cpu": 0.03779776198321093
+  },
+  "top1_agree": {
+   "cold_cold2": false,
+   "cold_gpu": false,
+   "cold_cpu": false,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": false,
+   "cold_gpu": false,
+   "cold_cpu": false,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "Now let me read the remaining files in the etree module.\n\n<tool_call>\n<function=read_file>\n<parameter=path>\nxml/etree/Element",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2085\n</parameter>\n<parameter=path>\nxml/etree"
+  }
+ },
+ {
+  "target": 25000,
+  "task": 3,
+  "turn": 8,
+  "lenA": 25307,
+  "lenB": 28524,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 1011.1415386199951,
+   "cold2": 964.6000862121582,
+   "gpu": 386.64793968200684,
+   "cpu": 398.94604682922363
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 25152,
+   "cpu": 25152
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 25152.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.0008511375461680206,
+   "cold_gpu": 0.0062681024065779686,
+   "cold_cpu": 0.0027142982079872533,
+   "gpu_cpu": 0.004213838786585286
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": false,
+   "cold_gpu": true,
+   "cold_cpu": false,
+   "gpu_cpu": false
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2345\n</parameter>\n<parameter=path>\nlogging/__init__.",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2150\n</parameter>\n<parameter=path>\nlogging/__init__.",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2345\n</parameter>\n<parameter=path>\nlogging/__init__.",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n2100\n</parameter>\n<parameter=path>\nlogging/__init__."
+  }
+ },
+ {
+  "target": 100000,
+  "task": 0,
+  "turn": 40,
+  "lenA": 100195,
+  "lenB": 100769,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 5348.248720169067,
+   "cold2": 5325.85334777832,
+   "gpu": 531.1424732208252,
+   "cpu": 570.6250667572021
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 98512,
+   "cpu": 98512
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 98512.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.0036563418155983575,
+   "cold_gpu": 0.0033673628720739205,
+   "cold_cpu": 0.013954158846661145,
+   "gpu_cpu": 0.010592816926474572
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=path>\nemail/mime/nonmultipart.py\n</parameter>\n</function>\n</tool_call>"
+  }
+ },
+ {
+  "target": 100000,
+  "task": 5,
+  "turn": 34,
+  "lenA": 99288,
+  "lenB": 102647,
+  "reset_ok": true,
+  "ttft_ms": {
+   "cold": 5518.014907836914,
+   "cold2": 5508.260011672974,
+   "gpu": 578.8440704345703,
+   "cpu": 672.5108623504639
+  },
+  "cached": {
+   "cold": 0,
+   "gpu": 98512,
+   "cpu": 98512
+  },
+  "cpu_path_metrics": {
+   "kv_offload_load_bytes_total": 0,
+   "kv_offload_load_time_total": 0,
+   "kv_offload_store_bytes_total": 0,
+   "kv_offload_store_time_total": 0,
+   "external_prefix_cache_hits_total": 98512.0,
+   "prefix_cache_hits_total": 0.0
+  },
+  "load_GBps": null,
+  "tv_top20": {
+   "cold_cold2": 0.011968977564745912,
+   "cold_gpu": 0.009095476731769565,
+   "cold_cpu": 0.0063565202143897395,
+   "gpu_cpu": 0.005723590880491694
+  },
+  "top1_agree": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "text_equal": {
+   "cold_cold2": true,
+   "cold_gpu": true,
+   "cold_cpu": true,
+   "gpu_cpu": true
+  },
+  "texts": {
+   "cold": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax",
+   "cold2": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax",
+   "gpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax",
+   "cpu": "<tool_call>\n<function=read_file>\n<parameter=end_line>\n369\n</parameter>\n<parameter=path>\nxml/sax/sax"
+  }
+ }
+]

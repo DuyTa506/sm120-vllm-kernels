@@ -1,0 +1,191 @@
+== 1. scoring / top-k / normalisation on injected logits: ids must be identical to vLLM; weights within a few fp32 ulp
+PASS softmax E=256 k=8 random M=1 renorm=True  ids_equal=True weights_bitwise=False max_rel=7.12e-08
+PASS softmax E=256 k=8 random M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 random M=3 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.17e-07
+PASS softmax E=256 k=8 random M=3 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 random M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.16e-07
+PASS softmax E=256 k=8 random M=8 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 random M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.18e-07
+PASS softmax E=256 k=8 random M=24 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 ties M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 ties M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 ties M=3 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 ties M=3 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 ties M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=5.96e-08
+PASS softmax E=256 k=8 ties M=8 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=8 ties M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=5.96e-08
+PASS softmax E=256 k=8 ties M=24 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=128 k=8 random M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=128 k=8 random M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=128 k=8 random M=3 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.32e-07
+PASS softmax E=128 k=8 random M=3 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.76e-07
+PASS softmax E=128 k=8 random M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.32e-07
+PASS softmax E=128 k=8 random M=8 renorm=False  ids_equal=True weights_bitwise=False max_rel=2.31e-07
+PASS softmax E=128 k=8 random M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=2.74e-07
+PASS softmax E=128 k=8 random M=24 renorm=False  ids_equal=True weights_bitwise=False max_rel=2.63e-07
+PASS softmax E=128 k=8 ties M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=128 k=8 ties M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=128 k=8 ties M=3 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.19e-07
+PASS softmax E=128 k=8 ties M=3 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.05e-07
+PASS softmax E=128 k=8 ties M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.19e-07
+PASS softmax E=128 k=8 ties M=8 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.85e-07
+PASS softmax E=128 k=8 ties M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.19e-07
+PASS softmax E=128 k=8 ties M=24 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.96e-07
+PASS softmax E=512 k=8 random M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=512 k=8 random M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=512 k=8 random M=3 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.08e-07
+PASS softmax E=512 k=8 random M=3 renorm=False  ids_equal=True weights_bitwise=False max_rel=8.55e-08
+PASS softmax E=512 k=8 random M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.19e-07
+PASS softmax E=512 k=8 random M=8 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.19e-07
+PASS softmax E=512 k=8 random M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=2.22e-07
+PASS softmax E=512 k=8 random M=24 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.90e-07
+PASS softmax E=512 k=8 ties M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=512 k=8 ties M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=512 k=8 ties M=3 renorm=True  ids_equal=True weights_bitwise=False max_rel=5.96e-08
+PASS softmax E=512 k=8 ties M=3 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.04e-07
+PASS softmax E=512 k=8 ties M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.19e-07
+PASS softmax E=512 k=8 ties M=8 renorm=False  ids_equal=True weights_bitwise=False max_rel=9.28e-08
+PASS softmax E=512 k=8 ties M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.19e-07
+PASS softmax E=512 k=8 ties M=24 renorm=False  ids_equal=True weights_bitwise=False max_rel=9.97e-08
+PASS softmax E=64 k=6 random M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=64 k=6 random M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=64 k=6 random M=3 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=64 k=6 random M=3 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=64 k=6 random M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.22e-07
+PASS softmax E=64 k=6 random M=8 renorm=False  ids_equal=True weights_bitwise=False max_rel=2.38e-07
+PASS softmax E=64 k=6 random M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.34e-07
+PASS softmax E=64 k=6 random M=24 renorm=False  ids_equal=True weights_bitwise=False max_rel=2.44e-07
+PASS softmax E=64 k=6 ties M=1 renorm=True  ids_equal=True weights_bitwise=False max_rel=8.94e-08
+PASS softmax E=64 k=6 ties M=1 renorm=False  ids_equal=True weights_bitwise=False max_rel=8.29e-08
+PASS softmax E=64 k=6 ties M=3 renorm=True  ids_equal=True weights_bitwise=False max_rel=8.94e-08
+PASS softmax E=64 k=6 ties M=3 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=64 k=6 ties M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=8.94e-08
+PASS softmax E=64 k=6 ties M=8 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.10e-07
+PASS softmax E=64 k=6 ties M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=8.94e-08
+PASS softmax E=64 k=6 ties M=24 renorm=False  ids_equal=True weights_bitwise=False max_rel=1.62e-07
+PASS softmax E=256 k=4 random M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 random M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 random M=3 renorm=True  ids_equal=True weights_bitwise=False max_rel=8.66e-08
+PASS softmax E=256 k=4 random M=3 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 random M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.19e-07
+PASS softmax E=256 k=4 random M=8 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 random M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=1.13e-07
+PASS softmax E=256 k=4 random M=24 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 ties M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 ties M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 ties M=3 renorm=True  ids_equal=True weights_bitwise=False max_rel=5.96e-08
+PASS softmax E=256 k=4 ties M=3 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 ties M=8 renorm=True  ids_equal=True weights_bitwise=False max_rel=5.96e-08
+PASS softmax E=256 k=4 ties M=8 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=4 ties M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=5.96e-08
+PASS softmax E=256 k=4 ties M=24 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 random M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 random M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 random M=3 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 random M=3 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 random M=8 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 random M=8 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 random M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=5.96e-08
+PASS softmax E=256 k=1 random M=24 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 ties M=1 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 ties M=1 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 ties M=3 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 ties M=3 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 ties M=8 renorm=True  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 ties M=8 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+PASS softmax E=256 k=1 ties M=24 renorm=True  ids_equal=True weights_bitwise=False max_rel=5.96e-08
+PASS softmax E=256 k=1 ties M=24 renorm=False  ids_equal=True weights_bitwise=True max_rel=0.00e+00
+== 2. real router weights, RMSNorm-style activations. Reference = exact (fp64) logits rounded to bf16 -> vLLM topk;
+      also reported: vLLM's own unfused cuBLAS path against the same reference (cuBLAS is not exact at every M)
+   M   rows | logits==exact: fused  cuBLAS | top-8 set==exact: fused  cuBLAS | rows with all 256 logits exact: n, ordered ids identical | fused set==cuBLAS set
+    1    164 |  0.99988 0.99986        |  1.00000 1.00000     |    159 1.00000                          | 1.00000
+    2    328 |  0.99985 0.99881        |  1.00000 1.00000     |    315 1.00000                          | 1.00000
+    3    492 |  0.99987 0.99886        |  1.00000 1.00000     |    476 1.00000                          | 1.00000
+    4    656 |  0.99986 0.58678        |  1.00000 0.97104     |    632 1.00000                          | 0.97104
+    6    984 |  0.99983 0.58768        |  1.00000 0.97256     |    942 1.00000                          | 0.97256
+    8   1312 |  0.99985 0.58842        |  1.00000 0.97790     |   1262 1.00000                          | 0.97790
+   12   1968 |  0.99985 0.58725        |  1.00000 0.97561     |   1895 1.00000                          | 0.97561
+   16   2624 |  0.99987 0.58806        |  1.00000 0.97447     |   2536 1.00000                          | 0.97447
+   24   3936 |  0.99987 0.58532        |  1.00000 0.96850     |   3804 1.00000                          | 0.96850
+   32   3936 |  0.99987 0.58532        |  1.00000 0.96850     |   3804 1.00000                          | 0.96850
+   all M: fused top-8 set == exact on 1.00000 of rows, cuBLAS+vLLM on 0.97329; rows with bit-identical logits 15825/16400: ordered ids identical on 15825/15825, max rel weight diff 1.19e-07; shared-gate sigmoid max abs diff vs unfused 0.0e+00
+PASS real weights: fused top-8 set equals the exact-logit routing on >= 99.9% of rows
+PASS real weights: fused is at least as close to exact routing as the unfused cuBLAS path
+PASS real weights: on rows with bit-identical logits, ordered ids identical and weights within 1e-6 rel
+PASS shared-gate sigmoid within 1 bf16 ulp of unfused (was bitwise identical in the first run)
+== 3. parameter sweep against vLLM ops (injected logits, so only the routing arithmetic differs)
+PASS sigmoid E=256 k=8 bias=True renorm=True scale=2.5 M=1  ids_equal=True weights_bitwise=False max_rel=1.1e-07
+PASS sigmoid E=256 k=8 bias=True renorm=True scale=2.5 M=3  ids_equal=True weights_bitwise=False max_rel=1.2e-07
+PASS sigmoid E=256 k=8 bias=True renorm=True scale=2.5 M=24  ids_equal=True weights_bitwise=False max_rel=2.2e-07
+PASS sigmoid E=256 k=8 bias=True renorm=True scale=2.5 M=70  ids_equal=True weights_bitwise=False max_rel=3.2e-07
+PASS sigmoid E=256 k=8 bias=False renorm=False scale=1.0 M=1  ids_equal=True weights_bitwise=True max_rel=0.0e+00
+PASS sigmoid E=256 k=8 bias=False renorm=False scale=1.0 M=3  ids_equal=True weights_bitwise=False max_rel=1.2e-07
+PASS sigmoid E=256 k=8 bias=False renorm=False scale=1.0 M=24  ids_equal=True weights_bitwise=False max_rel=1.2e-07
+PASS sigmoid E=256 k=8 bias=False renorm=False scale=1.0 M=70  ids_equal=True weights_bitwise=False max_rel=1.2e-07
+PASS sigmoid E=384 k=6 bias=True renorm=True scale=1.5 M=1  ids_equal=True weights_bitwise=False max_rel=8.2e-08
+PASS sigmoid E=384 k=6 bias=True renorm=True scale=1.5 M=3  ids_equal=True weights_bitwise=False max_rel=1.5e-07
+PASS sigmoid E=384 k=6 bias=True renorm=True scale=1.5 M=24  ids_equal=True weights_bitwise=False max_rel=2.5e-07
+PASS sigmoid E=384 k=6 bias=True renorm=True scale=1.5 M=70  ids_equal=True weights_bitwise=False max_rel=3.3e-07
+PASS softmax E=128 k=8 bias=False renorm=True scale=1.0 M=1  ids_equal=True weights_bitwise=False max_rel=1.4e-07
+PASS softmax E=128 k=8 bias=False renorm=True scale=1.0 M=3  ids_equal=True weights_bitwise=False max_rel=1.0e-07
+PASS softmax E=128 k=8 bias=False renorm=True scale=1.0 M=24  ids_equal=True weights_bitwise=False max_rel=1.8e-07
+PASS softmax E=128 k=8 bias=False renorm=True scale=1.0 M=70  ids_equal=True weights_bitwise=False max_rel=1.6e-07
+PASS softmax E=64 k=6 bias=False renorm=False scale=1.0 M=1  ids_equal=True weights_bitwise=True max_rel=0.0e+00
+PASS softmax E=64 k=6 bias=False renorm=False scale=1.0 M=3  ids_equal=True weights_bitwise=False max_rel=1.4e-07
+PASS softmax E=64 k=6 bias=False renorm=False scale=1.0 M=24  ids_equal=True weights_bitwise=False max_rel=1.5e-07
+PASS softmax E=64 k=6 bias=False renorm=False scale=1.0 M=70  ids_equal=True weights_bitwise=False max_rel=2.3e-07
+PASS softmax E=256 k=8 bias=True renorm=True scale=1.0 M=1  ids_equal=True weights_bitwise=True max_rel=0.0e+00
+PASS softmax E=256 k=8 bias=True renorm=True scale=1.0 M=3  ids_equal=True weights_bitwise=False max_rel=1.1e-07
+PASS softmax E=256 k=8 bias=True renorm=True scale=1.0 M=24  ids_equal=True weights_bitwise=False max_rel=1.2e-07
+PASS softmax E=256 k=8 bias=True renorm=True scale=1.0 M=70  ids_equal=True weights_bitwise=False max_rel=1.2e-07
+PASS sqrtsoftplus bias M=1 vs torch
+PASS sqrtsoftplus bias M=3 vs torch
+PASS sqrtsoftplus bias M=24 vs torch
+PASS shared gate = bf16(sigmoid(bf16 logit)), strided x (ldx=2112)  max abs 0.0e+00
+PASS two shared gate rows
+PASS fast path == general path E=256 k=8 random M=1  max_rel=0.0e+00
+PASS fast path == general path E=256 k=8 random M=3  max_rel=0.0e+00
+PASS fast path == general path E=256 k=8 random M=24  max_rel=0.0e+00
+PASS fast path == general path E=256 k=8 ties M=1  max_rel=0.0e+00
+PASS fast path == general path E=256 k=8 ties M=3  max_rel=0.0e+00
+PASS fast path == general path E=256 k=8 ties M=24  max_rel=0.0e+00
+PASS fast path == general path E=128 k=8 random M=1  max_rel=0.0e+00
+PASS fast path == general path E=128 k=8 random M=3  max_rel=0.0e+00
+PASS fast path == general path E=128 k=8 random M=24  max_rel=0.0e+00
+PASS fast path == general path E=128 k=8 ties M=1  max_rel=0.0e+00
+PASS fast path == general path E=128 k=8 ties M=3  max_rel=0.0e+00
+PASS fast path == general path E=128 k=8 ties M=24  max_rel=0.0e+00
+PASS fast path == general path E=512 k=8 random M=1  max_rel=0.0e+00
+PASS fast path == general path E=512 k=8 random M=3  max_rel=0.0e+00
+PASS fast path == general path E=512 k=8 random M=24  max_rel=0.0e+00
+PASS fast path == general path E=512 k=8 ties M=1  max_rel=0.0e+00
+PASS fast path == general path E=512 k=8 ties M=3  max_rel=0.0e+00
+PASS fast path == general path E=512 k=8 ties M=24  max_rel=0.0e+00
+PASS fast path == general path E=64 k=6 random M=1  max_rel=0.0e+00
+PASS fast path == general path E=64 k=6 random M=3  max_rel=0.0e+00
+PASS fast path == general path E=64 k=6 random M=24  max_rel=0.0e+00
+PASS fast path == general path E=64 k=6 ties M=1  max_rel=0.0e+00
+PASS fast path == general path E=64 k=6 ties M=3  max_rel=0.0e+00
+PASS fast path == general path E=64 k=6 ties M=24  max_rel=0.0e+00
+PASS negative/zero logits M=3
+PASS negative/zero logits M=3
+PASS negative/zero logits M=3
+PASS negative/zero logits M=8
+PASS negative/zero logits M=8
+PASS negative/zero logits M=8
+PASS padding rows -> ids -1 like vLLM, M=4
+PASS padding rows -> ids -1 like vLLM, M=24
+PASS sigmoid, no renorm, scale=2  max_rel=1.2e-07
+== 4. configs, determinism, CUDA graph, re-armed counters, concurrent load
+PASS all (nt,nw,split) configs agree on top-8 sets M=3
+PASS all (nt,nw,split) configs agree on top-8 sets M=24
+PASS all (nt,nw,split) configs agree on top-8 sets M=40
+PASS all (nt,nw,split) configs agree on top-8 sets M=100
+PASS relacq=0 and relacq=1 give identical results
+PASS L2 prefetch of the next weight does not change the result
+PASS bitwise repeatable
+PASS ticket counters back to 0 after a launch
+PASS CUDA graph replays with new inputs == eager
+PASS counters still 0 after graph replays
+PASS completes and is correct while another stream saturates the SMs
+ALL PASSED []

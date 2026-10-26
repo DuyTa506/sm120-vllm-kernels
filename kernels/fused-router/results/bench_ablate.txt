@@ -1,0 +1,33 @@
+launch-gap floors (us per kernel in a captured chain of 40):
+  empty kernel 1 CTA x 32 thr     0.82
+  empty kernel 136 CTA x 128 thr  0.87
+  empty kernel 136 CTA x 1024 thr 0.87
+
+M=1
+  cfg(nt,nw,split)=(1, 4, 8): relacq=0 stop@partials/ticket/reads/full 2.97 3.53 4.35 5.99 | relacq=1 2.97 3.33 4.15 5.73
+  cfg(nt,nw,split)=(1, 8, 4): relacq=0 stop@partials/ticket/reads/full 3.07 3.74 4.35 5.99 | relacq=1 3.07 3.48 4.10 5.73
+  cfg(nt,nw,split)=(1, 4, 4): relacq=0 stop@partials/ticket/reads/full 3.12 3.74 4.30 5.94 | relacq=1 3.12 3.53 4.15 5.79
+  cfg(nt,nw,split)=(1, 8, 8): relacq=0 stop@partials/ticket/reads/full 3.07 3.74 4.56 6.20 | relacq=1 3.07 3.48 4.30 5.94
+  cfg(nt,nw,split)=(1, 4, 16): relacq=0 stop@partials/ticket/reads/full 2.97 3.53 4.76 6.55 | relacq=1 2.97 3.33 4.56 6.35
+
+M=3
+  cfg(nt,nw,split)=(1, 4, 8): relacq=0 stop@partials/ticket/reads/full 2.97 3.53 4.51 6.14 | relacq=1 2.97 3.38 4.30 5.94
+  cfg(nt,nw,split)=(1, 8, 4): relacq=0 stop@partials/ticket/reads/full 3.12 3.79 4.45 6.14 | relacq=1 3.12 3.53 4.25 5.84
+  cfg(nt,nw,split)=(1, 4, 4): relacq=0 stop@partials/ticket/reads/full 2.82 3.74 4.40 6.04 | relacq=1 3.12 3.53 4.25 5.84
+  cfg(nt,nw,split)=(1, 8, 8): relacq=0 stop@partials/ticket/reads/full 3.07 3.74 4.71 6.30 | relacq=1 3.07 3.48 4.45 6.04
+  cfg(nt,nw,split)=(1, 4, 16): relacq=0 stop@partials/ticket/reads/full 2.97 3.58 5.07 6.86 | relacq=1 2.97 3.38 4.86 6.71
+
+M=8
+  cfg(nt,nw,split)=(1, 8, 4): relacq=0 stop@partials/ticket/reads/full 3.23 3.89 4.81 6.55 | relacq=1 3.23 3.58 4.56 6.30
+  cfg(nt,nw,split)=(1, 8, 8): relacq=0 stop@partials/ticket/reads/full 3.12 3.76 5.22 6.91 | relacq=1 3.12 3.48 4.92 6.66
+  cfg(nt,nw,split)=(1, 4, 8): relacq=0 stop@partials/ticket/reads/full 3.02 3.58 5.63 8.91 | relacq=1 2.97 3.38 5.43 8.70
+
+M=16
+  cfg(nt,nw,split)=(2, 16, 4): relacq=0 stop@partials/ticket/reads/full 3.48 4.15 5.48 7.48 | relacq=1 3.48 3.89 5.27 7.27
+  cfg(nt,nw,split)=(2, 8, 8): relacq=0 stop@partials/ticket/reads/full 3.53 4.15 6.86 10.24 | relacq=1 3.53 3.94 6.45 9.83
+  cfg(nt,nw,split)=(2, 16, 8): relacq=0 stop@partials/ticket/reads/full 3.53 4.20 6.25 8.29 | relacq=1 3.53 3.94 6.04 8.09
+
+M=24
+  cfg(nt,nw,split)=(3, 32, 4): relacq=0 stop@partials/ticket/reads/full 6.91 7.53 9.47 11.83 | relacq=1 6.91 7.32 9.27 11.67
+  cfg(nt,nw,split)=(3, 16, 8): relacq=0 stop@partials/ticket/reads/full 3.69 4.30 7.53 11.21 | relacq=1 3.69 4.10 7.37 11.06
+  cfg(nt,nw,split)=(3, 16, 4): relacq=0 stop@partials/ticket/reads/full 3.53 4.20 6.35 9.98 | relacq=1 3.53 3.94 6.14 9.83

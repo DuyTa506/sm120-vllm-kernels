@@ -3,12 +3,12 @@
 # token-for-token on all of them; every config also records its own live run (tool-call validity, completion).
 # Two task sets: short coding sessions (10-30k tokens) and long whole-package reviews (up to 131k tokens).
 # Each config runs inside one hold of the GPU lock (LOCK=path, optional) so it can interleave with other users.
-# usage: ./run_agentic_all.sh [configs...]     env: CONCS (short replay), LONG_CONCS (long replay)
+# usage: ./run_agentic_all.sh [configs...]     env: CONCS (short replay), LONG_CONCS (long replay), TRAJ_FROM
 D=$(cd "$(dirname "$0")" && pwd)
 O=$D/results/agentic; mkdir -p $O
 TOOLFLAGS="--enable-auto-tool-choice --tool-call-parser qwen3_coder --reasoning-parser qwen3"
 CONFIGS=${@:-production tuned optimized}
-FIRST=$(echo $CONFIGS | cut -d' ' -f1)
+FIRST=${TRAJ_FROM:-$(echo $CONFIGS | cut -d' ' -f1)}  # TRAJ_FROM=production to add a config later
 B="python3 -I $D/bench/agentic_bench.py"
 for c in $CONFIGS; do
   echo "=== $c"

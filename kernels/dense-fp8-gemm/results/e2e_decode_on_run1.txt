@@ -1,0 +1,7 @@
+decode c=1: Output token throughput (tok/s): 334.51  Median TPOT (ms): 2.85  Median ITL (ms): 6.31  
+decode c=4: Output token throughput (tok/s): 962.83  Median TPOT (ms): 3.65  Median ITL (ms): 8.12  
+decode c=16: Output token throughput (tok/s): 1867.24  Median TPOT (ms): 7.49  Median ITL (ms): 14.13  
+decode c=64: Output token throughput (tok/s): 3606.75  Median TPOT (ms): 15.74  Median ITL (ms): 28.62  
+(APIServer pid=1) WARNING 10-25 12:04:55 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_SM120_FP8_PREFILL
+(APIServer pid=1) WARNING 10-25 12:04:55 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_SM120_SKINNY_FP8
+(EngineCore pid=336) INFO 10-25 12:06:31 [sm120_skinny_fp8.py:47] SM120 skinny FP8 GEMM loaded (M <= 64)

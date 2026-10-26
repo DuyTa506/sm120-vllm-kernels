@@ -1,6 +1,6 @@
 --- a/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py
 +++ b/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py
-@@ -3,6 +3,22 @@
+@@ -3,6 +3,23 @@
  """Inference-only Qwen3-Next/Qwen3.5 model."""
  
  import os
@@ -10,20 +10,30 @@
 +_cg_counter = [0]
 +
 +
-+def _cg_dump(prefix, state, conv, md):
++def _cg_dump(prefix, state, conv, md, init=None):
 +    import torch as _t
 +
 +    _cg_counter[0] += 1
 +    qsl = md.prefill_query_start_loc
 +    _t.save(
 +        {"prefix": prefix, "state": state.float().cpu(), "conv": conv.float().cpu(),
++         "init": None if init is None else init.float().cpu(),
 +         "qlens": (qsl[1:] - qsl[:-1]).tolist(), "has_init": md.prefill_has_initial_state.tolist()},
 +        f"{_CG_DUMP}/{_cg_counter[0]:07d}_{prefix.split('.layers.')[-1].split('.')[0]}.pt",
 +    )
  from typing import Literal
  
  import torch
-@@ -1617,6 +1633,12 @@
+@@ -1598,6 +1615,8 @@
+             assert prefill_has_initial_state is not None
+             initial_state = ssm_state[prefill_state_indices]
+             initial_state[~prefill_has_initial_state, ...] = 0
++            # snapshot before the kernel (it may update the state in place)
++            _cg_init = initial_state.clone() if _CG_DUMP else None
+             (
+                 core_attn_out_non_spec,
+                 last_recurrent_state,
+@@ -1617,6 +1636,14 @@
              )
              # Init cache
              ssm_state[prefill_state_indices] = last_recurrent_state.to(ssm_state.dtype)
@@ -32,7 +42,9 @@
 +                and self.prefix.split(".layers.")[-1].split(".")[0] in _CG_DUMP_LAYERS
 +                and os.path.exists(_CG_DUMP + "/ENABLE")
 +            ):
-+                _cg_dump(self.prefix, last_recurrent_state, conv_state[prefill_state_indices], attn_metadata)
++                _cg_dump(
++                    self.prefix, last_recurrent_state, conv_state[prefill_state_indices], attn_metadata, _cg_init
++                )
  
              if split_non_spec:
                  # Stitch the peeled decode outputs in front of the prefill

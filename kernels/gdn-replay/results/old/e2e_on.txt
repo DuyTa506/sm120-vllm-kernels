@@ -1,0 +1,42 @@
+c7d2e434bf46edcfa6d76770b90839e5a22830b2c4e8d76cf18cd1e2872d8181
+waiting for gdn-replay-srv on :8121 (CONFIG=tuned)
+ready
+== server log (replay lines)
+(APIServer pid=1) INFO 10-25 19:56:10 [config.py:688] Mamba cache mode is set to 'align' for Qwen3_5MoeForConditionalGeneration by default when prefix caching is enabled
+(EngineCore pid=335) INFO 10-25 19:56:27 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49
+(EngineCore pid=335) INFO 10-25 19:56:32 [qwen_gdn_linear_attn.py:621] GDN spec decode kernel: cuda
+(EngineCore pid=335) INFO 10-25 19:56:32 [qwen_gdn_linear_attn.py:639] GDN state replay enabled (VLLM_GDN_STATE_REPLAY=1)
+(EngineCore pid=335) INFO 10-25 19:56:56 [interface.py:1096] Setting attention block size to 2128 tokens to ensure that attention page size is >= mamba page size.
+== probe (cold, 2 passes + long generation crossing the 2176 block boundary)
+saved 14 total tokens 6735
+saved 12 total tokens 1567
+prompt 10: diverge@2  len 17/18  max|dlp| on shared prefix 0.0296
+prompt 11: diverge@125  len 160/160  max|dlp| on shared prefix 0.306
+SUMMARY identical prompts 0/12; shared-prefix tokens 320/1576
+== bench_decode (c=1,4,16,64)
+decode c=1: Output token throughput (tok/s): 274.89  Median TPOT (ms): 3.66  Median ITL (ms): 7.63  
+decode c=4: Output token throughput (tok/s): 823.56  Median TPOT (ms): 3.79  Median ITL (ms): 8.30  
+decode c=16: Output token throughput (tok/s): 1175.63  Median TPOT (ms): 11.80  Median ITL (ms): 11.29  
+decode c=64: Output token throughput (tok/s): 2688.83  Median TPOT (ms): 23.18  Median ITL (ms): 22.84  
+spec decode over bench_decode: accepted 29270 / drafted 473076 = 0.0619
+== stress (finish mid-step, aborts)
+stress: ok=163 aborted=37 failed=0 in 9s
+preemptions: 0
+== prefix-cache checkpoint check (eval/ckpt_dist.py)
+gdnreplay: hits/prompt=6739  mean TV(top20)=0.1130  max TV=0.2789  top1 agree=8/12
+  per-prompt TV: 0.183 0.279 0.060 0.060 0.026 0.256 0.001 0.163 0.128 0.072 0.065 0.063
+== post-stress probe
+saved 12 total tokens 1528
+== errors / check lines
+      1 (EngineCore pid=335) INFO 10-25 19:56:53 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 8.04 GiB. Available RAM: 196.95 GiB.
+      1 (EngineCore pid=335) INFO 10-25 19:56:34 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 22.02 GiB. Available RAM: 198.72 GiB.
+      1 Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:17<00:00,  3.52s/it]
+      1 Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:17<00:00,  3.11s/it]
+      1 Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.57it/s]
+      1 Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.55it/s]
+      1 Loading safetensors checkpoint shards:  80% Completed | 4/5 [00:16<00:04,  4.29s/it]
+      1 Loading safetensors checkpoint shards:  60% Completed | 3/5 [00:12<00:08,  4.21s/it]
+      1 Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  1.44it/s]
+      1 Loading safetensors checkpoint shards:  40% Completed | 2/5 [00:07<00:11,  3.90s/it]
+      1 Loading safetensors checkpoint shards:  20% Completed | 1/5 [00:03<00:12,  3.23s/it]
+      1 Loading safetensors checkpoint shards:   0% Completed | 0/5 [00:00<?, ?it/s]

@@ -1,0 +1,7 @@
+323 launches; 1070 same-stream boundaries/step; currently overlapped 400
+scenario                                                         PDL edges/step  of which not overlapped today
+today (FlashInfer/vLLM PDL kernels only)                                    320                              0
++ TORCHINDUCTOR_ENABLE_PDL=1                                                480                             90
++ our skinny FP8/BF16 GEMMs PDL-aware                                       390                             70
++ both                                                                      739                            349
++ both + GDN decode, rope/kv-write, gemv, ATen (everything)                 989                            589

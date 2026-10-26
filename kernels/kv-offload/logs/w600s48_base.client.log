@@ -1,0 +1,39 @@
+48 sessions x 6 turns, first-turn context total 4.32M tokens, max 122476
+  t=    15s turns done 1/288 in flight 3
+  t=    30s turns done 4/288 in flight 4
+  t=    45s turns done 8/288 in flight 5
+  t=    60s turns done 13/288 in flight 8
+  t=    75s turns done 19/288 in flight 9
+  t=    90s turns done 26/288 in flight 11
+  t=   105s turns done 32/288 in flight 14
+  t=   120s turns done 39/288 in flight 18
+  t=   135s turns done 49/288 in flight 19
+  t=   150s turns done 56/288 in flight 24
+  t=   165s turns done 69/288 in flight 20
+  t=   180s turns done 73/288 in flight 29
+  t=   195s turns done 82/288 in flight 33
+  t=   210s turns done 93/288 in flight 29
+  t=   225s turns done 102/288 in flight 33
+  t=   240s turns done 112/288 in flight 34
+  t=   255s turns done 118/288 in flight 36
+  t=   270s turns done 130/288 in flight 30
+  t=   285s turns done 135/288 in flight 37
+  t=   300s turns done 144/288 in flight 34
+  t=   315s turns done 150/288 in flight 34
+  t=   330s turns done 161/288 in flight 30
+  t=   345s turns done 169/288 in flight 29
+  t=   360s turns done 198/288 in flight 9
+  t=   375s turns done 221/288 in flight 6
+  t=   390s turns done 229/288 in flight 18
+  t=   405s turns done 235/288 in flight 18
+  t=   420s turns done 239/288 in flight 18
+  t=   435s turns done 260/288 in flight 6
+  t=   450s turns done 273/288 in flight 1
+  t=   465s turns done 278/288 in flight 1
+  t=   480s turns done 284/288 in flight 0
+  t=   495s turns done 287/288 in flight 1
+  t=   510s turns done 288/288 in flight 0
+SUMMARY {"tag": "base48", "url": "http://127.0.0.1:8121", "sessions": 48, "turns": 6, "think": "5,30", "start": "60000,120000", "wall_s": 510.09345960617065, "turns_done": 288, "first_turn_ctx_total_tokens": 4316754, "later_turns": 240, "duration": 600.0, "censored_inflight": 0, "censored_later_waiting": 0, "censored_first_waiting": 0, "later_turns_per_s": 0.47050201385702434, "ttft_later_p50_ms": 20113.902807235718, "ttft_later_p90_ms": 44636.20162010193, "ttft_later_p99_ms": 55225.82721710205, "ttft_later_mean_ms": 21027.463303009667, "ttft_first_mean_ms": 23327.0359536012, "later_recompute_mean": 10869.775, "later_recompute_p50": 4102, "later_recompute_p90": 7236, "later_turns_evicted_gt8k": 18, "later_frac_evicted": 0.075, "later_cached_frac": 0.8839416453916789, "ttft_later_nonevicted_p50_ms": 19140.02275466919, "ttft_later_evicted_p50_ms": 42985.24975776672, "out_tok_s": 104.98076184184856, "computed_prompt_tok_s": 13576.92373736176, "later_computed_prompt_tokens": 2608746, "gpu_prefix_hit_rate": 0.741534089136348, "external_hit_tokens": 0.0, "external_query_tokens": 0.0, "total_hit_rate": 0.741534089136348, "preemptions": 0.0, "kv_usage_max": 0.6452762923351159}
+{"target": 25000, "task": 5, "turn": 9, "lenA": 25200, "lenB": 29002, "reset_ok": true, "ttft_ms": {"cold": 825.6649971008301, "cold2": 820.9688663482666, "gpu": 318.45760345458984, "cpu": 827.0082473754883}, "cached": {"cold": 0, "gpu": 21280, "cpu": 0}, "cpu_path_metrics": {"kv_offload_load_bytes_total": 0, "kv_offload_load_time_total": 0, "kv_offload_store_bytes_total": 0, "kv_offload_store_time_total": 0, "external_prefix_cache_hits_total": 0.0, "prefix_cache_hits_total": 0.0}, "load_GBps": null, "tv_top20": {"cold_cold2": 0.40270456815704714, "cold_gpu": 0.033577602256130996, "cold_cpu": 0.47908342947263005, "gpu_cpu": 0.5124284918807192}, "top1_agree": {"cold_cold2": false, "cold_gpu": true, "cold_cpu": false, "gpu_cpu": false}, "text_equal": {"cold_cold2": false, "cold_gpu": false, "cold_cpu": false, "gpu_cpu": false}}
+{"target": 50000, "task": 0, "turn": 21, "lenA": 50110, "lenB": 53614, "reset_ok": true, "ttft_ms": {"cold": 2054.7966957092285, "cold2": 2112.940788269043, "gpu": 475.44240951538086, "cpu": 2095.5703258514404}, "cached": {"cold": 0, "gpu": 46816, "cpu": 0}, "cpu_path_metrics": {"kv_offload_load_bytes_total": 0, "kv_offload_load_time_total": 0, "kv_offload_store_bytes_total": 0, "kv_offload_store_time_total": 0, "external_prefix_cache_hits_total": 0.0, "prefix_cache_hits_total": 0.0}, "load_GBps": null, "tv_top20": {"cold_cold2": 0.09232451659001849, "cold_gpu": 0.166527577968002, "cold_cpu": 0.1869951110114586, "gpu_cpu": 0.042298501708729126}, "top1_agree": {"cold_cold2": true, "cold_gpu": true, "cold_cpu": true, "gpu_cpu": true}, "text_equal": {"cold_cold2": true, "cold_gpu": true, "cold_cpu": true, "gpu_cpu": true}}
+{"target": 100000, "task": 0, "turn": 40, "lenA": 100195, "lenB": 100769, "reset_ok": true, "ttft_ms": {"cold": 5731.949329376221, "cold2": 5725.0049114227295, "gpu": 394.35696601867676, "cpu": 5682.103395462036}, "cached": {"cold": 0, "gpu": 97888, "cpu": 0}, "cpu_path_metrics": {"kv_offload_load_bytes_total": 0, "kv_offload_load_time_total": 0, "kv_offload_store_bytes_total": 0, "kv_offload_store_time_total": 0, "external_prefix_cache_hits_total": 0.0, "prefix_cache_hits_total": 0.0}, "load_GBps": null, "tv_top20": {"cold_cold2": 0.0011186818841603858, "cold_gpu": 0.005097750292427498, "cold_cpu": 0.00359389887425652, "gpu_cpu": 0.0019885160006056475}, "top1_agree": {"cold_cold2": true, "cold_gpu": true, "cold_cpu": true, "gpu_cpu": true}, "text_equal": {"cold_cold2": true, "cold_gpu": true, "cold_cpu": true, "gpu_cpu": true}}

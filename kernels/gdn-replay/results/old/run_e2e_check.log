@@ -1,0 +1,41 @@
+0f2df82fecb36c12fcc03ce1c800bd9f3c96bf5fa398cfd44542c9bef3ebe6ff
+waiting for gdn-replay-srv on :8121 (CONFIG=tuned)
+ready
+== server log (replay lines)
+(APIServer pid=1) INFO 10-25 19:43:58 [api_utils.py:286] non-default args: {'model_tag': 'unsloth/Qwen3.6-35B-A3B-NVFP4-Fast', 'model': 'unsloth/Qwen3.6-35B-A3B-NVFP4-Fast', 'max_model_len': 131072, 'served_model_name': 
+(APIServer pid=1) WARNING 10-25 19:43:58 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_GDN_STATE_REPLAY_CHECK
+(APIServer pid=1) INFO 10-25 19:44:02 [config.py:688] Mamba cache mode is set to 'align' for Qwen3_5MoeForConditionalGeneration by default when prefix caching is enabled
+(EngineCore pid=336) INFO 10-25 19:44:18 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49
+(EngineCore pid=336) INFO 10-25 19:44:21 [qwen_gdn_linear_attn.py:621] GDN spec decode kernel: cuda
+(EngineCore pid=336) INFO 10-25 19:44:21 [qwen_gdn_linear_attn.py:639] GDN state replay enabled (VLLM_GDN_STATE_REPLAY=1)
+(EngineCore pid=336) INFO 10-25 19:44:59 [interface.py:1096] Setting attention block size to 2128 tokens to ensure that attention page size is >= mamba page size.
+(EngineCore pid=336) WARNING 10-25 19:48:35 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=2000 bad_state=3900 bad_out=0
+(EngineCore pid=336) WARNING 10-25 19:48:43 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=3000 bad_state=3900 bad_out=0
+== probe (cold, 2 passes + long generation crossing the 2176 block boundary)
+saved 14 total tokens 6618
+saved 12 total tokens 1418
+prompt 10: IDENTICAL  len 18/18  max|dlp| on shared prefix 0
+prompt 11: IDENTICAL  len 160/160  max|dlp| on shared prefix 0
+SUMMARY identical prompts 10/12; shared-prefix tokens 1251/1418
+== short bench (check mode is slow: c=1 and c=8 only)
+Output token throughput (tok/s): 20.22  Median ITL (ms): 95.18  
+Output token throughput (tok/s): 117.53  Median ITL (ms): 92.58  
+spec decode over bench_decode: accepted 2300 / drafted 4658 = 0.4938
+== stress (finish mid-step, aborts)
+stress: ok=46 aborted=14 failed=0 in 7s
+preemptions: 0
+== post-stress probe
+saved 12 total tokens 1418
+== errors / check lines
+      1 (EngineCore pid=336) WARNING 10-25 19:55:48 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=139000 bad_state=129210 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:46 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=138000 bad_state=129000 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:43 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=137000 bad_state=128340 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:40 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=136000 bad_state=127830 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:37 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=135000 bad_state=127500 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:34 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=134000 bad_state=127020 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:31 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=133000 bad_state=126510 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:28 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=132000 bad_state=126360 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:25 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=131000 bad_state=126130 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:22 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=130000 bad_state=125790 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:19 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=129000 bad_state=125160 bad_out=0
+      1 (EngineCore pid=336) WARNING 10-25 19:55:16 [gdn_state_replay.py:197] GDN replay CHECK MISMATCH: calls=128000 bad_state=124310 bad_out=0

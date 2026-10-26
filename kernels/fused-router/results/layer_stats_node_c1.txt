@@ -1,0 +1,8 @@
+steps 323 kernels/step 1031
+router GEMM (cuBLAS wmma) dur                  n=11320 median   11.68 us  p10  11.36  p90  12.13
+topkGating dur                                 n=11320 median    3.84 us  p10   3.74  p90   4.00
+gap router end -> topk start                   n=11320 median    0.10 us  p10   0.10  p90   0.22
+router start -> topk end (span)                n=11320 median   15.68 us  p10  15.36  p90  16.13
+topk end -> grouped GEMM1 start                n=11320 median    8.00 us  p10   7.90  p90   8.13
+shared gate gemvx dur                          n=11320 median    2.11 us  p10   2.02  p90   2.30
+shared branch end -> MoE GEMM2 end (slack)     n=11320 median   43.23 us  p10  38.43  p90  48.45

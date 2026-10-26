@@ -1,0 +1,38 @@
+13f90e761f3894c701638511bbbb3bccd355e63e4e0f5d13a840faacdbc3bd80
+waiting for gdn-replay-srv on :8121 (CONFIG=tuned)
+ready
+== server log (replay lines)
+(APIServer pid=1) INFO 10-25 20:05:22 [config.py:688] Mamba cache mode is set to 'align' for Qwen3_5MoeForConditionalGeneration by default when prefix caching is enabled
+(EngineCore pid=336) INFO 10-25 20:05:36 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49
+(EngineCore pid=336) INFO 10-25 20:05:39 [qwen_gdn_linear_attn.py:621] GDN spec decode kernel: cuda
+(EngineCore pid=336) INFO 10-25 20:06:00 [interface.py:1096] Setting attention block size to 2128 tokens to ensure that attention page size is >= mamba page size.
+== probe (cold, 2 passes + long generation crossing the 2176 block boundary)
+saved 14 total tokens 6731
+saved 12 total tokens 1535
+prompt 10: diverge@2  len 17/17  max|dlp| on shared prefix 0.0384
+prompt 11: diverge@3  len 160/160  max|dlp| on shared prefix 0.351
+SUMMARY identical prompts 0/12; shared-prefix tokens 180/1535
+== bench_decode (c=1,4,16,64)
+decode c=1: Output token throughput (tok/s): 334.59  Median TPOT (ms): 2.78  Median ITL (ms): 6.63  
+decode c=4: Output token throughput (tok/s): 855.01  Median TPOT (ms): 4.12  Median ITL (ms): 8.24  
+decode c=16: Output token throughput (tok/s): 1658.46  Median TPOT (ms): 7.46  Median ITL (ms): 13.94  
+decode c=64: Output token throughput (tok/s): 3785.38  Median TPOT (ms): 14.96  Median ITL (ms): 28.14  
+spec decode over bench_decode: accepted 144298 / drafted 243718 = 0.5921
+== stress (finish mid-step, aborts)
+stress: ok=163 aborted=37 failed=0 in 6s
+preemptions: 0
+== post-stress probe
+saved 12 total tokens 1536
+== errors / check lines
+      1 (EngineCore pid=336) INFO 10-25 20:05:57 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 8.04 GiB. Available RAM: 203.90 GiB.
+      1 (EngineCore pid=336) INFO 10-25 20:05:41 [weight_utils.py:1108] Filesystem type for checkpoints: EXT4. Checkpoint size: 22.02 GiB. Available RAM: 204.00 GiB.
+      1 Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:14<00:00,  2.96s/it]
+      1 Loading safetensors checkpoint shards: 100% Completed | 5/5 [00:14<00:00,  2.58s/it]
+      1 Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.87it/s]
+      1 Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.85it/s]
+      1 Loading safetensors checkpoint shards:  80% Completed | 4/5 [00:13<00:03,  3.57s/it]
+      1 Loading safetensors checkpoint shards:  60% Completed | 3/5 [00:10<00:07,  3.53s/it]
+      1 Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  1.77it/s]
+      1 Loading safetensors checkpoint shards:  40% Completed | 2/5 [00:06<00:10,  3.35s/it]
+      1 Loading safetensors checkpoint shards:  20% Completed | 1/5 [00:02<00:11,  2.90s/it]
+      1 Loading safetensors checkpoint shards:   0% Completed | 0/5 [00:00<?, ?it/s]

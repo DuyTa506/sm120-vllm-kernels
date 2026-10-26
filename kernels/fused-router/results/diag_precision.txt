@@ -1,0 +1,36 @@
+== outlier channels: True
+   layer 0: |logit| median 0.664 max 4.33
+   layer 7: |logit| median 0.560 max 4.32
+   layer 23: |logit| median 0.468 max 4.11
+   layer 39: |logit| median 0.464 max 3.04
+   cuBLAS F.linear            mismatch vs round(exact) 0.0013   max err 0.99 ulp   mean err 0.252 ulp
+   triton skinny              mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fp32 F.linear->bf16        mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused split=1 accmode=0    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused split=1 accmode=1    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused split=4 accmode=0    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused split=4 accmode=1    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused split=8 accmode=0    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused split=8 accmode=1    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused split=16 accmode=0   mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused split=16 accmode=1   mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.252 ulp
+   fused nt=3 split=8 M=24 accmode=0 mismatch vs round(exact) 0.0002   max err 0.58 ulp   mean err 0.251 ulp
+   fused nt=3 split=8 M=24 accmode=1 mismatch vs round(exact) 0.0002   max err 0.58 ulp   mean err 0.251 ulp
+== outlier channels: False
+   layer 0: |logit| median 0.663 max 4.08
+   layer 7: |logit| median 0.644 max 4.44
+   layer 23: |logit| median 0.579 max 3.63
+   layer 39: |logit| median 0.515 max 2.88
+   cuBLAS F.linear            mismatch vs round(exact) 0.0026   max err 0.54 ulp   mean err 0.253 ulp
+   triton skinny              mismatch vs round(exact) 0.0003   max err 0.54 ulp   mean err 0.253 ulp
+   fp32 F.linear->bf16        mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.253 ulp
+   fused split=1 accmode=0    mismatch vs round(exact) 0.0003   max err 0.50 ulp   mean err 0.253 ulp
+   fused split=1 accmode=1    mismatch vs round(exact) 0.0003   max err 0.50 ulp   mean err 0.253 ulp
+   fused split=4 accmode=0    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.253 ulp
+   fused split=4 accmode=1    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.253 ulp
+   fused split=8 accmode=0    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.253 ulp
+   fused split=8 accmode=1    mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.253 ulp
+   fused split=16 accmode=0   mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.253 ulp
+   fused split=16 accmode=1   mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.253 ulp
+   fused nt=3 split=8 M=24 accmode=0 mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.251 ulp
+   fused nt=3 split=8 M=24 accmode=1 mismatch vs round(exact) 0.0000   max err 0.50 ulp   mean err 0.251 ulp

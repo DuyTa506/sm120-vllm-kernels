@@ -1,0 +1,6 @@
+# patched envs.py (flag registered):
+0 {"has": true, "val": "False", "hash": "d95546b0c0201228"}
+1 {"has": true, "val": "True", "hash": "1762d33c9db1df89"}
+# stock envs.py (v0.32.0, flag unknown -> not hashed):
+0 {"has": false, "val": "None", "hash": "48914345d54ee9df"}
+1 {"has": false, "val": "None", "hash": "48914345d54ee9df"}

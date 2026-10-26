@@ -1,7 +1,7 @@
 #!/bin/bash
 # End-to-end decode A/B: CONFIG=optimized server with/without the SM120 skinny FP8 GEMM patch.
-# usage: kernels/dense-fp8-gemm/e2e_decode.sh <on|off> [outfile]
-# Takes the GPU lock for one server lifetime (~6-8 min), runs bench/bench_decode.sh, removes the server.
+# usage: [BENCH=kernels/dense-fp8-gemm/quick_decode.sh] kernels/dense-fp8-gemm/e2e_decode.sh <on|off> [outfile]
+# Takes the GPU lock for one server lifetime (~6-10 min), runs the decode bench, removes the server.
 set -e
 D=$(cd "$(dirname "$0")/../.." && pwd)
 K=$D/kernels/dense-fp8-gemm
@@ -19,9 +19,12 @@ else
   F=""
 fi
 NAME=dense-fp8-gemm-serve
-flock $LOCK bash -c "
-  trap 'docker rm -f $NAME >/dev/null 2>&1 || true' EXIT
-  sg docker -c \"CONFIG=optimized NAME=$NAME PORT=8117 FLAGS='$F' $D/scripts/serve.sh\" &&
-  sg docker -c \"$D/bench/bench_decode.sh $NAME\" | tee $OUT &&
-  sg docker -c \"docker logs $NAME 2>&1 | grep -i 'skinny\|sm120_fp8' | head -5\" | tee -a $OUT
-"
+# BENCH: the project's bench/bench_decode.sh (c=1,4,16,64) or quick_decode.sh (c=1 x16, c=4 x32 prompts)
+BENCH=${BENCH:-$D/bench/bench_decode.sh}
+cleanup() { sg docker -c "docker rm -f $NAME" >/dev/null 2>&1 || true; }
+exec 9>>"$LOCK"
+flock 9                      # GPU lock held until this script exits (server removed first)
+trap cleanup EXIT
+sg docker -c "CONFIG=optimized NAME=$NAME PORT=8117 FLAGS='$F' $D/scripts/serve.sh"
+sg docker -c "$BENCH $NAME" | tee $OUT
+sg docker -c "docker logs $NAME 2>&1 | grep -i 'skinny\|sm120_fp8' | head -5" | tee -a $OUT

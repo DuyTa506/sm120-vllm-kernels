@@ -1,0 +1,28 @@
+off rep1 c=16: Output token throughput (tok/s): 1867.40  Median ITL (ms): 14.33  
+off rep1 c=32: Output token throughput (tok/s): 2604.53  Median ITL (ms): 19.71  
+off rep1 c=64: Output token throughput (tok/s): 3610.30  Median ITL (ms): 28.57  
+off rep2 c=16: Output token throughput (tok/s): 1896.61  Median ITL (ms): 14.05  
+off rep2 c=32: Output token throughput (tok/s): 2672.77  Median ITL (ms): 19.57  
+off rep2 c=64: Output token throughput (tok/s): 3589.29  Median ITL (ms): 28.39  
+off acceptance 0.5960129204141908
+on rep1 c=16: Output token throughput (tok/s): 1903.95  Median ITL (ms): 14.40  
+on rep1 c=32: Output token throughput (tok/s): 2658.31  Median ITL (ms): 19.46  
+on rep1 c=64: Output token throughput (tok/s): 3823.89  Median ITL (ms): 26.16  
+on rep2 c=16: Output token throughput (tok/s): 1903.34  Median ITL (ms): 14.25  
+on rep2 c=32: Output token throughput (tok/s): 2636.94  Median ITL (ms): 19.39  
+on rep2 c=64: Output token throughput (tok/s): 3893.91  Median ITL (ms): 26.25  
+on acceptance 0.5989327484914074
+off rep1 c=16: Output token throughput (tok/s): 1957.63  Median ITL (ms): 14.21  
+off rep1 c=32: Output token throughput (tok/s): 2593.09  Median ITL (ms): 19.76  
+off rep1 c=64: Output token throughput (tok/s): 3551.33  Median ITL (ms): 28.71  
+off rep2 c=16: Output token throughput (tok/s): 1900.17  Median ITL (ms): 14.13  
+off rep2 c=32: Output token throughput (tok/s): 2645.87  Median ITL (ms): 19.75  
+off rep2 c=64: Output token throughput (tok/s): 3634.91  Median ITL (ms): 28.76  
+off acceptance 0.5991988712454562
+on rep1 c=16: Output token throughput (tok/s): 1894.22  Median ITL (ms): 14.45  
+on rep1 c=32: Output token throughput (tok/s): 2701.23  Median ITL (ms): 19.59  
+on rep1 c=64: Output token throughput (tok/s): 3815.84  Median ITL (ms): 26.20  
+on rep2 c=16: Output token throughput (tok/s): 1949.03  Median ITL (ms): 14.25  
+on rep2 c=32: Output token throughput (tok/s): 2691.10  Median ITL (ms): 19.55  
+on rep2 c=64: Output token throughput (tok/s): 3901.33  Median ITL (ms): 26.30  
+on acceptance 0.5912174514512011

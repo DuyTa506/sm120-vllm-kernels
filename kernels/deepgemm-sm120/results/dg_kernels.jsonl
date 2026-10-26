@@ -1,0 +1,64 @@
+{"tag": "T3", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 13.053000000000035, "gemm_kernel_us": 13.053000000000035}
+{"tag": "T3", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 5.6238333333332475, "gemm_kernel_us": 5.6238333333332475}
+{"tag": "T3", "fmt": "fp4", "gemm": 1, "layout": "psum", "align": 32, "m_total": 672, "kernel_total_us": 21.818333333333424, "gemm_kernel_us": 21.818333333333424}
+{"tag": "T3", "fmt": "fp4", "gemm": 2, "layout": "psum", "align": 32, "m_total": 672, "kernel_total_us": 18.285250000000058, "gemm_kernel_us": 18.285250000000058}
+{"tag": "T3", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 29.2503333333334, "gemm_kernel_us": 29.2503333333334}
+{"tag": "T3", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 10.037250000000009, "gemm_kernel_us": 10.037250000000009}
+{"tag": "T12", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 46.43133333333333, "gemm_kernel_us": 46.43133333333333}
+{"tag": "T12", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 24.54925000000001, "gemm_kernel_us": 24.54925000000001}
+{"tag": "T12", "fmt": "fp4", "gemm": 1, "layout": "psum", "align": 32, "m_total": 2048, "kernel_total_us": 46.57016666666664, "gemm_kernel_us": 46.57016666666664}
+{"tag": "T12", "fmt": "fp4", "gemm": 2, "layout": "psum", "align": 32, "m_total": 2048, "kernel_total_us": 26.95416666666667, "gemm_kernel_us": 26.95416666666667}
+{"tag": "T12", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 86.65466666666669, "gemm_kernel_us": 86.65466666666669}
+{"tag": "T12", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 43.306250000000055, "gemm_kernel_us": 43.306250000000055}
+{"tag": "T48", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 105.39233333333334, "gemm_kernel_us": 105.39233333333334}
+{"tag": "T48", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 52.90041666666669, "gemm_kernel_us": 52.90041666666669}
+{"tag": "T48", "fmt": "fp4", "gemm": 1, "layout": "psum", "align": 32, "m_total": 4736, "kernel_total_us": 110.4999166666665, "gemm_kernel_us": 110.4999166666665}
+{"tag": "T48", "fmt": "fp4", "gemm": 2, "layout": "psum", "align": 32, "m_total": 4736, "kernel_total_us": 53.41549999999999, "gemm_kernel_us": 53.41549999999999}
+{"tag": "T48", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 203.8960833333333, "gemm_kernel_us": 203.8960833333333}
+{"tag": "T48", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 101.82800000000005, "gemm_kernel_us": 101.82800000000005}
+{"tag": "T192", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 140.91291666666666, "gemm_kernel_us": 140.91291666666666}
+{"tag": "T192", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 70.31374999999991, "gemm_kernel_us": 70.31374999999991}
+{"tag": "T192", "fmt": "fp4", "gemm": 1, "layout": "psum", "align": 32, "m_total": 6496, "kernel_total_us": 145.44749999999996, "gemm_kernel_us": 145.44749999999996}
+{"tag": "T192", "fmt": "fp4", "gemm": 2, "layout": "psum", "align": 32, "m_total": 6496, "kernel_total_us": 72.66308333333332, "gemm_kernel_us": 72.66308333333332}
+{"tag": "T192", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 269.36341666666664, "gemm_kernel_us": 269.36341666666664}
+{"tag": "T192", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 134.56091666666666, "gemm_kernel_us": 134.56091666666666}
+{"tag": "T8192", "fmt": "fp4", "gemm": 1, "layout": "psum", "align": 128, "m_total": 83456, "kernel_total_us": 353.01974999999993, "gemm_kernel_us": 353.01974999999993}
+{"tag": "T8192", "fmt": "fp4", "gemm": 2, "layout": "psum", "align": 128, "m_total": 83456, "kernel_total_us": 358.55808333333334, "gemm_kernel_us": 358.55808333333334}
+{"tag": "T8192", "fmt": "fp4", "gemm": 1, "layout": "psum", "align": 64, "m_total": 74112, "kernel_total_us": 365.1682499999999, "gemm_kernel_us": 365.1682499999999}
+{"tag": "T8192", "fmt": "fp4", "gemm": 2, "layout": "psum", "align": 64, "m_total": 74112, "kernel_total_us": 324.2860833333334, "gemm_kernel_us": 324.2860833333334}
+{"tag": "T8192", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 128, "m_total": 83456, "kernel_total_us": 385.6628333333333, "gemm_kernel_us": 385.6628333333333}
+{"tag": "T8192", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 128, "m_total": 83456, "kernel_total_us": 463.03049999999985, "gemm_kernel_us": 463.03049999999985}
+{"tag": "T8192", "fmt": "fp8", "gemm": 1, "layout": "psum", "align": 128, "m_total": 83456, "kernel_total_us": 579.3340833333331, "gemm_kernel_us": 579.3340833333331}
+{"tag": "T8192", "fmt": "fp8", "gemm": 2, "layout": "psum", "align": 128, "m_total": 83456, "kernel_total_us": 437.90508333333315, "gemm_kernel_us": 437.90508333333315}
+{"bm32_bn": "64", "tag": "T3", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 12.905916666666599, "gemm_kernel_us": 12.905916666666599}
+{"bm32_bn": "64", "tag": "T3", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 5.607916666666711, "gemm_kernel_us": 5.607916666666711}
+{"bm32_bn": "64", "tag": "T3", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 29.299833333333407, "gemm_kernel_us": 29.299833333333407}
+{"bm32_bn": "64", "tag": "T3", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 10.087666666666678, "gemm_kernel_us": 10.087666666666678}
+{"bm32_bn": "64", "tag": "T12", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 46.30983333333336, "gemm_kernel_us": 46.30983333333336}
+{"bm32_bn": "64", "tag": "T12", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 24.380166666666735, "gemm_kernel_us": 24.380166666666735}
+{"bm32_bn": "64", "tag": "T12", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 86.80958333333326, "gemm_kernel_us": 86.80958333333326}
+{"bm32_bn": "64", "tag": "T12", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 43.17425000000001, "gemm_kernel_us": 43.17425000000001}
+{"bm32_bn": "64", "tag": "T48", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 105.55516666666672, "gemm_kernel_us": 105.55516666666672}
+{"bm32_bn": "64", "tag": "T48", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 53.19783333333333, "gemm_kernel_us": 53.19783333333333}
+{"bm32_bn": "64", "tag": "T48", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 203.96949999999995, "gemm_kernel_us": 203.96949999999995}
+{"bm32_bn": "64", "tag": "T48", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 101.8943333333334, "gemm_kernel_us": 101.8943333333334}
+{"bm32_bn": "64", "tag": "T192", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 140.93441666666666, "gemm_kernel_us": 140.93441666666666}
+{"bm32_bn": "64", "tag": "T192", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 70.38916666666667, "gemm_kernel_us": 70.38916666666667}
+{"bm32_bn": "64", "tag": "T192", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 269.6529166666666, "gemm_kernel_us": 269.6529166666666}
+{"bm32_bn": "64", "tag": "T192", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 134.5655833333334, "gemm_kernel_us": 134.5655833333334}
+{"bm32_bn": "128", "tag": "T3", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 11.97008333333334, "gemm_kernel_us": 11.97008333333334}
+{"bm32_bn": "128", "tag": "T3", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 4.81841666666666, "gemm_kernel_us": 4.81841666666666}
+{"bm32_bn": "128", "tag": "T3", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 29.404166666666658, "gemm_kernel_us": 29.404166666666658}
+{"bm32_bn": "128", "tag": "T3", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 672, "kernel_total_us": 9.767833333333291, "gemm_kernel_us": 9.767833333333291}
+{"bm32_bn": "128", "tag": "T12", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 46.20616666666657, "gemm_kernel_us": 46.20616666666657}
+{"bm32_bn": "128", "tag": "T12", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 24.84700000000002, "gemm_kernel_us": 24.84700000000002}
+{"bm32_bn": "128", "tag": "T12", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 86.90325000000007, "gemm_kernel_us": 86.90325000000007}
+{"bm32_bn": "128", "tag": "T12", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 2048, "kernel_total_us": 43.536500000000025, "gemm_kernel_us": 43.536500000000025}
+{"bm32_bn": "128", "tag": "T48", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 106.09100000000001, "gemm_kernel_us": 106.09100000000001}
+{"bm32_bn": "128", "tag": "T48", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 53.031916666666696, "gemm_kernel_us": 53.031916666666696}
+{"bm32_bn": "128", "tag": "T48", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 205.08975, "gemm_kernel_us": 205.08975}
+{"bm32_bn": "128", "tag": "T48", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 4736, "kernel_total_us": 101.9825, "gemm_kernel_us": 101.9825}
+{"bm32_bn": "128", "tag": "T192", "fmt": "fp4", "gemm": 1, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 141.16658333333334, "gemm_kernel_us": 141.16658333333334}
+{"bm32_bn": "128", "tag": "T192", "fmt": "fp4", "gemm": 2, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 71.67424999999996, "gemm_kernel_us": 71.67424999999996}
+{"bm32_bn": "128", "tag": "T192", "fmt": "fp8", "gemm": 1, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 269.2727499999999, "gemm_kernel_us": 269.2727499999999}
+{"bm32_bn": "128", "tag": "T192", "fmt": "fp8", "gemm": 2, "layout": "labels", "align": 32, "m_total": 6496, "kernel_total_us": 135.3041666666667, "gemm_kernel_us": 135.3041666666667}

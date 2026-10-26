@@ -1,0 +1,31 @@
+48 sessions x 6 turns, first-turn context total 4.32M tokens, max 122476
+  t=    15s turns done 1/288 in flight 3
+  t=    30s turns done 4/288 in flight 4
+  t=    45s turns done 8/288 in flight 5
+  t=    60s turns done 12/288 in flight 9
+  t=    75s turns done 19/288 in flight 7
+  t=    90s turns done 24/288 in flight 13
+  t=   105s turns done 31/288 in flight 14
+  t=   120s turns done 37/288 in flight 19
+  t=   135s turns done 43/288 in flight 23
+  t=   150s turns done 55/288 in flight 23
+  t=   165s turns done 65/288 in flight 22
+  t=   180s turns done 68/288 in flight 30
+  t=   195s turns done 80/288 in flight 28
+  t=   210s turns done 90/288 in flight 30
+  t=   225s turns done 96/288 in flight 37
+  t=   240s turns done 106/288 in flight 36
+  t=   255s turns done 113/288 in flight 34
+  t=   270s turns done 125/288 in flight 30
+  t=   285s turns done 133/288 in flight 34
+  t=   300s turns done 171/288 in flight 11
+  t=   315s turns done 196/288 in flight 7
+  t=   330s turns done 220/288 in flight 5
+  t=   345s turns done 239/288 in flight 6
+  t=   360s turns done 257/288 in flight 2
+  t=   375s turns done 272/288 in flight 1
+  t=   390s turns done 280/288 in flight 0
+  t=   405s turns done 283/288 in flight 0
+  t=   420s turns done 287/288 in flight 0
+  t=   435s turns done 288/288 in flight 0
+SUMMARY {"tag": "native48", "url": "http://127.0.0.1:8121", "sessions": 48, "turns": 6, "think": "5,30", "start": "60000,120000", "wall_s": 435.12108421325684, "turns_done": 288, "first_turn_ctx_total_tokens": 4316754, "later_turns": 240, "duration": 600.0, "censored_inflight": 0, "censored_later_waiting": 0, "censored_first_waiting": 0, "later_turns_per_s": 0.5515706057635529, "ttft_later_p50_ms": 3380.146026611328, "ttft_later_p90_ms": 38154.27660942078, "ttft_later_p99_ms": 42733.75582695007, "ttft_later_mean_ms": 13430.674720803896, "ttft_first_mean_ms": 25285.86898247401, "later_recompute_mean": 4343.908333333334, "later_recompute_p50": 4028, "later_recompute_p90": 6678, "later_turns_evicted_gt8k": 1, "later_frac_evicted": 0.004166666666666667, "later_cached_frac": 0.9536193846021613, "ttft_later_nonevicted_p50_ms": 3003.0925273895264, "ttft_later_evicted_p50_ms": 24676.944255828857, "out_tok_s": 123.06919141099274, "computed_prompt_tok_s": 12316.783062099013, "later_computed_prompt_tokens": 1042538, "gpu_prefix_hit_rate": 0.6580648455160951, "external_hit_tokens": 3802736.0, "external_query_tokens": 9162028.0, "total_hit_rate": 0.7999863853347364, "preemptions": 0.0, "kv_usage_max": 0.7589126559714795}

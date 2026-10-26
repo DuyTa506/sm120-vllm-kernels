@@ -1,0 +1,96 @@
+[20261026-003852] start session-cache-verify port 8121 CONFIG=production STOCK=0 DEBUGDUMP=1 VENV=-e VLLM_SESSION_STATE_TTL_S=150 args: --prefix-match-unit 16
+352b1b14793b0766d44282ae6563ffd9f76a0d06f5e5b3628183f7f792f6c40e
+waiting for session-cache-verify on :8121 (CONFIG=production)
+ready
+server up after 138s
++ S=../../results/agentic/trajectories_short_production.json
++ O=verify_results/A
++ mkdir -p verify_results/A
++ python3 verify_state_conc.py ../../results/agentic/trajectories_short_production.json verify_results/A/cases.json --sessions 0,1,2,3,4,5 --turns 7
+{"session": "4-k0", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-4", "n": 1160, "prev_n": null, "cached": 0, "prompt": 1132}
+{"session": "5-k0", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-5", "n": 1162, "prev_n": null, "cached": 0, "prompt": 1134}
+{"session": "2-k0", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-2", "n": 1173, "prev_n": null, "cached": 0, "prompt": 1129}
+{"session": "0-k0", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-0", "n": 1207, "prev_n": null, "cached": 0, "prompt": 1156}
+{"session": "1-k0", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-1", "n": 1180, "prev_n": null, "cached": 0, "prompt": 1128}
+{"session": "3-k0", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-3", "n": 1220, "prev_n": null, "cached": 0, "prompt": 1150}
+{"session": "5-k1", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-5", "n": 1248, "prev_n": 1162, "cached": 1162, "prompt": 1209}
+{"session": "2-k1", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-2", "n": 1239, "prev_n": 1173, "cached": 1172, "prompt": 1211}
+{"session": "4-k1", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-4", "n": 4827, "prev_n": 1160, "cached": 1160, "prompt": 4771}
+{"session": "0-k1", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-0", "n": 4664, "prev_n": 1207, "cached": 1207, "prompt": 4607}
+{"session": "1-k1", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-1", "n": 4336, "prev_n": 1180, "cached": 1180, "prompt": 4290}
+{"session": "3-k1", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-3", "n": 5121, "prev_n": 1220, "cached": 1220, "prompt": 5063}
+{"session": "5-forkB", "turn": "forkB", "kind": "forkB", "sid": "vchk-3708820-1792950070-S-5", "n": 2095, "prev_n": 1248, "cached": 1248, "prompt": 2068}
+{"session": "2-forkB", "turn": "forkB", "kind": "forkB", "sid": "vchk-3708820-1792950070-S-2", "n": 4627, "prev_n": 1239, "cached": 1239, "prompt": 4585}
+{"session": "5-k2", "turn": "forkA", "kind": "forkA", "sid": "vchk-3708820-1792950070-S-5", "n": 2102, "prev_n": 1248, "cached": 1248, "prompt": 2075}
+{"session": "4-forkB", "turn": "forkB", "kind": "forkB", "sid": "vchk-3708820-1792950070-S-4", "n": 7734, "prev_n": 4827, "cached": 4827, "prompt": 7678}
+{"session": "0-forkB", "turn": "forkB", "kind": "forkB", "sid": "vchk-3708820-1792950070-S-0", "n": 4907, "prev_n": 4664, "cached": 4664, "prompt": 4851}
+{"session": "2-k2", "turn": "forkA", "kind": "forkA", "sid": "vchk-3708820-1792950070-S-2", "n": 4634, "prev_n": 1239, "cached": 1239, "prompt": 4592}
+{"session": "3-forkB", "turn": "forkB", "kind": "forkB", "sid": "vchk-3708820-1792950070-S-3", "n": 7098, "prev_n": 5121, "cached": 5121, "prompt": 7041}
+{"session": "4-k2", "turn": "forkA", "kind": "forkA", "sid": "vchk-3708820-1792950070-S-4", "n": 7741, "prev_n": 4827, "cached": 4827, "prompt": 7685}
+{"session": "0-k2", "turn": "forkA", "kind": "forkA", "sid": "vchk-3708820-1792950070-S-0", "n": 4914, "prev_n": 4664, "cached": 4664, "prompt": 4858}
+{"session": "3-k2", "turn": "forkA", "kind": "forkA", "sid": "vchk-3708820-1792950070-S-3", "n": 7105, "prev_n": 5121, "cached": 5121, "prompt": 7048}
+{"session": "5-k3", "turn": "abort_retry", "kind": "abort_retry", "sid": "vchk-3708820-1792950070-S-5", "n": 5977, "prev_n": 2102, "cached": 5904, "prompt": 5922, "aborted_tokens": 4}
+{"session": "0-k3", "turn": "abort_retry", "kind": "abort_retry", "sid": "vchk-3708820-1792950070-S-0", "n": 7879, "prev_n": 4914, "cached": 7808, "prompt": 7831, "aborted_tokens": 4}
+{"session": "5-k4", "turn": "diverge", "kind": "diverge", "sid": "vchk-3708820-1792950070-S-5", "n": 7625, "prev_n": 5977, "cached": 2048, "prompt": 7570, "edit_pos": 2988}
+{"session": "0-k4", "turn": "diverge", "kind": "diverge", "sid": "vchk-3708820-1792950070-S-0", "n": 7980, "prev_n": 7879, "cached": 1136, "prompt": 7920, "edit_pos": 3939}
+{"session": "5-k5", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-5", "n": 8863, "prev_n": 7625, "cached": 7625, "prompt": 8744}
+{"session": "0-k5", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-0", "n": 10084, "prev_n": 7980, "cached": 7980, "prompt": 10023}
+{"session": "0-k6", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-0", "n": 13618, "prev_n": 10084, "cached": 10084, "prompt": 13561}
+{"session": "2-k3", "turn": "abort_retry", "kind": "abort_retry", "sid": "vchk-3708820-1792950070-S-2", "n": 8176, "prev_n": 4634, "cached": 7280, "prompt": 7305, "aborted_tokens": 4}
+{"session": "3-k3", "turn": "abort_retry", "kind": "abort_retry", "sid": "vchk-3708820-1792950070-S-3", "n": 8942, "prev_n": 7105, "cached": 8112, "prompt": 8134, "aborted_tokens": 4}
+{"session": "4-k3", "turn": "abort_retry", "kind": "abort_retry", "sid": "vchk-3708820-1792950070-S-4", "n": 11250, "prev_n": 7741, "cached": 10400, "prompt": 10425, "aborted_tokens": 4}
+{"session": "2-k4", "turn": "diverge", "kind": "diverge", "sid": "vchk-3708820-1792950070-S-2", "n": 8272, "prev_n": 8176, "cached": 1184, "prompt": 8204, "edit_pos": 4088}
+{"session": "5-k6", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-5", "n": 10976, "prev_n": 8863, "cached": 8863, "prompt": 9876}
+{"session": "1-forkB", "turn": "forkB", "kind": "forkB", "sid": "vchk-3708820-1792950070-S-1", "n": 6503, "prev_n": 4336, "cached": 4336, "prompt": 4553}
+{"session": "1-k2", "turn": "forkA", "kind": "forkA", "sid": "vchk-3708820-1792950070-S-1", "n": 6510, "prev_n": 4336, "cached": 4336, "prompt": 4560}
+{"session": "2-k5", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-2", "n": 9081, "prev_n": 8272, "cached": 8272, "prompt": 8364}
+{"session": "1-k3", "turn": "abort_retry", "kind": "abort_retry", "sid": "vchk-3708820-1792950070-S-1", "n": 6670, "prev_n": 6510, "cached": 6512, "prompt": 6538, "aborted_tokens": 4}
+{"session": "4-k4", "turn": "diverge", "kind": "diverge", "sid": "vchk-3708820-1792950070-S-4", "n": 12749, "prev_n": 11250, "cached": 0, "prompt": 11278, "edit_pos": 5625}
+{"session": "4-k5", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-4", "n": 12794, "prev_n": 12749, "cached": 12749, "prompt": 12779}
+{"session": "4-k6", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-4", "n": 13022, "prev_n": 12794, "cached": 12794, "prompt": 12956}
+{"session": "2-k6", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-2", "n": 11271, "prev_n": 9081, "cached": 9081, "prompt": 9109}
+{"session": "1-k4", "turn": "diverge", "kind": "diverge", "sid": "vchk-3708820-1792950070-S-1", "n": 11497, "prev_n": 6670, "cached": 0, "prompt": 9488, "edit_pos": 3335}
+{"session": "3-k4", "turn": "diverge", "kind": "diverge", "sid": "vchk-3708820-1792950070-S-3", "n": 12274, "prev_n": 8942, "cached": 2128, "prompt": 8970, "edit_pos": 4471}
+{"session": "3-k5", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-3", "n": 12320, "prev_n": 12274, "cached": 12273, "prompt": 12305}
+{"session": "3-k6", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-3", "n": 12530, "prev_n": 12320, "cached": 12320, "prompt": 12482}
+{"session": "1-k5", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-1", "n": 13976, "prev_n": 11497, "cached": 11497, "prompt": 11525}
+{"session": "1-k6", "turn": "chain", "kind": "chain", "sid": "vchk-3708820-1792950070-S-1", "n": 14022, "prev_n": 13976, "cached": 13976, "prompt": 14007}
++ docker exec session-cache-verify python3 /w/state_check_analyze.py /tmp/ssdump /w/verify_results/A/cases.json
+Traceback (most recent call last):
+  File "/w/state_check_analyze.py", line 83, in <module>
+    "adopted_prev": c["turn"] > 0 and c["cached"] >= prev_n.get(c["session"], 1 << 30) - 1}
+                    ^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'str' and 'int'
++ python3 -c 'import json; print(json.dumps(json.load(open('\''verify_results/A/state_check.json'\''))['\''summary'\''])[:3000])'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ docker logs session-cache-verify
++ grep 'Session state cache:'
++ tail -2
+(EngineCore pid=336) INFO 10-25 17:42:50 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 24, 'finished': 329, 'hit': 33, 'miss_no_entry': 287, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 9, 'retained_inflight': 41, 'retained_no_inflight': 281, 'skip_status': 6}
+(EngineCore pid=336) INFO 10-25 17:42:51 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 25, 'finished': 330, 'hit': 33, 'miss_no_entry': 288, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 9, 'retained_inflight': 41, 'retained_no_inflight': 282, 'skip_status': 6}
++ python3 verify_leak.py 160 verify_results/A/leak.json
+usage with sessions retained: 0.4563279857397504
+usage after TTL eviction: 0.0017825311942959443
++ docker logs session-cache-verify
++ grep 'Session state cache:'
++ tail -3
+(EngineCore pid=336) INFO 10-25 17:42:50 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 24, 'finished': 329, 'hit': 33, 'miss_no_entry': 287, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 9, 'retained_inflight': 41, 'retained_no_inflight': 281, 'skip_status': 6}
+(EngineCore pid=336) INFO 10-25 17:42:51 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 25, 'finished': 330, 'hit': 33, 'miss_no_entry': 288, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 9, 'retained_inflight': 41, 'retained_no_inflight': 282, 'skip_status': 6}
+(EngineCore pid=336) INFO 10-25 17:45:39 [session_state_cache.py:186] Session state cache: 0 sessions, 0 retained blocks, stats {'evict_max': 26, 'evict_ttl': 256, 'finished': 331, 'hit': 33, 'miss_no_entry': 289, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 9, 'retained_inflight': 41, 'retained_no_inflight': 283, 'skip_status': 6}
+stage exit 0 after 416s
+(EngineCore pid=336) INFO 10-25 17:42:50 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 24, 'finished': 329, 'hit': 33, 'miss_no_entry': 287, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 9, 'retained_inflight': 41, 'retained_no_inflight': 281, 'skip_status': 6}
+(EngineCore pid=336) INFO 10-25 17:42:51 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 25, 'finished': 330, 'hit': 33, 'miss_no_entry': 288, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 9, 'retained_inflight': 41, 'retained_no_inflight': 282, 'skip_status': 6}
+(EngineCore pid=336) INFO 10-25 17:45:39 [session_state_cache.py:186] Session state cache: 0 sessions, 0 retained blocks, stats {'evict_max': 26, 'evict_ttl': 256, 'finished': 331, 'hit': 33, 'miss_no_entry': 289, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 9, 'retained_inflight': 41, 'retained_no_inflight': 283, 'skip_status': 6}

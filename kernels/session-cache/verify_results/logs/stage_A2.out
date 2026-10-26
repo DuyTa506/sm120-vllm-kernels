@@ -1,0 +1,69 @@
+[20261026-013357] start session-cache-verify port 8121 CONFIG=production STOCK=0 DEBUGDUMP=1 VENV=-e VLLM_SESSION_STATE_TTL_S=150 args: --prefix-match-unit 16
+fa6624540340ce49f135b2f2f0235119842ba4775e8fa1931c3f592931509b2a
+waiting for session-cache-verify on :8121 (CONFIG=production)
+ready
+server up after 153s
++ S=../../results/agentic/trajectories_short_production.json
++ O=verify_results/A
++ mkdir -p verify_results/A
++ python3 verify_state_conc.py ../../results/agentic/trajectories_short_production.json verify_results/A/cases.json --sessions 0,1,2,3,4,5 --turns 7
+{"session": "4-k0", "turn": 0, "kind": "chain", "sid": "vchk-3828373-1792953391-S-4", "n": 1160, "prev_n": null, "cached": 0, "prompt": 1132}
+{"session": "5-k0", "turn": 0, "kind": "chain", "sid": "vchk-3828373-1792953391-S-5", "n": 1162, "prev_n": null, "cached": 0, "prompt": 1134}
+{"session": "2-k0", "turn": 0, "kind": "chain", "sid": "vchk-3828373-1792953391-S-2", "n": 1173, "prev_n": null, "cached": 0, "prompt": 1129}
+{"session": "0-k0", "turn": 0, "kind": "chain", "sid": "vchk-3828373-1792953391-S-0", "n": 1207, "prev_n": null, "cached": 0, "prompt": 1156}
+{"session": "1-k0", "turn": 0, "kind": "chain", "sid": "vchk-3828373-1792953391-S-1", "n": 1180, "prev_n": null, "cached": 0, "prompt": 1128}
+{"session": "3-k0", "turn": 0, "kind": "chain", "sid": "vchk-3828373-1792953391-S-3", "n": 1220, "prev_n": null, "cached": 0, "prompt": 1150}
+{"session": "5-k1", "turn": 1, "kind": "chain", "sid": "vchk-3828373-1792953391-S-5", "n": 1234, "prev_n": 1162, "cached": 1161, "prompt": 1209}
+{"session": "2-k1", "turn": 1, "kind": "chain", "sid": "vchk-3828373-1792953391-S-2", "n": 1239, "prev_n": 1173, "cached": 1173, "prompt": 1211}
+{"session": "4-k1", "turn": 1, "kind": "chain", "sid": "vchk-3828373-1792953391-S-4", "n": 4827, "prev_n": 1160, "cached": 1160, "prompt": 4771}
+{"session": "1-k1", "turn": 1, "kind": "chain", "sid": "vchk-3828373-1792953391-S-1", "n": 4336, "prev_n": 1180, "cached": 1180, "prompt": 4290}
+{"session": "0-k1", "turn": 1, "kind": "chain", "sid": "vchk-3828373-1792953391-S-0", "n": 4663, "prev_n": 1207, "cached": 1206, "prompt": 4607}
+{"session": "5-forkB", "turn": 2, "kind": "forkB", "sid": "vchk-3828373-1792953391-S-5", "n": 2081, "prev_n": 1234, "cached": 1234, "prompt": 2054}
+{"session": "3-k1", "turn": 1, "kind": "chain", "sid": "vchk-3828373-1792953391-S-3", "n": 5121, "prev_n": 1220, "cached": 1220, "prompt": 5063}
+{"session": "2-forkB", "turn": 2, "kind": "forkB", "sid": "vchk-3828373-1792953391-S-2", "n": 4627, "prev_n": 1239, "cached": 1239, "prompt": 4585}
+{"session": "5-k2", "turn": 2, "kind": "forkA", "sid": "vchk-3828373-1792953391-S-5", "n": 2088, "prev_n": 1234, "cached": 1234, "prompt": 2061}
+{"session": "4-forkB", "turn": 2, "kind": "forkB", "sid": "vchk-3828373-1792953391-S-4", "n": 7734, "prev_n": 4827, "cached": 4827, "prompt": 7678}
+{"session": "0-forkB", "turn": 2, "kind": "forkB", "sid": "vchk-3828373-1792953391-S-0", "n": 4906, "prev_n": 4663, "cached": 4663, "prompt": 4850}
+{"session": "2-k2", "turn": 2, "kind": "forkA", "sid": "vchk-3828373-1792953391-S-2", "n": 4634, "prev_n": 1239, "cached": 1239, "prompt": 4592}
+{"session": "3-forkB", "turn": 2, "kind": "forkB", "sid": "vchk-3828373-1792953391-S-3", "n": 7098, "prev_n": 5121, "cached": 5121, "prompt": 7041}
+{"session": "4-k2", "turn": 2, "kind": "forkA", "sid": "vchk-3828373-1792953391-S-4", "n": 7741, "prev_n": 4827, "cached": 4827, "prompt": 7685}
+{"session": "0-k2", "turn": 2, "kind": "forkA", "sid": "vchk-3828373-1792953391-S-0", "n": 4913, "prev_n": 4663, "cached": 4663, "prompt": 4857}
+{"session": "3-k2", "turn": 2, "kind": "forkA", "sid": "vchk-3828373-1792953391-S-3", "n": 7105, "prev_n": 5121, "cached": 5121, "prompt": 7048}
+{"session": "5-k3", "turn": 3, "kind": "abort_retry", "sid": "vchk-3828373-1792953391-S-5", "n": 5963, "prev_n": 2088, "cached": 5888, "prompt": 5908, "aborted_tokens": 4}
+{"session": "0-k3", "turn": 3, "kind": "abort_retry", "sid": "vchk-3828373-1792953391-S-0", "n": 7877, "prev_n": 4913, "cached": 7808, "prompt": 7830, "aborted_tokens": 4}
+{"session": "5-k4", "turn": 4, "kind": "diverge", "sid": "vchk-3828373-1792953391-S-5", "n": 7611, "prev_n": 5963, "cached": 2032, "prompt": 7556, "edit_pos": 2981}
+{"session": "0-k4", "turn": 4, "kind": "diverge", "sid": "vchk-3828373-1792953391-S-0", "n": 7978, "prev_n": 7877, "cached": 1136, "prompt": 7918, "edit_pos": 3938}
+{"session": "5-k5", "turn": 5, "kind": "chain", "sid": "vchk-3828373-1792953391-S-5", "n": 8819, "prev_n": 7611, "cached": 7611, "prompt": 8730}
+{"session": "0-k5", "turn": 5, "kind": "chain", "sid": "vchk-3828373-1792953391-S-0", "n": 10081, "prev_n": 7978, "cached": 7978, "prompt": 10021}
+{"session": "0-k6", "turn": 6, "kind": "chain", "sid": "vchk-3828373-1792953391-S-0", "n": 13615, "prev_n": 10081, "cached": 10081, "prompt": 13558}
+{"session": "2-k3", "turn": 3, "kind": "abort_retry", "sid": "vchk-3828373-1792953391-S-2", "n": 8236, "prev_n": 4634, "cached": 7280, "prompt": 7305, "aborted_tokens": 4}
+{"session": "3-k3", "turn": 3, "kind": "abort_retry", "sid": "vchk-3828373-1792953391-S-3", "n": 9002, "prev_n": 7105, "cached": 8112, "prompt": 8134, "aborted_tokens": 4}
+{"session": "2-k4", "turn": 4, "kind": "diverge", "sid": "vchk-3828373-1792953391-S-2", "n": 8332, "prev_n": 8236, "cached": 1184, "prompt": 8264, "edit_pos": 4118}
+{"session": "4-k3", "turn": 3, "kind": "abort_retry", "sid": "vchk-3828373-1792953391-S-4", "n": 11598, "prev_n": 7741, "cached": 10400, "prompt": 10425, "aborted_tokens": 4}
+{"session": "5-k6", "turn": 6, "kind": "chain", "sid": "vchk-3828373-1792953391-S-5", "n": 10932, "prev_n": 8819, "cached": 8819, "prompt": 9832}
+{"session": "1-forkB", "turn": 2, "kind": "forkB", "sid": "vchk-3828373-1792953391-S-1", "n": 6503, "prev_n": 4336, "cached": 4336, "prompt": 4553}
+{"session": "1-k2", "turn": 2, "kind": "forkA", "sid": "vchk-3828373-1792953391-S-1", "n": 6510, "prev_n": 4336, "cached": 4336, "prompt": 4560}
+{"session": "2-k5", "turn": 5, "kind": "chain", "sid": "vchk-3828373-1792953391-S-2", "n": 9141, "prev_n": 8332, "cached": 8331, "prompt": 8424}
+{"session": "1-k3", "turn": 3, "kind": "abort_retry", "sid": "vchk-3828373-1792953391-S-1", "n": 6670, "prev_n": 6510, "cached": 6512, "prompt": 6538, "aborted_tokens": 4}
+{"session": "4-k4", "turn": 4, "kind": "diverge", "sid": "vchk-3828373-1792953391-S-4", "n": 13097, "prev_n": 11598, "cached": 0, "prompt": 11626, "edit_pos": 5799}
+{"session": "4-k5", "turn": 5, "kind": "chain", "sid": "vchk-3828373-1792953391-S-4", "n": 13142, "prev_n": 13097, "cached": 13096, "prompt": 13127}
+{"session": "4-k6", "turn": 6, "kind": "chain", "sid": "vchk-3828373-1792953391-S-4", "n": 13370, "prev_n": 13142, "cached": 13142, "prompt": 13304}
+{"session": "2-k6", "turn": 6, "kind": "chain", "sid": "vchk-3828373-1792953391-S-2", "n": 11331, "prev_n": 9141, "cached": 9140, "prompt": 9169}
+{"session": "3-k4", "turn": 4, "kind": "diverge", "sid": "vchk-3828373-1792953391-S-3", "n": 12334, "prev_n": 9002, "cached": 2128, "prompt": 9030, "edit_pos": 4501}
+{"session": "3-k5", "turn": 5, "kind": "chain", "sid": "vchk-3828373-1792953391-S-3", "n": 12380, "prev_n": 12334, "cached": 12333, "prompt": 12365}
+{"session": "1-k4", "turn": 4, "kind": "diverge", "sid": "vchk-3828373-1792953391-S-1", "n": 11497, "prev_n": 6670, "cached": 0, "prompt": 9488, "edit_pos": 3335}
+{"session": "3-k6", "turn": 6, "kind": "chain", "sid": "vchk-3828373-1792953391-S-3", "n": 12590, "prev_n": 12380, "cached": 12380, "prompt": 12542}
+{"session": "1-k5", "turn": 5, "kind": "chain", "sid": "vchk-3828373-1792953391-S-1", "n": 11585, "prev_n": 11497, "cached": 11497, "prompt": 11525}
+{"session": "1-k6", "turn": 6, "kind": "chain", "sid": "vchk-3828373-1792953391-S-1", "n": 11631, "prev_n": 11585, "cached": 11585, "prompt": 11616}
++ docker exec session-cache-verify python3 /w/state_check_analyze.py /tmp/ssdump /w/verify_results/A/cases.json
++ python3 -c 'import json; print(json.dumps(json.load(open('\''verify_results/A/state_check.json'\''))['\''summary'\''])[:3000])'
+{"snapshots": 48, "with_same_position_reference": 48, "conv_block_shapes": [[5, 8192]], "num_spec_assumed": 2, "paths": {"in_flight": 34, "no_in_flight": 14, "after_adopted_hit": 0}, "separated_ssm": 43, "separated_conv": 44, "same": {"0/conv": {"n": 48, "median": 0.0, "max": 0.8808973431587219, "min": 0.0}, "0/conv_full": {"n": 48, "median": 0.7941911816596985, "max": 1.2868024110794067, "min": 0.34998226165771484}, "0/conv_pos0": {"n": 48, "median": 0.0, "max": 0.664622962474823, "min": 0.0}, "0/conv_pos1": {"n": 48, "median": 0.0, "max": 1.9274080991744995, "min": 0.0}, "0/conv_pos2": {"n": 48, "median": 0.0, "max": 1.9274080991744995, "min": 0.0}, "0/conv_pos3": {"n": 48, "median": 201299345801216.0, "max": 256995659612160.0, "min": 0.5659109354019165}, "0/conv_pos4": {"n": 48, "median": 172537937920000.0, "max": 215859402375168.0, "min": 0.5896331667900085}, "0/ssm": {"n": 48, "median": 0.0023706211941316724, "max": 0.2968561053276062, "min": 0.002077374840155244}, "1/conv": {"n": 48, "median": 0.017074350267648697, "max": 0.6935272216796875, "min": 0.014344762079417706}, "1/conv_full": {"n": 48, "median": 0.8219932019710541, "max": 1.0536830425262451, "min": 0.42228037118911743}, "1/conv_pos0": {"n": 48, "median": 0.016350273974239826, "max": 0.6014147996902466, "min": 0.011320730671286583}, "1/conv_pos1": {"n": 48, "median": 0.017129020765423775, "max": 0.7921244502067566, "min": 0.011704843491315842}, "1/conv_pos2": {"n": 48, "median": 0.018208120949566364, "max": 0.7943714261054993, "min": 0.00996897928416729}, "1/conv_pos3": {"n": 48, "median": 96912636116992.0, "max": 108328722104320.0, "min": 0.6510047316551208}, "1/conv_pos4": {"n": 48, "median": 97542956122112.0, "max": 123762569641984.0, "min": 0.6431495547294617}, "1/ssm": {"n": 48, "median": 0.013271473348140717, "max": 0.3473595976829529, "min": 0.00996919721364975}, "2/conv": {"n": 48, "median": 0.02799013163894415, "max": 0.7203257083892822, "min": 0.021861255168914795}, "2/conv_full": {"n": 48, "median": 0.8127939999103546, "max": 1.0549107789993286, "min": 0.4341137707233429}, "2/conv_pos0": {"n": 48, "median": 0.023925588466227055, "max": 0.6215837597846985, "min": 0.018344877287745476}, "2/conv_pos1": {"n": 48, "median": 0.02599216066300869, "max": 0.8153930306434631, "min": 0.019586866721510887}, "2/conv_pos2": {"n": 48, "median": 0.02888315450400114, "max": 0.83399498462677, "min": 0.017274484038352966}, "2/conv_pos3": {"n": 48, "median": 89524948434944.0, "max": 100599114760192.0, "min": 0.6215797066688538}, "2/conv_pos4": {"n": 48, "median": 85722254016512.0, "max": 106717589274624.0, "min": 0.6685847640037537}, "2/ssm": {"n": 48, "median": 0.027586985379457474, "max": 0.7136117815971375, "min": 0.020251961424946785}, "20/conv": {"n": 48, "median": 0.1396041139960289, "max": 0.7898290753364563, "min": 0.08063799142837524}, "20/conv_full": {"n": 48, "median": 0.8198930621147156, "max": 1.089213490486145, "min": 0.4291093647480011}, "20/conv_pos0": {"n": 48, "median": 0.
++ docker logs session-cache-verify
++ grep 'Session state cache:'
++ tail -2
+(EngineCore pid=338) INFO 10-25 18:38:08 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 24, 'finished': 329, 'hit': 32, 'miss_no_entry': 286, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 10, 'retained_inflight': 34, 'retained_no_inflight': 288, 'skip_status': 6}
+(EngineCore pid=338) INFO 10-25 18:38:09 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 25, 'finished': 330, 'hit': 32, 'miss_no_entry': 287, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 10, 'retained_inflight': 34, 'retained_no_inflight': 289, 'skip_status': 6}
+stage exit 0 after 256s
+(EngineCore pid=338) INFO 10-25 18:38:08 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 23, 'finished': 328, 'hit': 32, 'miss_no_entry': 285, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 10, 'retained_inflight': 34, 'retained_no_inflight': 287, 'skip_status': 6}
+(EngineCore pid=338) INFO 10-25 18:38:08 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 24, 'finished': 329, 'hit': 32, 'miss_no_entry': 286, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 10, 'retained_inflight': 34, 'retained_no_inflight': 288, 'skip_status': 6}
+(EngineCore pid=338) INFO 10-25 18:38:09 [session_state_cache.py:186] Session state cache: 256 sessions, 1024 retained blocks, stats {'evict_max': 25, 'finished': 330, 'hit': 32, 'miss_no_entry': 287, 'miss_prefix_cache_longer': 6, 'miss_prefix_mismatch': 10, 'retained_inflight': 34, 'retained_no_inflight': 289, 'skip_status': 6}

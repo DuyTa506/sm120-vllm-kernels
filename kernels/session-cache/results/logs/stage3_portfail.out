@@ -1,0 +1,6 @@
+[20261025-191457] start session-cache CONFIG=production STOCK=0 SESSION=1 args: 
+72af8b3b731fc8bfc11770193ed71d9169a8922d0d72fbef3212948ce1f10e2d
+docker: Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint session-cache (69477be18c9f3ec848569b0939b239403c32fbde2aa01ad695e08068fe737293): Bind for 127.0.0.1:8117 failed: port is already allocated
+
+Run 'docker run --help' for more information
+server failed

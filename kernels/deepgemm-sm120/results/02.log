@@ -1,0 +1,78 @@
+clocks.current.sm [MHz], clocks.max.sm [MHz], power.draw [W], power.limit [W], memory.used [MiB]
+2887 MHz, 3090 MHz, 97.61 W, 600.00 W, 16 MiB
+
+=== STAGE ours_cold start 17:46:09
+Traceback (most recent call last):
+  File "/work/bench_ours_cold.py", line 16, in <module>
+    raw = load_layer_raw(L)
+          ^^^^^^^^^^^^^^^^^
+  File "/moe/moe_common.py", line 37, in load_layer_raw
+    g, u, d = (get_tensor(q + n + ".weight_packed") for n in ("gate_proj", "up_proj", "down_proj"))
+    ^^^^^^^
+  File "/moe/moe_common.py", line 37, in <genexpr>
+    g, u, d = (get_tensor(q + n + ".weight_packed") for n in ("gate_proj", "up_proj", "down_proj"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/moe/moe_common.py", line 23, in get_tensor
+    wmap = json.load(open(snap() + "model.safetensors.index.json"))["weight_map"] if not _HANDLES.get("_map") else _HANDLES["_map"]
+                          ^^^^^^
+  File "/moe/moe_common.py", line 18, in snap
+    _SNAP = glob.glob("/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/*/")[0]
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+=== STAGE dense2 start 17:46:14
+GPU NVIDIA RTX PRO 6000 Blackwell Workstation Edition SMs 188 pdl default False | 180 MHz, 16.69 W, 32, 576 MiB
+  skinny          18.1 us     2.8 TFLOPS    1392 GB/s
+  skinny          18.1 us     5.6 TFLOPS    1391 GB/s
+  skinny          18.1 us     8.3 TFLOPS    1393 GB/s
+  skinny          18.1 us    11.1 TFLOPS    1394 GB/s
+  skinny          18.1 us    22.2 TFLOPS    1399 GB/s
+  skinny          18.0 us    44.7 TFLOPS    1420 GB/s
+  skinny          21.2 us   151.7 TFLOPS    1265 GB/s
+  skinny           7.6 us     2.2 TFLOPS    1107 GB/s
+  skinny           7.5 us     4.5 TFLOPS    1124 GB/s
+  skinny           7.5 us     6.7 TFLOPS    1127 GB/s
+  skinny           7.6 us     8.9 TFLOPS    1112 GB/s
+  skinny           7.6 us    17.7 TFLOPS    1116 GB/s
+  skinny           7.6 us    35.3 TFLOPS    1119 GB/s
+  skinny           9.1 us   118.4 TFLOPS     983 GB/s
+  skinny          14.2 us     2.7 TFLOPS    1327 GB/s
+  skinny          14.3 us     5.3 TFLOPS    1325 GB/s
+  skinny          14.0 us     8.1 TFLOPS    1353 GB/s
+  skinny          14.2 us    10.6 TFLOPS    1331 GB/s
+  skinny          14.2 us    21.2 TFLOPS    1337 GB/s
+  skinny          14.2 us    42.6 TFLOPS    1354 GB/s
+  skinny           7.1 us     2.4 TFLOPS    1178 GB/s
+  skinny           7.3 us     4.6 TFLOPS    1152 GB/s
+  skinny           7.6 us     6.7 TFLOPS    1113 GB/s
+  skinny           7.6 us     8.9 TFLOPS    1114 GB/s
+  skinny           7.6 us    17.7 TFLOPS    1116 GB/s
+  skinny           7.6 us    35.2 TFLOPS    1117 GB/s
+  skinny           9.7 us   110.9 TFLOPS     921 GB/s
+  skinny         312.9 us     3.3 TFLOPS    1627 GB/s
+  skinny         313.4 us     6.5 TFLOPS    1626 GB/s
+  skinny         314.0 us     9.7 TFLOPS    1624 GB/s
+  skinny         314.6 us    12.9 TFLOPS    1623 GB/s
+  skinny         316.2 us    25.7 TFLOPS    1621 GB/s
+  skinny         318.4 us    51.1 TFLOPS    1622 GB/s
+done 2032 MHz, 493.69 W, 53, 5062 MiB
+
+=== STAGE tests_gemm start 17:47:47
+.......................................
+
+=== STAGE tests_regressions_rest start 17:59:27
+........................................................................ [ 24%]
+........................................................................ [ 49%]
+........................................................................ [ 73%]
+........................................................................ [ 98%]
+....                                                                     [100%]
+============================= slowest 5 durations ==============================
+7.68s call     tests/test_sm120_gemm_regressions.py::test_sm120_grouped_tma_independent_streams[fp8b-psum]
+6.22s call     tests/test_sm120_gemm_regressions.py::test_sm120_split_k[False-none-None-dtype0]
+5.96s call     tests/test_sm120_gemm_regressions.py::test_sm120_grouped_tma_independent_streams[fp8b-labels]
+4.40s call     tests/test_sm120_gemm_regressions.py::test_sm120_legacy_k_alignment[False-fp8_nt-128-ks3]
+4.38s call     tests/test_sm120_gemm_regressions.py::test_sm120_k_psum_adapter[128-fp8_tn]
+292 passed, 51 deselected in 303.33s (0:05:03)
+
+=== STAGE end start 18:04:33
+exit=0
