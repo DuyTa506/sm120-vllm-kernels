@@ -7,6 +7,58 @@ The model is a hybrid: 30 Gated DeltaNet (linear attention) layers, 10 full-atte
 (16 Q / 2 KV heads, head_dim 256, FP8 KV cache) and a 256-expert top-8 MoE in every layer. MoE weights are NVFP4,
 and the attention/GDN projections are FP8. MTP-2 speculative decoding is on.
 
+## Recommended configuration
+
+**`CONFIG=next`**: the tuned scheduler settings plus patches 01-05 (all env-gated, off by default).
+
+```bash
+scripts/build_patched.sh        # builds build/ from patches/vllm-v0.32.0/*.patch
+CONFIG=next scripts/serve.sh --enable-auto-tool-choice --tool-call-parser qwen3_coder --reasoning-parser qwen3 \
+    --gpu-memory-utilization 0.65
+```
+
+| in `next` | flag | measured |
+|---|---|---|
+| CUDA graphs to 16k tokens, `--max-num-batched-tokens 16384` | (settings) | 8k prefill 369 → 163 ms |
+| FP8 attention prefill (01) | `VLLM_SM120_FP8_PREFILL=1` | 163 → 151 ms |
+| GDN in-place output + in-forward checkpoint (02) | `VLLM_GDN_INTERNAL_CKPT=1` | → 133 ms |
+| FP8 attention in one kernel (03) | `VLLM_SM120_FP8_PREFILL_NOGLUE=1` | bitwise identical |
+| 2176-token cache block, 16-token kernel pages (04) | `VLLM_FI_KERNEL_PAGES=16`, `--block-size 2176` | c=64 decode loss of page 64 recovered (~4%) |
+| fused GDN conv + post-conv (05) | `VLLM_GDN_FUSED_CONV=1` | -190 us per layer at 8k, bit-exact |
+
+Result: 8k prefill GPU span 369 → 125 ms (-66%), median 8k TTFT 190 ms (tuned 230). Mixed-load throughput is close to
+`optimized` (+7% on mixed-len, +3% on chat, the rest inside noise); the gain is prefill latency.
+
+Optional, depending on the deployment:
+
+| option | when | note |
+|---|---|---|
+| `--kv-offloading-size N` (GiB of pinned host RAM) | many sessions idle between turns | the tier must hold the whole live working set: 13.3 KB per token; too small is useless |
+| `VLLM_GDN_STATE_REPLAY=1` | about 48 or more concurrent decodes | c=64 ITL -8%, nothing at c <= 16; single-agent check only |
+| `--prefix-match-unit 16` | long single-tenant sessions | verified on `production`, not yet on `next` |
+
+Not included: MoE b12x (kernel gain, no clear end-to-end gain, halves the KV cache), skinny BF16/FP8 GEMMs (0.6 and
+0.15 ms at c=1), fused router, session state cache, PDL, DeepGEMM. Reasons and numbers are in "Kernel work" below.
+
+GPU memory of `next`, measured with `nvidia-smi` on the 95.6 GiB card (a 24k-token prompt adds nothing on top):
+
+| `--gpu-memory-utilization` | used | KV tokens | concurrent 131k sessions |
+|---:|---:|---:|---:|
+| 0.35 | 35.4 GiB | 284,564 | 2.2 |
+| 0.50 | 49.6 GiB | 1,360,734 | 10.4 |
+| 0.65 | 63.9 GiB | 2,436,904 | 18.6 |
+| 0.78 | ~75 GiB | ~3.2M | 24.5 |
+
+Weights take 21.2 GiB and the CUDA graphs 5-6 GiB; the rest is KV. Lower the setting to share the GPU with other models.
+
+Serving notes from a tool-calling test on `next`: vLLM 0.32 returns the reasoning text in the **`reasoning`** field
+(`reasoning_content` is only accepted on input), so clients should read both. With the hybrid cache, a prompt shorter
+than one 2176-token block gets no prefix-cache hit. Thinking costs reasoning tokens even for a simple tool choice
+(231 in one test), and re-sending earlier reasoning in the history made one second turn run to the token limit (n = 1).
+
+Not done yet: a soak test (~30 min of mixed load), restoring KV capacity with `--gpu-memory-utilization 0.8424` at the
+default setting, and the full long-session agentic replay on `next`.
+
 ## Results
 
 <picture>
