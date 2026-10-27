@@ -1,0 +1,1 @@
+Smoke/startup evidence only. Excluded from prefill speedup calculations: CLI warmup/readiness reused the first measured prompt under prefix caching. Runner also aborted before decode/nsys because its source was edited while running. Use corrected A2/B1 runs for latency evidence.

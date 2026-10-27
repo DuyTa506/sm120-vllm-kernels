@@ -1,0 +1,43 @@
+variant=cutlass config=next gpu_util=0.60 nsys=1
+(EngineCore pid=974) INFO 10-27 16:17:20 [nvfp4.py:314] Using 'FLASHINFER_CUTLASS' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTEDSL_BATCHED', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+(EngineCore pid=974) INFO 10-27 16:21:07 [model_runner.py:424] Model loading took 21.22 GiB memory and 228.954601 seconds
+(EngineCore pid=974) INFO 10-27 16:21:07 [utils.py:347] Using LBNHC KV cache layout.
+(EngineCore pid=974) WARNING 10-27 16:22:13 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 10.00% KV cache memory
+(EngineCore pid=974) INFO 10-27 16:22:41 [model_runner.py:1127] Graph capturing finished in 28 secs, took 5.88 GiB
+(EngineCore pid=974) INFO 10-27 16:22:42 [gpu_worker.py:759] Available KV cache memory: 27.52 GiB
+(EngineCore pid=974) INFO 10-27 16:22:42 [gpu_worker.py:774] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.6000 is equivalent to --gpu-memory-utilization=0.5376 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.6624. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(EngineCore pid=974) WARNING 10-27 16:22:42 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 10.00% KV cache memory
+(EngineCore pid=974) INFO 10-27 16:22:42 [kv_cache_utils.py:2327] GPU KV cache size: 2,078,181 tokens, Maximum concurrency for 131,072 tokens per request: 15.86x
+(EngineCore pid=974) INFO 10-27 16:23:43 [model_runner.py:1127] Graph capturing finished in 21 secs, took 4.87 GiB
+
+prefill_8192_101
+Successful requests:                     16        
+Output token throughput (tok/s):         3.71      
+Mean TTFT (ms):                          269.06    
+Median TTFT (ms):                        274.87    
+P99 TTFT (ms):                           307.32    
+Median ITL (ms):                         0.00      
+
+prefill_8192_202
+Successful requests:                     16        
+Output token throughput (tok/s):         3.78      
+Mean TTFT (ms):                          264.14    
+Median TTFT (ms):                        267.54    
+P99 TTFT (ms):                           321.80    
+Median ITL (ms):                         0.00      
+
+prefill_16384_101
+Successful requests:                     16        
+Output token throughput (tok/s):         2.37      
+Mean TTFT (ms):                          421.42    
+Median TTFT (ms):                        429.20    
+P99 TTFT (ms):                           485.54    
+Median ITL (ms):                         0.00      
+
+prefill_16384_202
+Successful requests:                     16        
+Output token throughput (tok/s):         2.28      
+Mean TTFT (ms):                          438.29    
+Median TTFT (ms):                        451.75    
+P99 TTFT (ms):                           518.44    
+Median ITL (ms):                         0.00      

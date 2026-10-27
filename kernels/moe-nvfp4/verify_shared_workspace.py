@@ -179,7 +179,9 @@ def main():
                     assert not torch.count_nonzero(outputs[1])
             # A later call must not overwrite a returned, caller-owned output.
             frozen = [entry[-1][1].clone() for entry in cases]
-            calls[0]()
+            _, prep, x, ids, weights, experts, outputs = cases[-1]
+            fresh_output = torch.empty_like(outputs[1])
+            apply(experts[1], prep, x, ids, weights, fresh_output)
             torch.cuda.synchronize()
             assert all(torch.equal(entry[-1][1], old) for entry, old in zip(cases, frozen))
         del graphs, cases, saved
