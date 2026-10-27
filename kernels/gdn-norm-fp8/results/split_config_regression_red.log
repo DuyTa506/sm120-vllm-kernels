@@ -1,0 +1,19 @@
+F
+======================================================================
+FAIL: test_candidate_only_adds_gdn_to_actual_completed_baseline_splits (__main__.IntegrationGuardsTest.test_candidate_only_adds_gdn_to_actual_completed_baseline_splits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_integration_guards.py", line 68, in test_candidate_only_adds_gdn_to_actual_completed_baseline_splits
+    self.assertEqual([op for op in actual["splitting_ops"] if op != OP], baseline["splitting_ops"])
+AssertionError: Lists differ: ['vll[557 chars]ward'] != ['vll[557 chars]ward', 'vllm::unified_kv_cache_update', 'vllm:[25 chars]ate']
+
+Second list contains 2 additional elements.
+First extra element 17:
+'vllm::unified_kv_cache_update'
+
+Diff is 799 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.072s
+
+FAILED (failures=1)

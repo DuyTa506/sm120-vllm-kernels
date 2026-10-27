@@ -90,7 +90,7 @@ class _GdnDynamicTokenCutlass(CutlassFP8ScaledMMLinearKernel):
         # self.quant_fp8 stays intact as oracle and ordinary Tensor fallback.
         self._quant_out = torch.compile(
             make_raw_quant_out(self.quant_fp8), dynamic=True, fullgraph=True)
-        # Includes size 1, dynamic >=2, max T and every configured graph bucket.
+        # Includes configured mixed buckets AND derived rounded MTP FULL buckets.
         with torch.inference_mode():
             for tokens in self._warmup_sizes:
                 x = torch.zeros((tokens, 4096), device=w.device, dtype=torch.bfloat16)
@@ -153,15 +153,30 @@ def configure_gdn_norm_fp8(layer, vllm_config):
         no_bias=projection.bias is None, return_bias=projection.return_bias,
         compiled_native_quant=_is_compiled_native_quant(getattr(kernel, "quant_fp8", None)),
         split_boundary=f"vllm::{OP_NAME}" in splits,
-        standard_splits=set(compilation._attention_ops).issubset(splits),
+        standard_splits=set(compilation._attention_ops).union({
+            "vllm::unified_kv_cache_update", "vllm::unified_mla_kv_cache_update"
+        }).issubset(splits),
         no_partition=not compilation.use_inductor_graph_partition,
+        baseline_passes=(not compilation.pass_config.fuse_attn_quant
+                         and not compilation.pass_config.fuse_rope_kvcache
+                         and not compilation.pass_config.fuse_qk_norm_rope_kvcache
+                         and compilation.pass_config.fuse_rope_kvcache_cat_mla is False),
+        fixed_decode_capture=(vllm_config.speculative_config is not None
+                              and vllm_config.speculative_config.method == "mtp"
+                              and not vllm_config.speculative_config.uses_dynamic_speculative_decoding()
+                              and not vllm_config.parallel_config.enable_dbo),
     )
     rejection = configuration_rejection(spec)
     if rejection is not None:
         logger.info("GDN norm-FP8 disabled for %s: %s", layer.prefix, rejection)
         return
-    warmups = fallback_warmup_sizes(compilation.cudagraph_capture_sizes or (),
-                                   vllm_config.scheduler_config.max_num_batched_tokens)
+    warmups = fallback_warmup_sizes(
+        compilation.cudagraph_capture_sizes or (),
+        vllm_config.scheduler_config.max_num_batched_tokens,
+        decode_query_len=vllm_config.num_speculative_tokens + 1,
+        max_num_seqs=vllm_config.scheduler_config.max_num_seqs,
+        max_capture_size=compilation.max_cudagraph_capture_size,
+    )
     try:
         adapted = _GdnDynamicTokenCutlass(kernel, layer, warmups)
     except (TypeError, ValueError) as exc:
@@ -199,7 +214,11 @@ def packed_norm_fp8(layer, mixed_qkvz, ba, core, q, scale, metadata):
         if not kernel._ready or kernel._quant_out is None:
             raise RuntimeError("Compiled QuantFP8 was not warmed before capture")
         if torch.cuda.is_current_stream_capturing() and tokens not in kernel._warmup_sizes:
-            raise RuntimeError("Unwarmed GDN fallback CUDA graph shape")
+            raise RuntimeError(
+                f"Unwarmed GDN fallback CUDA graph shape: layer={layer.prefix}, "
+                f"tokens={tokens}, actual_tokens={actual}, "
+                f"num_prefills={metadata.num_prefills}, warmed_tokens={kernel._warmup_sizes}"
+            )
         # Baseline quantizes all padded rows, after normalizing actual rows.
         kernel._quant_out(core.flatten(-2), q, scale)
         return

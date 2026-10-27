@@ -4,13 +4,13 @@
   "validated_kernel_source": "kernels/gdn-norm-fp8/fused_explicit.py",
   "validated_kernel_sha256": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
   "files": {
-    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "cce563b943dabf871f358c1ed4633f9297db4ac7a9c5db45e4f98dcb331e78a2",
-    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "2fee3aed884d0f254cad50531de83eb0448997caca0f47084a0f25f4884a6e03",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "29a7cecdefb0d24e1f046ff4c4cc3ec8bb6346d885609aad8d39943a4941ffe4",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "9cef6757348438119660376cac9e7efba25a5595b439ea62265ad32df8885d73",
     "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
     "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
     "overlay/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c"
   },
-  "scope": "Unmounted default-off packed overlay; CPU tests only; stateful GPU integration untested",
+  "scope": "Default-off packed overlay; first GPU smoke reached30 ready/QA-CUTLASS graph but failed capture warmup coverage; CPU fix prepared, repeat GPU smoke pending",
   "required_env": {
     "VLLM_GDN_NORM_FP8_FUSION": "1"
   },
@@ -24,5 +24,15 @@
     "fullgraph": true,
     "backend": "torch.compile default (inductor)",
     "options": null
-  }
+  },
+  "warmup_coverage": "T1/T2/maxT/configured buckets plus MRV2 fixed-MTP rounded FULL descriptors bounded by max_num_seqs and max capture size; runtime membership guard retained",
+  "integration_config_sha256": "b168c23d8111f917bd63fc9a5d27eadf0859b25965a45ebcf20418ea651d5bed",
+  "required_baseline_split_count": 19,
+  "required_candidate_split_count": 20,
+  "required_pass_config": {
+    "fuse_rope_kvcache_cat_mla": false
+  },
+  "capture_planner_report": "results/capture_sizes_cpu_audit.json",
+  "captured_configuration_warmup_count": 81,
+  "split_config_report": "results/integration_config_cpu_audit.json"
 }

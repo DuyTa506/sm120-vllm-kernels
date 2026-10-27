@@ -1,9 +1,12 @@
 # Default-off packed GDN overlay
 
 The isolated overlay is ready for review and scheduled GPU integration tests.
-It has not been mounted or tested in a serving process. The frozen explicit
-kernel passes the standalone checks summarized in README; that does not
-validate this new stateful custom-op boundary.
+The first owned GPU smoke reached all 30 ready layers and compiled the QA
+consumer path, but failed during FULL graph profiling because derived MTP
+capture sizes were missing from startup warmup. The CPU-verified correction
+is described in `results/CAPTURE_WARMUP_FIX.md`; GPU rerun remains pending.
+The frozen explicit kernel passes standalone checks, which do not validate
+this new stateful custom-op boundary.
 
 The actual MTP2 serving FX contains 30 calls to
 `qwen_gdn_attention_core_fused_norm_packed`. That op calls the existing fused
@@ -67,10 +70,16 @@ unquantized branch, and the supported piecewise split configuration. The
 original compiled QuantFP8 callable is verified by its wrapped raw method.
 Unsupported configurations leave the original producer path enabled.
 
-Post-load startup constructs and warms the validated output wrapper for T1, T2, maximum scheduled
-T and every configured graph bucket. It also warms the explicit kernel's
+Post-load startup constructs and warms the validated output wrapper for T1,
+T2, maximum scheduled T, every configured graph bucket, and each derived
+uniform-decode bucket. MRV2 rounds configured sizes up to the fixed MTP
+query length, bounded by max sequences and maximum capture size. The stored
+config list stays unchanged, so warming only that list is insufficient.
+The candidate requires fixed MTP and disables itself for dynamic speculative
+schedules or DBO, whose additional shape laws are outside this experiment. It also warms the explicit kernel's
 prefill layout with the actual X/Z strides. It refuses startup under stream
-capture and rejects unwarmed graph buckets in the runtime fallback. Warming
+capture and rejects unwarmed graph buckets in the runtime fallback with the
+actual padded T, actual-token count, prefill count and complete warmup list. Warming
 is startup GPU work when the overlay is eventually enabled, not work run by
 the CPU preparation. Real graph startup must still prove no nested compilation
 occurs during capture; warming alone is not that proof.
@@ -84,8 +93,12 @@ The new custom op mutates caller-owned core/Q/S, has a fake implementation,
 and uses `eager_break_during_capture`. Its split name must be supplied **before
 VllmConfig construction**; the helper never mutates a hashed config later.
 `integration_config.py` reads the installed source with AST, preserves the
-provided base JSON and all 17 standard attention split ops, and adds the new
-name. `results/integration_compilation_config.json` records that source hash
+provided base JSON and all 19 completed baseline split ops (17 attention
+ops plus two KV-update ops), and adds the new name. It explicitly preserves
+`pass_config.fuse_rope_kvcache_cat_mla=False`. The first generator skipped
+default completion and changed this pass; the source-derived correction and
+regression are recorded in `results/SPLIT_CONFIG_FIX.md`. Unsupported explicit
+base split/pass configurations are rejected. `results/integration_compilation_config.json` records that source hash
 and the emitted default merge.
 
 ```sh
@@ -103,7 +116,9 @@ emitted JSON via `--compilation-config`. Use a distinct compilation cache and
 retain the selected MoE stack/configuration for the incremental comparison.
 The flag defaults to zero. This note does not modify root's server lifecycle.
 
-CPU tests cover all configuration rejections, dispatch thresholds, large
+CPU tests cover exact installed split/pass completion, MRV2 descriptor coverage, the initial missing
+186-token case, request/capture bounds, diagnostic guard failures, all
+configuration rejections, dispatch thresholds, large
 pure-decode fallback, metadata-free zeros, padded tails with NaN padded Z,
 original-core delegation, strided Z offset 8192, mutating fake schema and one
 dynamic CPU Dynamo graph over T3/31/1025. They do not execute the CUDA op.

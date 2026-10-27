@@ -2,7 +2,13 @@
 
 The explicit-layout candidate passes the recorded standalone exact checks;
 the original automatic-layout candidate fails. Serving integration is a
-separate, default-off overlay and has **not** been tested on GPU.
+separate, default-off overlay. Its first GPU smoke reached all 30 ready
+layers and the QA→CUTLASS graph, then failed on a derived MTP capture size.
+The warmup planner is corrected and CPU-verified; a GPU rerun is pending.
+See [`results/CAPTURE_WARMUP_FIX.md`](results/CAPTURE_WARMUP_FIX.md).
+The first generator also missed two baseline KV-update split ops;
+[`results/SPLIT_CONFIG_FIX.md`](results/SPLIT_CONFIG_FIX.md) records that
+configuration correction and its CPU regression.
 
 The GPU run ledger is [`results/EXPLICIT_GPU.md`](results/EXPLICIT_GPU.md).
 Recorded results are summarized in

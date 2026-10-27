@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_warmup_covers_installed_mtp_full_capture_descriptors (__main__.IntegrationGuardsTest.test_warmup_covers_installed_mtp_full_capture_descriptors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_integration_guards.py", line 42, in test_warmup_covers_installed_mtp_full_capture_descriptors
+    self.assertTrue(set(descriptors["FULL"]).issubset(warmed),
+AssertionError: False is not true : Unwarmed actual FULL descriptors: [3, 6, 9, 18, 33, 42, 57, 66, 81, 90, 105, 114, 129, 138, 153, 162, 177, 186]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.038s
+
+FAILED (failures=1)

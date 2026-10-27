@@ -1,8 +1,9 @@
 """CPU-only contracts and opaque-op dispatch checks; never launch Triton/vLLM."""
 import ast
+import enum
 import importlib.util
 from pathlib import Path
-from types import SimpleNamespace
+from types import MethodType, SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -23,7 +24,84 @@ def extract_function(name, namespace, source="gdn_norm_fp8_fusion.py"):
     return namespace[name]
 
 
+def resolve_installed_split_defaults(base, compilation_source, vllm_source):
+    """Run the installed split completion/predicate without platform imports."""
+    tree = ast.parse(compilation_source)
+    cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "CompilationConfig")
+    enums = [n for n in tree.body if isinstance(n, ast.ClassDef)
+             and n.name in ("CompilationMode", "CUDAGraphMode")]
+    methods = [n for n in cls.body if isinstance(n, ast.FunctionDef)
+               and n.name in ("set_splitting_ops_for_v1", "splitting_ops_contain_kv_cache_update")]
+    attention = ast.literal_eval(next(n.value for n in cls.body if isinstance(n, ast.AnnAssign)
+                                      and isinstance(n.target, ast.Name) and n.target.id == "_attention_ops"))
+    mla = next(n for n in ast.parse(vllm_source).body if isinstance(n, ast.FunctionDef)
+               and n.name == "enable_rope_kvcache_mla_fusion")
+    ns = dict(enum=enum, logger=SimpleNamespace(warning_once=lambda *a:None, info=lambda *a:None))
+    exec(compile(ast.Module(body=[*enums, *methods, mla], type_ignores=[]), "installed_config_methods", "exec"), ns)
+    passes = dict(fuse_attn_quant=False, fuse_rope_kvcache=False, fuse_qk_norm_rope_kvcache=False)
+    passes.update(base.get("pass_config", {}))
+    cfg = SimpleNamespace(mode=ns["CompilationMode"].VLLM_COMPILE,
+                          cudagraph_mode=ns["CUDAGraphMode"].FULL_AND_PIECEWISE,
+                          use_inductor_graph_partition=False,
+                          splitting_ops=base.get("splitting_ops"),
+                          pass_config=SimpleNamespace(**passes), _attention_ops=attention)
+    cfg.splitting_ops_contain_kv_cache_update = MethodType(ns["splitting_ops_contain_kv_cache_update"], cfg)
+    if "fuse_rope_kvcache_cat_mla" not in passes:
+        cfg.pass_config.fuse_rope_kvcache_cat_mla = ns["enable_rope_kvcache_mla_fusion"](SimpleNamespace(compilation_config=cfg))
+    ns["set_splitting_ops_for_v1"](cfg, "allgather_reducescatter", 1)
+    return dict(splitting_ops=cfg.splitting_ops, pass_config=vars(cfg.pass_config))
+
+
 class IntegrationGuardsTest(unittest.TestCase):
+    def test_candidate_only_adds_gdn_to_actual_completed_baseline_splits(self):
+        from integration_config import OP, add_split
+        source_root = Path("/usr/local/lib/python3.12/dist-packages/vllm/config")
+        compilation = (source_root / "compilation.py").read_text()
+        vllm = (source_root / "vllm.py").read_text()
+        baseline = resolve_installed_split_defaults({}, compilation, vllm)
+        self.assertEqual(len(baseline["splitting_ops"]), 19)
+        self.assertEqual(baseline["splitting_ops"][-2:],
+                         ["vllm::unified_kv_cache_update", "vllm::unified_mla_kv_cache_update"])
+        self.assertIs(baseline["pass_config"]["fuse_rope_kvcache_cat_mla"], False)
+        generated, _ = add_split({}, compilation)
+        actual = resolve_installed_split_defaults(generated, compilation, vllm)
+        self.assertEqual([op for op in actual["splitting_ops"] if op != OP], baseline["splitting_ops"])
+        self.assertEqual(actual["pass_config"], baseline["pass_config"])
+        custom_base = {"backend": "inductor", "debug_dump_path": "/tmp/gdn-test",
+                       "splitting_ops": [*baseline["splitting_ops"], "test::existing"],
+                       "pass_config": {"fuse_norm_quant": False}}
+        kept, _ = add_split(custom_base, compilation)
+        self.assertEqual(kept["splitting_ops"], [*custom_base["splitting_ops"], OP])
+        self.assertEqual(kept["debug_dump_path"], "/tmp/gdn-test")
+        self.assertIs(kept["pass_config"]["fuse_norm_quant"], False)
+        self.assertNotIn("fuse_rope_kvcache_cat_mla", custom_base["pass_config"])
+        for invalid in ({"splitting_ops": []}, {"use_inductor_graph_partition": True},
+                        {"pass_config": {"fuse_rope_kvcache_cat_mla": True}}):
+            with self.assertRaises(ValueError):
+                add_split(invalid, compilation)
+
+    def test_warmup_covers_installed_mtp_full_capture_descriptors(self):
+        from audit_capture_sizes import installed_capture_descriptors
+        g = load_guards()
+        # The integration failure occurs on the second descending FULL profile
+        # descriptor: configured 184 is rounded to 186 for 3-token MTP queries.
+        sizes = [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88,
+                 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184,
+                 192, 200, 256, 1024, 16384]
+        descriptors, _ = installed_capture_descriptors(sizes, 16384, 64, 3)
+        self.assertEqual(descriptors["FULL"][:2], [192, 186])
+        warmed = g.fallback_warmup_sizes(sizes, 16384, decode_query_len=3,
+                                         max_num_seqs=64, max_capture_size=16384)
+        self.assertTrue(set(descriptors["FULL"]).issubset(warmed),
+                        f"Unwarmed actual FULL descriptors: {sorted(set(descriptors['FULL'])-set(warmed))}")
+        self.assertTrue(set(descriptors["PIECEWISE"]).issubset(warmed))
+        # Round-up respects both request and maximum-token bounds.
+        self.assertEqual(g.fallback_warmup_sizes([1, 2, 4, 8], 16,
+                         decode_query_len=3, max_num_seqs=2, max_capture_size=8),
+                         [1, 2, 3, 4, 6, 8, 16])
+        with self.assertRaises(ValueError):
+            g.fallback_warmup_sizes([1, 2], 16, decode_query_len=3)
+
     def test_configuration_and_dispatch(self):
         g = load_guards()
         valid = dict.fromkeys(g.CONFIGURATION_KEYS, True)
@@ -64,7 +142,7 @@ class IntegrationGuardsTest(unittest.TestCase):
         quant_out = make_out(SimpleNamespace(forward_native=quant))
         kernel = SimpleNamespace(_ready=True, _warmup_sizes=(64, 1050),
                                  quant_fp8=quant, _quant_out=quant_out)
-        layer = SimpleNamespace(_gdn_norm_fp8_enabled=True, _gdn_norm_fp8_sm_count=188,
+        layer = SimpleNamespace(prefix="test.linear_attn", _gdn_norm_fp8_enabled=True, _gdn_norm_fp8_sm_count=188,
                                 norm=SimpleNamespace(weight=torch.ones(128, dtype=torch.bfloat16)),
                                 out_proj=SimpleNamespace(scheme=SimpleNamespace(fp8_linear=kernel)))
         def prepare(total, actual):
@@ -92,6 +170,11 @@ class IntegrationGuardsTest(unittest.TestCase):
         self.assertEqual(events, [("original",), ("quant", (64, 4096))])
         self.assertTrue((args[3][31:].view(torch.uint8) == 0).all())
         self.assertTrue((args[4][31:] == g.SCALE_FLOOR).all())
+        kernel._warmup_sizes = (3,)
+        with patch.object(torch.cuda, "is_current_stream_capturing", return_value=True):
+            with self.assertRaisesRegex(RuntimeError, r"tokens=64, actual_tokens=31.*warmed_tokens=\(3,\)"):
+                run(layer, *args, SimpleNamespace(num_actual_tokens=31, num_prefills=0))
+        kernel._warmup_sizes = (64, 1050)
         events.clear()
         layer.split_ba = lambda x: x.split([32, 32], dim=-1)
         def core(**kw):

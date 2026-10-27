@@ -18,8 +18,12 @@
     "vllm::sparse_attn_indexer",
     "vllm::rocm_aiter_sparse_attn_indexer",
     "vllm::deepseek_v4_attention",
-    "vllm::hpc_rope_norm_forward"
+    "vllm::hpc_rope_norm_forward",
+    "vllm::unified_kv_cache_update",
+    "vllm::unified_mla_kv_cache_update"
   ],
+  "baseline_split_count": 19,
+  "candidate_split_count": 20,
   "candidate": {
     "splitting_ops": [
       "vllm::unified_attention_with_output",
@@ -39,8 +43,13 @@
       "vllm::rocm_aiter_sparse_attn_indexer",
       "vllm::deepseek_v4_attention",
       "vllm::hpc_rope_norm_forward",
+      "vllm::unified_kv_cache_update",
+      "vllm::unified_mla_kv_cache_update",
       "vllm::gdn_attention_core_norm_fp8_packed_experimental"
-    ]
+    ],
+    "pass_config": {
+      "fuse_rope_kvcache_cat_mla": false
+    }
   },
   "cuda_imported": false
 }

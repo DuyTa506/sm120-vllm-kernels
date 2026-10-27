@@ -1,0 +1,129 @@
+{
+  "cuda_imported": false,
+  "source_sha256": {
+    "compilation.py": "d8a8086166e3f344b75d98d8350a77592f7b6c145319b3a9f0b9c8cb36bc39cb",
+    "vllm.py": "573692a80364d5c373321754c6213b4792ae292ba6aea7d6573ae013c2c71ae9"
+  },
+  "baseline": {
+    "splitting_ops": [
+      "vllm::unified_attention_with_output",
+      "vllm::unified_mla_attention_with_output",
+      "vllm::mamba_mixer2",
+      "vllm::mamba_mixer",
+      "vllm::short_conv",
+      "vllm::qwen4_exp_ple_short_conv",
+      "vllm::qwen4_exp_qsa_with_output",
+      "vllm::qwen4_exp_qsa_prepare_with_output",
+      "vllm::linear_attention",
+      "vllm::qwen_gdn_attention_core",
+      "vllm::qwen_gdn_attention_core_fused_norm_packed",
+      "vllm::gdn_attention_core_xpu",
+      "vllm::olmo_hybrid_gdn_full_forward",
+      "vllm::sparse_attn_indexer",
+      "vllm::rocm_aiter_sparse_attn_indexer",
+      "vllm::deepseek_v4_attention",
+      "vllm::hpc_rope_norm_forward",
+      "vllm::unified_kv_cache_update",
+      "vllm::unified_mla_kv_cache_update"
+    ],
+    "pass_config": {
+      "fuse_attn_quant": false,
+      "fuse_rope_kvcache": false,
+      "fuse_qk_norm_rope_kvcache": false,
+      "fuse_rope_kvcache_cat_mla": false
+    }
+  },
+  "first_failed_candidate": {
+    "splitting_ops": [
+      "vllm::unified_attention_with_output",
+      "vllm::unified_mla_attention_with_output",
+      "vllm::mamba_mixer2",
+      "vllm::mamba_mixer",
+      "vllm::short_conv",
+      "vllm::qwen4_exp_ple_short_conv",
+      "vllm::qwen4_exp_qsa_with_output",
+      "vllm::qwen4_exp_qsa_prepare_with_output",
+      "vllm::linear_attention",
+      "vllm::qwen_gdn_attention_core",
+      "vllm::qwen_gdn_attention_core_fused_norm_packed",
+      "vllm::gdn_attention_core_xpu",
+      "vllm::olmo_hybrid_gdn_full_forward",
+      "vllm::sparse_attn_indexer",
+      "vllm::rocm_aiter_sparse_attn_indexer",
+      "vllm::deepseek_v4_attention",
+      "vllm::hpc_rope_norm_forward",
+      "vllm::gdn_attention_core_norm_fp8_packed_experimental"
+    ],
+    "pass_config": {
+      "fuse_attn_quant": false,
+      "fuse_rope_kvcache": false,
+      "fuse_qk_norm_rope_kvcache": false,
+      "fuse_rope_kvcache_cat_mla": true
+    }
+  },
+  "corrected_candidate": {
+    "splitting_ops": [
+      "vllm::unified_attention_with_output",
+      "vllm::unified_mla_attention_with_output",
+      "vllm::mamba_mixer2",
+      "vllm::mamba_mixer",
+      "vllm::short_conv",
+      "vllm::qwen4_exp_ple_short_conv",
+      "vllm::qwen4_exp_qsa_with_output",
+      "vllm::qwen4_exp_qsa_prepare_with_output",
+      "vllm::linear_attention",
+      "vllm::qwen_gdn_attention_core",
+      "vllm::qwen_gdn_attention_core_fused_norm_packed",
+      "vllm::gdn_attention_core_xpu",
+      "vllm::olmo_hybrid_gdn_full_forward",
+      "vllm::sparse_attn_indexer",
+      "vllm::rocm_aiter_sparse_attn_indexer",
+      "vllm::deepseek_v4_attention",
+      "vllm::hpc_rope_norm_forward",
+      "vllm::unified_kv_cache_update",
+      "vllm::unified_mla_kv_cache_update",
+      "vllm::gdn_attention_core_norm_fp8_packed_experimental"
+    ],
+    "pass_config": {
+      "fuse_attn_quant": false,
+      "fuse_rope_kvcache": false,
+      "fuse_qk_norm_rope_kvcache": false,
+      "fuse_rope_kvcache_cat_mla": false
+    }
+  },
+  "emitted_candidate": {
+    "splitting_ops": [
+      "vllm::unified_attention_with_output",
+      "vllm::unified_mla_attention_with_output",
+      "vllm::mamba_mixer2",
+      "vllm::mamba_mixer",
+      "vllm::short_conv",
+      "vllm::qwen4_exp_ple_short_conv",
+      "vllm::qwen4_exp_qsa_with_output",
+      "vllm::qwen4_exp_qsa_prepare_with_output",
+      "vllm::linear_attention",
+      "vllm::qwen_gdn_attention_core",
+      "vllm::qwen_gdn_attention_core_fused_norm_packed",
+      "vllm::gdn_attention_core_xpu",
+      "vllm::olmo_hybrid_gdn_full_forward",
+      "vllm::sparse_attn_indexer",
+      "vllm::rocm_aiter_sparse_attn_indexer",
+      "vllm::deepseek_v4_attention",
+      "vllm::hpc_rope_norm_forward",
+      "vllm::unified_kv_cache_update",
+      "vllm::unified_mla_kv_cache_update",
+      "vllm::gdn_attention_core_norm_fp8_packed_experimental"
+    ],
+    "pass_config": {
+      "fuse_rope_kvcache_cat_mla": false
+    }
+  },
+  "baseline_split_count": 19,
+  "candidate_split_count": 20,
+  "exact_methods": [
+    "CompilationConfig.set_splitting_ops_for_v1",
+    "CompilationConfig.splitting_ops_contain_kv_cache_update",
+    "enable_rope_kvcache_mla_fusion"
+  ],
+  "scope": "Executes the installed relevant default-completion methods with the observed mode3/no-partition/no-attn-quant configuration; no full VllmConfig/platform construction, GPU or server launch"
+}
