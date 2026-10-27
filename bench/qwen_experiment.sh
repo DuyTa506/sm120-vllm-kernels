@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Run inside the docker group. Owns one disposable server for one experiment.
-# Usage: qwen_experiment.sh TAG next|shared|shared_exact|scalar|shared_exact_gdn|scalar_gdn serving|quality|individual|diagnostic|decode_greedy|agentic
+# Usage: qwen_experiment.sh TAG next|shared|shared_exact|scalar|shared_exact_gdn|scalar_gdn serving|quality|individual|focused|diagnostic|decode_greedy|agentic
 # Agentic is a separate final-combination stage; individual never runs it.
 set -euo pipefail
 D=$(cd "$(dirname "$0")/.." && pwd)
@@ -8,7 +8,7 @@ TAG=${1:?tag required}
 VAR=${2:?variant required}
 SUITE=${3:?suite required}
 [[ $TAG =~ ^[a-zA-Z0-9_-]+$ ]] || { echo "invalid tag" >&2; exit 2; }
-case $SUITE in serving|quality|individual|diagnostic|decode_greedy|agentic) ;; *) echo "invalid suite" >&2; exit 2;; esac
+case $SUITE in serving|quality|individual|focused|diagnostic|decode_greedy|agentic) ;; *) echo "invalid suite" >&2; exit 2;; esac
 case $VAR in next|shared|shared_exact|scalar|shared_exact_gdn|scalar_gdn) ;; *) echo "unvalidated/unknown variant" >&2; exit 2;; esac
 O=$D/results/qwen_sequential/$TAG
 NAME=qwen-exp-$TAG
@@ -20,7 +20,7 @@ FI_CONTROL=${FI_CONTROL:-0}
 FI_SOURCE_SHA=7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3
 GREEDY_DECODE=${GREEDY_DECODE:-0}
 [[ $GREEDY_DECODE == 0 || $GREEDY_DECODE == 1 ]] || { echo "invalid GREEDY_DECODE" >&2; exit 2; }
-if [[ $SUITE == decode_greedy ]]; then GREEDY_DECODE=1; fi
+if [[ $SUITE == decode_greedy || $SUITE == focused ]]; then GREEDY_DECODE=1; fi
 NLL_ROUNDS=${NLL_ROUNDS:-0}
 [[ $NLL_ROUNDS =~ ^[0-9]+$ ]] || { echo "invalid NLL_ROUNDS" >&2; exit 2; }
 if [[ $SUITE == diagnostic && $GREEDY_DECODE == 0 && $NLL_ROUNDS == 0 ]]; then
@@ -127,6 +127,12 @@ if [[ $SUITE == serving || $SUITE == individual ]]; then
   python3 -I "$D/bench/serving_matrix.py" --container "$NAME" \
     --output-dir "$O/serving" --base-url "$BENCH_URL" --suite all \
     > "$O/serving.log" 2>&1
+fi
+if [[ $SUITE == focused ]]; then
+  # Repeat the unchanged prefill sweep and greedy decode; no throughput or agentic.
+  python3 -I "$D/bench/serving_matrix.py" --container "$NAME" \
+    --output-dir "$O/serving" --base-url "$BENCH_URL" --suite prefill \
+    > "$O/prefill.log" 2>&1
 fi
 if [[ $SUITE == quality || $SUITE == individual ]]; then
   python3 -I "$K/verify_logprobs.py" dump "$O/logprobs.json" > "$O/logprobs.log" 2>&1

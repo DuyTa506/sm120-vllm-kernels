@@ -339,3 +339,10 @@ microbenchmarks alone do not satisfy this request.
   confirmed live with exact scalar_gdn_matched_3 argv. Owned servercontainer is
   running and serving summary advances. Observe these processes/result markers;
   do not restart the experiment because the old tool handle disappeared.
+
+
+### 2026-10-27 21:34 UTC: focused composition repeat
+
+The full scalar/GDN composition completed with exit 0, all 17 serving cases, four greedy decode cases, 20/20 needles and 30 cold NLL calls. Incremental effects are mixed: 32k TTFT -7.6%, long-doc throughput +9.1%, but 8k TTFT +7.4% and c=64 greedy throughput -8.7%. GDN is not selected. A reversed-order focused repeat runs GDN first, scalar second, using all six unchanged prefill cases, four unchanged greedy cases and five cold NLL rounds. It omits the seven sampled throughput workloads and agentic. The default full17 comparator remains unchanged in scope; explicit `--suite prefill` validates only the six-case suite. CPU preflight and source hashes are recorded in `results/qwen_sequential/focused_repeat_cpu_preflight.json`.
+
+Offline route controls fixed_aux_c1 and fixed_full_c1 have terminated with output-comparison failures; both owned shutdown APIs completed and the GPU is empty. Their FI/structural findings are being audited separately. No routing optimization is selected. Agentic remains the final next-versus-selected-composition pair only.

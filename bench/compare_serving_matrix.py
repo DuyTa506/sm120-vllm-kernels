@@ -21,10 +21,10 @@ MATRIX,IDENTITY=GREEDY.MATRIX,GREEDY.IDENTITY
 require=IDENTITY.require
 
 
-def validate_matrix(data, manifest, read, text):
+def validate_matrix(data, manifest, read, text, suite="all"):
     args=dict(manifest["arguments"]);args.setdefault("temperature",None)
-    require(args["suite"]=="all", "not a full serving suite")
-    cases=MATRIX.scenarios("all",args["seed_offset"])
+    require(suite in ("all", "prefill") and args["suite"]==suite, "unexpected serving suite")
+    cases=MATRIX.scenarios(suite,args["seed_offset"])
     require(manifest["scenarios"]==json.loads(json.dumps([asdict(c) for c in cases])),
             "unexpected full-matrix shapes/counts/seeds")
     require(data["status"]=="passed" and not data.get("error") and len(data["results"])==len(cases),
@@ -64,17 +64,17 @@ def validate_matrix(data, manifest, read, text):
     return {"expected_lengths":targets,"normalized_commands":normalized}
 
 
-def load(path):
+def load(path, suite="all"):
     root=Path(path); hashes={}
     def text(relative):
         content=(root/relative).read_bytes();hashes[relative]=hashlib.sha256(content).hexdigest();return content.decode()
     def read(relative):return json.loads(text(relative))
     require(text("exit_code.txt").strip()=="0",f"experiment did not complete successfully: {root}")
-    prefix="serving/serving_matrix_all/"
+    prefix=f"serving/serving_matrix_{suite}/"
     data,manifest=read(prefix+"summary.json"),read(prefix+"manifest.json")
     runtime=IDENTITY.load(root,text,read,allow_legacy_sources=True)
     require(manifest["arguments"]["container"]=="qwen-exp-"+root.name,"request/container identity mismatch")
-    validated=validate_matrix(data,manifest,lambda name:read(prefix+name),lambda name:text(prefix+name))
+    validated=validate_matrix(data,manifest,lambda name:read(prefix+name),lambda name:text(prefix+name),suite)
     data["comparison_validation"]={**validated,"runtime":runtime,"input_sha256":hashes}
     return root,root/prefix,data,manifest,runtime["config"]
 
@@ -106,11 +106,11 @@ def change(before, after):
     return f"{100 * (after / before - 1):+.1f}%" if before else "—"
 
 
-def preflight():
+def preflight(suite="all"):
     import copy
-    files={};cases=MATRIX.scenarios("all",0)
-    args=MATRIX.parser().parse_args(["--container","qwen-exp-fixture","--output-dir","/fixture","--suite","all"])
-    remote="/bench-results/serving_matrix_all";nonce="fixture"
+    files={};cases=MATRIX.scenarios(suite,0)
+    args=MATRIX.parser().parse_args(["--container","qwen-exp-fixture","--output-dir","/fixture","--suite",suite])
+    remote=f"/bench-results/serving_matrix_{suite}";nonce="fixture"
     manifest={"arguments":vars(args),"scenarios":json.loads(json.dumps([asdict(c) for c in cases])),
               "run_nonce":nonce,"container_result_dir":remote,"commands":[]}
     summaries=[];events=[];targets={}
@@ -135,22 +135,27 @@ def preflight():
     files["events.jsonl"]="\n".join(json.dumps(x) for x in events)
     files["expected_output_lengths.json"]={"cases":targets}
     data={"status":"passed","results":summaries,"error":None}
-    validate_matrix(data,manifest,files.__getitem__,files.__getitem__)
+    validate_matrix(data,manifest,files.__getitem__,files.__getitem__,suite)
     rejected=0
     fixtures=[("summary",lambda d:d["results"].__setitem__(1,d["results"][0])),
               ("manifest",lambda d:d["scenarios"][0].update(prompts=1)),
               ("manifest",lambda d:d["commands"][1]["command"].append("--temperature")),
-              ("files",lambda d:d["long-doc.measured.json"].update(output_lens=[1]*8)),
-              ("files",lambda d:d["mixed-len.measured.json"]["output_lens"].__setitem__(0,1)),
               ("files",lambda d:d["prefill-8192.measured.json"].update(completed=7)),
               ("files",lambda d:d["events.jsonl"] and d.update({"events.jsonl":d["events.jsonl"].replace('"returncode": 0','"returncode": 1',1)}))]
+    if suite == "all":
+        fixtures += [("files",lambda d:d["long-doc.measured.json"].update(output_lens=[1]*8)),
+                     ("files",lambda d:d["mixed-len.measured.json"]["output_lens"].__setitem__(0,1))]
+    else:
+        try:validate_matrix(data,manifest,files.__getitem__,files.__getitem__)
+        except ValueError:rejected+=1
+        else:raise AssertionError("prefill-only fixture accepted as full17 suite")
     for target,mutate in fixtures:
         values={"summary":copy.deepcopy(data),"manifest":copy.deepcopy(manifest),"files":copy.deepcopy(files)}
         mutate(values[target])
-        try:validate_matrix(values["summary"],values["manifest"],values["files"].__getitem__,values["files"].__getitem__)
+        try:validate_matrix(values["summary"],values["manifest"],values["files"].__getitem__,values["files"].__getitem__,suite)
         except ValueError:rejected+=1
         else:raise AssertionError("malformed full-matrix fixture accepted")
-    print(json.dumps({"status":"passed","mode":"cpu_preflight","scenarios":17,
+    print(json.dumps({"status":"passed","mode":"cpu_preflight","suite":suite,"scenarios":len(cases),
                       "malformed_fixtures_rejected":rejected,"gpu_work":False,"http_requests":0}))
 
 
@@ -158,12 +163,13 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("baseline",nargs="?");parser.add_argument("candidate",nargs="?")
     parser.add_argument("--preflight",action="store_true")
+    parser.add_argument("--suite",choices=("all","prefill"),default="all")
     parser.add_argument("--output-prefix",type=Path)
     args=parser.parse_args()
     if args.preflight:
-        preflight();return
+        preflight(args.suite);return
     require(args.baseline and args.candidate,"baseline and candidate required")
-    a,b=load(args.baseline),load(args.candidate)
+    a,b=load(args.baseline,args.suite),load(args.candidate,args.suite)
     av,bv=a[2]["comparison_validation"],b[2]["comparison_validation"]
     changes=IDENTITY.compare(av["runtime"],bv["runtime"],allow_legacy_sources=True)
     for key in ("expected_lengths","normalized_commands"):
@@ -181,6 +187,7 @@ def main():
     emit("Validated source/config differences: `" + json.dumps(changes,sort_keys=True) + "`")
     emit("\n" + IDENTITY.format_startup_memory(changes["startup_memory_context"]))
     for suite in ("throughput", "prefill", "decode"):
+        if not any(row["suite"]==suite for row in a[2]["results"]):continue
         emit(f"\n**{suite}**\n")
         emit("| task | total tok/s baseline / candidate | change | TTFT p50 ms baseline / candidate | change | ITL p50 ms baseline / candidate | output tok/s change | MTP acceptance baseline / candidate |")
         emit("|---|---:|---:|---:|---:|---:|---:|---:|")

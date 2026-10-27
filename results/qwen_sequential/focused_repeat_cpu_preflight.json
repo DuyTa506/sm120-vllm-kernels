@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "cpu_only": true,
+  "checks": [
+    {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "suite": "all",
+      "scenarios": 17,
+      "malformed_fixtures_rejected": 7,
+      "gpu_work": false,
+      "http_requests": 0
+    },
+    {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "suite": "prefill",
+      "scenarios": 6,
+      "malformed_fixtures_rejected": 6,
+      "gpu_work": false,
+      "http_requests": 0
+    }
+  ],
+  "shell_syntax_valid": true,
+  "completed_full_pair_table_unchanged": true,
+  "source_sha256": {
+    "bench/qwen_experiment.sh": "c8631723bc2da3da0343cd0b5914878d90e8fd4fff311c25dc7baadeb95ba9f1",
+    "bench/compare_serving_matrix.py": "1582f66bb9d3cd87851c33b3fcb1a9d6b4587d56ded96372688574a39622d289"
+  },
+  "scope": "focused suite reuses all6 existing prefill cases plus4 existing greedy cases; full17 default unchanged; no agentic per patch"
+}
