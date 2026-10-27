@@ -1,4 +1,4 @@
-# Targeted packed GDN state probe: initialization failure retained
+# Targeted packed GDN state probe: probe3 prepared, GPU pending
 
 The first owned GPU attempt (`packed_state_probe_1`) exited1 during MTP model
 construction, before hook installation or comparisons. The fixture forced
@@ -11,6 +11,23 @@ The probe2 fixture now explicitly uses auto MoE and CPU preflight rejects a
 forced backend with these four mounts. Its GPU attempt requires separate scheduling.
 Failure1 sources are retained in `results/packed_state_probe_1_sources/`. This failure provides no GDN
 numerical or state-parity result.
+
+Probe2 reached the checks and exited1 because no pure long-prefill case was
+observed. Its mixed-spec case (2045 prefill+3 speculative tokens) and pure
+decode case both had exact Q/S and private cache bytes at T/T+17, correct
+padded tails, padding invariance and unchanged full live caches. Its status
+remains incomplete, with no checkpoint coverage; see
+`results/packed_state_probe_2_summary.json`. The baseline forward's packed-op
+condition depends only on the model MTP flag and dtypes, not batch metadata.
+The observed scheduling produced short-only prefill, then mixed long-prefill
+chunks and decode; it did not bypass the hook for a pure long prefill.
+
+Probe3 preserves that mixed workload and adds one sequential cold long-only
+8192-token/one-output request before finishing the aggregate report. Its
+explicit unique `cache_salt` is verified against the installed `TokensPrompt`
+schema and prevents reuse of the preceding long request's prefix. Numerical
+and coverage checks are unchanged; the worker hash is unchanged from probe2.
+Probe3 has not run on GPU.
 
 This separate probe compares the overlay's `packed_norm_fp8` against the
 unchanged baseline `_forward_core_fused_norm_packed` plus **explicitly compiled
@@ -101,8 +118,8 @@ ownership label and successful result are in
 **Only after root grants the exclusive GPU slot:**
 
 ```sh
-sg docker -c 'python3 kernels/gdn-norm-fp8/run_packed_state_probe.py --run-gpu --output-dir kernels/gdn-norm-fp8/results/packed_state_probe_2' \
-  > kernels/gdn-norm-fp8/results/packed_state_probe_2.log 2>&1
+sg docker -c 'python3 kernels/gdn-norm-fp8/run_packed_state_probe.py --run-gpu --output-dir kernels/gdn-norm-fp8/results/packed_state_probe_3' \
+  > kernels/gdn-norm-fp8/results/packed_state_probe_3.log 2>&1
 ```
 
 The local snapshot must exist under `/opt/intramind/hf-cache` (override
@@ -121,12 +138,12 @@ container; no slot release is reported while it may be alive. Manual recovery
 is recorded and still leaves the run failed. There are no process-name kills
 or HTTP calls.
 
-Twenty CPU isolation/route/runner/backend/cleanup regressions pass, including
+Twenty-one CPU isolation/route/runner/backend/cleanup/workload regressions pass, including
 stop failure/timeout, ownership change, daemon failure, force-removal failure,
 in-flight created containers, and a real temporary-file flock test proving
 the lock stays held until cleanup recovery is verified. The mounted probe2
 preflight exits0 with runtime_source_ready=true and imports neither Torch nor
-vLLM; `results/packed_state_probe_2_guarded_preparation.json` records current hashes
+vLLM; `results/packed_state_probe_3_preparation.json` records current hashes
 and the fresh mounted preflight with verified container removal. They cover null/negative
 index remapping, optional index fields, nested checkpoint/scratch copies,
 proxy method binding, original-hook preservation, live-cache independence,

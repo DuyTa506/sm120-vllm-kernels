@@ -1,0 +1,35 @@
+{
+  "status": "CPU_PREPARED_PROBE3_GPU_PENDING",
+  "cpu_tests": 21,
+  "cuda_initialized": false,
+  "change": "Keep mixed batch, then isolated8192-token/one-output request with distinct cache_salt before aggregate finish. Numerical checks, coverage and worker unchanged.",
+  "mounted_preflight_exit_code": 0,
+  "mounted_cleanup": {
+    "container": "gdn-private-state-17445865ae6949af9d2f1871715f2f2c",
+    "actions": [],
+    "observations": [
+      {
+        "absent": true,
+        "verified_stopped": true,
+        "error": "error: no such object: gdn-private-state-17445865ae6949af9d2f1871715f2f2c"
+      }
+    ],
+    "verified_stopped": true,
+    "status": "verified_stopped"
+  },
+  "runtime_source_ready": true,
+  "torch_imported": false,
+  "vllm_imported": false,
+  "token_prompt_cache_salt_schema_checked": true,
+  "packed_dispatch_condition": "self.enable_fused_gdn_spec_decode and hidden_states.dtype == torch.bfloat16 and (self.norm.weight.dtype in (torch.bfloat16, torch.float32))",
+  "packed_dispatch_baseline_sha256": "c82a390240c77032414d916ed705780716cd696f90722eb99eb89419f0aa262c",
+  "probe_source_sha256": {
+    "probe_packed_state.py": "568ceee7a9f2092922c59933753242b35c8efd39c9417b11ebef0ab50761c6b2",
+    "packed_state_probe_worker.py": "e4559196e22ba71bb0212c4df7bc141545ea15a358c21b25ecfa7457eb6fd9bc",
+    "packed_state_probe_utils.py": "bf446ec3e6b20b7a62cf19781043a38fb57b24b37652c4a15e3de3061a7c87d1",
+    "run_packed_state_probe.py": "3258a970d025a656266f99f1f752a57a2a112b66835f5e8a9e46b521e1bfda24",
+    "test_packed_state_probe.py": "e3eb205c7f86cf3e97dc0f95540e47947e15ce9db688a1cde9ea7735db52a972"
+  },
+  "probe3_gpu_execution_performed": false,
+  "prior_attempt_status": "Probe2 remains incomplete despite exact checked mixed/decode cases."
+}

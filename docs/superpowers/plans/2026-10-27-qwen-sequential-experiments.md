@@ -302,7 +302,16 @@ microbenchmarks alone do not satisfy this request.
   throughput -1.4% to+5.2%, greedy rate -3.70% to+3.67%. Single configuration
   pair only; scalar py_email30k NLL+0.002717 vsnext overlaps observed ranges,
   while scalar-vs-exact flag remains. Logged nextKV44.61GiB vs45.50 for bothMoE.
-- LIVE AGENT GPU session67555: guarded private GDN packed_state_probe_2;
+- INCOMPLETE AGENT GPU session67555 (exit1, missing pure-long coverage): guarded private GDN packed_state_probe_2;
   exactly one granted attempt after root99954 cleanup/GPU vacancy. Runner uses
   immutable owned IDs for stop/removal, verified cleanup before lock release.
   No other GPU job. Next planned full serving candidate is scalar_gdn.
+
+- GDN probe2 checked mixed_spec actual2048 (prefill2045+spec3) and puredecode6,
+  each T/T+17: Q/S/private conv+SSM bits exact, padding invariant, live cache
+  unchanged. It did not observe pure-long prefill, so coverage gate correctly
+  fails. Owned container absent/compute empty; source copies match runtime hashes.
+  Agent prepares a separate cold long-only request without weakening checks.
+- LIVE AGENT GPU session23142: offline fixed_plain_c1 control only, 192 tokens,
+  original immutable route-control FI table and strict observed-lookup coverage.
+  No aux/full automatic chain. GDN probe3 CPU-only preparation runs in parallel.

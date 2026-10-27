@@ -1,0 +1,15 @@
+....Owned container cleanup is unverified or in progress; GPU lock retained until it is stopped.
+..............E..
+======================================================================
+ERROR: test_separate_cold_long_phase_completes_aggregate_coverage (__main__.IsolationTests.test_separate_cold_long_phase_completes_aggregate_coverage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 144, in test_separate_cold_long_phase_completes_aggregate_coverage
+    from probe_packed_state import request_phases
+ImportError: cannot import name 'request_phases' from 'probe_packed_state' (/work/kernels/gdn-norm-fp8/probe_packed_state.py)
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.012s
+
+FAILED (errors=1)
+{"status": "CPU_FAIL", "tests_run": 21, "cuda_initialized": false}

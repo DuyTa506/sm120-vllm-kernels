@@ -104,7 +104,7 @@ def main():
     group.add_argument("--preflight", action="store_true")
     parser.add_argument("--gpu", type=int, default=0)
     parser.add_argument("--hf-cache", type=Path, default=Path("/opt/intramind/hf-cache"))
-    parser.add_argument("--output-dir", type=Path, default=HERE / "results/packed_state_probe_2")
+    parser.add_argument("--output-dir", type=Path, default=HERE / "results/packed_state_probe_3")
     parser.add_argument("--lock", type=Path, default=Path(os.environ.get("GPU_LOCK", str(LOCK))))
     args = parser.parse_args()
     run_id = uuid.uuid4().hex

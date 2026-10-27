@@ -140,6 +140,27 @@ class IsolationTests(unittest.TestCase):
         for variant in large["variants"]: variant["route"] = "fused"
         self.assertTrue(coverage_requirements(cases + [large])["complete"])
 
+    def test_separate_cold_long_phase_completes_aggregate_coverage(self):
+        from probe_packed_state import request_phases
+        from packed_state_probe_worker import coverage_requirements
+        ids = list(range(8192))
+        phases = request_phases(ids, "owned-run")
+        self.assertEqual(len(phases), 2)
+        self.assertEqual([len(p["prompt_token_ids"]) for p in phases[0]["prompts"]], [64, 8192])
+        self.assertEqual(phases[0]["output_tokens"], 32)
+        self.assertEqual(len(phases[1]["prompts"]), 1)
+        self.assertEqual(phases[1]["prompts"][0]["prompt_token_ids"], ids)
+        salt = phases[1]["prompts"][0]["cache_salt"]
+        self.assertTrue(salt)
+        self.assertNotIn(salt, [p.get("cache_salt") for p in phases[0]["prompts"]])
+        self.assertNotEqual(salt, request_phases(ids, "another-run")[1]["prompts"][0]["cache_salt"])
+        self.assertEqual(phases[1]["output_tokens"], 1)
+        cases = [{"kind": "mixed_spec", "metadata": {"num_actual_tokens": 2048},
+                  "variants": [{"added_padding": p, "route": "fused"} for p in (0, 17)]},
+                 {"kind": "pure_decode"}]
+        self.assertFalse(coverage_requirements(cases)["complete"])
+        self.assertTrue(coverage_requirements(cases + [{"kind": "long_prefill"}])["complete"])
+
     def test_float_nan_comparison_is_bitwise(self):
         x = torch.tensor([float("nan"), -0.0])
         self.assertEqual(byte_mismatches(x, x.clone()), 0)

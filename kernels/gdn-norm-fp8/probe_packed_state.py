@@ -43,6 +43,16 @@ def validate_fixture_backend(options, mounted_sources):
         raise ValueError("Four baseline next mounts lack the unquantized MTP compatibility patch; use auto MoE")
 
 
+def request_phases(ids, run_id):
+    if len(ids) != 8192: raise ValueError("State fixture requires8192 local prompt tokens")
+    return [
+        {"name": "mixed_batch", "output_tokens": 32,
+         "prompts": [{"prompt_token_ids": list(ids[:64])}, {"prompt_token_ids": list(ids)}]},
+        {"name": "isolated_long", "output_tokens": 1,
+         "prompts": [{"prompt_token_ids": list(ids), "cache_salt": run_id + ":isolated-long"}]},
+    ]
+
+
 def preflight(snapshot):
     validate_fixture_backend(engine_options(snapshot, 0.78), MOUNTS)
     ids, prompt = local_prompt(snapshot, 8192)
@@ -61,6 +71,7 @@ def preflight(snapshot):
         "forward_context.py": ("def override_forward_context(", "prev_context = _forward_context"),
         "v1/worker/worker_base.py": ("worker_extension_cls",),
         "entrypoints/llm.py": ("def collective_rpc(",),
+        "inputs/llm.py": ("cache_salt: NotRequired[str]",),
         "v1/engine/core_client.py": ("def shutdown(self, timeout:",),
         "v1/attention/backends/gdn_attn.py": ("class GDNAttentionMetadata:", "prefill_state_indices"),
     }.items():
@@ -84,7 +95,7 @@ def main():
     mode.add_argument("--run-gpu", action="store_true")
     mode.add_argument("--preflight", action="store_true")
     parser.add_argument("--snapshot", type=Path, default=SNAPSHOT)
-    parser.add_argument("--output-dir", type=Path, default=HERE / "results/packed_state_probe_2")
+    parser.add_argument("--output-dir", type=Path, default=HERE / "results/packed_state_probe_3")
     parser.add_argument("--gpu-memory-utilization", type=float, default=0.78)
     args = parser.parse_args()
     if not args.run_gpu and not args.preflight:
@@ -123,19 +134,26 @@ def main():
         result = llm.collective_rpc("gdn_state_probe_install", timeout=90, args=(str(directory), run_id))
         if len(result) != 1: raise RuntimeError("Expected exactly one worker")
         installed = True; manifest["installation"] = result[0]
-        # Short first: decode can overlap the remaining chunks of the long prompt.
-        prompts = [ids[:64], ids]
-        outputs = llm.generate([{"prompt_token_ids": p} for p in prompts], SamplingParams(
-            temperature=0.0, max_tokens=32, min_tokens=32, ignore_eos=True), use_tqdm=False)
-        if len(outputs) != 2 or any(not out.finished or list(out.prompt_token_ids) != p
-                or len(out.outputs) != 1 or len(out.outputs[0].token_ids) != 32
-                for out, p in zip(outputs, prompts)):
-            raise RuntimeError("The two exact-length requests did not finish")
+        manifest["phases"] = []
+        manifest["output_token_ids"] = []
+        # Keep the mixed workload intact, then require cold long-only scheduling.
+        # The distinct salt prevents its identical token IDs hitting the prior prefix.
+        for phase in request_phases(ids, run_id):
+            prompts, count = phase["prompts"], phase["output_tokens"]
+            outputs = llm.generate(prompts, SamplingParams(
+                temperature=0.0, max_tokens=count, min_tokens=count, ignore_eos=True), use_tqdm=False)
+            if len(outputs) != len(prompts) or any(not out.finished
+                    or list(out.prompt_token_ids) != prompt["prompt_token_ids"]
+                    or len(out.outputs) != 1 or len(out.outputs[0].token_ids) != count
+                    for out, prompt in zip(outputs, prompts)):
+                raise RuntimeError(f"Exact-length requests did not finish: {phase['name']}")
+            manifest["phases"].append({"name": phase["name"], "prompt_lengths": [len(p["prompt_token_ids"]) for p in prompts],
+                                       "cache_salts": [p.get("cache_salt") for p in prompts], "output_tokens_each": count})
+            manifest["output_token_ids"].extend([list(out.outputs[0].token_ids) for out in outputs])
         result = llm.collective_rpc("gdn_state_probe_finish", timeout=90)
         installed = False
         if len(result) != 1: raise RuntimeError("Expected exactly one report")
         manifest["worker"] = result[0]
-        manifest["output_token_ids"] = [list(out.outputs[0].token_ids) for out in outputs]
         if result[0]["status"] != "complete": raise RuntimeError("Required observed long/mixed/decode coverage missing")
         manifest["status"] = "complete"
     except BaseException as exc:
