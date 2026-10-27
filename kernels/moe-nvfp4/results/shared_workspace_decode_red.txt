@@ -1,0 +1,56 @@
+F
+=================================== FAILURES ===================================
+__________________ test_decode_bypass_does_not_allocate_b12x ___________________
+
+backend = <module 'b12x_candidate' from '/work/kernels/moe-nvfp4/shared/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py'>
+
+    def test_decode_bypass_does_not_allocate_b12x(backend):
+        expert = make_expert(backend, device="cpu")
+        x = torch.ones((3, 2048), dtype=torch.bfloat16)
+        output = torch.empty_like(x)
+    
+        def cutlass(output, hidden_states, *args):
+            output.copy_(hidden_states)
+    
+        expert._apply_cutlass = cutlass
+        # CUTLASS numerical correctness is unchanged. This test catches allocation
+        # before the small-batch return, without compiling an unrelated GEMM.
+        with patch.object(expert, "_ensure_wrapper", side_effect=AssertionError("b12x initialized on decode")):
+>           expert.apply(output, x, None, None, None, None, None, 256, None,
+                         None, None, None, None, None, False)
+
+test_shared_workspace.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+shared/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py:398: in apply
+    self._ensure_wrapper()
+/usr/lib/python3.12/unittest/mock.py:1134: in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/unittest/mock.py:1138: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <MagicMock name='_ensure_wrapper' id='127247251642256'>, args = ()
+kwargs = {}
+
+    def _execute_mock_call(self, /, *args, **kwargs):
+        # separate from _increment_mock_call so that awaited functions are
+        # executed separately from their call, also AsyncMock overrides this method
+    
+        effect = self.side_effect
+        if effect is not None:
+            if _is_exception(effect):
+>               raise effect
+E               AssertionError: b12x initialized on decode
+
+/usr/lib/python3.12/unittest/mock.py:1193: AssertionError
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED test_shared_workspace.py::test_decode_bypass_does_not_allocate_b12x - ...
+1 failed, 14 warnings in 64.94s (0:01:04)

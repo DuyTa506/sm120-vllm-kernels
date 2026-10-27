@@ -1,0 +1,165 @@
+second_layer_extra_mib=579.652
+F.FFFF.
+=================================== FAILURES ===================================
+___________ test_identical_layers_do_not_duplicate_large_gpu_buffers ___________
+
+backend = <module 'b12x_candidate' from '/work/kernels/moe-nvfp4/shared/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py'>
+
+    def test_identical_layers_do_not_duplicate_large_gpu_buffers(backend):
+        a, b = make_expert(backend), make_expert(backend)
+        wa = wrapper(a)
+        before = torch.cuda.memory_allocated()
+        wb = wrapper(b)
+        extra = torch.cuda.memory_allocated() - before
+        print(f"second_layer_extra_mib={extra / 2**20:.3f}")
+>       assert extra < 16 * 2**20, "scratch allocation still grows per layer"
+E       AssertionError: scratch allocation still grows per layer
+E       assert 607809536 < (16 * (2 ** 20))
+
+test_shared_workspace.py:75: AssertionError
+____________________ test_same_layer_resolves_current_lane _____________________
+
+backend = <module 'b12x_candidate' from '/work/kernels/moe-nvfp4/shared/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py'>
+
+    def test_same_layer_resolves_current_lane(backend):
+        expert = make_expert(backend, 1024)
+        first = wrapper(expert)
+        first._moe_output.fill_(3)
+        with ws.use_workspace_lane(1):
+            other = wrapper(expert)
+            other._moe_output.fill_(5)
+>       assert torch.all(first._moe_output == 3), "lane 1 overwrote lane 0"
+E       AssertionError: lane 1 overwrote lane 0
+E       assert tensor(False, device='cuda:0')
+E        +  where tensor(False, device='cuda:0') = <built-in method all of type object at 0x7d7c4f3f4f20>(tensor([[5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]...        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]], device='cuda:0', dtype=torch.bfloat16) == 3)
+E        +    where <built-in method all of type object at 0x7d7c4f3f4f20> = torch.all
+E        +    and   tensor([[5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]...        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]], device='cuda:0', dtype=torch.bfloat16) = <flashinfer.fused_moe.cute_dsl.b12x_moe.B12xMoEWrapper object at 0x7d769a7de8d0>._moe_output
+
+test_shared_workspace.py:99: AssertionError
+___________________ test_same_layer_resolves_current_ubatch ____________________
+
+backend = <module 'b12x_candidate' from '/work/kernels/moe-nvfp4/shared/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py'>
+
+    def test_same_layer_resolves_current_ubatch(backend):
+        expert = make_expert(backend, 1024)
+        with patch.object(ws, "dbo_current_ubatch_id", return_value=0):
+            first = wrapper(expert)
+            first._moe_output.fill_(3)
+        with patch.object(ws, "dbo_current_ubatch_id", return_value=1):
+            other = wrapper(expert)
+            other._moe_output.fill_(5)
+>       assert torch.all(first._moe_output == 3), "ubatch 1 overwrote ubatch 0"
+E       AssertionError: ubatch 1 overwrote ubatch 0
+E       assert tensor(False, device='cuda:0')
+E        +  where tensor(False, device='cuda:0') = <built-in method all of type object at 0x7d7c4f3f4f20>(tensor([[5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]...        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]], device='cuda:0', dtype=torch.bfloat16) == 3)
+E        +    where <built-in method all of type object at 0x7d7c4f3f4f20> = torch.all
+E        +    and   tensor([[5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]...        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]], device='cuda:0', dtype=torch.bfloat16) = <flashinfer.fused_moe.cute_dsl.b12x_moe.B12xMoEWrapper object at 0x7d769a640920>._moe_output
+
+test_shared_workspace.py:111: AssertionError
+________ test_lock_reuses_existing_resources_but_rejects_unwarmed_owner ________
+
+backend = <module 'b12x_candidate' from '/work/kernels/moe-nvfp4/shared/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py'>
+
+    def test_lock_reuses_existing_resources_but_rejects_unwarmed_owner(backend):
+        expert = make_expert(backend, 1024)
+        first = wrapper(expert)
+        ws.lock_workspace()
+        assert wrapper(expert) is first
+>       with ws.use_workspace_lane(1), pytest.raises(AssertionError, match="locked"):
+E       Failed: DID NOT RAISE AssertionError
+
+test_shared_workspace.py:119: Failed
+________________ test_reset_does_not_reuse_old_manager_buffers _________________
+
+backend = <module 'b12x_candidate' from '/work/kernels/moe-nvfp4/shared/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py'>
+
+    def test_reset_does_not_reuse_old_manager_buffers(backend):
+        expert = make_expert(backend, 1024)
+        first = wrapper(expert)
+        first._moe_output.fill_(3)
+        ws.reset_workspace_manager()
+        ws.init_workspace_manager(torch.device("cuda:0"))
+        second = wrapper(expert)
+        second._moe_output.fill_(5)
+>       assert torch.all(first._moe_output == 3)
+E       AssertionError: assert tensor(False, device='cuda:0')
+E        +  where tensor(False, device='cuda:0') = <built-in method all of type object at 0x7d7c4f3f4f20>(tensor([[5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]...        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]], device='cuda:0', dtype=torch.bfloat16) == 3)
+E        +    where <built-in method all of type object at 0x7d7c4f3f4f20> = torch.all
+E        +    and   tensor([[5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]...        [5., 5., 5.,  ..., 5., 5., 5.],\n        [5., 5., 5.,  ..., 5., 5., 5.]], device='cuda:0', dtype=torch.bfloat16) = <flashinfer.fused_moe.cute_dsl.b12x_moe.B12xMoEWrapper object at 0x7d7b59135940>._moe_output
+
+test_shared_workspace.py:131: AssertionError
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell/blockscaled_contiguous_gather_grouped_gemm_act_fusion.py:3446: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell/moe_w4a16_kernel.py:2326: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/hopper/utils.py:29: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/hopper/utils.py:31: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/hopper/utils.py:34: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:903: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    a_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/hopper/contiguous_grouped_gemm_finalize_fusion.py:905: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    b_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:427: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    epi_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/gemm/kernels/grouped_gemm_masked_blackwell.py:2391: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/gemm/kernels/cute_dsl/low_latency_blockscaled_gemm.py:102: DeprecationWarning: cutlass.utils.smem_allocator.get_smem_capacity_in_bytes is deprecated; use cutlass.memory.get_smem_capacity_in_bytes instead. It will be removed in a future release.
+    _SMEM_CAPACITY_BYTES = cutlass.utils.get_smem_capacity_in_bytes("sm_100")
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/gemm/kernels/grouped_gemm_masked_rubin.py:215: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    c_layout: utils.LayoutEnum,
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/gdn_kernels/blackwell/gated_delta_net_chunked.py:95: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/gdn_kernels/delta_rule_dsl/collective_store_tma.py:6: DeprecationWarning: cutlass.utils.tensormap_manager.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils.tensormap_manager import TensorMapManager, TensorMapUpdateMode
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/gdn_kernels/blackwell/gated_delta_net_cp_prefill.py:55: DeprecationWarning: cutlass.utils.TensorMapUpdateMode is deprecated; use cutlass.tensor_utils.TensorMapUpdateMode instead. It will be removed in a future release.
+    from cutlass.utils import TensorMapManager, TensorMapUpdateMode
+
+test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+  /usr/local/lib/python3.12/dist-packages/flashinfer/cute_dsl/availability.py:136: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED test_shared_workspace.py::test_identical_layers_do_not_duplicate_large_gpu_buffers
+FAILED test_shared_workspace.py::test_same_layer_resolves_current_lane - Asse...
+FAILED test_shared_workspace.py::test_same_layer_resolves_current_ubatch - As...
+FAILED test_shared_workspace.py::test_lock_reuses_existing_resources_but_rejects_unwarmed_owner
+FAILED test_shared_workspace.py::test_reset_does_not_reuse_old_manager_buffers
+5 failed, 2 passed, 1 deselected, 31 warnings in 16.75s
