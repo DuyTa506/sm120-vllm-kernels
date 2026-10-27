@@ -1,0 +1,5 @@
+tag=b12x_tasks_1
+variant=shared
+suite=individual
+config=next
+gpu_util=0.78

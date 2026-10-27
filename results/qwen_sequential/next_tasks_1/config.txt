@@ -1,0 +1,5 @@
+tag=next_tasks_1
+variant=next
+suite=individual
+config=next
+gpu_util=0.78

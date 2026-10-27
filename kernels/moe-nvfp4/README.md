@@ -15,10 +15,37 @@ layer adds 0 MiB instead of 579.65 MiB. Eight lifetime/allocation tests and
 On a clean GPU, two 8k TTFT seed means improve by 10.5%/4.7%, two 16k means
 by 8.0%/10.2%, and mean 8k GPU span drops 132.3→120.2 ms. A fresh layer-19
 microbenchmark measures 887.0→654.6 us at 8k including integration overhead.
-Decode throughput in this short pair is about 6% lower despite similar ITL;
-the full workload matrix and reversed-order follow-up are pending. Keep the
-candidate optional until those results support adoption. Agentic evaluation
-is reserved for the final combined configuration.
+Decode throughput in that short pair is about 6% lower despite similar ITL.
+
+The subsequent complete individual-task pair (`b12x_tasks_1` then
+`next_tasks_1`, both `CONFIG=next`, GPU utilization 0.78) passes all 17 serving
+scenarios and exact request/output-length checks. This uses `shared/` before
+the exact-alpha correction. [All serving rows](../../results/qwen_sequential/shared_vs_next_tasks_1.serving.md)
+and the [reproducible quality/repeat analysis](../../results/qwen_sequential/shared_vs_next_tasks_1.analysis.md)
+are saved with input hashes.
+
+| measure | next → shared b12x | scope |
+|---|---|---|
+| seven workload throughputs | +0.2% to +5.2% | one run each; TTFT does not improve in every workload |
+| 8k / 16k / 32k prefill TTFT p50 | 191.6→164.3 / 384.5→329.5 / 866.3→756.6 ms | −14.3% / −14.3% / −12.7%; 8 requests per length |
+| decode output tok/s at c=1 / 4 / 16 / 64 | +10.3% / −3.0% / +2.2% / −1.7% | 128-token prompts, 512 generated tokens |
+
+Serving inherits model sampling defaults (temperature 1.0, top-k 20, top-p
+0.95); dataset seeds fix prompts, not generated tokens. At decode c=1, MTP
+acceptance changes 44.1→53.5% while ITL is 6.52→6.56 ms. These results do not
+isolate kernel effects or reproduce a uniform decode loss. Explicit-greedy
+repeats remain necessary; no throughput change is attributed to alpha rounding.
+
+**Quality remains unresolved.** Both needle probes pass 20/20, but licenses
+NLL at 6,349 scored tokens worsens 0.10042→0.10627 (+5.8%). Two cold logprob
+calls at 3,443 tokens give mean NLL 0.35804→0.41301 (+15.4%); within-server
+repeat shifts are also large (−0.04996 for next, +0.06751 for shared). These
+quality calls explicitly use temperature 0, and prompt-logprob requests skip
+prefix-cache reads. Checkpoint hot/cold top-20 TV worsens 0.1493→0.1710 and
+top-1 agreement falls 11/12→9/12. The variability limits attribution and does
+not establish quality equivalence. Keep the candidate optional pending repeated
+cold NLL and decode checks. Agentic evaluation is reserved for the final
+combined configuration.
 
 The sections below and `VERIFY.md` describe the original unshared backend;
 their workspace/KV penalty does not describe the new shared candidate.
@@ -43,14 +70,16 @@ their workspace/KV penalty does not describe the new shared candidate.
    - Batches with fewer than 1024 tokens (decode, MTP verify, small chunks) run the existing FlashInfer CUTLASS path,
      with the same weights and kernel family. A later [alpha audit](CUTLASS_SCALE_ROUNDING.md)
      found 1-ULP FP32 differences in the fallback scale products; the isolated
-     `shared_exact/` correction is awaiting GPU validation. Independent startup
+     `shared_exact/` correction passed the focused GPU verifier; these serving
+     results still describe the earlier `shared/` variant. Independent startup
      autotuning can also select different tactics. Larger batches run b12x's fused dynamic kernel.
 
    At kernel level, the fixed b12x matches CUTLASS's error against fp32 on all 5 tested layers (0.0753 vs 0.0753 …
    0.1380 vs 0.1379). It differs from CUTLASS by 1.6-2.7 % rel-L2, which is FP4 rounding-boundary noise, not bf16 noise
    (flagged). It is **28 % faster than CUTLASS at 8192 tokens** (631 vs 871 us per layer, CUDA graph, layer 19).
    End to end, 8k-prefill TTFT drops from 194.6 to 182.8-188.2 ms (two runs; mean -9 ms, -4.7 %).
-   Prompt NLL, needles, MTP acceptance and decode ITL are unchanged within run-to-run noise (section 7).
+   The historical quality/serving results are in section 7; the newer shared-workspace pair above
+   has unresolved quality regressions and does not support a blanket equivalence claim.
 4. **Tactics:** vLLM autotunes FlashInfer's CUTLASS MoE GEMMs at warmup for every token bucket. A full sweep of the
    SM120 tactic space with real routing found nothing better than the autotuner's pick (within ±1.3 % at M = 3 … 8192).
    There is no gain to take there.
