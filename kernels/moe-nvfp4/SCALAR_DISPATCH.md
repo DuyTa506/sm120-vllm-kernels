@@ -228,8 +228,10 @@ wrappers contain identical single candidates, while three artifacts retain
 multiple candidates with unresolved final in-memory choices. Candidate sets and
 executable ELF sections match; this does not establish every runtime launch or
 loadable datum was identical. A compiler cause remains unproven. The fresh
-controlled `next` baseline and incremental `scalar_gdn` measurement precede
-final selection. Scalar is the experimental parent for that incremental test.
+controlled `next` baseline and incremental `scalar_gdn` measurement have completed;
+see the [full composition results](../gdn-norm-fp8/results/COMPOSED_SERVING.md).
+Scalar remains the experimental parent while a focused reversed-order pair
+checks the incremental GDN tradeoffs before final selection.
 The default `next` configuration is unchanged. Agentic remains a final composed
 comparison and has not been run for this individual patch.
 

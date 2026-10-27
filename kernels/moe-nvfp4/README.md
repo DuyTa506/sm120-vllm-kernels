@@ -4,6 +4,26 @@ Area: `kernels/moe-nvfp4/`. Model: unsloth/Qwen3.6-35B-A3B-NVFP4-Fast (256 exper
 moe_intermediate 512; compressed-tensors NVFP4 W4A4 with calibrated static activation global scales).
 Stack: vLLM v0.32.0, FlashInfer 0.7.0.post1, RTX PRO 6000 Blackwell (SM120).
 
+## Latest controlled composition measurements
+
+The fresh fixed-FlashInfer `next_matched_3` / `scalar_matched_3` pair completes
+all 17 serving cases, four greedy decode cases, 30 cold NLL calls and 20/20
+needles per backend. The scalar composition includes the scale correction,
+shared workspace, exact CUTLASS fallback alpha and uniform input-scale dispatch.
+It remains opt-in. Cold 8k/16k/32k TTFT improves 18.8%/9.4%/7.1% against `next`;
+seven workload throughputs change -1.4% to +5.2% and greedy output rates change
+-3.70% to +3.67%. See the [serving table](../../results/qwen_sequential/scalar_vs_next_matched_3.serving.md),
+[greedy table](../../results/qwen_sequential/scalar_vs_next_matched_3.greedy.md)
+and [cold NLL diagnostic](../../results/qwen_sequential/scalar_vs_next_matched_3.nll.txt).
+The earlier scalar-versus-exact `py_email30k` quality flag remains open;
+observed repeat ranges are not a quality-equivalence criterion.
+
+Adding GDN norm/FP8 fusion completes the same full suite, with mixed gains and
+regressions: versus scalar, 32k TTFT -7.6% and long-doc throughput +9.1%, but
+8k TTFT +7.4% and greedy c64 throughput -8.7%. The [composition evidence](../gdn-norm-fp8/results/COMPOSED_SERVING.md)
+retains the NLL flags and allocation differences. A reversed-order focused
+repeat precedes selection. Agentic runs only on the final chosen composition.
+
 ## Shared-workspace follow-up (2026-10-28)
 
 The opt-in [shared-workspace candidate](SHARED_WORKSPACE.md) fixes the large
@@ -63,8 +83,9 @@ not establish lower clocks for exact. Neither timing nor quality changes
 are attributed to the two load-time alpha expressions.
 
 `shared_exact/` is the experimental parent for incremental stack tests.
-It remains opt-in outside `CONFIG=next`; scalar serving, final composition
-and agentic evaluation remain pending.
+This historical parent remains opt-in outside `CONFIG=next`. The newer fixed-reference
+scalar and GDN comparisons are summarized above; final selection and agentic
+are still pending.
 
 The sections below and `VERIFY.md` describe the original unshared backend;
 their workspace/KV penalty does not describe the new shared candidate.

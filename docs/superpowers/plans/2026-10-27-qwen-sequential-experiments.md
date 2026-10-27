@@ -328,7 +328,7 @@ microbenchmarks alone do not satisfy this request.
   full live-cache pre/post identical. No checkpoint-bearing or mixed-non-spec
   metadata observed; scope layer18 eager/private state, not full model quality.
   Owned container absent/compute empty; GPU slot released.
-- LIVE ROOT GPU session70620: scalar_gdn_matched_3 scalar_gdn individual,
+- COMPLETED ROOT GPU session70620 (exit0): scalar_gdn_matched_3 scalar_gdn individual,
   FI1/greedy1/NLL3 and GPU budget0.78. All five GDN overlays, integration config,
   MoE/build sources, runner/sourcehelper/serve/FI6 frozen until terminal.
   Compare incrementally to scalar_matched_3 and overall to next_matched_3.
@@ -346,3 +346,5 @@ microbenchmarks alone do not satisfy this request.
 The full scalar/GDN composition completed with exit 0, all 17 serving cases, four greedy decode cases, 20/20 needles and 30 cold NLL calls. Incremental effects are mixed: 32k TTFT -7.6%, long-doc throughput +9.1%, but 8k TTFT +7.4% and c=64 greedy throughput -8.7%. GDN is not selected. A reversed-order focused repeat runs GDN first, scalar second, using all six unchanged prefill cases, four unchanged greedy cases and five cold NLL rounds. It omits the seven sampled throughput workloads and agentic. The default full17 comparator remains unchanged in scope; explicit `--suite prefill` validates only the six-case suite. CPU preflight and source hashes are recorded in `results/qwen_sequential/focused_repeat_cpu_preflight.json`.
 
 Offline route controls fixed_aux_c1 and fixed_full_c1 have terminated with output-comparison failures; both owned shutdown APIs completed and the GPU is empty. Their FI/structural findings are being audited separately. No routing optimization is selected. Agentic remains the final next-versus-selected-composition pair only.
+
+- LIVE ROOT GPU session28460: `gdn_focus_1` then `scalar_focus_1`, focused suite, FI1/NLL5. Runtime/source manifest files remain frozen through both runs. Final agentic CPU review finds no launch blocker; explicit FI1, GREEDY0, NLL0, NOSPEC0 for both final runs. Live-short smoke statistics require separate review even when process exit is zero.
