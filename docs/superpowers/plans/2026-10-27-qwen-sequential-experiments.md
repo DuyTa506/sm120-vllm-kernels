@@ -282,7 +282,7 @@ microbenchmarks alone do not satisfy this request.
   microgain is much smaller. Both20/20needles; py_email30k NLL+0.007835 with
   nonoverlapping3-repeat ranges. Scalar is candidate, not quality-equivalence
   claim or default promotion. Agent maps changed compiler choices CPU-only.
-- LIVE ROOT GPU session99954: next_matched_3 next individual, FI1/greedy1/NLL3.
+- COMPLETED ROOT GPU session99954 (exit0): next_matched_3 next individual, FI1/greedy1/NLL3.
   Fresh controlled baseline for final composition. Runtime runner/sourcehelper,
   FI6/build/MoE/GDN sources frozen untilterminal. Noagenticrun.
 - GDN probe2 CPU cleanup ownership/termination checks and strict fused-mixed
@@ -295,3 +295,14 @@ microbenchmarks alone do not satisfy this request.
   differing best_config files do not establish different runtime choices.
   Scalar chosen only as experimental parent for scalar_gdn incremental test;
   final adoption retains NLL flag and requires composed comparison to next.
+
+- next_matched_3 completed all 17 tasks, four greedy cases, 30 cold NLL calls,
+  20/20 needles, source21/21 and both132-tactic gates. Strict comparisons to
+  exact/scalar pass. Scalar vs next cold8k/16k/32k -18.8%/-9.4%/-7.1%; workload
+  throughput -1.4% to+5.2%, greedy rate -3.70% to+3.67%. Single configuration
+  pair only; scalar py_email30k NLL+0.002717 vsnext overlaps observed ranges,
+  while scalar-vs-exact flag remains. Logged nextKV44.61GiB vs45.50 for bothMoE.
+- LIVE AGENT GPU session67555: guarded private GDN packed_state_probe_2;
+  exactly one granted attempt after root99954 cleanup/GPU vacancy. Runner uses
+  immutable owned IDs for stop/removal, verified cleanup before lock release.
+  No other GPU job. Next planned full serving candidate is scalar_gdn.

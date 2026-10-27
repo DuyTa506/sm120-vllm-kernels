@@ -118,6 +118,30 @@ a compiler cause nor isolated scalar attribution is established. Both pass 20/20
 ([details](kernels/moe-nvfp4/SCALAR_DISPATCH.md)). Scalar remains a composition
 candidate, with this quality flag retained; final selection and agentic are pending.
 
+The fresh fixed-FlashInfer `next_matched_3` reference also completes the same
+17 tasks, four greedy cases, 30 cold NLL calls and both 132-entry boundary gates.
+The complete measured configurations have these cold-prefill TTFT medians:
+
+| input tokens | next ms | shared_exact ms | scalar ms |
+|---:|---:|---:|---:|
+| 2048 | 70.53 | 68.52 | 68.19 |
+| 4096 | 108.95 | 107.51 | 100.54 |
+| 5000 | 122.18 | 120.86 | 115.44 |
+| 8192 | 201.98 | 185.15 | 164.08 |
+| 16384 | 379.35 | 384.57 | 343.63 |
+| 32768 | 873.31 | 838.71 | 811.50 |
+
+Against this `next`, [scalar workload throughputs](results/qwen_sequential/scalar_vs_next_matched_3.serving.md)
+change -1.4% to +5.2%, and greedy decode rates -3.70% to +3.67%.
+All three pass 20/20 needles. Scalar py_email-30000 NLL is +0.002717 versus
+`next`, with overlapping observed ranges; the larger scalar-versus-exact flag
+above remains recorded. These are single-run configuration comparisons and
+small diagnostic corpora, not quality equivalence or isolated patch attribution.
+At GPU budget 0.78, logged KV availability is 44.61 / 45.50 / 45.50 GiB and final
+CUDA graph pool 4.90 / 3.45 / 3.45 GiB for next / exact / scalar respectively.
+The immediate composition experiment is `scalar_gdn` versus `scalar`; the
+reference for final whole-stack serving and agentic remains `next`.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/throughput-dark.svg">
   <img alt="Serving throughput relative to production for seven workload shapes" src="docs/img/throughput-light.svg">

@@ -1,0 +1,2 @@
+qwen-sequential: hits/prompt=6709  mean TV(top20)=0.1496  max TV=0.4056  top1 agree=11/12
+  per-prompt TV: 0.163 0.365 0.026 0.055 0.012 0.406 0.030 0.219 0.153 0.188 0.057 0.122
