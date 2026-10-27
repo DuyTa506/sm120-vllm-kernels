@@ -45,7 +45,14 @@ cleanup() {
   fi
   docker logs "$NAME" > "$O/docker.log" 2>&1 || true
   docker rm -f "$NAME" >/dev/null 2>&1 || true
+  if [[ -f $O/source_manifest.json ]]; then
+    if ! python3 -I "$D/bench/source_manifest.py" verify --root "$D" --output "$O" > "$O/source_verify.log" 2>&1; then
+      if (( rc == 0 )); then rc=4; fi
+    fi
+  fi
   printf '%s\n' "$rc" > "$O/exit_code.txt"
+  trap - EXIT
+  exit "$rc"
 }
 trap cleanup EXIT
 flags="-e VLLM_CACHE_ROOT=/root/.cache/vllm/qwen-sequential-$VAR -v $O/serving:/bench-results"
@@ -62,7 +69,8 @@ printf 'tag=%s\nvariant=%s\nsuite=%s\nconfig=next\ngpu_util=%s\n' "$TAG" "$VAR" 
 printf 'greedy_decode=%s\n' "$GREEDY_DECODE" >> "$O/config.txt"
 printf 'nll_rounds=%s\n' "$NLL_ROUNDS" >> "$O/config.txt"
 git -C "$D" rev-parse HEAD > "$O/commit.txt"
-git -C "$D" diff --binary > "$O/uncommitted.diff"
+git -C "$D" diff HEAD --binary > "$O/uncommitted.diff"
+python3 -I "$D/bench/source_manifest.py" snapshot --root "$D" --output "$O" --variant "$VAR" > "$O/source_snapshot.log"
 docker image inspect vllm/vllm-openai:v0.32.0 --format '{{.Id}}' > "$O/image.txt"
 nvidia-smi -i "$GPU" --query-gpu=name,uuid,driver_version,memory.total,memory.used,clocks.sm,power.limit --format=csv > "$O/gpu_before.csv"
 CONFIG=next NAME=$NAME PORT=$PORT GPU=$GPU NSYS=0 FLAGS="$flags" \
