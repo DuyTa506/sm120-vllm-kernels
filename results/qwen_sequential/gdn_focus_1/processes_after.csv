@@ -1,0 +1,2 @@
+pid, process_name, used_gpu_memory [MiB]
+1681694, VLLM::EngineCore, 78668 MiB

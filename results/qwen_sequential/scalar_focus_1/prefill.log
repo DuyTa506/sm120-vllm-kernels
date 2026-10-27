@@ -1,0 +1,13 @@
+2026-10-27T21:44:11.336117+00:00 prefill/prefill-2048.warmup
+2026-10-27T21:44:22.037136+00:00 prefill/prefill-2048.measured
+2026-10-27T21:44:37.561981+00:00 prefill/prefill-4096.warmup
+2026-10-27T21:44:50.784048+00:00 prefill/prefill-4096.measured
+2026-10-27T21:45:05.142687+00:00 prefill/prefill-5000.warmup
+2026-10-27T21:45:23.779394+00:00 prefill/prefill-5000.measured
+2026-10-27T21:45:39.958489+00:00 prefill/prefill-8192.warmup
+2026-10-27T21:45:52.075356+00:00 prefill/prefill-8192.measured
+2026-10-27T21:46:05.346787+00:00 prefill/prefill-16384.warmup
+2026-10-27T21:46:17.813919+00:00 prefill/prefill-16384.measured
+2026-10-27T21:46:32.185529+00:00 prefill/prefill-32768.warmup
+2026-10-27T21:46:44.901305+00:00 prefill/prefill-32768.measured
+Validated 6 scenarios; results: /home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/results/qwen_sequential/scalar_focus_1/serving/serving_matrix_prefill

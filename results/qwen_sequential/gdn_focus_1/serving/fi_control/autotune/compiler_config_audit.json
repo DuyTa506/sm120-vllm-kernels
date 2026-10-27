@@ -1,0 +1,144 @@
+{
+  "scope": "Saved Inductor .best_config files only; observed, never imported or pinned",
+  "cache_root": "/root/.cache/vllm/qwen-sequential-scalar_gdn",
+  "files": [
+    {
+      "path": "torch_compile_cache/torch_aot_compile/3467999ec19a350e3a81699aee480a80f46c0d545fd3cdb4c8d64526614b819b/inductor_cache/35/2283453e30d8dc0f040667f56d34af2183be94a3eb2ccddf597efbf50406caaa.best_config",
+      "basename": "2283453e30d8dc0f040667f56d34af2183be94a3eb2ccddf597efbf50406caaa.best_config",
+      "sha256": "56aeaac4bbedd802179a12177a02e80bfe613f23c558e6d972d17cea69bf8f45",
+      "selected": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 4096,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "selected_sha256": "6657c897824dcdee5afcf8faf825e75841e2c391d9de22c98216b2ec960f50ee"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/3467999ec19a350e3a81699aee480a80f46c0d545fd3cdb4c8d64526614b819b/inductor_cache/nl/d45a57475b68f1f11259a88c8d325fb8df549447006f1feff06e82971e3fdf36.best_config",
+      "basename": "d45a57475b68f1f11259a88c8d325fb8df549447006f1feff06e82971e3fdf36.best_config",
+      "sha256": "211503ee7cc1be4cb12aa4ad38ea4d225a37ee6230f73273fd7441a2de33a0d3",
+      "selected": {
+        "XBLOCK": 512,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "selected_sha256": "a178e07a5bd4cbfe8da6f0f508c749d61230e88067085fd037c8991d8280a6be"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/3467999ec19a350e3a81699aee480a80f46c0d545fd3cdb4c8d64526614b819b/inductor_cache/uw/62e075541ec6f6f0c125e703f4154ef3473b76a764a4e22f56ddc65bbc700cd6.best_config",
+      "basename": "62e075541ec6f6f0c125e703f4154ef3473b76a764a4e22f56ddc65bbc700cd6.best_config",
+      "sha256": "79859d78056ba6076ce7870d33520d8d4c8be6ef9eef06f51a6341de2c61ad31",
+      "selected": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "selected_sha256": "868318931c108e3aecf5ff69d79c2c8ca05ac7dac6f07d8114180b5c143e2c11"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/3467999ec19a350e3a81699aee480a80f46c0d545fd3cdb4c8d64526614b819b/inductor_cache/vd/6150d60d9b3268f101b505964cfd0655fa0be4758a683bc62a0f4dc78459870a.best_config",
+      "basename": "6150d60d9b3268f101b505964cfd0655fa0be4758a683bc62a0f4dc78459870a.best_config",
+      "sha256": "a5a437b29c5ca251981d2ba6b2ca045f8dc63c89e0733f3941f55cf237310ff4",
+      "selected": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "selected_sha256": "868318931c108e3aecf5ff69d79c2c8ca05ac7dac6f07d8114180b5c143e2c11"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/3467999ec19a350e3a81699aee480a80f46c0d545fd3cdb4c8d64526614b819b/inductor_cache/wg/9d05b283d8601a9d3ce2bb041504aa4f949a918fac84bcbe1e1dc85b4cae75b1.best_config",
+      "basename": "9d05b283d8601a9d3ce2bb041504aa4f949a918fac84bcbe1e1dc85b4cae75b1.best_config",
+      "sha256": "6b4e8f68469546b4f60520bb22d0f62f81dfbf8b0fc882e7fdc900288bc24fc7",
+      "selected": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 4096,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "selected_sha256": "6657c897824dcdee5afcf8faf825e75841e2c391d9de22c98216b2ec960f50ee"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/3467999ec19a350e3a81699aee480a80f46c0d545fd3cdb4c8d64526614b819b/inductor_cache/ze/e61276c607e25486d71aaf0f639cf02722159957b5077515ca190c26f8129d20.best_config",
+      "basename": "e61276c607e25486d71aaf0f639cf02722159957b5077515ca190c26f8129d20.best_config",
+      "sha256": "b67587a61567e7590e25b46b47a2a363567699dd203dfe720adc221136a37a11",
+      "selected": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 4096,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "selected_sha256": "6657c897824dcdee5afcf8faf825e75841e2c391d9de22c98216b2ec960f50ee"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/3467999ec19a350e3a81699aee480a80f46c0d545fd3cdb4c8d64526614b819b/inductor_cache/zp/07d5f2bc5c6e01ddc48bfaaa5cd3b7e86c2bf9c01ea34518224d8b88a1c9c0ea.best_config",
+      "basename": "07d5f2bc5c6e01ddc48bfaaa5cd3b7e86c2bf9c01ea34518224d8b88a1c9c0ea.best_config",
+      "sha256": "666bc8965653531963ca66ba771ec3cbd682d200d714ac822d0a4b7d37b29ea7",
+      "selected": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "selected_sha256": "868318931c108e3aecf5ff69d79c2c8ca05ac7dac6f07d8114180b5c143e2c11"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/9a71e6377ff97f68713c26a181e0918b19e078b378c47e4ed0fcb4df45d22f92/inductor_cache/43/43259995073836ded19edd8d31f77ae7811beb7a3a61c4a6e83b5237c919812d.best_config",
+      "basename": "43259995073836ded19edd8d31f77ae7811beb7a3a61c4a6e83b5237c919812d.best_config",
+      "sha256": "9fe9cdb31c7d9d95db79299bf09fd8452a955e3308dee1c5e0265aac3ef49eb9",
+      "selected": {
+        "XBLOCK": 1024,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "selected_sha256": "868318931c108e3aecf5ff69d79c2c8ca05ac7dac6f07d8114180b5c143e2c11"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/9a71e6377ff97f68713c26a181e0918b19e078b378c47e4ed0fcb4df45d22f92/inductor_cache/6g/93890db5cfe7a4d1cda47c104300d7310488852636b739244ae00d8c4f85ff46.best_config",
+      "basename": "93890db5cfe7a4d1cda47c104300d7310488852636b739244ae00d8c4f85ff46.best_config",
+      "sha256": "964e5154e1be195e67e5d7e758be9107860e7fd67c53913d581f55c828fbdb13",
+      "selected": {
+        "XBLOCK": 8,
+        "R0_BLOCK": 512,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "selected_sha256": "447eea09d460d0d8971fd1ba7c4ed85e3a7d97f57443ce6b74b86a2b68174110"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/9a71e6377ff97f68713c26a181e0918b19e078b378c47e4ed0fcb4df45d22f92/inductor_cache/ec/c43420b6500c0bfe655ae615559019b271ae362c5f2dfe9aaed19876503c8294.best_config",
+      "basename": "c43420b6500c0bfe655ae615559019b271ae362c5f2dfe9aaed19876503c8294.best_config",
+      "sha256": "d91e6128c265e7f0314c3fdbff668ee49fcf9e4e598986f53a0f39d887f04604",
+      "selected": {
+        "XBLOCK": 256,
+        "num_warps": 4,
+        "num_stages": 1
+      },
+      "selected_sha256": "12b93ef7e36d1b16fa942e098a4089e53bf78185dfeb4e48719b3da79315f4d0"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/9a71e6377ff97f68713c26a181e0918b19e078b378c47e4ed0fcb4df45d22f92/inductor_cache/hs/fd2513ff9579135a6484b3d51cfbf207d69a14a6e38b35808526c7cb327e989f.best_config",
+      "basename": "fd2513ff9579135a6484b3d51cfbf207d69a14a6e38b35808526c7cb327e989f.best_config",
+      "sha256": "dcd123ce5262c58f0b0e8b105c49062fe66035faf5ac61d06c645b1bad755484",
+      "selected": {
+        "XBLOCK": 2,
+        "R0_BLOCK": 1024,
+        "num_warps": 16,
+        "num_stages": 1
+      },
+      "selected_sha256": "0603e6750a9064822ec416f252e3030fef564dc5d2dfef7306e27a45af00cb2f"
+    },
+    {
+      "path": "torch_compile_cache/torch_aot_compile/9a71e6377ff97f68713c26a181e0918b19e078b378c47e4ed0fcb4df45d22f92/inductor_cache/le/519d4a9eab671bd634bb4a79c028bca35dc0db7fac88417512463b2fa9617b65.best_config",
+      "basename": "519d4a9eab671bd634bb4a79c028bca35dc0db7fac88417512463b2fa9617b65.best_config",
+      "sha256": "45f3e7aff5a522abf6c4c8551e69c0ab6edbaefe97334e7f438e59c956ae8f36",
+      "selected": {
+        "XBLOCK": 1,
+        "R0_BLOCK": 1024,
+        "num_warps": 8,
+        "num_stages": 1
+      },
+      "selected_sha256": "237690c02a4cd63071be48ec87d96a2cd54621791e0f48f14b3084038fef05db"
+    }
+  ]
+}

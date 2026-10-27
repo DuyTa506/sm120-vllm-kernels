@@ -347,4 +347,13 @@ The full scalar/GDN composition completed with exit 0, all 17 serving cases, fou
 
 Offline route controls fixed_aux_c1 and fixed_full_c1 have terminated with output-comparison failures; both owned shutdown APIs completed and the GPU is empty. Their FI/structural findings are being audited separately. No routing optimization is selected. Agentic remains the final next-versus-selected-composition pair only.
 
-- LIVE ROOT GPU session28460: `gdn_focus_1` then `scalar_focus_1`, focused suite, FI1/NLL5. Runtime/source manifest files remain frozen through both runs. Final agentic CPU review finds no launch blocker; explicit FI1, GREEDY0, NLL0, NOSPEC0 for both final runs. Live-short smoke statistics require separate review even when process exit is zero.
+- COMPLETED ROOT GPU session28460 (both exit0): `gdn_focus_1` then `scalar_focus_1`, focused suite, FI1/NLL5. Runtime/source manifest files remain frozen through both runs. Final agentic CPU review finds no launch blocker; explicit FI1, GREEDY0, NLL0, NOSPEC0 for both final runs. Live-short smoke statistics require separate review even when process exit is zero.
+
+
+### 2026-10-27 21:51 UTC: final composition selected
+
+Both focused runs completed six prefill cases, four greedy cases, 50 cold NLL calls and source/FI startup+shutdown verification. Strict focused comparisons pass. GDN improves focused 8k/32k TTFT by7.31%/1.98%, but greedy output rates c4/c16/c64 regress4.18%/7.70%/4.04%. The c4/c64 penalty repeats the full pair; 8k prefill changes sign between pairs, while16k stays nearneutral. Five-round licenses30k incremental NLL delta is+.000125 with overlapping observed ranges; that does not retroactively erase the original stack-vs-next three-round flag or establish broad quality equivalence.
+
+Select `scalar` as the final experimental composition: root next patches01-05 plus MoE03 scale/hybrid,04 sharedworkspace,05 exactCUTLASSalpha and06 scalarinputscale. Leave GDN default-off/unselected for this general serving stack. It remains a measured opt-in candidate with prefill wins and decode tradeoffs. Decode routing has no selected optimization.
+
+Final authorized agentic pair is `next_final_agentic_1 next agentic`, then `stack_final_agentic_1 scalar agentic`, both FI_CONTROL1/GREEDY_DECODE0/NLL_ROUNDS0/NOSPEC0, memorybudget0.78 and existing fixed production trajectories. No per-patch agentic runs. Freeze all recorded runtime/harness/source bytes until both terminal; review live smoke separately from replay.

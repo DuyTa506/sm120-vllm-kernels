@@ -1,0 +1,185 @@
+{
+  "cases": {
+    "prefill-2048.warmup": {
+      "name": "prefill-2048.warmup",
+      "count": 2,
+      "seed": 1022048,
+      "input_len": 2048,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1
+      ]
+    },
+    "prefill-2048.measured": {
+      "name": "prefill-2048.measured",
+      "count": 8,
+      "seed": 22048,
+      "input_len": 2048,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "prefill-4096.warmup": {
+      "name": "prefill-4096.warmup",
+      "count": 2,
+      "seed": 1024096,
+      "input_len": 4096,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1
+      ]
+    },
+    "prefill-4096.measured": {
+      "name": "prefill-4096.measured",
+      "count": 8,
+      "seed": 24096,
+      "input_len": 4096,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "prefill-5000.warmup": {
+      "name": "prefill-5000.warmup",
+      "count": 2,
+      "seed": 1025000,
+      "input_len": 5000,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1
+      ]
+    },
+    "prefill-5000.measured": {
+      "name": "prefill-5000.measured",
+      "count": 8,
+      "seed": 25000,
+      "input_len": 5000,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "prefill-8192.warmup": {
+      "name": "prefill-8192.warmup",
+      "count": 2,
+      "seed": 1028192,
+      "input_len": 8192,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1
+      ]
+    },
+    "prefill-8192.measured": {
+      "name": "prefill-8192.measured",
+      "count": 8,
+      "seed": 28192,
+      "input_len": 8192,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "prefill-16384.warmup": {
+      "name": "prefill-16384.warmup",
+      "count": 2,
+      "seed": 1036384,
+      "input_len": 16384,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1
+      ]
+    },
+    "prefill-16384.measured": {
+      "name": "prefill-16384.measured",
+      "count": 8,
+      "seed": 36384,
+      "input_len": 16384,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "prefill-32768.warmup": {
+      "name": "prefill-32768.warmup",
+      "count": 2,
+      "seed": 1052768,
+      "input_len": 32768,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1
+      ]
+    },
+    "prefill-32768.measured": {
+      "name": "prefill-32768.measured",
+      "count": 8,
+      "seed": 52768,
+      "input_len": 32768,
+      "output_len": 1,
+      "range_ratio": 0.0,
+      "output_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "sampler": null
+}
