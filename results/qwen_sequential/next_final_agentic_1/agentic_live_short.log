@@ -1,0 +1,9 @@
+task 0: 16 turns, final prompt 26081 tok, 894 completion tok, live 4.4s
+task 1: 14 turns, final prompt 14104 tok, 3761 completion tok, live 10.9s
+task 2: 16 turns, final prompt 15189 tok, 3081 completion tok, live 9.4s
+task 3: 16 turns, final prompt 17401 tok, 3962 completion tok, live 11.4s
+task 4: 16 turns, final prompt 17095 tok, 3192 completion tok, live 9.5s
+task 5: 16 turns, final prompt 19105 tok, 4993 completion tok, live 14.4s
+task 6: 16 turns, final prompt 14720 tok, 3221 completion tok, live 9.5s
+task 7: 16 turns, final prompt 19199 tok, 7938 completion tok, live 20.9s
+STATS {"turns": 126, "tool_calls": 126, "bad_tool_calls": 0, "tool_errors": 6, "truncated_turns": 0, "no_tool_turns": 0, "finished": 1, "test_fix_cycles": 13, "wall_s": 96.39777183532715, "error_samples": ["list_dir({\"path\": \"tests\"}) -> error: FileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/python3.12/tests'", "read_file({\"path\": \"Lib/logging/handlers.py\"}) -> error: FileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/python3.12/Lib/logging/handlers.py'", "read_file({\"path\": \"lib-dummy/textwrap.py\"}) -> error: FileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/python3.12/lib-dummy/textwrap.py'", "read_file({\"path\": \"csv/__init__.py\"}) -> error: FileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/python3.12/csv/__init__.py'", "list_dir({\"path\": \"csv\"}) -> error: FileNotFoundError: [Errno 2] No such file or directory: '/usr/lib/python3.12/csv'", "write_file({}) -> error: KeyError: 'content'"]}
