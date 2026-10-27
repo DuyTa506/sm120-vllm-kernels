@@ -133,3 +133,29 @@ microbenchmarks alone do not satisfy this request.
   inherits checkpoint sampling temperature1.0/top_k20/top_p0.95; dataset seeds
   fix prompts. Preserve this common protocol for the running pair, and use
   explicit-greedy short decode diagnostics if the paired matrix still regresses.
+
+- Full shared/next pair completed with both exit codes 0 and 17/17 scenarios.
+  Quality and throughput comparison is being documented; no agentic run yet.
+- Exact-alpha follow-up passed all 48 GPU comparisons on real layers 0/19,
+  including full modular preparation/finalization and changed-route graph
+  replay. Alphas exactly match default; most outputs have reduction noise.
+  Storage alias checks confirm MMA scale views allocate no additional copies.
+  `shared_exact` is now an explicit serving option; serving validation pending.
+- Initial GDN numerical run started after exact-alpha exited, with tokens
+  3/31/1025 and 8 warps. Scalar preparation is rebasing onto exact-alpha so its
+  incremental comparison will not mix two changes.
+
+- Scalar exact-alpha baseline: both GPU runs exited 0, 224 output comparisons
+  and 40 dispatch checks passed. Full-call time improves about 3.2–3.4% at 4k,
+  1.7–1.9% at 8k, and is neutral around ±0.5% at 16k. Incremental serving
+  measurement is needed; no extrapolated server gain is claimed.
+- GDN initial run exposed one FP8-byte mismatch under changed-input replay.
+  Diagnosis found different RMSNorm reduction ordering before BF16 rounding;
+  exact comparison remains required. Reproduction preserved, correction in
+  CPU preparation. No GDN serving integration yet.
+- A five-round cold NLL diagnostic is being prepared after quality probes
+  exposed changes comparable with large within-backend variation. Next exact
+  serving run will also include explicit temperature-zero decode diagnostics.
+- Decode routing received the exclusive GPU slot after both scalar processes
+  exited, for c1 control/target-only/full instrumentation only. No agentic
+  replay/performance stage is scheduled at this point.

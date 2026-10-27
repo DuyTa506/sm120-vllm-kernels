@@ -67,6 +67,10 @@ def preflight(runtime_args=None):
             salts.append(salt)
     assert len(seeds) == len(set(seeds)), "warmup/measured seeds overlap"
     assert len(salts) == len(set(salts)), "cache salts overlap across phases"
+    assert "--temperature" not in bench_command(args, cases[0], False, "/tmp/fixture", "fixture-run")
+    args.temperature = 0.0
+    greedy = bench_command(args, cases[0], False, "/tmp/fixture", "fixture-run")
+    assert greedy[greedy.index("--temperature") + 1] == "0.0"
     assert cases[3].extra == ("--random-prefix-len", "4096")
     assert cases[4].extra == ("--random-range-ratio", "0.9")
     assert all(s.seed == base.seed + 99 for s, base in zip(scenarios("all", 99), cases))
@@ -227,6 +231,7 @@ def bench_command(args, case, warmup, remote_dir, run_nonce):
         "--max-concurrency", str(case.concurrency),
         "--num-prompts", str(case.warmups if warmup else case.prompts),
         "--seed", str(case.seed + (1_000_000 if warmup else 0)),
+        *([] if args.temperature is None else ["--temperature", str(args.temperature)]),
         *case.extra,
     ]
 
@@ -510,6 +515,8 @@ def parser():
     result.add_argument("--model", default="unsloth/Qwen3.6-35B-A3B-NVFP4-Fast")
     result.add_argument("--served-model-name", default="bench")
     result.add_argument("--seed-offset", type=int, default=0)
+    result.add_argument("--temperature", type=float, default=None,
+                        help="explicit sampling temperature; omitted preserves the repository/model default")
     result.add_argument("--gpu", default="0", help="nvidia-smi GPU index or UUID for telemetry")
     result.add_argument("--timeout", type=int, default=3600, help="seconds allowed per benchmark invocation")
     return result
@@ -527,6 +534,8 @@ def main():
         cli.error("--output-dir is required for execution")
     if args.timeout <= 0 or not 0 <= args.seed_offset <= 1_000_000_000:
         cli.error("timeout must be positive and seed-offset must be in 0..1000000000")
+    if args.temperature is not None and (not math.isfinite(args.temperature) or args.temperature < 0):
+        cli.error("temperature must be finite and nonnegative")
     if not args.container_output_dir.startswith("/"):
         cli.error("--container-output-dir must be absolute")
     run(args)

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Run inside the docker group. Owns one disposable server for one experiment.
-# Usage: qwen_experiment.sh TAG next|shared|scalar serving|quality|individual|agentic
+# Usage: qwen_experiment.sh TAG next|shared|shared_exact|scalar serving|quality|individual|diagnostic|decode_greedy|agentic
 # Agentic is a separate final-combination stage; individual never runs it.
 set -euo pipefail
 D=$(cd "$(dirname "$0")/.." && pwd)
@@ -8,13 +8,21 @@ TAG=${1:?tag required}
 VAR=${2:?variant required}
 SUITE=${3:?suite required}
 [[ $TAG =~ ^[a-zA-Z0-9_-]+$ ]] || { echo "invalid tag" >&2; exit 2; }
-case $SUITE in serving|quality|individual|agentic) ;; *) echo "invalid suite" >&2; exit 2;; esac
-case $VAR in next|shared|scalar) ;; *) echo "unvalidated/unknown variant" >&2; exit 2;; esac
+case $SUITE in serving|quality|individual|diagnostic|decode_greedy|agentic) ;; *) echo "invalid suite" >&2; exit 2;; esac
+case $VAR in next|shared|shared_exact|scalar) ;; *) echo "unvalidated/unknown variant" >&2; exit 2;; esac
 O=$D/results/qwen_sequential/$TAG
 NAME=qwen-exp-$TAG
 PORT=${PORT:-8132}
 GPU_UTIL=${GPU_UTIL:-0.78}
 GPU=${GPU:-0}
+GREEDY_DECODE=${GREEDY_DECODE:-0}
+[[ $GREEDY_DECODE == 0 || $GREEDY_DECODE == 1 ]] || { echo "invalid GREEDY_DECODE" >&2; exit 2; }
+if [[ $SUITE == decode_greedy ]]; then GREEDY_DECODE=1; fi
+NLL_ROUNDS=${NLL_ROUNDS:-0}
+[[ $NLL_ROUNDS =~ ^[0-9]+$ ]] || { echo "invalid NLL_ROUNDS" >&2; exit 2; }
+if [[ $SUITE == diagnostic && $GREEDY_DECODE == 0 && $NLL_ROUNDS == 0 ]]; then
+  echo "diagnostic requires GREEDY_DECODE=1 or NLL_ROUNDS>0" >&2; exit 2
+fi
 PKG=/usr/local/lib/python3.12/dist-packages/vllm
 K=$D/kernels/moe-nvfp4
 LOCK=${GPU_LOCK:-/tmp/claude-1000/-home-aiqk3-Desktop-duy-dev-training-space-gpu-unlock/2207ad44-a66d-418b-840d-33bbf11f51c5/scratchpad/gpu.lock}
@@ -51,6 +59,8 @@ if [[ $VAR != next ]]; then
 fi
 if [[ $VAR == scalar ]]; then flags="$flags -e VLLM_B12X_SCALAR_INPUT_SCALE=1"; fi
 printf 'tag=%s\nvariant=%s\nsuite=%s\nconfig=next\ngpu_util=%s\n' "$TAG" "$VAR" "$SUITE" "$GPU_UTIL" > "$O/config.txt"
+printf 'greedy_decode=%s\n' "$GREEDY_DECODE" >> "$O/config.txt"
+printf 'nll_rounds=%s\n' "$NLL_ROUNDS" >> "$O/config.txt"
 git -C "$D" rev-parse HEAD > "$O/commit.txt"
 git -C "$D" diff --binary > "$O/uncommitted.diff"
 docker image inspect vllm/vllm-openai:v0.32.0 --format '{{.Id}}' > "$O/image.txt"
@@ -77,6 +87,15 @@ if [[ $SUITE == quality || $SUITE == individual ]]; then
   python3 -I "$D/eval/long_eval.py" "$O/long_eval.json" > "$O/long_eval.log" 2>&1
   # Identical tag keeps prompt text equal across variants; each server is new.
   python3 -I "$D/eval/ckpt_dist.py" qwen-sequential > "$O/checkpoint.log" 2>&1
+fi
+if [[ $SUITE == decode_greedy || $GREEDY_DECODE == 1 ]]; then
+  python3 -I "$D/bench/serving_matrix.py" --container "$NAME" \
+    --output-dir "$O/serving" --base-url "$BENCH_URL" --suite decode \
+    --temperature 0 > "$O/decode_greedy.log" 2>&1
+fi
+if (( NLL_ROUNDS > 0 )); then
+  python3 -I "$D/eval/repeated_nll.py" --output "$O/repeated_nll.json" \
+    --rounds "$NLL_ROUNDS" > "$O/repeated_nll.log" 2>&1
 fi
 if [[ $SUITE == agentic ]]; then
   for set in short long; do
