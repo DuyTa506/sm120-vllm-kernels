@@ -103,6 +103,24 @@ Completion requires executed experiments, documented decisions, a measured
 combined configuration, and the agentic comparison. Prepared scripts and
 microbenchmarks alone do not satisfy this request.
 
+## Completion record
+
+All four experiment tracks have executed and have documented dispositions.
+Shared/exact/scalar MoE remains the opt-in prefill composition; the additional
+GDN norm/FP8 path and decode-route investigation retain their scoped results
+without default adoption. The selected composition completed the full serving
+matrix and the final eight-shape agentic comparison against `next`.
+Both final runs exit0, with5,772 verified turns and987,945 output tokens each.
+The independent CPU review reloaded both runs and regenerated the final JSON
+and Markdown exactly. Documentation and local links pass review; the
+[final analysis](../../../results/qwen_sequential/final_agentic_analysis.md)
+retains modest/mixed agentic effects, regressions, live-smoke limits and NLL flags.
+The [fresh cleanup observation](../../../results/qwen_sequential/final_agentic_cleanup.json)
+records both owned containers absent and an empty compute-process query.
+No GPU jobs or required experiments remain; default `next` and live services
+are unchanged. The completed branch is ready for a local fast-forward into
+main after rechecking that the original workspace remains clean.
+
 ## Progress log
 
 - Clean b12x pair: 8k GPU span132.33→120.23 ms, two TTFT seed means lower at
@@ -368,3 +386,5 @@ Final authorized agentic pair is `next_final_agentic_1 next agentic`, then `stac
 Selected scalar run completed all8 shapes/5,772 turns/987,945 output tokens, source23/23, fixed132 FI entries through shutdown and unchanged captured inputs. Both final containers are removed and fresh nvidia-smi compute query is empty. Root strict compare_agentic succeeded and wrote final_agentic_pair.json/md. Short output-rate changes atc1/4/8/16/32 are+3.92/-3.60/+2.45/+1.95/+2.18%; longc1/8/32 +0.34/+0.92/+2.51%. Longc32 TTFT866.08→816.42ms and wall828.40→808.15s; longc8p90 worsens698.23→775.53ms. These are modest/mixed observed effects from onepair, not a broad agentic speedup or confidence interval.
 
 Candidate live smoke:128turns,132toolcalls,0badformat,4toolerrors,0truncations,1/8tasks done; baseline126turns,126calls,6errors,1/8done. Seven tasks reach the turn cap on each side. Canned tests/tooltransport do not establish coding correctness. Preserve earlierNLLflags. Scalar remains an opt-in prefill candidate; defaultnext unchanged. No perpatchagenticrun was performed. Final documentation and independent CPU artifact review precede local branch integration.
+
+- Final review: `review_final_agentic_readiness` independently reloaded both completed final runs and recomputed both comparison artifacts byte-identically. Documentation commitd8c4076 updates README/protocol/kernel pages and final analysis;130 local links and whitespace checks pass. Fresh cleanup observer23:04:44Z confirms both exact owned containers absent and zero GPU compute processes. All required experiment/report work is complete; final local integration follows a clean-main/collision recheck.

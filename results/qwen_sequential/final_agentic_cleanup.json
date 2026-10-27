@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-10-27T23:04:44.087535+00:00",
+  "owned_containers": {
+    "qwen-exp-next_final_agentic_1": {
+      "absent": true,
+      "ids": []
+    },
+    "qwen-exp-stack_final_agentic_1": {
+      "absent": true,
+      "ids": []
+    }
+  },
+  "compute_processes": [],
+  "compute_query_empty": true,
+  "scope": "Fresh post-run cleanup observation; run-level processes_after.csv was captured before server shutdown.",
+  "reports_sha256": {
+    "final_agentic_pair.md": "5edd33a5f44037e0984f0c4730e0a406db531d1d87c75341c2f0bd51802cdf59",
+    "final_agentic_pair.json": "90c62fb8ad37eceecc485aa5308f01943de21b45374c4d594cdca4a583951473"
+  }
+}
