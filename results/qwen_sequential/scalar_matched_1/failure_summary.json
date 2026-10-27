@@ -1,0 +1,244 @@
+{
+  "status": "failed_before_measurement",
+  "exit_code": 1,
+  "loaded": {
+    "reference_entries": 132,
+    "actual_entries": 132,
+    "missing": [],
+    "extra": [],
+    "changed": [],
+    "entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063"
+  },
+  "after_warmup": {
+    "reference_entries": 132,
+    "actual_entries": 132,
+    "missing": [],
+    "extra": [],
+    "changed": [
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          7
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          0
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          0
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          12
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1024, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          13
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          12
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1024, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          4
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          20
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1280, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          9
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          12
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1536, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          16
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          18
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1536, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          0
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          25
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          4
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          2
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((256, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          2
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          4
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2560, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          18
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          16
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2560, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          8
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          20
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((3072, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          24
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          25
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((4096, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          8
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          12
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((512, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          13
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          5
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((512, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          8
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          14
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((64, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          0
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          4
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((768, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          13
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          12
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((768, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          20
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          13
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8192, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          16
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          18
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8192, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "expected": [
+          "CutlassFp4GemmRunner",
+          14
+        ],
+        "actual": [
+          "CutlassFp4GemmRunner",
+          8
+        ]
+      }
+    ],
+    "entries_sha256": "8e80ad215f0ec762e9327138c6f3590cc9a9408eb86f37a8dac2939002eebc21"
+  },
+  "source_manifest_sha256": "909b690790a2f3f57e317d6691f226f38550c94831b790b400708fac9f3115c4",
+  "measurement_started": false,
+  "scope": "Imported table accepted exactly; effective table changed during startup, so pair aborted. Cause under investigation."
+}

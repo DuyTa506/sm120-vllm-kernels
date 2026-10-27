@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/qwen_fi_control_plugin.py", line 125, in <module>
+    print(json.dumps(verify_artifacts(args.out, args.source_sha256, not args.startup_only), indent=2))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/qwen_fi_control_plugin.py", line 105, in verify_artifacts
+    raise ValueError(f"missing verified {stage} checkpoint")
+ValueError: missing verified server_shutdown checkpoint

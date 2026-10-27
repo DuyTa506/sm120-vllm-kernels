@@ -15,3 +15,6 @@ kernels/dense-fp8-gemm/microbench/mma_kind_rate
 kernels/deepgemm-sm120/src/
 kernels/deepgemm-sm120/home/
 kernels/deepgemm-sm120/ours_ref/
+
+# Mutable worker-owned FI cache; exact source/effective tables are exported separately.
+results/qwen_sequential/*/serving/fi_control/cache/
