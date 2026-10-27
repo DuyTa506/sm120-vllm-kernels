@@ -1,0 +1,15 @@
+{
+  "reference": "next_cpu_audit_autotune.json",
+  "reference_sha256": "7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3",
+  "reference_entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063",
+  "entries": 132,
+  "source_audit": "results/qwen_sequential/prefill_runtime_cpu_audit.json",
+  "source_audit_sha256": "85285fc4cbb86eabf22ddd6d6889ca4ae63d3ecb4779c896d6aeea02909ad366",
+  "historical_source_path": "/work/.cache/vllm/qwen-sequential-next/flashinfer_autotune_cache/0.7.0.post1/120f/3cf18d8e94cfc58a199654be2c2244f5673d3d55c05be9f1b202f5b55ff72ba2/autotune_configs_dp0_rank0.json",
+  "historical_raw_sha256": "d94ee65bf6605c6405abc503d2131d74d221d41f001d1b1abf3927a80ef11214",
+  "exact_historical_raw_sha256": "2d12f4a4b1948ae46341d898b77784cad94b1325b0fc6e8685ff4b62cddf202f",
+  "metadata_matches_exact": true,
+  "keys_match_exact": true,
+  "different_tactics_vs_exact": 45,
+  "status": "frozen_CPU_snapshot_runtime_compatibility_requires_load_and_effective_verification"
+}
