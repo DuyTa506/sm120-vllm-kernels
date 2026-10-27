@@ -1,0 +1,7 @@
+tag=next_diagnostic_1
+variant=next
+suite=diagnostic
+config=next
+gpu_util=0.78
+greedy_decode=1
+nll_rounds=5

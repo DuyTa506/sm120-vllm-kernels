@@ -17,35 +17,54 @@ by 8.0%/10.2%, and mean 8k GPU span drops 132.3→120.2 ms. A fresh layer-19
 microbenchmark measures 887.0→654.6 us at 8k including integration overhead.
 Decode throughput in that short pair is about 6% lower despite similar ITL.
 
-The subsequent complete individual-task pair (`b12x_tasks_1` then
-`next_tasks_1`, both `CONFIG=next`, GPU utilization 0.78) passes all 17 serving
-scenarios and exact request/output-length checks. This uses `shared/` before
-the exact-alpha correction. [All serving rows](../../results/qwen_sequential/shared_vs_next_tasks_1.serving.md)
-and the [reproducible quality/repeat analysis](../../results/qwen_sequential/shared_vs_next_tasks_1.analysis.md)
-are saved with input hashes.
+The latest `shared_exact/` variant corrects only the CUTLASS fallback alpha
+arithmetic at weight loading ([audit and GPU evidence](CUTLASS_SCALE_ROUNDING.md)).
+`exact_tasks_1` completed all 17 serving scenarios with exact request/output-length
+checks. The [full table](../../results/qwen_sequential/exact_vs_next_tasks_1.serving.md)
+uses the **earlier** `next_tasks_1` full matrix as baseline, both `CONFIG=next`
+at GPU utilization 0.78.
 
-| measure | next → shared b12x | scope |
+| measure | next → shared exact | scope |
 |---|---|---|
-| seven workload throughputs | +0.2% to +5.2% | one run each; TTFT does not improve in every workload |
-| 8k / 16k / 32k prefill TTFT p50 | 191.6→164.3 / 384.5→329.5 / 866.3→756.6 ms | −14.3% / −14.3% / −12.7%; 8 requests per length |
-| decode output tok/s at c=1 / 4 / 16 / 64 | +10.3% / −3.0% / +2.2% / −1.7% | 128-token prompts, 512 generated tokens |
+| seven workload throughputs | +0.5% to +9.0% | one run each; prefill-heavy TTFT increases 17.0% |
+| 2k / 4k / 5k prefill TTFT p50 | 66.2→74.1 / 106.9→102.0 / 122.6→116.4 ms | +11.9% / −4.6% / −5.1%; 8 requests per length |
+| 8k / 16k / 32k prefill TTFT p50 | 191.6→187.3 / 384.5→363.3 / 866.3→809.3 ms | −2.3% / −5.5% / −6.6%; 8 requests per length |
+| sampled decode output tok/s, c=1 / 4 / 16 / 64 | +12.9% / +2.5% / +0.9% / −5.1% | model sampling defaults; variable MTP acceptance |
+| explicit-greedy decode output tok/s, c=1 / 4 / 16 / 64 | −0.51% / +1.41% / +0.78% / −0.73% | separate `next_diagnostic_1` baseline; near neutral |
 
-Serving inherits model sampling defaults (temperature 1.0, top-k 20, top-p
-0.95); dataset seeds fix prompts, not generated tokens. At decode c=1, MTP
-acceptance changes 44.1→53.5% while ITL is 6.52→6.56 ms. These results do not
-isolate kernel effects or reproduce a uniform decode loss. Explicit-greedy
-repeats remain necessary; no throughput change is attributed to alpha rounding.
+The full matrix inherits temperature 1.0, top-k 20 and top-p 0.95; dataset
+seeds fix prompts, not generated tokens. The [temperature-zero diagnostic](../../results/qwen_sequential/exact_vs_next_greedy.md)
+controls sampling but retains differing MTP acceptance and generated paths.
+Its prior suites differ: exact follows the individual-task matrix, while
+next runs only diagnostics. Per-case warmups and cache salts match the
+protocol, but preconditioning is not identical.
 
-**Quality remains unresolved.** Both needle probes pass 20/20, but licenses
-NLL at 6,349 scored tokens worsens 0.10042→0.10627 (+5.8%). Two cold logprob
-calls at 3,443 tokens give mean NLL 0.35804→0.41301 (+15.4%); within-server
-repeat shifts are also large (−0.04996 for next, +0.06751 for shared). These
-quality calls explicitly use temperature 0, and prompt-logprob requests skip
-prefix-cache reads. Checkpoint hot/cold top-20 TV worsens 0.1493→0.1710 and
-top-1 agreement falls 11/12→9/12. The variability limits attribution and does
-not establish quality equivalence. Keep the candidate optional pending repeated
-cold NLL and decode checks. Agentic evaluation is reserved for the final
-combined configuration.
+Five cold repeats of the same ten NLL prompts completed **50 calls per backend**
+against `next_diagnostic_1` ([paired means/ranges](../../results/qwen_sequential/exact_vs_next_repeated_nll.txt),
+[hashed inputs and results](../../results/qwen_sequential/exact_vs_next_repeated_nll.json)).
+The earlier large deterioration is not reproduced: the 3,443-token prompt's
+mean NLL is 0.363411→0.360551, and licenses at 6,349 scored tokens is
+0.093348→0.095559 (+0.002212). Across all ten prompts, mean deltas range
+−0.008684 to +0.003118; every absolute delta is below 0.21 times the larger
+within-backend observed range. Positive deltas remain, and observed ranges
+are not confidence bounds or a quality acceptance criterion. The separate
+one-shot licenses result is still 0.100423→0.105741 versus the older baseline;
+20/20 needles and checkpoint top-1 agreement of 11/12 are limited probes.
+No broad quality-equivalence claim follows.
+
+The [older shared pair](../../results/qwen_sequential/shared_vs_next_tasks_1.serving.md)
+had 12.7–14.3% long-prefill gains and [quality flags](../../results/qwen_sequential/shared_vs_next_tasks_1.analysis.md).
+The [runtime CPU audit](../../results/qwen_sequential/prefill_runtime_cpu_audit.md)
+found 43/132 FlashInfer tactic selections and 4/13 selected Inductor configs
+differ between shared and exact, despite matching server configuration and
+47 normalized generated Python files. Long-prefill dense FP4 GEMMs and the
+native FP8 quantizer are among the differences. Coarse 1 Hz telemetry does
+not establish lower clocks for exact. Neither timing nor quality changes
+are attributed to the two load-time alpha expressions.
+
+`shared_exact/` is the experimental parent for incremental stack tests.
+It remains opt-in outside `CONFIG=next`; scalar serving, final composition
+and agentic evaluation remain pending.
 
 The sections below and `VERIFY.md` describe the original unshared backend;
 their workspace/KV penalty does not describe the new shared candidate.
@@ -70,16 +89,16 @@ their workspace/KV penalty does not describe the new shared candidate.
    - Batches with fewer than 1024 tokens (decode, MTP verify, small chunks) run the existing FlashInfer CUTLASS path,
      with the same weights and kernel family. A later [alpha audit](CUTLASS_SCALE_ROUNDING.md)
      found 1-ULP FP32 differences in the fallback scale products; the isolated
-     `shared_exact/` correction passed the focused GPU verifier; these serving
-     results still describe the earlier `shared/` variant. Independent startup
+     `shared_exact/` correction passed the focused GPU verifier and the serving
+     diagnostics above. Independent startup
      autotuning can also select different tactics. Larger batches run b12x's fused dynamic kernel.
 
    At kernel level, the fixed b12x matches CUTLASS's error against fp32 on all 5 tested layers (0.0753 vs 0.0753 …
    0.1380 vs 0.1379). It differs from CUTLASS by 1.6-2.7 % rel-L2, which is FP4 rounding-boundary noise, not bf16 noise
    (flagged). It is **28 % faster than CUTLASS at 8192 tokens** (631 vs 871 us per layer, CUDA graph, layer 19).
    End to end, 8k-prefill TTFT drops from 194.6 to 182.8-188.2 ms (two runs; mean -9 ms, -4.7 %).
-   The historical quality/serving results are in section 7; the newer shared-workspace pair above
-   has unresolved quality regressions and does not support a blanket equivalence claim.
+   The historical quality/serving results are in section 7. The newer repeated diagnostics above
+   do not reproduce the earlier large NLL deterioration, but do not establish quality equivalence.
 4. **Tactics:** vLLM autotunes FlashInfer's CUTLASS MoE GEMMs at warmup for every token bucket. A full sweep of the
    SM120 tactic space with real routing found nothing better than the autotuner's pick (within ±1.3 % at M = 3 … 8192).
    There is no gain to take there.

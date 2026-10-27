@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "variant": "shared_exact",
+  "files": {
+    "scripts/serve.sh": "0eb07a68b68644735d5d6ef9fb51ef6f1d7bf6092360c9de8a36f51e69e89646",
+    "scripts/cudagraph_sizes.txt": "7af6a0ef65900fd308b7a70bac64c702fe65536afab8b9a0f3ca8432e3accdd8",
+    "bench/qwen_experiment.sh": "8fd6416ba62e4d0cbfddba3148d172295f22602ccc1b7abb62ed824eee4b0ad6",
+    "bench/serving_matrix.py": "8d6e5328f9bf50fa2ff5b641fcc73f0e009a3b198e1c752d854930463cfa9578",
+    "bench/source_manifest.py": "b57843bd38af19a6c4fd6cb5b7dd5c9acd06a30088047d204f8a1a1975050e4a",
+    "bench/agentic_bench.py": "63308eb8e9dfeaa834fbc3b8c68f32347d0dc9510154318e2a83e9e15af3fe69",
+    "eval/repeated_nll.py": "36543f3495a05759c231d7fce8b474f974d17fe8bfec281cc60bea51635966cf",
+    "eval/long_eval.py": "aa44130b488ea8ea546544974c5e3e92c555add8660bd14736d3c8b0af91c428",
+    "eval/ckpt_dist.py": "2db084189544fde008d081d8904b3ddf65f1c4fc4e1ea67789d8ba6d0e31e06e",
+    "kernels/moe-nvfp4/verify_logprobs.py": "57f3ba7ab06d6fe22aaec83243aa0ce3487d3ac5c360a49c7822b54bc593caff",
+    "build/vllm/v1/attention/backends/flashinfer.py": "7a8a584750950021c51a45f82b12717237c534f6516632d3465cf9b10a6af686",
+    "build/vllm/v1/attention/backends/sm120_fp8_fmha_glue.py": "141dd23f7b6b155f3f318b1cbc41183bda2a1475ef9895966afafb8fe1cf94b9",
+    "build/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "c82a390240c77032414d916ed705780716cd696f90722eb99eb89419f0aa262c",
+    "build/vllm/model_executor/layers/mamba/ops/fused_conv_post_conv.py": "d7e499b926bfe915ef0703caf1b4736b4a745ff14bb984a688fb4dc395725e3c",
+    "kernels/moe-nvfp4/shared_exact/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "8c703524b0331521c0785d24677cecc03f08d0e41cdbe159193acf6123752e86",
+    "kernels/moe-nvfp4/patched/vllm/model_executor/layers/fused_moe/oracle/unquantized.py": "4dcacb2dd6d6a9db3f44fa340880042a03d4c50cc259f70a97fbcd591a9edcfd"
+  }
+}

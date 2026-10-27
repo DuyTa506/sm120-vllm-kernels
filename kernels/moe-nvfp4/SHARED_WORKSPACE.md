@@ -4,8 +4,10 @@ This candidate preserves the scale-corrected hybrid backend's kernels and
 shares their scratch across sequential MoE layers. It targets
 `unsloth/Qwen3.6-35B-A3B-NVFP4-Fast` on one RTX PRO 6000 Blackwell, TP=1/EP=1,
 vLLM v0.32.0, CONFIG=next and MTP-2. It is opt-in. Clean single-request
-prefill A/B and the 17-scenario serving task matrix completed. Decode results
-are mixed; exact-alpha and explicit-greedy follow-up remain pending.
+prefill A/B and both shared/exact-alpha 17-scenario serving matrices completed.
+Exact-alpha greedy decode is near neutral; repeated cold NLL did not reproduce
+the earlier large deterioration, without establishing quality equivalence.
+The exact variant is the experimental parent for incremental stack tests.
 
 ## What changes
 
@@ -174,7 +176,7 @@ The earlier -6.35% decode-rate difference does not reproduce uniformly.
 These requests inherit checkpoint sampling temperature 1.0/top-k 20/top-p .95;
 dataset seeds alone do not fix generations or MTP acceptance. For example,
 c1 acceptance changes 44.1% to 53.5%. This is no demonstrated decode-kernel
-speedup. A temperature-zero diagnostic is prepared separately.
+speedup. The later temperature-zero diagnostic is recorded below.
 
 Both variants pass 20/20 needles. NLL changes differ in sign by corpus;
 checkpoint-distribution agreement also differs. These limited probes do not
@@ -182,6 +184,66 @@ establish identical model behavior. Exact-alpha follow-up is documented in
 [CUTLASS_SCALE_ROUNDING.md](CUTLASS_SCALE_ROUNDING.md); its GPU tests pass,
 but the serving results above used the original `shared` overlay.
 No agentic benchmark has run for this individual patch.
+
+## Exact-alpha follow-up and paired diagnostics
+
+`exact_tasks_1` and `next_diagnostic_1` both exited zero and passed source
+snapshot verification. The exact variant completed all 17 workloads; its
+[full serving comparison](../../results/qwen_sequential/exact_vs_next_tasks_1.serving.md)
+still uses the **earlier** `next_tasks_1` full matrix. It does not use the new
+diagnostic-only baseline for prefill or mixed-workload claims.
+
+| cold prefill | earlier next TTFT p50 ms | exact TTFT p50 ms | change |
+|---|---:|---:|---:|
+| 2048 | 66.2 | 74.1 | +11.9% |
+| 4096 | 106.9 | 102.0 | -4.6% |
+| 5000 | 122.6 | 116.4 | -5.1% |
+| 8192 | 191.6 | 187.3 | -2.3% |
+| 16384 | 384.5 | 363.3 | -5.5% |
+| 32768 | 866.3 | 809.3 | -6.6% |
+
+Seven workload throughputs change +0.5% to +9.0%; latency is mixed, including
++17.0% prefill-heavy TTFT. Sampled decode output rates change
++12.9%/+2.5%/+0.9%/−5.1% at c=1/4/16/64. These model-default sampling runs
+remain exploratory. The [CPU runtime audit](../../results/qwen_sequential/prefill_runtime_cpu_audit.md)
+([embedded evidence](../../results/qwen_sequential/prefill_runtime_cpu_audit.json))
+found 43/132 differing FlashInfer tactics and 4/13 differing selected Inductor
+configs between shared and exact, including long-prefill dense FP4 GEMMs and
+native FP8 quantization. Server configuration and generated source match;
+selected kernels do not. The 1 Hz clock samples do not explain the shift.
+No measured speed change is attributed to load-time alpha rounding.
+
+The [explicit-greedy pair](../../results/qwen_sequential/exact_vs_next_greedy.md)
+compares exact with the new `next_diagnostic_1` baseline:
+
+| decode concurrency | output tok/s change | ITL p50 next → exact ms | MTP acceptance next → exact |
+|---:|---:|---:|---:|
+| 1 | -0.51% | 6.279→6.291 | 98.66%→97.55% |
+| 4 | +1.41% | 7.930→7.825 | 83.89%→88.28% |
+| 16 | +0.78% | 13.602→13.459 | 87.73%→88.43% |
+| 64 | -0.73% | 27.301→27.483 | 87.01%→86.80% |
+
+This is near neutral in one pair, not a confidence interval. Greedy generation
+still differs across backends. Exact's prior history includes the full matrix;
+next's does not, despite separate per-case warmups and cache salts.
+
+The [repeated cold NLL diagnostic](../../results/qwen_sequential/exact_vs_next_repeated_nll.txt)
+uses the same six long-corpus prompts and four logprob prompts, five rounds,
+50 calls per backend, temperature zero and fresh per-request cache salts.
+Prompt/source hashes match. Mean deltas span −0.008684 to +0.003118, all below
+0.21 times the larger within-backend observed range. Licenses at 6,349 scored
+tokens is 0.093348→0.095559; the 3,443-token logprob prompt is
+0.363411→0.360551. The earlier large NLL deterioration is not reproduced in
+these repeats. Positive deltas remain; ranges are not confidence bounds and
+this is not model-quality equivalence. The separate one-shot licenses call
+still worsens 0.100423→0.105741 against the older full-matrix baseline; exact
+passes 20/20 needles and has checkpoint top-1 agreement 11/12. These limited
+probes neither erase the historical flags nor attribute quality changes to
+the alpha correction.
+
+The exact variant is the opt-in experimental parent for incremental stack
+tests. Final composition and agentic evaluation remain pending; it is not
+part of `CONFIG=next`.
 
 ## Reproduction and scope
 
@@ -207,4 +269,4 @@ the installed conversion is `view` plus `permute`, not an additional allocation.
 The old verifier's theoretical 24.52 GiB total double-counted those scales;
 40 unshared scratch/output allocations total 22.64 GiB. The directly measured
 579.652 MiB per wrapper and the sharing reduction remain valid. Keep this
-candidate optional until serving results support adoption.
+candidate optional while incremental composition and broader evaluation continue.

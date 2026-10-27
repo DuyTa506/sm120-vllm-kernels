@@ -1,0 +1,2 @@
+timestamp, index, name, memory.used [MiB], memory.total [MiB], utilization.gpu [%], clocks.current.sm [MHz], power.draw [W], temperature.gpu
+2026/10/28 01:37:34.127, 0, NVIDIA RTX PRO 6000 Blackwell Workstation Edition, 79520 MiB, 97887 MiB, 99 %, 2857 MHz, 338.35 W, 61

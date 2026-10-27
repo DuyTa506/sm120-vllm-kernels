@@ -1,0 +1,9 @@
+2026-10-27T18:43:42.611952+00:00 decode/decode-c1.warmup
+2026-10-27T18:43:57.573165+00:00 decode/decode-c1.measured
+2026-10-27T18:44:20.533183+00:00 decode/decode-c4.warmup
+2026-10-27T18:44:32.803797+00:00 decode/decode-c4.measured
+2026-10-27T18:44:54.704980+00:00 decode/decode-c16.warmup
+2026-10-27T18:45:12.096549+00:00 decode/decode-c16.measured
+2026-10-27T18:45:44.485723+00:00 decode/decode-c64.warmup
+2026-10-27T18:46:04.489038+00:00 decode/decode-c64.measured
+Validated 4 scenarios; results: /home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/results/qwen_sequential/next_diagnostic_1/serving/serving_matrix_decode

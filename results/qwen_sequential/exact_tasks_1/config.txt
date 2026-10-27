@@ -1,0 +1,7 @@
+tag=exact_tasks_1
+variant=shared_exact
+suite=individual
+config=next
+gpu_util=0.78
+greedy_decode=1
+nll_rounds=5

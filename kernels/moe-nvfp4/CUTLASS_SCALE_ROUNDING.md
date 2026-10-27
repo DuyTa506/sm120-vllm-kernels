@@ -1,7 +1,8 @@
 # CUTLASS fallback alpha arithmetic audit
 
 The isolated `shared_exact/` candidate corrects a real representation difference;
-**GPU validation passed on layers 0 and 19**. It does not establish the cause of the
+**GPU validation passed on layers 0 and 19**, followed by all 17 serving tasks,
+explicit-greedy decode and five-round cold NLL diagnostics. It does not establish the cause of the
 A3/B2 short-decode throughput difference. These alpha operations run only at
 weight loading; the old formula adds no per-token division. No running `shared/`, `scalar/`, serving
 harness, or installed container sources were modified.
@@ -71,7 +72,10 @@ IDs, device-selected PDL, fused finalize, and no min-latency mode. Qwen uses
 unclamped SiLU; omitted optional bias/clamp/quantization arguments have the same
 values as the default expert. Tactic cache inputs omit alpha values, but
 independent startup tuning can still select different tactics. Actual profile
-IDs and graph kernel sequences have not been compared.
+IDs in the saved full-run caches have since been compared: the
+[CPU audit](../../results/qwen_sequential/prefill_runtime_cpu_audit.md) found
+43/132 FlashInfer choices and 4/13 selected Inductor configs differ between
+shared and exact. Per-op trace timing for those runs remains unavailable.
 
 Both saved servers selected `FlashInfer CUTLASS Unquantized MoE` for MTP through
 no-DP/EP preparation. The hybrid's unquantized oracle patch maps its requested
@@ -86,8 +90,9 @@ explicitly inherits the server/model sampling default in that case; prompt
 changed 2.07497→1.94857 at c1, and 1.86254→1.92239 at c4; median ITL changed
 -0.81%/-0.26% despite throughput -6.35%/-6.36%. These mixed observations do not
 identify alpha rounding as the throughput cause. Sampling, MTP acceptance,
-autotuning, scheduling, and host variation remain confounds. The running task
-matrix retains the original repository protocol.
+autotuning, scheduling, and host variation remain confounds. The completed full
+matrices retain the original repository protocol; explicit-greedy diagnostics
+are recorded separately below.
 
 ## Validation commands and later diagnostic
 
@@ -115,8 +120,9 @@ small token counts 1/3/4/12/128/512/1023. Bitwise equality is required when
 repeated reference/candidate outputs are stable; otherwise error is bounded by
 observed reduction noise. At 1024 tokens it compares exact versus unchanged
 shared b12x instead. One process shares the CUTLASS tactic cache across variants.
-After that passes, a separately scheduled explicit-greedy (`--temperature 0`)
-short-decode A/B can isolate sampling variability. The executed results are recorded below.
+A separately scheduled explicit-greedy (`--temperature 0`) short-decode A/B
+controls sampling but does not fix numerical or scheduling variation. The
+executed results are recorded below.
 
 
 ## Executed GPU validation (2026-10-28 local)
@@ -134,6 +140,57 @@ MMA-layout scale tensors alias their existing swizzled scale storage on both
 layers and both hybrid variants; they allocate no extra scale copies.
 Thirty-two interleaved timing records cover both orders of the three variants.
 These are small-layer diagnostics, not evidence that alpha correction improves
-serving throughput. The new `shared_exact` serving variant needs a fresh
-serving/quality run before final composition; older `shared` results retain
-their original identity.
+serving throughput. The subsequent serving and quality diagnostics below
+retain separate identities from the older `shared` runs.
+
+
+## Executed serving and repeated diagnostics
+
+`exact_tasks_1` completed all 17 serving workloads and the quality probes,
+then greedy decode and repeated NLL. `next_diagnostic_1` completed greedy
+decode and repeated NLL only. Both exited zero and passed source snapshot
+verification. This difference in prior workloads limits causal comparisons
+even though each measured phase uses its own warmup and cache salt.
+
+The [full serving table](../../results/qwen_sequential/exact_vs_next_tasks_1.serving.md)
+compares exact with the **earlier** `next_tasks_1`, at utilization 0.78:
+8k/16k/32k TTFT p50 changes 191.6→187.3 / 384.5→363.3 / 866.3→809.3 ms
+(−2.3%/−5.5%/−6.6%), while 2k worsens 66.2→74.1 ms (+11.9%). Seven workload
+throughputs rise 0.5–9.0%, but workload TTFT and sampled decode are mixed.
+The earlier shared run's larger prefill gains do not reproduce at that size.
+The [runtime audit](../../results/qwen_sequential/prefill_runtime_cpu_audit.md)
+records matching launch config and generated code, but different long-prefill
+dense FP4 tactics and native FP8 quantizer configurations. These are concrete
+confounds; their latency contribution has not been measured.
+
+The [explicit-greedy comparison](../../results/qwen_sequential/exact_vs_next_greedy.md)
+with `next_diagnostic_1` changes output rate by −0.51%/+1.41%/+0.78%/−0.73%
+at c=1/4/16/64, near neutral in this pair. MTP acceptance and generated paths
+still differ. This does not attribute the historical decode loss to alpha
+rounding or prove a throughput benefit from the correction.
+
+The [cold NLL comparison](../../results/qwen_sequential/exact_vs_next_repeated_nll.txt)
+([JSON with hashes](../../results/qwen_sequential/exact_vs_next_repeated_nll.json))
+contains five rounds of ten identical prompts: 50 valid calls per backend,
+temperature zero, prompt-logprob cache reads skipped and fresh per-request
+cache salts. Selected examples show the mean and observed repeat range:
+
+| prompt | next mean [min, max] | exact mean [min, max] | mean delta |
+|---|---|---|---:|
+| licenses, 30k chars | 0.093348 [0.085723, 0.099457] | 0.095559 [0.088081, 0.098921] | +0.002212 |
+| Python stdlib, 30k chars | 0.528470 [0.525201, 0.530838] | 0.531588 [0.520988, 0.535929] | +0.003118 |
+| logprobs, 3,443 tokens | 0.363411 [0.344979, 0.385570] | 0.360551 [0.291359, 0.418547] | -0.002860 |
+| logprobs, 7,604 tokens | 0.578589 [0.573978, 0.585333] | 0.573526 [0.560142, 0.585280] | -0.005063 |
+
+All ten mean deltas lie between −0.008684 and +0.003118, and each absolute
+delta is below 0.21 times the larger within-backend range. The earlier large
+NLL deterioration is not reproduced in these repeats. Several means still
+increase; observed ranges are not confidence intervals or an acceptance
+threshold. The separate one-shot licenses NLL remains worse than the older
+baseline (0.100423→0.105741). These probes do not establish broad quality
+equivalence, and the quality change is not attributed to the two load-time
+alpha expressions.
+
+`shared_exact/` is the experimental parent for incremental stack testing.
+It remains opt-in outside `CONFIG=next`; final composition and agentic
+evaluation remain pending.
