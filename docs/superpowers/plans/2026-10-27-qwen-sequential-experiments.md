@@ -358,6 +358,13 @@ Select `scalar` as the final experimental composition: root next patches01-05 pl
 
 Final authorized agentic pair is `next_final_agentic_1 next agentic`, then `stack_final_agentic_1 scalar agentic`, both FI_CONTROL1/GREEDY_DECODE0/NLL_ROUNDS0/NOSPEC0, memorybudget0.78 and existing fixed production trajectories. No per-patch agentic runs. Freeze all recorded runtime/harness/source bytes until both terminal; review live smoke separately from replay.
 
-- LIVE ROOT GPU session11044: final pair launched sequentially with the explicit flags above; `next_final_agentic_1` is replaying short trajectories. The first c1 checkpoint completes128 turns, zero failed/unrun, metric_version2 valid. No final comparison until both runs and owned cleanup finish.
+- COMPLETED ROOT GPU session11044 (both exit0): final pair launched sequentially with the explicit flags above; `next_final_agentic_1` is replaying short trajectories. The first c1 checkpoint completes128 turns, zero failed/unrun, metric_version2 valid. No final comparison until both runs and owned cleanup finish.
 
 - Final baseline `next_final_agentic_1` completed exit0: all8 replay shapes and5,772 verified turns, source21/21, both132 FI gates, input snapshots/live originals unchanged. Short total1,152 turns; long770/770/3,080. Long c32 wall828.397s, TTFTp50866.084ms. Separate live smoke:126turns/toolcalls,0badformat,6toolerrors,0truncations,1/8tasks done within turncap; no broad qualitypass. Baseline container cleaned before selected `stack_final_agentic_1 scalar` startup. Root session11044 remains live for candidate; runtime sources remain frozen.
+
+
+### 2026-10-27 23:02 UTC: final pair executed and strictly compared
+
+Selected scalar run completed all8 shapes/5,772 turns/987,945 output tokens, source23/23, fixed132 FI entries through shutdown and unchanged captured inputs. Both final containers are removed and fresh nvidia-smi compute query is empty. Root strict compare_agentic succeeded and wrote final_agentic_pair.json/md. Short output-rate changes atc1/4/8/16/32 are+3.92/-3.60/+2.45/+1.95/+2.18%; longc1/8/32 +0.34/+0.92/+2.51%. Longc32 TTFT866.08→816.42ms and wall828.40→808.15s; longc8p90 worsens698.23→775.53ms. These are modest/mixed observed effects from onepair, not a broad agentic speedup or confidence interval.
+
+Candidate live smoke:128turns,132toolcalls,0badformat,4toolerrors,0truncations,1/8tasks done; baseline126turns,126calls,6errors,1/8done. Seven tasks reach the turn cap on each side. Canned tests/tooltransport do not establish coding correctness. Preserve earlierNLLflags. Scalar remains an opt-in prefill candidate; defaultnext unchanged. No perpatchagenticrun was performed. Final documentation and independent CPU artifact review precede local branch integration.

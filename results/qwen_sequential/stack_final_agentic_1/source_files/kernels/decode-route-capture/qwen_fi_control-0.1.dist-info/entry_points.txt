@@ -1,0 +1,2 @@
+[vllm.general_plugins]
+qwen_fi_control = qwen_fi_control_plugin:register
