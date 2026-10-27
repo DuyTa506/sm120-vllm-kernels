@@ -37,7 +37,7 @@ Optional, depending on the deployment:
 | `VLLM_GDN_STATE_REPLAY=1` | about 48 or more concurrent decodes | c=64 ITL -8%, nothing at c <= 16; single-agent check only |
 | `--prefix-match-unit 16` | long single-tenant sessions | verified on `production`, not yet on `next` |
 
-Not included in default `next`: MoE b12x (the opt-in scalar composition is selected for final agentic evaluation), skinny BF16/FP8 GEMMs (0.6 and
+Not included in default `next`: MoE b12x (the opt-in scalar composition completes final agentic with modest, mixed effects), skinny BF16/FP8 GEMMs (0.6 and
 0.15 ms at c=1), fused router, session state cache, PDL, DeepGEMM. Reasons and numbers are in "Kernel work" below.
 
 GPU memory of `next`, measured with `nvidia-smi` on the 95.6 GiB card (a 24k-token prompt adds nothing on top):
@@ -56,8 +56,9 @@ Serving notes from a tool-calling test on `next`: vLLM 0.32 returns the reasonin
 than one 2176-token block gets no prefix-cache hit. Thinking costs reasoning tokens even for a simple tool choice
 (231 in one test), and re-sending earlier reasoning in the history made one second turn run to the token limit (n = 1).
 
-Not done yet: a soak test (~30 min of mixed load), restoring KV capacity with `--gpu-memory-utilization 0.8424` at the
-default setting, and the full long-session agentic replay on `next`.
+Not done yet: a soak test (~30 min of mixed load) and restoring KV capacity with
+`--gpu-memory-utilization 0.8424` at the default setting. The full final agentic
+pair on `next` and scalar is [complete](results/qwen_sequential/final_agentic_analysis.md).
 
 ## Results
 
@@ -77,7 +78,8 @@ default setting, and the full long-session agentic replay on `next`.
 
 `next` is measured against optimized in the same session (137 → 125 ms at 8k, 574 → 551 ms at 32k;
 `results/next/SUMMARY.md`). The newer individual-task comparison below evaluates shared b12x against `next`;
-the historical tables still compare production, tuned and optimized. Agentic replay on `next` remains pending.
+the historical tables still compare production, tuned and optimized. The newer
+[final agentic pair](results/qwen_sequential/final_agentic_analysis.md) compares `next` with the selected scalar stack.
 
 Current Qwen prefill experiment: [shared b12x workspace](kernels/moe-nvfp4/SHARED_WORKSPACE.md)
 retains KV capacity. Its exact-alpha variant completed [all 17 serving tasks](results/qwen_sequential/exact_vs_next_tasks_1.serving.md)
@@ -102,8 +104,8 @@ so prior history differs. Neither speed nor quality changes are attributed
 to the two load-time alpha expressions.
 
 `shared_exact/` is the experimental parent for incremental stack tests.
-b12x remains opt-in outside `next`; the scalar composition is now selected
-for the final agentic comparison. The [earlier shared results and quality flags](results/qwen_sequential/shared_vs_next_tasks_1.analysis.md)
+b12x remains opt-in outside `next`; the scalar composition completes the final
+agentic comparison with modest, mixed effects. The [earlier shared results and quality flags](results/qwen_sequential/shared_vs_next_tasks_1.analysis.md)
 retain their original scope.
 
 The fresh [scalar versus exact parent pair](results/qwen_sequential/scalar_vs_exact_matched_3.serving.md)
@@ -115,9 +117,9 @@ shutdown. Scalar 4k/8k/16k TTFT is 107.51→100.54  / 185.15→164.08  / 384.57�
 finds matching candidate sets but leaves some final selections unresolved; neither
 a compiler cause nor isolated scalar attribution is established. Both pass 20/20 needles, but py_email-30000 NLL worsens
 0.794235→0.802070 across three cold repeats with nonoverlapping observed ranges
-([details](kernels/moe-nvfp4/SCALAR_DISPATCH.md)). Scalar is now selected for
-final agentic evaluation with this quality flag retained; selection is not
-a broad model-quality pass or a change to default `next`.
+([details](kernels/moe-nvfp4/SCALAR_DISPATCH.md)). Scalar completes final
+agentic evaluation with this quality flag retained; neither replay nor the
+limited live smoke is a broad model-quality pass. Default `next` is unchanged.
 
 The fresh fixed-FlashInfer `next_matched_3` reference also completes the same
 17 tasks, four greedy cases, 30 cold NLL calls and both 132-entry boundary gates.
@@ -159,9 +161,17 @@ is `next` patches 01–05 plus MoE patches 03–06 (`scalar`), keeping GDN norm/
 fusion opt-in and unselected for this configuration. This choice retains the
 measured scalar prefill gains and avoids the repeated incremental c=4/c=64
 losses. It is scoped to this Qwen/SM120 workload, not a general rejection of
-GDN fusion. Final agentic compares `next_final_agentic_1` with
-`stack_final_agentic_1`; those runs evaluate the complete stack, never each
-patch separately.
+GDN fusion. The [final agentic pair](results/qwen_sequential/final_agentic_analysis.md)
+completes all eight shapes: 5,772 verified turns and 987,945 output tokens per
+configuration. Short c=1/4/8/16/32 output rates change
++3.92%/-3.60%/+2.45%/+1.95%/+2.18%; long c=1/8/32 changes
++0.34%/+0.92%/+2.51%. Long c=32 TTFT p50 falls 866.08→816.42 ms (-5.73%),
+but long c=8 p90 rises 698.23→775.53 ms and short c=4 wall time rises 3.73%.
+These are modest, mixed observations from one sequential pair, not a robust
+general speedup. The separate live smoke finishes only 1/8 tasks on either
+side and uses canned tests; it does not establish coding quality. Scalar
+remains opt-in, default `next` stays unchanged, and the earlier NLL flags remain.
+Agentic was measured only for the selected complete stack.
 
 The [experimental patch package](kernels/gdn-norm-fp8/PATCH_COMPOSITION.md)
 reproduces all six measured scalar/GDN runtime files byte-for-byte in either
@@ -202,8 +212,12 @@ optimized costs ~4% at c=64, which patch 04 removes (`results/decode_ab/SUMMARY.
 
 ### Agentic workloads
 
+The historical figures below compare production, tuned and optimized. The newer
+[`next` versus scalar result](results/qwen_sequential/final_agentic_analysis.md)
+completes all eight short/long replay shapes with modest, mixed effects.
+
 Multi-turn tool-calling sessions (list_dir / read_file / grep / write_file / run_tests) were recorded live, then
-replayed token for token on every config, so each config prefills and decodes exactly the same tokens
+replayed with the same recorded prompt tokens and requested output lengths on each config; generated text may differ
 (`bench/agentic_bench.py`, `results/agentic/SUMMARY.md`). There are two sets: short coding sessions
 (10-30k tokens) and whole-package reviews that grow each session to ~126k tokens.
 
@@ -338,8 +352,8 @@ The largest decode lever found, GDN state replay, is built (`kernels/gdn-replay`
 - `fp8-attn-glue`: confirmed, bitwise identical; the claimed gain was slightly overstated.
 - `gdn-conv-fusion`: confirmed, bit-exact, speedup reproduces within about 2%.
 - `decode-roofline` (skinny BF16): partly confirmed. About -0.6 ms per step at c=1, nothing at c >= 4, numerics match cuBLAS. Not integrated: its on/off flag is not part of vLLM's compile-cache key and the end-to-end quality evidence is only kernel-level.
-- `moe-nvfp4`: the diagnosis, scale fix and kernel speedup reproduce. The original patch halves KV capacity; shared workspace removes that penalty. The exact-alpha variant completed all 17 tasks, near-neutral explicit-greedy decode and 50 cold NLL calls per backend. The earlier large NLL deterioration did not reproduce in those repeats, which do not establish quality equivalence. Prefill gains are smaller than the older shared pair; independent autotuning is a concrete confound. Exact is the experimental parent. Scalar now completes a controlled full pair with faster cold prefill, mixed task/decode rates and a retained NLL flag; four tuning records differ without proving four runtime choices differ. Scalar is selected for final composed agentic evaluation; its quality flags remain. Not in default next.
-- `gdn-norm-fp8`: exact standalone FP8/scales/projection checks and the scoped layer 18 private-state probe pass. All 30 layers activate in the compiled integration. The [composed full serving pair](kernels/gdn-norm-fp8/results/COMPOSED_SERVING.md) completes all tasks but trades faster 32k prefill and long-doc throughput for slower 8k prefill and greedy c=64 versus scalar. It passes 20/20 needles; cold NLL flags remain. The focused reverse-order pair repeats c=4/c=64 losses despite variable prefill benefits. Scalar is selected without this additional fusion for the final agentic pair; GDN remains opt-in for further scoped work. Default-off, not in next.
+- `moe-nvfp4`: the diagnosis, scale fix and kernel speedup reproduce. The original patch halves KV capacity; shared workspace removes that penalty. The exact-alpha variant completed all 17 tasks, near-neutral explicit-greedy decode and 50 cold NLL calls per backend. The earlier large NLL deterioration did not reproduce in those repeats, which do not establish quality equivalence. Prefill gains are smaller than the older shared pair; independent autotuning is a concrete confound. Exact is the experimental parent. Scalar now completes a controlled full pair with faster cold prefill, mixed task/decode rates and a retained NLL flag; four tuning records differ without proving four runtime choices differ. The final scalar-versus-next agentic pair completes with output-rate changes -3.60% to +3.92%, including a worse long c=8 TTFT p90; one pair establishes no robust/general gain. Quality flags remain. Not in default next.
+- `gdn-norm-fp8`: exact standalone FP8/scales/projection checks and the scoped layer 18 private-state probe pass. All 30 layers activate in the compiled integration. The [composed full serving pair](kernels/gdn-norm-fp8/results/COMPOSED_SERVING.md) completes all tasks but trades faster 32k prefill and long-doc throughput for slower 8k prefill and greedy c=64 versus scalar. It passes 20/20 needles; cold NLL flags remain. The focused reverse-order pair repeats c=4/c=64 losses despite variable prefill benefits. The final agentic pair uses scalar without this additional fusion and is complete; GDN remains opt-in for further scoped work. Default-off, not in next.
 - `dense-fp8-gemm` (skinny FP8 decode GEMM): partly confirmed. Reproduces at kernel level (-223 us per c=1 step with cold weights; -78 us at c=16; nothing at c=64) and in situ (about -0.15 ms per step at c=1, -0.06 ms at c=4, because MTP-2 rounds the c=4 batch to M=18). The wall-clock gain sits inside the host noise.
 - `gdn-replay`: built by one agent, not yet re-run by a second. Same-step form: verify skips the state writes, one commit launch per KV-cache group replays the accepted tokens. Bit-exact against the stock kernel in all 30 layers (47,640+ row-layer-steps, 0 mismatches), MTP acceptance unchanged (0.596 and 0.599 off, 0.599 and 0.591 on), stress run with 37 aborts clean. End-to-end at c=64: ITL 28.61 → 26.23 ms (-8.3%), 3,599 → 3,859 tok/s (+7.2%); c=16 and c=32 neutral. Below 8 requests the stock path runs. Worth enabling only at about 48 or more concurrent decodes (`VLLM_GDN_STATE_REPLAY_MIN_REQS`). A first live run collapsed acceptance to 0.06 because the commit used the first KV-cache group's block table for all groups; fixed. Not checked: preemption, TP > 1. The patch is `kernels/gdn-replay/patch/04-gdn-state-replay.patch` (numbered 04 inside that directory; it is not in `patches/` yet).
 - `fused-router` (router GEMM + softmax + top-8 in one kernel, from DeepGEMM's mega-gate idea): built, 173 correctness checks pass, no end-to-end run yet. Top-8 ids match vLLM's `topk_softmax` exactly on injected logits; on the real weights the top-8 set equals the fp64 reference in every row, while vLLM's cuBLAS path picks a different set in about 2.7% of rows at M >= 4. Per step it saves 109 us at c=1 (1.8% of a 6.0 ms step) on top of the skinny BF16 GEMM, 60-77 us at c=2-4, nothing at c >= 8 (microbenchmark x 42 calls per step, an assumption). Not integrated: needs the quality check because it changes routing for ~3% of rows.

@@ -26,9 +26,14 @@ focused repeat shows variable prefill benefits but again loses greedy throughput
 at c=4/c=64 (-4.18%/-4.04%; c=16 -7.70%). The [selected final stack](../../results/qwen_sequential/final_stack_selection.md)
 is the scalar MoE composition on top of `next` patches 01–05, without the
 additional GDN norm/FP8 overlay. This is a choice for the current measured
-configuration, not a general rejection of GDN. The final agentic pair is
-`next_final_agentic_1` versus `stack_final_agentic_1`; no individual patch gets
-its own agentic run.
+configuration, not a general rejection of GDN. The [final agentic pair](../../results/qwen_sequential/final_agentic_analysis.md),
+`next_final_agentic_1` versus `stack_final_agentic_1`, now completes all eight
+shapes (5,772 turns / 987,945 output tokens per side). Output rates change
+-3.60% to +3.92%; long c=32 TTFT p50 improves 5.73%, but long c=8 p90 worsens
+and short c=4 throughput declines. One pair supplies no robust/general gain.
+Scalar remains opt-in; default `next` and the quality flags are unchanged.
+The separate live smoke finishes only 1/8 tasks per side with canned tests,
+so it does not establish coding quality. No individual patch got an agentic run.
 
 ## Shared-workspace follow-up (2026-10-28)
 
@@ -90,8 +95,8 @@ are attributed to the two load-time alpha expressions.
 
 `shared_exact/` is the experimental parent for incremental stack tests.
 This historical parent remains opt-in outside `CONFIG=next`. The newer fixed-reference
-scalar and GDN comparisons are summarized above. Scalar is now selected for
-the final agentic comparison; the default `next` configuration remains unchanged.
+scalar and GDN comparisons are summarized above. The final scalar agentic
+comparison is complete; default `next` remains unchanged.
 
 The sections below and `VERIFY.md` describe the original unshared backend;
 their workspace/KV penalty does not describe the new shared candidate.

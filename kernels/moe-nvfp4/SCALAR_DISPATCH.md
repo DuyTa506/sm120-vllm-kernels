@@ -1,8 +1,8 @@
 # Scalar FC1-scale dispatch experiment
 
-Status: **GPU correctness, microbenchmark and controlled serving measurements completed;
-scalar is selected for final composed agentic evaluation**. It remains opt-in;
-Quality equivalence and patch-only attribution are not established. Results
+Status: **GPU correctness, microbenchmark, controlled serving and final composed
+agentic measurements completed**. Scalar remains opt-in. Quality equivalence,
+a robust/general agentic speedup and patch-only attribution are not established. Results
 are below. The existing `shared/` backend, workspace verifier/harness and
 installed container sources remain unchanged by this experiment.
 
@@ -244,8 +244,14 @@ The [selected final configuration](../../results/qwen_sequential/final_stack_sel
 therefore keeps root `next` patches 01–05 and MoE patches 03–06 (`scalar`),
 without the additional GDN norm/FP8 fusion. This is a scoped configuration
 choice based on the measured tradeoffs. The default `next` configuration is
-unchanged. Final agentic evaluates `next_final_agentic_1` against
-`stack_final_agentic_1`; it is not run for this individual patch alone.
+unchanged. The [completed final agentic pair](../../results/qwen_sequential/final_agentic_analysis.md)
+evaluates `next_final_agentic_1` against `stack_final_agentic_1`, with 5,772
+verified turns and 987,945 output tokens per configuration. Output-rate changes
+are -3.60% to +3.92%; long c=32 TTFT p50 improves 5.73%, while long c=8 p90
+and short c=4 wall time regress. These modest, mixed observations do not
+establish a general gain from one pair. The separate live smoke finishes only
+1/8 tasks per side, uses canned tests and does not establish coding quality.
+The NLL flags above remain open. No agentic run measures this patch alone.
 
 Reports: [17 serving tasks](../../results/qwen_sequential/scalar_vs_exact_matched_3.serving.md),
 [greedy decode](../../results/qwen_sequential/scalar_vs_exact_matched_3.greedy.md),

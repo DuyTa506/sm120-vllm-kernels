@@ -1,8 +1,9 @@
 # Experimental scalar + GDN patch composition
 
 These patches reproduce the frozen scalar MoE and GDN overlay sources. They
-are **experimental artifacts**. Scalar is selected for final agentic evaluation;
-the additional GDN overlay is unselected for the current measured configuration.
+are **experimental artifacts**. Scalar completes the [final agentic pair](../../results/qwen_sequential/final_agentic_analysis.md)
+with modest, mixed effects and remains opt-in. The additional GDN overlay is
+unselected for the current measured configuration.
 Both the full `scalar_gdn_matched_3` run and a reversed-order focused pair
 complete, with variable prefill benefits and repeated greedy c=4/c=64 losses.
 See [`results/COMPOSED_SERVING.md`](results/COMPOSED_SERVING.md) and the
@@ -98,7 +99,7 @@ warmup constraints, and
 validation scope. The existing scalar `py_email30k` flag and the composed
 stack's `licenses-30000` flag remain open; packaging does not resolve them.
 The completed full and focused comparisons have both gains and regressions.
-Scalar without this additional GDN fusion is selected for the final `next`
+Scalar without this additional GDN fusion completes the final `next`
 comparison. The GDN overlay remains available for further scoped experiments;
-agentic is run only for the selected complete composition, not separately for
-each patch. The focused NLL repeat does not establish model-quality equivalence.
+agentic was run only for the selected complete composition, not separately for
+each patch. Its mixed final result leaves default `next` unchanged. The focused NLL repeat does not establish model-quality equivalence.

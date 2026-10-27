@@ -5,7 +5,7 @@ vLLM 0.32.0 and the RTX PRO 6000 Blackwell. The composition improves long-doc
 throughput and 32k cold prefill versus the scalar parent, but regresses 8k cold
 prefill and greedy decode at c=64. GDN remains default-off and **is not selected
 for the current final stack** after the completed focused repeat below. Scalar
-without this additional fusion is selected for final agentic evaluation. This
+without this additional fusion completes final agentic evaluation. This
 is a scoped configuration choice, not a general rejection of GDN fusion. No
 per-patch agentic run was made.
 
@@ -166,8 +166,11 @@ resolved. Neither overlap nor the smaller delta establishes quality equivalence.
 The selected final stack is root `next` patches 01–05 plus MoE patches 03–06,
 without this additional GDN norm/FP8 overlay. The [selection record](../../../results/qwen_sequential/final_stack_selection.md)
 contains the exact composition and commands. Only that selected complete stack
-enters final agentic against `next` (`next_final_agentic_1` and
-`stack_final_agentic_1`).
+entered final agentic against `next` (`next_final_agentic_1` and
+`stack_final_agentic_1`). The [completed result](../../../results/qwen_sequential/final_agentic_analysis.md)
+is modest and mixed: output-rate changes -3.60% to +3.92%, with no robust/general
+speedup established from one pair. It does not measure GDN agentic performance;
+GDN remains opt-in for further scoped work and default `next` is unchanged.
 
 The [private-state probe](STATE_PROBE_GPU.md) remains scoped to layer 18 and
 actual eager long-prefill, mixed speculative-decode/prefill and pure-decode

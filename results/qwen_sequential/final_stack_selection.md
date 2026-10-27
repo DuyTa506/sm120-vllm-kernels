@@ -1,7 +1,9 @@
 # Selected stack for the final Qwen agentic comparison
 
-Select **`scalar`**, consisting of root `next` patches 01–05 plus MoE patches
-03–06, for the final comparison against `next`. Keep the additional GDN
+The final comparison used **`scalar`**, consisting of root `next` patches 01–05
+plus MoE patches 03–06, against `next`. The [completed result](final_agentic_analysis.md)
+has modest, mixed effects and supports retaining scalar as an opt-in measured
+composition rather than changing default `next`. Keep the additional GDN
 norm/FP8 overlay opt-in and unselected for this measured configuration. The
 choice prioritizes the scalar composition's observed prefill gains while
 avoiding the repeated incremental greedy c=4/c=64 throughput losses from GDN.
@@ -106,10 +108,16 @@ corpora, overlapping ranges, or 20/20 needles establish quality equivalence.
 
 ## Final agentic execution
 
-Only the selected complete stack enters the final agentic pair. The recorded
-run tags are `next_final_agentic_1` and `stack_final_agentic_1`; their results
-are pending completion and are not asserted here. Existing output tags are
-protected: use fresh tags for a later reproduction, with an otherwise idle GPU.
+The selected complete stack finishes the final agentic pair: both
+`next_final_agentic_1` and `stack_final_agentic_1` exit 0, with 5,772 verified
+turns and 987,945 output tokens each. The [analysis](final_agentic_analysis.md)
+and [strict comparison](final_agentic_pair.md) show output-rate changes of
+-3.60% to +3.92%, including short c=4 regression and long c=8 TTFT p90
+regression. Long c=32 TTFT p50 improves 5.73%. This one pair does not establish
+a robust/general speedup, and the separate live smoke finishes only 1/8 tasks
+per side with canned tests. Scalar remains opt-in, the default is unchanged,
+and the quality flags above remain open. Existing output tags are protected:
+use fresh tags for a later reproduction, with an otherwise idle GPU.
 
 ```bash
 sg docker -c 'set -e

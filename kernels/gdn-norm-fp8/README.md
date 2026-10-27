@@ -16,8 +16,10 @@ still lose 4.18%/4.04% and c=16 loses 7.70%. Five-round NLL remains diagnostic;
 the licenses-30000 delta versus scalar shrinks to +0.000125 with overlapping
 ranges. These measurements support selecting scalar without this additional
 fusion for the current Qwen/SM120 comparison, not a general performance
-rejection of GDN. Agentic runs only on the selected complete stack versus
-`next`. See [`results/COMPOSED_SERVING.md`](results/COMPOSED_SERVING.md) and
+rejection of GDN. The [completed final agentic pair](../../results/qwen_sequential/final_agentic_analysis.md)
+uses scalar without this additional fusion and records modest, mixed effects;
+it supplies no agentic measurement for GDN itself. See
+[`results/COMPOSED_SERVING.md`](results/COMPOSED_SERVING.md) and
 [final stack selection](../../results/qwen_sequential/final_stack_selection.md).
 The earlier scoped integration smoke remains separately recorded in
 [`results/INTEGRATION_GPU.md`](results/INTEGRATION_GPU.md).

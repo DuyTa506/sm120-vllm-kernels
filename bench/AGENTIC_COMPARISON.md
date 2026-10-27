@@ -2,7 +2,7 @@
 
 `compare_agentic.py` compares completed `qwen_experiment.sh ... agentic` artifacts offline. It requires metric version 2 and the fixed production trajectories. It shares the strict container/config/source/GDN/FI gates with `compare_runtime_identity.py`; the prior greedy-decode/NLL settings must also match. It checks every `(copied task ID, turn)` exactly once, its input length and requested/verified completion count, successful finished streams, finite per-turn timings, recomputed summary counts/rates/percentiles, and monotonic MTP counters.
 
-The input snapshot and verification steps below are already wired into the runner, before the matched-3 individual experiments. Only the explicit `agentic` suite invokes them. Existing replay reports without metric version 2 or captured input evidence are rejected. No final agentic GPU run has occurred yet; individual suites never run agentic.
+The input snapshot and verification steps below are already wired into the runner, before the matched-3 individual experiments. Only the explicit `agentic` suite invokes them. Existing replay reports without metric version 2 or captured input evidence are rejected. The final `next_final_agentic_1` / `stack_final_agentic_1` (`scalar`) pair now completes exit 0 on both sides, with 5,772 verified turns and 987,945 output tokens each. The [strict comparison](../results/qwen_sequential/final_agentic_pair.md) and [analysis](../results/qwen_sequential/final_agentic_analysis.md) record modest, mixed effects and limited live-smoke results. Individual suites never run agentic.
 
 ## Current runner integration
 
@@ -29,7 +29,9 @@ mv "$O/agentic_input_verify.json.tmp" "$O/agentic_input_verify.json"
 
 The runner retains per-set metrics before/after capture, the separate live-short smoke, source verification, and graceful FI shutdown verification. These steps are implemented; do not insert a second snapshot call. The helper refuses to overwrite an existing input snapshot. Do not attach a newly created manifest retroactively to an earlier replay: it cannot prove which bytes the earlier process consumed. Snapshotting before the replay and using the copies is the required integration contract.
 
-After successful shutdown of both servers:
+The completed pair was compared after successful shutdown of both servers.
+For a reproduction, choose a fresh output prefix; the recorded
+`final_agentic_pair.{json,md}` already exists and is protected from overwrite:
 
 ```bash
 python3 -I bench/compare_agentic.py BASE_RUN_ROOT CANDIDATE_RUN_ROOT \
