@@ -17,7 +17,11 @@ def parse_args():
     p.add_argument("--tokens", type=int, nargs="+", default=[1, 3, 31, 128, 1023, 1024, 1025, 4096, 8192, 16384])
     p.add_argument("--bench-tokens", type=int, nargs="+", default=[4096, 8192, 16384])
     p.add_argument("--warps", type=int, nargs="+", choices=(4, 8, 16), default=[8])
+    p.add_argument("--implementation", choices=("original", "explicit"), default="original",
+                   help="isolated candidate to verify; neither is a serving integration")
     p.add_argument("--snapshot", type=Path, help="local model snapshot, for real norm/GEMM weights")
+    p.add_argument("--captured-dir", type=Path, help="verify actual captured activations; requires --mode verify")
+    p.add_argument("--failure-dir", type=Path, help="save first failing inputs/references for exact reproduction")
     p.add_argument("--layers", type=int, nargs="+", default=[0, 18, 38])
     p.add_argument("--with-gemm", action="store_true", help="also check/time real output GEMM; requires --snapshot")
     p.add_argument("--replays", type=int, default=30)
@@ -25,6 +29,8 @@ def parse_args():
     args = p.parse_args()
     if args.with_gemm and args.snapshot is None:
         p.error("--with-gemm requires --snapshot")
+    if args.captured_dir is not None and args.mode != "verify":
+        p.error("--captured-dir is verification-only; use --mode verify")
     if min(args.tokens + args.bench_tokens + [args.replays, args.buffers]) < 1:
         p.error("token counts, replays and buffers must be positive")
     return args
@@ -47,7 +53,10 @@ def main():
     from vllm.model_executor.layers.quantization.input_quant_fp8 import QuantFP8
     from vllm.model_executor.layers.quantization.utils.quant_utils import GroupShape
     from vllm.third_party.flash_linear_attention.ops.layernorm_guard import rmsnorm_fn
-    from fused import fused_norm_gate_fp8
+    if args.implementation == "explicit":
+        from fused_explicit import fused_norm_gate_fp8_explicit as fused_norm_gate_fp8
+    else:
+        from fused import fused_norm_gate_fp8
 
     if torch.cuda.get_device_capability() != (12, 0):
         raise RuntimeError("This experiment is scoped to SM120")
@@ -137,6 +146,99 @@ def main():
     def exact(stats):
         return stats["fp8_mismatches"] == 0 and stats["scale_bit_mismatches"] == 0
 
+    def save_failure(x, z, w, actual, expected, **context):
+        if args.failure_dir is None:
+            return
+        from capture_io import file_sha256, tensor_spec
+        args.failure_dir.mkdir(parents=True, exist_ok=False)
+        values = dict(x=x, z=z, weight=w, norm_reference=norm(x, z, w),
+                      q_actual=actual[0], scale_actual=actual[1],
+                      q_reference=expected[0], scale_reference=expected[1])
+        torch.save({key: value.detach().cpu().contiguous() for key, value in values.items()},
+                   args.failure_dir / "failure.pt")
+        (args.failure_dir / "context.json").write_text(json.dumps({
+            **context, "specs": {key: tensor_spec(value) for key, value in values.items()},
+            "implementation": args.implementation,
+            "fused_sha256": file_sha256(Path(__file__).with_name(
+                "fused_explicit.py" if args.implementation == "explicit" else "fused.py")),
+        }, indent=2) + "\n")
+        emit(event="failure_saved", directory=str(args.failure_dir))
+
+    def verify_captured():
+        from capture_io import file_sha256, load_capture, restore_layout
+
+        manifest = json.loads((args.captured_dir / "manifest.json").read_text())
+        if (manifest.get("schema_version") != 1 or manifest.get("status") != "complete"
+                or manifest.get("tokens") != 8192):
+            raise ValueError("Expected a complete schema-v1 8192-token capture")
+        entries = {entry["layer"]: entry for entry in manifest["captures"]}
+        if len(entries) != len(manifest["captures"]) or not set(args.layers) <= set(entries):
+            raise ValueError("Capture contains duplicate layers or lacks requested layers")
+        if args.snapshot:
+            for filename, key in (("config.json", "model_config_sha256"),
+                                  ("model.safetensors.index.json", "weight_index_sha256")):
+                if file_sha256(args.snapshot / filename) != manifest[key]:
+                    raise ValueError(f"Capture and GEMM snapshot differ: {filename}")
+        emit(event="captured_environment", capture_id=manifest["capture_id"],
+             implementation=args.implementation,
+             captured_dir=str(args.captured_dir), captured_snapshot=manifest["snapshot"],
+             note="Actual eager activations; exact compiled-quant reference, no timing")
+        for layer in args.layers:
+            entry = entries[layer]
+            attributes = entry.get("norm_attributes") or {}
+            if (attributes.get("eps") != 1e-6 or attributes.get("group_size") is not None
+                    or attributes.get("norm_before_gate") is not True or attributes.get("bias") is not False
+                    or attributes.get("activation") not in ("silu", "swish")
+                    or attributes.get("forward_method") != "forward_cuda"):
+                raise ValueError(f"Layer {layer}: unexpected captured norm attributes")
+            data = load_capture(args.captured_dir, entry, expected_tokens=8192)
+            x, z, w = (restore_layout(data[key], entry["specs"][key], device="cuda")
+                       for key in ("x", "z", "weight"))
+            saved_y = data["norm_output"].cuda()
+            replayed_y = norm(x, z, w)
+            norm_mismatches = int((replayed_y.contiguous().view(torch.int16)
+                                   != saved_y.view(torch.int16)).sum())
+            emit(event="captured_norm", layer=layer, tokens=8192,
+                 x_stride=list(x.stride()), z_stride=list(z.stride()),
+                 z_storage_offset=z.storage_offset(), bf16_mismatches=norm_mismatches)
+            if norm_mismatches:
+                raise AssertionError("Installed norm does not reproduce captured BF16 output")
+            bw = None
+            if args.snapshot:
+                checkpoint_w, bw = weights(layer)
+                if not torch.equal(w.view(torch.int16), checkpoint_w.view(torch.int16)):
+                    raise AssertionError("Captured norm weight differs from requested checkpoint")
+            # Anchor quantization to the output captured inside the real forward.
+            ref = compiled_quant(saved_y.reshape(-1, 4096))
+            eager = ops.scaled_fp8_quant(saved_y.reshape(-1, 4096), use_per_token_if_dynamic=True)
+            reference_mm = mm(ref, bw) if bw is not None else None
+            for warps in args.warps:
+                got = fused_norm_gate_fp8(x, z, w, num_warps=warps)
+                stats = compare(got, ref)
+                record = dict(event="captured_numerics", layer=layer, tokens=8192, warps=warps,
+                              compiled_reference=stats, eager_reference=compare(got, eager))
+                if bw is not None:
+                    actual_mm = mm(got, bw)
+                    record["gemm_bf16_mismatches"] = int((actual_mm.view(torch.int16)
+                                                         != reference_mm.view(torch.int16)).sum())
+                emit(**record)
+                if not exact(stats) or record.get("gemm_bf16_mismatches", 0):
+                    raise AssertionError("Captured activation/reference mismatch; do not integrate")
+                q, s = torch.empty_like(got[0]), torch.empty_like(got[1])
+                fused_norm_gate_fp8(x, z, w, out=(q, s), num_warps=warps)
+                torch.cuda.synchronize()
+                graph = torch.cuda.CUDAGraph()
+                with torch.cuda.graph(graph):
+                    fused_norm_gate_fp8(x, z, w, out=(q, s), num_warps=warps)
+                for iteration in range(3):
+                    graph.replay()
+                    replay_stats = compare((q, s), ref)
+                    emit(event="captured_graph_replay", layer=layer, warps=warps,
+                         iteration=iteration, **replay_stats)
+                    if not exact(replay_stats):
+                        raise AssertionError("Captured-input graph replay mismatch")
+            del data, x, z, w, saved_y, replayed_y, ref, eager, reference_mm, bw
+
     def verify_case(t, kind, strided, w, bw, layer, warps):
         x, z = inputs(t, kind, strided)
         ref = baseline(x, z, w)
@@ -151,6 +253,8 @@ def main():
             record["gemm_bf16_mismatches"] = int((a.view(torch.int16) != b.view(torch.int16)).sum())
         emit(**record)
         if not exact(stats):
+            save_failure(x, z, w, got, ref, event="numerics", tokens=t, case=kind,
+                         strided_z=strided, layer=layer, warps=warps)
             raise AssertionError("Compiled serving reference mismatch; do not benchmark or integrate")
         # A second reference is diagnostic: differences between CUDA eager and
         # compiled quantization are reported, never silently counted as equality.
@@ -173,10 +277,13 @@ def main():
                 x.add_(0.0078125)
                 z.mul_(-0.5)
                 graph.replay()
-                replay_stats = compare((q, s), baseline(x, z, w))
+                replay_ref = baseline(x, z, w)
+                replay_stats = compare((q, s), replay_ref)
                 emit(event="graph_replay", tokens=t, iteration=iteration, strided_z=strided,
                      layer=layer, warps=warps, **replay_stats)
                 if not exact(replay_stats) or ptrs != (q.data_ptr(), s.data_ptr()):
+                    save_failure(x, z, w, (q, s), replay_ref, event="graph_replay", tokens=t,
+                                 iteration=iteration, strided_z=strided, layer=layer, warps=warps)
                     raise AssertionError("Graph replay mismatch")
 
     def graph_time(fns):
@@ -210,8 +317,14 @@ def main():
         return {"median_us": statistics.median(times), "min_us": min(times),
                 "max_us": max(times), "replays": args.replays, "buffers": len(fns)}
 
+    if args.captured_dir is not None:
+        verify_captured()
+        emit(status="PASS", scope="requested captured eager activations and graph replays only; no timing or compiled-serving equivalence claim")
+        return
+
     layers = args.layers if args.snapshot else [None]
     emit(event="environment", gpu=torch.cuda.get_device_name(), torch=torch.__version__,
+         implementation=args.implementation,
          snapshot=str(args.snapshot) if args.snapshot else None,
          note="Synthetic activations; real norm/GEMM weights only with --snapshot")
     for layer in layers:

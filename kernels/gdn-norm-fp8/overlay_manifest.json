@@ -1,0 +1,28 @@
+{
+  "baseline_source": "build/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py",
+  "baseline_sha256": "c82a390240c77032414d916ed705780716cd696f90722eb99eb89419f0aa262c",
+  "validated_kernel_source": "kernels/gdn-norm-fp8/fused_explicit.py",
+  "validated_kernel_sha256": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+  "files": {
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "cce563b943dabf871f358c1ed4633f9297db4ac7a9c5db45e4f98dcb331e78a2",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "2fee3aed884d0f254cad50531de83eb0448997caca0f47084a0f25f4884a6e03",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+    "overlay/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c"
+  },
+  "scope": "Unmounted default-off packed overlay; CPU tests only; stateful GPU integration untested",
+  "required_env": {
+    "VLLM_GDN_NORM_FP8_FUSION": "1"
+  },
+  "required_split_op": "vllm::gdn_attention_core_norm_fp8_packed_experimental",
+  "fallback": "Original packed core + validated compiled original native QuantFP8-to-output wrapper; original quantizer retained",
+  "validated_quant_out_source": "kernels/gdn-norm-fp8/fallback_quant_out.py",
+  "validated_quant_out_sha256": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+  "fallback_evidence": "results/fallback_quant_out_gpu_summary.json",
+  "compile_options": {
+    "dynamic": true,
+    "fullgraph": true,
+    "backend": "torch.compile default (inductor)",
+    "options": null
+  }
+}

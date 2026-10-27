@@ -1,14 +1,54 @@
-# GDN norm + SiLU + token FP8 prototype
+# GDN norm + SiLU + token FP8 experiment
 
-**Pending GPU verification.** These standalone files have no serving hooks.
-They were prepared while GPU experiments were assigned elsewhere. Offline
-SM120 compilation passes with CUDA hidden; no GPU numerical comparison or
-timing has run for this candidate. CPU-only CLI, Python AST parsing and
-whitespace checks also pass.
-The source/trace analysis is in
-[`../moe-nvfp4/GDN_FUSION_RESEARCH.md`](../moe-nvfp4/GDN_FUSION_RESEARCH.md).
+The explicit-layout candidate passes the recorded standalone exact checks;
+the original automatic-layout candidate fails. Serving integration is a
+separate, default-off overlay and has **not** been tested on GPU.
 
-`fused.py` implements one Triton CTA per token. Inputs are BF16 X/Z
+The GPU run ledger is [`results/EXPLICIT_GPU.md`](results/EXPLICIT_GPU.md).
+Recorded results are summarized in
+[`results/explicit_validation_summary.json`](results/explicit_validation_summary.json):
+
+- Initial explicit run: 144 numerical cases and 72 changed-input graph replays.
+- Real norm/output-projection weights from layers 0/18/38: 648 numerical
+  cases, 324 replays and 432 timing records.
+- Actual 8192-token prefill capture from those layers: 3 captured BF16 norm
+  checks, 9 exact FP8/scale/unchanged-GEMM checks and 27 replays, all passing.
+
+Exact means zero FP8-byte, scale-bit and checked GEMM-output differences.
+The oracle is installed FLA norm followed by compiled native QuantFP8.
+Saved server FX confirms the default packed GDN path calls FLA directly
+inside its opaque core, independent of the norm module's dispatch setting.
+See [`results/qa_interface_review_cpu.json`](results/qa_interface_review_cpu.json).
+The earlier `_output_projection` hook proposal would miss this packed path.
+
+Isolated CUDA-graph timings for layer 18, eight warps, including the
+baseline gate copy and the same real output GEMM (median of recorded AB/BA
+medians, microseconds):
+
+| Tokens | Reference chain | Explicit fused chain |
+| ---: | ---: | ---: |
+| 4096 | 173.09 | 146.82 |
+| 8192 | 391.05 | 286.90 |
+| 16384 | 925.94 | 584.51 |
+
+These are microbenchmarks, not measured serving improvements. Both chains
+retain their captured output buffers. Serving quality, decode cost, padded
+metadata paths and graph startup remain integration validation work.
+
+The original failure and reduction-order diagnosis are preserved in
+[`DIAGNOSIS.md`](DIAGNOSIS.md). The successful capture is
+`results/activations_8k_v2`; the first capture's RPC serialization failure
+and owned-process cleanup are recorded separately. See [`CAPTURE.md`](CAPTURE.md).
+The compiled-output fallback passes its separate exactness checks;
+[`results/FALLBACK_QUANT_OUT_GPU.md`](results/FALLBACK_QUANT_OUT_GPU.md) records
+its generated code and limited timing comparison.
+The default-off overlay and required split configuration are described in
+[`INTEGRATION_PREP.md`](INTEGRATION_PREP.md). No mounted serving sources or
+backend defaults have been changed by this experiment.
+
+`fused_explicit.py` implements one Gluon CTA per token with the FLA reduction layout.
+The frozen source docstring predates its GPU validation; the recorded results
+above are authoritative. `fused.py` remains the preserved failing candidate. Inputs are BF16 X/Z
 `[T,32,128]`, BF16 weight `[128]`, epsilon 1e-6, no bias. Z may have the actual
 QKVZ slice strides `(12288,128,1)`. Norm reduces each head; SiLU gating runs
 in FP32; the result explicitly rounds through BF16 before one dynamic FP8
@@ -21,9 +61,8 @@ and FP32 `[T,1]`. Zero rows use scale `1/(448*512)`.
 differences against installed `ops.scaled_fp8_quant`. Exact scale bits and
 FP8 bytes are required against the compiled reference. It stops on mismatch
 before timing. Optional checkpoint loading tests real norm weights and the
-unchanged CUTLASS output projection. Synthetic activations do not establish
-model accuracy; captured activations and end-to-end serving checks remain
-necessary even if all included cases pass.
+unchanged CUTLASS output projection. The capture checks cover one eager request and selected layers; broad model
+accuracy and integrated serving still require separate checks.
 
 Run these only after the GPU is available, inside the vLLM 0.32.0 environment
 with this directory mounted:
@@ -34,11 +73,11 @@ python3 verify_bench.py
 python3 verify_bench.py --help
 
 # Numerical/graph validation, then timing, with synthetic weights:
-python3 verify_bench.py --run-gpu --mode verify --warps 4 8 16
-python3 verify_bench.py --run-gpu --mode bench --warps 4 8 16
+python3 verify_bench.py --run-gpu --mode verify --implementation explicit --warps 4 8 16
+python3 verify_bench.py --run-gpu --mode bench --implementation explicit --warps 4 8 16
 
 # Real norm and output-projection weights from the mounted local snapshot:
-python3 verify_bench.py --run-gpu --mode both --with-gemm --warps 8 \
+python3 verify_bench.py --run-gpu --mode both --implementation explicit --with-gemm --warps 8 \
   --snapshot /root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66
 ```
 
@@ -52,12 +91,10 @@ buffers are used per timing graph. With `--with-gemm`, each chain is also
 timed with the same real output GEMM. GPU event timings do not include Python
 allocation overhead; CUDA graphs hold baseline temporaries in their pool.
 
-Before integration, inspect generated Triton IR/PTX for the BF16 round-trip,
-the per-head reduction layout, reciprocal and FP8 conversion, plus register
-count and spills. Changing warp count can change reduction ordering. This
-prototype provides a concrete experiment; exact numerical agreement and a
-speed improvement are both unproven. A passing synthetic benchmark alone
-does not authorize a production default or alter the current vLLM backend.
+The verifier defaults to the original candidate for provenance; pass
+`--implementation explicit` for the validated candidate. The explicit kernel
+and verifier remain frozen at their tested hashes. GPU steps require an
+exclusive scheduled slot, writable runtime caches and the local snapshot.
 
 ## Offline compilation
 
@@ -73,6 +110,7 @@ versions are in [`results/offline_sm120/SUMMARY.md`](results/offline_sm120/SUMMA
 
 The generated code retains FP32→BF16→FP32 rounding before quantization and
 the E4M3 conversion. The per-head reduction precedes the token-wide maximum.
-Compilation also fuses some multiply/add operations; only the scheduled GPU
-comparison can establish agreement with the installed reference. These
+Compilation also fuses some multiply/add operations; the original candidate subsequently failed the recorded GPU comparison.
+The separate explicit-layout offline artifacts are under
+`results/explicit_layout_offline/`; all six compiled specializations have zero spills. These
 resource counts are preparation evidence, not a speed measurement.

@@ -1,0 +1,41 @@
+{"capture_id": "bae5cb6a-8227-438b-88fc-c24b3f6ddbf8", "captured_dir": "/work/kernels/gdn-norm-fp8/results/activations_8k_v2", "captured_snapshot": "/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66", "event": "captured_environment", "implementation": "explicit", "note": "Actual eager activations; exact compiled-quant reference, no timing"}
+{"bf16_mismatches": 0, "event": "captured_norm", "layer": 0, "tokens": 8192, "x_stride": [4096, 128, 1], "z_storage_offset": 8192, "z_stride": [12288, 128, 1]}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 3721, "scale_bit_mismatches": 2929, "scale_max_abs": 4.656612873077393e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 0, "tokens": 8192, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 3721, "scale_bit_mismatches": 2929, "scale_max_abs": 4.656612873077393e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 0, "tokens": 8192, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 3721, "scale_bit_mismatches": 2929, "scale_max_abs": 4.656612873077393e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 0, "tokens": 8192, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"bf16_mismatches": 0, "event": "captured_norm", "layer": 18, "tokens": 8192, "x_stride": [4096, 128, 1], "z_storage_offset": 8192, "z_stride": [12288, 128, 1]}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 27410, "scale_bit_mismatches": 4536, "scale_max_abs": 2.3283064365386963e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 18, "tokens": 8192, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 27410, "scale_bit_mismatches": 4536, "scale_max_abs": 2.3283064365386963e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 18, "tokens": 8192, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 27410, "scale_bit_mismatches": 4536, "scale_max_abs": 2.3283064365386963e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 18, "tokens": 8192, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 18, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"bf16_mismatches": 0, "event": "captured_norm", "layer": 38, "tokens": 8192, "x_stride": [4096, 128, 1], "z_storage_offset": 8192, "z_stride": [12288, 128, 1]}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 33051, "scale_bit_mismatches": 5167, "scale_max_abs": 9.313225746154785e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 38, "tokens": 8192, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 4}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 33051, "scale_bit_mismatches": 5167, "scale_max_abs": 9.313225746154785e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 38, "tokens": 8192, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 8}
+{"compiled_reference": {"fp8_mismatches": 0, "scale_bit_mismatches": 0, "scale_max_abs": 0.0}, "eager_reference": {"fp8_mismatches": 33051, "scale_bit_mismatches": 5167, "scale_max_abs": 9.313225746154785e-10}, "event": "captured_numerics", "gemm_bf16_mismatches": 0, "layer": 38, "tokens": 8192, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 0, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 1, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"event": "captured_graph_replay", "fp8_mismatches": 0, "iteration": 2, "layer": 38, "scale_bit_mismatches": 0, "scale_max_abs": 0.0, "warps": 16}
+{"scope": "requested captured eager activations and graph replays only; no timing or compiled-serving equivalence claim", "status": "PASS"}

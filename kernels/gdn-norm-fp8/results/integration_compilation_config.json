@@ -1,0 +1,46 @@
+{
+  "source": "/usr/local/lib/python3.12/dist-packages/vllm/config/compilation.py",
+  "sha256": "d8a8086166e3f344b75d98d8350a77592f7b6c145319b3a9f0b9c8cb36bc39cb",
+  "standard_splits": [
+    "vllm::unified_attention_with_output",
+    "vllm::unified_mla_attention_with_output",
+    "vllm::mamba_mixer2",
+    "vllm::mamba_mixer",
+    "vllm::short_conv",
+    "vllm::qwen4_exp_ple_short_conv",
+    "vllm::qwen4_exp_qsa_with_output",
+    "vllm::qwen4_exp_qsa_prepare_with_output",
+    "vllm::linear_attention",
+    "vllm::qwen_gdn_attention_core",
+    "vllm::qwen_gdn_attention_core_fused_norm_packed",
+    "vllm::gdn_attention_core_xpu",
+    "vllm::olmo_hybrid_gdn_full_forward",
+    "vllm::sparse_attn_indexer",
+    "vllm::rocm_aiter_sparse_attn_indexer",
+    "vllm::deepseek_v4_attention",
+    "vllm::hpc_rope_norm_forward"
+  ],
+  "candidate": {
+    "splitting_ops": [
+      "vllm::unified_attention_with_output",
+      "vllm::unified_mla_attention_with_output",
+      "vllm::mamba_mixer2",
+      "vllm::mamba_mixer",
+      "vllm::short_conv",
+      "vllm::qwen4_exp_ple_short_conv",
+      "vllm::qwen4_exp_qsa_with_output",
+      "vllm::qwen4_exp_qsa_prepare_with_output",
+      "vllm::linear_attention",
+      "vllm::qwen_gdn_attention_core",
+      "vllm::qwen_gdn_attention_core_fused_norm_packed",
+      "vllm::gdn_attention_core_xpu",
+      "vllm::olmo_hybrid_gdn_full_forward",
+      "vllm::sparse_attn_indexer",
+      "vllm::rocm_aiter_sparse_attn_indexer",
+      "vllm::deepseek_v4_attention",
+      "vllm::hpc_rope_norm_forward",
+      "vllm::gdn_attention_core_norm_fp8_packed_experimental"
+    ]
+  },
+  "cuda_imported": false
+}

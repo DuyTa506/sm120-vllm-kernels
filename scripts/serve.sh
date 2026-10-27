@@ -11,6 +11,7 @@
 # env: FLAGS     extra docker args, e.g. FLAGS="-e VLLM_SM120_FP8_PREFILL=0" to ablate one patch
 #      NSYS=1    run under `nsys launch` so scripts/nsys_capture.sh can record a window
 #      NOSPEC=1  drop MTP speculative decoding
+#      GDN_OVERLAY optional isolated GDN source directory (CONFIG=next only)
 #      NAME, PORT, GPU, HF_CACHE, NSYS_DIR
 set -e
 D=$(cd "$(dirname "$0")/.." && pwd)
@@ -41,12 +42,22 @@ case $CONFIG in
     [ -f $D/build/vllm/v1/attention/backends/sm120_fp8_fmha_glue.py ] || { echo "build/ predates patches 03-05: run scripts/build_patched.sh" >&2; exit 1; }
     VARGS="$TUNED --block-size 2176"
     B=$D/build/vllm
+    GDN_SOURCE=$B/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py
+    if [ -n "${GDN_OVERLAY:-}" ]; then
+      for source in qwen_gdn_linear_attn.py gdn_norm_fp8_fusion.py gdn_norm_fp8_guards.py gdn_norm_fp8_kernel.py gdn_norm_fp8_quant_out.py; do
+        [ -f "$GDN_OVERLAY/$source" ] || { echo "missing GDN overlay: $source" >&2; exit 1; }
+      done
+      GDN_SOURCE=$GDN_OVERLAY/qwen_gdn_linear_attn.py
+      for source in gdn_norm_fp8_fusion.py gdn_norm_fp8_guards.py gdn_norm_fp8_kernel.py gdn_norm_fp8_quant_out.py; do
+        DOCKER="$DOCKER -v $GDN_OVERLAY/$source:$PKG/model_executor/layers/mamba/gdn/$source:ro"
+      done
+    fi
     DOCKER="$DOCKER -e VLLM_SM120_FP8_PREFILL=1 -e VLLM_SM120_FP8_PREFILL_NOGLUE=1 -e VLLM_FI_KERNEL_PAGES=16
       -e VLLM_GDN_INTERNAL_CKPT=1 -e VLLM_GDN_FUSED_CONV=1
       -v $D/.cache/flashinfer:/root/.cache/flashinfer
       -v $B/v1/attention/backends/flashinfer.py:$PKG/v1/attention/backends/flashinfer.py:ro
       -v $B/v1/attention/backends/sm120_fp8_fmha_glue.py:$PKG/v1/attention/backends/sm120_fp8_fmha_glue.py:ro
-      -v $B/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:$PKG/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:ro
+      -v $GDN_SOURCE:$PKG/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:ro
       -v $B/model_executor/layers/mamba/ops/fused_conv_post_conv.py:$PKG/model_executor/layers/mamba/ops/fused_conv_post_conv.py:ro"
     ;;
   *) echo "unknown CONFIG=$CONFIG" >&2; exit 1 ;;

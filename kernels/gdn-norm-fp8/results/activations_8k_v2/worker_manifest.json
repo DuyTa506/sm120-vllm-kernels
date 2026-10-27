@@ -1,0 +1,235 @@
+{
+  "capture_id": "bae5cb6a-8227-438b-88fc-c24b3f6ddbf8",
+  "directory": "/work/kernels/gdn-norm-fp8/results/activations_8k_v2",
+  "layers": [
+    0,
+    18,
+    38
+  ],
+  "tokens": 8192,
+  "captures": [
+    {
+      "layer": 0,
+      "module_name": "language_model.model.layers.0.linear_attn.norm",
+      "file": "layer0.pt",
+      "sha256": "36e462937398d1954978619676b8a475622899a7ed8287153e10043e91039dc6",
+      "specs": {
+        "x": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "z": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            12288,
+            128,
+            1
+          ],
+          "storage_offset": 8192,
+          "dtype": "torch.bfloat16"
+        },
+        "weight": {
+          "shape": [
+            128
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "norm_output": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        }
+      },
+      "norm_attributes": {
+        "eps": 1e-06,
+        "group_size": null,
+        "norm_before_gate": true,
+        "activation": "silu",
+        "bias": false,
+        "forward_method": "forward_cuda"
+      }
+    },
+    {
+      "layer": 18,
+      "module_name": "language_model.model.layers.18.linear_attn.norm",
+      "file": "layer18.pt",
+      "sha256": "87e3b466f9b7aeb12abf769066dbcbcbe69ee2f325c4b388cbc72831198854fb",
+      "specs": {
+        "x": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "z": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            12288,
+            128,
+            1
+          ],
+          "storage_offset": 8192,
+          "dtype": "torch.bfloat16"
+        },
+        "weight": {
+          "shape": [
+            128
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "norm_output": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        }
+      },
+      "norm_attributes": {
+        "eps": 1e-06,
+        "group_size": null,
+        "norm_before_gate": true,
+        "activation": "silu",
+        "bias": false,
+        "forward_method": "forward_cuda"
+      }
+    },
+    {
+      "layer": 38,
+      "module_name": "language_model.model.layers.38.linear_attn.norm",
+      "file": "layer38.pt",
+      "sha256": "ac7a0c122e2b7ce55810b68fd53e0335242272775e6b526cb752a32f3ed60adb",
+      "specs": {
+        "x": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "z": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            12288,
+            128,
+            1
+          ],
+          "storage_offset": 8192,
+          "dtype": "torch.bfloat16"
+        },
+        "weight": {
+          "shape": [
+            128
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "norm_output": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        }
+      },
+      "norm_attributes": {
+        "eps": 1e-06,
+        "group_size": null,
+        "norm_before_gate": true,
+        "activation": "silu",
+        "bias": false,
+        "forward_method": "forward_cuda"
+      }
+    }
+  ],
+  "calls": {
+    "0": 1,
+    "18": 1,
+    "38": 1
+  },
+  "torch_version": "2.13.0+cu130",
+  "pid": 7615,
+  "resolved_options": {
+    "enforce_eager": true,
+    "compilation_mode": 0,
+    "custom_ops": [
+      "all"
+    ],
+    "enable_chunked_prefill": false,
+    "enable_prefix_caching": false,
+    "max_num_seqs": 1,
+    "max_num_batched_tokens": 16384
+  },
+  "status": "complete"
+}

@@ -1,0 +1,111 @@
+{
+  "event": "graph_replay",
+  "tokens": 1025,
+  "iteration": 1,
+  "strided_z": false,
+  "layer": null,
+  "warps": 8,
+  "specs": {
+    "x": {
+      "shape": [
+        1025,
+        32,
+        128
+      ],
+      "stride": [
+        4096,
+        128,
+        1
+      ],
+      "storage_offset": 0,
+      "dtype": "torch.bfloat16"
+    },
+    "z": {
+      "shape": [
+        1025,
+        32,
+        128
+      ],
+      "stride": [
+        4096,
+        128,
+        1
+      ],
+      "storage_offset": 0,
+      "dtype": "torch.bfloat16"
+    },
+    "weight": {
+      "shape": [
+        128
+      ],
+      "stride": [
+        1
+      ],
+      "storage_offset": 0,
+      "dtype": "torch.bfloat16"
+    },
+    "norm_reference": {
+      "shape": [
+        1025,
+        32,
+        128
+      ],
+      "stride": [
+        4096,
+        128,
+        1
+      ],
+      "storage_offset": 0,
+      "dtype": "torch.bfloat16"
+    },
+    "q_actual": {
+      "shape": [
+        1025,
+        4096
+      ],
+      "stride": [
+        4096,
+        1
+      ],
+      "storage_offset": 0,
+      "dtype": "torch.float8_e4m3fn"
+    },
+    "scale_actual": {
+      "shape": [
+        1025,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "storage_offset": 0,
+      "dtype": "torch.float32"
+    },
+    "q_reference": {
+      "shape": [
+        1025,
+        4096
+      ],
+      "stride": [
+        4096,
+        1
+      ],
+      "storage_offset": 0,
+      "dtype": "torch.float8_e4m3fn"
+    },
+    "scale_reference": {
+      "shape": [
+        1025,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "storage_offset": 0,
+      "dtype": "torch.float32"
+    }
+  },
+  "fused_sha256": "3d058e8d56244aaa5891e4f215a2e831a84fabd1066b840b9f2c92f1c2c2ad63"
+}

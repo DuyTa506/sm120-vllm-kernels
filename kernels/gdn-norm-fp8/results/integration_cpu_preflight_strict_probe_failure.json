@@ -1,0 +1,31 @@
+{
+  "status": "FAIL",
+  "tests": 8,
+  "cuda_initialized": false,
+  "cuda_visible_devices": "",
+  "forbidden_runtime_calls": [
+    "_lazy_init",
+    "init",
+    "current_device",
+    "get_device_properties",
+    "get_device_capability",
+    "device_count",
+    "synchronize"
+  ],
+  "torch_version": "2.13.0+cu130",
+  "scope": "CPU artifact/control-flow/fake schema/Dynamo checks only; no CUDA integration execution",
+  "source_sha256": {
+    "test_capture_io.py": "c650a34bedc5bba2ad39ff0440511549840bd50bd94168e7cc97b3ccf3d0a5ad",
+    "capture_worker.py": "e081d46edf8ef1af54084caec3e39dd267d260bbbd310f6b2e7d21d165a1cf0e",
+    "capture_activations.py": "d609436204f4b2b3b38cd8c0c5a60e71ce1784f7ddbc9d12ab30395f772502fd",
+    "capture_io.py": "d8516401e2dbc29ca9282ad420a939852ecd05bc7e2b4bc9ada0d103934a6f57",
+    "test_integration_guards.py": "c9b893dd9a9c679c148abbca95cf34c6350a202b6a354e7b680826fa295e6b1a",
+    "integration_config.py": "0788ddec90b7f7e18a7ec5e5eaf02a2ee1a361b10c705210a05962c306fe4de6",
+    "fallback_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+    "verify_fallback_quant_out.py": "b6f486269609b82855fb4aeb6324fd40c4ef2b8f95cd9150f4b62918ee816589",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "6461a57faa32b3b696249ee0f43b85b72286287cb11f300b496de5883eaa79af",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "2fee3aed884d0f254cad50531de83eb0448997caca0f47084a0f25f4884a6e03",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+    "overlay/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "initial": {
+    "file": "explicit_initial_gpu.jsonl",
+    "sha256": "606b074f0ecafe465197c96f64b2dd012d188e6f2f32f8949f170f642b022dae",
+    "counts": {
+      "environment": 1,
+      "numerics": 144,
+      "graph_replay": 72,
+      "status": 1
+    },
+    "status": "PASS"
+  },
+  "real_weights": {
+    "file": "explicit_real_gpu.jsonl",
+    "sha256": "351b6db4ce8ef4c321251733d8b4c82ff9dcbe3a7089dd5f9f4b57e6f17074e6",
+    "counts": {
+      "environment": 1,
+      "numerics": 648,
+      "graph_replay": 324,
+      "timing": 432,
+      "status": 1
+    },
+    "status": "PASS",
+    "layer18_warps8_copy_and_gemm_us": [
+      {
+        "tokens": 4096,
+        "baseline": 173.09066653251648,
+        "fused": 146.8186651666959
+      },
+      {
+        "tokens": 8192,
+        "baseline": 391.05066657066345,
+        "fused": 286.901334921519
+      },
+      {
+        "tokens": 16384,
+        "baseline": 925.9413282076517,
+        "fused": 584.5120052496592
+      }
+    ]
+  },
+  "captured": {
+    "file": "explicit_captured_gpu.jsonl",
+    "sha256": "36753896161f1fc10782a32874fe92797db7f97df5b05e477441c7a0b6553d8a",
+    "counts": {
+      "captured_environment": 1,
+      "captured_norm": 3,
+      "captured_numerics": 9,
+      "captured_graph_replay": 27,
+      "status": 1
+    },
+    "status": "PASS"
+  },
+  "capture_directory": "activations_8k_v2",
+  "scope": "Exact selected synthetic/real-weight/captured checks and isolated graph microtiming; no integrated serving result."
+}

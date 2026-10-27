@@ -1,0 +1,7 @@
+ptxas-blackwell info    : 11 bytes gmem
+ptxas-blackwell info    : Compiling entry function 'layer_norm_fwd_kernel' for 'sm_120a'
+ptxas-blackwell info    : Function properties for layer_norm_fwd_kernel
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas-blackwell info    : Used 75 registers, used 0 barriers
+ptxas-blackwell info    : Compile time = 30.925 ms
+

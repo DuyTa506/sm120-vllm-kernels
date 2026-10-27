@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "capture_id": "bae5cb6a-8227-438b-88fc-c24b3f6ddbf8",
+  "layers": [
+    0,
+    18,
+    38
+  ],
+  "tokens": 8192,
+  "created_at_utc": "2026-10-27T18:19:15.143159+00:00",
+  "pid": 7335,
+  "snapshot": "/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66",
+  "model_config_sha256": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+  "weight_index_sha256": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7",
+  "prompt": {
+    "tokens": 8192,
+    "token_ids_sha256": "24cf1d57650461ce06e6052e9372ec1cec4dd60933bc0a264bf14ac50360154e",
+    "tokenizer_sha256": "1a6329cee073f44581f13a111a96addf12a9d9a65b2ac6f81fa441ec1b63f5c9",
+    "sources": [
+      {
+        "path": "/usr/lib/python3.12/argparse.py",
+        "sha256": "29395feb61bc376ca4ff9d44069af8d914ec2a1f25a4bd7978f6e2afef5bc07f"
+      },
+      {
+        "path": "/usr/lib/python3.12/json/__init__.py",
+        "sha256": "d5d41e2c29049515d295d81a6d40b4890fbec8d8482cfb401630f8ef2f77e4d5"
+      },
+      {
+        "path": "/usr/lib/python3.12/pathlib.py",
+        "sha256": "b43e134bf7479759838b4ecec3d78e0e67fdfde2d671c5c2d7886a47da93885d"
+      }
+    ],
+    "format": "raw token IDs, no chat template or added special tokens"
+  },
+  "api": {
+    "vllm_version": "0.32.0",
+    "source_sha256": {
+      "entrypoints/llm.py": "283f5ed4d0744aef22a01fefd307565ef60ee172a8ec4805ece0bcd630d9568c",
+      "v1/worker/worker_base.py": "71e3047f7b53b3b43e25c76aa29ec84d49e774d032919061c945935c62a9dd37",
+      "v1/worker/gpu_model_runner.py": "4cf95efe4ea8caa3110dcd231ff95ceb97e8136f5056e6bdd388300a484c4a81",
+      "v1/engine/core_client.py": "386b528a69029507f80a2df4d6df2a4fa6ba2ba811501dc3449ceea58b5cd90a",
+      "model_executor/layers/layernorm.py": "7be031e88921fb21661f3b9ee28b4ccb7746405e0ff32ed5895d75b43d3357ed",
+      "model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "3fbf257fef7f303b0082fdbedce4394df74b78ad9a594157079c89632b5c221e",
+      "third_party/flash_linear_attention/ops/layernorm_guard.py": "b4f696187a1326f9aac44f23d0bb5db814dc28ebe4fc31da000edc24365e09c6"
+    },
+    "capture_source_sha256": {
+      "capture_activations.py": "d609436204f4b2b3b38cd8c0c5a60e71ce1784f7ddbc9d12ab30395f772502fd",
+      "capture_worker.py": "e081d46edf8ef1af54084caec3e39dd267d260bbbd310f6b2e7d21d165a1cf0e",
+      "capture_io.py": "d8516401e2dbc29ca9282ad420a939852ecd05bc7e2b4bc9ada0d103934a6f57"
+    }
+  },
+  "engine_options": {
+    "model": "/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66",
+    "tokenizer": "/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66",
+    "language_model_only": true,
+    "dtype": "bfloat16",
+    "tensor_parallel_size": 1,
+    "enforce_eager": true,
+    "compilation_config": 0,
+    "enable_prefix_caching": false,
+    "enable_chunked_prefill": false,
+    "async_scheduling": false,
+    "speculative_config": null,
+    "max_model_len": 16384,
+    "max_num_batched_tokens": 16384,
+    "max_num_seqs": 1,
+    "gpu_memory_utilization": 0.78,
+    "distributed_executor_backend": "uni",
+    "worker_extension_cls": "capture_worker.GDNCaptureWorkerExtension",
+    "seed": 1729
+  },
+  "scope": "Actual eager prefill activations; instrumentation only, no timing or compiled-serving equivalence claim.",
+  "environment": {
+    "VLLM_ENABLE_CUDA_COMPATIBILITY": "0",
+    "VLLM_USAGE_SOURCE": "production-docker-image",
+    "VLLM_BUILD_COMMIT": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+    "VLLM_BUILD_PIPELINE": "019d130e-464e-4ff7-b84b-492992c0c06b",
+    "VLLM_BUILD_URL": "https://buildkite.com/vllm/release-v2/builds/8622",
+    "VLLM_IMAGE_TAG": "vllm/vllm-openai:v5df63a7203cdb9328d824a27b682e77c7b9928be",
+    "GDN_ACTIVATION_CAPTURE": "1"
+  },
+  "installation": {
+    "capture_id": "bae5cb6a-8227-438b-88fc-c24b3f6ddbf8",
+    "layers": [
+      0,
+      18,
+      38
+    ],
+    "pid": 7615,
+    "hooks_installed_after_model_initialization": true
+  },
+  "captures": [
+    {
+      "layer": 0,
+      "module_name": "language_model.model.layers.0.linear_attn.norm",
+      "file": "layer0.pt",
+      "sha256": "36e462937398d1954978619676b8a475622899a7ed8287153e10043e91039dc6",
+      "specs": {
+        "x": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "z": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            12288,
+            128,
+            1
+          ],
+          "storage_offset": 8192,
+          "dtype": "torch.bfloat16"
+        },
+        "weight": {
+          "shape": [
+            128
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "norm_output": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        }
+      },
+      "norm_attributes": {
+        "eps": 1e-06,
+        "group_size": null,
+        "norm_before_gate": true,
+        "activation": "silu",
+        "bias": false,
+        "forward_method": "forward_cuda"
+      }
+    },
+    {
+      "layer": 18,
+      "module_name": "language_model.model.layers.18.linear_attn.norm",
+      "file": "layer18.pt",
+      "sha256": "87e3b466f9b7aeb12abf769066dbcbcbe69ee2f325c4b388cbc72831198854fb",
+      "specs": {
+        "x": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "z": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            12288,
+            128,
+            1
+          ],
+          "storage_offset": 8192,
+          "dtype": "torch.bfloat16"
+        },
+        "weight": {
+          "shape": [
+            128
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "norm_output": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        }
+      },
+      "norm_attributes": {
+        "eps": 1e-06,
+        "group_size": null,
+        "norm_before_gate": true,
+        "activation": "silu",
+        "bias": false,
+        "forward_method": "forward_cuda"
+      }
+    },
+    {
+      "layer": 38,
+      "module_name": "language_model.model.layers.38.linear_attn.norm",
+      "file": "layer38.pt",
+      "sha256": "ac7a0c122e2b7ce55810b68fd53e0335242272775e6b526cb752a32f3ed60adb",
+      "specs": {
+        "x": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "z": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            12288,
+            128,
+            1
+          ],
+          "storage_offset": 8192,
+          "dtype": "torch.bfloat16"
+        },
+        "weight": {
+          "shape": [
+            128
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        },
+        "norm_output": {
+          "shape": [
+            8192,
+            32,
+            128
+          ],
+          "stride": [
+            4096,
+            128,
+            1
+          ],
+          "storage_offset": 0,
+          "dtype": "torch.bfloat16"
+        }
+      },
+      "norm_attributes": {
+        "eps": 1e-06,
+        "group_size": null,
+        "norm_before_gate": true,
+        "activation": "silu",
+        "bias": false,
+        "forward_method": "forward_cuda"
+      }
+    }
+  ],
+  "worker": {
+    "capture_id": "bae5cb6a-8227-438b-88fc-c24b3f6ddbf8",
+    "directory": "/work/kernels/gdn-norm-fp8/results/activations_8k_v2",
+    "layers": [
+      0,
+      18,
+      38
+    ],
+    "tokens": 8192,
+    "calls": {
+      "0": 1,
+      "18": 1,
+      "38": 1
+    },
+    "torch_version": "2.13.0+cu130",
+    "pid": 7615,
+    "resolved_options": {
+      "enforce_eager": true,
+      "compilation_mode": 0,
+      "custom_ops": [
+        "all"
+      ],
+      "enable_chunked_prefill": false,
+      "enable_prefix_caching": false,
+      "max_num_seqs": 1,
+      "max_num_batched_tokens": 16384
+    },
+    "status": "complete"
+  },
+  "output_token_ids": [
+    10121
+  ]
+}

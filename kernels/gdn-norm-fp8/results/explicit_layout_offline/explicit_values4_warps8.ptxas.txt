@@ -1,0 +1,7 @@
+ptxas-blackwell info    : 11 bytes gmem
+ptxas-blackwell info    : Compiling entry function '_norm_gate_fp8_explicit' for 'sm_120a'
+ptxas-blackwell info    : Function properties for _norm_gate_fp8_explicit
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas-blackwell info    : Used 40 registers, used 1 barriers
+ptxas-blackwell info    : Compile time = 35.466 ms
+

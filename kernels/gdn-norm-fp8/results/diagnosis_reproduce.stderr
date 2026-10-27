@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/verify_bench.py", line 367, in <module>
+    main()
+  File "/work/kernels/gdn-norm-fp8/verify_bench.py", line 332, in main
+    verify_case(t, kind, strided, w, bw, layer, warps)
+  File "/work/kernels/gdn-norm-fp8/verify_bench.py", line 279, in verify_case
+    raise AssertionError("Graph replay mismatch")
+AssertionError: Graph replay mismatch

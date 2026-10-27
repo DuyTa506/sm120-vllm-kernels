@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "token_shapes": [
+    1,
+    2,
+    3,
+    12,
+    31,
+    64,
+    128,
+    192,
+    256,
+    1024,
+    8192,
+    16384
+  ],
+  "numerical_checks": 60,
+  "changed_input_replays": 36,
+  "exact_fp8_scale_and_real_layer18_gemm": true,
+  "timing_records": 48,
+  "timing_aggregation": "Mean of the two recorded ABBA-position medians, each 30 CUDA graph replays and 3 distinct input/output buffer pairs; reference temporaries retained",
+  "timings": [
+    {
+      "tokens": 1,
+      "separate_copy_us": 4.245333295936385,
+      "compiled_out_us": 2.9493334392706556
+    },
+    {
+      "tokens": 2,
+      "separate_copy_us": 4.202666692435741,
+      "compiled_out_us": 3.0080000093827644
+    },
+    {
+      "tokens": 3,
+      "separate_copy_us": 4.237333312630653,
+      "compiled_out_us": 2.920000037799279
+    },
+    {
+      "tokens": 12,
+      "separate_copy_us": 4.242666686574617,
+      "compiled_out_us": 2.928000098715226
+    },
+    {
+      "tokens": 31,
+      "separate_copy_us": 4.581333448489508,
+      "compiled_out_us": 2.9199999601890645
+    },
+    {
+      "tokens": 64,
+      "separate_copy_us": 4.365333278353015,
+      "compiled_out_us": 3.056000064437588
+    },
+    {
+      "tokens": 128,
+      "separate_copy_us": 4.749333253130317,
+      "compiled_out_us": 2.922666724771261
+    },
+    {
+      "tokens": 192,
+      "separate_copy_us": 4.914666681240002,
+      "compiled_out_us": 3.5173334181308746
+    },
+    {
+      "tokens": 256,
+      "separate_copy_us": 4.906666620324055,
+      "compiled_out_us": 3.567999927327037
+    },
+    {
+      "tokens": 1024,
+      "separate_copy_us": 8.290666776398817,
+      "compiled_out_us": 6.175999840100607
+    },
+    {
+      "tokens": 8192,
+      "separate_copy_us": 87.25866923729579,
+      "compiled_out_us": 65.44000034530958
+    },
+    {
+      "tokens": 16384,
+      "separate_copy_us": 173.48000407218933,
+      "compiled_out_us": 131.59466534852982
+    }
+  ],
+  "codegen": [
+    {
+      "stderr_start_line": 158,
+      "kernel_launches": [
+        "triton_red_fused__to_copy_abs_amax_clamp_copy__mul_reciprocal_unsqueeze_0.run(arg1_1, arg2_1.item(), arg3_1, arg4_1, 1, s27, stream=raw_stream0)"
+      ],
+      "call_body": "    def call(self, args):\n        arg0_1, arg1_1, arg2_1, arg3_1, arg4_1 = args\n        args.clear()\n        s27 = arg0_1\n        assert_size_stride(arg1_1, (1, s27), (s27, 1), 'input')\n        assert_size_stride(arg2_1, (), (), 'input')\n        assert_size_stride(arg3_1, (1, s27), (s27, 1), 'input')\n        assert_size_stride(arg4_1, (1, 1), (1, 1), 'input')\n        with torch.cuda._DeviceGuard(0):\n            torch.cuda.set_device(0)\n            arg1_1 = copy_if_misaligned(arg1_1)\n            # Topologically Sorted Source Nodes: [to_1, abs_1, x_max, unsqueeze, x_max_1, scale, reciprocal, out, clamp_1, out_1], Original ATen: [aten._to_copy, aten.abs, aten.amax, aten.unsqueeze, aten.clamp, aten.reciprocal, aten.mul, aten.copy_]\n            raw_stream0 = get_raw_stream(0)\n            triton_red_fused__to_copy_abs_amax_clamp_copy__mul_reciprocal_unsqueeze_0.run(arg1_1, arg2_1.item(), arg3_1, arg4_1, 1, s27, stream=raw_stream0)\n            del arg1_1\n            del arg2_1\n            del arg3_1\n            del arg4_1\n        return ()"
+    },
+    {
+      "stderr_start_line": 557,
+      "kernel_launches": [
+        "triton_red_fused__to_copy_abs_amax_clamp_copy__mul_reciprocal_unsqueeze_0.run(arg2_1, arg3_1.item(), arg4_1, arg5_1, s27, s75, s27, stream=raw_stream0)"
+      ],
+      "call_body": "    def call(self, args):\n        arg0_1, arg1_1, arg2_1, arg3_1, arg4_1, arg5_1 = args\n        args.clear()\n        s77 = arg0_1\n        s27 = arg1_1\n        arg2_1_size = arg2_1.size()\n        s75 = arg2_1_size[0]\n        s81 = s75\n        assert_size_stride(arg2_1, (s75, s27), (s27, 1), 'input')\n        assert_size_stride(arg3_1, (), (), 'input')\n        assert_size_stride(arg4_1, (s75, s27), (s27, 1), 'input')\n        assert_size_stride(arg5_1, (s75, 1), (1, 1), 'input')\n        with torch.cuda._DeviceGuard(0):\n            torch.cuda.set_device(0)\n            arg2_1 = copy_if_misaligned(arg2_1)\n            # Topologically Sorted Source Nodes: [to_1, abs_1, x_max, unsqueeze, x_max_1, scale, reciprocal, out, clamp_1, out_1], Original ATen: [aten._to_copy, aten.abs, aten.amax, aten.unsqueeze, aten.clamp, aten.reciprocal, aten.mul, aten.copy_]\n            raw_stream0 = get_raw_stream(0)\n            triton_red_fused__to_copy_abs_amax_clamp_copy__mul_reciprocal_unsqueeze_0.run(arg2_1, arg3_1.item(), arg4_1, arg5_1, s27, s75, s27, stream=raw_stream0)\n            del arg2_1\n            del arg3_1\n            del arg4_1\n            del arg5_1\n        return ()"
+    }
+  ],
+  "source_sha256": {
+    "fallback_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+    "verify_fallback_quant_out.py": "b6f486269609b82855fb4aeb6324fd40c4ef2b8f95cd9150f4b62918ee816589",
+    "results/fallback_quant_out_gpu.jsonl": "f13cb27337bc67f5c80fcdcdfd8b2368d462578ad5312b839d6d257050687afd",
+    "results/fallback_quant_out_gpu.stderr": "59c080addacd4e362faf91f8237ded80d6e86ed5177f23e28df9dee86ebdc0fe"
+  },
+  "installed_native_quant_sha256": "946c1d1e0386b8d431aab25d1065cf6fbcb1993d14fbd697c938d09ce8434d23",
+  "compilation": {
+    "dynamic": true,
+    "fullgraph": true,
+    "backend": "inductor (torch.compile default)",
+    "options": "none supplied"
+  },
+  "scope": "GPU quantization-to-caller-buffer chain, excluding norm/core/GEMM from timings; real GEMM included only in exactness checks. Native quantization without the separate copies is NOT a timing comparator. No serving result.",
+  "codegen_scope": "Generated size1 and dynamic>=2 call bodies each have one fused Triton launch writing caller Q/S, no intermediate FP8/scale allocations or separate copy launches. Generated copy_if_misaligned input guard remains; tested core inputs are aligned."
+}

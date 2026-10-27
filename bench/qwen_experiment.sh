@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Run inside the docker group. Owns one disposable server for one experiment.
-# Usage: qwen_experiment.sh TAG next|shared|shared_exact|scalar serving|quality|individual|diagnostic|decode_greedy|agentic
+# Usage: qwen_experiment.sh TAG next|shared|shared_exact|scalar|shared_exact_gdn|scalar_gdn serving|quality|individual|diagnostic|decode_greedy|agentic
 # Agentic is a separate final-combination stage; individual never runs it.
 set -euo pipefail
 D=$(cd "$(dirname "$0")/.." && pwd)
@@ -9,7 +9,7 @@ VAR=${2:?variant required}
 SUITE=${3:?suite required}
 [[ $TAG =~ ^[a-zA-Z0-9_-]+$ ]] || { echo "invalid tag" >&2; exit 2; }
 case $SUITE in serving|quality|individual|diagnostic|decode_greedy|agentic) ;; *) echo "invalid suite" >&2; exit 2;; esac
-case $VAR in next|shared|shared_exact|scalar) ;; *) echo "unvalidated/unknown variant" >&2; exit 2;; esac
+case $VAR in next|shared|shared_exact|scalar|shared_exact_gdn|scalar_gdn) ;; *) echo "unvalidated/unknown variant" >&2; exit 2;; esac
 O=$D/results/qwen_sequential/$TAG
 NAME=qwen-exp-$TAG
 PORT=${PORT:-8132}
@@ -57,14 +57,23 @@ cleanup() {
 trap cleanup EXIT
 flags="-e VLLM_CACHE_ROOT=/root/.cache/vllm/qwen-sequential-$VAR -v $O/serving:/bench-results"
 args=()
-if [[ $VAR != next ]]; then
-  overlay=$K/$VAR/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
+MOE_VAR=${VAR%_gdn}
+GDN_OVERLAY=""
+if [[ $VAR == *_gdn ]]; then
+  GDN_OVERLAY=$D/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn
+  flags="$flags -e VLLM_GDN_NORM_FP8_FUSION=1"
+  docker run --rm --entrypoint python3 -v "$D/kernels/gdn-norm-fp8:/gdn:ro" \
+    vllm/vllm-openai:v0.32.0 /gdn/integration_config.py > "$O/compilation_config.json"
+  args+=(--compilation-config "$(cat "$O/compilation_config.json")")
+fi
+if [[ $MOE_VAR != next ]]; then
+  overlay=$K/$MOE_VAR/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
   flags="$flags -e VLLM_B12X_FIX_SCALES=1 -e VLLM_B12X_SHARED_WORKSPACE=1"
   flags="$flags -v $overlay:$PKG/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py:ro"
   flags="$flags -v $K/patched/vllm/model_executor/layers/fused_moe/oracle/unquantized.py:$PKG/model_executor/layers/fused_moe/oracle/unquantized.py:ro"
-  args=(--moe-backend flashinfer_b12x)
+  args+=(--moe-backend flashinfer_b12x)
 fi
-if [[ $VAR == scalar ]]; then flags="$flags -e VLLM_B12X_SCALAR_INPUT_SCALE=1"; fi
+if [[ $MOE_VAR == scalar ]]; then flags="$flags -e VLLM_B12X_SCALAR_INPUT_SCALE=1"; fi
 printf 'tag=%s\nvariant=%s\nsuite=%s\nconfig=next\ngpu_util=%s\n' "$TAG" "$VAR" "$SUITE" "$GPU_UTIL" > "$O/config.txt"
 printf 'greedy_decode=%s\n' "$GREEDY_DECODE" >> "$O/config.txt"
 printf 'nll_rounds=%s\n' "$NLL_ROUNDS" >> "$O/config.txt"
@@ -73,11 +82,14 @@ git -C "$D" diff HEAD --binary > "$O/uncommitted.diff"
 python3 -I "$D/bench/source_manifest.py" snapshot --root "$D" --output "$O" --variant "$VAR" > "$O/source_snapshot.log"
 docker image inspect vllm/vllm-openai:v0.32.0 --format '{{.Id}}' > "$O/image.txt"
 nvidia-smi -i "$GPU" --query-gpu=name,uuid,driver_version,memory.total,memory.used,clocks.sm,power.limit --format=csv > "$O/gpu_before.csv"
-CONFIG=next NAME=$NAME PORT=$PORT GPU=$GPU NSYS=0 FLAGS="$flags" \
+CONFIG=next NAME=$NAME PORT=$PORT GPU=$GPU NSYS=0 FLAGS="$flags" GDN_OVERLAY="$GDN_OVERLAY" \
   "$D/scripts/serve.sh" --gpu-memory-utilization "$GPU_UTIL" \
   --enable-auto-tool-choice --tool-call-parser qwen3_coder --reasoning-parser qwen3 \
   "${args[@]}" > "$O/start.log" 2>&1
 docker logs "$NAME" > "$O/startup.log" 2>&1
+if [[ $VAR == *_gdn ]]; then
+  python3 -I "$D/bench/verify_gdn_startup.py" "$O/startup.log" > "$O/gdn_readiness.json"
+fi
 docker inspect "$NAME" > "$O/container.json"
 nvidia-smi -i "$GPU" --query-gpu=timestamp,memory.used,utilization.gpu,clocks.sm,power.draw --format=csv --loop=1 > "$O/gpu_during.csv" &
 MONITOR_PID=$!

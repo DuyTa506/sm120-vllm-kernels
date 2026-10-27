@@ -1,0 +1,129 @@
+{
+  "status": "compiled_offline",
+  "scope": "Offline compilation only; GPU equivalence untested",
+  "cuda_visible_devices": "",
+  "cuda_initialized_before": false,
+  "runtime_access_attempts": [],
+  "kernel_launches": 0,
+  "variants": [
+    {
+      "name": "fla_rows1",
+      "num_warps": 1,
+      "rows_per_block": 1,
+      "registers": 28,
+      "shared_bytes": 0,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 4], threadsPerWarp = [1, 32], warpsPerCTA = [1, 1], order = [1, 0]}>",
+        "#blocked1 = #ttg.blocked<{sizePerThread = [4], threadsPerWarp = [32], warpsPerCTA = [1], order = [0]}>",
+        "#blocked2 = #ttg.blocked<{sizePerThread = [1], threadsPerWarp = [32], warpsPerCTA = [1], order = [0]}>"
+      ]
+    },
+    {
+      "name": "fla_rows2",
+      "num_warps": 1,
+      "rows_per_block": 2,
+      "registers": 42,
+      "shared_bytes": 0,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 8], threadsPerWarp = [2, 16], warpsPerCTA = [1, 1], order = [1, 0]}>",
+        "#blocked1 = #ttg.blocked<{sizePerThread = [4], threadsPerWarp = [32], warpsPerCTA = [1], order = [0]}>",
+        "#blocked2 = #ttg.blocked<{sizePerThread = [1], threadsPerWarp = [32], warpsPerCTA = [1], order = [0]}>"
+      ]
+    },
+    {
+      "name": "fla_rows4",
+      "num_warps": 1,
+      "rows_per_block": 4,
+      "registers": 75,
+      "shared_bytes": 0,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 8], threadsPerWarp = [2, 16], warpsPerCTA = [1, 1], order = [1, 0]}>",
+        "#blocked1 = #ttg.blocked<{sizePerThread = [4], threadsPerWarp = [32], warpsPerCTA = [1], order = [0]}>",
+        "#blocked2 = #ttg.blocked<{sizePerThread = [1], threadsPerWarp = [32], warpsPerCTA = [1], order = [0]}>"
+      ]
+    },
+    {
+      "name": "explicit_values4_warps4",
+      "num_warps": 4,
+      "values_per_lane": 4,
+      "registers": 56,
+      "shared_bytes": 16,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 4], threadsPerWarp = [1, 32], warpsPerCTA = [4, 1], order = [1, 0]}>"
+      ]
+    },
+    {
+      "name": "explicit_values4_warps8",
+      "num_warps": 8,
+      "values_per_lane": 4,
+      "registers": 40,
+      "shared_bytes": 32,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 4], threadsPerWarp = [1, 32], warpsPerCTA = [8, 1], order = [1, 0]}>"
+      ]
+    },
+    {
+      "name": "explicit_values4_warps16",
+      "num_warps": 16,
+      "values_per_lane": 4,
+      "registers": 40,
+      "shared_bytes": 64,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 4], threadsPerWarp = [1, 32], warpsPerCTA = [16, 1], order = [1, 0]}>"
+      ]
+    },
+    {
+      "name": "explicit_values8_warps4",
+      "num_warps": 4,
+      "values_per_lane": 8,
+      "registers": 59,
+      "shared_bytes": 16,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 8], threadsPerWarp = [2, 16], warpsPerCTA = [4, 1], order = [1, 0]}>"
+      ]
+    },
+    {
+      "name": "explicit_values8_warps8",
+      "num_warps": 8,
+      "values_per_lane": 8,
+      "registers": 43,
+      "shared_bytes": 32,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 8], threadsPerWarp = [2, 16], warpsPerCTA = [8, 1], order = [1, 0]}>"
+      ]
+    },
+    {
+      "name": "explicit_values8_warps16",
+      "num_warps": 16,
+      "values_per_lane": 8,
+      "registers": 38,
+      "shared_bytes": 64,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 8], threadsPerWarp = [2, 16], warpsPerCTA = [16, 1], order = [1, 0]}>"
+      ]
+    }
+  ],
+  "torch_version": "2.13.0+cu130",
+  "triton_version": "3.7.1",
+  "baseline_source_sha256": "b4f696187a1326f9aac44f23d0bb5db814dc28ebe4fc31da000edc24365e09c6",
+  "candidate_source_sha256": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+  "cuda_initialized_after": false
+}

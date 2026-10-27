@@ -1,0 +1,145 @@
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 1}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 1}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 1}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 1}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 1}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 1}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 1}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 1}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.218666659047206, "tokens": 1}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.95466681321462, "tokens": 1}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.9440000653266907, "tokens": 1}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.271999932825565, "tokens": 1}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 2}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 2}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 2}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 2}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 2}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 2}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 2}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 2}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.202666692435741, "tokens": 2}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.896000010271867, "tokens": 2}
+{"chain": "compiled_out", "event": "timing", "median_us": 3.120000008493662, "tokens": 2}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.202666692435741, "tokens": 2}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 3}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 3}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 3}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 3}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 3}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 3}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 3}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 3}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.2080000663797055, "tokens": 3}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.912000132103761, "tokens": 3}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.9279999434947968, "tokens": 3}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.2666665588816, "tokens": 3}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 12}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 12}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 12}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 12}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 12}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 12}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 12}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 12}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.21333344032367, "tokens": 12}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.9013333842158318, "tokens": 12}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.95466681321462, "tokens": 12}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.271999932825565, "tokens": 12}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 31}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 31}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 31}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 31}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 31}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 31}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 31}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 31}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.373333416879177, "tokens": 31}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.9226665695508323, "tokens": 31}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.9173333508272967, "tokens": 31}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.789333480099837, "tokens": 31}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 64}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 64}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 64}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 64}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 64}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 64}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 64}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 64}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.47466659049193, "tokens": 64}
+{"chain": "compiled_out", "event": "timing", "median_us": 3.1680000635484857, "tokens": 64}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.9440000653266907, "tokens": 64}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.2559999662141, "tokens": 64}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 128}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 128}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 128}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 128}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 128}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 128}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 128}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 128}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.645333314935366, "tokens": 128}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.9386666913827257, "tokens": 128}
+{"chain": "compiled_out", "event": "timing", "median_us": 2.9066667581597967, "tokens": 128}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.853333191325267, "tokens": 128}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 192}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.949333456655343, "tokens": 192}
+{"chain": "compiled_out", "event": "timing", "median_us": 3.520000105102857, "tokens": 192}
+{"chain": "compiled_out", "event": "timing", "median_us": 3.5146667311588926, "tokens": 192}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.879999905824661, "tokens": 192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 256}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 256}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 256}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 256}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 256}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 256}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 256}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 256}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.874666531880696, "tokens": 256}
+{"chain": "compiled_out", "event": "timing", "median_us": 3.6533332119385404, "tokens": 256}
+{"chain": "compiled_out", "event": "timing", "median_us": 3.4826666427155337, "tokens": 256}
+{"chain": "separate_copy", "event": "timing", "median_us": 4.938666708767414, "tokens": 256}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 1024}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 1024}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 1024}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 1024}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 1024}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 1024}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 1024}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 1024}
+{"chain": "separate_copy", "event": "timing", "median_us": 8.3146666487058, "tokens": 1024}
+{"chain": "compiled_out", "event": "timing", "median_us": 6.186666587988536, "tokens": 1024}
+{"chain": "compiled_out", "event": "timing", "median_us": 6.165333092212677, "tokens": 1024}
+{"chain": "separate_copy", "event": "timing", "median_us": 8.266666904091835, "tokens": 1024}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 8192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 8192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 8192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 8192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 8192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 8192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 8192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 8192}
+{"chain": "separate_copy", "event": "timing", "median_us": 87.26933598518372, "tokens": 8192}
+{"chain": "compiled_out", "event": "timing", "median_us": 65.42400022347768, "tokens": 8192}
+{"chain": "compiled_out", "event": "timing", "median_us": 65.45600046714148, "tokens": 8192}
+{"chain": "separate_copy", "event": "timing", "median_us": 87.24800248940787, "tokens": 8192}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "random", "scale_bit_mismatches": 0, "tokens": 16384}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "zero", "scale_bit_mismatches": 0, "tokens": 16384}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "tiny", "scale_bit_mismatches": 0, "tokens": 16384}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "padded", "scale_bit_mismatches": 0, "tokens": 16384}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "kind": "boundary", "scale_bit_mismatches": 0, "tokens": 16384}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 0, "scale_bit_mismatches": 0, "tokens": 16384}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 1, "scale_bit_mismatches": 0, "tokens": 16384}
+{"event": "exact", "fp8_mismatches": 0, "gemm_bf16_mismatches": 0, "replay": 2, "scale_bit_mismatches": 0, "tokens": 16384}
+{"chain": "separate_copy", "event": "timing", "median_us": 173.43467473983765, "tokens": 16384}
+{"chain": "compiled_out", "event": "timing", "median_us": 131.56266510486603, "tokens": 16384}
+{"chain": "compiled_out", "event": "timing", "median_us": 131.6266655921936, "tokens": 16384}
+{"chain": "separate_copy", "event": "timing", "median_us": 173.52533340454102, "tokens": 16384}
+{"scope": "Isolated native quantizer/output buffers; not stateful GDN or serving validation", "status": "PASS"}

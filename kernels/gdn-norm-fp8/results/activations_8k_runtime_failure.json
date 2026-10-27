@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "cause": "RPC output serializer rejects torch.torch_version.TorchVersion in worker report",
+  "gpu_engine_shutdown": "own EngineCore exited after targeted SIGTERM; nvidia-smi had no compute processes",
+  "driver_shutdown": "SIGKILL required for hung parent after SIGTERM and EngineCore cleanup; exit137",
+  "validation_claim": false,
+  "followup": "cast torch version to plain str; bound RPCs; recapture in activations_8k_v2"
+}

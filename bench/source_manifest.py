@@ -21,10 +21,18 @@ def selected(variant):
         'model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py',
         'model_executor/layers/mamba/ops/fused_conv_post_conv.py',
     ):
+        if variant.endswith('_gdn') and '/gdn/' in relative:
+            continue
         paths.append('build/vllm/' + relative)
-    if variant != 'next':
+    if variant.endswith('_gdn'):
+        paths.extend(('kernels/gdn-norm-fp8/integration_config.py', 'bench/verify_gdn_startup.py'))
+        paths.extend('kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/' + name
+                     for name in ('qwen_gdn_linear_attn.py', 'gdn_norm_fp8_fusion.py',
+                                  'gdn_norm_fp8_guards.py', 'gdn_norm_fp8_kernel.py', 'gdn_norm_fp8_quant_out.py'))
+    moe_variant = variant.removesuffix('_gdn')
+    if moe_variant != 'next':
         paths += [
-            f'kernels/moe-nvfp4/{variant}/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py',
+            f'kernels/moe-nvfp4/{moe_variant}/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py',
             'kernels/moe-nvfp4/patched/vllm/model_executor/layers/fused_moe/oracle/unquantized.py',
         ]
     return paths
@@ -62,7 +70,7 @@ def main():
     parser.add_argument('action', choices=('snapshot', 'verify'))
     parser.add_argument('--root', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
-    parser.add_argument('--variant', choices=('next', 'shared', 'shared_exact', 'scalar'))
+    parser.add_argument('--variant', choices=('next', 'shared', 'shared_exact', 'scalar', 'shared_exact_gdn', 'scalar_gdn'))
     args = parser.parse_args()
     if args.action == 'snapshot' and args.variant is None:
         parser.error('snapshot needs --variant')

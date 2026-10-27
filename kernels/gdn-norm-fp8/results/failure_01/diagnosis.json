@@ -1,0 +1,136 @@
+{
+  "context": {
+    "event": "graph_replay",
+    "tokens": 1025,
+    "iteration": 1,
+    "strided_z": false,
+    "layer": null,
+    "warps": 8,
+    "specs": {
+      "x": {
+        "shape": [
+          1025,
+          32,
+          128
+        ],
+        "stride": [
+          4096,
+          128,
+          1
+        ],
+        "storage_offset": 0,
+        "dtype": "torch.bfloat16"
+      },
+      "z": {
+        "shape": [
+          1025,
+          32,
+          128
+        ],
+        "stride": [
+          4096,
+          128,
+          1
+        ],
+        "storage_offset": 0,
+        "dtype": "torch.bfloat16"
+      },
+      "weight": {
+        "shape": [
+          128
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "dtype": "torch.bfloat16"
+      },
+      "norm_reference": {
+        "shape": [
+          1025,
+          32,
+          128
+        ],
+        "stride": [
+          4096,
+          128,
+          1
+        ],
+        "storage_offset": 0,
+        "dtype": "torch.bfloat16"
+      },
+      "q_actual": {
+        "shape": [
+          1025,
+          4096
+        ],
+        "stride": [
+          4096,
+          1
+        ],
+        "storage_offset": 0,
+        "dtype": "torch.float8_e4m3fn"
+      },
+      "scale_actual": {
+        "shape": [
+          1025,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "storage_offset": 0,
+        "dtype": "torch.float32"
+      },
+      "q_reference": {
+        "shape": [
+          1025,
+          4096
+        ],
+        "stride": [
+          4096,
+          1
+        ],
+        "storage_offset": 0,
+        "dtype": "torch.float8_e4m3fn"
+      },
+      "scale_reference": {
+        "shape": [
+          1025,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "storage_offset": 0,
+        "dtype": "torch.float32"
+      }
+    },
+    "fused_sha256": "3d058e8d56244aaa5891e4f215a2e831a84fabd1066b840b9f2c92f1c2c2ad63"
+  },
+  "diagnostic_vs_fused_q": 0,
+  "fused_vs_saved_q": 0,
+  "q_mismatches": 1,
+  "bf16_norm_mismatches": 8,
+  "rstd_bit_mismatches": 5744,
+  "reference_norm_vs_saved": 0,
+  "mismatch_details": [
+    {
+      "token": 268,
+      "head": 16,
+      "channel": 123,
+      "q": -22.0,
+      "q_reference": -20.0,
+      "y": -0.08251953125,
+      "y_reference": -0.08203125,
+      "rstd": 1.035342812538147,
+      "rstd_reference": 1.0353426933288574,
+      "x": 0.703125,
+      "z": -0.09814453125,
+      "weight": 2.421875,
+      "scale": 0.003923689015209675
+    }
+  ]
+}
