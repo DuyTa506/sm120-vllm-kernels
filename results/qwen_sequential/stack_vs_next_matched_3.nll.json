@@ -1,0 +1,396 @@
+{
+  "status": "diagnostic_only",
+  "rows": [
+    {
+      "prompt_id": "licenses-30000",
+      "baseline": {
+        "prompt_id": "licenses-30000",
+        "prompt_tokens": 6350,
+        "token_ids_sha256": "ac563b59f8e8fff7e31b7641829891bd5cb2597c124bdccb3c65c32d27e29f10",
+        "rounds": 3,
+        "nll": [
+          0.09601495751009365,
+          0.08939863419202454,
+          0.09741060391523551
+        ],
+        "mean": 0.09427473187245124,
+        "min": 0.08939863419202454,
+        "max": 0.09741060391523551,
+        "range": 0.008011969723210971,
+        "sample_stdev": 0.0042800938849332825
+      },
+      "candidate": {
+        "prompt_id": "licenses-30000",
+        "prompt_tokens": 6350,
+        "token_ids_sha256": "ac563b59f8e8fff7e31b7641829891bd5cb2597c124bdccb3c65c32d27e29f10",
+        "rounds": 3,
+        "nll": [
+          0.11113753112033507,
+          0.10356507333052464,
+          0.10026564773064638
+        ],
+        "mean": 0.10498941739383537,
+        "min": 0.10026564773064638,
+        "max": 0.11113753112033507,
+        "range": 0.010871883389688697,
+        "sample_stdev": 0.0055741393163217245
+      },
+      "mean_delta": 0.010714685521384132,
+      "larger_within_backend_range": 0.010871883389688697,
+      "delta_over_larger_range": 0.9855408798393057
+    },
+    {
+      "prompt_id": "licenses-60000",
+      "baseline": {
+        "prompt_id": "licenses-60000",
+        "prompt_tokens": 12919,
+        "token_ids_sha256": "7710a7e1bee531707a962338dbe2d61cafc058512936bb3d0a9dc189cdad26c5",
+        "rounds": 3,
+        "nll": [
+          0.08728745845262088,
+          0.08256183900536607,
+          0.06879539721427315
+        ],
+        "mean": 0.07954823155742004,
+        "min": 0.06879539721427315,
+        "max": 0.08728745845262088,
+        "range": 0.018492061238347735,
+        "sample_stdev": 0.009607312558589813
+      },
+      "candidate": {
+        "prompt_id": "licenses-60000",
+        "prompt_tokens": 12919,
+        "token_ids_sha256": "7710a7e1bee531707a962338dbe2d61cafc058512936bb3d0a9dc189cdad26c5",
+        "rounds": 3,
+        "nll": [
+          0.07471283367297615,
+          0.08154888500121839,
+          0.0939875815373282
+        ],
+        "mean": 0.08341643340384092,
+        "min": 0.07471283367297615,
+        "max": 0.0939875815373282,
+        "range": 0.019274747864352043,
+        "sample_stdev": 0.009772143013980576
+      },
+      "mean_delta": 0.0038682018464208795,
+      "larger_within_backend_range": 0.019274747864352043,
+      "delta_over_larger_range": 0.20068754588354334
+    },
+    {
+      "prompt_id": "py_stdlib-30000",
+      "baseline": {
+        "prompt_id": "py_stdlib-30000",
+        "prompt_tokens": 6856,
+        "token_ids_sha256": "199615e1e6db12b01f56816ccaa7f3ed68c25e86a9ad8315b834fc050e917c16",
+        "rounds": 3,
+        "nll": [
+          0.5269151328799281,
+          0.5404092090503372,
+          0.5363180203866329
+        ],
+        "mean": 0.5345474541056328,
+        "min": 0.5269151328799281,
+        "max": 0.5404092090503372,
+        "range": 0.013494076170409097,
+        "sample_stdev": 0.006919082427588341
+      },
+      "candidate": {
+        "prompt_id": "py_stdlib-30000",
+        "prompt_tokens": 6856,
+        "token_ids_sha256": "199615e1e6db12b01f56816ccaa7f3ed68c25e86a9ad8315b834fc050e917c16",
+        "rounds": 3,
+        "nll": [
+          0.5235347057865739,
+          0.5246814070452586,
+          0.5244377621632679
+        ],
+        "mean": 0.5242179583317002,
+        "min": 0.5235347057865739,
+        "max": 0.5246814070452586,
+        "range": 0.001146701258684657,
+        "sample_stdev": 0.0006041243559451522
+      },
+      "mean_delta": -0.010329495773932607,
+      "larger_within_backend_range": 0.013494076170409097,
+      "delta_over_larger_range": -0.7654837310451797
+    },
+    {
+      "prompt_id": "py_stdlib-60000",
+      "baseline": {
+        "prompt_id": "py_stdlib-60000",
+        "prompt_tokens": 13129,
+        "token_ids_sha256": "17ee2ebb0da297b4f7089f1fd898723fd353fff3e6be58e1d0dc813ce02fc022",
+        "rounds": 3,
+        "nll": [
+          0.4705763247735396,
+          0.4774799787112478,
+          0.47438376717668723
+        ],
+        "mean": 0.47414669022049155,
+        "min": 0.4705763247735396,
+        "max": 0.4774799787112478,
+        "range": 0.0069036539377081985,
+        "sample_stdev": 0.0034579276359226687
+      },
+      "candidate": {
+        "prompt_id": "py_stdlib-60000",
+        "prompt_tokens": 13129,
+        "token_ids_sha256": "17ee2ebb0da297b4f7089f1fd898723fd353fff3e6be58e1d0dc813ce02fc022",
+        "rounds": 3,
+        "nll": [
+          0.4743169241702918,
+          0.4799380480878576,
+          0.47928162226557397
+        ],
+        "mean": 0.4778455315079078,
+        "min": 0.4743169241702918,
+        "max": 0.4799380480878576,
+        "range": 0.005621123917565807,
+        "sample_stdev": 0.0030734387943065077
+      },
+      "mean_delta": 0.0036988412874162657,
+      "larger_within_backend_range": 0.0069036539377081985,
+      "delta_over_larger_range": 0.5357802289615009
+    },
+    {
+      "prompt_id": "py_email-30000",
+      "baseline": {
+        "prompt_id": "py_email-30000",
+        "prompt_tokens": 7690,
+        "token_ids_sha256": "23b4b8dca25521f35fbe80572dd1bb1b01befea3abe62141723e2bd6001e4e4a",
+        "rounds": 3,
+        "nll": [
+          0.8002206392626782,
+          0.799534147109051,
+          0.798303952817116
+        ],
+        "mean": 0.7993529130629484,
+        "min": 0.798303952817116,
+        "max": 0.8002206392626782,
+        "range": 0.001916686445562199,
+        "sample_stdev": 0.000971110738922453
+      },
+      "candidate": {
+        "prompt_id": "py_email-30000",
+        "prompt_tokens": 7690,
+        "token_ids_sha256": "23b4b8dca25521f35fbe80572dd1bb1b01befea3abe62141723e2bd6001e4e4a",
+        "rounds": 3,
+        "nll": [
+          0.7984377333199026,
+          0.8021637453642781,
+          0.7931729504790362
+        ],
+        "mean": 0.7979248097210724,
+        "min": 0.7931729504790362,
+        "max": 0.8021637453642781,
+        "range": 0.008990794885241904,
+        "sample_stdev": 0.00451729079546588
+      },
+      "mean_delta": -0.0014281033418760414,
+      "larger_within_backend_range": 0.008990794885241904,
+      "delta_over_larger_range": -0.15884060976857856
+    },
+    {
+      "prompt_id": "py_email-60000",
+      "baseline": {
+        "prompt_id": "py_email-60000",
+        "prompt_tokens": 15225,
+        "token_ids_sha256": "a6b6bcee219d6150be8d7942cf6dd4fd90611860cfbcbc2ed8441eb37247f54d",
+        "rounds": 3,
+        "nll": [
+          0.7815988274822141,
+          0.7879690336283491,
+          0.7851165496434256
+        ],
+        "mean": 0.7848948035846629,
+        "min": 0.7815988274822141,
+        "max": 0.7879690336283491,
+        "range": 0.006370206146135038,
+        "sample_stdev": 0.0031908870352923384
+      },
+      "candidate": {
+        "prompt_id": "py_email-60000",
+        "prompt_tokens": 15225,
+        "token_ids_sha256": "a6b6bcee219d6150be8d7942cf6dd4fd90611860cfbcbc2ed8441eb37247f54d",
+        "rounds": 3,
+        "nll": [
+          0.7829691682131678,
+          0.7811042791585856,
+          0.7852746746046144
+        ],
+        "mean": 0.7831160406587893,
+        "min": 0.7811042791585856,
+        "max": 0.7852746746046144,
+        "range": 0.004170395446028818,
+        "sample_stdev": 0.0020890735220490944
+      },
+      "mean_delta": -0.0017787629258736448,
+      "larger_within_backend_range": 0.006370206146135038,
+      "delta_over_larger_range": -0.2792316112019176
+    },
+    {
+      "prompt_id": "logprobs-0",
+      "baseline": {
+        "prompt_id": "logprobs-0",
+        "prompt_tokens": 788,
+        "token_ids_sha256": "3b7128ad42aaa10b1edb0bebec741d3e7b8c0080730d82fb0e6d1eda3225f860",
+        "rounds": 3,
+        "nll": [
+          0.22891730282721365,
+          0.2483189952810379,
+          0.2748581009423756
+        ],
+        "mean": 0.2506981330168757,
+        "min": 0.22891730282721365,
+        "max": 0.2748581009423756,
+        "range": 0.04594079811516197,
+        "sample_stdev": 0.023062620300804568
+      },
+      "candidate": {
+        "prompt_id": "logprobs-0",
+        "prompt_tokens": 788,
+        "token_ids_sha256": "3b7128ad42aaa10b1edb0bebec741d3e7b8c0080730d82fb0e6d1eda3225f860",
+        "rounds": 3,
+        "nll": [
+          0.24774682289890756,
+          0.2753392231778991,
+          0.2379243668417704
+        ],
+        "mean": 0.2536701376395257,
+        "min": 0.2379243668417704,
+        "max": 0.2753392231778991,
+        "range": 0.037414856336128705,
+        "sample_stdev": 0.01939799246830985
+      },
+      "mean_delta": 0.0029720046226499597,
+      "larger_within_backend_range": 0.04594079811516197,
+      "delta_over_larger_range": 0.06469205465694991
+    },
+    {
+      "prompt_id": "logprobs-1",
+      "baseline": {
+        "prompt_id": "logprobs-1",
+        "prompt_tokens": 669,
+        "token_ids_sha256": "b872e991d6fb4fb5a3feb5b7b03f2b37bfc2b346c39312372f6bc783b9bc029d",
+        "rounds": 3,
+        "nll": [
+          0.43863089860962656,
+          0.4378525362291599,
+          0.418592910998159
+        ],
+        "mean": 0.4316921152789818,
+        "min": 0.418592910998159,
+        "max": 0.43863089860962656,
+        "range": 0.020037987611467578,
+        "sample_stdev": 0.011350917433929162
+      },
+      "candidate": {
+        "prompt_id": "logprobs-1",
+        "prompt_tokens": 669,
+        "token_ids_sha256": "b872e991d6fb4fb5a3feb5b7b03f2b37bfc2b346c39312372f6bc783b9bc029d",
+        "rounds": 3,
+        "nll": [
+          0.4351340878242296,
+          0.42011026698233833,
+          0.451616146111155
+        ],
+        "mean": 0.43562016697257433,
+        "min": 0.42011026698233833,
+        "max": 0.451616146111155,
+        "range": 0.031505879128816694,
+        "sample_stdev": 0.015758563057072923
+      },
+      "mean_delta": 0.003928051693592505,
+      "larger_within_backend_range": 0.031505879128816694,
+      "delta_over_larger_range": 0.12467678421325917
+    },
+    {
+      "prompt_id": "logprobs-2",
+      "baseline": {
+        "prompt_id": "logprobs-2",
+        "prompt_tokens": 3443,
+        "token_ids_sha256": "413fc335129dadfada48a99aae1d8a546954fa67c4bb28812163cd9e2e229e52",
+        "rounds": 3,
+        "nll": [
+          0.3846086833524359,
+          0.38334778060585273,
+          0.3606581451311723
+        ],
+        "mean": 0.376204869696487,
+        "min": 0.3606581451311723,
+        "max": 0.3846086833524359,
+        "range": 0.02395053822126364,
+        "sample_stdev": 0.013478610924958284
+      },
+      "candidate": {
+        "prompt_id": "logprobs-2",
+        "prompt_tokens": 3443,
+        "token_ids_sha256": "413fc335129dadfada48a99aae1d8a546954fa67c4bb28812163cd9e2e229e52",
+        "rounds": 3,
+        "nll": [
+          0.3760155954404163,
+          0.3491544170317522,
+          0.37114776404299543
+        ],
+        "mean": 0.36543925883838796,
+        "min": 0.3491544170317522,
+        "max": 0.3760155954404163,
+        "range": 0.026861178408664088,
+        "sample_stdev": 0.014311568751495876
+      },
+      "mean_delta": -0.010765610858099017,
+      "larger_within_backend_range": 0.026861178408664088,
+      "delta_over_larger_range": -0.4007869905896073
+    },
+    {
+      "prompt_id": "logprobs-3",
+      "baseline": {
+        "prompt_id": "logprobs-3",
+        "prompt_tokens": 7604,
+        "token_ids_sha256": "98c0dc112271f1abb7fc68d9cfc30652940d381280ec2e2fe92f11688910f95f",
+        "rounds": 3,
+        "nll": [
+          0.5737671778137851,
+          0.573875473133332,
+          0.5768631096087293
+        ],
+        "mean": 0.5748352535186154,
+        "min": 0.5737671778137851,
+        "max": 0.5768631096087293,
+        "range": 0.0030959317949442733,
+        "sample_stdev": 0.0017570094509472304
+      },
+      "candidate": {
+        "prompt_id": "logprobs-3",
+        "prompt_tokens": 7604,
+        "token_ids_sha256": "98c0dc112271f1abb7fc68d9cfc30652940d381280ec2e2fe92f11688910f95f",
+        "rounds": 3,
+        "nll": [
+          0.580054791948252,
+          0.5690833657865187,
+          0.58211327616195
+        ],
+        "mean": 0.577083811298907,
+        "min": 0.5690833657865187,
+        "max": 0.58211327616195,
+        "range": 0.01302991037543122,
+        "sample_stdev": 0.0070046188770003705
+      },
+      "mean_delta": 0.002248557780291538,
+      "larger_within_backend_range": 0.01302991037543122,
+      "delta_over_larger_range": 0.1725689368156627
+    }
+  ],
+  "interpretation": "Positive delta means higher NLL. Ranges describe observed repeats; they are not confidence bounds or a model-quality acceptance threshold.",
+  "input_files": [
+    {
+      "path": "results/qwen_sequential/next_matched_3/repeated_nll.json",
+      "sha256": "26ee0e9923e4380645b414c640d6b53b313f89ab0f09fec089b67cf5b1c8dc54"
+    },
+    {
+      "path": "results/qwen_sequential/scalar_gdn_matched_3/repeated_nll.json",
+      "sha256": "1a49ef0f65050adf0d5fbc1c912e78494201d80dc05f21bce301ca46b0805cf2"
+    }
+  ]
+}

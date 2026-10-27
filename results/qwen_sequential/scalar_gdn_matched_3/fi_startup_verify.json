@@ -1,0 +1,10 @@
+{
+  "verified_stage": "server_startup",
+  "source_sha256": "7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3",
+  "effective_entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063",
+  "entries": 132,
+  "import_mode": "fixed_reference_replay_v1",
+  "preload_boundary": "before_worker_load_model",
+  "inductor_pinned": false,
+  "serving_lookup_observer": false
+}

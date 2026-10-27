@@ -1,0 +1,80 @@
+{
+  "status": "reference_tactics_verified_without_lookup_observation",
+  "source": "/opt/qwen-fi-control/references/next_cpu_audit_autotune.json",
+  "source_sha256": "7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3",
+  "reference_entries": 132,
+  "load_calls": [
+    {
+      "path": "/bench-results/fi_control/cache/autotune_import/cbc3cbf914cf623faf4e6a56633f9df1b7fb2737ac8a68e0b684811f196f795f/autotune_configs_dp0_rank0.json",
+      "returned": true
+    }
+  ],
+  "reference_entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063",
+  "lookup_observation_enabled": false,
+  "checks": {
+    "preloaded": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063"
+    },
+    "loaded": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063"
+    },
+    "after_warmup": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063"
+    },
+    "server_startup": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063"
+    },
+    "server_shutdown": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "721ed789107ca7cd8d54b4ce8e6345a9e84e8882beca5914a4a2085598f1b063"
+    }
+  },
+  "require_all_observed_keys": false,
+  "compiled_graph_cache_imported": false,
+  "server_worker_pid": 939,
+  "server_checkpoint": "shutdown_verified",
+  "serving_lookup_observer": false,
+  "import_mode": "fixed_reference_replay_v1",
+  "runtime_source_sha256": {
+    "flashinfer_autotuner": "b637b91e762a1deadf7fc8202f944f5633797504a4d73e693e54987702b452d0",
+    "vllm_kernel_warmup": "5eb35e459feaa5656d5365abb3b442ae5fd896193b4053b5c7ac8764e91aa829"
+  },
+  "preload": {
+    "path": "/bench-results/fi_control/autotune/source.json",
+    "returned": true,
+    "boundary": "before_worker_load_model"
+  },
+  "seeded_cache_path": "/bench-results/fi_control/cache/autotune_import/cbc3cbf914cf623faf4e6a56633f9df1b7fb2737ac8a68e0b684811f196f795f/autotune_configs_dp0_rank0.json",
+  "observed_cache_hits": [],
+  "cache_misses": [],
+  "observed_reference_mismatches": [],
+  "uncovered_cache_hits": [],
+  "all_observed_lookups_covered": false,
+  "last_verified_stage": "server_shutdown",
+  "selected_inductor_config_count": 12,
+  "server_startup_boundary": "after_compile_or_warm_up_model"
+}
