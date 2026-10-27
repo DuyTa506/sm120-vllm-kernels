@@ -1,5 +1,13 @@
 # Verification of the moe-nvfp4 claim (b12x scale fix + hybrid dispatch)
 
+**2026-10-28 addendum:** this report describes the original unshared backend.
+The [shared-workspace follow-up](SHARED_WORKSPACE.md) removes its per-layer
+scratch duplication and has a clean prefill A/B; full task validation is ongoing.
+The theoretical 24.5 GiB figure below double-counted 48 MiB/layer of MMA scale
+views as copies. Installed `convert_sf_to_mma_layout` is view+permute, so the
+40 unshared scratch/output allocations total 22.64 GiB. The measured per-wrapper
+579.65 MiB and original server KV figures remain valid; raw reports are retained.
+
 Verifier notes, 2026-10-25/26. I did not modify the author's code. My files: `verify_bench.py`, `verify_numerics.py`,
 `verify_logprobs.py`, `verify_e2e.sh`. Results: `results/verify_kernel.txt` and `results/verify_{hybrid,cutlass,hybrid_b,cutlass_b}.*`.
 

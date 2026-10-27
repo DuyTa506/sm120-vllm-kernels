@@ -63,10 +63,15 @@ def main():
         wr = B12xMoEWrapper(num_experts=E, top_k=TOPK, hidden_size=H, intermediate_size=I,
                             use_cuda_graph=True, max_num_tokens=16384, activation="silu")
         torch.cuda.synchronize(); m1 = torch.cuda.memory_allocated()
+        # The installed conversion is view+permute. Do not count its logical
+        # tensor bytes again when both layouts alias the existing weight scales.
         mma_sf_bytes = s13m.numel() * s13m.element_size() + s2m.numel() * s2m.element_size()
+        scales_alias = (s13m.untyped_storage().data_ptr() == prep["s13"].untyped_storage().data_ptr()
+                        and s2m.untyped_storage().data_ptr() == prep["s2"].untyped_storage().data_ptr())
+        assert scales_alias, "re-audit memory accounting: MMA scales stopped aliasing"
         print(f"== layer {L}: B12xMoEWrapper(max_num_tokens=16384) persistent buffers {(m1 - m0) / 2**20:.1f} MiB/layer"
-              f" (+ MMA-layout scale copies {mma_sf_bytes / 2**20:.1f} MiB/layer); x40 layers = "
-              f"{40 * (m1 - m0 + mma_sf_bytes) / 2**30:.2f} GiB", flush=True)
+              f" (MMA scale views alias {mma_sf_bytes / 2**20:.1f} MiB of existing scales); x40 unshared workspaces = "
+              f"{40 * (m1 - m0) / 2**30:.2f} GiB", flush=True)
         print(f"{'M':>6} {'routing':>8} {'cutlass':>9} {'b12x_int':>9} {'b12x_raw':>9} {'int/cut':>8} {'raw/cut':>8}"
               f" {'top1 expert rows':>16}", flush=True)
         cases = [(M, "real") for M in (1024, 2048, 4096, 8192, 16384)] + [(8192, "balanced")]

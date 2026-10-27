@@ -140,6 +140,15 @@ def gpu(args):
                 w2_weight_scale_2=w2_s2, w13_input_scale=a13, w2_input_scale=a2))
             experts.append(expert)
             kernels.append(kernel)
+            if hasattr(expert, "w1_sf_mma"):
+                aliases = [
+                    view.untyped_storage().data_ptr() == source.untyped_storage().data_ptr()
+                    for view, source in ((expert.w1_sf_mma, prep["s13"]),
+                                         (expert.w2_sf_mma, prep["s2"]))
+                ]
+                emit(kind="scale_layout_storage", layer=index,
+                     variant=VARIANTS[len(experts) - 1], aliases_existing_scales=aliases)
+                assert all(aliases), "MMA-layout scale views unexpectedly allocate copies"
         for attr in ("_input_global_scale", "_fc2_input_scale", "_w1_alpha", "_w2_alpha"):
             assert torch.equal(getattr(experts[1], attr), getattr(experts[2], attr))
         for number in (1, 2):

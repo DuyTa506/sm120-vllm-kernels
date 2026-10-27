@@ -4,7 +4,8 @@ This candidate preserves the scale-corrected hybrid backend's kernels and
 shares their scratch across sequential MoE layers. It targets
 `unsloth/Qwen3.6-35B-A3B-NVFP4-Fast` on one RTX PRO 6000 Blackwell, TP=1/EP=1,
 vLLM v0.32.0, CONFIG=next and MTP-2. It is opt-in. Clean single-request
-prefill A/B passes; the full serving task matrix and decode follow-up are pending.
+prefill A/B and the 17-scenario serving task matrix completed. Decode results
+are mixed; exact-alpha and explicit-greedy follow-up remain pending.
 
 ## What changes
 
@@ -125,8 +126,8 @@ The baseline's four GPU spans were 131.9–132.6 ms and the candidate's
 119.6–120.7 ms. This resolves a prefill saving in this clean sequential pair.
 It is not a claim of a uniform 9% improvement across serving workloads.
 Decode ITL is similar, but output throughput is lower and small-prompt TTFT
-increases (c=1 mean 48.84→60.66 ms, c=4 66.61→105.05 ms). A wider task matrix
-in reversed server order and MTP statistics must resolve this before adoption.
+increases (c=1 mean 48.84→60.66 ms, c=4 66.61→105.05 ms). The later reversed-order task matrix below checks this result with wider
+workloads and recorded MTP statistics.
 
 Clean real-routing layer-19 microbenchmark, including ID masks and output copy:
 
@@ -150,6 +151,38 @@ and retained the allocation reduction. Two-layer times were 1284/1293 us
 unshared and 1277/1285 us shared in opposite timing orders; sharing itself
 remains primarily a memory improvement (`results/shared_workspace_clean.jsonl`).
 
+## Full serving task matrix (shared then next, utilization 0.78)
+
+Both runs completed all 17 workloads and their quality probes. The full
+[paired table](../../results/qwen_sequential/shared_vs_next_tasks_1.serving.md)
+retains TTFT, ITL, throughput and MTP acceptance per scenario.
+
+| cold prefill | next TTFT p50 ms | shared TTFT p50 ms | change |
+|---|---:|---:|---:|
+| 2048 | 66.2 | 65.7 | -0.8% |
+| 4096 | 106.9 | 98.8 | -7.6% |
+| 5000 | 122.6 | 116.2 | -5.2% |
+| 8192 | 191.6 | 164.3 | -14.3% |
+| 16384 | 384.5 | 329.5 | -14.3% |
+| 32768 | 866.3 | 756.6 | -12.7% |
+
+Seven mixed serving workloads improve total throughput by +0.2% to +5.2%
+in this single pair. TTFT does not improve uniformly: prefill-heavy, RAG and
+shared-prefix medians increase by 5.9%, 8.6% and 3.2%. Decode output rates
+at c1/4/16/64 change +10.3%/-3.0%/+2.2%/-1.7%; median ITL remains close.
+The earlier -6.35% decode-rate difference does not reproduce uniformly.
+These requests inherit checkpoint sampling temperature 1.0/top-k 20/top-p .95;
+dataset seeds alone do not fix generations or MTP acceptance. For example,
+c1 acceptance changes 44.1% to 53.5%. This is no demonstrated decode-kernel
+speedup. A temperature-zero diagnostic is prepared separately.
+
+Both variants pass 20/20 needles. NLL changes differ in sign by corpus;
+checkpoint-distribution agreement also differs. These limited probes do not
+establish identical model behavior. Exact-alpha follow-up is documented in
+[CUTLASS_SCALE_ROUNDING.md](CUTLASS_SCALE_ROUNDING.md); its GPU tests pass,
+but the serving results above used the original `shared` overlay.
+No agentic benchmark has run for this individual patch.
+
 ## Reproduction and scope
 
 Allocation tests in the vLLM image, from this directory:
@@ -169,5 +202,9 @@ persistent-resource API; it does not silently fall back to per-layer buffers.
 Calls sharing an owner must be serialized; overlapping forward streams need
 separate owners. EP, other output dtypes, sleep-mode reclamation and changing
 model dimensions at runtime have not been validated. The approximately
-48 MiB/layer of transformed weight scales remains; this change shares scratch,
-not weights. Keep this candidate optional until serving results support adoption.
+48 MiB/layer represented by MMA-layout scale tensors aliases existing scales:
+the installed conversion is `view` plus `permute`, not an additional allocation.
+The old verifier's theoretical 24.52 GiB total double-counted those scales;
+40 unshared scratch/output allocations total 22.64 GiB. The directly measured
+579.652 MiB per wrapper and the sharing reduction remain valid. Keep this
+candidate optional until serving results support adoption.

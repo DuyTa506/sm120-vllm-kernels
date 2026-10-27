@@ -1,7 +1,7 @@
 # CUTLASS fallback alpha arithmetic audit
 
 The isolated `shared_exact/` candidate corrects a real representation difference;
-**GPU correctness/timing are pending**. It does not establish the cause of the
+**GPU validation passed on layers 0 and 19**. It does not establish the cause of the
 A3/B2 short-decode throughput difference. These alpha operations run only at
 weight loading; the old formula adds no per-token division. No running `shared/`, `scalar/`, serving
 harness, or installed container sources were modified.
@@ -53,8 +53,9 @@ Checkpoint snapshot: `1c3f884bc99aac2524f6d49bcbac8c88401afd66`.
 All 40 layers were checked; gate/up weight and input global scales are equal in
 this checkpoint. Maximum shared relative difference is `1.1898e-7`.
 `results/cutlass_scale_rounding_cpu.json` records every layer and source hashes.
-CUDA remained uninitialized. CPU arithmetic establishes non-equivalence of the
-old formulas; GPU-loaded tensors and outputs still require verification.
+CUDA remained uninitialized during this audit. CPU arithmetic establishes
+non-equivalence of the old formulas; the later GPU results below validate the
+loaded tensors and bound output differences.
 
 ## What matches, and what remains uncertain
 
@@ -115,4 +116,24 @@ repeated reference/candidate outputs are stable; otherwise error is bounded by
 observed reduction noise. At 1024 tokens it compares exact versus unchanged
 shared b12x instead. One process shares the CUTLASS tactic cache across variants.
 After that passes, a separately scheduled explicit-greedy (`--temperature 0`)
-short-decode A/B can isolate sampling variability. No GPU result is claimed here.
+short-decode A/B can isolate sampling variability. The executed results are recorded below.
+
+
+## Executed GPU validation (2026-10-28 local)
+
+[`results/cutlass_exact_gpu.jsonl`](results/cutlass_exact_gpu.jsonl) and
+[compiler/runtime log](results/cutlass_exact_gpu.stderr) record a successful
+exit with layers 0/19, tokens 1/3/4/12/128/512/1023/1024, three routing patterns,
+and five graph replays per pattern. All **48 comparisons passed** the stated
+criterion. Only one comparison had both outputs repeat-stable; it matched
+bitwise. Other comparisons are bounded by measured nondeterministic reduction
+noise, so this result does not claim universal bitwise output equality.
+
+All four loaded alpha comparisons match the actual default exactly. Both
+MMA-layout scale tensors alias their existing swizzled scale storage on both
+layers and both hybrid variants; they allocate no extra scale copies.
+Thirty-two interleaved timing records cover both orders of the three variants.
+These are small-layer diagnostics, not evidence that alpha correction improves
+serving throughput. The new `shared_exact` serving variant needs a fresh
+serving/quality run before final composition; older `shared` results retain
+their original identity.
