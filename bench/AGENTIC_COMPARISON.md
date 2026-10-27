@@ -2,24 +2,24 @@
 
 `compare_agentic.py` compares completed `qwen_experiment.sh ... agentic` artifacts offline. It requires metric version 2 and the fixed production trajectories. It shares the strict container/config/source/GDN/FI gates with `compare_runtime_identity.py`; the prior greedy-decode/NLL settings must also match. It checks every `(copied task ID, turn)` exactly once, its input length and requested/verified completion count, successful finished streams, finite per-turn timings, recomputed summary counts/rates/percentiles, and monotonic MTP counters.
 
-This preparation does not change the active runner, source manifest, or agentic benchmark. Existing replay reports without metric version 2 or captured input evidence are rejected. No new GPU, HTTP, or agentic run was performed.
+The input snapshot and verification steps below are already wired into the runner, before the matched-3 individual experiments. Only the explicit `agentic` suite invokes them. Existing replay reports without metric version 2 or captured input evidence are rejected. No final agentic GPU run has occurred yet; individual suites never run agentic.
 
-## Integration for a later, unfrozen final stage
+## Current runner integration
 
-Add `bench/agentic_input_manifest.py` to `bench/source_manifest.py`'s common source list **before** both runs. Keep the same runner/helper versions for the baseline and candidate. Inside the `SUITE == agentic` branch, before the `short long` loop:
+`bench/source_manifest.py` already includes `bench/agentic_input_manifest.py` in its common source list. Keep the same runner/helper versions for the baseline and candidate. The existing `SUITE == agentic` branch snapshots inputs before the `short long` loop:
 
 ```bash
 python3 -I "$D/bench/agentic_input_manifest.py" snapshot \
   --root "$D" --output "$O" > "$O/agentic_input_snapshot.log"
 ```
 
-Change only the replay input argument from the live repository file to the captured copy:
+The existing replay reads the captured copy:
 
 ```bash
 "$O/agentic_inputs/trajectories_${set}_production.json.xz"
 ```
 
-After both replay sets, verify the live inputs, captured copies, helper, and benchmark source. Write the verification artifact atomically and propagate failures through the runner's existing `set -e`/cleanup exit handling:
+After both replay sets, the runner verifies live inputs, captured copies, helper, and benchmark source. It writes verification atomically and propagates failures through `set -e` and cleanup:
 
 ```bash
 python3 -I "$D/bench/agentic_input_manifest.py" verify \
@@ -27,7 +27,7 @@ python3 -I "$D/bench/agentic_input_manifest.py" verify \
 mv "$O/agentic_input_verify.json.tmp" "$O/agentic_input_verify.json"
 ```
 
-Retain the existing per-set metrics before/after capture, live-short smoke, source verification, and graceful FI shutdown verification. The helper refuses to overwrite an existing input snapshot. Do not attach a newly created manifest retroactively to an earlier replay: it cannot prove which bytes the earlier process consumed. Snapshotting before the replay and using the copies is the required integration contract.
+The runner retains per-set metrics before/after capture, the separate live-short smoke, source verification, and graceful FI shutdown verification. These steps are implemented; do not insert a second snapshot call. The helper refuses to overwrite an existing input snapshot. Do not attach a newly created manifest retroactively to an earlier replay: it cannot prove which bytes the earlier process consumed. Snapshotting before the replay and using the copies is the required integration contract.
 
 After successful shutdown of both servers:
 

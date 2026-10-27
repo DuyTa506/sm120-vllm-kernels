@@ -333,3 +333,9 @@ microbenchmarks alone do not satisfy this request.
   MoE/build sources, runner/sourcehelper/serve/FI6 frozen until terminal.
   Compare incrementally to scalar_matched_3 and overall to next_matched_3.
   Agentic still exclusively final stage; route aux/full follow after this run.
+
+- Continuation revalidation: former tool session70620 is no longer addressable,
+  but host runnerPID1616947 (sg parent1616945) and serving_matrixPID1623076 are
+  confirmed live with exact scalar_gdn_matched_3 argv. Owned servercontainer is
+  running and serving summary advances. Observe these processes/result markers;
+  do not restart the experiment because the old tool handle disappeared.
