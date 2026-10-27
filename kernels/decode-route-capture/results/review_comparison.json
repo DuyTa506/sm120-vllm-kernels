@@ -1,0 +1,638 @@
+{
+  "status": "equivalence_unresolved_full_capture_not_run",
+  "control": "review_control_c1",
+  "capture": "review_target_c1",
+  "exit_codes": [
+    0,
+    1
+  ],
+  "output_comparison": {
+    "prompts_equal": true,
+    "lengths": [
+      192,
+      192
+    ],
+    "first_difference": 0,
+    "first_token_ids": [
+      40,
+      248058
+    ],
+    "different_positions": 180
+  },
+  "artifact_hashes": {
+    "review_control_c1": {
+      "outputs.json": "342f1a027736eac20de70051b4f3be1df7750c25905d7b911bc00cf490148c7b",
+      "manifest.json": "14a73386acc6ed61210c7d716858b4796053c3e5858111757f006cb83013c0e8"
+    },
+    "review_target_c1": {
+      "outputs.json": "e2be61f637e9e67556218d557634035bcc3b8121eeca14442db8960e7a3af119",
+      "manifest.json": "1f3c3128266f8c37d40a7e8dded5ce4c25ad2bfa141752e270ea056d4c75ee04"
+    }
+  },
+  "same_inputs": {
+    "image.txt": true,
+    "probe_source_sha256.txt": true,
+    "config_next_sha256.txt": true
+  },
+  "logged_configs_equal_except_native_aux": true,
+  "autotune": {
+    "entries": 132,
+    "identical_key_sets": true,
+    "metadata_equal": true,
+    "different_tactics": 51,
+    "by_runner": {
+      "CutlassFp4GemmRunner": 21,
+      "MoERunner": 30
+    },
+    "differences": [
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          4
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          0
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1024, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          1
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          9
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((128, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          5
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          4
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1280, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          13
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          12
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1280, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          8
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          20
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1536, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          18
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          17
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1536, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          1
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          4
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((16, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          4
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          6
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1792, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          4
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          6
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((256, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          2
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          0
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2560, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          16
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          18
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2560, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          18
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          20
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((3072, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          12
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          18
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((3584, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          24
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          14
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((4096, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          12
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          24
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((4096, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          8
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          14
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((512, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          12
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          13
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((768, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          16
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          0
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          6
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          4
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8192, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          16
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          18
+        ]
+      },
+      {
+        "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8192, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+        "control": [
+          "CutlassFp4GemmRunner",
+          12
+        ],
+        "capture": [
+          "CutlassFp4GemmRunner",
+          14
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          2
+        ],
+        "capture": [
+          "MoERunner",
+          1
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1024, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          17
+        ],
+        "capture": [
+          "MoERunner",
+          19
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1536, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          17
+        ],
+        "capture": [
+          "MoERunner",
+          19
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((16, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          2
+        ],
+        "capture": [
+          "MoERunner",
+          4
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((2048, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          12
+        ],
+        "capture": [
+          "MoERunner",
+          16
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((256, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          17
+        ],
+        "capture": [
+          "MoERunner",
+          16
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((2560, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          12
+        ],
+        "capture": [
+          "MoERunner",
+          19
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((512, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          16
+        ],
+        "capture": [
+          "MoERunner",
+          17
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((64, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          16
+        ],
+        "capture": [
+          "MoERunner",
+          19
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((8, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          17
+        ],
+        "capture": [
+          "MoERunner",
+          16
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((8192, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          12
+        ],
+        "capture": [
+          "MoERunner",
+          19
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((1, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          46
+        ],
+        "capture": [
+          "MoERunner",
+          49
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((128, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          13
+        ],
+        "capture": [
+          "MoERunner",
+          9
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((16, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          10
+        ],
+        "capture": [
+          "MoERunner",
+          14
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((1792, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          11
+        ],
+        "capture": [
+          "MoERunner",
+          10
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          47
+        ],
+        "capture": [
+          "MoERunner",
+          57
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          9
+        ],
+        "capture": [
+          "MoERunner",
+          11
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((256, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          57
+        ],
+        "capture": [
+          "MoERunner",
+          46
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((256, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          11
+        ],
+        "capture": [
+          "MoERunner",
+          10
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2560, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          14
+        ],
+        "capture": [
+          "MoERunner",
+          11
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((32, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          9
+        ],
+        "capture": [
+          "MoERunner",
+          13
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((4, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          46
+        ],
+        "capture": [
+          "MoERunner",
+          57
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((4, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          12
+        ],
+        "capture": [
+          "MoERunner",
+          11
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((4096, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          14
+        ],
+        "capture": [
+          "MoERunner",
+          16
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((512, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          57
+        ],
+        "capture": [
+          "MoERunner",
+          59
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((512, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          11
+        ],
+        "capture": [
+          "MoERunner",
+          10
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((64, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          9
+        ],
+        "capture": [
+          "MoERunner",
+          14
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((768, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          57
+        ],
+        "capture": [
+          "MoERunner",
+          49
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((768, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          12
+        ],
+        "capture": [
+          "MoERunner",
+          11
+        ]
+      },
+      {
+        "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((8, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+        "control": [
+          "MoERunner",
+          46
+        ],
+        "capture": [
+          "MoERunner",
+          57
+        ]
+      }
+    ]
+  },
+  "raw_integrity": {
+    "records": 64,
+    "ids_shape": [
+      3,
+      40,
+      8
+    ],
+    "ids_dtype": "torch.int32",
+    "json_agreement": true,
+    "graph_padding_rows": 0,
+    "negative_ids": 0
+  },
+  "diagnostic_acceptance": {
+    "proposed_draft_tokens": 128,
+    "accepted_draft_tokens": 103,
+    "rejected_draft_tokens": 25,
+    "sampled_output_tokens": 167,
+    "accepted_fraction": 0.8046875
+  },
+  "diagnostic_target_bytes_per_sampler_token": 509162919.0898204,
+  "diagnostic_target_overlap": {
+    "layer_groups": 2560,
+    "mean_expert_union": 18.77109375,
+    "mean_adjacent_intersection": 2.1697265625,
+    "mean_lag2_intersection": 1.833984375
+  },
+  "interpretation": "Outputs differ at token zero. Independent autotuning choices differ; causal attribution is unresolved. No measured DRAM traffic, performance benefit, or validated output preservation is claimed. Draft data is absent."
+}

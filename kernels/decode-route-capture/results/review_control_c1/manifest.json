@@ -1,0 +1,36 @@
+{
+  "instrumentation_only": true,
+  "mode": "control",
+  "selected_prompts": [
+    {
+      "task": 0,
+      "turn": 0,
+      "prompt_tokens": 1156,
+      "prompt_ids_sha256": "7184757dc71fd0d1ce9f3159f301d09af732a5cbc58386a9fac37f93f549c5e2"
+    }
+  ],
+  "trajectory": "/work/results/agentic/trajectories_short_production.json.xz",
+  "concurrency": 1,
+  "output_tokens": 192,
+  "seed": 101,
+  "argv": [
+    "/work/kernels/decode-route-capture/run_capture.py",
+    "--out",
+    "/out",
+    "--control",
+    "--concurrency",
+    "1"
+  ],
+  "environment": {
+    "VLLM_MOE_SKIP_PADDING": "1",
+    "VLLM_USE_V2_MODEL_RUNNER": "1",
+    "VLLM_SM120_FP8_PREFILL": "1",
+    "VLLM_SM120_FP8_PREFILL_NOGLUE": "1",
+    "VLLM_FI_KERNEL_PAGES": "16",
+    "VLLM_GDN_INTERNAL_CKPT": "1",
+    "VLLM_GDN_FUSED_CONV": "1"
+  },
+  "success": true,
+  "error": null,
+  "draft_capture": "disabled_control"
+}
