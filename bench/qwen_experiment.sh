@@ -15,6 +15,9 @@ NAME=qwen-exp-$TAG
 PORT=${PORT:-8132}
 GPU_UTIL=${GPU_UTIL:-0.78}
 GPU=${GPU:-0}
+FI_CONTROL=${FI_CONTROL:-0}
+[[ $FI_CONTROL == 0 || $FI_CONTROL == 1 ]] || { echo "invalid FI_CONTROL" >&2; exit 2; }
+FI_SOURCE_SHA=7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3
 GREEDY_DECODE=${GREEDY_DECODE:-0}
 [[ $GREEDY_DECODE == 0 || $GREEDY_DECODE == 1 ]] || { echo "invalid GREEDY_DECODE" >&2; exit 2; }
 if [[ $SUITE == decode_greedy ]]; then GREEDY_DECODE=1; fi
@@ -43,6 +46,13 @@ cleanup() {
     kill "$MONITOR_PID" 2>/dev/null || true
     wait "$MONITOR_PID" 2>/dev/null || true
   fi
+  if [[ $FI_CONTROL == 1 ]]; then
+    docker stop -t 45 "$NAME" > "$O/stop.log" 2>&1 || true
+    if ! python3 "$D/kernels/decode-route-capture/qwen_fi_control_plugin.py" \
+      "$O/serving/fi_control" --source-sha256 "$FI_SOURCE_SHA" > "$O/fi_shutdown_verify.json" 2> "$O/fi_shutdown_verify.log"; then
+      if (( rc == 0 )); then rc=5; fi
+    fi
+  fi
   docker logs "$NAME" > "$O/docker.log" 2>&1 || true
   docker rm -f "$NAME" >/dev/null 2>&1 || true
   if [[ -f $O/source_manifest.json ]]; then
@@ -57,6 +67,14 @@ cleanup() {
 trap cleanup EXIT
 flags="-e VLLM_CACHE_ROOT=/root/.cache/vllm/qwen-sequential-$VAR -v $O/serving:/bench-results"
 args=()
+source_args=()
+if [[ $FI_CONTROL == 1 ]]; then
+  flags="$flags -v $D/kernels/decode-route-capture:/opt/qwen-fi-control:ro"
+  flags="$flags -e PYTHONPATH=/opt/qwen-fi-control -e QWEN_FI_IMPORT_JSON=/opt/qwen-fi-control/references/next_cpu_audit_autotune.json"
+  flags="$flags -e QWEN_FI_IMPORT_SHA256=$FI_SOURCE_SHA -e QWEN_FI_IMPORT_OUT=/bench-results/fi_control"
+  flags="$flags -e VLLM_FLASHINFER_AUTOTUNE_CACHE_DIR=/bench-results/fi_control/cache/autotune_import"
+  source_args+=(--fi-control)
+fi
 MOE_VAR=${VAR%_gdn}
 GDN_OVERLAY=""
 if [[ $VAR == *_gdn ]]; then
@@ -77,9 +95,11 @@ if [[ $MOE_VAR == scalar ]]; then flags="$flags -e VLLM_B12X_SCALAR_INPUT_SCALE=
 printf 'tag=%s\nvariant=%s\nsuite=%s\nconfig=next\ngpu_util=%s\n' "$TAG" "$VAR" "$SUITE" "$GPU_UTIL" > "$O/config.txt"
 printf 'greedy_decode=%s\n' "$GREEDY_DECODE" >> "$O/config.txt"
 printf 'nll_rounds=%s\n' "$NLL_ROUNDS" >> "$O/config.txt"
+printf 'fi_control=%s\n' "$FI_CONTROL" >> "$O/config.txt"
+if [[ $FI_CONTROL == 1 ]]; then printf 'fi_source_sha256=%s\n' "$FI_SOURCE_SHA" >> "$O/config.txt"; fi
 git -C "$D" rev-parse HEAD > "$O/commit.txt"
 git -C "$D" diff HEAD --binary > "$O/uncommitted.diff"
-python3 -I "$D/bench/source_manifest.py" snapshot --root "$D" --output "$O" --variant "$VAR" > "$O/source_snapshot.log"
+python3 -I "$D/bench/source_manifest.py" snapshot --root "$D" --output "$O" --variant "$VAR" "${source_args[@]}" > "$O/source_snapshot.log"
 docker image inspect vllm/vllm-openai:v0.32.0 --format '{{.Id}}' > "$O/image.txt"
 nvidia-smi -i "$GPU" --query-gpu=name,uuid,driver_version,memory.total,memory.used,clocks.sm,power.limit --format=csv > "$O/gpu_before.csv"
 CONFIG=next NAME=$NAME PORT=$PORT GPU=$GPU NSYS=0 FLAGS="$flags" GDN_OVERLAY="$GDN_OVERLAY" \
@@ -89,6 +109,10 @@ CONFIG=next NAME=$NAME PORT=$PORT GPU=$GPU NSYS=0 FLAGS="$flags" GDN_OVERLAY="$G
 docker logs "$NAME" > "$O/startup.log" 2>&1
 if [[ $VAR == *_gdn ]]; then
   python3 -I "$D/bench/verify_gdn_startup.py" "$O/startup.log" > "$O/gdn_readiness.json"
+fi
+if [[ $FI_CONTROL == 1 ]]; then
+  python3 "$D/kernels/decode-route-capture/qwen_fi_control_plugin.py" \
+    "$O/serving/fi_control" --source-sha256 "$FI_SOURCE_SHA" --startup-only > "$O/fi_startup_verify.json"
 fi
 docker inspect "$NAME" > "$O/container.json"
 nvidia-smi -i "$GPU" --query-gpu=timestamp,memory.used,utilization.gpu,clocks.sm,power.draw --format=csv --loop=1 > "$O/gpu_during.csv" &

@@ -7,7 +7,7 @@ in 51/132 entries. The signed target artifact passes structural checks; full
 target/draft capture is pending. This checkpoint supports no optimization
 adoption. See [the recorded result](RESULTS.md) for scope and proposed controls.
 
-The 24 CPU analysis/launcher/driver tests and Python/shell syntax checks pass.
+The 42 CPU analysis/launcher/driver/import/server-plugin tests pass.
 Hooks were inspected against installed vLLM 0.32.0 / Torch 2.13.0+cu130 /
 FlashInfer 0.7.0.post1 sources in `qwen-prefill-dev`. The target path completed
 compilation, graph replay, capture, export and shutdown. Draft graph compatibility
@@ -34,8 +34,8 @@ sg docker -c 'bash kernels/decode-route-capture/run.sh target_c1 --target-only -
 sg docker -c 'bash kernels/decode-route-capture/run.sh full_c1 --concurrency 1 --compare-output /work/kernels/decode-route-capture/results/control_c1/outputs.json'
 ```
 
-These are separate queued jobs. Do not proceed to full capture after a failed
-control/target comparison. The completed checkpoint used `review_control_c1`
+These are separate queued jobs. A failed control/target comparison requires
+inspection of the controls before further diagnostic capture. The completed checkpoint used `review_control_c1`
 and `review_target_c1`; it stopped before the full run and released the GPU.
 
 After c=1 works, repeat c=4/16/64 with fresh tags and matching controls; repeat
@@ -77,6 +77,19 @@ Capture adds device copies, synchronization at draft phase boundaries, memory
 pressure, and native auxiliary-output handling. It can change asynchronous
 batching and available KV capacity. `--compare-output` fails if prompts or output
 token IDs differ from the chosen control; it does not prove identical batching.
+
+The subsequently prepared [control and tactic-import options](CONTROLS.md) add
+`--native-aux-control`, optional `--autotune-json` with observed-choice
+verification, and separate baseline token-distance reporting. They are CPU-tested
+and GPU-unrun. Default inference options are unchanged. Completed inference now
+gets structural route analysis even after an exact-token mismatch; overall
+failure is preserved, with diagnostic analysis saved separately.
+
+The separate [serving cache-control plugin](SERVER_INTEGRATION.md) imports a
+frozen reference table before worker warmup and verifies effective snapshots at
+startup and shutdown. The parent serving runner enables it with `FI_CONTROL=1`.
+It installs no route hooks or per-lookup serving observer; Inductor settings
+remain independently selected and audited.
 
 ## What is captured
 

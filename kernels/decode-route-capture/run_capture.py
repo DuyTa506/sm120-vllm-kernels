@@ -74,12 +74,24 @@ def main():
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--target-only", action="store_true")
     group.add_argument("--control", action="store_true", help="Generate matching outputs without any route capture")
+    group.add_argument("--native-aux-control", action="store_true",
+                       help="Enable native aux routes without this probe's hooks or raw snapshots")
     parser.add_argument("--compare-output", type=Path, help="Compare output token IDs with a prior control outputs.json")
+    parser.add_argument("--baseline-output", action="append", default=[], type=Path,
+                        help="Additional same-prompt control output for a separate token-distance envelope")
+    parser.add_argument("--autotune-json", type=Path,
+                        help="Import only this saved FI tactic JSON into the fresh isolated rank cache")
+    parser.add_argument("--require-autotune-coverage", action="store_true",
+                        help="Also fail if any observed FI cache lookup lacks an imported tactic")
     args = parser.parse_args()
     if not 1 <= args.concurrency <= 64 or args.prompt_offset < 0:
         parser.error("concurrency must be 1..64 and prompt offset nonnegative")
     if min(args.output_tokens, args.max_steps, args.max_rows) < 1:
         parser.error("output tokens and capture limits must be positive")
+    if args.baseline_output and not args.compare_output:
+        parser.error("--baseline-output requires --compare-output")
+    if args.require_autotune_coverage and not args.autotune_json:
+        parser.error("--require-autotune-coverage requires --autotune-json")
     if args.out.exists() and any(args.out.glob("manifest.json")):
         parser.error("capture output already contains a manifest; use a fresh directory")
     prompts, selected = select_prompts(args.trajectory, args.concurrency, args.prompt_offset)
@@ -89,8 +101,10 @@ def main():
     os.environ["VLLM_USE_V2_MODEL_RUNNER"] = "1"
     os.environ["VLLM_MOE_SKIP_PADDING"] = "1"
     from capture_runtime import V2RouteCapture
-    capture = None if args.control else V2RouteCapture(args.max_steps, args.max_rows, not args.target_only)
+    capture = (None if args.control or args.native_aux_control else
+               V2RouteCapture(args.max_steps, args.max_rows, not args.target_only))
     metadata = {"instrumentation_only": True, "mode": "control" if args.control else
+                "native_aux_control" if args.native_aux_control else
                 "target_only" if args.target_only else "target_and_draft",
                 "selected_prompts": selected, "trajectory": str(args.trajectory),
                 "concurrency": args.concurrency, "output_tokens": args.output_tokens, "seed": args.seed,
@@ -99,8 +113,12 @@ def main():
                     "VLLM_SM120_FP8_PREFILL_NOGLUE", "VLLM_FI_KERNEL_PAGES",
                     "VLLM_GDN_INTERNAL_CKPT", "VLLM_GDN_FUSED_CONV")}}
     args.out.mkdir(parents=True, exist_ok=True)
-    success, error, llm = False, None, None
+    success, error, llm, imported, generation_complete = False, None, None, None, False
     try:
+        if args.autotune_json:
+            from autotune_import import AutotuneImport
+            imported = AutotuneImport(args.autotune_json, args.out, args.require_autotune_coverage)
+            imported.install()
         if capture is not None:
             capture.manifest.update(metadata)
             capture.install()
@@ -127,28 +145,48 @@ def main():
         if (len(output["requests"]) != args.concurrency
                 or len({r["request_id"] for r in output["requests"]}) != args.concurrency):
             raise RuntimeError("incomplete or duplicate request batch in diagnostic run")
-        if args.compare_output:
-            reference = json.loads(args.compare_output.read_text())
-            same = (reference["selected_prompts"] == selected and
-                    [x["output_token_ids"] for x in reference["requests"]] ==
-                    [x["output_token_ids"] for x in output["requests"]])
-            metadata["control_token_ids_match"] = same
-            if capture is not None:
-                capture.manifest["control_token_ids_match"] = same
-            if not same:
-                raise RuntimeError("captured run differs from control prompt selection/output token IDs")
         if any(len(r["output_token_ids"]) != args.output_tokens or r["finish_reason"] != "length"
                for r in output["requests"]):
             raise RuntimeError("incomplete generation in diagnostic run")
+        generation_complete = True
+        if args.compare_output:
+            from compare_outputs import compare_outputs
+            reference = json.loads(args.compare_output.read_text())
+            comparison = compare_outputs(reference, output,
+                [json.loads(path.read_text()) for path in args.baseline_output])
+            comparison.update(reference_path=str(args.compare_output),
+                              baseline_paths=[str(path) for path in args.baseline_output])
+            (args.out / "output_comparison.json").write_text(json.dumps(comparison, indent=2) + "\n")
+            same = comparison["exact_match"]
+            metadata["control_token_ids_match"] = same
+            metadata["baseline_variation"] = comparison["baseline_variation"]
+            if not same:
+                raise RuntimeError("captured run differs from control prompt selection/output token IDs")
         success = True
     except BaseException as ex:
         error = f"{type(ex).__name__}: {ex}"
         raise
     finally:
+        import_error = None
         try:
-            if capture is not None:
+            if imported is not None:
                 try:
-                    capture.export(args.out, success=success, error=error)
+                    imported.finalize()
+                except Exception as ex:
+                    if error is None:
+                        import_error, success = ex, False
+                        error = f"{type(ex).__name__}: {ex}"
+                    else:
+                        traceback.print_exc()
+                metadata["autotune_import"] = {"status": imported.report["status"],
+                    "source_sha256": imported.report["source_sha256"],
+                    "verification_file": "autotune/verification.json"}
+            metadata.update(success=success, error=error, generation_complete=generation_complete)
+            if capture is not None:
+                capture.manifest.update(metadata)
+                try:
+                    capture.export(args.out, success=success, error=error,
+                                   validate_structure=generation_complete)
                 except Exception:
                     if error is None:
                         raise
@@ -158,6 +196,8 @@ def main():
                 (args.out / "manifest.json").write_text(json.dumps(metadata, indent=2) + "\n")
         finally:
             shutdown_owned_engine(llm, args.out)
+        if import_error is not None:
+            raise import_error
     print(args.out)
     print("Instrumentation only: this run is not a latency/throughput baseline.")
 

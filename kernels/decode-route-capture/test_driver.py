@@ -13,7 +13,8 @@ import run_capture
 
 
 class DriverTests(unittest.TestCase):
-    def invoke(self, *, generation_error=False, shutdown_error=False, short_batch=False):
+    def invoke(self, *, generation_error=False, shutdown_error=False, short_batch=False,
+               native_aux=False, mismatch=False):
         events = []
         with tempfile.TemporaryDirectory() as temp:
             out = Path(temp)
@@ -27,7 +28,7 @@ class DriverTests(unittest.TestCase):
 
                 def export(self, path, **kwargs):
                     events.append("export")
-                    (path / "manifest.json").write_text(json.dumps(kwargs))
+                    (path / "manifest.json").write_text(json.dumps(dict(self.manifest, **kwargs)))
 
             def shutdown():
                 events.append("shutdown")
@@ -45,12 +46,20 @@ class DriverTests(unittest.TestCase):
 
             llm = SimpleNamespace(generate=generate,
                                   llm_engine=SimpleNamespace(engine_core=SimpleNamespace(shutdown=shutdown)))
-            vllm = SimpleNamespace(LLM=lambda **kwargs: llm, SamplingParams=lambda **kwargs: kwargs)
+            def construct(**kwargs):
+                self.assertEqual(kwargs["aux_output_config"]["enable_return_routed_experts"], True)
+                return llm
+            vllm = SimpleNamespace(LLM=construct, SamplingParams=lambda **kwargs: kwargs)
+            extra = ["--native-aux-control"] if native_aux else []
+            if mismatch:
+                (out / "reference.json").write_text(json.dumps({"selected_prompts": [],
+                    "requests": [{"output_token_ids": [8] * 32}]}))
+                extra += ["--compare-output", str(out / "reference.json")]
             with patch.dict("sys.modules", {"vllm": vllm}), \
                  patch.dict("os.environ", {}, clear=False), \
                  patch.object(capture_runtime, "V2RouteCapture", Capture), \
                  patch.object(run_capture, "select_prompts", return_value=([{"prompt_token_ids": [1]}], [])), \
-                 patch("sys.argv", ["run_capture.py", "--out", str(out), "--output-tokens", "32"]), \
+                 patch("sys.argv", ["run_capture.py", "--out", str(out), "--output-tokens", "32", *extra]), \
                  contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
                 error = None
                 try:
@@ -84,6 +93,19 @@ class DriverTests(unittest.TestCase):
         _, error, manifest, _ = self.invoke(short_batch=True)
         self.assertIsNotNone(error)
         self.assertFalse(manifest["success"])
+
+    def test_native_aux_control_enables_aux_without_probe_install_or_export(self):
+        events, error, manifest, _ = self.invoke(native_aux=True)
+        self.assertEqual(events, ["generate", "shutdown"])
+        self.assertIsNone(error)
+        self.assertEqual(manifest["mode"], "native_aux_control")
+
+    def test_exact_mismatch_still_requests_structural_validation(self):
+        _, error, manifest, _ = self.invoke(mismatch=True)
+        self.assertIn("differs from control", error)
+        self.assertFalse(manifest["success"])
+        self.assertFalse(manifest["control_token_ids_match"])
+        self.assertTrue(manifest["validate_structure"])
 
 
 if __name__ == "__main__":

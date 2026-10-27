@@ -294,7 +294,7 @@ class V2RouteCapture:
         self._patch(MTP, "on_prefill_end", phase_hook(MTP.on_prefill_end, "draft_prefill"))
         self._patch(MTP, "on_multi_step_decode_end", phase_hook(MTP.on_multi_step_decode_end, "draft_decode"))
 
-    def export(self, out, *, success, error=None):
+    def export(self, out, *, success, error=None, validate_structure=None):
         import torch
         from analyze import analyze_capture
         out = Path(out)
@@ -324,14 +324,16 @@ class V2RouteCapture:
                 f.write(json.dumps(record, separators=(",", ":")) + "\n")
         self.manifest["gpu_validation"] = "capture_finished_pending_analysis" if success else "failed"
         self.manifest["error"] = error
+        self.manifest["structural_validation"] = "not_run"
         if self.capture_draft:
             expected = {(r["step"], phase) for r in self.targets
                         for phase in ("draft_prefill", "draft_decode")}
             actual = {(r["step"], r["phase"]) for r in rows if r["phase"].startswith("draft_")}
             self.manifest["draft_capture"] = "captured_both_phases" if expected and expected == actual else "incomplete"
         analysis_error = None
+        should_validate = success if validate_structure is None else validate_structure
         try:
-            if success:
+            if should_validate:
                 if not self.targets:
                     raise RuntimeError("no pure decode steps captured")
                 for record in rows:
@@ -344,11 +346,19 @@ class V2RouteCapture:
                 if self.capture_draft and self.manifest["draft_capture"] != "captured_both_phases":
                     raise RuntimeError("draft data incomplete; use explicit --target-only for target capture")
                 analysis = analyze_capture(self.manifest, rows)
-                (out / "analysis.json").write_text(json.dumps(analysis, indent=2) + "\n")
-                self.manifest["gpu_validation"] = "captured_and_structurally_validated"
+                analysis["overall_run_success"] = success
+                analysis["control_token_ids_match"] = self.manifest.get("control_token_ids_match")
+                name = "analysis.json" if success else "analysis_diagnostic.json"
+                (out / name).write_text(json.dumps(analysis, indent=2) + "\n")
+                self.manifest["structural_validation"] = "passed"
+                if success:
+                    self.manifest["gpu_validation"] = "captured_and_structurally_validated"
         except Exception as ex:
-            self.manifest["gpu_validation"] = "analysis_failed"
-            self.manifest["error"] = str(ex)
+            self.manifest["structural_validation"] = "failed"
+            self.manifest["structural_error"] = str(ex)
+            if success:
+                self.manifest["gpu_validation"] = "analysis_failed"
+                self.manifest["error"] = str(ex)
             analysis_error = ex
         finally:
             (out / "manifest.json").write_text(json.dumps(self.manifest, indent=2) + "\n")

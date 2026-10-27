@@ -9,7 +9,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def selected(variant):
+def selected(variant, fi_control=False):
     paths = [
         'scripts/serve.sh', 'scripts/cudagraph_sizes.txt',
         'bench/qwen_experiment.sh', 'bench/serving_matrix.py', 'bench/source_manifest.py',
@@ -35,15 +35,22 @@ def selected(variant):
             f'kernels/moe-nvfp4/{moe_variant}/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py',
             'kernels/moe-nvfp4/patched/vllm/model_executor/layers/fused_moe/oracle/unquantized.py',
         ]
+    if fi_control:
+        paths.extend('kernels/decode-route-capture/' + name for name in (
+            'qwen_fi_control_plugin.py', 'autotune_import.py',
+            'references/next_cpu_audit_autotune.json',
+            'references/next_cpu_audit_autotune.provenance.json',
+            'qwen_fi_control-0.1.dist-info/entry_points.txt',
+            'qwen_fi_control-0.1.dist-info/METADATA'))
     return paths
 
 
-def snapshot(root, output, variant):
-    files = selected(variant)
+def snapshot(root, output, variant, fi_control=False):
+    files = selected(variant, fi_control)
     if (output / 'source_manifest.json').exists():
         raise ValueError('source manifest already exists')
     contents = {relative: (root / relative).read_bytes() for relative in files}
-    manifest = {'schema_version': 1, 'variant': variant, 'files': {}}
+    manifest = {'schema_version': 1, 'variant': variant, 'fi_control': fi_control, 'files': {}}
     for relative, data in contents.items():
         path = output / 'source_files' / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -71,10 +78,11 @@ def main():
     parser.add_argument('--root', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--variant', choices=('next', 'shared', 'shared_exact', 'scalar', 'shared_exact_gdn', 'scalar_gdn'))
+    parser.add_argument('--fi-control', action='store_true')
     args = parser.parse_args()
     if args.action == 'snapshot' and args.variant is None:
         parser.error('snapshot needs --variant')
-    result = (snapshot(args.root, args.output, args.variant) if args.action == 'snapshot'
+    result = (snapshot(args.root, args.output, args.variant, args.fi_control) if args.action == 'snapshot'
               else verify(args.root, args.output))
     print(json.dumps({'status': 'passed', 'action': args.action, 'files': len(result['files']),
                       'variant': result['variant']}))

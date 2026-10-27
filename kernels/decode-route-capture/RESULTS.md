@@ -100,15 +100,16 @@ next controls. Draft data is absent, not inferred from target expert IDs.
 1. Repeat the plain c1 control against the preserved original control with the
    same prompt, seed and output length; retain the result even if it differs.
    Compare autotune choices as well as output IDs.
-2. Add a native-aux-only control: enable
+2. Run the subsequently prepared `--native-aux-control`: enable
    `aux_output_config={"enable_return_routed_experts": True}` while omitting this
-   probe's hook installation and raw-route cloning. This control mode is proposed,
-   not yet a CLI option. It separates the native aux path from this probe's extra
+   probe's hook installation and raw-route cloning. This mode is CPU-tested but
+   GPU-unrun. It separates the native aux path from this probe's extra
    snapshots. Repeat it to establish its own variability.
 3. If independent autotuning remains a confound, arrange paired runs with
    verified identical autotune choices while keeping their compiled graphs
    separate. Compare native-aux-only control to target capture before adding
-   draft capture. No such paired run has occurred yet.
+   draft capture. The optional importer and its verification are described in
+   [CONTROLS.md](CONTROLS.md). No such paired run has occurred yet.
 
 Full target/draft capture remains pending a new exclusive GPU slot and a useful
 control comparison. No further GPU work was started after release.
