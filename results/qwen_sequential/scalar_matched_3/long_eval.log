@@ -1,0 +1,27 @@
+NLL licenses   tokens=  6349 mean=0.0946 last_half=0.1301
+NLL licenses   tokens= 12918 mean=0.0838 last_half=0.0694
+NLL py_stdlib  tokens=  6855 mean=0.5291 last_half=0.4242
+NLL py_stdlib  tokens= 13128 mean=0.4810 last_half=0.4234
+NLL py_email   tokens=  7689 mean=0.7942 last_half=0.5443
+NLL py_email   tokens= 15224 mean=0.7846 last_half=0.7717
+needle tokens= 13081 depth=0.05 ok=True ans='915965'
+needle tokens= 15277 depth=0.05 ok=True ans='107855'
+needle tokens= 13105 depth=0.25 ok=True ans='136622'
+needle tokens= 13208 depth=0.25 ok=True ans='903713'
+needle tokens= 13063 depth=0.50 ok=True ans='118274'
+needle tokens= 15016 depth=0.50 ok=True ans='462900'
+needle tokens= 13186 depth=0.75 ok=True ans='586065'
+needle tokens= 13061 depth=0.75 ok=True ans='291984'
+needle tokens= 13191 depth=0.95 ok=True ans='627521'
+needle tokens= 13189 depth=0.95 ok=True ans='167698'
+needle tokens= 28976 depth=0.05 ok=True ans='730680'
+needle tokens= 26256 depth=0.05 ok=True ans='707128'
+needle tokens= 26189 depth=0.25 ok=True ans='964426'
+needle tokens= 26320 depth=0.25 ok=True ans='604403'
+needle tokens= 28143 depth=0.50 ok=True ans='361254'
+needle tokens= 28859 depth=0.50 ok=True ans='655914'
+needle tokens= 26322 depth=0.75 ok=True ans='174017'
+needle tokens= 26666 depth=0.75 ok=True ans='250752'
+needle tokens= 26341 depth=0.95 ok=True ans='275230'
+needle tokens= 26286 depth=0.95 ok=True ans='716068'
+needle accuracy 1.000 over 20

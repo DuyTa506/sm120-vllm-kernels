@@ -1,7 +1,8 @@
 # Scalar FC1-scale dispatch experiment
 
-Status: **GPU correctness/dispatch and microbenchmark completed**; incremental
-serving/quality validation remains pending. Results are below. Neither the `shared/` backend nor the existing
+Status: **GPU correctness, microbenchmark and one controlled serving pair completed**.
+Scalar remains an experimental composition candidate; quality equivalence and
+patch-only attribution are not established. Results are below. Neither the `shared/` backend nor the existing
 workspace verifier/harness nor installed container sources were changed.
 
 ## Change and limits
@@ -185,3 +186,54 @@ The report records each layer's guards, exact input/source hashes, checkpoint
 revision, and checked packed-weight header shapes. CUDA remained uninitialized.
 This establishes checkpoint eligibility; it does not observe live per-layer GPU
 dispatch or extend the layers-0/19 microbenchmark into an all-layer speed claim.
+
+## Matched vLLM serving pair
+
+`exact_matched_3` and `scalar_matched_3` both completed exit0, sequentially on the
+otherwise idle GPU, using the same full individual suite, explicit greedy decode,
+and three cold NLL rounds. Source snapshots verify23/23 files each. Both preserve
+all132 reference FlashInfer entries through preload, graph capture and graceful
+shutdown. Inductor is **not pinned**: four of13 selected configurations differ.
+The changes below describe the measured configurations, not a causal scalar-only
+speedup or a confidence interval.
+
+| cold prefill tokens | shared_exact TTFT p50 ms | scalar TTFT p50 ms | change |
+|---:|---:|---:|---:|
+| 2048 | 68.52 | 68.19 | -0.5% |
+| 4096 | 107.51 | 100.54 | -6.5% |
+| 5000 | 120.86 | 115.44 | -4.5% |
+| 8192 | 185.15 | 164.08 | -11.4% |
+| 16384 | 384.57 | 343.63 | -10.6% |
+| 32768 | 838.71 | 811.50 | -3.2% |
+
+Seven workload throughputs change -5.3% to+1.5%; the largest regression is
+long-doc, where MTP acceptance also falls38.3%→32.4%. Explicit greedy decode
+output rate changes +0.53%/+4.63%/-1.91%/+1.99% at c1/4/16/64. Sampling at
+temperature0 does not eliminate numerical, MTP trajectory or scheduling changes.
+Both allocate45.50GiB KV,3,437,190 KV tokens and3.45GiB final CUDA graph pool.
+
+Both pass20/20 needle checks. Three cold repeats on each of10 fixed prompts give
+NLL mean deltas from-0.042482 to+0.019169. The py_email-30000 mean worsens
+0.794235→0.802070; its three-repeat ranges do not overlap
+([0.790536,0.797625] vs[0.798475,0.805086]). Retain this quality flag;
+these few diagnostic prompts do not establish either broad degradation or
+quality equivalence. Checkpoint prefix-reuse TV(top20) mean is0.1400/0.1367
+and top1 agreement10/12 vs11/12, also diagnostic only.
+
+The server's8k/16k gains are much larger than this patch's full-call micro gain,
+especially the neutral16k micro result. Inspecting the four changed Inductor
+choices and the fresh controlled `next` baseline precedes final selection.
+The default `next` configuration is unchanged. Agentic remains a final composed
+comparison and has not been run for this individual patch.
+
+Reports: [17 serving tasks](../../results/qwen_sequential/scalar_vs_exact_matched_3.serving.md),
+[greedy decode](../../results/qwen_sequential/scalar_vs_exact_matched_3.greedy.md),
+[cold NLL repeats](../../results/qwen_sequential/scalar_vs_exact_matched_3.nll.txt).
+Raw directories are `results/qwen_sequential/{exact,scalar}_matched_3/`.
+
+```sh
+FI_CONTROL=1 GREEDY_DECODE=1 NLL_ROUNDS=3 bash bench/qwen_experiment.sh exact_matched_3 shared_exact individual
+FI_CONTROL=1 GREEDY_DECODE=1 NLL_ROUNDS=3 bash bench/qwen_experiment.sh scalar_matched_3 scalar individual
+```
+
+Use fresh tags when reproducing; existing evidence directories are protected.

@@ -216,3 +216,74 @@ microbenchmarks alone do not satisfy this request.
   MTP capture stopped on an unwarmed descriptor: MRV2 rounds184 to186 tokens
   for decode_query_len3. Warmup coverage fix is in CPU preparation; original
   failed run/source snapshots retained. No serving or speed claim for this run.
+
+- FAILED session7614 (first startup exit1, no measured requests): scalar_matched_1 then exact_matched_1, each individual17
+  serving tasks + legacyquality + explicitgreedydecode +NLL_ROUNDS3. FI_CONTROL1
+  imports one immutable132-key reference table; startup and graceful-shutdown
+  effective table gates must pass. Six importer files, runner/sourcehelper and
+  mounted MoE/build sources are frozen. Inductor caches remain separate/unpinned.
+- GDN CPU review also found explicit split config changes vLLM defaults: baseline
+  adds two KV-update boundaries and disables rope-KV fusion. FirstGDN omitted
+  them and enabled that unrelated fusion. Generator correction is in progress;
+  retain baseline19 split ops and disabled rope fusion, then add only GDN op.
+
+- FI startup check rejected20 changed effective tactics despite132/132 exact
+  loaded entries. Dense FP4 uses cold-L2 tuning policy; FI intentionally ignores
+  legacy persisted entries while tuning under that policy. Fixed-reference replay
+  via native tune_mode=False and early loading is in CPU preparation; do not relax
+  the table identity gates. Failed scalar_matched_1 evidence is checkpointed.
+- COMPLETED session14108 (exit0): gdn_integration_2(shared_exact_gdn diagnostic, greedy1,NLL1,
+  FI_CONTROL0). Warmup planner now covers81 sizes; completed baseline19 splits,
+  rope-fusionFalse plus GDN op. This is integration validation, not a matched
+  speed pair. Mounted GDN and runner/config sources frozen until terminal.
+
+- Corrected GDN integration_2 completed all4 fixed-length greedy decode scenarios
+  and10 cold NLL calls; all30 GDN layers enabled, source22/22 unchanged. This
+  establishes compiled/stateful execution for these probes, not speed or model
+  quality equivalence. Standalone numerical evidence remains separate.
+- INCOMPLETE CONTROLLED PAIR session67599 (first run exit5): scalar_matched_2 followed by exact_matched_2, each full17
+  tasks+legacyquality+greedy+NLL3. FI reference now preloads before model loading;
+  native tune_modeFalse replays it during controlled warmup, preserving native
+  tactic validation. Startup gate runs after final graph capture. Runtime six
+  importer files, runner/sourcehelper, build/MoE overlays frozen until terminal.
+
+- scalar_matched_2 completed17 tasks, legacyquality,4 greedydecode cases and30
+  cold NLL calls; startup reference132/132 held aftercapture. The final export
+  is missing: vLLM shutdown_timeout defaults0 and its API parent immediately
+  SIGKILLed EngineCore afterSIGTERM, so Worker.shutdown never ran. Exit5 retains
+  this limitation; exact_matched_2 was not launched. No matched pair result yet.
+- Root adds supported --shutdown-timeout30 forFI_CONTROL1 (Docker grace45s).
+  COMPLETED session2213 (exit0) fi_lifecycle_1 shared_exact diagnosticNLL1 is a short
+  start/request/stop verification before another fullpair. Runtime importer6
+  files andrunner/sourcehelper frozen during this smoke. No retroactive final
+  tactic verification is manufactured for scalar_matched_2.
+- Finalagentic comparator and immutabletrajectory snapshot helper are prepared
+  CPU-only with37 negativefixtures/eight realworkloadshapes. Wiring is deferred
+  untilafterindividual stack selection; noagenticGPUrun has occurred.
+
+- FI lifecycle smoke passed both132-entry startup/shutdown gates and source
+  verification; engine drained in30-second mode and exitedcleanly.
+- Owned GDN packed-state probe1 failed before hookinstall: its four-mount
+  baseline fixture incorrectly forced B12x for unquantized MTP experts. No
+  comparison ran; ownedcontainer/GPUcleanup verified. Probe2 nowusesauto with
+  a CPUmount/backend compatibility guard (9 tests); GPUretry awaits slot.
+- COMPLETED ROOT GPU session43154 (both exit0): exact_matched_3 then scalar_matched_3, each
+  fullindividual+greedy+NLL3, fixedFI replay+shutdown30. Allruntime sources
+  frozen. Agentic input snapshot/verify was wired BEFORE this pair, but only
+  the explicitly selected final agentic suite invokes it. Noagenticrun yet.
+
+- exact_matched_3 completedexit0:17serving cases,4greedycases,30NLLcalls,
+  source23/23 and both132-tactic gates pass. Strict comparator load on real
+  artifacts passes. Session43154 now runs scalar_matched_3, samefrozenprotocol.
+
+- scalar_matched_3 completedexit0:17tasks,4greedycases,30coldNLLcalls,
+  source23/23, both132-tactic gates. Strict serving/greedy comparisons pass.
+  Cold8k/16kTTFT -11.4%/-10.6%, but4/13Inductor choices differ and standalone
+  microgain is much smaller. Both20/20needles; py_email30k NLL+0.007835 with
+  nonoverlapping3-repeat ranges. Scalar is candidate, not quality-equivalence
+  claim or default promotion. Agent maps changed compiler choices CPU-only.
+- LIVE ROOT GPU session99954: next_matched_3 next individual, FI1/greedy1/NLL3.
+  Fresh controlled baseline for final composition. Runtime runner/sourcehelper,
+  FI6/build/MoE/GDN sources frozen untilterminal. Noagenticrun.
+- GDN probe2 CPU cleanup ownership/termination checks and strict fused-mixed
+  coverage are being completed. Probe2 gets one GPU slot afterroot99954.
