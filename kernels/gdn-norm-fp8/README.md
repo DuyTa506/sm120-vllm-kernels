@@ -10,9 +10,15 @@ Measured effects are mixed. Against scalar, 32k TTFT improves 7.6% and long-doc
 throughput improves 9.1%, while 8k TTFT worsens 7.4% and greedy c=64 throughput
 falls 8.71%. The complete stack beats `next` on all six cold-prefill medians,
 but loses 8.17% at greedy c=64 and retains a licenses-30000 NLL flag. GDN is
-not selected for the final stack yet; a focused reversed-order GDN→scalar
-repeat precedes selection. Agentic runs only on the final selected stack versus
-`next`. See [`results/COMPOSED_SERVING.md`](results/COMPOSED_SERVING.md).
+not selected for the current final stack. The completed GDN→scalar focused
+repeat changes the 8k result to -7.31% and 32k to -1.98%, but greedy c=4/c=64
+still lose 4.18%/4.04% and c=16 loses 7.70%. Five-round NLL remains diagnostic;
+the licenses-30000 delta versus scalar shrinks to +0.000125 with overlapping
+ranges. These measurements support selecting scalar without this additional
+fusion for the current Qwen/SM120 comparison, not a general performance
+rejection of GDN. Agentic runs only on the selected complete stack versus
+`next`. See [`results/COMPOSED_SERVING.md`](results/COMPOSED_SERVING.md) and
+[final stack selection](../../results/qwen_sequential/final_stack_selection.md).
 The earlier scoped integration smoke remains separately recorded in
 [`results/INTEGRATION_GPU.md`](results/INTEGRATION_GPU.md).
 

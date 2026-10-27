@@ -21,8 +21,14 @@ observed repeat ranges are not a quality-equivalence criterion.
 Adding GDN norm/FP8 fusion completes the same full suite, with mixed gains and
 regressions: versus scalar, 32k TTFT -7.6% and long-doc throughput +9.1%, but
 8k TTFT +7.4% and greedy c64 throughput -8.7%. The [composition evidence](../gdn-norm-fp8/results/COMPOSED_SERVING.md)
-retains the NLL flags and allocation differences. A reversed-order focused
-repeat precedes selection. Agentic runs only on the final chosen composition.
+retains the NLL flags and allocation differences. The completed reversed-order
+focused repeat shows variable prefill benefits but again loses greedy throughput
+at c=4/c=64 (-4.18%/-4.04%; c=16 -7.70%). The [selected final stack](../../results/qwen_sequential/final_stack_selection.md)
+is the scalar MoE composition on top of `next` patches 01–05, without the
+additional GDN norm/FP8 overlay. This is a choice for the current measured
+configuration, not a general rejection of GDN. The final agentic pair is
+`next_final_agentic_1` versus `stack_final_agentic_1`; no individual patch gets
+its own agentic run.
 
 ## Shared-workspace follow-up (2026-10-28)
 
@@ -84,8 +90,8 @@ are attributed to the two load-time alpha expressions.
 
 `shared_exact/` is the experimental parent for incremental stack tests.
 This historical parent remains opt-in outside `CONFIG=next`. The newer fixed-reference
-scalar and GDN comparisons are summarized above; final selection and agentic
-are still pending.
+scalar and GDN comparisons are summarized above. Scalar is now selected for
+the final agentic comparison; the default `next` configuration remains unchanged.
 
 The sections below and `VERIFY.md` describe the original unshared backend;
 their workspace/KV penalty does not describe the new shared candidate.

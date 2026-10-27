@@ -1,9 +1,10 @@
 # Scalar FC1-scale dispatch experiment
 
-Status: **GPU correctness, microbenchmark and one controlled serving pair completed**.
-Scalar remains an experimental composition candidate; quality equivalence and
-patch-only attribution are not established. Results are below. Neither the `shared/` backend nor the existing
-workspace verifier/harness nor installed container sources were changed.
+Status: **GPU correctness, microbenchmark and controlled serving measurements completed;
+scalar is selected for final composed agentic evaluation**. It remains opt-in;
+Quality equivalence and patch-only attribution are not established. Results
+are below. The existing `shared/` backend, workspace verifier/harness and
+installed container sources remain unchanged by this experiment.
 
 ## Change and limits
 
@@ -161,7 +162,8 @@ shapes occurred in all 40 MoE layers, the arithmetic sum would be roughly
 0.5–0.6 ms per forward, not a measured server saving. At 16k the result is
 neutral within roughly ±0.5%, and the unchanged CUTLASS boundary shows small
 variation too. This is enough to test the scalar path in serving, not to claim
-a universal 2–3% model speedup. Final composition remains undecided.
+a universal 2–3% model speedup. The later serving and selection evidence below
+is separate from this microbenchmark.
 
 Raw results: [initial](results/scalar_exact_gpu.jsonl),
 [4k/16k extension](results/scalar_exact_prefill_gpu.jsonl), with matching
@@ -230,10 +232,20 @@ executable ELF sections match; this does not establish every runtime launch or
 loadable datum was identical. A compiler cause remains unproven. The fresh
 controlled `next` baseline and incremental `scalar_gdn` measurement have completed;
 see the [full composition results](../gdn-norm-fp8/results/COMPOSED_SERVING.md).
-Scalar remains the experimental parent while a focused reversed-order pair
-checks the incremental GDN tradeoffs before final selection.
-The default `next` configuration is unchanged. Agentic remains a final composed
-comparison and has not been run for this individual patch.
+The completed reversed-order focused pair repeats greedy throughput losses
+when GDN is added: c=4 -4.18%, c=16 -7.70%, c=64 -4.04%. Prefill varies:
+8k changes from +7.40% in the full pair to -7.31% in the focused pair, while
+32k improves 1.98% in the repeat and 16k is nearly neutral. All 50 cold NLL
+calls per variant complete; eight of ten means rise with GDN and all observed
+ranges overlap. The focused licenses-30000 delta is +0.000125 versus scalar;
+this is not a quality pass or a retest against `next`.
+
+The [selected final configuration](../../results/qwen_sequential/final_stack_selection.md)
+therefore keeps root `next` patches 01–05 and MoE patches 03–06 (`scalar`),
+without the additional GDN norm/FP8 fusion. This is a scoped configuration
+choice based on the measured tradeoffs. The default `next` configuration is
+unchanged. Final agentic evaluates `next_final_agentic_1` against
+`stack_final_agentic_1`; it is not run for this individual patch alone.
 
 Reports: [17 serving tasks](../../results/qwen_sequential/scalar_vs_exact_matched_3.serving.md),
 [greedy decode](../../results/qwen_sequential/scalar_vs_exact_matched_3.greedy.md),

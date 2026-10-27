@@ -37,7 +37,7 @@ Optional, depending on the deployment:
 | `VLLM_GDN_STATE_REPLAY=1` | about 48 or more concurrent decodes | c=64 ITL -8%, nothing at c <= 16; single-agent check only |
 | `--prefix-match-unit 16` | long single-tenant sessions | verified on `production`, not yet on `next` |
 
-Not included: MoE b12x (exact-alpha variant is an experimental parent; final composition remains pending), skinny BF16/FP8 GEMMs (0.6 and
+Not included in default `next`: MoE b12x (the opt-in scalar composition is selected for final agentic evaluation), skinny BF16/FP8 GEMMs (0.6 and
 0.15 ms at c=1), fused router, session state cache, PDL, DeepGEMM. Reasons and numbers are in "Kernel work" below.
 
 GPU memory of `next`, measured with `nvidia-smi` on the 95.6 GiB card (a 24k-token prompt adds nothing on top):
@@ -102,8 +102,8 @@ so prior history differs. Neither speed nor quality changes are attributed
 to the two load-time alpha expressions.
 
 `shared_exact/` is the experimental parent for incremental stack tests.
-b12x remains opt-in outside `next`; final composition and agentic evaluation
-remain pending. The [earlier shared results and quality flags](results/qwen_sequential/shared_vs_next_tasks_1.analysis.md)
+b12x remains opt-in outside `next`; the scalar composition is now selected
+for the final agentic comparison. The [earlier shared results and quality flags](results/qwen_sequential/shared_vs_next_tasks_1.analysis.md)
 retain their original scope.
 
 The fresh [scalar versus exact parent pair](results/qwen_sequential/scalar_vs_exact_matched_3.serving.md)
@@ -115,8 +115,9 @@ shutdown. Scalar 4k/8k/16k TTFT is 107.51→100.54  / 185.15→164.08  / 384.57�
 finds matching candidate sets but leaves some final selections unresolved; neither
 a compiler cause nor isolated scalar attribution is established. Both pass 20/20 needles, but py_email-30000 NLL worsens
 0.794235→0.802070 across three cold repeats with nonoverlapping observed ranges
-([details](kernels/moe-nvfp4/SCALAR_DISPATCH.md)). Scalar remains a composition
-candidate, with this quality flag retained; final selection and agentic are pending.
+([details](kernels/moe-nvfp4/SCALAR_DISPATCH.md)). Scalar is now selected for
+final agentic evaluation with this quality flag retained; selection is not
+a broad model-quality pass or a change to default `next`.
 
 The fresh fixed-FlashInfer `next_matched_3` reference also completes the same
 17 tasks, four greedy cases, 30 cold NLL calls and both 132-entry boundary gates.
@@ -146,11 +147,21 @@ and both fixed-FlashInfer boundary gates. Against scalar, 32k TTFT falls
 rises 164.08→176.22 ms (+7.4%) and greedy c=64 throughput falls 8.71%.
 Against `next`, the stack's 8k/16k/32k TTFT falls 12.8%/8.1%/14.1%, while
 greedy c=64 falls 8.17%. The licenses-30000 mean NLL is +0.010715 versus
-`next`, with nonoverlapping observed three-repeat ranges; this quality flag
-remains open. GDN is not selected for the final stack yet. A shorter reversed
-GDN→scalar pair repeats the six prefill and four greedy cases plus five cold
-NLL rounds before selection. Agentic is reserved for the final selected stack
-versus `next`, not individual patches.
+`next`, with nonoverlapping observed three-repeat ranges; this remains a
+historical quality flag. The completed reversed-order
+GDN→scalar repeat changes the 8k result to -7.31% and the 32k gain to -1.98%,
+but greedy c=4/c=64 still lose 4.18%/4.04% (c=16 loses 7.70%). Its five-round
+licenses-30000 delta versus scalar is only +0.000125, with overlapping ranges;
+this does not establish quality equivalence or retest the earlier `next` pair.
+
+The [selected final stack](results/qwen_sequential/final_stack_selection.md)
+is `next` patches 01–05 plus MoE patches 03–06 (`scalar`), keeping GDN norm/FP8
+fusion opt-in and unselected for this configuration. This choice retains the
+measured scalar prefill gains and avoids the repeated incremental c=4/c=64
+losses. It is scoped to this Qwen/SM120 workload, not a general rejection of
+GDN fusion. Final agentic compares `next_final_agentic_1` with
+`stack_final_agentic_1`; those runs evaluate the complete stack, never each
+patch separately.
 
 The [experimental patch package](kernels/gdn-norm-fp8/PATCH_COMPOSITION.md)
 reproduces all six measured scalar/GDN runtime files byte-for-byte in either
@@ -308,7 +319,7 @@ config that stacks the verified pieces on top of optimized.
 | [`fp8-attn-glue`](kernels/fp8-attn-glue) | FP8 FMHA prefill as one kernel: reads vLLM's packed K/V cache through strided TMA descriptors (no gather) and quantizes BF16 Q to e4m3 inside the kernel | CuTe DSL (FlashInfer kernel subclass) | bitwise identical output; −90 µs per attention call at 8k, −679 µs at 32k (~−1 ms per 8k forward, −7.5 ms per 32k) | patch 03, in next; confirmed by a second agent (gain slightly smaller than claimed) |
 | [`gdn-conv-fusion`](kernels/gdn-conv-fusion) | GDN prefill: causal conv1d + post-conv prep (q/k l2-norm, v, g, beta) in one pass, conv output never goes to HBM | Triton | 377 → 190 µs per layer at 8k, at the `copy_()` floor; ~−5.6 ms per 8k forward, −11 ms at 16k | patch 05, in next; confirmed by a second agent |
 | [`moe-nvfp4`](kernels/moe-nvfp4) | found the b12x quality bug (block scales baked into e4m3 subnormals) and a scale-convention mismatch inside FlashInfer that zeroes 1-3 token outputs; fix + hybrid backend (b12x for ≥1024 tokens, CUTLASS below) | vLLM integration patch | original kernel 28% faster at 8k; exact-alpha shared variant retains KV capacity, 8k/16k/32k TTFT −2.3%/−5.5%/−6.6% vs older next run, 2k +11.9%; greedy decode near neutral; repeated NLL is diagnostic only | experimental parent for stack tests, not in next |
-| [`gdn-norm-fp8`](kernels/gdn-norm-fp8) | fuse gated RMSNorm + dynamic token FP8 for GDN prefill; preserve BF16 rounding and the CUTLASS projection | Triton/Gluon | isolated layer 18 chain at 8k: 391→287 µs; composed full serving vs scalar: 32k TTFT -7.6%, 8k +7.4%, greedy c=64 rate -8.71% | default-off scalar composition; mixed measured results and NLL flags, focused repeat before selection |
+| [`gdn-norm-fp8`](kernels/gdn-norm-fp8) | fuse gated RMSNorm + dynamic token FP8 for GDN prefill; preserve BF16 rounding and the CUTLASS projection | Triton/Gluon | layer 18 chain at 8k: 391→287 µs; full/focused serving vs scalar: 32k TTFT -7.6%/-2.0%, greedy c=64 rate -8.71%/-4.04% | default-off; unselected for the current final stack after mixed prefill and repeated c=4/c=64 losses |
 | [`dense-fp8-gemm`](kernels/dense-fp8-gemm) | prefill: 13 CUTLASS configs and cuBLASLt swept, nothing beats vLLM (84% of the power-capped peak). Decode: new skinny-M FP8 tensor-core GEMV | CUDA C++ | prefill: no change shipped; decode: skinny kernel -223 us per step at c=1 on cold weights, in situ about -0.15 ms at c=1 and -0.06 ms at c=4 (MTP-2 pads c=4 to M=18) | partly confirmed, not in next |
 | [`decode-roofline`](kernels/decode-roofline) | byte model of an MTP-2 decode step; skinny BF16 GEMM for the MoE router and GDN `in_proj_ba` (cuBLAS runs a 4-16 CTA kernel there) | Triton | skinny BF16: c=1 ITL -9% (6.36 → 5.77 ms) by the author, verifier -0.6 ms per step at c=1, nothing at c >= 4 | partly confirmed; flag not in the compile-cache key, not in next |
 | [`cache-granularity`](kernels/cache-granularity) | finer prefix-match unit, so an agent turn re-prefills ~1,000 new tokens instead of ~2,150 | scheduler config | `--prefix-match-unit 16`: tokens prefilled per later turn 4,759 → 1,765, 1 agent TTFT p50 488 → 343 ms; costs in the Agentic caching section | partly confirmed; vLLM flag, no patch |
@@ -327,8 +338,8 @@ The largest decode lever found, GDN state replay, is built (`kernels/gdn-replay`
 - `fp8-attn-glue`: confirmed, bitwise identical; the claimed gain was slightly overstated.
 - `gdn-conv-fusion`: confirmed, bit-exact, speedup reproduces within about 2%.
 - `decode-roofline` (skinny BF16): partly confirmed. About -0.6 ms per step at c=1, nothing at c >= 4, numerics match cuBLAS. Not integrated: its on/off flag is not part of vLLM's compile-cache key and the end-to-end quality evidence is only kernel-level.
-- `moe-nvfp4`: the diagnosis, scale fix and kernel speedup reproduce. The original patch halves KV capacity; shared workspace removes that penalty. The exact-alpha variant completed all 17 tasks, near-neutral explicit-greedy decode and 50 cold NLL calls per backend. The earlier large NLL deterioration did not reproduce in those repeats, which do not establish quality equivalence. Prefill gains are smaller than the older shared pair; independent autotuning is a concrete confound. Exact is the experimental parent. Scalar now completes a controlled full pair with faster cold prefill, mixed task/decode rates and a retained NLL flag; four tuning records differ without proving four runtime choices differ. Final composition still needs selection and validation. Not in next.
-- `gdn-norm-fp8`: exact standalone FP8/scales/projection checks and the scoped layer 18 private-state probe pass. All 30 layers activate in the compiled integration. The [composed full serving pair](kernels/gdn-norm-fp8/results/COMPOSED_SERVING.md) completes all tasks but trades faster 32k prefill and long-doc throughput for slower 8k prefill and greedy c=64 versus scalar. It passes 20/20 needles; cold NLL flags remain. A focused reversed-order repeat precedes stack selection and the final agentic pair. Default-off, not in next.
+- `moe-nvfp4`: the diagnosis, scale fix and kernel speedup reproduce. The original patch halves KV capacity; shared workspace removes that penalty. The exact-alpha variant completed all 17 tasks, near-neutral explicit-greedy decode and 50 cold NLL calls per backend. The earlier large NLL deterioration did not reproduce in those repeats, which do not establish quality equivalence. Prefill gains are smaller than the older shared pair; independent autotuning is a concrete confound. Exact is the experimental parent. Scalar now completes a controlled full pair with faster cold prefill, mixed task/decode rates and a retained NLL flag; four tuning records differ without proving four runtime choices differ. Scalar is selected for final composed agentic evaluation; its quality flags remain. Not in default next.
+- `gdn-norm-fp8`: exact standalone FP8/scales/projection checks and the scoped layer 18 private-state probe pass. All 30 layers activate in the compiled integration. The [composed full serving pair](kernels/gdn-norm-fp8/results/COMPOSED_SERVING.md) completes all tasks but trades faster 32k prefill and long-doc throughput for slower 8k prefill and greedy c=64 versus scalar. It passes 20/20 needles; cold NLL flags remain. The focused reverse-order pair repeats c=4/c=64 losses despite variable prefill benefits. Scalar is selected without this additional fusion for the final agentic pair; GDN remains opt-in for further scoped work. Default-off, not in next.
 - `dense-fp8-gemm` (skinny FP8 decode GEMM): partly confirmed. Reproduces at kernel level (-223 us per c=1 step with cold weights; -78 us at c=16; nothing at c=64) and in situ (about -0.15 ms per step at c=1, -0.06 ms at c=4, because MTP-2 rounds the c=4 batch to M=18). The wall-clock gain sits inside the host noise.
 - `gdn-replay`: built by one agent, not yet re-run by a second. Same-step form: verify skips the state writes, one commit launch per KV-cache group replays the accepted tokens. Bit-exact against the stock kernel in all 30 layers (47,640+ row-layer-steps, 0 mismatches), MTP acceptance unchanged (0.596 and 0.599 off, 0.599 and 0.591 on), stress run with 37 aborts clean. End-to-end at c=64: ITL 28.61 → 26.23 ms (-8.3%), 3,599 → 3,859 tok/s (+7.2%); c=16 and c=32 neutral. Below 8 requests the stock path runs. Worth enabling only at about 48 or more concurrent decodes (`VLLM_GDN_STATE_REPLAY_MIN_REQS`). A first live run collapsed acceptance to 0.06 because the commit used the first KV-cache group's block table for all groups; fixed. Not checked: preemption, TP > 1. The patch is `kernels/gdn-replay/patch/04-gdn-state-replay.patch` (numbered 04 inside that directory; it is not in `patches/` yet).
 - `fused-router` (router GEMM + softmax + top-8 in one kernel, from DeepGEMM's mega-gate idea): built, 173 correctness checks pass, no end-to-end run yet. Top-8 ids match vLLM's `topk_softmax` exactly on injected logits; on the real weights the top-8 set equals the fp64 reference in every row, while vLLM's cuBLAS path picks a different set in about 2.7% of rows at M >= 4. Per step it saves 109 us at c=1 (1.8% of a 6.0 ms step) on top of the skinny BF16 GEMM, 60-77 us at c=2-4, nothing at c >= 8 (microbenchmark x 42 calls per step, an assumption). Not integrated: needs the quality check because it changes routing for ~3% of rows.
