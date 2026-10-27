@@ -8,6 +8,12 @@
                                     replay the recorded turns token-for-token (same prefill and decode lengths on
                                     every config) with 1..N agents in parallel; per-turn TTFT, task time, cache hits
 
+Replay metric version 2: TTFT starts at the first nonempty text/token payload, not a metadata SSE frame.
+Output throughput counts only completed, verified turns (server usage, or a length finish plus [DONE]
+under the fixed min/max-token request). Failures retain partial results, mark the summary invalid, and
+raise in the caller. The report is checkpointed after each concurrency and on interruption. Old summary
+keys are retained; their values on successful runs use the stricter token and first-token definitions.
+
 Tools are served by this harness, read-only over the Python stdlib sources. Model-written code is never executed:
 run_tests returns a canned failure on the first call and a pass afterwards.
 """
@@ -261,58 +267,165 @@ def record(out, kind="short"):
 
 
 # ---------------------------------------------------------------- replay (token-exact)
-def replay_agent(traj, salt, res):
+def replay_agent(traj, salt, res, stop=None, result_lock=None):
     for k, t in enumerate(traj["turns"]):
-        t0 = time.time(); ttft = None; n = 0
-        r = post("/v1/completions", {"model": "bench", "prompt": t["prompt_ids"], "max_tokens": t["completion_tokens"],
-                                     "min_tokens": t["completion_tokens"], "ignore_eos": True, "temperature": 0,
-                                     "stream": True, "cache_salt": salt}, stream=True)
-        for line in r:
-            if line.startswith(b"data: ") and line.strip() != b"data: [DONE]":
-                if ttft is None:
-                    ttft = time.time() - t0
-                n += 1
-        res.append({"task": traj["task"], "turn": k, "prompt": len(t["prompt_ids"]), "completion": t["completion_tokens"],
-                    "ttft": ttft, "e2e": time.time() - t0})
+        if stop is not None and stop.is_set():
+            return
+        requested = t["completion_tokens"]
+        t0 = time.perf_counter()
+        row = {"task": traj["task"], "turn": k, "prompt": len(t["prompt_ids"]),
+               "requested_completion": requested, "completion": 0, "completion_source": None,
+               "ttft": None, "finish_reason": None, "stream_done": False, "success": False}
+        try:
+            with post("/v1/completions", {
+                "model": "bench", "prompt": t["prompt_ids"], "max_tokens": requested,
+                "min_tokens": requested, "ignore_eos": True, "temperature": 0,
+                "stream": True, "stream_options": {"include_usage": True}, "cache_salt": salt,
+            }, stream=True) as response:
+                for line in response:
+                    if not line.startswith(b"data:"):
+                        continue
+                    data = line[5:].strip()
+                    if data == b"[DONE]":
+                        row["stream_done"] = True
+                        break
+                    event = json.loads(data)
+                    if event.get("error") is not None:
+                        raise ValueError(f"server stream error: {event['error']}")
+                    usage = event.get("usage")
+                    if usage is not None:
+                        count = usage.get("completion_tokens")
+                        if not isinstance(count, int) or isinstance(count, bool) or count < 0:
+                            raise ValueError(f"invalid completion usage: {count!r}")
+                        row["completion"] = count
+                        row["completion_source"] = "usage"
+                    for choice in event.get("choices", []):
+                        if choice.get("index", 0) != 0:
+                            raise ValueError("unexpected additional completion choice")
+                        tokens = choice.get("token_ids") or (choice.get("logprobs") or {}).get("tokens")
+                        if row["ttft"] is None and (choice.get("text") or tokens):
+                            row["ttft"] = time.perf_counter() - t0
+                        if choice.get("finish_reason") is not None:
+                            row["finish_reason"] = choice["finish_reason"]
+            if not row["stream_done"] or row["finish_reason"] is None:
+                raise ValueError("truncated stream: missing finish record or [DONE]")
+            if row["finish_reason"] not in ("length", "stop"):
+                raise ValueError(f"unsuccessful finish reason: {row['finish_reason']}")
+            if row["ttft"] is None:
+                raise ValueError("stream completed without a token payload")
+            if row["completion_source"] is None and row["finish_reason"] == "length":
+                # Equal min/max and ignore_eos make a length finish a count check.
+                row["completion"] = requested
+                row["completion_source"] = "length_finish"
+            if row["completion_source"] is None or row["completion"] != requested:
+                raise ValueError(f"completion length mismatch: requested {requested}, "
+                                 f"verified {row['completion']} ({row['completion_source']})")
+            row["success"] = True
+        except Exception as ex:
+            row["error"] = f"{type(ex).__name__}: {ex}"
+            raise RuntimeError(f"task {traj['task']} turn {k}: {row['error']}") from ex
+        finally:
+            row["e2e"] = time.perf_counter() - t0
+            if result_lock is None:
+                res.append(row)
+            else:
+                with result_lock:
+                    res.append(row)
+
+
+def _save_replay_report(out, report):
+    # Atomic replacement preserves the preceding concurrency if writing is interrupted.
+    temporary = f"{out}.tmp-{os.getpid()}"
+    with open(temporary, "w") as f:
+        json.dump(report, f)
+    os.replace(temporary, out)
+
+
+def _replay_summary(c, expected, res, wall, hit_rate, valid):
+    successful = [r for r in res if r["success"]]
+    ttfts = sorted(r["ttft"] for r in successful if r["ttft"] is not None)
+    first = [r["ttft"] for r in successful if r["turn"] == 0 and r["ttft"] is not None]
+    later = sorted(r["ttft"] for r in successful if r["turn"] > 0 and r["ttft"] is not None)
+    completed_tasks = [task for task, turns in expected.items()
+                       if sum(r["task"] == task for r in successful) == turns]
+    task_s = [sum(r["e2e"] for r in successful if r["task"] == task) for task in completed_tasks]
+    percentile_ms = lambda values, p: 1000 * values[int(len(values) * p)] if values else None
+    return {"conc": c, "agents": len(completed_tasks), "wall_s": wall,
+            "turns": len(successful), "turns_per_s": len(successful) / max(wall, 1e-9),
+            "out_tok_s": sum(r["completion"] for r in successful) / max(wall, 1e-9),
+            "prefix_hit_rate": hit_rate,
+            "ttft_first_turn_ms": 1000 * statistics.mean(first) if first else None,
+            "ttft_later_p50_ms": percentile_ms(later, .5),
+            "ttft_later_p90_ms": percentile_ms(later, .9), "ttft_p50_ms": percentile_ms(ttfts, .5),
+            "task_mean_s": statistics.mean(task_s) if task_s else None,
+            "metric_version": 2, "valid": valid, "expected_agents": len(expected),
+            "expected_turns": sum(expected.values()), "attempted_turns": len(res),
+            "failed_turns": len(res) - len(successful),
+            "not_run_turns": sum(expected.values()) - len(res)}
 
 
 def replay(traj_file, out, concs):
-    trajs = json.load((lzma.open if traj_file.endswith(".xz") else open)(traj_file))["trajectories"]
+    with (lzma.open if traj_file.endswith(".xz") else open)(traj_file) as f:
+        trajs = json.load(f)["trajectories"]
+    if not trajs or any(not tr["turns"] for tr in trajs):
+        raise ValueError("replay requires nonempty trajectories and turns")
     report = {}
     for c in concs:
+        if c < 1:
+            raise ValueError("concurrency must be positive")
         # More agents than recorded trajectories: replay copies, each under its own cache salt so a copy cannot
         # reuse another copy's prefix cache (the shared system prompt is then cached per copy, a slight pessimism).
         copies = -(-c // len(trajs))
         base = f"agentic-c{c}-{os.getpid()}"
         queue = [(dict(tr, task=k * len(trajs) + tr["task"]), f"{base}-copy{k}") for k in range(copies) for tr in trajs]
-        h0, q0 = metrics(); t0 = time.time(); res = []
+        expected = {tr["task"]: len(tr["turns"]) for tr, _ in queue}
+        if len(expected) != len(queue):
+            raise ValueError("trajectory task IDs must be unique across replay copies")
+        h0, q0 = metrics(); t0 = time.perf_counter(); res = []; errors = []
         lock = threading.Lock()
+        stop = threading.Event()
 
         def worker():
             while True:
                 with lock:
-                    if not queue:
+                    if stop.is_set() or not queue:
                         return
                     tr, salt = queue.pop(0)
-                replay_agent(tr, salt, res)
+                try:
+                    replay_agent(tr, salt, res, stop=stop, result_lock=lock)
+                except Exception as ex:
+                    with lock:
+                        errors.append({"task": tr["task"], "error": f"{type(ex).__name__}: {ex}"})
+                        stop.set()
+                    return
 
-        ths = [threading.Thread(target=worker) for _ in range(c)]
-        [th.start() for th in ths]; [th.join() for th in ths]
-        wall = time.time() - t0; h1, q1 = metrics()
-        ttfts = sorted(r["ttft"] for r in res)
-        first = [r["ttft"] for r in res if r["turn"] == 0]
-        later = sorted(r["ttft"] for r in res if r["turn"] > 0)
-        tasks = sorted({r["task"] for r in res})
-        task_s = [sum(r["e2e"] for r in res if r["task"] == t) for t in tasks]
-        rep = {"conc": c, "agents": len(tasks), "wall_s": wall, "turns": len(res), "turns_per_s": len(res) / wall,
-               "out_tok_s": sum(r["completion"] for r in res) / wall,
-               "prefix_hit_rate": (h1 - h0) / max(q1 - q0, 1),
-               "ttft_first_turn_ms": 1000 * statistics.mean(first),
-               "ttft_later_p50_ms": 1000 * later[len(later) // 2], "ttft_later_p90_ms": 1000 * later[int(len(later) * .9)],
-               "ttft_p50_ms": 1000 * ttfts[len(ttfts) // 2], "task_mean_s": statistics.mean(task_s)}
-        report[c] = {"summary": rep, "turns": res}
+        ths = [threading.Thread(target=worker, daemon=True) for _ in range(c)]
+        hit_rate, interrupted = None, False
+        try:
+            for th in ths:
+                th.start()
+            for th in ths:
+                th.join()
+            wall = time.perf_counter() - t0
+            h1, q1 = metrics()
+            hit_rate = (h1 - h0) / max(q1 - q0, 1)
+        except BaseException as ex:
+            interrupted = True
+            stop.set()
+            with lock:
+                errors.append({"error": f"{type(ex).__name__}: {ex}"})
+            raise
+        finally:
+            with lock:
+                wall = time.perf_counter() - t0 if interrupted else wall
+                valid = not errors and len(res) == sum(expected.values()) and all(r["success"] for r in res)
+                rep = _replay_summary(c, expected, res, wall, hit_rate, valid)
+                report[c] = {"summary": rep, "turns": list(res), "errors": list(errors)}
+                _save_replay_report(out, report)
         print(json.dumps(rep), flush=True)
-    json.dump(report, open(out, "w"))
+        if not rep["valid"]:
+            raise RuntimeError(f"replay c={c} incomplete: {rep['turns']}/{rep['expected_turns']} "
+                               f"turns verified; see {out}")
 
 
 if __name__ == "__main__":

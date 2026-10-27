@@ -1,0 +1,8 @@
+== layer 19: B12xMoEWrapper(max_num_tokens=16384) persistent buffers 579.7 MiB/layer (+ MMA-layout scale copies 48.0 MiB/layer); x40 layers = 24.52 GiB
+     M  routing   cutlass  b12x_int  b12x_raw  int/cut  raw/cut top1 expert rows
+  1024     real     321.8     318.9     310.3    0.991    0.964              571   (pass1 321.7/319.4/310.0, pass2 321.9/318.4/310.5; rel_l2 b12x vs cut 0.0266)
+  2048     real     386.0     341.8     331.1    0.885    0.858             1137   (pass1 386.1/342.4/330.9, pass2 385.9/341.2/331.4; rel_l2 b12x vs cut 0.0257)
+  4096     real     553.5     447.7     433.7    0.809    0.784             2918   (pass1 551.8/447.3/432.2, pass2 555.2/448.0/435.3; rel_l2 b12x vs cut 0.0249)
+  8192     real     887.0     654.6     634.2    0.738    0.715             6007   (pass1 885.6/651.8/630.5, pass2 888.4/657.3/637.8; rel_l2 b12x vs cut 0.0239)
+ 16384     real    1567.7    1208.8    1167.4    0.771    0.745            11958   (pass1 1563.5/1208.2/1163.9, pass2 1572.0/1209.4/1170.9; rel_l2 b12x vs cut 0.0240)
+  8192 balanced     884.0     651.6     631.1    0.737    0.714              310   (pass1 883.1/649.7/628.1, pass2 884.8/653.6/634.1; rel_l2 b12x vs cut 0.0269)

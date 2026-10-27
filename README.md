@@ -37,7 +37,7 @@ Optional, depending on the deployment:
 | `VLLM_GDN_STATE_REPLAY=1` | about 48 or more concurrent decodes | c=64 ITL -8%, nothing at c <= 16; single-agent check only |
 | `--prefix-match-unit 16` | long single-tenant sessions | verified on `production`, not yet on `next` |
 
-Not included: MoE b12x (kernel gain, no clear end-to-end gain, halves the KV cache), skinny BF16/FP8 GEMMs (0.6 and
+Not included: MoE b12x (shared-workspace candidate under serving validation), skinny BF16/FP8 GEMMs (0.6 and
 0.15 ms at c=1), fused router, session state cache, PDL, DeepGEMM. Reasons and numbers are in "Kernel work" below.
 
 GPU memory of `next`, measured with `nvidia-smi` on the 95.6 GiB card (a 24k-token prompt adds nothing on top):
@@ -78,6 +78,13 @@ default setting, and the full long-session agentic replay on `next`.
 `next` is measured against optimized in the same session (137 → 125 ms at 8k, 574 → 551 ms at 32k;
 `results/next/SUMMARY.md`). It has not been through the throughput sweep and the agentic replay yet, so the
 tables below still compare production, tuned and optimized.
+
+Current Qwen prefill experiment: [shared b12x workspace](kernels/moe-nvfp4/SHARED_WORKSPACE.md)
+removes the old per-layer scratch duplication. A clean A/B on `next` reduces
+8k GPU span 132.3→120.2 ms and retains KV capacity; short-run decode throughput
+is lower and remains under investigation. It is not enabled in `next` yet.
+Individual microbenchmarks and serving tasks run first; agentic runs only
+after the winning patches are combined.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/throughput-dark.svg">

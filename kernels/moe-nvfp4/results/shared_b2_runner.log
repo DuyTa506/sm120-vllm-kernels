@@ -1,0 +1,123 @@
+protocol=cold-v2 variant=shared config=next gpu_util=0.60 nsys=1
+(EngineCore pid=394) INFO 10-27 17:01:10 [nvfp4.py:270] Using 'FLASHINFER_B12X' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTEDSL_BATCHED', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+(EngineCore pid=394) INFO 10-27 17:01:27 [model_runner.py:424] Model loading took 21.22 GiB memory and 19.004570 seconds
+(EngineCore pid=394) INFO 10-27 17:01:27 [utils.py:347] Using LBNHC KV cache layout.
+(EngineCore pid=394) WARNING 10-27 17:01:45 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 10.00% KV cache memory
+(EngineCore pid=394) INFO 10-27 17:02:07 [model_runner.py:1127] Graph capturing finished in 21 secs, took 4.42 GiB
+(EngineCore pid=394) INFO 10-27 17:02:07 [gpu_worker.py:759] Available KV cache memory: 28.41 GiB
+(EngineCore pid=394) INFO 10-27 17:02:07 [gpu_worker.py:774] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.6000 is equivalent to --gpu-memory-utilization=0.5530 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.6470. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(EngineCore pid=394) WARNING 10-27 17:02:07 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 10.00% KV cache memory
+(EngineCore pid=394) INFO 10-27 17:02:07 [kv_cache_utils.py:2327] GPU KV cache size: 2,145,441 tokens, Maximum concurrency for 131,072 tokens per request: 16.37x
+(EngineCore pid=394) INFO 10-27 17:02:29 [model_runner.py:1127] Graph capturing finished in 17 secs, took 3.42 GiB
+
+warmup_8192_101
+Successful requests:                     2         
+Output token throughput (tok/s):         0.30      
+Mean TTFT (ms):                          3376.14   
+Median TTFT (ms):                        3376.14   
+P99 TTFT (ms):                           6518.03   
+Median ITL (ms):                         0.00      
+
+prefill_8192_101
+Successful requests:                     16        
+Output token throughput (tok/s):         5.61      
+Mean TTFT (ms):                          177.77    
+Median TTFT (ms):                        175.75    
+P99 TTFT (ms):                           197.63    
+Median ITL (ms):                         0.00      
+
+warmup_8192_202
+Successful requests:                     2         
+Output token throughput (tok/s):         5.61      
+Mean TTFT (ms):                          177.36    
+Median TTFT (ms):                        177.36    
+P99 TTFT (ms):                           184.83    
+Median ITL (ms):                         0.00      
+
+prefill_8192_202
+Successful requests:                     16        
+Output token throughput (tok/s):         5.57      
+Mean TTFT (ms):                          178.71    
+Median TTFT (ms):                        177.37    
+P99 TTFT (ms):                           192.20    
+Median ITL (ms):                         0.00      
+
+warmup_16384_101
+Successful requests:                     2         
+Output token throughput (tok/s):         2.93      
+Mean TTFT (ms):                          340.60    
+Median TTFT (ms):                        340.60    
+P99 TTFT (ms):                           346.20    
+Median ITL (ms):                         0.00      
+
+prefill_16384_101
+Successful requests:                     16        
+Output token throughput (tok/s):         2.77      
+Mean TTFT (ms):                          359.87    
+Median TTFT (ms):                        358.17    
+P99 TTFT (ms):                           379.69    
+Median ITL (ms):                         0.00      
+
+warmup_16384_202
+Successful requests:                     2         
+Output token throughput (tok/s):         2.85      
+Mean TTFT (ms):                          349.80    
+Median TTFT (ms):                        349.80    
+P99 TTFT (ms):                           359.93    
+Median ITL (ms):                         0.00      
+
+prefill_16384_202
+Successful requests:                     16        
+Output token throughput (tok/s):         2.74      
+Mean TTFT (ms):                          364.63    
+Median TTFT (ms):                        366.85    
+P99 TTFT (ms):                           381.23    
+Median ITL (ms):                         0.00      
+
+decode_warmup_c1
+Successful requests:                     2         
+Output token throughput (tok/s):         205.18    
+Mean TTFT (ms):                          69.33     
+Median TTFT (ms):                        69.33     
+P99 TTFT (ms):                           72.82     
+Median ITL (ms):                         6.52      
+
+decode_c1
+Successful requests:                     8         
+Output token throughput (tok/s):         281.35    
+Mean TTFT (ms):                          60.66     
+Median TTFT (ms):                        58.65     
+P99 TTFT (ms):                           67.93     
+Median ITL (ms):                         6.48      
+
+decode_warmup_c4
+Successful requests:                     8         
+Output token throughput (tok/s):         575.56    
+Mean TTFT (ms):                          132.39    
+Median TTFT (ms):                        137.13    
+P99 TTFT (ms):                           147.66    
+Median ITL (ms):                         7.88      
+
+decode_c4
+Successful requests:                     16        
+Output token throughput (tok/s):         739.53    
+Mean TTFT (ms):                          105.05    
+Median TTFT (ms):                        100.40    
+P99 TTFT (ms):                           138.37    
+Median ITL (ms):                         8.11      
+
+profile_warmup
+Successful requests:                     2         
+Output token throughput (tok/s):         6.14      
+Mean TTFT (ms):                          161.70    
+Median TTFT (ms):                        161.70    
+P99 TTFT (ms):                           167.30    
+Median ITL (ms):                         0.00      
+
+profile_8k
+Successful requests:                     4         
+Output token throughput (tok/s):         5.55      
+Mean TTFT (ms):                          179.49    
+Median TTFT (ms):                        181.13    
+P99 TTFT (ms):                           194.23    
+Median ITL (ms):                         0.00      

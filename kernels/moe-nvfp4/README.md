@@ -4,6 +4,25 @@ Area: `kernels/moe-nvfp4/`. Model: unsloth/Qwen3.6-35B-A3B-NVFP4-Fast (256 exper
 moe_intermediate 512; compressed-tensors NVFP4 W4A4 with calibrated static activation global scales).
 Stack: vLLM v0.32.0, FlashInfer 0.7.0.post1, RTX PRO 6000 Blackwell (SM120).
 
+## Shared-workspace follow-up (2026-10-28)
+
+The opt-in [shared-workspace candidate](SHARED_WORKSPACE.md) fixes the large
+per-layer scratch duplication identified in `VERIFY.md`: a second identical
+layer adds 0 MiB instead of 579.65 MiB. Eight lifetime/allocation tests and
+120 real-layer numerical/replay comparisons pass. The full server retains
+2.15M KV tokens versus CUTLASS's 2.08M at equal utilization 0.60.
+
+On a clean GPU, two 8k TTFT seed means improve by 10.5%/4.7%, two 16k means
+by 8.0%/10.2%, and mean 8k GPU span drops 132.3→120.2 ms. A fresh layer-19
+microbenchmark measures 887.0→654.6 us at 8k including integration overhead.
+Decode throughput in this short pair is about 6% lower despite similar ITL;
+the full workload matrix and reversed-order follow-up are pending. Keep the
+candidate optional until those results support adoption. Agentic evaluation
+is reserved for the final combined configuration.
+
+The sections below and `VERIFY.md` describe the original unshared backend;
+their workspace/KV penalty does not describe the new shared candidate.
+
 ## Summary
 
 1. **Why b12x lost quality: a scale bug in vLLM's b12x integration.** `FlashInferB12xExperts.process_weights_after_loading`

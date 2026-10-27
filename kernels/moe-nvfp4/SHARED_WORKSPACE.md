@@ -3,8 +3,8 @@
 This candidate preserves the scale-corrected hybrid backend's kernels and
 shares their scratch across sequential MoE layers. It targets
 `unsloth/Qwen3.6-35B-A3B-NVFP4-Fast` on one RTX PRO 6000 Blackwell, TP=1/EP=1,
-vLLM v0.32.0, CONFIG=next and MTP-2. It is opt-in; initial serving validation
-passes, but performance measurements without competing GPU work are pending.
+vLLM v0.32.0, CONFIG=next and MTP-2. It is opt-in. Clean single-request
+prefill A/B passes; the full serving task matrix and decode follow-up are pending.
 
 ## What changes
 
@@ -33,7 +33,7 @@ Eight allocation/lifetime tests pass, after demonstrating the expected failures
 on the unchanged baseline. They cover owner/ubatch/configuration isolation,
 manager lock/reset, default-off behavior, and decode bypass.
 
-Real checkpoint layers 0 and 19 pass 110 output comparisons at 3, 12, 1023,
+Real checkpoint layers 0 and 19 pass 120 output comparisons at 3, 12, 1023,
 1024, 1025, 8192 and 16384 tokens. CUDA graph pointers stay fixed while routing
 changes among real, eight hot experts, masked tails, all masked, and shifted
 expert IDs. Tolerance is compared against repeated execution of the unchanged
@@ -97,6 +97,54 @@ profiling ran under changing external GPU load. The direct allocation tests
 above establish the scratch reduction against **unshared b12x**, a different
 baseline. CUDA graph traces, detailed request samples and telemetry are in
 `results/shared_a2/`, `results/shared_b1/`, and `results/nsys/raw/shared_*_8k.*`.
+
+### Clean GPU run (A3 versus B2, cold-v2)
+
+Arm A training exited before these runs. Only the benchmark EngineCore was
+listed as a GPU compute process. Same CONFIG=next, MTP-2, memory utilization
+0.60, image, two 16-request seeds per length, separate compile caches.
+
+| Measurement | CUTLASS A3 | Shared hybrid B2 | change |
+|---|---:|---:|---:|
+| 8k mean TTFT, seed 8293 | 198.52 ms | 177.77 ms | -10.46% |
+| 8k mean TTFT, seed 8394 | 187.42 ms | 178.71 ms | -4.65% |
+| 16k mean TTFT, seed 16485 | 391.35 ms | 359.87 ms | -8.04% |
+| 16k mean TTFT, seed 16586 | 406.13 ms | 364.63 ms | -10.22% |
+| 8k GPU span, four requests | 132.33 ms | 120.23 ms | -9.14% |
+| Decode c=1 median ITL | 6.53 ms | 6.48 ms | -0.8% |
+| Decode c=4 median ITL | 8.13 ms | 8.11 ms | -0.2% |
+| Decode c=1 output tokens/s | 300.43 | 281.35 | -6.35% |
+| Decode c=4 output tokens/s | 789.77 | 739.53 | -6.36% |
+| Reported KV tokens | 2,078,181 | 2,145,441 | +3.24% |
+
+The baseline's four GPU spans were 131.9–132.6 ms and the candidate's
+119.6–120.7 ms. This resolves a prefill saving in this clean sequential pair.
+It is not a claim of a uniform 9% improvement across serving workloads.
+Decode ITL is similar, but output throughput is lower and small-prompt TTFT
+increases (c=1 mean 48.84→60.66 ms, c=4 66.61→105.05 ms). A wider task matrix
+in reversed server order and MTP statistics must resolve this before adoption.
+
+Clean real-routing layer-19 microbenchmark, including ID masks and output copy:
+
+| tokens | CUTLASS us | b12x us | reduction |
+|---:|---:|---:|---:|
+| 1024 | 321.8 | 318.9 | 0.9% |
+| 2048 | 386.0 | 341.8 | 11.5% |
+| 4096 | 553.5 | 447.7 | 19.1% |
+| 8192 | 887.0 | 654.6 | 26.2% |
+| 16384 | 1567.7 | 1208.8 | 22.9% |
+| 8192 balanced routing | 884.0 | 651.6 | 26.3% |
+
+Both interleaved timing orders agree. At 8k this is 232.4 us/layer, about
+9.3 ms across 40 layers, consistent in scale with the in-server span saving.
+Do not attribute all 12.1 ms of server difference to MoE without a kernel-node
+trace. Raw results: `results/b12x_clean_micro_L19.txt`, `results/shared_a3/`,
+`results/shared_b2/`.
+
+A clean shared-versus-unshared replay additionally passed ten comparisons
+and retained the allocation reduction. Two-layer times were 1284/1293 us
+unshared and 1277/1285 us shared in opposite timing orders; sharing itself
+remains primarily a memory improvement (`results/shared_workspace_clean.jsonl`).
 
 ## Reproduction and scope
 
