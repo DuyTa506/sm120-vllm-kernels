@@ -107,12 +107,13 @@ remain pending. The [earlier shared results and quality flags](results/qwen_sequ
 retain their original scope.
 
 The fresh [scalar versus exact parent pair](results/qwen_sequential/scalar_vs_exact_matched_3.serving.md)
-completes all17 tasks with identical132-entry FlashInfer tables at startup and
-shutdown. Scalar4k/8k/16k TTFT is107.51→100.54 /185.15→164.08 /384.57→343.63ms
-(-6.5%/-11.4%/-10.6%). Seven task throughputs change-5.3% to+1.5%;
+completes all 17 tasks with identical 132-entry FlashInfer tables at startup and
+shutdown. Scalar 4k/8k/16k TTFT is 107.51→100.54  / 185.15→164.08  / 384.57→343.63 ms
+(-6.5%/-11.4%/-10.6%). Seven task throughputs change -5.3% to +1.5%;
 [greedy decode](results/qwen_sequential/scalar_vs_exact_matched_3.greedy.md) changes
--1.91% to+4.63%. Four13 Inductor choices still differ, so this is not isolated
-scalar attribution. Both pass20/20 needles, but py_email-30000 NLL worsens
+-1.91% to+4.63%. Four of 13 Inductor tuning records differ. The [compiled-artifact audit](results/qwen_sequential/scalar_inductor_runtime_cpu_audit.md)
+finds matching candidate sets but leaves some final selections unresolved; neither
+a compiler cause nor isolated scalar attribution is established. Both pass 20/20 needles, but py_email-30000 NLL worsens
 0.794235→0.802070 across three cold repeats with nonoverlapping observed ranges
 ([details](kernels/moe-nvfp4/SCALAR_DISPATCH.md)). Scalar remains a composition
 candidate, with this quality flag retained; final selection and agentic are pending.
@@ -281,7 +282,7 @@ The largest decode lever found, GDN state replay, is built (`kernels/gdn-replay`
 - `fp8-attn-glue`: confirmed, bitwise identical; the claimed gain was slightly overstated.
 - `gdn-conv-fusion`: confirmed, bit-exact, speedup reproduces within about 2%.
 - `decode-roofline` (skinny BF16): partly confirmed. About -0.6 ms per step at c=1, nothing at c >= 4, numerics match cuBLAS. Not integrated: its on/off flag is not part of vLLM's compile-cache key and the end-to-end quality evidence is only kernel-level.
-- `moe-nvfp4`: the diagnosis, scale fix and kernel speedup reproduce. The original patch halves KV capacity; shared workspace removes that penalty. The exact-alpha variant completed all 17 tasks, near-neutral explicit-greedy decode and 50 cold NLL calls per backend. The earlier large NLL deterioration did not reproduce in those repeats, which do not establish quality equivalence. Prefill gains are smaller than the older shared pair; independent autotuning is a concrete confound. Exact is the experimental parent. Scalar now completes a controlled full pair with faster cold prefill, mixed task/decode rates and a retained NLL flag; four Inductor choices differ. Final composition still needs selection and validation. Not in next.
+- `moe-nvfp4`: the diagnosis, scale fix and kernel speedup reproduce. The original patch halves KV capacity; shared workspace removes that penalty. The exact-alpha variant completed all 17 tasks, near-neutral explicit-greedy decode and 50 cold NLL calls per backend. The earlier large NLL deterioration did not reproduce in those repeats, which do not establish quality equivalence. Prefill gains are smaller than the older shared pair; independent autotuning is a concrete confound. Exact is the experimental parent. Scalar now completes a controlled full pair with faster cold prefill, mixed task/decode rates and a retained NLL flag; four tuning records differ without proving four runtime choices differ. Final composition still needs selection and validation. Not in next.
 - `gdn-norm-fp8`: exact standalone FP8/scales/projection checks pass on synthetic and captured inputs. The default-off packed GDN integration activates all 30 layers and passes CUDA graph capture, 512 measured decode requests and 10 cold NLL calls. This is execution validation, not paired quality equivalence or a server speedup. See [integration evidence](kernels/gdn-norm-fp8/results/INTEGRATION_GPU.md); scalar and GDN incremental serving selection precede the final composed agentic pair.
 - `dense-fp8-gemm` (skinny FP8 decode GEMM): partly confirmed. Reproduces at kernel level (-223 us per c=1 step with cold weights; -78 us at c=16; nothing at c=64) and in situ (about -0.15 ms per step at c=1, -0.06 ms at c=4, because MTP-2 rounds the c=4 batch to M=18). The wall-clock gain sits inside the host noise.
 - `gdn-replay`: built by one agent, not yet re-run by a second. Same-step form: verify skips the state writes, one commit launch per KV-cache group replays the accepted tokens. Bit-exact against the stock kernel in all 30 layers (47,640+ row-layer-steps, 0 mismatches), MTP acceptance unchanged (0.596 and 0.599 off, 0.599 and 0.591 on), stress run with 37 aborts clean. End-to-end at c=64: ITL 28.61 → 26.23 ms (-8.3%), 3,599 → 3,859 tok/s (+7.2%); c=16 and c=32 neutral. Below 8 requests the stock path runs. Worth enabling only at about 48 or more concurrent decodes (`VLLM_GDN_STATE_REPLAY_MIN_REQS`). A first live run collapsed acceptance to 0.06 because the commit used the first KV-cache group's block table for all groups; fixed. Not checked: preemption, TP > 1. The patch is `kernels/gdn-replay/patch/04-gdn-state-replay.patch` (numbered 04 inside that directory; it is not in `patches/` yet).

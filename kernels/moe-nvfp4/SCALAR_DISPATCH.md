@@ -189,11 +189,12 @@ dispatch or extend the layers-0/19 microbenchmark into an all-layer speed claim.
 
 ## Matched vLLM serving pair
 
-`exact_matched_3` and `scalar_matched_3` both completed exit0, sequentially on the
+`exact_matched_3` and `scalar_matched_3` both completed exit 0, sequentially on the
 otherwise idle GPU, using the same full individual suite, explicit greedy decode,
-and three cold NLL rounds. Source snapshots verify23/23 files each. Both preserve
-all132 reference FlashInfer entries through preload, graph capture and graceful
-shutdown. Inductor is **not pinned**: four of13 selected configurations differ.
+and three cold NLL rounds. Source snapshots verify 23/23 files each. Both preserve
+all 132 reference FlashInfer entries through preload, graph capture and graceful
+shutdown. Inductor is **not pinned**: four of 13 saved tuning records differ. These records alone do not establish
+different final runtime choices.
 The changes below describe the measured configurations, not a causal scalar-only
 speedup or a confidence interval.
 
@@ -206,23 +207,29 @@ speedup or a confidence interval.
 | 16384 | 384.57 | 343.63 | -10.6% |
 | 32768 | 838.71 | 811.50 | -3.2% |
 
-Seven workload throughputs change -5.3% to+1.5%; the largest regression is
-long-doc, where MTP acceptance also falls38.3%→32.4%. Explicit greedy decode
-output rate changes +0.53%/+4.63%/-1.91%/+1.99% at c1/4/16/64. Sampling at
-temperature0 does not eliminate numerical, MTP trajectory or scheduling changes.
-Both allocate45.50GiB KV,3,437,190 KV tokens and3.45GiB final CUDA graph pool.
+Seven workload throughputs change -5.3% to +1.5%; the largest regression is
+long-doc, where MTP acceptance also falls 38.3%→32.4%. Explicit greedy decode
+output rate changes +0.53%/+4.63%/-1.91%/+1.99% at c=1/4/16/64. Sampling at
+temperature 0 does not eliminate numerical, MTP trajectory or scheduling changes.
+Both allocate 45.50 GiB KV, 3,437,190 KV tokens and 3.45 GiB final CUDA graph pool.
 
-Both pass20/20 needle checks. Three cold repeats on each of10 fixed prompts give
-NLL mean deltas from-0.042482 to+0.019169. The py_email-30000 mean worsens
+Both pass 20/20 needle checks. Three cold repeats on each of 10 fixed prompts give
+NLL mean deltas from -0.042482 to +0.019169. The py_email-30000 mean worsens
 0.794235→0.802070; its three-repeat ranges do not overlap
-([0.790536,0.797625] vs[0.798475,0.805086]). Retain this quality flag;
+([0.790536, 0.797625] vs [0.798475, 0.805086]). Retain this quality flag;
 these few diagnostic prompts do not establish either broad degradation or
-quality equivalence. Checkpoint prefix-reuse TV(top20) mean is0.1400/0.1367
-and top1 agreement10/12 vs11/12, also diagnostic only.
+quality equivalence. Checkpoint prefix-reuse TV(top20) mean is 0.1400/0.1367
+and top1 agreement 10/12 vs 11/12, also diagnostic only.
 
-The server's8k/16k gains are much larger than this patch's full-call micro gain,
-especially the neutral16k micro result. Inspecting the four changed Inductor
-choices and the fresh controlled `next` baseline precedes final selection.
+The server's 8k/16k gains are much larger than this patch's full-call micro gain,
+especially the neutral 16k micro result. The [CPU compiler audit](../../results/qwen_sequential/scalar_inductor_runtime_cpu_audit.md)
+links all 13 matching wrappers on each side to saved model artifacts: ten GDN
+wrappers contain identical single candidates, while three artifacts retain
+multiple candidates with unresolved final in-memory choices. Candidate sets and
+executable ELF sections match; this does not establish every runtime launch or
+loadable datum was identical. A compiler cause remains unproven. The fresh
+controlled `next` baseline and incremental `scalar_gdn` measurement precede
+final selection. Scalar is the experimental parent for that incremental test.
 The default `next` configuration is unchanged. Agentic remains a final composed
 comparison and has not been run for this individual patch.
 

@@ -287,3 +287,11 @@ microbenchmarks alone do not satisfy this request.
   FI6/build/MoE/GDN sources frozen untilterminal. Noagenticrun.
 - GDN probe2 CPU cleanup ownership/termination checks and strict fused-mixed
   coverage are being completed. Probe2 gets one GPU slot afterroot99954.
+
+- CPU compiler audit corrects tuning-file interpretation for scalar_matched_3:
+  13 wrappers per side linked; ten GDN artifacts have one identical candidate,
+  three artifacts retain multiple identical candidate sets. Final in-memory
+  choice remains unresolved for those three. Executable sections match;
+  differing best_config files do not establish different runtime choices.
+  Scalar chosen only as experimental parent for scalar_gdn incremental test;
+  final adoption retains NLL flag and requires composed comparison to next.

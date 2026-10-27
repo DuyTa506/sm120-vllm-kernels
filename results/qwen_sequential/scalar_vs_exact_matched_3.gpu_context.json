@@ -1,0 +1,204 @@
+{
+  "scope": "Descriptive 1 Hz telemetry during measured command intervals, including benchmark-client overhead; utilization>=50 filter is not exact kernel timing or attribution.",
+  "gpu_csv_timezone": "Asia/Ho_Chi_Minh",
+  "runs": {
+    "exact_matched_3": {
+      "rows": [
+        {
+          "case": "prefill-heavy.measured.log",
+          "interval_start": "2026-10-27T19:49:22.247746+00:00",
+          "interval_end": "2026-10-27T19:49:46.027253+00:00",
+          "samples": 24,
+          "util_ge_50_samples": 10,
+          "clock_active_median": 2591.0,
+          "clock_active_min": 2520.0,
+          "clock_active_max": 2865.0,
+          "power_active_median": 561.4200000000001,
+          "power_active_min": 252.99,
+          "power_active_max": 579.28
+        },
+        {
+          "case": "prefill-2048.measured.log",
+          "interval_start": "2026-10-27T19:55:21.559644+00:00",
+          "interval_end": "2026-10-27T19:55:34.958905+00:00",
+          "samples": 13,
+          "util_ge_50_samples": 0,
+          "clock_active_median": null,
+          "clock_active_min": null,
+          "clock_active_max": null,
+          "power_active_median": null,
+          "power_active_min": null,
+          "power_active_max": null
+        },
+        {
+          "case": "prefill-4096.measured.log",
+          "interval_start": "2026-10-27T19:55:45.997239+00:00",
+          "interval_end": "2026-10-27T19:55:58.596484+00:00",
+          "samples": 13,
+          "util_ge_50_samples": 1,
+          "clock_active_median": 2685.0,
+          "clock_active_min": 2685.0,
+          "clock_active_max": 2685.0,
+          "power_active_median": 317.27,
+          "power_active_min": 317.27,
+          "power_active_max": 317.27
+        },
+        {
+          "case": "prefill-5000.measured.log",
+          "interval_start": "2026-10-27T19:56:11.493772+00:00",
+          "interval_end": "2026-10-27T19:56:26.447127+00:00",
+          "samples": 15,
+          "util_ge_50_samples": 0,
+          "clock_active_median": null,
+          "clock_active_min": null,
+          "clock_active_max": null,
+          "power_active_median": null,
+          "power_active_min": null,
+          "power_active_max": null
+        },
+        {
+          "case": "prefill-8192.measured.log",
+          "interval_start": "2026-10-27T19:56:37.335324+00:00",
+          "interval_end": "2026-10-27T19:56:50.589967+00:00",
+          "samples": 14,
+          "util_ge_50_samples": 1,
+          "clock_active_median": 2647.0,
+          "clock_active_min": 2647.0,
+          "clock_active_max": 2647.0,
+          "power_active_median": 412.34,
+          "power_active_min": 412.34,
+          "power_active_max": 412.34
+        },
+        {
+          "case": "prefill-16384.measured.log",
+          "interval_start": "2026-10-27T19:57:02.891530+00:00",
+          "interval_end": "2026-10-27T19:57:19.247725+00:00",
+          "samples": 16,
+          "util_ge_50_samples": 2,
+          "clock_active_median": 2681.0,
+          "clock_active_min": 2490.0,
+          "clock_active_max": 2872.0,
+          "power_active_median": 398.01,
+          "power_active_min": 347.71,
+          "power_active_max": 448.31
+        },
+        {
+          "case": "prefill-32768.measured.log",
+          "interval_start": "2026-10-27T19:57:32.437647+00:00",
+          "interval_end": "2026-10-27T19:57:51.152480+00:00",
+          "samples": 19,
+          "util_ge_50_samples": 6,
+          "clock_active_median": 2493.5,
+          "clock_active_min": 2355.0,
+          "clock_active_max": 2737.0,
+          "power_active_median": 457.91499999999996,
+          "power_active_min": 298.56,
+          "power_active_max": 514.24
+        }
+      ],
+      "sources": {
+        "results/qwen_sequential/exact_matched_3/gpu_during.csv": "077de42f156fd61d6eccd67493e805fe1dfffd2e80dd19d625f4941d1c364bc7",
+        "results/qwen_sequential/exact_matched_3/serving/serving_matrix_all/events.jsonl": "6a818ca9c00725a7f0d082399651958fa42da5b487e6d26e5d16e41c2ac7d15a"
+      }
+    },
+    "scalar_matched_3": {
+      "rows": [
+        {
+          "case": "prefill-heavy.measured.log",
+          "interval_start": "2026-10-27T20:08:24.688392+00:00",
+          "interval_end": "2026-10-27T20:08:48.574775+00:00",
+          "samples": 24,
+          "util_ge_50_samples": 9,
+          "clock_active_median": 2535.0,
+          "clock_active_min": 2437.0,
+          "clock_active_max": 2670.0,
+          "power_active_median": 566.87,
+          "power_active_min": 519.07,
+          "power_active_max": 574.98
+        },
+        {
+          "case": "prefill-2048.measured.log",
+          "interval_start": "2026-10-27T20:14:19.559949+00:00",
+          "interval_end": "2026-10-27T20:14:35.725423+00:00",
+          "samples": 17,
+          "util_ge_50_samples": 0,
+          "clock_active_median": null,
+          "clock_active_min": null,
+          "clock_active_max": null,
+          "power_active_median": null,
+          "power_active_min": null,
+          "power_active_max": null
+        },
+        {
+          "case": "prefill-4096.measured.log",
+          "interval_start": "2026-10-27T20:14:51.847242+00:00",
+          "interval_end": "2026-10-27T20:15:07.607368+00:00",
+          "samples": 15,
+          "util_ge_50_samples": 1,
+          "clock_active_median": 2610.0,
+          "clock_active_min": 2610.0,
+          "clock_active_max": 2610.0,
+          "power_active_median": 118.99,
+          "power_active_min": 118.99,
+          "power_active_max": 118.99
+        },
+        {
+          "case": "prefill-5000.measured.log",
+          "interval_start": "2026-10-27T20:15:21.859799+00:00",
+          "interval_end": "2026-10-27T20:15:37.015160+00:00",
+          "samples": 15,
+          "util_ge_50_samples": 1,
+          "clock_active_median": 2670.0,
+          "clock_active_min": 2670.0,
+          "clock_active_max": 2670.0,
+          "power_active_median": 263.03,
+          "power_active_min": 263.03,
+          "power_active_max": 263.03
+        },
+        {
+          "case": "prefill-8192.measured.log",
+          "interval_start": "2026-10-27T20:15:48.302266+00:00",
+          "interval_end": "2026-10-27T20:16:03.059661+00:00",
+          "samples": 15,
+          "util_ge_50_samples": 2,
+          "clock_active_median": 2613.5,
+          "clock_active_min": 2610.0,
+          "clock_active_max": 2617.0,
+          "power_active_median": 297.225,
+          "power_active_min": 110.48,
+          "power_active_max": 483.97
+        },
+        {
+          "case": "prefill-16384.measured.log",
+          "interval_start": "2026-10-27T20:16:14.995550+00:00",
+          "interval_end": "2026-10-27T20:16:30.101170+00:00",
+          "samples": 15,
+          "util_ge_50_samples": 3,
+          "clock_active_median": 2580.0,
+          "clock_active_min": 2482.0,
+          "clock_active_max": 2610.0,
+          "power_active_median": 472.97,
+          "power_active_min": 214.65,
+          "power_active_max": 474.79
+        },
+        {
+          "case": "prefill-32768.measured.log",
+          "interval_start": "2026-10-27T20:16:42.987099+00:00",
+          "interval_end": "2026-10-27T20:17:01.803253+00:00",
+          "samples": 19,
+          "util_ge_50_samples": 5,
+          "clock_active_median": 2550.0,
+          "clock_active_min": 2407.0,
+          "clock_active_max": 2722.0,
+          "power_active_median": 507.36,
+          "power_active_min": 166.51,
+          "power_active_max": 521.23
+        }
+      ],
+      "sources": {
+        "results/qwen_sequential/scalar_matched_3/gpu_during.csv": "9877b3fd51a2ab43672f860ade78632c9240b53836d20292c08566bb37a434f9",
+        "results/qwen_sequential/scalar_matched_3/serving/serving_matrix_all/events.jsonl": "ce4eab3d1bc34a3540d471da364296132f91e45e1199b63241a1377be2ef517f"
+      }
+    }
+  }
+}
