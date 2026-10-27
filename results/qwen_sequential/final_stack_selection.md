@@ -113,8 +113,8 @@ protected: use fresh tags for a later reproduction, with an otherwise idle GPU.
 
 ```bash
 sg docker -c 'set -e
-FI_CONTROL=1 bash bench/qwen_experiment.sh next_final_agentic_1 next agentic
-FI_CONTROL=1 bash bench/qwen_experiment.sh stack_final_agentic_1 scalar agentic
+FI_CONTROL=1 GREEDY_DECODE=0 NLL_ROUNDS=0 NOSPEC=0 bash bench/qwen_experiment.sh next_final_agentic_1 next agentic
+FI_CONTROL=1 GREEDY_DECODE=0 NLL_ROUNDS=0 NOSPEC=0 bash bench/qwen_experiment.sh stack_final_agentic_1 scalar agentic
 '
 ```
 

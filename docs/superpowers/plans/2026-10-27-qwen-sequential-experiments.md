@@ -357,3 +357,5 @@ Both focused runs completed six prefill cases, four greedy cases, 50 cold NLL ca
 Select `scalar` as the final experimental composition: root next patches01-05 plus MoE03 scale/hybrid,04 sharedworkspace,05 exactCUTLASSalpha and06 scalarinputscale. Leave GDN default-off/unselected for this general serving stack. It remains a measured opt-in candidate with prefill wins and decode tradeoffs. Decode routing has no selected optimization.
 
 Final authorized agentic pair is `next_final_agentic_1 next agentic`, then `stack_final_agentic_1 scalar agentic`, both FI_CONTROL1/GREEDY_DECODE0/NLL_ROUNDS0/NOSPEC0, memorybudget0.78 and existing fixed production trajectories. No per-patch agentic runs. Freeze all recorded runtime/harness/source bytes until both terminal; review live smoke separately from replay.
+
+- LIVE ROOT GPU session11044: final pair launched sequentially with the explicit flags above; `next_final_agentic_1` is replaying short trajectories. The first c1 checkpoint completes128 turns, zero failed/unrun, metric_version2 valid. No final comparison until both runs and owned cleanup finish.
