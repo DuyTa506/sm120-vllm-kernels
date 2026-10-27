@@ -1,11 +1,19 @@
 # GDN norm + SiLU + token FP8 experiment
 
 The explicit-layout candidate passes the recorded standalone exact checks;
-the original automatic-layout candidate fails. The default-off serving
-overlay also passed a scoped stateful integration smoke: all 30 ready layers,
-completed graph capture, four greedy decode scenarios (512 measured requests)
-and ten finite NLL requests. This is not paired quality equivalence or a
-serving speedup claim. See
+the original automatic-layout candidate fails. The default-off overlay now
+also completes the full scalar + GDN serving comparison: all 17 tasks, four
+greedy decode cases, 30 cold NLL calls and 20/20 needles, with all 30 layers
+ready and fixed FlashInfer tables at startup/shutdown.
+
+Measured effects are mixed. Against scalar, 32k TTFT improves 7.6% and long-doc
+throughput improves 9.1%, while 8k TTFT worsens 7.4% and greedy c=64 throughput
+falls 8.71%. The complete stack beats `next` on all six cold-prefill medians,
+but loses 8.17% at greedy c=64 and retains a licenses-30000 NLL flag. GDN is
+not selected for the final stack yet; a focused reversed-order GDN→scalar
+repeat precedes selection. Agentic runs only on the final selected stack versus
+`next`. See [`results/COMPOSED_SERVING.md`](results/COMPOSED_SERVING.md).
+The earlier scoped integration smoke remains separately recorded in
 [`results/INTEGRATION_GPU.md`](results/INTEGRATION_GPU.md).
 
 A separate layer18 state probe now passes actual eager long-prefill,
@@ -48,10 +56,11 @@ medians, microseconds):
 | 8192 | 391.05 | 286.90 |
 | 16384 | 925.94 | 584.51 |
 
-These are microbenchmarks, not measured serving improvements. Both chains
-retain their captured output buffers. The owned integration smoke now covers startup/capture and request execution;
-matched quality and decode cost remain serving validation work. The scoped
-layer18 state/padding check now passes; its unobserved paths remain explicit.
+These are microbenchmarks. Both chains retain their captured output buffers.
+The separate full serving comparison above measures mixed end-to-end effects;
+it does not assign those effects entirely to this isolated kernel. The scoped
+layer18 state/padding check passes; its unobserved paths remain explicit.
+Cold NLL diagnostics do not establish model-quality equivalence.
 
 The original failure and reduction-order diagnosis are preserved in
 [`DIAGNOSIS.md`](DIAGNOSIS.md). The successful capture is
@@ -61,8 +70,8 @@ The compiled-output fallback passes its separate exactness checks;
 [`results/FALLBACK_QUANT_OUT_GPU.md`](results/FALLBACK_QUANT_OUT_GPU.md) records
 its generated code and limited timing comparison.
 The default-off overlay and required split configuration are described in
-[`INTEGRATION_PREP.md`](INTEGRATION_PREP.md). Root mounted the candidate only
-for the owned diagnostic run; the experiment remains opt-in and default-off.
+[`INTEGRATION_PREP.md`](INTEGRATION_PREP.md). The candidate was mounted only
+in owned experiment servers; it remains opt-in and default-off.
 
 `fused_explicit.py` implements one Gluon CTA per token with the FLA reduction layout.
 The frozen source docstring predates its GPU validation; the recorded results
@@ -79,8 +88,9 @@ and FP32 `[T,1]`. Zero rows use scale `1/(448*512)`.
 differences against installed `ops.scaled_fp8_quant`. Exact scale bits and
 FP8 bytes are required against the compiled reference. It stops on mismatch
 before timing. Optional checkpoint loading tests real norm weights and the
-unchanged CUTLASS output projection. The capture checks cover one eager request and selected layers; broad model
-accuracy and integrated serving still require separate checks.
+unchanged CUTLASS output projection. The capture checks cover one eager request
+and selected layers. The separately measured serving/quality diagnostics above
+retain their own scope; broad model accuracy is not established.
 
 Run these only after the GPU is available, inside the vLLM 0.32.0 environment
 with this directory mounted:

@@ -2,8 +2,10 @@
 
 These patches reproduce the frozen scalar MoE and GDN overlay sources. They
 are **experimental artifacts, not a selected or recommended configuration**.
-The full `scalar_gdn_matched_3` comparison was still running when this packaging
-check was prepared. Source identity is not a combined quality or speed claim.
+The full `scalar_gdn_matched_3` run now completes, with mixed performance and
+open NLL flags. See [`results/COMPOSED_SERVING.md`](results/COMPOSED_SERVING.md).
+A focused reversed-order repeat precedes stack selection. Source identity
+alone is not a combined quality or speed claim.
 
 | Patch | Required baseline | Result |
 |---|---|---|
@@ -42,8 +44,8 @@ imports, and proves:
 - Fresh `shared_exact` + next-GDN trees produce all six exact overlay files when
   applying scalar then GDN, and when applying GDN then scalar.
 - Source hashes match completed scalar/exact/integration manifests and the
-  `scalar_gdn_matched_3` startup source capture. The latter is an identity check,
-  not evidence that its full run completed or passed.
+  `scalar_gdn_matched_3` startup source capture. This verifier checks identity;
+  the separate completed-run evidence establishes execution and measured results.
 - The source overlays and both starting baseline files remain unchanged.
 
 The [JSON manifest](results/patch_composition_cpu.json) records every patch hash,
@@ -91,6 +93,8 @@ do not include or modify the FI importer. Read
 [`INTEGRATION_PREP.md`](INTEGRATION_PREP.md) for fallback, state, padding and
 warmup constraints, and
 [`SCALAR_DISPATCH.md`](../moe-nvfp4/SCALAR_DISPATCH.md) for scalar eligibility and
-validation scope. The existing `py_email30k` NLL flag remains open; packaging
-does not resolve it. Final adoption/composition requires the pending paired
-serving and quality evidence.
+validation scope. The existing scalar `py_email30k` flag and the composed
+stack's `licenses-30000` flag remain open; packaging does not resolve them.
+The completed full comparison has both gains and regressions. Final selection
+requires the focused repeat and an explicit assessment of these tradeoffs;
+agentic is reserved for the final selected composition versus `next`.
