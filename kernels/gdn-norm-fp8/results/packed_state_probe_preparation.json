@@ -1,0 +1,20 @@
+{
+  "status": "CPU_PREPARED_GPU_PENDING",
+  "cpu_tests": 8,
+  "cuda_initialized": false,
+  "mounted_preflight": {
+    "exit_code": 0,
+    "runtime_source_ready": true,
+    "torch_imported": false,
+    "vllm_imported": false
+  },
+  "probe_source_sha256": {
+    "probe_packed_state.py": "410c25739217b5306229e7ec4e5cc95396526e4ff2a2394369beee8b7d850630",
+    "packed_state_probe_worker.py": "564dc51f25b2a527b946b5ebe3ad031058518a4c9c42fb3ec7907516d20bf6fa",
+    "packed_state_probe_utils.py": "bf446ec3e6b20b7a62cf19781043a38fb57b24b37652c4a15e3de3061a7c87d1",
+    "run_packed_state_probe.py": "d0bddae1f63a94fca0007078b1a06f1495d7cbf637c20bce9561363deac29d93",
+    "test_packed_state_probe.py": "d57944592d80417200edbf58d0334ebcd6540f997a52cc68dc5c4e3d0e559e4f"
+  },
+  "gpu_execution_performed": false,
+  "scope": "Private compact state/Q/S comparisons for observed layer18 eager metadata; unrelated to live scheduler allocation. All frozen overlay hashes match mounted CPU preflight."
+}

@@ -1,0 +1,26 @@
+....Owned container cleanup is unverified or in progress; GPU lock retained until it is stopped.
+....F...........
+======================================================================
+FAIL: test_stop_success_requires_state_check (__main__.CleanupTests.test_stop_success_requires_state_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 179, in test_stop_success_requires_state_check
+    self.assertEqual(calls[1], ["docker", "stop", "--time", "30", "exact-owned-id"])
+AssertionError: Lists differ: ['docker', 'stop', '--time', '30', 'gdn-private-state-owned'] != ['docker', 'stop', '--time', '30', 'exact-owned-id']
+
+First differing element 4:
+'gdn-private-state-owned'
+'exact-owned-id'
+
+- ['docker', 'stop', '--time', '30', 'gdn-private-state-owned']
+?                                     ^^^^^^^^  -------
+
++ ['docker', 'stop', '--time', '30', 'exact-owned-id']
+?                                     ^^ +       +++
+
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.012s
+
+FAILED (failures=1)
+{"status": "CPU_FAIL", "tests_run": 20, "cuda_initialized": false}

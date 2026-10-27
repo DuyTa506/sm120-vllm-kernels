@@ -1,0 +1,7 @@
+....Owned container cleanup is unverified or in progress; GPU lock retained until it is stopped.
+................
+----------------------------------------------------------------------
+Ran 20 tests in 0.025s
+
+OK
+{"status": "CPU_PASS", "tests_run": 20, "cuda_initialized": false}

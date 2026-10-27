@@ -1,0 +1,14 @@
+.E.......
+======================================================================
+ERROR: test_declared_baseline_mounts_reject_forced_b12x_for_mtp (__main__.IsolationTests.test_declared_baseline_mounts_reject_forced_b12x_for_mtp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 122, in test_declared_baseline_mounts_reject_forced_b12x_for_mtp
+    from probe_packed_state import engine_options, validate_fixture_backend, MOUNTS
+ImportError: cannot import name 'engine_options' from 'probe_packed_state' (/work/kernels/gdn-norm-fp8/probe_packed_state.py)
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.007s
+
+FAILED (errors=1)
+{"status": "CPU_FAIL", "tests_run": 9, "cuda_initialized": false}

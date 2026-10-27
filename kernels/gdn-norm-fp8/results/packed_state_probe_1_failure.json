@@ -1,0 +1,30 @@
+{
+  "status": "FAILED_BEFORE_PROBE_INSTALL",
+  "run": "packed_state_probe_1",
+  "exit_code": 1,
+  "recorded_at_utc": "2026-10-27T19:45:38.899980+00:00",
+  "failure_stage": "MTP model construction before model initialization, post-init hooks, or state/Q/S comparisons",
+  "root_cause": "Installed unquantized MoE oracle rejects fixture's forced moe_backend='flashinfer_b12x' for ignored/unquantized MTP experts.",
+  "source_chain": [
+    "compressed_tensors_moe/compressed_tensors_moe.py:58 returns UnquantizedFusedMoEMethod for scheme_dict=None",
+    "oracle/unquantized.py:308-309 forwards any backend except auto/humming to map_unquantized_backend",
+    "oracle/unquantized.py:191 raises for flashinfer_b12x"
+  ],
+  "candidate_or_original_comparison_calls": 0,
+  "cases_file_exists": false,
+  "cleanup": {
+    "runner_session": 46191,
+    "container": "gdn-private-state-c19773b1983c47908132b55395676ded",
+    "container_removed": true,
+    "container_inspect_after": "[]\nerror: no such object: gdn-private-state-c19773b1983c47908132b55395676ded",
+    "gpu_compute_query_after_terminal": "",
+    "gpu_slot_released_to_root": true
+  },
+  "artifacts": [
+    "packed_state_probe_1.log",
+    "packed_state_probe_1.runner.json",
+    "packed_state_probe_1/manifest.json"
+  ],
+  "future_correction": "Use auto MoE for this narrow GDN semantics fixture, or mount the selected serving MoE and unquantized-oracle compatibility stack. Requires a new explicitly scheduled GPU attempt.",
+  "scope": "Initialization failure is no evidence for or against packed_norm_fp8 correctness. No GPU retry performed."
+}

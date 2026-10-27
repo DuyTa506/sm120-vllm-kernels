@@ -1,0 +1,21 @@
+{
+  "status": "CPU_PREPARED_PROBE2_GPU_PENDING",
+  "cpu_tests": 9,
+  "cuda_initialized": false,
+  "change": "moe_backend auto with exact four-next-mount compatibility guard; worker/state comparison implementation unchanged",
+  "backend": "auto",
+  "backend_mount_compatibility_checked": true,
+  "mounted_preflight_exit_code": 0,
+  "runtime_source_ready": true,
+  "torch_imported": false,
+  "vllm_imported": false,
+  "probe_source_sha256": {
+    "probe_packed_state.py": "a5cb4cdaa4046651058d5ce611a7dce08d71be88036124880384330413bc72d8",
+    "packed_state_probe_worker.py": "564dc51f25b2a527b946b5ebe3ad031058518a4c9c42fb3ec7907516d20bf6fa",
+    "packed_state_probe_utils.py": "bf446ec3e6b20b7a62cf19781043a38fb57b24b37652c4a15e3de3061a7c87d1",
+    "run_packed_state_probe.py": "644349e8ac103296913cdebda34986803f846a0b78c07326a523b7acefbb5b30",
+    "test_packed_state_probe.py": "8f1bf9006a74f49592d6c0f52f598e58a2fa5b4853d441868b7edcd6a411a7df"
+  },
+  "prior_failure_sources": "packed_state_probe_1_sources/",
+  "probe2_gpu_execution_performed": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "CPU_PREPARED_PROBE2_GPU_PENDING",
+  "cpu_tests": 20,
+  "cuda_initialized": false,
+  "change": "Ownership-checked immutable container ID used for both stop and force-remove; verified cleanup and strict fused mixed coverage unchanged.",
+  "mounted_preflight_exit_code": 0,
+  "mounted_cleanup": {
+    "container": "gdn-private-state-2546f9580897416da55c3714ff8ac85d",
+    "actions": [],
+    "observations": [
+      {
+        "absent": true,
+        "verified_stopped": true,
+        "error": "error: no such object: gdn-private-state-2546f9580897416da55c3714ff8ac85d"
+      }
+    ],
+    "verified_stopped": true,
+    "status": "verified_stopped"
+  },
+  "runtime_source_ready": true,
+  "torch_imported": false,
+  "vllm_imported": false,
+  "probe_source_sha256": {
+    "probe_packed_state.py": "a5cb4cdaa4046651058d5ce611a7dce08d71be88036124880384330413bc72d8",
+    "packed_state_probe_worker.py": "e4559196e22ba71bb0212c4df7bc141545ea15a358c21b25ecfa7457eb6fd9bc",
+    "packed_state_probe_utils.py": "bf446ec3e6b20b7a62cf19781043a38fb57b24b37652c4a15e3de3061a7c87d1",
+    "run_packed_state_probe.py": "6bef3511998904103857c3b72aff8cc65835c5fab9d76528f51339de3855fff9",
+    "test_packed_state_probe.py": "5800b154f318a9bdfdaebee377647c22608613022b6eec91082a95f04fcdf7a5"
+  },
+  "probe2_gpu_execution_performed": false,
+  "mounted_preflight_artifact": "packed_state_probe_2_immutable_mounted_preflight.log",
+  "immutable_stop_red_artifact": "packed_state_probe_2_immutable_stop_red.log"
+}

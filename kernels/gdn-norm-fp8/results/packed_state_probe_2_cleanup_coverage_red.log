@@ -1,0 +1,91 @@
+EEEEEEE........E.
+======================================================================
+ERROR: test_absent_needs_no_stop (__main__.CleanupTests.test_absent_needs_no_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 171, in test_absent_needs_no_stop
+    result, calls = self.run_cleanup([(1, "[]", "Error: No such object: gdn-private-state-owned")])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 152, in run_cleanup
+    from run_packed_state_probe import cleanup_owned_container
+ImportError: cannot import name 'cleanup_owned_container' from 'run_packed_state_probe' (/work/kernels/gdn-norm-fp8/run_packed_state_probe.py)
+
+======================================================================
+ERROR: test_failed_force_remove_preserves_running_failure (__main__.CleanupTests.test_failed_force_remove_preserves_running_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 193, in test_failed_force_remove_preserves_running_failure
+    result, calls = self.run_cleanup([self.state(), (1, "", "stop failed"), self.state(),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 152, in run_cleanup
+    from run_packed_state_probe import cleanup_owned_container
+ImportError: cannot import name 'cleanup_owned_container' from 'run_packed_state_probe' (/work/kernels/gdn-norm-fp8/run_packed_state_probe.py)
+
+======================================================================
+ERROR: test_failed_stop_force_removes_only_rechecked_owned_id (__main__.CleanupTests.test_failed_stop_force_removes_only_rechecked_owned_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 181, in test_failed_stop_force_removes_only_rechecked_owned_id
+    result, calls = self.run_cleanup([self.state(), (1, "", "stop failed"), self.state(),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 152, in run_cleanup
+    from run_packed_state_probe import cleanup_owned_container
+ImportError: cannot import name 'cleanup_owned_container' from 'run_packed_state_probe' (/work/kernels/gdn-norm-fp8/run_packed_state_probe.py)
+
+======================================================================
+ERROR: test_inspection_failure_does_not_mean_absent (__main__.CleanupTests.test_inspection_failure_does_not_mean_absent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 199, in test_inspection_failure_does_not_mean_absent
+    result, calls = self.run_cleanup([(1, "", "Cannot connect to Docker daemon")])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 152, in run_cleanup
+    from run_packed_state_probe import cleanup_owned_container
+ImportError: cannot import name 'cleanup_owned_container' from 'run_packed_state_probe' (/work/kernels/gdn-norm-fp8/run_packed_state_probe.py)
+
+======================================================================
+ERROR: test_not_running_with_live_pid_is_unverified (__main__.CleanupTests.test_not_running_with_live_pid_is_unverified)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 204, in test_not_running_with_live_pid_is_unverified
+    result, calls = self.run_cleanup([self.state(False, pid=123), (0, "owned", ""),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 152, in run_cleanup
+    from run_packed_state_probe import cleanup_owned_container
+ImportError: cannot import name 'cleanup_owned_container' from 'run_packed_state_probe' (/work/kernels/gdn-norm-fp8/run_packed_state_probe.py)
+
+======================================================================
+ERROR: test_ownership_change_refuses_force_remove (__main__.CleanupTests.test_ownership_change_refuses_force_remove)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 188, in test_ownership_change_refuses_force_remove
+    result, calls = self.run_cleanup([self.state(), (1, "", "stop failed"), self.state(owner="foreign")])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 152, in run_cleanup
+    from run_packed_state_probe import cleanup_owned_container
+ImportError: cannot import name 'cleanup_owned_container' from 'run_packed_state_probe' (/work/kernels/gdn-norm-fp8/run_packed_state_probe.py)
+
+======================================================================
+ERROR: test_stop_success_requires_state_check (__main__.CleanupTests.test_stop_success_requires_state_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 176, in test_stop_success_requires_state_check
+    result, calls = self.run_cleanup([self.state(), (0, "owned", ""), self.state(False)])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 152, in run_cleanup
+    from run_packed_state_probe import cleanup_owned_container
+ImportError: cannot import name 'cleanup_owned_container' from 'run_packed_state_probe' (/work/kernels/gdn-norm-fp8/run_packed_state_probe.py)
+
+======================================================================
+ERROR: test_small_mixed_does_not_consume_required_fused_case (__main__.IsolationTests.test_small_mixed_does_not_consume_required_fused_case)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/work/kernels/gdn-norm-fp8/test_packed_state_probe.py", line 131, in test_small_mixed_does_not_consume_required_fused_case
+    from packed_state_probe_worker import selected_case_key, coverage_requirements
+ImportError: cannot import name 'selected_case_key' from 'packed_state_probe_worker' (/work/kernels/gdn-norm-fp8/packed_state_probe_worker.py)
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.009s
+
+FAILED (errors=8)
+{"status": "CPU_FAIL", "tests_run": 17, "cuda_initialized": false}
