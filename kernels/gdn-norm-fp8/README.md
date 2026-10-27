@@ -1,9 +1,10 @@
 # GDN norm + SiLU + token FP8 prototype
 
 **Pending GPU verification.** These standalone files have no serving hooks.
-They were prepared while GPU experiments were assigned elsewhere; no kernel
-compilation, numerical comparison or timing has been run for this candidate.
-CPU-only CLI, Python AST parsing and whitespace checks passed.
+They were prepared while GPU experiments were assigned elsewhere. Offline
+SM120 compilation passes with CUDA hidden; no GPU numerical comparison or
+timing has run for this candidate. CPU-only CLI, Python AST parsing and
+whitespace checks also pass.
 The source/trace analysis is in
 [`../moe-nvfp4/GDN_FUSION_RESEARCH.md`](../moe-nvfp4/GDN_FUSION_RESEARCH.md).
 
@@ -57,3 +58,21 @@ count and spills. Changing warp count can change reduction ordering. This
 prototype provides a concrete experiment; exact numerical agreement and a
 speed improvement are both unproven. A passing synthetic benchmark alone
 does not authorize a production default or alter the current vLLM backend.
+
+## Offline compilation
+
+`compile_offline.py` compiles the unchanged kernel for an explicit SM120
+target without initializing CUDA or launching a kernel. Artifacts and tool
+versions are in [`results/offline_sm120/SUMMARY.md`](results/offline_sm120/SUMMARY.md).
+
+| warps | registers/thread | shared bytes | spill loads/stores |
+|---:|---:|---:|---:|
+| 4 | 64 | 256 | 0/0 |
+| 8 | 43 | 32 | 0/0 |
+| 16 | 38 | 64 | 0/0 |
+
+The generated code retains FP32→BF16→FP32 rounding before quantization and
+the E4M3 conversion. The per-head reduction precedes the token-wide maximum.
+Compilation also fuses some multiply/add operations; only the scheduled GPU
+comparison can establish agreement with the installed reference. These
+resource counts are preparation evidence, not a speed measurement.

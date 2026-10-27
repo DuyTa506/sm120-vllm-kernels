@@ -1,0 +1,140 @@
+{
+  "created_at_utc": "2026-10-27T17:26:32.233398+00:00",
+  "status": "compiled_offline",
+  "source": "/work/kernels/gdn-norm-fp8/fused.py",
+  "source_sha256": "3d058e8d56244aaa5891e4f215a2e831a84fabd1066b840b9f2c92f1c2c2ad63",
+  "cuda_visible_devices": "",
+  "cuda_initialized_before": false,
+  "target": {
+    "backend": "cuda",
+    "arch": 120,
+    "warp_size": 32
+  },
+  "specialization": {
+    "stride_x_token": 4096,
+    "stride_z_token": 12288,
+    "EPS": 1e-06,
+    "pointer_alignment_bytes": 16
+  },
+  "kernel_launches": 0,
+  "device_queries": 0,
+  "runtime_access_attempts": [],
+  "variants": [
+    {
+      "num_warps": 4,
+      "registers_per_thread": 64,
+      "stack_frame_bytes": 0,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "shared_memory_bytes": 256,
+      "global_scratch_bytes": 0,
+      "ptx_target": ".target sm_120a",
+      "ptx_bf16_conversion_instructions": [
+        "cvt.f32.bf16",
+        "cvt.rn.bf16.f32"
+      ],
+      "ptx_fp8_conversion_instructions": [
+        "cvt.rn.satfinite.e4m3x2.f32"
+      ],
+      "ttir_rounding_lines": [
+        "%x_13 = arith.extf %x_12 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc82)",
+        "%w_21 = arith.extf %w_20 : tensor<128xbf16> to tensor<128xf32> loc(#loc88)",
+        "%z_26 = arith.extf %z_25 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc93)",
+        "%y_39 = arith.truncf %y_38 : tensor<32x128xf32> to tensor<32x128xbf16> loc(#loc100)",
+        "%y_40 = arith.extf %y_39 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc101)"
+      ],
+      "ttgir_layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 16], threadsPerWarp = [4, 8], warpsPerCTA = [4, 1], order = [1, 0]}>",
+        "#blocked1 = #ttg.blocked<{sizePerThread = [1], threadsPerWarp = [32], warpsPerCTA = [4], order = [0]}>"
+      ],
+      "ttgir_reductions": [
+        "%variance_21 = \"tt.reduce\"(%variance) <{axis = 1 : i32}> ({",
+        "tt.reduce.return %variance_54 : f32 loc(#loc107)",
+        "%per_head_amax_46 = \"tt.reduce\"(%per_head_amax) <{axis = 1 : i32}> ({",
+        "tt.reduce.return %per_head_amax_54 : f32 loc(#loc113)",
+        "%token_amax = \"tt.reduce\"(%per_head_amax_46) <{axis = 0 : i32}> ({",
+        "tt.reduce.return %token_amax_54 : f32 loc(#loc115)"
+      ],
+      "cuda_initialized": false,
+      "kernel_handles_initialized": false
+    },
+    {
+      "num_warps": 8,
+      "registers_per_thread": 43,
+      "stack_frame_bytes": 0,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "shared_memory_bytes": 32,
+      "global_scratch_bytes": 0,
+      "ptx_target": ".target sm_120a",
+      "ptx_bf16_conversion_instructions": [
+        "cvt.f32.bf16",
+        "cvt.rn.bf16.f32"
+      ],
+      "ptx_fp8_conversion_instructions": [
+        "cvt.rn.satfinite.e4m3x2.f32"
+      ],
+      "ttir_rounding_lines": [
+        "%x_13 = arith.extf %x_12 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc82)",
+        "%w_21 = arith.extf %w_20 : tensor<128xbf16> to tensor<128xf32> loc(#loc88)",
+        "%z_26 = arith.extf %z_25 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc93)",
+        "%y_39 = arith.truncf %y_38 : tensor<32x128xf32> to tensor<32x128xbf16> loc(#loc100)",
+        "%y_40 = arith.extf %y_39 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc101)"
+      ],
+      "ttgir_layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 16], threadsPerWarp = [4, 8], warpsPerCTA = [8, 1], order = [1, 0]}>"
+      ],
+      "ttgir_reductions": [
+        "%variance_20 = \"tt.reduce\"(%variance) <{axis = 1 : i32}> ({",
+        "tt.reduce.return %variance_52 : f32 loc(#loc107)",
+        "%per_head_amax_44 = \"tt.reduce\"(%per_head_amax) <{axis = 1 : i32}> ({",
+        "tt.reduce.return %per_head_amax_52 : f32 loc(#loc113)",
+        "%token_amax = \"tt.reduce\"(%per_head_amax_44) <{axis = 0 : i32}> ({",
+        "tt.reduce.return %token_amax_52 : f32 loc(#loc115)"
+      ],
+      "cuda_initialized": false,
+      "kernel_handles_initialized": false
+    },
+    {
+      "num_warps": 16,
+      "registers_per_thread": 38,
+      "stack_frame_bytes": 0,
+      "spill_store_bytes": 0,
+      "spill_load_bytes": 0,
+      "shared_memory_bytes": 64,
+      "global_scratch_bytes": 0,
+      "ptx_target": ".target sm_120a",
+      "ptx_bf16_conversion_instructions": [
+        "cvt.f32.bf16",
+        "cvt.rn.bf16.f32"
+      ],
+      "ptx_fp8_conversion_instructions": [
+        "cvt.rn.satfinite.e4m3x2.f32"
+      ],
+      "ttir_rounding_lines": [
+        "%x_13 = arith.extf %x_12 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc82)",
+        "%w_21 = arith.extf %w_20 : tensor<128xbf16> to tensor<128xf32> loc(#loc88)",
+        "%z_26 = arith.extf %z_25 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc93)",
+        "%y_39 = arith.truncf %y_38 : tensor<32x128xf32> to tensor<32x128xbf16> loc(#loc100)",
+        "%y_40 = arith.extf %y_39 : tensor<32x128xbf16> to tensor<32x128xf32> loc(#loc101)"
+      ],
+      "ttgir_layouts": [
+        "#blocked = #ttg.blocked<{sizePerThread = [1, 8], threadsPerWarp = [2, 16], warpsPerCTA = [16, 1], order = [1, 0]}>"
+      ],
+      "ttgir_reductions": [
+        "%variance_20 = \"tt.reduce\"(%variance) <{axis = 1 : i32}> ({",
+        "tt.reduce.return %variance_52 : f32 loc(#loc107)",
+        "%per_head_amax_44 = \"tt.reduce\"(%per_head_amax) <{axis = 1 : i32}> ({",
+        "tt.reduce.return %per_head_amax_52 : f32 loc(#loc113)",
+        "%token_amax = \"tt.reduce\"(%per_head_amax_44) <{axis = 0 : i32}> ({",
+        "tt.reduce.return %token_amax_52 : f32 loc(#loc115)"
+      ],
+      "cuda_initialized": false,
+      "kernel_handles_initialized": false
+    }
+  ],
+  "scope": "Offline code generation only; numerical correctness, launch feasibility, occupancy and speed remain unverified.",
+  "torch_version": "2.13.0+cu130",
+  "triton_version": "3.7.1",
+  "cuda_initialized_after": false
+}
