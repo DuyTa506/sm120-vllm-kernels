@@ -1,0 +1,10 @@
+{
+  "reference": "decode_control_autotune.json",
+  "reference_sha256": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+  "reference_entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8",
+  "entries": 132,
+  "source_path": "kernels/decode-route-capture/results/review_control_c1/cache/vllm/flashinfer_autotune_cache/0.7.0.post1/120f/729147d8b9317888627ef7c3767144c675b0c1d08bc813807383c0d69263e11e/autotune_configs_dp0_rank0.json",
+  "source_run": "review_control_c1",
+  "source_run_exit_code": 0,
+  "scope": "Exact preserved original offline c1 decode control table; replay still requires native load and effective checks."
+}

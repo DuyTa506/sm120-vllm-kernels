@@ -9,12 +9,13 @@ import unittest
 from unittest.mock import patch
 
 import capture_runtime
+import offline_autotune
 import run_capture
 
 
 class DriverTests(unittest.TestCase):
     def invoke(self, *, generation_error=False, shutdown_error=False, short_batch=False,
-               native_aux=False, mismatch=False):
+               native_aux=False, mismatch=False, autotune=False, tactic_shutdown_error=False):
         events = []
         with tempfile.TemporaryDirectory() as temp:
             out = Path(temp)
@@ -51,6 +52,26 @@ class DriverTests(unittest.TestCase):
                 return llm
             vllm = SimpleNamespace(LLM=construct, SamplingParams=lambda **kwargs: kwargs)
             extra = ["--native-aux-control"] if native_aux else []
+            class Control:
+                def __init__(self, *args):
+                    def finalize():
+                        events.append("after_generation_tactics")
+                    self.imported = SimpleNamespace(finalize=finalize, report={
+                        "status": "reference_and_observed_tactics_verified", "source_sha256": "test",
+                        "import_mode": "fixed_reference_replay_v1"})
+
+                def install(self):
+                    events.append("install_early_replay")
+
+                def verify(self, require_shutdown=True):
+                    events.append("verify_shutdown_tactics" if require_shutdown else "verify_startup_tactics")
+                    if require_shutdown and tactic_shutdown_error:
+                        raise RuntimeError("shutdown tactic drift")
+                    return {"status": "verified"}
+
+            if autotune:
+                extra += ["--autotune-json", str(out / "reference_tactics.json"),
+                          "--require-autotune-coverage"]
             if mismatch:
                 (out / "reference.json").write_text(json.dumps({"selected_prompts": [],
                     "requests": [{"output_token_ids": [8] * 32}]}))
@@ -58,6 +79,7 @@ class DriverTests(unittest.TestCase):
             with patch.dict("sys.modules", {"vllm": vllm}), \
                  patch.dict("os.environ", {}, clear=False), \
                  patch.object(capture_runtime, "V2RouteCapture", Capture), \
+                 patch.object(offline_autotune, "OfflineAutotuneControl", Control), \
                  patch.object(run_capture, "select_prompts", return_value=([{"prompt_token_ids": [1]}], [])), \
                  patch("sys.argv", ["run_capture.py", "--out", str(out), "--output-tokens", "32", *extra]), \
                  contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
@@ -106,6 +128,34 @@ class DriverTests(unittest.TestCase):
         self.assertFalse(manifest["success"])
         self.assertFalse(manifest["control_token_ids_match"])
         self.assertTrue(manifest["validate_structure"])
+        self.assertEqual(manifest["exact_output_status"], "failed")
+
+    def test_offline_replay_gates_before_generation_and_after_raw_export_shutdown(self):
+        events, error, manifest, _ = self.invoke(autotune=True)
+        self.assertIsNone(error)
+        self.assertEqual(events, ["install_early_replay", "install", "verify_startup_tactics",
+            "generate", "after_generation_tactics", "export", "shutdown", "verify_shutdown_tactics"])
+        self.assertEqual(manifest["autotune_import"]["lifecycle"]["status"], "verified")
+
+    def test_final_tactic_failure_marks_run_failed_after_raw_export(self):
+        events, error, manifest, _ = self.invoke(autotune=True, tactic_shutdown_error=True)
+        self.assertIn("shutdown tactic drift", error)
+        self.assertLess(events.index("export"), events.index("verify_shutdown_tactics"))
+        self.assertFalse(manifest["success"])
+        self.assertEqual(manifest["autotune_import"]["lifecycle"]["status"], "failed")
+
+    def test_exact_failure_remains_primary_when_final_tactic_audit_also_fails(self):
+        _, error, manifest, _ = self.invoke(autotune=True, mismatch=True, tactic_shutdown_error=True)
+        self.assertIn("differs from control", error)
+        self.assertIn("differs from control", manifest["error"])
+        self.assertTrue(manifest["validate_structure"])
+        self.assertEqual(manifest["exact_output_status"], "failed")
+        self.assertEqual(manifest["autotune_import"]["lifecycle"]["status"], "failed")
+
+    def test_successful_output_with_cleanup_failure_is_not_a_successful_run(self):
+        _, error, manifest, _ = self.invoke(shutdown_error=True)
+        self.assertIn("shutdown failed", error)
+        self.assertFalse(manifest["success"])
 
 
 if __name__ == "__main__":

@@ -30,7 +30,7 @@ class AutotuneImportTests(unittest.TestCase):
         self.source.write_text(json.dumps(DOCUMENT))
 
     def setup_fake_runtime(self, imported, *, accept=True, retune=False, missing=False,
-                           cold_policy=False, fixed_reference=False):
+                           cold_policy=False, fixed_reference=False, install=True):
         class Tuner:
             def __init__(self):
                 self._lock = contextlib.nullcontext()
@@ -105,7 +105,8 @@ class AutotuneImportTests(unittest.TestCase):
         environment = patch.dict("os.environ", {}, clear=False)
         environment.start()
         self.addCleanup(environment.stop)
-        imported.install(fixed_reference=fixed_reference)
+        if install:
+            imported.install(fixed_reference=fixed_reference)
         runner = SimpleNamespace(vllm_config=SimpleNamespace(parallel_config=SimpleNamespace(
             data_parallel_size=1, data_parallel_rank=0)))
         return lambda: warmup.flashinfer_autotune(runner), tuner

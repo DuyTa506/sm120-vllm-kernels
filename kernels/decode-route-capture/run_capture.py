@@ -40,6 +40,39 @@ def shutdown_owned_engine(llm, out):
         (out / "shutdown.json").write_text(json.dumps(record, indent=2) + "\n")
 
 
+def shutdown_and_verify(llm, out, control=None, prior_error=None):
+    """Keep raw export first; append final lifecycle evidence without hiding errors."""
+    existing_error = prior_error or sys.exc_info()[0]
+    shutdown_error = verification_error = None
+    lifecycle = None
+    try:
+        shutdown_owned_engine(llm, out)
+    except BaseException as ex:
+        shutdown_error = ex
+    if control is not None:
+        try:
+            lifecycle = control.verify(require_shutdown=True)
+        except BaseException as ex:
+            verification_error = ex
+            lifecycle = {"status": "failed", "error": f"{type(ex).__name__}: {ex}"}
+    path = out / "manifest.json"
+    if path.exists():
+        manifest = json.loads(path.read_text())
+        if lifecycle is not None:
+            manifest.setdefault("autotune_import", {})["lifecycle"] = lifecycle
+        failure = shutdown_error or verification_error
+        if failure is not None:
+            manifest["success"] = False
+            if not manifest.get("error"):
+                manifest["error"] = f"{type(failure).__name__}: {failure}"
+        path.write_text(json.dumps(manifest, indent=2) + "\n")
+    if not existing_error:
+        if shutdown_error is not None:
+            raise shutdown_error
+        if verification_error is not None:
+            raise verification_error
+
+
 def select_prompts(path, concurrency, offset):
     with (lzma.open if str(path).endswith(".xz") else open)(path, "rt") as f:
         trajectories = json.load(f)["trajectories"]
@@ -80,7 +113,7 @@ def main():
     parser.add_argument("--baseline-output", action="append", default=[], type=Path,
                         help="Additional same-prompt control output for a separate token-distance envelope")
     parser.add_argument("--autotune-json", type=Path,
-                        help="Import only this saved FI tactic JSON into the fresh isolated rank cache")
+                        help="Preload and replay this saved FI table before model loading; verify all lifecycle boundaries")
     parser.add_argument("--require-autotune-coverage", action="store_true",
                         help="Also fail if any observed FI cache lookup lacks an imported tactic")
     args = parser.parse_args()
@@ -108,17 +141,21 @@ def main():
                 "target_only" if args.target_only else "target_and_draft",
                 "selected_prompts": selected, "trajectory": str(args.trajectory),
                 "concurrency": args.concurrency, "output_tokens": args.output_tokens, "seed": args.seed,
+                "exact_output_status": "not_completed" if args.compare_output else "not_requested",
                 "argv": sys.argv, "environment": {name: os.environ.get(name) for name in (
                     "VLLM_MOE_SKIP_PADDING", "VLLM_USE_V2_MODEL_RUNNER", "VLLM_SM120_FP8_PREFILL",
                     "VLLM_SM120_FP8_PREFILL_NOGLUE", "VLLM_FI_KERNEL_PAGES",
                     "VLLM_GDN_INTERNAL_CKPT", "VLLM_GDN_FUSED_CONV")}}
     args.out.mkdir(parents=True, exist_ok=True)
     success, error, llm, imported, generation_complete = False, None, None, None, False
+    autotune_control = None
     try:
         if args.autotune_json:
-            from autotune_import import AutotuneImport
-            imported = AutotuneImport(args.autotune_json, args.out, args.require_autotune_coverage)
-            imported.install()
+            from offline_autotune import OfflineAutotuneControl
+            autotune_control = OfflineAutotuneControl(
+                args.autotune_json, args.out, args.require_autotune_coverage)
+            imported = autotune_control.imported
+            autotune_control.install()
         if capture is not None:
             capture.manifest.update(metadata)
             capture.install()
@@ -135,6 +172,8 @@ def main():
             kernel_config={"moe_backend": "flashinfer_cutlass"},
             aux_output_config={"enable_return_routed_experts": not args.control},
         )
+        if autotune_control is not None:
+            autotune_control.verify(require_shutdown=False)
         outputs = llm.generate(prompts, SamplingParams(
             temperature=0, max_tokens=args.output_tokens, ignore_eos=True))
         output = {"selected_prompts": selected,
@@ -159,6 +198,7 @@ def main():
             (args.out / "output_comparison.json").write_text(json.dumps(comparison, indent=2) + "\n")
             same = comparison["exact_match"]
             metadata["control_token_ids_match"] = same
+            metadata["exact_output_status"] = "passed" if same else "failed"
             metadata["baseline_variation"] = comparison["baseline_variation"]
             if not same:
                 raise RuntimeError("captured run differs from control prompt selection/output token IDs")
@@ -180,6 +220,7 @@ def main():
                         traceback.print_exc()
                 metadata["autotune_import"] = {"status": imported.report["status"],
                     "source_sha256": imported.report["source_sha256"],
+                    "import_mode": imported.report.get("import_mode"),
                     "verification_file": "autotune/verification.json"}
             metadata.update(success=success, error=error, generation_complete=generation_complete)
             if capture is not None:
@@ -192,10 +233,11 @@ def main():
                         raise
                     traceback.print_exc()
             else:
-                metadata.update(success=success, error=error, draft_capture="disabled_control")
+                metadata.update(success=success, error=error, draft_capture="disabled_control",
+                                structural_validation="not_applicable_control")
                 (args.out / "manifest.json").write_text(json.dumps(metadata, indent=2) + "\n")
         finally:
-            shutdown_owned_engine(llm, args.out)
+            shutdown_and_verify(llm, args.out, autotune_control, prior_error=error)
         if import_error is not None:
             raise import_error
     print(args.out)

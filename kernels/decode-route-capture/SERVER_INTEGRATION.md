@@ -5,9 +5,11 @@ before the actual worker loads the model. It replays that table through native
 non-tuning cache lookup during warmup and exports the effective table after graph
 capture and before worker shutdown. It adds no routing hooks, raw tensor
 copies, or per-lookup Python observer to serving. Default launches remain unchanged.
-CPU validation passes. The first parent-owned GPU attempt failed before measured
-requests because native cold-L2 tuning ignored the imported dense FP4 entries.
-The revised replay mode is GPU-unvalidated; see the failure diagnosis below.
+The revised replay mode passed the GPU lifecycle run `fi_lifecycle_1` and the
+full `exact_matched_3` / `scalar_matched_3` pair: all exited zero and preserved
+the same 132-entry effective hash at startup and shutdown. Earlier failed
+attempts are retained and explained below. This validates FI table control;
+Inductor settings and output equivalence remain separate evidence.
 
 ## Integrated launch
 
@@ -102,7 +104,10 @@ python3 -I kernels/decode-route-capture/qwen_fi_control_plugin.py \
   --startup-only
 ```
 
-After requests finish, the owning launcher runs `docker stop -t 45 "$NAME"`
+The vLLM server must launch with `--shutdown-timeout 30`. Docker's stop timeout
+alone is insufficient: the installed vLLM default of zero can force-kill
+EngineCore before `Worker.shutdown`. After requests finish, the owning launcher
+runs `docker stop -t 45 "$NAME"`
 and invokes the same gate without `--startup-only`, before removing the
 container. A forced kill or missing shutdown snapshot fails final verification;
 a successful startup gate alone is insufficient for a complete controlled run.
@@ -154,7 +159,7 @@ kernels/decode-route-capture/references/next_cpu_audit_autotune.json
 kernels/decode-route-capture/references/next_cpu_audit_autotune.provenance.json
 ```
 
-The 47 CPU tests cover actual importer flow against mocked FI/vLLM dependencies,
+The 57 CPU tests across this directory cover actual importer flow against mocked FI/vLLM dependencies,
 source identity through both server gates, native method return preservation,
 lazy worker ownership, missing shutdown, effective drift, rejected loads,
 uncovered lookups, cleanup despite audit failure, entry-point discovery, and the
@@ -190,12 +195,22 @@ instead of claiming that a v1 JSON records cold-L2 measurement provenance. The
 old attempted mode is named `native_tuning_with_reference_v1`; it cannot pass the
 new server gate. Verification has not been relaxed.
 
+The subsequent `scalar_matched_2` completed measured requests with matching
+startup tactics, but exited 5 because final FI evidence was missing: vLLM's
+zero shutdown timeout terminated EngineCore before the worker hook ran. Its
+measurements remain an incomplete lifecycle audit, not a passed matched pair.
+The parent launcher added `--shutdown-timeout 30` while retaining Docker's
+45-second stop timeout. `fi_lifecycle_1` then exited zero with verified startup
+and shutdown snapshots, and both full `_matched_3` runs also passed those gates.
+The original failed run status remains unchanged.
+
 ## Pending decode controls
 
-The offline commands in [CONTROLS.md](CONTROLS.md) remain pending a separate root
-GPU slot **and equivalent early fixed-reference replay integration in the offline
-driver**. Its current optional importer retains native tuning, so dense FP4 can
-hit the same cold-L2 override and correctly fail verification. Use the preserved original **decode control** JSON for those commands:
+The offline commands in [CONTROLS.md](CONTROLS.md) now use a separate CPU-tested
+early fixed-reference replay wrapper and remain pending their own root GPU slot.
+The wrapper also verifies the directly owned in-process engine shutdown;
+there is no HTTP server drain boundary in that path. Use the preserved original
+**decode control** JSON for those commands:
 its warmed shapes correspond to that workload. Do not assume the serving table
 above covers every decode/native-aux/draft lookup. The offline importer observes
 actual lookup results and `--require-autotune-coverage` fails missing coverage.
