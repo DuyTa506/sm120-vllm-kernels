@@ -1,0 +1,44 @@
+{
+  "status": "review_complete",
+  "gpu_work": false,
+  "http_requests": 0,
+  "source_sha256": {
+    "bench/qwen_experiment.sh": "8fd6416ba62e4d0cbfddba3148d172295f22602ccc1b7abb62ed824eee4b0ad6",
+    "bench/serving_matrix.py": "8d6e5328f9bf50fa2ff5b641fcc73f0e009a3b198e1c752d854930463cfa9578",
+    "bench/source_manifest.py": "b57843bd38af19a6c4fd6cb5b7dd5c9acd06a30088047d204f8a1a1975050e4a",
+    "scripts/serve.sh": "0eb07a68b68644735d5d6ef9fb51ef6f1d7bf6092360c9de8a36f51e69e89646",
+    "bench/compare_greedy_decode.py": "c5ee2e5d3df6a58280a7686f5c3014e69c53b2453911251658a2508707c022af"
+  },
+  "findings": [
+    "shared_exact selects its own read-only MoE overlay and the patched unquantized oracle; FIX_SCALES and SHARED_WORKSPACE enabled.",
+    "diagnostic skips the full serving matrix and legacy quality calls; optional GREEDY_DECODE and NLL_ROUNDS invoke only their own harnesses.",
+    "Agentic replay/live-record calls require SUITE=agentic; individual and diagnostic cannot reach that block.",
+    "Temperature 0 is forwarded to warmup and measured decode calls; omitted temperature retains the existing full-matrix protocol.",
+    "Greedy results use serving_matrix_decode, distinct from serving_matrix_all, with independent phase/run cache salts.",
+    "New source_manifest helper snapshots ignored mounted build sources plus runner/harness/evaluation/overlay files; cleanup verifies live and snapshot hashes and forces exit4 on change.",
+    "git diff HEAD --binary now captures staged plus unstaged tracked edits; the explicit source snapshot covers actual runtime files.",
+    "Planned candidate individual versus baseline diagnostic have different prior workload history; the comparator records this as a preconditioning limitation.",
+    "Variant-specific VLLM_CACHE_ROOT separates compile/autotune state; independently selected tactics and greedy path/scheduling variation remain timing confounds."
+  ],
+  "checks": {
+    "runner_bash_syntax": "passed",
+    "comparator_source_compile": "passed",
+    "comparator_cpu_preflight": {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "http_requests": 0,
+      "gpu_work": false,
+      "variable_scenario_count": 2,
+      "malformed_fixtures_rejected": 13,
+      "script_sha256": "c5ee2e5d3df6a58280a7686f5c3014e69c53b2453911251658a2508707c022af"
+    },
+    "historical_saved_decode_schema_checks": {
+      "passed_cases": 8,
+      "runs": [
+        "next_tasks_1",
+        "b12x_tasks_1"
+      ],
+      "scope": "detailed timing/rate/ITL/MTP schema only; these older runs were not explicit greedy"
+    }
+  }
+}
