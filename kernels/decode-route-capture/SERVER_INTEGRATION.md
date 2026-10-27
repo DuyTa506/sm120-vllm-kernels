@@ -207,7 +207,8 @@ The original failed run status remains unchanged.
 ## Pending decode controls
 
 The offline commands in [CONTROLS.md](CONTROLS.md) now use a separate CPU-tested
-early fixed-reference replay wrapper and remain pending their own root GPU slot.
+early fixed-reference replay wrapper. Its plain c1 control passed the GPU
+lifecycle gates; native-aux and full capture remain pending separate root slots.
 The wrapper also verifies the directly owned in-process engine shutdown;
 there is no HTTP server drain boundary in that path. Use the preserved original
 **decode control** JSON for those commands:

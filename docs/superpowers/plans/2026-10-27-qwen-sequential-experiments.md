@@ -312,6 +312,13 @@ microbenchmarks alone do not satisfy this request.
   unchanged. It did not observe pure-long prefill, so coverage gate correctly
   fails. Owned container absent/compute empty; source copies match runtime hashes.
   Agent prepares a separate cold long-only request without weakening checks.
-- LIVE AGENT GPU session23142: offline fixed_plain_c1 control only, 192 tokens,
+- COMPLETED AGENT GPU session23142 (exit0): offline fixed_plain_c1 control only, 192 tokens,
   original immutable route-control FI table and strict observed-lookup coverage.
   No aux/full automatic chain. GDN probe3 CPU-only preparation runs in parallel.
+
+- fixed_plain_c1 completed 192 tokens and all six FI boundaries132/132,
+  30,028 observed lookups over114 keys, zero misses/mismatches. Engine shutdown
+  complete, owned container gone/compute empty. Aux/full still pending.
+- LIVE AGENT GPU session52998: private GDN packed_state_probe_3, unchanged
+  numerical worker plus separate salted8192-token long-only request. One grant.
+  Scalar/GDN reproducible patch packaging proceeds CPU-only without runtime edits.

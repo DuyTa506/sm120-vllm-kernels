@@ -1,12 +1,14 @@
 # Controls and verified FlashInfer JSON import
 
-Prepared after the failed c1 checkpoint; CPU-tested and **GPU-unrun**. Default
-inference options are unchanged. No additional GPU job was started.
+Prepared after the failed c1 checkpoint. The fixed-reference plain control
+`fixed_plain_c1` subsequently passed its single authorized GPU run; native-aux
+and full capture remain GPU-unrun under this reference. Default inference options
+are unchanged. See [the recorded control evidence](RESULTS.md).
 
 The offline driver now uses a separate `offline_autotune.py` lifecycle wrapper
 for explicit early fixed-reference replay. It reuses the serving-proven importer
 API without modifying the six serving runtime files. The offline composition is
-CPU-tested and GPU-unrun. See [the cold-L2 source diagnosis](SERVER_INTEGRATION.md).
+CPU-tested and validated for the plain c1 control. See [the cold-L2 source diagnosis](SERVER_INTEGRATION.md).
 
 ## Options
 
@@ -82,12 +84,16 @@ FlashInfer tactic tables. Managed/v2 winner partitions and namespaced tables are
 rejected. CPU tests exercise rejected loads, overwritten live winners, missing
 coverage, output failure, source immutability and cache isolation. The real
 importer plus offline lifecycle also passes against mocked cold-L2 dependencies
-through every boundary. The offline composition still requires GPU validation.
+through every boundary. The plain c1 GPU run also passed all six boundaries;
+the native-aux and route-capture compositions still require GPU validation.
 
 ## Proposed sequential jobs
 
 Each command is a separate job for a **new exclusive GPU slot**. All retain the
 192-token/64-step/c1 defaults. Fresh tags are required for reruns.
+
+`fixed_plain_c1` below already exists and passed. Reuse its saved outputs for
+the next jobs; do not rerun its tag. A control repeat must use a fresh tag.
 
 ```bash
 export ROUTE_AUTOTUNE_JSON=/work/kernels/decode-route-capture/references/decode_control_autotune.json

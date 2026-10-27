@@ -113,3 +113,34 @@ next controls. Draft data is absent, not inferred from target expert IDs.
 
 Full target/draft capture remains pending a new exclusive GPU slot and a useful
 control comparison. No further GPU work was started after release.
+
+## Later checkpoint: fixed-reference plain control
+
+`results/fixed_plain_c1` completed the separately authorized single GPU job with
+exit code **0**. It used the original c1 control table through early preload and
+fixed-reference replay, generated one 192-token output with `finish_reason=length`,
+and completed owned engine and worker shutdown. This fresh reference run did
+not request output comparison and captured no routes.
+
+All six tactic stages—`preloaded`, `loaded`, `after_warmup`, `offline_startup`,
+`after_generation`, and `offline_shutdown`—contained exactly 132 reference
+entries, with zero missing, changed or extra entries. The saved source SHA256 is
+`1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991`; the canonical
+effective entries SHA256 is
+`8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8`.
+The observer recorded 30,028 cache lookups covering 114 distinct keys, with zero
+misses, uncovered hits or mismatched choices. This is observed-lookup coverage;
+it does not imply that all 132 reference keys were executed.
+
+The independent CPU lifecycle verifier passed. All 15 snapshotted probe source
+files were unchanged at completion. Cleanup telemetry and a fresh check showed
+no GPU compute processes, and inspection confirmed the owned container was
+absent. The GPU slot was explicitly released before further CPU documentation.
+`validation_summary.json` records the condensed evidence next to the original
+outputs, stage snapshots, lookup report, invocation and telemetry.
+
+Only the plain control ran. Native-aux, full target/draft capture and an optional
+plain repeat require separate root scheduling. The earlier target-only exact
+mismatch remains unresolved; this successful control does not validate those
+probe outputs or support optimization adoption. No latency or throughput claim
+is made from this instrumentation run.

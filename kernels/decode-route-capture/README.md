@@ -7,6 +7,11 @@ in 51/132 entries. The signed target artifact passes structural checks; full
 target/draft capture is pending. This checkpoint supports no optimization
 adoption. See [the recorded result](RESULTS.md) for scope and proposed controls.
 
+The later fixed-reference plain control `fixed_plain_c1` passed: 192 output
+tokens, all 132 tactics unchanged at every boundary, complete observed lookup
+coverage and clean shutdown. Native-aux/full capture and output comparisons
+under this reference remain pending.
+
 The 57 CPU analysis/launcher/driver/import/lifecycle tests pass.
 Hooks were inspected against installed vLLM 0.32.0 / Torch 2.13.0+cu130 /
 FlashInfer 0.7.0.post1 sources in `qwen-prefill-dev`. The target path completed
@@ -95,7 +100,7 @@ The first native-tuning import failed before measured requests because cold-L2
 dense FP4 tuning ignored legacy v1 entries. Revised serving replay and the
 30-second engine drain passed startup/shutdown gates on the lifecycle smoke and
 the full exact/scalar pair. The separate offline lifecycle wrapper now has CPU
-coverage; offline control/native-aux/full-draft GPU runs remain pending.
+coverage and passed the plain-control GPU run. Native-aux/full-draft runs remain pending.
 
 ## What is captured
 
