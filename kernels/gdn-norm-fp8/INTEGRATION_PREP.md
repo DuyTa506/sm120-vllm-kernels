@@ -145,3 +145,10 @@ greedy/NLL and seven-task serving comparisons, measure decode regressions,
 and validate any required mixed-batch accepted-state/checkpoint parity and
 integrated padded Q/S exactness. Agentic evaluation belongs only to the final
 selected combined configuration. No end-to-end improvement is claimed here.
+
+The separate owned layer18 state probe now passes long-prefill, mixed-speculative
+prefill/decode and pure-decode cases, with exact Q/S and updated private state
+bytes at T/T+17, padding invariance and unchanged live caches. See
+`results/STATE_PROBE_GPU.md`. It used eager execution and baseline auto-MoE
+activations, not the compiled B12x serving stack. No checkpoint-bearing or
+non-speculative mixed metadata was observed; those paths are not claimed covered.

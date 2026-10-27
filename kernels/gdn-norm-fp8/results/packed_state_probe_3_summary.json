@@ -1,0 +1,355 @@
+{
+  "status": "PASS_SCOPED_STATE_PARITY",
+  "exit_code": 0,
+  "recorded_at_utc": "2026-10-27T21:00:57.336887+00:00",
+  "scope": "Layer18 actual eager MTP2 owner/private compact caches, baseline auto MoE activations, exact original packed core plus explicitly compiled native QuantFP8 oracle",
+  "checked_cases": 3,
+  "checked_padding_variants": 6,
+  "cases": [
+    {
+      "kind": "mixed_spec",
+      "metadata": {
+        "num_actual_tokens": 2048,
+        "num_prefills": 1,
+        "num_prefill_tokens": 2045,
+        "num_decodes": 0,
+        "num_decode_tokens": 0,
+        "num_spec_decodes": 1,
+        "num_spec_decode_tokens": 3,
+        "accepted_tokens": [
+          1
+        ],
+        "checkpoint_offsets": []
+      },
+      "variants": [
+        {
+          "added_padding": 0,
+          "tokens": 2048,
+          "compact_original_rows": [
+            0,
+            7,
+            8,
+            9,
+            17
+          ],
+          "cache_shapes": [
+            [
+              5,
+              5,
+              8192
+            ],
+            [
+              5,
+              32,
+              128,
+              128
+            ]
+          ],
+          "route": "fused",
+          "mismatch": {
+            "fp8_bytes": 0,
+            "scale_bytes": 0,
+            "cache_bytes": [
+              0,
+              0
+            ]
+          },
+          "tail_zero_floor": true,
+          "padding_invariant": true
+        },
+        {
+          "added_padding": 17,
+          "tokens": 2065,
+          "compact_original_rows": [
+            0,
+            7,
+            8,
+            9,
+            17
+          ],
+          "cache_shapes": [
+            [
+              5,
+              5,
+              8192
+            ],
+            [
+              5,
+              32,
+              128,
+              128
+            ]
+          ],
+          "route": "fused",
+          "mismatch": {
+            "fp8_bytes": 0,
+            "scale_bytes": 0,
+            "cache_bytes": [
+              0,
+              0
+            ]
+          },
+          "tail_zero_floor": true,
+          "padding_invariant": true
+        }
+      ],
+      "live_cache_byte_mismatches": [
+        0,
+        0
+      ]
+    },
+    {
+      "kind": "pure_decode",
+      "metadata": {
+        "num_actual_tokens": 6,
+        "num_prefills": 0,
+        "num_prefill_tokens": 0,
+        "num_decodes": 0,
+        "num_decode_tokens": 0,
+        "num_spec_decodes": 2,
+        "num_spec_decode_tokens": 6,
+        "accepted_tokens": [
+          3,
+          1
+        ],
+        "checkpoint_offsets": []
+      },
+      "variants": [
+        {
+          "added_padding": 0,
+          "tokens": 6,
+          "compact_original_rows": [
+            0,
+            7,
+            8,
+            9,
+            24,
+            25,
+            29
+          ],
+          "cache_shapes": [
+            [
+              7,
+              5,
+              8192
+            ],
+            [
+              7,
+              32,
+              128,
+              128
+            ]
+          ],
+          "route": "original",
+          "mismatch": {
+            "fp8_bytes": 0,
+            "scale_bytes": 0,
+            "cache_bytes": [
+              0,
+              0
+            ]
+          },
+          "tail_zero_floor": true,
+          "padding_invariant": true
+        },
+        {
+          "added_padding": 17,
+          "tokens": 23,
+          "compact_original_rows": [
+            0,
+            7,
+            8,
+            9,
+            24,
+            25,
+            29
+          ],
+          "cache_shapes": [
+            [
+              7,
+              5,
+              8192
+            ],
+            [
+              7,
+              32,
+              128,
+              128
+            ]
+          ],
+          "route": "original",
+          "mismatch": {
+            "fp8_bytes": 0,
+            "scale_bytes": 0,
+            "cache_bytes": [
+              0,
+              0
+            ]
+          },
+          "tail_zero_floor": true,
+          "padding_invariant": true
+        }
+      ],
+      "live_cache_byte_mismatches": [
+        0,
+        0
+      ]
+    },
+    {
+      "kind": "long_prefill",
+      "metadata": {
+        "num_actual_tokens": 2048,
+        "num_prefills": 1,
+        "num_prefill_tokens": 2048,
+        "num_decodes": 0,
+        "num_decode_tokens": 0,
+        "num_spec_decodes": 0,
+        "num_spec_decode_tokens": 0,
+        "accepted_tokens": null,
+        "checkpoint_offsets": []
+      },
+      "variants": [
+        {
+          "added_padding": 0,
+          "tokens": 2048,
+          "compact_original_rows": [
+            0,
+            23
+          ],
+          "cache_shapes": [
+            [
+              2,
+              5,
+              8192
+            ],
+            [
+              2,
+              32,
+              128,
+              128
+            ]
+          ],
+          "route": "fused",
+          "mismatch": {
+            "fp8_bytes": 0,
+            "scale_bytes": 0,
+            "cache_bytes": [
+              0,
+              0
+            ]
+          },
+          "tail_zero_floor": true,
+          "padding_invariant": true
+        },
+        {
+          "added_padding": 17,
+          "tokens": 2065,
+          "compact_original_rows": [
+            0,
+            23
+          ],
+          "cache_shapes": [
+            [
+              2,
+              5,
+              8192
+            ],
+            [
+              2,
+              32,
+              128,
+              128
+            ]
+          ],
+          "route": "fused",
+          "mismatch": {
+            "fp8_bytes": 0,
+            "scale_bytes": 0,
+            "cache_bytes": [
+              0,
+              0
+            ]
+          },
+          "tail_zero_floor": true,
+          "padding_invariant": true
+        }
+      ],
+      "live_cache_byte_mismatches": [
+        0,
+        0
+      ]
+    }
+  ],
+  "observed": {
+    "mixed_spec": 7,
+    "pure_decode": 14,
+    "long_prefill": 4
+  },
+  "calls": 29,
+  "coverage_requirements": {
+    "long_prefill": true,
+    "pure_decode": true,
+    "mixed_fused_actual_ge_1024_at_both_padding_sizes": true,
+    "complete": true
+  },
+  "checkpoint_observed": false,
+  "mixed_non_spec_observed": false,
+  "phases": [
+    {
+      "name": "mixed_batch",
+      "prompt_lengths": [
+        64,
+        8192
+      ],
+      "cache_salts": [
+        null,
+        null
+      ],
+      "output_tokens_each": 32
+    },
+    {
+      "name": "isolated_long",
+      "prompt_lengths": [
+        8192
+      ],
+      "cache_salts": [
+        "8cc5a079-4c85-411d-99f5-99ff14cdc50a:isolated-long"
+      ],
+      "output_tokens_each": 1
+    }
+  ],
+  "cleanup": {
+    "container": "gdn-private-state-9dad1fbc1e2a49c9b05df5c87eee0e75",
+    "actions": [],
+    "observations": [
+      {
+        "absent": true,
+        "verified_stopped": true,
+        "error": "error: no such object: gdn-private-state-9dad1fbc1e2a49c9b05df5c87eee0e75"
+      }
+    ],
+    "verified_stopped": true,
+    "status": "verified_stopped"
+  },
+  "gpu_compute_after": "",
+  "source_snapshot": "results/packed_state_probe_3_sources",
+  "verified_probe_source_count": 10,
+  "source_sha256": {
+    "probe_packed_state.py": "568ceee7a9f2092922c59933753242b35c8efd39c9417b11ebef0ab50761c6b2",
+    "packed_state_probe_worker.py": "e4559196e22ba71bb0212c4df7bc141545ea15a358c21b25ecfa7457eb6fd9bc",
+    "packed_state_probe_utils.py": "bf446ec3e6b20b7a62cf19781043a38fb57b24b37652c4a15e3de3061a7c87d1",
+    "fallback_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+    "run_packed_state_probe.py": "3258a970d025a656266f99f1f752a57a2a112b66835f5e8a9e46b521e1bfda24",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "29a7cecdefb0d24e1f046ff4c4cc3ec8bb6346d885609aad8d39943a4941ffe4",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "9cef6757348438119660376cac9e7efba25a5595b439ea62265ad32df8885d73",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+    "overlay/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c"
+  },
+  "limitations": [
+    "No checkpoint-bearing metadata or non-speculative mixed case observed",
+    "No CUDA graph replay in this eager probe; separate integration smoke covers compiled execution",
+    "Private compact caches do not reproduce live allocator identity or async scheduler behavior",
+    "No full-model paired output/NLL equivalence or performance measurement"
+  ]
+}

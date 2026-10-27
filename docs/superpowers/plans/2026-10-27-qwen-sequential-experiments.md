@@ -319,6 +319,17 @@ microbenchmarks alone do not satisfy this request.
 - fixed_plain_c1 completed 192 tokens and all six FI boundaries132/132,
   30,028 observed lookups over114 keys, zero misses/mismatches. Engine shutdown
   complete, owned container gone/compute empty. Aux/full still pending.
-- LIVE AGENT GPU session52998: private GDN packed_state_probe_3, unchanged
+- COMPLETED AGENT GPU session52998 (exit0): private GDN packed_state_probe_3, unchanged
   numerical worker plus separate salted8192-token long-only request. One grant.
   Scalar/GDN reproducible patch packaging proceeds CPU-only without runtime edits.
+
+- GDN probe3 passed mixed_spec2048, puredecode6, cold long_prefill2048 at
+  T/T+17: all six Q/S/privateconv+SSM byte checks exact, padding/tails invariant,
+  full live-cache pre/post identical. No checkpoint-bearing or mixed-non-spec
+  metadata observed; scope layer18 eager/private state, not full model quality.
+  Owned container absent/compute empty; GPU slot released.
+- LIVE ROOT GPU session70620: scalar_gdn_matched_3 scalar_gdn individual,
+  FI1/greedy1/NLL3 and GPU budget0.78. All five GDN overlays, integration config,
+  MoE/build sources, runner/sourcehelper/serve/FI6 frozen until terminal.
+  Compare incrementally to scalar_matched_3 and overall to next_matched_3.
+  Agentic still exclusively final stage; route aux/full follow after this run.

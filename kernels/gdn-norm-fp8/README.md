@@ -8,6 +8,14 @@ and ten finite NLL requests. This is not paired quality equivalence or a
 serving speedup claim. See
 [`results/INTEGRATION_GPU.md`](results/INTEGRATION_GPU.md).
 
+A separate layer18 state probe now passes actual eager long-prefill,
+mixed speculative decode+prefill and pure-decode comparisons. All six T/T+17
+variants have exact Q/S and updated private convolution/recurrent cache bytes;
+padding checks pass and live caches remain untouched by the probe. Checkpoint
+and mixed non-speculative metadata were not observed. This is separate from
+paired model quality or serving performance; see
+[`results/STATE_PROBE_GPU.md`](results/STATE_PROBE_GPU.md).
+
 The first integration failed on a derived MTP capture size, and its generator
 missed two baseline KV-update splits. Both failures and their corrections are
 preserved in [`results/CAPTURE_WARMUP_FIX.md`](results/CAPTURE_WARMUP_FIX.md) and
@@ -42,8 +50,8 @@ medians, microseconds):
 
 These are microbenchmarks, not measured serving improvements. Both chains
 retain their captured output buffers. The owned integration smoke now covers startup/capture and request execution;
-matched quality, decode cost and targeted state/padding equivalence remain
-validation work.
+matched quality and decode cost remain serving validation work. The scoped
+layer18 state/padding check now passes; its unobserved paths remain explicit.
 
 The original failure and reduction-order diagnosis are preserved in
 [`DIAGNOSIS.md`](DIAGNOSIS.md). The successful capture is

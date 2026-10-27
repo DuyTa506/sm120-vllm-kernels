@@ -1,4 +1,4 @@
-# Targeted packed GDN state probe: probe3 prepared, GPU pending
+# Targeted packed GDN state probe: probe3 scoped pass
 
 The first owned GPU attempt (`packed_state_probe_1`) exited1 during MTP model
 construction, before hook installation or comparisons. The fixture forced
@@ -27,7 +27,10 @@ Probe3 preserves that mixed workload and adds one sequential cold long-only
 explicit unique `cache_salt` is verified against the installed `TokensPrompt`
 schema and prevents reuse of the preceding long request's prefix. Numerical
 and coverage checks are unchanged; the worker hash is unchanged from probe2.
-Probe3 has not run on GPU.
+Probe3 completed exit0 with all three required classes and six exact T/T+17
+comparisons; owned cleanup and GPU vacancy were verified. Checkpoint and mixed
+non-speculative metadata were not observed. See `results/STATE_PROBE_GPU.md`
+and its JSON summary for the precise scope.
 
 This separate probe compares the overlay's `packed_norm_fp8` against the
 unchanged baseline `_forward_core_fused_norm_packed` plus **explicitly compiled
@@ -148,4 +151,5 @@ and the fresh mounted preflight with verified container removal. They cover null
 index remapping, optional index fields, nested checkpoint/scratch copies,
 proxy method binding, original-hook preservation, live-cache independence,
 bitwise NaN comparisons, route labels, and GPU-free preflight construction.
-They are preparation evidence; GPU state parity remains pending.
+They are CPU preparation evidence. The subsequent scoped GPU pass is recorded
+in `results/STATE_PROBE_GPU.md`; it does not extend to unobserved metadata paths.

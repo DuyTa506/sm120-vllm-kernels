@@ -1,0 +1,61 @@
+--- a/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
++++ b/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
+@@ -38,6 +38,8 @@
+ _B12X_MASK_NEG_IDS = _B12X_FIX_SCALES or os.environ.get("VLLM_B12X_NEGFIX_ONLY", "0") == "1"
+ # Experimental scratch sharing on top of the scale-corrected hybrid backend.
+ _B12X_SHARED_WORKSPACE = os.environ.get("VLLM_B12X_SHARED_WORKSPACE", "0") == "1"
++# Opt-in Qwen prefill experiment; inspect uniformity only while loading weights.
++_B12X_SCALAR_INPUT_SCALE = os.environ.get("VLLM_B12X_SCALAR_INPUT_SCALE", "0") == "1"
+ 
+ 
+ class FlashInferB12xExperts(mk.FusedMoEExpertsModular):
+@@ -238,6 +240,49 @@
+             num_groups=num_experts_w2,
+         )
+ 
++        self._maybe_use_scalar_input_scale()
++
++    def _maybe_use_scalar_input_scale(self) -> None:
++        """Preserve a uniform FC1 scale as [1] for FlashInfer's shared producer.
++
++        This load-time hook is deliberately restricted to the targeted Qwen
++        prefill shape and the existing hybrid threshold. Its tiny CPU copy
++        synchronizes weight preparation once; apply/graph replay does no
++        equality reduction, device-to-host copy, or scalar extraction.
++        """
++        if not (_B12X_FIX_SCALES and _B12X_SCALAR_INPUT_SCALE):
++            return
++        parallel = self.moe_config.moe_parallel_config
++        if (
++            self.global_num_experts != 256
++            or self.num_local_experts != self.global_num_experts
++            or getattr(self, "ep_rank", 0) != 0
++            or getattr(parallel, "ep_size", 1) != 1
++            or getattr(parallel, "use_ep", False)
++            or self.topk != 8
++            or self.hidden_dim != 2048
++            or self.intermediate_size_per_partition != 512
++            or self.out_dtype != torch.bfloat16
++            or self._activation_str != "silu"
++            or self._hybrid_min_tokens < 1024
++        ):
++            return
++        scale = self._input_global_scale
++        if scale.numel() != self.num_local_experts:
++            return
++        # Exact equality is necessary: selecting the first expert's value
++        # would silently corrupt genuine per-expert activation calibration.
++        host = scale.detach().to(device="cpu", dtype=torch.float32).reshape(-1)
++        if (
++            not bool(torch.isfinite(host[0]))
++            or not bool(host[0] > 0)
++            or not torch.equal(host, host[:1].expand_as(host))
++        ):
++            return
++        # Do not pre-fold w1_alpha. B12xMoEWrapper broadcasts [1] into [E]
++        # and caches w1_alpha * input_global_scale exactly once, as before.
++        self._input_global_scale = scale.reshape(-1)[:1].clone()
++
+     @staticmethod
+     def activation_format() -> mk.FusedMoEActivationFormat:
+         return mk.FusedMoEActivationFormat.Standard

@@ -142,6 +142,15 @@ CUDA graph pool 4.90 / 3.45 / 3.45 GiB for next / exact / scalar respectively.
 The immediate composition experiment is `scalar_gdn` versus `scalar`; the
 reference for final whole-stack serving and agentic remains `next`.
 
+The [experimental patch package](kernels/gdn-norm-fp8/PATCH_COMPOSITION.md)
+reproduces all six measured scalar/GDN runtime files byte-for-byte in either
+application order, after their documented prerequisites. This establishes source
+composition, not speed or quality. The [private GDN state probe](kernels/gdn-norm-fp8/results/STATE_PROBE_GPU.md)
+passes pure long prefill, mixed prefill/MTP decode and pure decode on layer 18:
+six original/padded variants match FP8, scales and private convolution/recurrent
+state bytes. It does not cover checkpoint-bearing metadata or every graph/state
+allocation pattern. Full `scalar_gdn` serving measurement is in progress.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/throughput-dark.svg">
   <img alt="Serving throughput relative to production for seven workload shapes" src="docs/img/throughput-light.svg">

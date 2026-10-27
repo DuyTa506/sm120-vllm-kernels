@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "scope": "CPU patch reproduction, not runtime validation",
+  "verifier_sha256": "d2c17b6827f025fda4f67bd452b48ba23c503ea062d131d934c4a19c45a597c6",
+  "patch_tool": "GNU patch 2.7.6",
+  "patches": {
+    "kernels/moe-nvfp4/03-moe-b12x-scale-fix-and-hybrid.patch": "9a2bd5fcff099b7da967d21df438e934183d229728b6ad2eca10f533a3ec6129",
+    "kernels/moe-nvfp4/04-moe-b12x-shared-workspace.patch": "d3b343a7787f57616c613db4d80f732414cb678f73b4441b41f2c84162d9d03c",
+    "kernels/moe-nvfp4/05-moe-cutlass-exact-alphas.patch": "024809cc8278e18445186ae693fb9ead64b748573b4926fda59418030a8eef49",
+    "kernels/moe-nvfp4/06-moe-b12x-scalar-input-scale.patch": "4600575d046894452cf5ca945cc5c74593fee4a4899d804ba39c2f9f0d161635",
+    "kernels/gdn-norm-fp8/01-gdn-norm-fp8-experimental.patch": "1386593a47440be706cd488cee91baf2bf8cf604c93cfac287f9d7bcf103699b"
+  },
+  "baselines": {
+    "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": {
+      "source": "kernels/moe-nvfp4/shared_exact/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py",
+      "sha256": "8c703524b0331521c0785d24677cecc03f08d0e41cdbe159193acf6123752e86"
+    },
+    "vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": {
+      "source": "build/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py",
+      "sha256": "c82a390240c77032414d916ed705780716cd696f90722eb99eb89419f0aa262c"
+    }
+  },
+  "outputs": {
+    "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": {
+      "source": "kernels/moe-nvfp4/scalar/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py",
+      "sha256": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62"
+    },
+    "vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": {
+      "source": "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py",
+      "sha256": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c"
+    },
+    "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": {
+      "source": "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py",
+      "sha256": "29a7cecdefb0d24e1f046ff4c4cc3ec8bb6346d885609aad8d39943a4941ffe4"
+    },
+    "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": {
+      "source": "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py",
+      "sha256": "9cef6757348438119660376cac9e7efba25a5595b439ea62265ad32df8885d73"
+    },
+    "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": {
+      "source": "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py",
+      "sha256": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f"
+    },
+    "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": {
+      "source": "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py",
+      "sha256": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2"
+    }
+  },
+  "measured_source_manifests": {
+    "scalar_matched_3": {
+      "path": "results/qwen_sequential/scalar_matched_3/source_manifest.json",
+      "sha256": "2e607eb397b0b655e625cb1adad6b5fac1f4217f4d3ff3c9d488d9ab1accfaf7"
+    },
+    "exact_matched_3": {
+      "path": "results/qwen_sequential/exact_matched_3/source_manifest.json",
+      "sha256": "72fa9d2eee8a980ca173b5c49d5eaeb87b43cffc78ef95c8e2e92d72fe2c7b65"
+    },
+    "gdn_integration_2": {
+      "path": "results/qwen_sequential/gdn_integration_2/source_manifest.json",
+      "sha256": "15830032158c6bee86f67f7bb849cc982791e680b9ed5149b974f093f7d3a818"
+    },
+    "scalar_gdn_matched_3": {
+      "path": "results/qwen_sequential/scalar_gdn_matched_3/source_manifest.json",
+      "sha256": "fa5bdcc9d72df099a5fee37d02e1582f9527530543e324a42ebd64eb00cb11c2"
+    }
+  },
+  "composed_run_manifest_scope": "startup source identity only; no run completion or quality claim",
+  "required_configuration_helper": {
+    "path": "kernels/gdn-norm-fp8/integration_config.py",
+    "sha256": "b168c23d8111f917bd63fc9a5d27eadf0859b25965a45ebcf20418ea651d5bed"
+  },
+  "scenarios": [
+    {
+      "name": "moe_03_04_05_06_from_saved_orig",
+      "steps": [
+        {
+          "patch": "kernels/moe-nvfp4/03-moe-b12x-scale-fix-and-hybrid.patch",
+          "matched_variant": "patched",
+          "files": {
+            "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "5585948dbd41f822d8168c7934ae135dee0e9c969d2d603fa06409c89269682b",
+            "vllm/model_executor/layers/fused_moe/oracle/unquantized.py": "4dcacb2dd6d6a9db3f44fa340880042a03d4c50cc259f70a97fbcd591a9edcfd"
+          },
+          "checks": [
+            {
+              "dry_run": true,
+              "exit_code": 0,
+              "stdout": "checking file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\nchecking file vllm/model_executor/layers/fused_moe/oracle/unquantized.py\n",
+              "stderr": ""
+            },
+            {
+              "dry_run": false,
+              "exit_code": 0,
+              "stdout": "patching file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\npatching file vllm/model_executor/layers/fused_moe/oracle/unquantized.py\n",
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "patch": "kernels/moe-nvfp4/04-moe-b12x-shared-workspace.patch",
+          "matched_variant": "shared",
+          "files": {
+            "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "ea166380c1340b05e8524e9fc57051ac22f009cd59dea8b60f8cfa6dfac64b16",
+            "vllm/model_executor/layers/fused_moe/oracle/unquantized.py": "4dcacb2dd6d6a9db3f44fa340880042a03d4c50cc259f70a97fbcd591a9edcfd"
+          },
+          "checks": [
+            {
+              "dry_run": true,
+              "exit_code": 0,
+              "stdout": "checking file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            },
+            {
+              "dry_run": false,
+              "exit_code": 0,
+              "stdout": "patching file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "patch": "kernels/moe-nvfp4/05-moe-cutlass-exact-alphas.patch",
+          "matched_variant": "shared_exact",
+          "files": {
+            "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "8c703524b0331521c0785d24677cecc03f08d0e41cdbe159193acf6123752e86",
+            "vllm/model_executor/layers/fused_moe/oracle/unquantized.py": "4dcacb2dd6d6a9db3f44fa340880042a03d4c50cc259f70a97fbcd591a9edcfd"
+          },
+          "checks": [
+            {
+              "dry_run": true,
+              "exit_code": 0,
+              "stdout": "checking file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            },
+            {
+              "dry_run": false,
+              "exit_code": 0,
+              "stdout": "patching file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "patch": "kernels/moe-nvfp4/06-moe-b12x-scalar-input-scale.patch",
+          "matched_variant": "scalar",
+          "files": {
+            "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62",
+            "vllm/model_executor/layers/fused_moe/oracle/unquantized.py": "4dcacb2dd6d6a9db3f44fa340880042a03d4c50cc259f70a97fbcd591a9edcfd"
+          },
+          "checks": [
+            {
+              "dry_run": true,
+              "exit_code": 0,
+              "stdout": "checking file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            },
+            {
+              "dry_run": false,
+              "exit_code": 0,
+              "stdout": "patching file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06-moe-b12x-scalar-input-scale.patchthen01-gdn-norm-fp8-experimental.patch",
+      "steps": [
+        {
+          "patch": "kernels/moe-nvfp4/06-moe-b12x-scalar-input-scale.patch",
+          "checks": [
+            {
+              "dry_run": true,
+              "exit_code": 0,
+              "stdout": "checking file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            },
+            {
+              "dry_run": false,
+              "exit_code": 0,
+              "stdout": "patching file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "patch": "kernels/gdn-norm-fp8/01-gdn-norm-fp8-experimental.patch",
+          "checks": [
+            {
+              "dry_run": true,
+              "exit_code": 0,
+              "stdout": "checking file vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py\nchecking file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py\nchecking file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py\nchecking file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py\nchecking file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py\n",
+              "stderr": ""
+            },
+            {
+              "dry_run": false,
+              "exit_code": 0,
+              "stdout": "patching file vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py\npatching file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py\npatching file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py\npatching file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py\npatching file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py\n",
+              "stderr": ""
+            }
+          ]
+        }
+      ],
+      "files": {
+        "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62",
+        "vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c",
+        "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "29a7cecdefb0d24e1f046ff4c4cc3ec8bb6346d885609aad8d39943a4941ffe4",
+        "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "9cef6757348438119660376cac9e7efba25a5595b439ea62265ad32df8885d73",
+        "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+        "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2"
+      },
+      "all_six_byte_identical": true
+    },
+    {
+      "name": "01-gdn-norm-fp8-experimental.patchthen06-moe-b12x-scalar-input-scale.patch",
+      "steps": [
+        {
+          "patch": "kernels/gdn-norm-fp8/01-gdn-norm-fp8-experimental.patch",
+          "checks": [
+            {
+              "dry_run": true,
+              "exit_code": 0,
+              "stdout": "checking file vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py\nchecking file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py\nchecking file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py\nchecking file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py\nchecking file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py\n",
+              "stderr": ""
+            },
+            {
+              "dry_run": false,
+              "exit_code": 0,
+              "stdout": "patching file vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py\npatching file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py\npatching file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py\npatching file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py\npatching file vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py\n",
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "patch": "kernels/moe-nvfp4/06-moe-b12x-scalar-input-scale.patch",
+          "checks": [
+            {
+              "dry_run": true,
+              "exit_code": 0,
+              "stdout": "checking file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            },
+            {
+              "dry_run": false,
+              "exit_code": 0,
+              "stdout": "patching file vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py\n",
+              "stderr": ""
+            }
+          ]
+        }
+      ],
+      "files": {
+        "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62",
+        "vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c",
+        "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "29a7cecdefb0d24e1f046ff4c4cc3ec8bb6346d885609aad8d39943a4941ffe4",
+        "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "9cef6757348438119660376cac9e7efba25a5595b439ea62265ad32df8885d73",
+        "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+        "vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2"
+      },
+      "all_six_byte_identical": true
+    }
+  ],
+  "protected_sources_unchanged": true,
+  "gpu_used": false,
+  "container_inference_used": false,
+  "limitations": [
+    "Artifacts are experimental, not selected or recommended.",
+    "Frozen-source identity does not establish combined serving quality or performance.",
+    "Runtime flags, splitting configuration, pinned dependencies, and all prerequisites remain required."
+  ]
+}
