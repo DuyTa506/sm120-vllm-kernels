@@ -1,0 +1,11 @@
+{
+  "status": "verified",
+  "verified_stage": "offline_shutdown",
+  "import_mode": "fixed_reference_replay_v1",
+  "source_sha256": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+  "effective_entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8",
+  "entries": 132,
+  "all_observed_lookups_covered": true,
+  "inductor_pinned": false,
+  "instrumentation_only": true
+}

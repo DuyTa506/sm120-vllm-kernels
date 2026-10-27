@@ -1,0 +1,66 @@
+{
+  "instrumentation_only": true,
+  "mode": "native_aux_control",
+  "selected_prompts": [
+    {
+      "task": 0,
+      "turn": 0,
+      "prompt_tokens": 1156,
+      "prompt_ids_sha256": "7184757dc71fd0d1ce9f3159f301d09af732a5cbc58386a9fac37f93f549c5e2"
+    }
+  ],
+  "trajectory": "/work/results/agentic/trajectories_short_production.json.xz",
+  "concurrency": 1,
+  "output_tokens": 192,
+  "seed": 101,
+  "exact_output_status": "failed",
+  "argv": [
+    "/work/kernels/decode-route-capture/run_capture.py",
+    "--out",
+    "/out",
+    "--native-aux-control",
+    "--autotune-json",
+    "/work/kernels/decode-route-capture/references/decode_control_autotune.json",
+    "--require-autotune-coverage",
+    "--compare-output",
+    "/work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json"
+  ],
+  "environment": {
+    "VLLM_MOE_SKIP_PADDING": "1",
+    "VLLM_USE_V2_MODEL_RUNNER": "1",
+    "VLLM_SM120_FP8_PREFILL": "1",
+    "VLLM_SM120_FP8_PREFILL_NOGLUE": "1",
+    "VLLM_FI_KERNEL_PAGES": "16",
+    "VLLM_GDN_INTERNAL_CKPT": "1",
+    "VLLM_GDN_FUSED_CONV": "1"
+  },
+  "control_token_ids_match": false,
+  "baseline_variation": {
+    "comparisons_to_reference": [],
+    "max_observed_token_distance": null,
+    "within_observed_token_distance": null,
+    "interpretation": "Positional token-distance envelope of supplied controls only; not equivalence, a statistical tolerance, or causal attribution. An exact mismatch remains a failed comparison."
+  },
+  "autotune_import": {
+    "status": "reference_and_observed_tactics_verified",
+    "source_sha256": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+    "import_mode": "fixed_reference_replay_v1",
+    "verification_file": "autotune/verification.json",
+    "lifecycle": {
+      "status": "verified",
+      "verified_stage": "offline_shutdown",
+      "import_mode": "fixed_reference_replay_v1",
+      "source_sha256": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+      "effective_entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8",
+      "entries": 132,
+      "all_observed_lookups_covered": true,
+      "inductor_pinned": false,
+      "instrumentation_only": true
+    }
+  },
+  "success": false,
+  "error": "RuntimeError: captured run differs from control prompt selection/output token IDs",
+  "generation_complete": true,
+  "draft_capture": "disabled_control",
+  "structural_validation": "not_applicable_control"
+}

@@ -1,14 +1,16 @@
 # Controls and verified FlashInfer JSON import
 
-Prepared after the failed c1 checkpoint. The fixed-reference plain control
-`fixed_plain_c1` subsequently passed its single authorized GPU run; native-aux
-and full capture remain GPU-unrun under this reference. Default inference options
-are unchanged. See [the recorded control evidence](RESULTS.md).
+Prepared after the initial c1 failure. The fixed-reference plain, native-aux
+and full target/draft jobs have now run. All six FlashInfer boundaries pass in
+all three; native-aux versus plain and full versus native-aux still fail exact
+output comparison. Default inference options are unchanged. See
+[the recorded control evidence](RESULTS.md#fixed-reference-native-aux-and-full-capture).
 
 The offline driver now uses a separate `offline_autotune.py` lifecycle wrapper
 for explicit early fixed-reference replay. It reuses the serving-proven importer
 API without modifying the six serving runtime files. The offline composition is
-CPU-tested and validated for the plain c1 control. See [the cold-L2 source diagnosis](SERVER_INTEGRATION.md).
+CPU-tested and verified through shutdown for all three modes. Exact output
+equivalence remains failed for the two compared modes. See [the cold-L2 source diagnosis](SERVER_INTEGRATION.md).
 
 ## Options
 
@@ -85,23 +87,27 @@ rejected. CPU tests exercise rejected loads, overwritten live winners, missing
 coverage, output failure, source immutability and cache isolation. The real
 importer plus offline lifecycle also passes against mocked cold-L2 dependencies
 through every boundary. The plain c1 GPU run also passed all six boundaries;
-the native-aux and route-capture compositions still require GPU validation.
+native-aux and full route capture also pass those lifecycle checks. Their
+independent output-equivalence gates remain failed.
 
-## Proposed sequential jobs
+## Completed sequential jobs
 
-Each command is a separate job for a **new exclusive GPU slot**. All retain the
-192-token/64-step/c1 defaults. Fresh tags are required for reruns.
-
-`fixed_plain_c1` below already exists and passed. Reuse its saved outputs for
-the next jobs; do not rerun its tag. A control repeat must use a fresh tag.
+The three jobs below have completed and their tags must not be reused. They
+ran one at a time under the GPU lock with 192-token/64-step/c1 defaults. The
+native-aux and full commands exit 1 for their preserved exact mismatches;
+this is the expected description of the recorded runs, not an instruction to
+ignore a future failure.
 
 ```bash
 export ROUTE_AUTOTUNE_JSON=/work/kernels/decode-route-capture/references/decode_control_autotune.json
 sg docker -c 'bash kernels/decode-route-capture/run.sh fixed_plain_c1 --control --autotune-json "$ROUTE_AUTOTUNE_JSON" --require-autotune-coverage'
-sg docker -c 'bash kernels/decode-route-capture/run.sh fixed_plain_repeat_c1 --control --autotune-json "$ROUTE_AUTOTUNE_JSON" --require-autotune-coverage --compare-output /work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json'
-sg docker -c 'bash kernels/decode-route-capture/run.sh fixed_aux_c1 --native-aux-control --autotune-json "$ROUTE_AUTOTUNE_JSON" --require-autotune-coverage --compare-output /work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json --baseline-output /work/kernels/decode-route-capture/results/fixed_plain_repeat_c1/outputs.json'
-sg docker -c 'bash kernels/decode-route-capture/run.sh fixed_full_c1 --autotune-json "$ROUTE_AUTOTUNE_JSON" --require-autotune-coverage --compare-output /work/kernels/decode-route-capture/results/fixed_aux_c1/outputs.json --baseline-output /work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json --baseline-output /work/kernels/decode-route-capture/results/fixed_plain_repeat_c1/outputs.json'
+sg docker -c 'bash kernels/decode-route-capture/run.sh fixed_aux_c1 --native-aux-control --autotune-json "$ROUTE_AUTOTUNE_JSON" --require-autotune-coverage --compare-output /work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json'
+sg docker -c 'bash kernels/decode-route-capture/run.sh fixed_full_c1 --autotune-json "$ROUTE_AUTOTUNE_JSON" --require-autotune-coverage --compare-output /work/kernels/decode-route-capture/results/fixed_aux_c1/outputs.json --baseline-output /work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json'
 ```
+
+No fixed-reference plain or native-aux same-mode repeat has run. A follow-up
+repeat must use a fresh tag and matching mode/configuration; the cross-mode
+plain-versus-aux distance is not a same-mode variability estimate.
 
 The immutable reference is a byte-for-byte copy of the preserved original
 `review_control_c1` rank table. Its SHA256 is
@@ -112,7 +118,7 @@ The adjacent provenance JSON records the original path. It is separate from
 the serving reference and preserves the original route control's selected tactics.
 
 The minimum path is plain control, native-aux control and full capture; the plain
-repeat above additionally measures baseline variation. Each command is scheduled
+repeat would additionally measure baseline variation. Each command is scheduled
 and inspected separately, so an exact mismatch can be investigated before any
 further diagnostic run. No command launches HTTP or the full agentic benchmark.
 

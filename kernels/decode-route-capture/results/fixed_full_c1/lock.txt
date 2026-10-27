@@ -1,0 +1,2 @@
+GPU_LOCK=/tmp/claude-1000/-home-aiqk3-Desktop-duy-dev-training-space-gpu-unlock/2207ad44-a66d-418b-840d-33bbf11f51c5/scratchpad/gpu.lock
+GPU_LOCK_HELD=0

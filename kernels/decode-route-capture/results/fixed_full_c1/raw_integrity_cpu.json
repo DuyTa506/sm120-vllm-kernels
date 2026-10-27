@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "scope": "CPU raw-tensor/JSON integrity only; GPU/output equivalence remains failed",
+  "cuda_initialized": false,
+  "tensor_load": {
+    "map_location": "cpu",
+    "weights_only": true
+  },
+  "records": 192,
+  "phase_counts": {
+    "target_verify": 64,
+    "draft_prefill": 64,
+    "draft_decode": 64
+  },
+  "phase_shapes": {
+    "target_verify": [
+      [
+        3,
+        40,
+        8
+      ]
+    ],
+    "draft_prefill": [
+      [
+        3,
+        1,
+        8
+      ]
+    ],
+    "draft_decode": [
+      [
+        1,
+        1,
+        8
+      ]
+    ]
+  },
+  "all_route_tensors_signed_int32": true,
+  "all_tensor_and_metadata_values_match_json": true,
+  "target_query_and_acceptance_metadata_match": true,
+  "sha256": {
+    "raw_routes.pt": "346665df1a69f8e03957978b54922e1dfd963a3945581522f7b5addd9d214930",
+    "records.jsonl.gz": "d8ec3dc7deb1f187391391b11ce0932f74ca000d8b53e247f275266e9901cee4",
+    "verify_raw_cpu.py": "5656d7714cd252ce16cae50c0b2690e3f60a2554a166ab510007f13ce2b02225"
+  }
+}

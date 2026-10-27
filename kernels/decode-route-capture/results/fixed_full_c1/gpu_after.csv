@@ -1,0 +1,2 @@
+timestamp, name, uuid, memory.used [MiB], utilization.gpu [%], clocks.current.sm [MHz], power.draw [W]
+2026/10/28 04:30:37.586, NVIDIA RTX PRO 6000 Blackwell Workstation Edition, GPU-a442c399-09a7-c603-1a94-30112bcac27c, 16 MiB, 0 %, 2610 MHz, 86.59 W

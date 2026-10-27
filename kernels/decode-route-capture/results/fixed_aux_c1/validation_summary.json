@@ -1,0 +1,160 @@
+{
+  "run": "fixed_aux_c1",
+  "exit_code": 1,
+  "scope": "Diagnostic route instrumentation; output equivalence failed; not a performance benchmark",
+  "generation_complete": true,
+  "output_tokens": [
+    192
+  ],
+  "finish_reasons": [
+    "length"
+  ],
+  "exact_output_comparison": {
+    "prompts_match": true,
+    "exact_match": false,
+    "token_distance": 157,
+    "requests": [
+      {
+        "request": 0,
+        "lengths": [
+          192,
+          192
+        ],
+        "different_positions": 157,
+        "first_difference": 28
+      }
+    ],
+    "baseline_variation": {
+      "comparisons_to_reference": [],
+      "max_observed_token_distance": null,
+      "within_observed_token_distance": null,
+      "interpretation": "Positional token-distance envelope of supplied controls only; not equivalence, a statistical tolerance, or causal attribution. An exact mismatch remains a failed comparison."
+    },
+    "reference_path": "/work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json",
+    "baseline_paths": []
+  },
+  "structural_validation": "not_applicable_control",
+  "source_sha256": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+  "effective_entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8",
+  "all_stages_exact": true,
+  "stages": [
+    "preloaded",
+    "loaded",
+    "after_warmup",
+    "offline_startup",
+    "after_generation",
+    "offline_shutdown"
+  ],
+  "reference_entries": 132,
+  "unique_observed_keys": 114,
+  "observed_lookup_calls": 30028,
+  "cache_misses": 0,
+  "uncovered_cache_hits": 0,
+  "observed_reference_mismatches": 0,
+  "all_observed_lookups_covered": true,
+  "owned_engine_shutdown": "completed",
+  "owned_worker_shutdown": "completed",
+  "cleanup_compute_csv": "pid, process_name, used_gpu_memory [MiB]\n",
+  "probe_sources": {
+    "probe_source_sha256.txt": [
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/analyze.py",
+        "sha256": "651cbf94874a46c73bd29ff81660df25cf2ca34ddd5d1a453e2558962f7ccb4f",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/autotune_import.py",
+        "sha256": "9a960c5f83e5084be34d8362b831fd8ea513aa04111ec69a83d099bd0b224a76",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/capture_runtime.py",
+        "sha256": "33256300b7080c52727c470e5b53e57622de77e14769d56488142a77c2a005dc",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/compare_outputs.py",
+        "sha256": "afcc3fe6f63ddeb4b021bac43eedf87b683dfa576353d5a9b88ab5839f28961a",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/offline_autotune.py",
+        "sha256": "4f4554ecb4fd10b969b1d336dc8267238cb1f6f51d88472aa259e4ad96b9f5fd",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/qwen_fi_control_plugin.py",
+        "sha256": "3efefefd3fc9fb57deaea1f2cae2c0accc65a97ba1960a8eb91b56e2facd98c0",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/run_capture.py",
+        "sha256": "01b6aa1998ef59a443701269006a623b95f8dc4c38c2be6174b404d465b11b0d",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/test_analysis.py",
+        "sha256": "0984f0bf18f897e50ac9a49484ac73a14f13323786c5b5b84ef28204a7752bae",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/test_autotune_import.py",
+        "sha256": "b6b4dd8aa43e28754278bd5e4d1a83e8603b60f986fa4b8d16064958156fe8b2",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/test_comparison_export.py",
+        "sha256": "7d06ac0a4b5213fb12dfaca08f026a6d62981a6f0c7f618fcab0999df0ae629d",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/test_driver.py",
+        "sha256": "b31e81d6c2262e1395cf353fec9e726da0deabe7d7e2741690143bd157f59c52",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/test_launcher.py",
+        "sha256": "b376aeb94717f7468b02c871c55c5cd5281e2b74596004ce6f0b48814cfe5a71",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/test_offline_autotune.py",
+        "sha256": "e429d331ebfc0ad2f617fef2e1319bff570a773993992289372d88fefd6bf5c8",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/test_server_plugin.py",
+        "sha256": "96d9c0968df81cc5f178d60369c40a66e03510a2ddd24f888e1aa6dc3353fb0b",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/decode-route-capture/run.sh",
+        "sha256": "ddff83f1c8a8b3741b3d9d0500fd0c7773ab89406ce552a4c6ed1defeca2d500",
+        "unchanged": true
+      }
+    ],
+    "config_next_sha256.txt": [
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/build/vllm/v1/attention/backends/flashinfer.py",
+        "sha256": "7a8a584750950021c51a45f82b12717237c534f6516632d3465cf9b10a6af686",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/build/vllm/v1/attention/backends/sm120_fp8_fmha_glue.py",
+        "sha256": "141dd23f7b6b155f3f318b1cbc41183bda2a1475ef9895966afafb8fe1cf94b9",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/build/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py",
+        "sha256": "c82a390240c77032414d916ed705780716cd696f90722eb99eb89419f0aa262c",
+        "unchanged": true
+      },
+      {
+        "path": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/build/vllm/model_executor/layers/mamba/ops/fused_conv_post_conv.py",
+        "sha256": "d7e499b926bfe915ef0703caf1b4736b4a745ff14bb984a688fb4dc395725e3c",
+        "unchanged": true
+      }
+    ]
+  },
+  "prompt_environment_image_and_source_hash_lists_match_plain_control": true
+}

@@ -1,0 +1,478 @@
+{
+  "scope": "CPU audit of completed fixed-reference route artifacts; overall GPU/output validation remains failed",
+  "source_file": "kernels/decode-route-capture/analyze.py",
+  "source_sha256": "651cbf94874a46c73bd29ff81660df25cf2ca34ddd5d1a453e2558962f7ccb4f",
+  "independent_structural_analysis_matches_saved": true,
+  "record_counts": {
+    "draft_decode": 64,
+    "draft_prefill": 64,
+    "target_verify": 64
+  },
+  "acceptance": {
+    "proposed_draft_tokens": 128,
+    "accepted_draft_tokens": 104,
+    "rejected_draft_tokens": 24,
+    "sampled_output_tokens": 168,
+    "accepted_fraction": 0.8125
+  },
+  "target_weight_payload_bytes": 84823179264,
+  "target_bytes_per_sampled_output_token": 504899876.5714286,
+  "phase_summary": {
+    "target_verify": {
+      "records": 64,
+      "layer_records": 2560,
+      "row_classes": {
+        "required": 168,
+        "rejected": 24
+      },
+      "router_mask_present_layer_records": 2560,
+      "router_masked_rows": 0,
+      "weight_payload_bytes": 84823179264,
+      "potentially_avoidable_draft_experts": null,
+      "potentially_avoidable_draft_payload_bytes": null,
+      "mean_unique_experts_per_request_layer": 18.725390625,
+      "mean_adjacent_intersection": 2.1939453125,
+      "mean_lag2_intersection": 1.833203125
+    },
+    "draft_prefill": {
+      "records": 64,
+      "layer_records": 64,
+      "row_classes": {
+        "required": 168,
+        "rejected": 24
+      },
+      "router_mask_present_layer_records": 0,
+      "router_masked_rows": 0,
+      "weight_payload_bytes": 7933526016,
+      "potentially_avoidable_draft_experts": 140,
+      "potentially_avoidable_draft_payload_bytes": 880803840,
+      "mean_unique_experts_per_request_layer": 19.703125,
+      "mean_adjacent_intersection": 1.484375,
+      "mean_lag2_intersection": 1.796875
+    },
+    "draft_decode": {
+      "records": 64,
+      "layer_records": 64,
+      "row_classes": {
+        "required": 64
+      },
+      "router_mask_present_layer_records": 0,
+      "router_masked_rows": 0,
+      "weight_payload_bytes": 3221225472,
+      "potentially_avoidable_draft_experts": 0,
+      "potentially_avoidable_draft_payload_bytes": 0,
+      "mean_unique_experts_per_request_layer": 8,
+      "mean_adjacent_intersection": null,
+      "mean_lag2_intersection": null
+    }
+  },
+  "compiler_file_comparisons": [
+    {
+      "baseline": "fixed_plain_c1",
+      "candidate": "fixed_aux_c1",
+      "baseline_files": 13,
+      "candidate_files": 13,
+      "new": [],
+      "removed": [],
+      "changed_selected_settings": [
+        {
+          "basename": "519d4a9eab671bd634bb4a79c028bca35dc0db7fac88417512463b2fa9617b65.best_config",
+          "baseline": {
+            "XBLOCK": 2,
+            "R0_BLOCK": 1024,
+            "num_warps": 16,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "6150d60d9b3268f101b505964cfd0655fa0be4758a683bc62a0f4dc78459870a.best_config",
+          "baseline": {
+            "XBLOCK": 512,
+            "num_warps": 8,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1024,
+            "num_warps": 4,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "854a01fdf23673a59e63ef71128ec3e1288d15f67d9c1bde7a1c14da3bc9a2f8.best_config",
+          "baseline": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 4096,
+            "num_warps": 16,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "93890db5cfe7a4d1cda47c104300d7310488852636b739244ae00d8c4f85ff46.best_config",
+          "baseline": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 2,
+            "R0_BLOCK": 1024,
+            "num_warps": 16,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "fd2513ff9579135a6484b3d51cfbf207d69a14a6e38b35808526c7cb327e989f.best_config",
+          "baseline": {
+            "XBLOCK": 2,
+            "R0_BLOCK": 1024,
+            "num_warps": 16,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          }
+        }
+      ],
+      "scope": "Saved .best_config file selections only; final in-memory dispatch not proven"
+    },
+    {
+      "baseline": "fixed_aux_c1",
+      "candidate": "fixed_full_c1",
+      "baseline_files": 13,
+      "candidate_files": 13,
+      "new": [],
+      "removed": [],
+      "changed_selected_settings": [
+        {
+          "basename": "854a01fdf23673a59e63ef71128ec3e1288d15f67d9c1bde7a1c14da3bc9a2f8.best_config",
+          "baseline": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 4096,
+            "num_warps": 16,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "b9b6cf63edc14f18edd3e66b602d20d6582aaeba11c6bbcdfdaec6bd6d9dc6a9.best_config",
+          "baseline": {
+            "XBLOCK": 1024,
+            "num_warps": 4,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 512,
+            "num_warps": 8,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "c43420b6500c0bfe655ae615559019b271ae362c5f2dfe9aaed19876503c8294.best_config",
+          "baseline": {
+            "XBLOCK": 256,
+            "num_warps": 4,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 128,
+            "num_warps": 4,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "e61276c607e25486d71aaf0f639cf02722159957b5077515ca190c26f8129d20.best_config",
+          "baseline": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 4096,
+            "num_warps": 16,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "fd2513ff9579135a6484b3d51cfbf207d69a14a6e38b35808526c7cb327e989f.best_config",
+          "baseline": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 2,
+            "R0_BLOCK": 1024,
+            "num_warps": 16,
+            "num_stages": 1
+          }
+        }
+      ],
+      "scope": "Saved .best_config file selections only; final in-memory dispatch not proven"
+    },
+    {
+      "baseline": "fixed_plain_c1",
+      "candidate": "fixed_full_c1",
+      "baseline_files": 13,
+      "candidate_files": 13,
+      "new": [],
+      "removed": [],
+      "changed_selected_settings": [
+        {
+          "basename": "519d4a9eab671bd634bb4a79c028bca35dc0db7fac88417512463b2fa9617b65.best_config",
+          "baseline": {
+            "XBLOCK": 2,
+            "R0_BLOCK": 1024,
+            "num_warps": 16,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "6150d60d9b3268f101b505964cfd0655fa0be4758a683bc62a0f4dc78459870a.best_config",
+          "baseline": {
+            "XBLOCK": 512,
+            "num_warps": 8,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1024,
+            "num_warps": 4,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "93890db5cfe7a4d1cda47c104300d7310488852636b739244ae00d8c4f85ff46.best_config",
+          "baseline": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 2,
+            "R0_BLOCK": 1024,
+            "num_warps": 16,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "b9b6cf63edc14f18edd3e66b602d20d6582aaeba11c6bbcdfdaec6bd6d9dc6a9.best_config",
+          "baseline": {
+            "XBLOCK": 1024,
+            "num_warps": 4,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 512,
+            "num_warps": 8,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "c43420b6500c0bfe655ae615559019b271ae362c5f2dfe9aaed19876503c8294.best_config",
+          "baseline": {
+            "XBLOCK": 256,
+            "num_warps": 4,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 128,
+            "num_warps": 4,
+            "num_stages": 1
+          }
+        },
+        {
+          "basename": "e61276c607e25486d71aaf0f639cf02722159957b5077515ca190c26f8129d20.best_config",
+          "baseline": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 4096,
+            "num_warps": 16,
+            "num_stages": 1
+          },
+          "candidate": {
+            "XBLOCK": 1,
+            "R0_BLOCK": 1024,
+            "num_warps": 8,
+            "num_stages": 1
+          }
+        }
+      ],
+      "scope": "Saved .best_config file selections only; final in-memory dispatch not proven"
+    }
+  ],
+  "interpretation": "Unique weight+block-scale payload, not measured DRAM traffic. Rejected target verification rows are included. Sampler output counts may differ from client-emitted tokens at request termination. Cache residency is unmeasured.",
+  "raw_tensor_integrity": {
+    "status": "passed",
+    "scope": "CPU raw-tensor/JSON integrity only; GPU/output equivalence remains failed",
+    "cuda_initialized": false,
+    "tensor_load": {
+      "map_location": "cpu",
+      "weights_only": true
+    },
+    "records": 192,
+    "phase_counts": {
+      "target_verify": 64,
+      "draft_prefill": 64,
+      "draft_decode": 64
+    },
+    "phase_shapes": {
+      "target_verify": [
+        [
+          3,
+          40,
+          8
+        ]
+      ],
+      "draft_prefill": [
+        [
+          3,
+          1,
+          8
+        ]
+      ],
+      "draft_decode": [
+        [
+          1,
+          1,
+          8
+        ]
+      ]
+    },
+    "all_route_tensors_signed_int32": true,
+    "all_tensor_and_metadata_values_match_json": true,
+    "target_query_and_acceptance_metadata_match": true,
+    "sha256": {
+      "raw_routes.pt": "346665df1a69f8e03957978b54922e1dfd963a3945581522f7b5addd9d214930",
+      "records.jsonl.gz": "d8ec3dc7deb1f187391391b11ce0932f74ca000d8b53e247f275266e9901cee4",
+      "verify_raw_cpu.py": "5656d7714cd252ce16cae50c0b2690e3f60a2554a166ab510007f13ce2b02225"
+    }
+  },
+  "input_sha256": {
+    "fixed_plain_c1/manifest.json": "194522f2d6a5066805de27d312bdce3d718045927cd75bdbd035a329d2bc696a",
+    "fixed_plain_c1/run.log": "713fc5f216983bca25f82cb570239f8fddc1d40fabdaa61c8f4594f08392e5c2",
+    "fixed_plain_c1/invocation.txt": "7e6b9e5700570ef6382b35b3fb32410bb61df64c030618324cdfa56201b4b563",
+    "fixed_plain_c1/config_next_sha256.txt": "a85eae70567c91a4bd3c4d10c4a793c452971175111b679f7f1ed2f37bcd0fc0",
+    "fixed_plain_c1/validation_summary.json": "e9b8af031cb0f4efed265c93da10eb67918194f9d26ec46d497350ec1dc173ec",
+    "fixed_plain_c1/lock.txt": "4bc66db2c34987feefadc5a613ae6fc472fad97a337ee83cbf9b55d82a466ec5",
+    "fixed_plain_c1/gpu_after.csv": "7158d69c3fe24c428afabd61390dc41f369c6d94f411619c8158421ef2626a2b",
+    "fixed_plain_c1/container.cid": "723e4b8dc77c46b2dabdf105904dd81cb665d5f9dac6e06fc211e139bfbf4106",
+    "fixed_plain_c1/probe_source_sha256.txt": "b299509ce51cbd42f4c4c91b55c9d8b0a2573af2473db463dcb03941bcaacd25",
+    "fixed_plain_c1/gpu_before.csv": "33af27cbb40dc3f2454ba01d327e479a4698e3f5cae8ef79bad32aec64e8f6bd",
+    "fixed_plain_c1/outputs.json": "26a98e8eae487978518764c45133dff70ab91ebd65aa85f521f402441b7ae01f",
+    "fixed_plain_c1/processes_after.csv": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b",
+    "fixed_plain_c1/exit_code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "fixed_plain_c1/shutdown.json": "2f5d93af09a15c82b91e6cc97f3cdc84b61f2b3bd9c85cc78da08037fcdbed4f",
+    "fixed_plain_c1/image.txt": "717a386c0206e1219fbe264284537b9a87eb7959b07efddeb12631ae5f92ab55",
+    "fixed_plain_c1/processes_before.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "fixed_plain_c1/autotune/offline_shutdown_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_plain_c1/autotune/lifecycle_verification.json": "56f589a31f3145a228a60f3b6c3394686d14f1fda150368caa8e73fb2495dea7",
+    "fixed_plain_c1/autotune/startup_verification.json": "7b8e8d70fa2e4fb600697bafefba7b58bc09e6a3df9534b72c97f187fc0ac3c7",
+    "fixed_plain_c1/autotune/verification.json": "1caa24cdbe95dc619acb0f83c730e0863cab9e0c61acd21db164544739b32048",
+    "fixed_plain_c1/autotune/after_generation_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_plain_c1/autotune/after_warmup_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_plain_c1/autotune/source.json": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+    "fixed_plain_c1/autotune/loaded_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_plain_c1/autotune/offline_startup_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_plain_c1/autotune/after_generation_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_plain_c1/autotune/offline_shutdown_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_plain_c1/autotune/offline_startup_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_plain_c1/autotune/compiler_config_audit.json": "e2684039c70985f9fc929a825176b9ebb414ef80500fb6161b48f54d0a979c57",
+    "fixed_plain_c1/autotune/preloaded_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_aux_c1/manifest.json": "fb13342a5d383fc68ab3d0b6d93b1b29cac4287261d549112d635a00b61a7e70",
+    "fixed_aux_c1/run.log": "02b88e80780135d7227c8244b7badc271dcdc1edc8e35dae5c5106b4eb734836",
+    "fixed_aux_c1/invocation.txt": "e3c0decdd4e9c2312c90c75c8c7995ae17a90074bfca2916b1fed0136c27d014",
+    "fixed_aux_c1/config_next_sha256.txt": "a85eae70567c91a4bd3c4d10c4a793c452971175111b679f7f1ed2f37bcd0fc0",
+    "fixed_aux_c1/output_comparison.json": "9c0c072f7b894b64908b0146e65b2c32f9dd5984f47415508f3a7fea676a28da",
+    "fixed_aux_c1/validation_summary.json": "c5a54dc3e5aa51e93ee2c5f57c8ea55e4c82f042bcbff28cdf96726d963c9424",
+    "fixed_aux_c1/lock.txt": "4bc66db2c34987feefadc5a613ae6fc472fad97a337ee83cbf9b55d82a466ec5",
+    "fixed_aux_c1/gpu_after.csv": "ef6829805da79c1c90d3b0efad191515befa79fc953d9433cee0ccb903593f8d",
+    "fixed_aux_c1/container.cid": "78e60d6d247bb3218efa530b99f905d89979fa6d5b4b1a27986665b873951b9f",
+    "fixed_aux_c1/probe_source_sha256.txt": "b299509ce51cbd42f4c4c91b55c9d8b0a2573af2473db463dcb03941bcaacd25",
+    "fixed_aux_c1/gpu_before.csv": "2cf162e07a631ed9085d3c7a10eb933be5a7ce717d465cc5f4a45d5ca79c6653",
+    "fixed_aux_c1/outputs.json": "92a6f448783848cd097fbde4b03b2d132dc5827c7a994913efe2ec5e1bc3d0ec",
+    "fixed_aux_c1/processes_after.csv": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b",
+    "fixed_aux_c1/exit_code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "fixed_aux_c1/shutdown.json": "2f5d93af09a15c82b91e6cc97f3cdc84b61f2b3bd9c85cc78da08037fcdbed4f",
+    "fixed_aux_c1/image.txt": "717a386c0206e1219fbe264284537b9a87eb7959b07efddeb12631ae5f92ab55",
+    "fixed_aux_c1/processes_before.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "fixed_aux_c1/autotune/offline_shutdown_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_aux_c1/autotune/lifecycle_verification.json": "56f589a31f3145a228a60f3b6c3394686d14f1fda150368caa8e73fb2495dea7",
+    "fixed_aux_c1/autotune/startup_verification.json": "7b8e8d70fa2e4fb600697bafefba7b58bc09e6a3df9534b72c97f187fc0ac3c7",
+    "fixed_aux_c1/autotune/verification.json": "db640090b1faf2a538fb414e0ae135683ecc5fd1f91865b507b35145faab5ddf",
+    "fixed_aux_c1/autotune/after_generation_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_aux_c1/autotune/after_warmup_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_aux_c1/autotune/source.json": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+    "fixed_aux_c1/autotune/loaded_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_aux_c1/autotune/offline_startup_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_aux_c1/autotune/after_generation_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_aux_c1/autotune/offline_shutdown_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_aux_c1/autotune/offline_startup_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_aux_c1/autotune/compiler_config_audit.json": "b1b4470bd92a75d28b1eb2e8e15385edbadc050bceb450bd38854415d86500f7",
+    "fixed_aux_c1/autotune/preloaded_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_full_c1/manifest.json": "0d8761b55729733f61ee1d9d091f54c73fd2661fb5d6a92427cb81488f74e5ef",
+    "fixed_full_c1/run.log": "dbb5cca83df4ddd364723a67ff8d64038e65573d443d49ff973a9dd2a15a36fe",
+    "fixed_full_c1/raw_routes.pt": "346665df1a69f8e03957978b54922e1dfd963a3945581522f7b5addd9d214930",
+    "fixed_full_c1/records.jsonl.gz": "d8ec3dc7deb1f187391391b11ce0932f74ca000d8b53e247f275266e9901cee4",
+    "fixed_full_c1/invocation.txt": "57311eef36b7e8f81be736210c9f14a3ef60620177a14ba9349de55413d98683",
+    "fixed_full_c1/config_next_sha256.txt": "a85eae70567c91a4bd3c4d10c4a793c452971175111b679f7f1ed2f37bcd0fc0",
+    "fixed_full_c1/output_comparison.json": "63ad084a8ea0006bdefa53e82990cbad6aff70b4559600a6bc18a4b49010ce85",
+    "fixed_full_c1/validation_summary.json": "ce871616d6ffa51b54b42b3df2265b0987b5d86c7e24e27bd0a945e9f55301e1",
+    "fixed_full_c1/lock.txt": "4bc66db2c34987feefadc5a613ae6fc472fad97a337ee83cbf9b55d82a466ec5",
+    "fixed_full_c1/gpu_after.csv": "550bdc64c193066a17244122d5f4db24321938566ae38d9082470b4ba81db18b",
+    "fixed_full_c1/analysis_diagnostic.json": "918d1ac5350167c463a8f8769c33c5e034ac09192c07676662ebcca156676848",
+    "fixed_full_c1/container.cid": "c84a9d9b62866ce1e5a141f7241008d098599e0f5a551bfbb13e66b7aec20e26",
+    "fixed_full_c1/verify_raw_cpu.py": "5656d7714cd252ce16cae50c0b2690e3f60a2554a166ab510007f13ce2b02225",
+    "fixed_full_c1/probe_source_sha256.txt": "b299509ce51cbd42f4c4c91b55c9d8b0a2573af2473db463dcb03941bcaacd25",
+    "fixed_full_c1/gpu_before.csv": "94e279460f6f61e678ba07de8744c8dacb195dfb7467dc480cb5113a5b8113a9",
+    "fixed_full_c1/outputs.json": "00fa194fa93af921a0cab3fce206fbbf3da72dc188017061ad42c5eb97196ccb",
+    "fixed_full_c1/processes_after.csv": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b",
+    "fixed_full_c1/raw_integrity_cpu.json": "bc43db563b6c943afb135e41e331f3c36a2de17660ed07d684d7383f6f6cae87",
+    "fixed_full_c1/exit_code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "fixed_full_c1/shutdown.json": "2f5d93af09a15c82b91e6cc97f3cdc84b61f2b3bd9c85cc78da08037fcdbed4f",
+    "fixed_full_c1/image.txt": "717a386c0206e1219fbe264284537b9a87eb7959b07efddeb12631ae5f92ab55",
+    "fixed_full_c1/processes_before.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "fixed_full_c1/autotune/offline_shutdown_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_full_c1/autotune/lifecycle_verification.json": "56f589a31f3145a228a60f3b6c3394686d14f1fda150368caa8e73fb2495dea7",
+    "fixed_full_c1/autotune/startup_verification.json": "7b8e8d70fa2e4fb600697bafefba7b58bc09e6a3df9534b72c97f187fc0ac3c7",
+    "fixed_full_c1/autotune/verification.json": "db640090b1faf2a538fb414e0ae135683ecc5fd1f91865b507b35145faab5ddf",
+    "fixed_full_c1/autotune/after_generation_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_full_c1/autotune/after_warmup_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_full_c1/autotune/source.json": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+    "fixed_full_c1/autotune/loaded_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_full_c1/autotune/offline_startup_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_full_c1/autotune/after_generation_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_full_c1/autotune/offline_shutdown_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6",
+    "fixed_full_c1/autotune/offline_startup_effective.json": "5ebf0b94eb1b14ba17262310e4881811e9332f1d86530a4234ec285f6ddd4434",
+    "fixed_full_c1/autotune/compiler_config_audit.json": "d1d31272c83f473a8c355d3a105c80205d5d16d7ed1aa53fb40f2f2b9f088f38",
+    "fixed_full_c1/autotune/preloaded_tactics.json": "5d5b4cc30990d891bad553e03525e4e72c11c4a07f841687c3464db4a1adabc6"
+  }
+}

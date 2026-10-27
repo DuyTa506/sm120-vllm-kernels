@@ -1,22 +1,27 @@
 # Actual V2 decode routing capture
 
-Status: **target capture ran; exact output equivalence failed and remains
-unresolved**. The c1 control and target-only runs generated 192 tokens each but
-differed at token zero. Their independent autotuning selected different tactics
-in 51/132 entries. The signed target artifact passes structural checks; full
-target/draft capture is pending. This checkpoint supports no optimization
-adoption. See [the recorded result](RESULTS.md) for scope and proposed controls.
+Status: **full target/draft capture completed and passed structural checks;
+exact output equivalence still fails**. The fixed-reference plain control,
+native-aux control, and full capture each generated 192 tokens. Native aux
+(without custom capture hooks) differs from plain at 157 positions; full capture
+differs from native aux at 173 positions. Both compared jobs retain exit code 1.
+All three replayed the same 132 FlashInfer tactics through shutdown and covered
+all 30,028 observed lookups over 114 keys. Fixed FlashInfer choices therefore do
+not resolve output equivalence; Inductor settings remain independently selected.
 
-The later fixed-reference plain control `fixed_plain_c1` passed: 192 output
-tokens, all 132 tactics unchanged at every boundary, complete observed lookup
-coverage and clean shutdown. Native-aux/full capture and output comparisons
-under this reference remain pending.
+The full signed artifact contains 64 target steps and both draft phases for
+every step. Independent CPU analysis and tensor/JSON integrity checks pass.
+There are no graph-tail rows in this c1 sample. The first draft executes 24
+rejected suffix rows without a router mask, but this is diagnostic evidence,
+not a measured bandwidth or speed improvement. No routing optimization is
+selected. See [the current checkpoint](RESULTS.md#fixed-reference-native-aux-and-full-capture)
+and [the condensed CPU evidence](results/fixed_full_c1/comparison_context_cpu.json).
 
-The 57 CPU analysis/launcher/driver/import/lifecycle tests pass.
-Hooks were inspected against installed vLLM 0.32.0 / Torch 2.13.0+cu130 /
-FlashInfer 0.7.0.post1 sources in `qwen-prefill-dev`. The target path completed
-compilation, graph replay, capture, export and shutdown. Draft graph compatibility
-and output preservation remain unvalidated.
+The earlier independently tuned target-only failure remains preserved. The
+57 CPU analysis/launcher/driver/import/lifecycle tests passed; installed source
+inspection uses vLLM 0.32.0 / Torch 2.13.0+cu130 / FlashInfer 0.7.0.post1.
+Full target/draft compilation, graph replay, capture, export and owned shutdown
+now complete. Output preservation remains unvalidated.
 
 This is instrumentation for Qwen3.6-35B-A3B NVFP4 Fast on one SM120 GPU with
 CONFIGnext, CUTLASS NVFP4, fixed MTP-2, and TP/PP/DP/PCP/DCP=1. It does not
@@ -40,8 +45,9 @@ sg docker -c 'bash kernels/decode-route-capture/run.sh full_c1 --concurrency 1 -
 ```
 
 These are separate queued jobs. A failed control/target comparison requires
-inspection of the controls before further diagnostic capture. The completed checkpoint used `review_control_c1`
-and `review_target_c1`; it stopped before the full run and released the GPU.
+inspection of the controls before further diagnostic capture. The initial checkpoint used `review_control_c1`
+and `review_target_c1` and stopped before full capture. The later fixed-reference
+sequence and its remaining failures are recorded in [CONTROLS.md](CONTROLS.md).
 
 After c=1 works, repeat c=4/16/64 with fresh tags and matching controls; repeat
 with `--prompt-offset 32` for different recorded contexts. Defaults are 192
@@ -85,8 +91,8 @@ token IDs differ from the chosen control; it does not prove identical batching.
 
 The subsequently prepared [control and tactic-import options](CONTROLS.md) add
 `--native-aux-control`, optional `--autotune-json` with observed-choice
-verification, and separate baseline token-distance reporting. They are CPU-tested
-and GPU-unrun. Default inference options are unchanged. Completed inference now
+verification, and separate baseline token-distance reporting. They have now run in the fixed-reference plain/native-aux/full sequence.
+Default inference options are unchanged. Completed inference now
 gets structural route analysis even after an exact-token mismatch; overall
 failure is preserved, with diagnostic analysis saved separately.
 
@@ -100,7 +106,8 @@ The first native-tuning import failed before measured requests because cold-L2
 dense FP4 tuning ignored legacy v1 entries. Revised serving replay and the
 30-second engine drain passed startup/shutdown gates on the lifecycle smoke and
 the full exact/scalar pair. The separate offline lifecycle wrapper now has CPU
-coverage and passed the plain-control GPU run. Native-aux/full-draft runs remain pending.
+coverage and passed all six tactic boundaries in the plain, native-aux and
+full-draft GPU runs. The latter two still fail exact output comparison.
 
 ## What is captured
 

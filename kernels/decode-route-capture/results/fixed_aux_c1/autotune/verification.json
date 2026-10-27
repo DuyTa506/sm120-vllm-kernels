@@ -1,0 +1,1623 @@
+{
+  "status": "reference_and_observed_tactics_verified",
+  "source": "/work/kernels/decode-route-capture/references/decode_control_autotune.json",
+  "source_sha256": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+  "reference_entries": 132,
+  "load_calls": [
+    {
+      "path": "/out/cache/autotune_import/b1c141436a04c462dc32506e7d94d8d2ccb3089d5456aef125afc27ab23bd0f6/autotune_configs_dp0_rank0.json",
+      "returned": true
+    }
+  ],
+  "reference_entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8",
+  "lookup_observation_enabled": true,
+  "checks": {
+    "preloaded": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8"
+    },
+    "loaded": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8"
+    },
+    "after_warmup": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8"
+    },
+    "offline_startup": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8"
+    },
+    "after_generation": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8"
+    },
+    "offline_shutdown": {
+      "reference_entries": 132,
+      "actual_entries": 132,
+      "missing": [],
+      "extra": [],
+      "changed": [],
+      "entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8"
+    }
+  },
+  "require_all_observed_keys": true,
+  "compiled_graph_cache_imported": false,
+  "import_mode": "fixed_reference_replay_v1",
+  "runtime_source_sha256": {
+    "flashinfer_autotuner": "b637b91e762a1deadf7fc8202f944f5633797504a4d73e693e54987702b452d0",
+    "vllm_kernel_warmup": "5eb35e459feaa5656d5365abb3b442ae5fd896193b4053b5c7ac8764e91aa829"
+  },
+  "offline_checkpoint": "shutdown_verified",
+  "offline_lookup_observer": true,
+  "preload": {
+    "path": "/out/autotune/source.json",
+    "returned": true,
+    "boundary": "before_worker_load_model"
+  },
+  "seeded_cache_path": "/out/cache/autotune_import/b1c141436a04c462dc32506e7d94d8d2ccb3089d5456aef125afc27ab23bd0f6/autotune_configs_dp0_rank0.json",
+  "observed_cache_hits": [
+    {
+      "phase": "warmup",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((16384, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        24
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        24
+      ],
+      "calls": 40
+    },
+    {
+      "phase": "warmup",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((16384, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        23
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        23
+      ],
+      "calls": 40
+    },
+    {
+      "phase": "warmup",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((16384, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        12
+      ],
+      "expected": [
+        "MoERunner",
+        12
+      ],
+      "calls": 40
+    },
+    {
+      "phase": "warmup",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((16384, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        52
+      ],
+      "expected": [
+        "MoERunner",
+        52
+      ],
+      "calls": 40
+    },
+    {
+      "phase": "warmup",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((16384, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 1
+    },
+    {
+      "phase": "warmup",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((16384, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        12
+      ],
+      "expected": [
+        "MoERunner",
+        12
+      ],
+      "calls": 1
+    },
+    {
+      "phase": "warmup",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((64, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        0
+      ],
+      "expected": [
+        "MoERunner",
+        0
+      ],
+      "calls": 1
+    },
+    {
+      "phase": "warmup",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((64, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        9
+      ],
+      "expected": [
+        "MoERunner",
+        9
+      ],
+      "calls": 1
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((256, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        5
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        5
+      ],
+      "calls": 2080
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((256, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        2
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        2
+      ],
+      "calls": 2080
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((256, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        17
+      ],
+      "expected": [
+        "MoERunner",
+        17
+      ],
+      "calls": 2080
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((256, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        57
+      ],
+      "expected": [
+        "MoERunner",
+        57
+      ],
+      "calls": 2080
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((256, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        2
+      ],
+      "expected": [
+        "MoERunner",
+        2
+      ],
+      "calls": 52
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((256, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        11
+      ],
+      "expected": [
+        "MoERunner",
+        11
+      ],
+      "calls": 52
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((64, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        0
+      ],
+      "expected": [
+        "MoERunner",
+        0
+      ],
+      "calls": 26
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((64, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        9
+      ],
+      "expected": [
+        "MoERunner",
+        9
+      ],
+      "calls": 26
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((4, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "calls": 240
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((4, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "calls": 240
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((4, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        17
+      ],
+      "expected": [
+        "MoERunner",
+        17
+      ],
+      "calls": 240
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((4, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        46
+      ],
+      "expected": [
+        "MoERunner",
+        46
+      ],
+      "calls": 240
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((4, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        0
+      ],
+      "expected": [
+        "MoERunner",
+        0
+      ],
+      "calls": 8
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((4, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        12
+      ],
+      "expected": [
+        "MoERunner",
+        12
+      ],
+      "calls": 8
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((2, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        2
+      ],
+      "expected": [
+        "MoERunner",
+        2
+      ],
+      "calls": 7
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        9
+      ],
+      "expected": [
+        "MoERunner",
+        9
+      ],
+      "calls": 7
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        6
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        6
+      ],
+      "calls": 120
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "calls": 120
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((2, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        17
+      ],
+      "expected": [
+        "MoERunner",
+        17
+      ],
+      "calls": 120
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        47
+      ],
+      "expected": [
+        "MoERunner",
+        47
+      ],
+      "calls": 120
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        2
+      ],
+      "expected": [
+        "MoERunner",
+        2
+      ],
+      "calls": 7
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((1, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        9
+      ],
+      "expected": [
+        "MoERunner",
+        9
+      ],
+      "calls": 7
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "calls": 120
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "calls": 120
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        17
+      ],
+      "expected": [
+        "MoERunner",
+        17
+      ],
+      "calls": 120
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((1, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        46
+      ],
+      "expected": [
+        "MoERunner",
+        46
+      ],
+      "calls": 120
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((16384, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        24
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        24
+      ],
+      "calls": 320
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((16384, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        23
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        23
+      ],
+      "calls": 320
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((8192, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        12
+      ],
+      "expected": [
+        "MoERunner",
+        12
+      ],
+      "calls": 960
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((8192, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        52
+      ],
+      "expected": [
+        "MoERunner",
+        52
+      ],
+      "calls": 960
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8192, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        16
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        16
+      ],
+      "calls": 640
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8192, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "calls": 640
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((4096, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((4096, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        8
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        8
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((4096, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        19
+      ],
+      "expected": [
+        "MoERunner",
+        19
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((4096, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        59
+      ],
+      "expected": [
+        "MoERunner",
+        59
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((3584, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        24
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        24
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((3584, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((3584, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        19
+      ],
+      "expected": [
+        "MoERunner",
+        19
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((3584, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        59
+      ],
+      "expected": [
+        "MoERunner",
+        59
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((3072, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((3072, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((3072, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        19
+      ],
+      "expected": [
+        "MoERunner",
+        19
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((3072, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        59
+      ],
+      "expected": [
+        "MoERunner",
+        59
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2560, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        16
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        16
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2560, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        18
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        18
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((2560, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        12
+      ],
+      "expected": [
+        "MoERunner",
+        12
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2560, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        59
+      ],
+      "expected": [
+        "MoERunner",
+        59
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2048, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        16
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        16
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((2048, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        8
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        8
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((2048, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        12
+      ],
+      "expected": [
+        "MoERunner",
+        12
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2048, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        59
+      ],
+      "expected": [
+        "MoERunner",
+        59
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1536, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        18
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        18
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1536, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        1
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        1
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1536, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        17
+      ],
+      "expected": [
+        "MoERunner",
+        17
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((1536, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        59
+      ],
+      "expected": [
+        "MoERunner",
+        59
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1024, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((1024, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        1
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        1
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1024, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        17
+      ],
+      "expected": [
+        "MoERunner",
+        17
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((1024, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        57
+      ],
+      "expected": [
+        "MoERunner",
+        57
+      ],
+      "calls": 80
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((512, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "calls": 720
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((512, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        12
+      ],
+      "calls": 720
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((512, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        16
+      ],
+      "expected": [
+        "MoERunner",
+        16
+      ],
+      "calls": 720
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((512, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        57
+      ],
+      "expected": [
+        "MoERunner",
+        57
+      ],
+      "calls": 720
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((128, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        5
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        5
+      ],
+      "calls": 1280
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((128, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "calls": 1280
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((128, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        16
+      ],
+      "expected": [
+        "MoERunner",
+        16
+      ],
+      "calls": 1280
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((128, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        57
+      ],
+      "expected": [
+        "MoERunner",
+        57
+      ],
+      "calls": 1280
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((64, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "calls": 640
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((64, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "calls": 640
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((64, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        16
+      ],
+      "expected": [
+        "MoERunner",
+        16
+      ],
+      "calls": 640
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((64, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        56
+      ],
+      "expected": [
+        "MoERunner",
+        56
+      ],
+      "calls": 640
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((32, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "calls": 320
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((32, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "calls": 320
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((32, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        16
+      ],
+      "expected": [
+        "MoERunner",
+        16
+      ],
+      "calls": 320
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((32, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        56
+      ],
+      "expected": [
+        "MoERunner",
+        56
+      ],
+      "calls": 320
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((16, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        4
+      ],
+      "calls": 160
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((16, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "calls": 160
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((16, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        16
+      ],
+      "expected": [
+        "MoERunner",
+        16
+      ],
+      "calls": 160
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((16, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        57
+      ],
+      "expected": [
+        "MoERunner",
+        57
+      ],
+      "calls": 160
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8, 1024), (1024, 1024), (-1, 128), (128, 1024), (), (0,), (-1, 1024), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        6
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        6
+      ],
+      "calls": 160
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('fp4_gemm', 'CutlassFp4GemmRunner', ((8, 256), (256, 2048), (-1, 32), (32, 2048), (), (0,), (-1, 2048), (0,), (0,), (-1,)), ())",
+      "actual": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "expected": [
+        "CutlassFp4GemmRunner",
+        0
+      ],
+      "calls": 160
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((8, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        17
+      ],
+      "expected": [
+        "MoERunner",
+        17
+      ],
+      "calls": 160
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((8, 1024), (256, 1024, 128), (0,), (256, 2048, 32), (0,)), (torch.uint8, torch.int64, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        46
+      ],
+      "expected": [
+        "MoERunner",
+        46
+      ],
+      "calls": 160
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((8192, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 24
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((8192, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        16
+      ],
+      "expected": [
+        "MoERunner",
+        16
+      ],
+      "calls": 24
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((4096, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((4096, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        14
+      ],
+      "expected": [
+        "MoERunner",
+        14
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((3584, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((3584, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        16
+      ],
+      "expected": [
+        "MoERunner",
+        16
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((3072, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((3072, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        9
+      ],
+      "expected": [
+        "MoERunner",
+        9
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((2560, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2560, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        14
+      ],
+      "expected": [
+        "MoERunner",
+        14
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((2048, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((2048, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        11
+      ],
+      "expected": [
+        "MoERunner",
+        11
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1536, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((1536, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        11
+      ],
+      "expected": [
+        "MoERunner",
+        11
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((1024, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        4
+      ],
+      "expected": [
+        "MoERunner",
+        4
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((1024, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        11
+      ],
+      "expected": [
+        "MoERunner",
+        11
+      ],
+      "calls": 2
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((512, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        2
+      ],
+      "expected": [
+        "MoERunner",
+        2
+      ],
+      "calls": 18
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((512, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        11
+      ],
+      "expected": [
+        "MoERunner",
+        11
+      ],
+      "calls": 18
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((128, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        2
+      ],
+      "expected": [
+        "MoERunner",
+        2
+      ],
+      "calls": 32
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((128, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        13
+      ],
+      "expected": [
+        "MoERunner",
+        13
+      ],
+      "calls": 32
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((32, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        0
+      ],
+      "expected": [
+        "MoERunner",
+        0
+      ],
+      "calls": 12
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((32, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        9
+      ],
+      "expected": [
+        "MoERunner",
+        9
+      ],
+      "calls": 12
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((16, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        2
+      ],
+      "expected": [
+        "MoERunner",
+        2
+      ],
+      "calls": 6
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((16, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        10
+      ],
+      "expected": [
+        "MoERunner",
+        10
+      ],
+      "calls": 6
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm1', 'MoERunner', ((8, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        0
+      ],
+      "expected": [
+        "MoERunner",
+        0
+      ],
+      "calls": 6
+    },
+    {
+      "phase": "graph_capture_or_inference",
+      "key": "('trtllm::fused_moe::gemm2', 'MoERunner', ((8, 2048), (256, 1024, 2048), (0,), (256, 2048, 512), (0,)), (torch.bfloat16, torch.bfloat16, torch.bfloat16, 8, 1, 0, 1, 0, 1, 0, False, False, False, False, False, False, True, 3, False, True))",
+      "actual": [
+        "MoERunner",
+        9
+      ],
+      "expected": [
+        "MoERunner",
+        9
+      ],
+      "calls": 6
+    }
+  ],
+  "cache_misses": [],
+  "observed_reference_mismatches": [],
+  "uncovered_cache_hits": [],
+  "all_observed_lookups_covered": true,
+  "last_verified_stage": "offline_shutdown",
+  "selected_inductor_config_count": 13,
+  "offline_startup_boundary": "after_compile_or_warm_up_model",
+  "offline_worker_shutdown": "completed"
+}

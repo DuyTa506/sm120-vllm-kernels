@@ -1,0 +1,1 @@
+kernels/decode-route-capture/run.sh fixed_aux_c1 --native-aux-control --autotune-json /work/kernels/decode-route-capture/references/decode_control_autotune.json --require-autotune-coverage --compare-output /work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json 

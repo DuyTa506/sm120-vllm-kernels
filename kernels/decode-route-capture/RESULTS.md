@@ -1,4 +1,9 @@
-# c1 validation checkpoint, 2026-10-28 local time
+# c1 routing validation checkpoints, 2026-10-28 local time
+
+The latest fixed-reference native-aux/full results are at the end of this file.
+Earlier failures remain below with their original scope.
+
+## Initial independently tuned checkpoint
 
 Exact output equivalence failed. Target-only capture completed inference and
 saved structurally valid signed routes, but it is **not yet validated as
@@ -95,14 +100,14 @@ depends on cache residency and repeated tiles. Because output equivalence is
 unresolved, use these observations only to inspect the capture and design the
 next controls. Draft data is absent, not inferred from target expert IDs.
 
-## Next queued checks, not run at this checkpoint
+## Checks proposed at the initial checkpoint
 
 1. Repeat the plain c1 control against the preserved original control with the
    same prompt, seed and output length; retain the result even if it differs.
    Compare autotune choices as well as output IDs.
 2. Run the subsequently prepared `--native-aux-control`: enable
    `aux_output_config={"enable_return_routed_experts": True}` while omitting this
-   probe's hook installation and raw-route cloning. This mode is CPU-tested but
+   probe's hook installation and raw-route cloning. At this initial checkpoint, the mode was CPU-tested but
    GPU-unrun. It separates the native aux path from this probe's extra
    snapshots. Repeat it to establish its own variability.
 3. If independent autotuning remains a confound, arrange paired runs with
@@ -111,8 +116,8 @@ next controls. Draft data is absent, not inferred from target expert IDs.
    draft capture. The optional importer and its verification are described in
    [CONTROLS.md](CONTROLS.md). No such paired run has occurred yet.
 
-Full target/draft capture remains pending a new exclusive GPU slot and a useful
-control comparison. No further GPU work was started after release.
+At the initial checkpoint, full target/draft capture was pending a new exclusive
+GPU slot and useful controls. The later separately scheduled runs are below.
 
 ## Later checkpoint: fixed-reference plain control
 
@@ -139,8 +144,98 @@ absent. The GPU slot was explicitly released before further CPU documentation.
 `validation_summary.json` records the condensed evidence next to the original
 outputs, stage snapshots, lookup report, invocation and telemetry.
 
-Only the plain control ran. Native-aux, full target/draft capture and an optional
-plain repeat require separate root scheduling. The earlier target-only exact
+At this intermediate checkpoint, only the plain control had run. Native-aux
+and full target/draft capture were subsequently scheduled as recorded below;
+a same-mode plain repeat has not run. The earlier target-only exact
 mismatch remains unresolved; this successful control does not validate those
 probe outputs or support optimization adoption. No latency or throughput claim
 is made from this instrumentation run.
+
+## Fixed-reference native-aux and full capture
+
+Both later jobs completed generation, all FlashInfer lifecycle checks and owned
+shutdown, but **failed exact output comparison**. The original failed manifests,
+exit codes and diagnostic raw artifacts are preserved. The source/environment
+and prompt hashes match the fixed plain control; all 15 recorded probe sources
+and four CONFIGnext overlay sources still matched their launch hashes during
+the independent CPU audit. No model runtime source was changed for this audit.
+
+| Run | Exit | Exact comparison | Structural capture |
+|---|---:|---|---|
+| [`fixed_plain_c1`](results/fixed_plain_c1/validation_summary.json) | 0 | Not requested | No capture |
+| [`fixed_aux_c1`](results/fixed_aux_c1/validation_summary.json) | 1 | Versus plain: 157/192 positions differ; first index 28 | Native aux only; no custom hooks or raw cloning |
+| [`fixed_full_c1`](results/fixed_full_c1/validation_summary.json) | 1 | Versus native aux: 173/192 positions differ; first index 10 | Target and both draft phases, 64 steps each; structure passes |
+
+All outputs finish at the requested 192 tokens. Every run has the same 132
+reference tactics at all six boundaries and 30,028 observed cache lookups over
+114 distinct keys, with zero misses, uncovered hits or mismatched choices.
+Independent `offline_autotune.py` verification passes for both failed runs.
+Engine and worker shutdown complete; each recorded post-cleanup process list
+is empty. Parent cleanup also confirmed the owned containers absent before the
+next GPU job. This does not change either exit code to success.
+
+The full-run `baseline_variation` object compares plain against native aux and
+reports distance 157; its full-versus-aux distance 173 is outside that supplied
+envelope. These are different instrumentation modes, **not repeated samples of
+one baseline configuration**. No fixed-reference same-mode repeat has been run,
+so this is neither a variability estimate nor a statistical tolerance.
+
+Observed `.best_config` files also differ: 5/13 settings between plain and aux,
+5/13 between aux and full, and 6/13 between plain and full; no files are added or
+removed by basename. These saved selections do not prove the final in-memory
+choice of every runtime kernel. They are an unresolved compiler confound, not
+an explanation established by this comparison. Native aux already differs
+without the custom hooks, while the custom full capture also differs from aux;
+neither observation establishes causality or validates output preservation.
+
+### What the full signed capture shows
+
+[`comparison_context_cpu.json`](results/fixed_full_c1/comparison_context_cpu.json)
+records the condensed analysis, input hashes and compiler-file differences.
+The independent standard-library analyzer reproduces the saved diagnostic
+analysis exactly. A separate CPU-only Torch check loads `raw_routes.pt` with
+`map_location="cpu", weights_only=True`, verifies every tensor and metadata value
+against `records.jsonl.gz`, and confirms CUDA was never initialized; see
+[`raw_integrity_cpu.json`](results/fixed_full_c1/raw_integrity_cpu.json) and its
+adjacent reproducible script.
+
+| Phase | Records | Signed route tensor per record | Required / rejected / graph-tail rows, summed over steps | Actual router mask |
+|---|---:|---|---:|---|
+| Target verifier | 64 | int32 `[3,40,8]` | 168 / 24 / 0 | Present, zero masked rows |
+| First draft | 64 | int32 `[3,1,8]` | 168 / 24 / 0 | Absent |
+| Second draft | 64 | int32 `[1,1,8]` | 64 / 0 / 0 | Absent |
+
+All 192 records have valid distinct top-k IDs, and the raw values match their
+JSON view. Target CPU/GPU query boundaries and proposal/final acceptance counts
+agree. No draft phase is missing. The captured target steps propose 128 draft
+tokens, accept 104 and reject 24: 81.25% acceptance and 168 sampler output tokens.
+These counts cover the first 64 captured decode steps, not all 192 client tokens.
+
+The target has 40 NVFP4 expert layers; the draft has one BF16 expert layer. Both
+have H=2048, I=512, E=256 and top-k=8. Stored payload per expert is 1,769,472
+bytes for target weights/block scales and 6,291,456 bytes for draft weights.
+Mean target expert union over the three verifier rows is 18.72539 per layer;
+mean adjacent-row and first/third-row intersections are 2.19395 and 1.83320.
+
+| Phase | Sum of per-step/layer unique expert payloads |
+|---|---:|
+| Target verifier | 84,823,179,264 bytes |
+| First draft | 7,933,526,016 bytes |
+| Second draft | 3,221,225,472 bytes |
+
+First-draft rejected suffix rows introduce 140 expert selections beyond the
+required-row expert unions, summed independently over steps. Their associated
+BF16 payload count is 880,803,840 bytes. This suggests a possible future check
+of dead draft-row masking that preserves the required experts. It does not
+prove those rows can safely be skipped across the complete draft path, nor
+that these bytes reach DRAM or would translate into latency savings. There is
+**no observed graph-padding waste** in this sample, and rejected target rows
+must still be verified; they are not removable work on this evidence.
+
+The payload counts do not measure traffic, bandwidth utilization, cache reuse,
+latency, or speedup. They exclude shared experts, dense projections, attention
+and activations. No route optimization is adopted or included in the selected
+patch stack. Before developing one from this instrumented trace, a useful
+follow-up would establish same-mode fixed-reference repeatability and isolate
+remaining compiler/native-aux differences; it need not delay the independent
+prefill stack's final serving/agentic evaluation.

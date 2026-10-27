@@ -1,0 +1,43 @@
+{
+  "prompts_match": true,
+  "exact_match": false,
+  "token_distance": 173,
+  "requests": [
+    {
+      "request": 0,
+      "lengths": [
+        192,
+        192
+      ],
+      "different_positions": 173,
+      "first_difference": 10
+    }
+  ],
+  "baseline_variation": {
+    "comparisons_to_reference": [
+      {
+        "prompts_match": true,
+        "exact_match": false,
+        "token_distance": 157,
+        "requests": [
+          {
+            "request": 0,
+            "lengths": [
+              192,
+              192
+            ],
+            "different_positions": 157,
+            "first_difference": 28
+          }
+        ]
+      }
+    ],
+    "max_observed_token_distance": 157,
+    "within_observed_token_distance": false,
+    "interpretation": "Positional token-distance envelope of supplied controls only; not equivalence, a statistical tolerance, or causal attribution. An exact mismatch remains a failed comparison."
+  },
+  "reference_path": "/work/kernels/decode-route-capture/results/fixed_aux_c1/outputs.json",
+  "baseline_paths": [
+    "/work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json"
+  ]
+}

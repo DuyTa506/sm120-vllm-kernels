@@ -1,0 +1,2103 @@
+{
+  "schema_version": 1,
+  "instrumentation_only": true,
+  "gpu_validation": "failed",
+  "geometry": {
+    "target": [
+      {
+        "layer_id": 0,
+        "module_name": "language_model.model.layers.0.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 1,
+        "module_name": "language_model.model.layers.1.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 2,
+        "module_name": "language_model.model.layers.2.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 3,
+        "module_name": "language_model.model.layers.3.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 4,
+        "module_name": "language_model.model.layers.4.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 5,
+        "module_name": "language_model.model.layers.5.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 6,
+        "module_name": "language_model.model.layers.6.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 7,
+        "module_name": "language_model.model.layers.7.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 8,
+        "module_name": "language_model.model.layers.8.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 9,
+        "module_name": "language_model.model.layers.9.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 10,
+        "module_name": "language_model.model.layers.10.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 11,
+        "module_name": "language_model.model.layers.11.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 12,
+        "module_name": "language_model.model.layers.12.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 13,
+        "module_name": "language_model.model.layers.13.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 14,
+        "module_name": "language_model.model.layers.14.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 15,
+        "module_name": "language_model.model.layers.15.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 16,
+        "module_name": "language_model.model.layers.16.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 17,
+        "module_name": "language_model.model.layers.17.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 18,
+        "module_name": "language_model.model.layers.18.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 19,
+        "module_name": "language_model.model.layers.19.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 20,
+        "module_name": "language_model.model.layers.20.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 21,
+        "module_name": "language_model.model.layers.21.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 22,
+        "module_name": "language_model.model.layers.22.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 23,
+        "module_name": "language_model.model.layers.23.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 24,
+        "module_name": "language_model.model.layers.24.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 25,
+        "module_name": "language_model.model.layers.25.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 26,
+        "module_name": "language_model.model.layers.26.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 27,
+        "module_name": "language_model.model.layers.27.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 28,
+        "module_name": "language_model.model.layers.28.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 29,
+        "module_name": "language_model.model.layers.29.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 30,
+        "module_name": "language_model.model.layers.30.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 31,
+        "module_name": "language_model.model.layers.31.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 32,
+        "module_name": "language_model.model.layers.32.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 33,
+        "module_name": "language_model.model.layers.33.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 34,
+        "module_name": "language_model.model.layers.34.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 35,
+        "module_name": "language_model.model.layers.35.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 36,
+        "module_name": "language_model.model.layers.36.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 37,
+        "module_name": "language_model.model.layers.37.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 38,
+        "module_name": "language_model.model.layers.38.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      },
+      {
+        "layer_id": 39,
+        "module_name": "language_model.model.layers.39.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "nvfp4",
+        "quant_method": "CompressedTensorsW4A4Nvfp4MoEMethod",
+        "stored_payload_bytes_per_expert": 1769472,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              1024
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 268435456
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              256
+            ],
+            "dtype": "torch.uint8",
+            "bytes": 134217728
+          },
+          "w13_weight_scale": {
+            "shape": [
+              256,
+              1024,
+              128
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 33554432
+          },
+          "w2_weight_scale": {
+            "shape": [
+              256,
+              2048,
+              32
+            ],
+            "dtype": "torch.float8_e4m3fn",
+            "bytes": 16777216
+          }
+        }
+      }
+    ],
+    "draft": [
+      {
+        "layer_id": 0,
+        "module_name": "model.layers.0.mlp.experts",
+        "hidden": 2048,
+        "intermediate": 512,
+        "experts": 256,
+        "topk": 8,
+        "format": "bf16",
+        "quant_method": "UnquantizedFusedMoEMethod",
+        "stored_payload_bytes_per_expert": 6291456,
+        "tensors": {
+          "w13_weight": {
+            "shape": [
+              256,
+              1024,
+              2048
+            ],
+            "dtype": "torch.bfloat16",
+            "bytes": 1073741824
+          },
+          "w2_weight": {
+            "shape": [
+              256,
+              2048,
+              512
+            ],
+            "dtype": "torch.bfloat16",
+            "bytes": 536870912
+          }
+        }
+      }
+    ]
+  },
+  "draft_capture": "captured_both_phases",
+  "max_steps": 64,
+  "max_rows": 512,
+  "mode": "target_and_draft",
+  "selected_prompts": [
+    {
+      "task": 0,
+      "turn": 0,
+      "prompt_tokens": 1156,
+      "prompt_ids_sha256": "7184757dc71fd0d1ce9f3159f301d09af732a5cbc58386a9fac37f93f549c5e2"
+    }
+  ],
+  "trajectory": "/work/results/agentic/trajectories_short_production.json.xz",
+  "concurrency": 1,
+  "output_tokens": 192,
+  "seed": 101,
+  "exact_output_status": "failed",
+  "argv": [
+    "/work/kernels/decode-route-capture/run_capture.py",
+    "--out",
+    "/out",
+    "--autotune-json",
+    "/work/kernels/decode-route-capture/references/decode_control_autotune.json",
+    "--require-autotune-coverage",
+    "--compare-output",
+    "/work/kernels/decode-route-capture/results/fixed_aux_c1/outputs.json",
+    "--baseline-output",
+    "/work/kernels/decode-route-capture/results/fixed_plain_c1/outputs.json"
+  ],
+  "environment": {
+    "VLLM_MOE_SKIP_PADDING": "1",
+    "VLLM_USE_V2_MODEL_RUNNER": "1",
+    "VLLM_SM120_FP8_PREFILL": "1",
+    "VLLM_SM120_FP8_PREFILL_NOGLUE": "1",
+    "VLLM_FI_KERNEL_PAGES": "16",
+    "VLLM_GDN_INTERNAL_CKPT": "1",
+    "VLLM_GDN_FUSED_CONV": "1"
+  },
+  "versions": {
+    "vllm": "0.32.0",
+    "torch": "2.13.0+cu130",
+    "flashinfer-python": "0.7.0.post1"
+  },
+  "source_sha256": {
+    "v1/worker/gpu/model_runner.py": "5240fe8d62d403e466a4aa07a28fb7af5c0f1e9b9c3bb08c4003185bde461f87",
+    "v1/worker/gpu/input_batch.py": "2e4c2ebdb2c1ce04026d15288f5408624d880f335735636985efa3a3209a56f2",
+    "v1/engine/core_client.py": "386b528a69029507f80a2df4d6df2a4fa6ba2ba811501dc3449ceea58b5cd90a",
+    "v1/worker/gpu/spec_decode/mtp/speculator.py": "b730010cad9d54772c03ca8c6e562192ce3a0faf18b511720c9ec7b0f0b9ec44",
+    "v1/worker/gpu/spec_decode/target_dependent_ar/speculator.py": "2133fa15bae57b85a5d0fb1a32124b25d32987117fdce58d032c67331cfe8d48",
+    "model_executor/layers/fused_moe/router/base_router.py": "c909924fcfa461ccdaa6290d215d4d35bd4062fb02feeb23619b234da993f6bf",
+    "model_executor/layers/fused_moe/router/fused_topk_router.py": "1c80f4af4d781fd66b12aa6a7a0fd30082bc521df40f1252987a8ac4c0bef51c",
+    "model_executor/layers/fused_moe/routed_experts_capturer.py": "1aa4244430549e45c0e802fa36ac41cc5c1c126bd7979ee137acbe5fc8be0984",
+    "distributed/aux_output_connector/worker.py": "fd7abbf1d67bc5aeecfc7a7d92f6db6f2f245d7d7d63b34509f19e671a84037d"
+  },
+  "config_repr": "model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66', num_spec_tokens=2), tokenizer='/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=131072, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=compressed-tensors, quantization_config=None, enforce_eager=False, aux_output_config=AuxOutputConfig(enable_return_routed_experts=True, max_bytes=None), kv_cache_dtype=fp8, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, custom_histogram_buckets=None, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=101, served_model_name=/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '/root/.cache/vllm/torch_compile_cache/dfc071dafc', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::qwen4_exp_qsa_prepare_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'cudagraph_decoder_replay': True, 'decoder_replay_cudagraph_capture_sizes': [], 'decoder_replay_trim_threshold': 768, 'compile_sizes': [], 'compile_ranges_endpoints': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 512, 1024, 1536, 2048, 2560, 3072, 3584, 4096, 4608, 5120, 5632, 6144, 6656, 7168, 7680, 8192, 10240, 12288, 14336, 16384], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 16384, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': '/root/.cache/vllm/torch_compile_cache/dfc071dafc/rank_0_0/eagle_head', 'fast_moe_cold_start': False, 'static_all_moe_layers': ['language_model.model.layers.0.mlp.experts', 'language_model.model.layers.1.mlp.experts', 'language_model.model.layers.2.mlp.experts', 'language_model.model.layers.3.mlp.experts', 'language_model.model.layers.4.mlp.experts', 'language_model.model.layers.5.mlp.experts', 'language_model.model.layers.6.mlp.experts', 'language_model.model.layers.7.mlp.experts', 'language_model.model.layers.8.mlp.experts', 'language_model.model.layers.9.mlp.experts', 'language_model.model.layers.10.mlp.experts', 'language_model.model.layers.11.mlp.experts', 'language_model.model.layers.12.mlp.experts', 'language_model.model.layers.13.mlp.experts', 'language_model.model.layers.14.mlp.experts', 'language_model.model.layers.15.mlp.experts', 'language_model.model.layers.16.mlp.experts', 'language_model.model.layers.17.mlp.experts', 'language_model.model.layers.18.mlp.experts', 'language_model.model.layers.19.mlp.experts', 'language_model.model.layers.20.mlp.experts', 'language_model.model.layers.21.mlp.experts', 'language_model.model.layers.22.mlp.experts', 'language_model.model.layers.23.mlp.experts', 'language_model.model.layers.24.mlp.experts', 'language_model.model.layers.25.mlp.experts', 'language_model.model.layers.26.mlp.experts', 'language_model.model.layers.27.mlp.experts', 'language_model.model.layers.28.mlp.experts', 'language_model.model.layers.29.mlp.experts', 'language_model.model.layers.30.mlp.experts', 'language_model.model.layers.31.mlp.experts', 'language_model.model.layers.32.mlp.experts', 'language_model.model.layers.33.mlp.experts', 'language_model.model.layers.34.mlp.experts', 'language_model.model.layers.35.mlp.experts', 'language_model.model.layers.36.mlp.experts', 'language_model.model.layers.37.mlp.experts', 'language_model.model.layers.38.mlp.experts', 'language_model.model.layers.39.mlp.experts', 'mtp.layers.0.mlp.experts']}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='flashinfer_cutlass', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+  "runner": "vllm.v1.worker.gpu.model_runner.GPUModelRunner",
+  "control_token_ids_match": false,
+  "baseline_variation": {
+    "comparisons_to_reference": [
+      {
+        "prompts_match": true,
+        "exact_match": false,
+        "token_distance": 157,
+        "requests": [
+          {
+            "request": 0,
+            "lengths": [
+              192,
+              192
+            ],
+            "different_positions": 157,
+            "first_difference": 28
+          }
+        ]
+      }
+    ],
+    "max_observed_token_distance": 157,
+    "within_observed_token_distance": false,
+    "interpretation": "Positional token-distance envelope of supplied controls only; not equivalence, a statistical tolerance, or causal attribution. An exact mismatch remains a failed comparison."
+  },
+  "autotune_import": {
+    "status": "reference_and_observed_tactics_verified",
+    "source_sha256": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+    "import_mode": "fixed_reference_replay_v1",
+    "verification_file": "autotune/verification.json",
+    "lifecycle": {
+      "status": "verified",
+      "verified_stage": "offline_shutdown",
+      "import_mode": "fixed_reference_replay_v1",
+      "source_sha256": "1dcdda546d5286e95e0a665a5aa89ef89f7d72dba84de132873dee38c4ecc991",
+      "effective_entries_sha256": "8813376c0c2c4553e0f832c0629f720515b47689634f4362e23586de609254d8",
+      "entries": 132,
+      "all_observed_lookups_covered": true,
+      "inductor_pinned": false,
+      "instrumentation_only": true
+    }
+  },
+  "success": false,
+  "error": "RuntimeError: captured run differs from control prompt selection/output token IDs",
+  "generation_complete": true,
+  "structural_validation": "passed"
+}
