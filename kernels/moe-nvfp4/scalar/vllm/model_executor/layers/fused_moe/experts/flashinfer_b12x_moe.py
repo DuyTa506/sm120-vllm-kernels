@@ -216,10 +216,11 @@ class FlashInferB12xExperts(mk.FusedMoEExpertsModular):
         # (>= 1024 routed rows) kernel.
         self._hybrid_min_tokens = hybrid_min
         if self.a1_gscale is not None and self.a2_gscale is not None:
-            a1g = self.a1_gscale.to(torch.float32)
-            a2g = self.a2_gscale.to(torch.float32)
-            self._cutlass_g1 = (w13_s2 / a1g).contiguous()   # w13_weight_scale_2 * a13
-            self._cutlass_g2 = (w2_s2 / a2g).contiguous()    # w2_weight_scale_2 * a2
+            # Match FlashInferExperts.process_weights_after_loading exactly:
+            # multiply by the original processed activation scales, not their
+            # rounded reciprocal. Keep raw s2/g*_alphas intact for b12x.
+            self._cutlass_g1 = (w13_s2 * layer.w13_input_scale).contiguous()
+            self._cutlass_g2 = (w2_s2 * layer.w2_input_scale).contiguous()
         else:
             self._hybrid_min_tokens = 0
 

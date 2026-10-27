@@ -1,0 +1,1 @@
+{"kind": "preflight", "status": "passed", "cases": 24, "baseline": "shared_exact", "original_input_scales_retained": true, "forward_methods_unchanged": true, "cuda_initialized": false}

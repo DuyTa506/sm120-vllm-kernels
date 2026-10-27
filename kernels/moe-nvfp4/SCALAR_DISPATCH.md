@@ -1,14 +1,14 @@
 # Scalar FC1-scale dispatch experiment
 
-Status: prepared and CPU-preflight checked; **GPU compilation, correctness,
-CUDA-graph replay, and performance validation are pending**. No GPU work was
-run for this experiment. Neither the `shared/` backend nor the existing
+Status: **GPU correctness/dispatch and microbenchmark completed**; incremental
+serving/quality validation remains pending. Results are below. Neither the `shared/` backend nor the existing
 workspace verifier/harness nor installed container sources were changed.
 
 ## Change and limits
 
 `scalar/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py`
-is a separate copy of the shared-workspace candidate. Set
+is a separate copy of `shared_exact/`, retaining the corrected CUTLASS alpha
+arithmetic from the original processed activation scales. Set
 `VLLM_B12X_SCALAR_INPUT_SCALE=1` **before importing this overlay** to enable
 its single added weight-loading hook. `VLLM_B12X_FIX_SCALES=1` is also required.
 The existing shared-workspace flag is independent and is enabled in the
@@ -24,7 +24,7 @@ retain their existing representation. Small batches keep the CUTLASS path.
 Uniformity is checked with a 1 KiB CPU copy once per eligible layer during
 weight preparation. This is a **load-time synchronization**, not a forward
 or CUDA-graph replay synchronization. `apply`, wrapper ownership, and CUTLASS
-execution are identical to `shared/`; the CPU preflight compares their ASTs.
+execution are identical to `shared_exact/`; the CPU preflight compares their ASTs.
 
 ## Installed-source findings
 
@@ -91,7 +91,11 @@ Source SHA256 values:
 `verify_scalar_dispatch.py --preflight` runs the actual hook extracted from
 its AST on CPU tensors. It checks 24 uniform/invalid/nonuniform/configuration/
 flag cases, exact scalar/vector alpha-fold equivalence, and unchanged forward
-methods and existing scale preparation. The initial preflight failed with
+methods and exact-alpha scale preparation. A CPU fixture also checks that the
+original input scales survive without a reciprocal round trip. The GPU fixture
+retains those scales explicitly, and both variants must have identical CUTLASS
+alphas. The shared baseline and its older verifier remain unchanged.
+The initial preflight failed with
 `scalar selection not implemented`; after implementation all 24 passed with
 `cuda_initialized=false`. Both Python files passed source compilation.
 
@@ -101,7 +105,7 @@ Repeat the CPU-only check:
 sg docker -c 'docker exec -e CUDA_VISIBLE_DEVICES= -e PYTHONDONTWRITEBYTECODE=1 qwen-prefill-dev python3 /work/kernels/moe-nvfp4/verify_scalar_dispatch.py --preflight'
 ```
 
-Only after Arm A releases the GPU, run the explicit GPU mode:
+To reproduce the scheduled GPU mode on an idle GPU:
 
 ```bash
 sg docker -c 'docker exec -e PYTHONDONTWRITEBYTECODE=1 qwen-prefill-dev python3 /work/kernels/moe-nvfp4/verify_scalar_dispatch.py --gpu --tokens 1023 1024 8192 --layers 0 19'
@@ -114,11 +118,56 @@ shape, and compares captured full `apply()` calls (including scale expansion,
 ID masking, and output copy). It interleaves timing in both orders and checks
 real/hot/masked/shifted routing over replay. A deliberately nonuniform FC1-scale
 case confirms the generic path remains selected. That nonuniform case is a
-representation-preservation comparison against `shared/`, not a new checkpoint
+representation-preservation comparison against `shared_exact/`, not a new checkpoint
 accuracy claim. Tolerance is relative L2 <= max(0.002, 3 * baseline-repeat noise).
 Independent source review found no substantive defect. Its coverage finding
 was addressed: the nonuniform eight-hot fixture selects expert 17 explicitly
 alongside experts 0–6, guaranteeing mixed selected scales are exercised.
 Negative-ID tests run only in the b12x band; the CUTLASS boundary case tests its
 unchanged route contract. GPU validation must pass and show a repeatable full
-call benefit before adoption. No benchmark results exist yet.
+call benefit before adoption. Executed microbenchmark results are recorded below.
+
+
+## Executed GPU result (2026-10-28 local)
+
+Both scheduled processes exited 0. Together they passed **224 output/replay
+comparisons**, 40 dispatch checks, and recorded 40 timing rows, using actual
+checkpoint layers 0/19 with real captured hidden states. Uniform scales select
+the shared-input dynamic implementation; deliberately nonuniform scales retain
+the generic implementation. Negative routes are tested only above the hybrid
+threshold. The 1023-token case remains CUTLASS. All-masked output is zero.
+Numerical tolerance is still bounded by baseline repeat noise, not bitwise
+agreement or a full-model quality guarantee.
+
+Times below average the medians from A/B and B/A orders; they include scale
+broadcast, masking and output copy. Negative duration change means faster.
+
+| layer | tokens | shared_exact us | scalar us | duration change |
+|---:|---:|---:|---:|---:|
+| 0 | 1023 | 355.71 | 356.82 | +0.31% |
+| 0 | 1024 | 333.95 | 330.80 | -0.94% |
+| 0 | 4096 | 455.34 | 440.70 | -3.22% |
+| 0 | 8192 | 629.10 | 617.01 | -1.92% |
+| 0 | 16384 | 1162.62 | 1157.28 | -0.46% |
+| 19 | 1023 | 321.41 | 323.84 | +0.76% |
+| 19 | 1024 | 316.53 | 311.33 | -1.64% |
+| 19 | 4096 | 449.88 | 434.62 | -3.39% |
+| 19 | 8192 | 637.98 | 626.48 | -1.80% |
+| 19 | 16384 | 1156.29 | 1161.62 | +0.46% |
+
+The 4k saving is 14–16 us/layer and the 8k saving is 11–12 us/layer. If those
+shapes occurred in all 40 MoE layers, the arithmetic sum would be roughly
+0.5–0.6 ms per forward, not a measured server saving. At 16k the result is
+neutral within roughly ±0.5%, and the unchanged CUTLASS boundary shows small
+variation too. This is enough to test the scalar path in serving, not to claim
+a universal 2–3% model speedup. Final composition remains undecided.
+
+Raw results: [initial](results/scalar_exact_gpu.jsonl),
+[4k/16k extension](results/scalar_exact_prefill_gpu.jsonl), with matching
+`.stderr` compiler logs. The first run uses two correctness replays and 15
+timing repetitions/order; the extension uses three and 30, respectively.
+
+```bash
+python3 verify_scalar_dispatch.py --gpu --tokens 1023 1024 8192 --layers 0 19
+python3 verify_scalar_dispatch.py --gpu --tokens 4096 16384 --layers 0 19 --replays 3 --repeats 30
+```

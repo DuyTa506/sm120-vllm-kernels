@@ -22,6 +22,27 @@ def emit(**record):
     print(json.dumps(record), flush=True)
 
 
+def prepare_exact(module, raw, prep, make_expert):
+    """Retain original processed scales; do not reconstruct them via reciprocal."""
+    expert = make_expert(module)
+    expert.quant_config = SimpleNamespace(
+        w1_scale=prep["s13"], w2_scale=prep["s2"],
+        a1_gscale=prep["a1_gscale"], a2_gscale=prep["a2_gscale"],
+        g1_alphas=prep["g1"], g2_alphas=prep["g2"],
+    )
+    expert.moe_config = SimpleNamespace(moe_parallel_config=SimpleNamespace(
+        tp_size=1, tp_rank=0, ep_size=1, ep_rank=0, use_ep=False,
+    ))
+    expert._process_weights_fixed_scales(SimpleNamespace(
+        w13_weight=prep["w13"],
+        w13_weight_scale_2=1.0 / raw["wgs13"],
+        w2_weight_scale_2=1.0 / raw["wgs2"],
+        w13_input_scale=prep["a13"].expand(256).contiguous(),
+        w2_input_scale=prep["a2"].expand(256).contiguous(),
+    ))
+    return expert
+
+
 def preflight():
     import torch
 
@@ -90,8 +111,8 @@ def preflight():
         namespace[flag] = True
         cases += 1
 
-    # The entire forward path remains the shared backend's implementation.
-    base = ast.parse((HERE / "shared/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py").read_text())
+    # The entire forward path remains the exact-alpha shared backend implementation.
+    base = ast.parse((HERE / "shared_exact/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py").read_text())
     base_cls = next(n for n in base.body if isinstance(n, ast.ClassDef))
     base_methods = {n.name: n for n in base_cls.body if isinstance(n, ast.FunctionDef)}
     for name in ("apply", "_ensure_wrapper", "_apply_cutlass"):
@@ -99,8 +120,23 @@ def preflight():
     selection_call = methods["_process_weights_fixed_scales"].body.pop()
     assert ast.dump(selection_call) == ast.dump(ast.parse("self._maybe_use_scalar_input_scale()").body[0])
     assert ast.dump(methods["_process_weights_fixed_scales"]) == ast.dump(base_methods["_process_weights_fixed_scales"])
+    # Exercise the actual fixture without importing vLLM or allocating GPU data.
+    # This float32 value changes under a reciprocal round trip.
+    original = torch.tensor(0.007007007021456957, dtype=torch.float32)
+    assert not torch.equal(original, 1.0 / (1.0 / original))
+    captured = []
+    fake = SimpleNamespace(_process_weights_fixed_scales=captured.append)
+    prep = dict.fromkeys(("s13", "s2", "g1", "g2", "w13"), torch.ones(256))
+    prep.update(a13=original, a2=original * 2,
+                a1_gscale=(1.0 / original).repeat(256),
+                a2_gscale=(1.0 / (original * 2)).repeat(256))
+    prepare_exact(None, {"wgs13": torch.ones(256), "wgs2": torch.ones(256)},
+                  prep, lambda _: fake)
+    assert torch.equal(captured[0].w13_input_scale, original.repeat(256))
+    assert torch.equal(captured[0].w2_input_scale, (original * 2).repeat(256))
     assert not torch.cuda.is_initialized()
     emit(kind="preflight", status="passed", cases=cases,
+         baseline="shared_exact", original_input_scales_retained=True,
          forward_methods_unchanged=True, cuda_initialized=False)
 
 
@@ -117,8 +153,8 @@ def runtime_source_evidence():
 def gpu(args):
     import torch
     from moe_common import H, load_hidden, load_layer_raw, prep_cutlass, route
-    from test_shared_workspace import wrapper
-    from verify_shared_workspace import apply, capture, errors, load_backend, prepare
+    from test_shared_workspace import make_expert, wrapper
+    from verify_shared_workspace import apply, capture, errors, load_backend
     from vllm.v1.worker import workspace as ws
     from flashinfer.autotuner import autotune
     from flashinfer.fused_moe.cute_dsl.blackwell_sm12x import moe_dispatch as dispatch
@@ -132,7 +168,7 @@ def gpu(args):
     runtime_source_evidence()
     assert dispatch._FORCED_BACKEND is None, "do not benchmark a forced dispatch override"
     ws.init_workspace_manager(torch.device("cuda:0"))
-    modules = [load_backend("shared"), load_backend("scalar")]
+    modules = [load_backend("shared_exact"), load_backend("scalar")]
     original_compile = dispatch._get_dynamic_kernel
     for layer in args.layers:
         raw = load_layer_raw(layer)
@@ -142,9 +178,12 @@ def gpu(args):
         for scale_case in ("uniform", "nonuniform"):
             prep = dict(base_prep)
             if scale_case == "nonuniform":
-                prep["a1_gscale"] = prep["a1_gscale"].clone()
-                prep["a1_gscale"][17].mul_(1.25)
-            experts = [prepare(module, raw, prep) for module in modules]
+                prep["a13"] = prep["a13"].repeat(256)
+                prep["a13"][17].div_(1.25)
+                prep["a1_gscale"] = 1.0 / prep["a13"]
+            experts = [prepare_exact(module, raw, prep, make_expert) for module in modules]
+            for name in ("_cutlass_g1", "_cutlass_g2"):
+                assert torch.equal(getattr(experts[0], name), getattr(experts[1], name))
             assert experts[0]._input_global_scale.numel() == 256
             assert experts[1]._input_global_scale.numel() == (1 if scale_case == "uniform" else 256)
             for obj in experts:
