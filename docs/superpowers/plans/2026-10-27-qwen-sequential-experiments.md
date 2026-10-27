@@ -30,7 +30,7 @@ The earlier GPU-priority question is superseded by this execution instruction.
 1. **Shared b12x workspace** (`kernels/moe-nvfp4/shared/`).
    Allocation/lifetime tests and 110 numerical/replay checks passed. Full
    serving initialized all 40 layers. Shared-GPU A2/B1 is exploratory.
-   Clean cold-v2 A3 CUTLASS then B2 shared is currently running (session 38206).
+   Clean cold-v2 A3 CUTLASS then B2 shared completed (session 38206 exited 0).
    Record 8k/16k TTFT, nsys GPU span, KV capacity, c=1/c=4 decode. Repeat in
    reverse order if the gain is comparable to timing variation. Revalidate
    real-layer microbenchmarks as necessary for clean performance attribution.
@@ -102,3 +102,20 @@ measured capacity requires a justified common adjustment.
 Completion requires executed experiments, documented decisions, a measured
 combined configuration, and the agentic comparison. Prepared scripts and
 microbenchmarks alone do not satisfy this request.
+
+## Progress log
+
+- Clean b12x pair: 8k GPU span132.33→120.23 ms, two TTFT seed means lower at
+  both 8k and16k. Decode short-run throughput is6.35% lower despite similar
+  ITL; investigate with reversed-order full task matrix before adoption.
+- Clean shared/unshared micro replay passed10 more numerical checks (120
+  total); no sharing-induced slowdown. Clean layer19 CUTLASS/b12x integrated
+  micro time887.0→654.6 us at8k, matching the previously verified kernel gain.
+- CPU preparation complete: scalar overlay+24-case preflight, standalone GDN
+  fusion+verifier, routing study. Their GPU experiments remain pending.
+- Full matrix harness reviewed; fixed exact-output-length validation and
+  cross-scenario prefix isolation. It reconstructs mixed output lengths using
+  the installed CPU dataset sampler, records34 distinct phase salts and fails
+  incomplete requests.28 saved A3/B2 result files pass its checks.
+- Agentic harness reliability fixes pass7 mocked CPU tests. No agentic GPU
+  run has occurred; it remains exclusively the final combined-config task.

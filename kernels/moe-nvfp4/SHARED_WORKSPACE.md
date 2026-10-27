@@ -103,6 +103,10 @@ baseline. CUDA graph traces, detailed request samples and telemetry are in
 Arm A training exited before these runs. Only the benchmark EngineCore was
 listed as a GPU compute process. Same CONFIG=next, MTP-2, memory utilization
 0.60, image, two 16-request seeds per length, separate compile caches.
+An independent CPU reconstruction of all 112 prompts across 14 phases found
+zero shared leading tokens, including warmups and profiling requests
+(`results/cold_v2_prefix_audit.json`). The task-matrix runner additionally
+uses explicit per-phase cache salts to prevent collisions as request counts grow.
 
 | Measurement | CUTLASS A3 | Shared hybrid B2 | change |
 |---|---:|---:|---:|
