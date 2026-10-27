@@ -22,6 +22,9 @@ SPEC = importlib.util.spec_from_file_location("greedy_serving_matrix", HERE / "s
 MATRIX = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = MATRIX
 SPEC.loader.exec_module(MATRIX)
+IDENTITY_SPEC = importlib.util.spec_from_file_location("paired_runtime_identity", HERE / "compare_runtime_identity.py")
+IDENTITY = importlib.util.module_from_spec(IDENTITY_SPEC)
+IDENTITY_SPEC.loader.exec_module(IDENTITY)
 PKG = "/usr/local/lib/python3.12/dist-packages/vllm/"
 EXPERT = "model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py"
 ORACLE = "model_executor/layers/fused_moe/oracle/unquantized.py"
@@ -75,10 +78,7 @@ def mtp_delta(before, after):
 
 
 def source_extras(variant):
-    return set() if variant == "next" else {
-        f"kernels/moe-nvfp4/{variant}/vllm/{EXPERT}",
-        f"kernels/moe-nvfp4/patched/vllm/{ORACLE}",
-    }
+    return IDENTITY.source_extras(variant)
 
 
 def load(root):
@@ -94,65 +94,16 @@ def load(root):
         return json.loads(text(relative))
 
     require(text("exit_code.txt").strip() == "0", f"failed/incomplete experiment: {root}")
-    config = dict(line.split("=", 1) for line in text("config.txt").splitlines())
-    require(config["tag"] == root.name and config["greedy_decode"] == "1", "invalid greedy run identity")
-    variant = config["variant"]
-    require(variant in ("next", "shared", "shared_exact", "scalar"), "unknown overlay variant")
-    image = text("image.txt").strip()
-    commit, diff_hash = text("commit.txt").strip(), sha(text("uncommitted.diff").encode())
-    containers = read("container.json")
-    require(isinstance(containers, list) and len(containers) == 1, "invalid container capture")
-    container = containers[0]
-    require(container["Name"] == "/qwen-exp-" + config["tag"], "container identity mismatch")
-    require(container["Image"] == image, "actual container image differs from captured image")
-    command = container["Config"]["Cmd"][:]
-    if variant != "next":
-        require(option(command, "--moe-backend") == "flashinfer_b12x", "candidate backend mismatch")
-        pos = command.index("--moe-backend")
-        del command[pos:pos + 2]
-    else:
-        require("--moe-backend" not in command, "baseline unexpectedly overrides the MoE backend")
-    speculative = json.loads(option(command, "--speculative-config"))
-    require(speculative.get("method") == "mtp" and speculative.get("num_speculative_tokens", 0) > 0,
-            "greedy comparison requires MTP enabled")
-    env = dict(value.split("=", 1) for value in container["Config"]["Env"])
-    if variant != "next":
-        require(env.get("VLLM_B12X_FIX_SCALES") == env.get("VLLM_B12X_SHARED_WORKSPACE") == "1",
-                "candidate scale/workspace flags missing")
-        require(env.get("VLLM_B12X_SCALAR_INPUT_SCALE", "0") == ("1" if variant == "scalar" else "0"),
-                "scalar flag does not match variant")
-    identity_env = {k: v for k, v in env.items() if k not in VARIANT_ENV}
-    gpu_rows = list(csv.DictReader(io.StringIO(text("gpu_before.csv")), skipinitialspace=True))
-    require(len(gpu_rows) == 1, "expected one GPU identity")
-    gpu = {key: gpu_rows[0][key].strip() for key in
-           ("name", "uuid", "driver_version", "memory.total [MiB]", "power.limit [W]")}
-
-    sources = read("source_manifest.json")
-    require(sources["schema_version"] == 1 and sources["variant"] == variant, "source manifest identity mismatch")
-    for relative, digest in sources["files"].items():
-        path = Path(relative)
-        require(not path.is_absolute() and ".." not in path.parts, "unsafe source path")
-        require(sha(text("source_files/" + relative).encode()) == digest, "source snapshot hash mismatch")
-    verification = json.loads(text("source_verify.log"))
-    require(verification.get("status") == "passed" and verification.get("action") == "verify"
-            and verification.get("variant") == variant
-            and verification.get("files") == len(sources["files"]), "source verification failed/missing")
-    require(source_extras(variant) <= sources["files"].keys(), "overlay source not captured")
-    for mount in container["Mounts"]:
-        if mount["Destination"].startswith(PKG) and mount["Destination"].endswith(".py"):
-            require(mount["RW"] is False, "runtime Python source was mounted writable")
-            matches = [p for p in sources["files"] if mount["Source"].endswith("/" + p)]
-            require(len(matches) == 1, "mounted source absent/ambiguous in snapshot")
-    for relative in ("scripts/serve.sh", "scripts/cudagraph_sizes.txt", "bench/qwen_experiment.sh",
-                     "bench/serving_matrix.py"):
-        require(relative in sources["files"], f"missing runtime source {relative}")
-
+    runtime = IDENTITY.load(root, text, read)
+    config = runtime["config"]
+    require(config["greedy_decode"] == "1", "invalid greedy run identity")
+    container_name = "qwen-exp-" + config["tag"]
     directory = "serving/serving_matrix_decode/"
     manifest, summary = read(directory + "manifest.json"), read(directory + "summary.json")
     targets = read(directory + "expected_output_lengths.json")
     args = manifest["arguments"]
     require(args["suite"] == "decode" and args.get("temperature") == 0, "not explicit greedy decode")
-    require(args["container"] == container["Name"].lstrip("/"), "request/container identity mismatch")
+    require(args["container"] == container_name, "request/container identity mismatch")
     require(summary["status"] == "passed" and not summary.get("error"), "decode matrix failed")
     cases = [MATRIX.Scenario(**{**c, "extra": tuple(c["extra"])}) for c in manifest["scenarios"]]
     require(cases and all(c.suite == "decode" for c in cases), "invalid decode scenarios")
@@ -217,27 +168,19 @@ def load(root):
                 rows.append({"scenario": case.name, "timing": row, "mtp": mtp_delta(before, after),
                              "input_lens": result["input_lens"], "output_lens": result["output_lens"],
                              "generated_text_sha256": [sha(s.encode()) for s in result["generated_texts"]]})
-    return {"name": root.name, "config": config, "image": image, "commit": commit,
-            "uncommitted_diff_sha256": diff_hash, "gpu": gpu, "server_command": command,
-            "server_env": identity_env, "source_manifest": sources, "manifest": manifest,
+    return {**runtime, "manifest": manifest,
             "expected_lengths": targets, "normalized_commands": normalized_commands,
             "rows": rows, "input_sha256": hashes}
 
 
 def compare(base, candidate):
-    for key in ("config", "gpu_util"):
-        require(base["config"][key] == candidate["config"][key], f"different {key}")
-    for key in ("image", "gpu", "server_command", "server_env", "normalized_commands", "expected_lengths"):
+    runtime_changes = IDENTITY.compare(base, candidate)
+    for key in ("normalized_commands", "expected_lengths"):
         require(base[key] == candidate[key], f"incompatible {key}")
     require(base["manifest"]["scenarios"] == candidate["manifest"]["scenarios"], "different scenarios/seeds")
     require(base["manifest"]["run_nonce"] != candidate["manifest"]["run_nonce"], "runs reused cache namespace")
     for field in ("model", "served_model_name", "temperature", "seed_offset"):
         require(base["manifest"]["arguments"][field] == candidate["manifest"]["arguments"][field], f"different {field}")
-    common_sources = []
-    for run in (base, candidate):
-        extras = source_extras(run["config"]["variant"])
-        common_sources.append({p: value for p, value in run["source_manifest"]["files"].items() if p not in extras})
-    require(common_sources[0] == common_sources[1], "different non-MoE runtime sources")
     rows = []
     for a, b in zip(base["rows"], candidate["rows"], strict=True):
         require(a["scenario"] == b["scenario"] and a["input_lens"] == b["input_lens"]
@@ -249,8 +192,8 @@ def compare(base, candidate):
                      "change_percent": change, "identical_generated_texts": same})
     prior_history_differs = base["config"]["suite"] != candidate["config"]["suite"]
     return {"status": "complete_compatible_pair", "baseline": base, "candidate": candidate, "rows": rows,
-            "prior_suite_history_differs": prior_history_differs,
-            "analysis_source_sha256": {p.name: sha(p.read_bytes()) for p in (Path(__file__), HERE / "serving_matrix.py")},
+            "prior_suite_history_differs": prior_history_differs, "runtime_changes": runtime_changes,
+            "analysis_source_sha256": {p.name: sha(p.read_bytes()) for p in (Path(__file__), HERE / "serving_matrix.py", HERE / "compare_runtime_identity.py")},
             "interpretation": "Explicit temperature zero controls sampling. MTP acceptance, generated paths, "
                               "startup autotuning and scheduling may still vary. This pair is not a confidence interval "
                               "or a model-quality pass. Different prior suites are recorded as a preconditioning limitation."}
@@ -275,7 +218,7 @@ def markdown(report):
                      f"{row['identical_generated_texts']}/{t['completed']} |")
     lines += ["", "MTP acceptance = accepted/drafted tokens; acceptance length = 1 + accepted tokens/draft steps. "
               "Both use measured-phase counter deltas. Matching generated texts is diagnostic, not a quality score.", "",
-              report["interpretation"]]
+              report["interpretation"], "", "Validated runtime changes: " + json.dumps(report["runtime_changes"], sort_keys=True)]
     if report["prior_suite_history_differs"]:
         lines += ["", "The prior suites differ: preconditioning is not identical despite matching per-case warmups. "
                   "Use this result as a diagnostic and repeat with matched run order/history before a causal timing claim."]
@@ -283,6 +226,8 @@ def markdown(report):
 
 
 def preflight():
+    require("kernels/moe-nvfp4/shared_exact/vllm/" + EXPERT in source_extras("shared_exact_gdn"),
+            "composed GDN variant must retain the original MoE parent source")
     import copy
     import tempfile
 
@@ -302,20 +247,28 @@ def preflight():
             save("uncommitted.diff", "")
             save("gpu_before.csv", "name,uuid,driver_version,memory.total [MiB],power.limit [W]\nSM120,GPU-fixture,1,97887 MiB,600 W\n")
             command = ["serve", "fixture", "--speculative-config", '{"method":"mtp","num_speculative_tokens":2}']
-            env = ["COMMON=1", "VLLM_CACHE_ROOT=" + variant]
+            engine = "Initializing a V1 LLM engine (v0.32.0) with config: model='fixture', compilation_config={'splitting_ops': " + repr(IDENTITY.STANDARD_SPLITS+IDENTITY.AUTO_SPLITS) + ", 'pass_config': {'fuse_rope_kvcache_cat_mla': False}}, kernel_config=KernelConfig(moe_backend='" + ("auto" if variant == "next" else "flashinfer_b12x") + "')"
+            save("startup.log", engine)
+            env = ["COMMON=1", "VLLM_CACHE_ROOT=/root/.cache/vllm/qwen-sequential-" + variant]
             if variant != "next":
                 command += ["--moe-backend", "flashinfer_b12x"]
                 env += ["VLLM_B12X_FIX_SCALES=1", "VLLM_B12X_SHARED_WORKSPACE=1"]
             common = {p: b"fixture\n" for p in ("scripts/serve.sh", "scripts/cudagraph_sizes.txt",
-                                                "bench/qwen_experiment.sh", "bench/serving_matrix.py")}
-            contents = {**common, **{p: b"overlay\n" for p in source_extras(variant)}}
+                                                "bench/qwen_experiment.sh", "bench/serving_matrix.py", "bench/source_manifest.py")}
+            contents = {**common, **{p: b"overlay\n" for p in source_extras(variant)},
+                        **{p: b"mounted\n" for p in IDENTITY.expected_mounts(variant).values()}}
             for name, data in contents.items():
                 save("source_files/" + name, data.decode())
             save("source_manifest.json", {"schema_version": 1, "variant": variant,
                                            "files": {p: sha(data) for p, data in contents.items()}})
             save("source_verify.log", {"status": "passed", "action": "verify", "files": len(contents), "variant": variant})
             save("container.json", [{"Name": "/qwen-exp-" + root.name, "Image": "sha256:fixture",
-                                      "Config": {"Cmd": command, "Env": env}, "Mounts": []}])
+                                      "Config": {"Cmd": command, "Env": env}, "Mounts": [
+                {"Type":"bind", "Source":"/fixture/" + src, "Destination":dst, "RW":False, "Mode":"ro"}
+                for dst,src in IDENTITY.expected_mounts(variant).items()] + [
+                {"Type":"bind", "Source":"/fixture/results/qwen_sequential/" + root.name + "/serving" if dst == "/bench-results" else "/fixture" + dst,
+                 "Destination":dst,"RW":dst != "/root/.cache/huggingface","Mode":"ro" if dst == "/root/.cache/huggingface" else ""}
+                for dst in ("/bench-results","/root/.cache/vllm","/root/.cache/flashinfer","/root/.cache/huggingface")]}])
             args = MATRIX.parser().parse_args(["--container", "qwen-exp-" + root.name, "--output-dir", str(root / "serving"),
                                                "--suite", "decode", "--temperature", "0"])
             prefix = "serving/serving_matrix_decode/"
@@ -401,9 +354,180 @@ def preflight():
                 rejected += 1
             else:
                 raise AssertionError("incompatible pair accepted")
+        # Complete composed-run fixtures exercise disk evidence, not normalized objects.
+        root = roots[1]
+        def save_gdn(name, value):
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(value if isinstance(value, str) else json.dumps(value))
+        for variant in ("shared_exact_gdn", "scalar_gdn"):
+            save_gdn("config.txt", f"tag={root.name}\nvariant={variant}\nsuite=diagnostic\nconfig=next\ngpu_util=0.78\ngreedy_decode=1\nnll_rounds=5\n")
+            container = json.loads((root / "container.json").read_text())[0]
+            command = container["Config"]["Cmd"]
+            if "--compilation-config" in command:
+                i = command.index("--compilation-config"); del command[i:i+2]
+            compilation = {"splitting_ops": IDENTITY.STANDARD_SPLITS + IDENTITY.AUTO_SPLITS + [IDENTITY.GDN_OP],
+                           "pass_config":{"fuse_rope_kvcache_cat_mla":False}}
+            command += ["--compilation-config", json.dumps(compilation)]
+            env = {k:v for k,v in (x.split("=",1) for x in container["Config"]["Env"])}
+            env.update(VLLM_CACHE_ROOT="/root/.cache/vllm/qwen-sequential-" + variant,
+                       VLLM_GDN_NORM_FP8_FUSION="1", VLLM_B12X_SCALAR_INPUT_SCALE="1" if variant == "scalar_gdn" else "0")
+            container["Config"]["Env"] = [k+"="+v for k,v in env.items()]
+            container["Mounts"] = [m for m in container["Mounts"] if not m["Destination"].startswith(PKG)] + [
+                {"Type":"bind", "Source":"/fixture/"+src, "Destination":dst, "RW":False, "Mode":"ro"}
+                for dst,src in IDENTITY.expected_mounts(variant).items()]
+            save_gdn("container.json", [container])
+            sources = {p: v for p,v in b["source_manifest"]["files"].items()
+                       if p not in source_extras("shared_exact") and p != "build/vllm/"+IDENTITY.GDN+IDENTITY.GDN_FILES[0]}
+            for name in source_extras(variant) | set(IDENTITY.expected_mounts(variant).values()):
+                value = "mounted\n" if name in IDENTITY.expected_mounts(variant).values() else "helper\n"
+                save_gdn("source_files/"+name, value); sources[name] = sha(value.encode())
+            save_gdn("source_manifest.json", {"schema_version":1,"variant":variant,"files":sources})
+            save_gdn("source_verify.log", {"status":"passed","action":"verify","variant":variant,"files":len(sources)})
+            save_gdn("compilation_config.json", compilation)
+            layers = [i for i in range(40) if (i+1)%4]
+            startup = "Initializing a V1 LLM engine (v0.32.0) with config: model='fixture', compilation_config={'splitting_ops': " + repr(compilation["splitting_ops"]) + ", 'pass_config': {'fuse_rope_kvcache_cat_mla': False}}, kernel_config=KernelConfig(moe_backend='flashinfer_b12x')\n"
+            startup += "\n".join(f"GDN norm-FP8 ready for model.layers.{i}.linear_attn: compiled fallback" for i in layers)
+            save_gdn("startup.log", startup)
+            save_gdn("gdn_readiness.json", {"ready_layers":layers,"expected_layers":layers,"disabled":[]})
+            composed = load(root)
+            paired = compare(a, composed)
+            require(paired["runtime_changes"]["candidate_moe_parent"] == variant.removesuffix("_gdn"), "wrong MoE parent reported")
+            require(composed["gdn_enabled"] and len(composed["gdn_readiness"]["ready_layers"]) == 30, "GDN readiness not checked")
+            malformed = [
+                ("container.json", lambda x: [{**x[0],"Mounts":[m for m in x[0]["Mounts"] if not m["Destination"].endswith("gdn_norm_fp8_quant_out.py")]}]),
+                ("container.json", lambda x: [{**x[0],"Mounts":[{**m,"RW":True} if m["Destination"].endswith("gdn_norm_fp8_kernel.py") else m for m in x[0]["Mounts"]]}]),
+                ("container.json", lambda x: [{**x[0],"Mounts":[{**m,"Source":"/fixture/kernels/moe-nvfp4/shared/vllm/"+EXPERT} if m["Destination"]==PKG+EXPERT else m for m in x[0]["Mounts"]]}]),
+                ("container.json", lambda x: [{**x[0],"Config":{**x[0]["Config"],"Env":[e for e in x[0]["Config"]["Env"] if not e.startswith("VLLM_GDN_NORM_FP8_FUSION=")]}}]),
+                ("compilation_config.json", lambda x: {"splitting_ops":x["splitting_ops"][:-1]}),
+                ("compilation_config.json", lambda x: {**x,"mode":0}),
+                ("gdn_readiness.json", lambda x: {**x,"ready_layers":x["ready_layers"][:-1]}),
+                ("gdn_readiness.json", lambda x: {**x,"ready_layers":x["ready_layers"]+[0]}),
+                ("startup.log", lambda x: x.replace("'fuse_rope_kvcache_cat_mla': False", "'fuse_rope_kvcache_cat_mla': True")),
+                ("startup.log", lambda x: x+"\nGDN norm-FP8 disabled for model.layers.0.linear_attn"),
+                ("startup.log", lambda x: x.replace("vllm::"+"gdn_attention_core_norm_fp8_packed_experimental", "vllm::wrong")),
+                ("source_files/"+IDENTITY.GDN_ROOT+"gdn_norm_fp8_quant_out.py", lambda x:x+"changed"),
+            ]
+            for name,mutate in malformed:
+                path=root/name; before=path.read_text(); data=json.loads(before) if name.endswith(".json") else before
+                changed=mutate(data); path.write_text(json.dumps(changed) if name.endswith(".json") else changed)
+                try:
+                    load(root)
+                except ValueError:
+                    rejected += 1
+                else:
+                    raise AssertionError("malformed GDN evidence accepted: "+name)
+                finally:
+                    path.write_text(before)
+            for key in ("server_env", "server_command"):
+                broken=copy.deepcopy(composed)
+                if key=="server_env":broken[key]["UNRELATED_FLAG"]="1"
+                else:broken[key].append("--unrelated-override")
+                try:compare(a,broken)
+                except ValueError:rejected+=1
+                else:raise AssertionError("unrelated runtime override accepted")
+            parent_copy=copy.deepcopy(composed)
+            parent_copy["manifest"]["run_nonce"]="other"
+            expert="kernels/moe-nvfp4/"+variant.removesuffix("_gdn")+"/vllm/"+EXPERT
+            parent_copy["source_manifest"]["files"][expert]="changed-but-same-parent"
+            try:compare(composed,parent_copy)
+            except ValueError:rejected+=1
+            else:raise AssertionError("same-parent source drift accepted")
+        # Matched-FI fixture uses the frozen real reference and verifier sources,
+        # with synthetic worker evidence (no vLLM imports or device initialization).
+        local = HERE.parent / IDENTITY.FI_ROOT
+        config_path = root / "config.txt"
+        config_path.write_text(config_path.read_text()+"fi_control=1\nfi_source_sha256="+IDENTITY.FI_SHA+"\n")
+        sources=json.loads((root/"source_manifest.json").read_text())
+        sources["fi_control"]=True
+        for relative in IDENTITY.FI_FILES:
+            content=(local/relative).read_text()
+            save_gdn("source_files/"+IDENTITY.FI_ROOT+relative,content)
+            sources["files"][IDENTITY.FI_ROOT+relative]=sha(content.encode())
+        save_gdn("source_manifest.json",sources)
+        save_gdn("source_verify.log",{"status":"passed","action":"verify","variant":"scalar_gdn","files":len(sources["files"])})
+        container=json.loads((root/"container.json").read_text())[0]
+        container["Config"]["Env"] += [k+"="+v for k,v in IDENTITY.FI_ENV.items()]
+        container["Mounts"].append({"Type":"bind","Source":"/fixture/kernels/decode-route-capture","Destination":"/opt/qwen-fi-control","RW":False,"Mode":"ro"})
+        save_gdn("container.json",[container])
+        document=json.loads((local/"references/next_cpu_audit_autotune.json").read_text())
+        provenance=json.loads((local/"references/next_cpu_audit_autotune.provenance.json").read_text())
+        table_hash=provenance["reference_entries_sha256"]
+        prefix="serving/fi_control/autotune/"
+        save_gdn(prefix+"source.json",(local/"references/next_cpu_audit_autotune.json").read_text())
+        stages=("preloaded","loaded","after_warmup","server_startup","server_shutdown")
+        verification={"server_checkpoint":"shutdown_verified","source_sha256":IDENTITY.FI_SHA,
+            "import_mode":"fixed_reference_replay_v1",
+            "preload":{"path":"/bench-results/fi_control/autotune/source.json","returned":True,"boundary":"before_worker_load_model"},
+            "server_startup_boundary":"after_compile_or_warm_up_model",
+            "reference_entries_sha256":table_hash,"reference_entries":132,
+            "status":"reference_tactics_verified_without_lookup_observation",
+            "compiled_graph_cache_imported":False,"lookup_observation_enabled":False,"serving_lookup_observer":False,
+            "runtime_source_sha256":{"flashinfer_autotuner":"a"*64,"vllm_kernel_warmup":"b"*64},
+            "load_calls":[{"path":"/bench-results/fi_control/cache/autotune_import/autotune_configs_dp0_rank0.json","returned":True}],
+            "selected_inductor_config_count":1,
+            "checks":{stage:{"reference_entries":132,"actual_entries":132,"entries_sha256":table_hash,
+                             "missing":[],"extra":[],"changed":[]} for stage in stages}}
+        save_gdn(prefix+"verification.json",verification)
+        for stage in stages:
+            save_gdn(prefix+stage+"_tactics.json",{k:v for k,v in document.items() if k.startswith("(")})
+        for stage in ("startup","shutdown"):
+            save_gdn(prefix+"server_"+stage+"_effective.json",document)
+            save_gdn("fi_"+stage+"_verify.json",{"verified_stage":"server_"+stage,"source_sha256":IDENTITY.FI_SHA,
+                    "effective_entries_sha256":table_hash,"entries":132,"inductor_pinned":False,"serving_lookup_observer":False,
+                    "import_mode":"fixed_reference_replay_v1","preload_boundary":"before_worker_load_model"})
+        selected={"XBLOCK":1,"R0_BLOCK":1024,"num_warps":8}
+        save_gdn(prefix+"compiler_config_audit.json",{"files":[{"path":"fixture.best_config","selected":selected,
+                    "selected_sha256":sha(json.dumps(selected,sort_keys=True,separators=(",",":")).encode())}]})
+        controlled=load(root)
+        other=copy.deepcopy(controlled);other["manifest"]["run_nonce"]="other-controlled"
+        require(compare(controlled,other)["runtime_changes"]["fi_control"],"matched FI identity not reported")
+        # Changed/new/removed compiler kernels are observable differences, not
+        # a reason to reject a composed graph with matched FI reference tactics.
+        different=copy.deepcopy(other)
+        audit=different["fi_evidence"]["compiler_config_audit"]
+        audit["files"][0]["selected"]={"XBLOCK":2}
+        audit["files"][0]["selected_sha256"]=sha(b'{"XBLOCK":2}')
+        audit["files"].append({"path":"new_gdn.best_config","selected":{},"selected_sha256":sha(b'{}')})
+        changes=compare(controlled,different)["runtime_changes"]["inductor_config_changes"]
+        require("fixture.best_config" in changes["changed"] and "new_gdn.best_config" in changes["added"],
+                "Inductor selection/new-kernel changes were not reported")
+        reverse=compare(different,controlled)["runtime_changes"]["inductor_config_changes"]
+        require("new_gdn.best_config" in reverse["removed"],"removed Inductor kernel not reported")
+        try:compare(a,controlled)
+        except ValueError:rejected+=1
+        else:raise AssertionError("controlled-vs-unpinned pair accepted")
+        def altered_effective(x):
+            key=next(k for k in x if k.startswith("("));x[key]=[x[key][0],-123];return x
+        malformed=[
+            ("config.txt",lambda x:x.replace("fi_source_sha256="+IDENTITY.FI_SHA,"fi_source_sha256="+"0"*64)),
+            ("container.json",lambda x:[{**x[0],"Mounts":[{**m,"RW":True} if m["Destination"]=="/opt/qwen-fi-control" else m for m in x[0]["Mounts"]]}]),
+            (prefix+"source.json",altered_effective),
+            (prefix+"preloaded_tactics.json",altered_effective),
+            (prefix+"verification.json",lambda x:{**x,"import_mode":"legacy_file_load"}),
+            (prefix+"verification.json",lambda x:{**x,"preload":{**x["preload"],"returned":False}}),
+            (prefix+"verification.json",lambda x:{**x,"server_startup_boundary":"before_graph_capture"}),
+            (prefix+"server_startup_effective.json",altered_effective),
+            (prefix+"server_shutdown_effective.json",altered_effective),
+            (prefix+"verification.json",lambda x:{**x,"server_checkpoint":"warmup_verified"}),
+            (prefix+"verification.json",lambda x:{**x,"reference_entries_sha256":"0"*64}),
+            (prefix+"verification.json",lambda x:{**x,"load_calls":[{"returned":False}]}),
+            (prefix+"verification.json",lambda x:{**x,"checks":{k:v for k,v in x["checks"].items() if k!="loaded"}}),
+            ("fi_startup_verify.json",lambda x:{**x,"entries":131}),
+            ("fi_shutdown_verify.json",lambda x:{**x,"effective_entries_sha256":"0"*64}),
+            (prefix+"compiler_config_audit.json",lambda x:{"files":[{**x["files"][0],"selected":{"XBLOCK":99}}]}),
+        ]
+        for name,mutate in malformed:
+            path=root/name;before=path.read_text();value=json.loads(before) if name.endswith(".json") else before
+            changed=mutate(value);path.write_text(json.dumps(changed) if name.endswith(".json") else changed)
+            try:load(root)
+            except ValueError:rejected+=1
+            else:raise AssertionError("malformed FI evidence accepted: "+name)
+            finally:path.write_text(before)
     print(json.dumps({"status": "passed", "mode": "cpu_preflight", "http_requests": 0, "gpu_work": False,
                       "variable_scenario_count": 2, "malformed_fixtures_rejected": rejected,
-                      "script_sha256": sha(Path(__file__).read_bytes())}))
+                      "script_sha256": sha(Path(__file__).read_bytes()),
+                      "identity_sha256": sha((HERE / "compare_runtime_identity.py").read_bytes())}))
 
 
 def main():

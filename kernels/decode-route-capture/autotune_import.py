@@ -3,6 +3,7 @@
 No compiled-graph cache is imported. CUDA/vLLM imports occur only in install().
 The supported implementation is FlashInfer 0.7.0.post1, vLLM 0.32, single GPU.
 """
+import contextlib
 import functools
 import hashlib
 import importlib
@@ -68,6 +69,7 @@ class AutotuneImport:
         self.cache_root = self.out.parent / "cache" / "autotune_import"
         self.phase, self.observed, self.misses = "warmup", {}, {}
         self.tuner = self.encode = None
+        self.warmup_started = False
         self.report = {"status": "prepared_not_loaded", "source": str(self.source),
                        "source_sha256": hashlib.sha256(self.source_bytes).hexdigest(),
                        "reference_entries": len(self.reference), "load_calls": [],
@@ -111,7 +113,59 @@ class AutotuneImport:
                                           {"phase": self.phase, "key": key, "calls": 0})
         event["calls"] += 1
 
-    def install(self, *, original_warmup=None):
+    def preload(self):
+        """Native load before Worker.load_model, before profiling or graph capture.
+
+        Existing winners are a lifecycle error, not state to silently clear.
+        The actual rank file is still seeded and loaded at native warmup.
+        """
+        if self.tuner is not None:
+            raise RuntimeError("early preload must happen exactly once")
+        tuner = self._tuner_api.get()
+        with tuner._lock:
+            if (tuner._winner_cache() is not tuner.profiling_cache
+                    or tuner.profiling_cache or tuner._file_configs
+                    or tuner.is_tuning_mode):
+                raise RuntimeError("early preload must run before any existing FI choices or tuning")
+            self.tuner = tuner
+            loaded = tuner.load_configs(str(self.out / "source.json"))
+        self.report["preload"] = {"path": str(self.out / "source.json"),
+                                  "returned": bool(loaded), "boundary": "before_worker_load_model"}
+        self.write_report()
+        if loaded is not True:
+            raise RuntimeError("FlashInfer rejected the early reference preload")
+        self.verify_entries("preloaded", self._effective_entries(True))
+
+    @contextlib.contextmanager
+    def _fixed_reference_warmup(self):
+        """Replay the loaded file through FI's supported non-tuning API.
+
+        Installed dense FP4 asks for cold-L2 profiling, while persisted v1
+        entries are interpreted as legacy hot-L2. Native tune_mode=True thus
+        deliberately ignores the file. False retains native lookup/validation
+        without asserting invented measurement provenance for saved tactics.
+        Both outer and nested vLLM autotune contexts must use replay mode.
+        """
+        fi_utils = importlib.import_module("vllm.utils.flashinfer")
+        original = fi_utils.autotune
+        if self.tuner.is_tuning_mode:
+            raise RuntimeError("fixed reference warmup cannot enter active FI tuning")
+
+        @functools.wraps(original)
+        def replay(*args, **kwargs):
+            if args:
+                args = (False, *args[1:])
+            else:
+                kwargs["tune_mode"] = False
+            return original(*args, **kwargs)
+
+        fi_utils.autotune = replay
+        try:
+            yield
+        finally:
+            fi_utils.autotune = original
+
+    def install(self, *, original_warmup=None, fixed_reference=False):
         # Set before vLLM imports/cache resolution. Only JSON is copied here;
         # its torch.compile and FlashInfer JIT caches stay isolated and fresh.
         os.environ["VLLM_FLASHINFER_AUTOTUNE_CACHE_DIR"] = str(self.cache_root)
@@ -119,6 +173,9 @@ class AutotuneImport:
         from flashinfer.autotuner.autotuner import _tactic_to_json
         warmup = importlib.import_module("vllm.model_executor.warmup.kernel_warmup")
         from vllm.distributed.parallel_state import get_world_group
+        self._tuner_api = AutoTuner
+        self.report["import_mode"] = ("fixed_reference_replay_v1" if fixed_reference
+                                      else "native_tuning_with_reference_v1")
         self.encode = _tactic_to_json
         files = {"flashinfer_autotuner": inspect.getsourcefile(AutoTuner),
                  "vllm_kernel_warmup": getattr(warmup, "__file__", None)}
@@ -131,8 +188,9 @@ class AutotuneImport:
 
         @functools.wraps(original)
         def run(runner, *args, **kwargs):
-            if owner.tuner is not None:
+            if owner.warmup_started:
                 raise RuntimeError("autotune import expects one single-GPU warmup")
+            owner.warmup_started = True
             world = get_world_group()
             parallel = runner.vllm_config.parallel_config
             if world.world_size != 1 or parallel.data_parallel_size != 1:
@@ -146,7 +204,10 @@ class AutotuneImport:
             with path.open("xb") as f:
                 f.write(owner.source_bytes)
             owner.report["seeded_cache_path"] = str(path)
-            owner.tuner = tuner = AutoTuner.get()
+            tuner = AutoTuner.get()
+            if owner.tuner is not None and tuner is not owner.tuner:
+                raise RuntimeError("FlashInfer singleton changed after early preload")
+            owner.tuner = tuner
             if tuner._winner_cache() is not tuner.profiling_cache:
                 raise RuntimeError("managed/v2 FlashInfer winner caches are outside this probe")
             load, search = tuner.load_configs, tuner.search_cache
@@ -176,7 +237,9 @@ class AutotuneImport:
             if owner.observe_search:
                 tuner.search_cache = observed_search
             try:
-                result = original(runner, *args, **kwargs)
+                mode = owner._fixed_reference_warmup() if fixed_reference else contextlib.nullcontext()
+                with mode:
+                    result = original(runner, *args, **kwargs)
                 if not owner.report["load_calls"]:
                     raise RuntimeError("vLLM did not attempt to load the imported autotune cache")
                 owner.verify_entries("after_warmup", owner._effective_entries(True))

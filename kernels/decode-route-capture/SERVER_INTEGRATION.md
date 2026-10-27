@@ -1,10 +1,13 @@
 # Fixed FlashInfer table for sequential serving comparisons
 
 The optional mount-only plugin imports one immutable FlashInfer v1 JSON table
-before the actual worker's native autotune warmup. It exports the effective table
-after warmup and before worker shutdown. It adds no routing hooks, raw tensor
+before the actual worker loads the model. It replays that table through native
+non-tuning cache lookup during warmup and exports the effective table after graph
+capture and before worker shutdown. It adds no routing hooks, raw tensor
 copies, or per-lookup Python observer to serving. Default launches remain unchanged.
-CPU validation passes; the first parent-owned GPU pair is pending validation.
+CPU validation passes. The first parent-owned GPU attempt failed before measured
+requests because native cold-L2 tuning ignored the imported dense FP4 entries.
+The revised replay mode is GPU-unvalidated; see the failure diagnosis below.
 
 ## Integrated launch
 
@@ -24,7 +27,7 @@ are required. Do not nest another acquisition of the same lock around it.
 The plugin is registered through `vllm.general_plugins` using the included
 `.dist-info/entry_points.txt`. Mounting the directory on `PYTHONPATH` makes the
 entry point available in both the API process and spawned workers. Registration
-only installs lazy callbacks; the worker that actually warms the model creates
+only installs lazy callbacks; the worker that actually loads the model creates
 the importer and artifacts. An existing `VLLM_PLUGINS` allowlist must include
 `qwen_fi_control`; preserve any other required plugins.
 
@@ -70,6 +73,17 @@ does not bypass FlashInfer's tactic validity checks. It supports only the
 installed vLLM 0.32 / FlashInfer 0.7.0.post1 single-GPU, legacy-v1 cache API;
 unsupported winner partitions fail explicitly.
 
+An early native load runs at entry to `Worker.load_model`, after device setup
+and before model construction, profiling or graph capture. Existing FI winners,
+file entries, or active tuning cause an explicit failure; they are never silently
+cleared. At native warmup the importer also seeds and checks the actual rank file.
+Within this controlled warmup only, both vLLM's outer and nested autotune contexts
+use FI's supported `tune_mode=False`. Native lookup and tactic validity checks
+remain active; the plugin does not force tactic IDs or invent profiling-policy
+metadata. The original context-manager API is restored even on failure. The
+startup snapshot is taken after `Worker.compile_or_warm_up_model` returns,
+including graph capture.
+
 The source JSON is copied with exclusive creation into the actual rank path
 resolved by vLLM, including the configuration hash and `_dp0_rank0` suffix. Only
 JSON is imported. No CUDA graphs, JIT binaries or Inductor settings are imported.
@@ -96,19 +110,22 @@ a successful startup gate alone is insufficient for a complete controlled run.
 Artifacts under `serving/fi_control/autotune/` include:
 
 - `source.json`: exact imported bytes, with the declared SHA256.
-- `verification.json`: load returns, actual rank path, stage checks, reference
+- `verification.json`: early preload and rank-load returns, actual rank path, stage checks, reference
   identity in `source_sha256`, installed-code hashes in `runtime_source_sha256`,
-  and `server_checkpoint`.
+  `import_mode=fixed_reference_replay_v1`, and `server_checkpoint`.
 - `server_startup_effective.json` and `server_shutdown_effective.json`: complete
   FI-loadable snapshots, with original environment metadata and effective
   in-memory winners overriding loaded entries.
 - `compiler_config_audit.json`: available selected Inductor configurations and
   hashes, recorded for comparison and never pinned by this plugin.
 
-The gate requires the appropriate verified checkpoint, matching declared and
+The gate requires the replay mode, a successful preload at
+`before_worker_load_model`, and the startup boundary
+`after_compile_or_warm_up_model`, in addition to the appropriate verified checkpoint, matching declared and
 saved-source hashes, and exact effective-entry hash equality including the key
 set. `verify_artifacts(out, expected_sha256, require_shutdown=True)` returns
 `verified_stage`, `source_sha256`, `effective_entries_sha256`, `entries`,
+`import_mode`, `preload_boundary`,
 `inductor_pinned=False`, and `serving_lookup_observer=False`.
 
 A paired comparator should require both runs to declare `FI_CONTROL=1`, use the
@@ -137,16 +154,48 @@ kernels/decode-route-capture/references/next_cpu_audit_autotune.json
 kernels/decode-route-capture/references/next_cpu_audit_autotune.provenance.json
 ```
 
-The 42 CPU tests cover actual importer flow against mocked FI/vLLM dependencies,
+The 47 CPU tests cover actual importer flow against mocked FI/vLLM dependencies,
 source identity through both server gates, native method return preservation,
 lazy worker ownership, missing shutdown, effective drift, rejected loads,
 uncovered lookups, cleanup despite audit failure, entry-point discovery, and the
-`python3 -I` CLI. No GPU or live HTTP requests are made by these tests.
+`python3 -I` CLI. They also reproduce cold-L2 retuning of a successfully loaded
+legacy table, verify replay of both nested contexts, reject preexisting winners,
+and check native API restoration after failure. No GPU or live HTTP requests are
+made by these tests.
+
+## Failed first import and the diagnosed cause
+
+`results/qwen_sequential/scalar_matched_1` retains the failed first attempt.
+The reference loaded with all 132 entries unchanged. After native warmup,
+20 `CutlassFp4GemmRunner` entries differed, including M=1 tactic 7 becoming 0
+and M=1024 tactic 13 becoming 12 for packed K=1024. The strict check aborted
+startup; no measured request or paired performance comparison was completed.
+These original artifacts and their failure status are unchanged.
+
+The installed source explains the dense-only retuning:
+
+- `flashinfer/gemm/gemm_base.py:7887-7890` configures 128x4 FP4 GEMM with
+  `use_cuda_graph=True, use_cold_l2_cache=True`.
+- `flashinfer/autotuner/autotuner.py:3304-3312` assigns legacy v1 persisted
+  entries a hot-L2 default policy.
+- The same file, `1969-1973`, deliberately skips file entries while tuning when
+  the requested policy differs. Lines `2330-2337` then profile cache misses.
+- `vllm/model_executor/warmup/kernel_warmup.py:483` opens the outer tuning context;
+  line `374` opens a nested context with default tuning enabled.
+- Saved logs show dense FP4 retuning, while MoE reports file-cache hits.
+
+Consequently, loading earlier or clearing memory winners alone cannot prevent
+this retuning. The revised control explicitly selects fixed-reference replay
+instead of claiming that a v1 JSON records cold-L2 measurement provenance. The
+old attempted mode is named `native_tuning_with_reference_v1`; it cannot pass the
+new server gate. Verification has not been relaxed.
 
 ## Pending decode controls
 
 The offline commands in [CONTROLS.md](CONTROLS.md) remain pending a separate root
-GPU slot. Use the preserved original **decode control** JSON for those commands:
+GPU slot **and equivalent early fixed-reference replay integration in the offline
+driver**. Its current optional importer retains native tuning, so dense FP4 can
+hit the same cold-L2 override and correctly fail verification. Use the preserved original **decode control** JSON for those commands:
 its warmed shapes correspond to that workload. Do not assume the serving table
 above covers every decode/native-aux/draft lookup. The offline importer observes
 actual lookup results and `--require-autotune-coverage` fails missing coverage.

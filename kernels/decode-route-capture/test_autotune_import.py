@@ -29,11 +29,13 @@ class AutotuneImportTests(unittest.TestCase):
         self.source = self.root / "control.json"
         self.source.write_text(json.dumps(DOCUMENT))
 
-    def setup_fake_runtime(self, imported, *, accept=True, retune=False, missing=False):
+    def setup_fake_runtime(self, imported, *, accept=True, retune=False, missing=False,
+                           cold_policy=False, fixed_reference=False):
         class Tuner:
             def __init__(self):
                 self._lock = contextlib.nullcontext()
                 self._file_configs, self.profiling_cache = {}, {}
+                self.is_tuning_mode = False
 
             def _winner_cache(self):
                 return self.profiling_cache
@@ -45,6 +47,11 @@ class AutotuneImportTests(unittest.TestCase):
                 return accept
 
             def search_cache(self, *args):
+                if cold_policy and self.is_tuning_mode:
+                    # Installed FI ignores legacy v1 file entries under cold-L2
+                    # tuning, even when their environment metadata matches.
+                    self.profiling_cache[Key()] = (9, None)
+                    return (True, 0, 9, None)
                 return (not missing, 0, 4, None)
 
         tuner = Tuner()
@@ -59,11 +66,25 @@ class AutotuneImportTests(unittest.TestCase):
         path.parent.mkdir(parents=True)
         warmup = ModuleType("vllm.model_executor.warmup.kernel_warmup")
         warmup.resolve_flashinfer_autotune_file = lambda runner: path
+        fi_utils = ModuleType("vllm.utils.flashinfer")
+
+        @contextlib.contextmanager
+        def autotune(tune_mode=True, **kwargs):
+            previous = tuner.is_tuning_mode
+            tuner.is_tuning_mode = previous or tune_mode
+            try:
+                yield
+            finally:
+                tuner.is_tuning_mode = previous
+
+        fi_utils.autotune = autotune
 
         def run(runner):
             resolved = path.with_name("autotune_configs_dp0_rank0.json")
             tuner.load_configs(str(resolved))
-            result = tuner.search_cache("op", [Runner()], ((1, 2),), object())
+            with fi_utils.autotune(tune_mode=True):
+                with fi_utils.autotune(tuning_buckets=(1, 2), round_up=True):
+                    result = tuner.search_cache("op", [Runner()], ((1, 2),), object())
             if retune:
                 tuner.profiling_cache[Key()] = (9, None)
             return result
@@ -77,16 +98,64 @@ class AutotuneImportTests(unittest.TestCase):
         mods["vllm.distributed.parallel_state"].get_world_group = lambda: SimpleNamespace(
             world_size=1, rank_in_group=0)
         mods[warmup.__name__] = warmup
+        mods[fi_utils.__name__] = fi_utils
         patcher = patch.dict("sys.modules", mods)
         patcher.start()
         self.addCleanup(patcher.stop)
         environment = patch.dict("os.environ", {}, clear=False)
         environment.start()
         self.addCleanup(environment.stop)
-        imported.install()
+        imported.install(fixed_reference=fixed_reference)
         runner = SimpleNamespace(vllm_config=SimpleNamespace(parallel_config=SimpleNamespace(
             data_parallel_size=1, data_parallel_rank=0)))
         return lambda: warmup.flashinfer_autotune(runner), tuner
+
+    def test_native_cold_l2_tuning_retunes_imported_legacy_file(self):
+        imported = AutotuneImport(self.source, self.root / "run")
+        run, _ = self.setup_fake_runtime(imported, cold_policy=True)
+        with self.assertRaisesRegex(RuntimeError, "after_warmup"):
+            run()
+        self.assertEqual(imported.report["checks"]["loaded"]["changed"], [])
+
+    def test_fixed_reference_replays_native_cache_without_policy_retuning(self):
+        imported = AutotuneImport(self.source, self.root / "run", observe_search=False)
+        run, tuner = self.setup_fake_runtime(imported, cold_policy=True, fixed_reference=True)
+        imported.preload()
+        self.assertEqual(imported.report["checks"]["preloaded"]["changed"], [])
+        self.assertEqual(run(), (True, 0, 4, None))
+        self.assertEqual(tuner.profiling_cache, {})
+        self.assertFalse(tuner.is_tuning_mode)
+        self.assertEqual(imported.finalize()["status"],
+                         "reference_tactics_verified_without_lookup_observation")
+        import importlib
+        fi_utils = importlib.import_module("vllm.utils.flashinfer")
+        with fi_utils.autotune(tune_mode=True):
+            self.assertTrue(tuner.is_tuning_mode)
+
+    def test_early_preload_refuses_preexisting_winners_without_clearing_them(self):
+        imported = AutotuneImport(self.source, self.root / "run")
+        _, tuner = self.setup_fake_runtime(imported, fixed_reference=True)
+        tuner.profiling_cache[object()] = (9, None)
+        with self.assertRaisesRegex(RuntimeError, "before any existing"):
+            imported.preload()
+        self.assertEqual(len(tuner.profiling_cache), 1)
+
+    def test_fixed_replay_restores_native_autotune_after_failed_verification(self):
+        import importlib
+        imported = AutotuneImport(self.source, self.root / "run")
+        run, tuner = self.setup_fake_runtime(imported, fixed_reference=True, retune=True)
+        with self.assertRaisesRegex(RuntimeError, "after_warmup"):
+            run()
+        fi_utils = importlib.import_module("vllm.utils.flashinfer")
+        with fi_utils.autotune(tune_mode=True):
+            self.assertTrue(tuner.is_tuning_mode)
+
+    def test_early_preload_rejects_metadata_failure(self):
+        imported = AutotuneImport(self.source, self.root / "run")
+        self.setup_fake_runtime(imported, fixed_reference=True, accept=False)
+        with self.assertRaisesRegex(RuntimeError, "rejected the early"):
+            imported.preload()
+        self.assertFalse(imported.report["preload"]["returned"])
 
     def test_real_api_flow_loads_only_json_then_verifies_effective_and_observed_tactics(self):
         original = self.source.read_bytes()
@@ -115,7 +184,8 @@ class AutotuneImportTests(unittest.TestCase):
         expected = hashlib.sha256(self.source.read_bytes()).hexdigest()
         out = self.root / "run"
         imported = AutotuneImport(self.source, out, observe_search=False)
-        run, tuner = self.setup_fake_runtime(imported)
+        run, tuner = self.setup_fake_runtime(imported, fixed_reference=True)
+        imported.preload()
         self.assertEqual(run(), (True, 0, 4, None))
         self.assertEqual(tuner.search_cache.__name__, "search_cache")
         for stage, checkpoint, require_shutdown in (
@@ -123,6 +193,7 @@ class AutotuneImportTests(unittest.TestCase):
                 ("server_shutdown", "shutdown_verified", True)):
             imported.finalize(stage=stage)
             imported.report["server_checkpoint"] = checkpoint
+            imported.report["server_startup_boundary"] = "after_compile_or_warm_up_model"
             imported.write_report()
             checked = verify_artifacts(out, expected, require_shutdown)
             self.assertEqual(checked["source_sha256"], expected)

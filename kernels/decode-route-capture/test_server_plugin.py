@@ -45,6 +45,15 @@ class ServerPluginTests(unittest.TestCase):
         warmup.flashinfer_autotune = tune
 
         class Worker:
+            def load_model(self):
+                events.append("original_load_model")
+                return "unchanged_loaded_model"
+
+            def compile_or_warm_up_model(self):
+                result = warmup.flashinfer_autotune(object())
+                events.append("original_graph_capture")
+                return result
+
             def shutdown(self):
                 events.append("original_shutdown")
                 return "cleaned"
@@ -54,12 +63,15 @@ class ServerPluginTests(unittest.TestCase):
                 events.append(("create_importer", observe_search))
                 self.report = {"source_sha256": hashlib.sha256(Path(source).read_bytes()).hexdigest()}
 
-            def install(self, *, original_warmup):
-                events.append("install_importer")
+            def install(self, *, original_warmup, fixed_reference):
+                events.append(("install_importer", fixed_reference))
                 def imported(runner):
                     events.append("before_tuning")
                     return original_warmup(runner)
                 warmup.flashinfer_autotune = imported
+
+            def preload(self):
+                events.append("early_preload")
 
             def finalize(self, *, stage):
                 events.append(stage)
@@ -84,15 +96,20 @@ class ServerPluginTests(unittest.TestCase):
         warmup, worker = self.install_fakes()
         self.assertEqual(self.events, [])
         self.assertFalse(self.out.exists())
-        self.assertEqual(warmup.flashinfer_autotune(object()), "unchanged_model_output")
-        self.assertEqual(self.events[:4], [("create_importer", False), "install_importer",
-                                          "before_tuning", "original_tune"])
+        instance = worker()
+        self.assertEqual(instance.load_model(), "unchanged_loaded_model")
+        self.assertEqual(self.events[:4], [("create_importer", False), ("install_importer", True),
+                                          "early_preload", "original_load_model"])
+        self.assertEqual(instance.compile_or_warm_up_model(), "unchanged_model_output")
+        self.assertEqual(self.events[4:8], ["before_tuning", "original_tune",
+                                          "original_graph_capture", "server_startup"])
         self.assertEqual(worker().shutdown(), "cleaned")
         self.assertEqual(self.events[-2:], ["server_shutdown", "original_shutdown"])
 
     def test_shutdown_verification_error_still_cleans_up_owned_worker(self):
         warmup, worker = self.install_fakes(fail_shutdown=True)
-        warmup.flashinfer_autotune(object())
+        worker().load_model()
+        worker().compile_or_warm_up_model()
         with self.assertRaisesRegex(RuntimeError, "cache drift"):
             worker().shutdown()
         self.assertEqual(self.events[-1], "original_shutdown")
@@ -110,12 +127,21 @@ class ServerPluginTests(unittest.TestCase):
         root.mkdir(parents=True)
         (root / "source.json").write_bytes(self.source.read_bytes())
         report = {"server_checkpoint": "warmup_verified", "source_sha256": self.sha,
-                  "reference_entries_sha256": entries_sha256({KEY: DOCUMENT[KEY]})}
+                  "reference_entries_sha256": entries_sha256({KEY: DOCUMENT[KEY]}),
+                  "import_mode": "fixed_reference_replay_v1",
+                  "preload": {"returned": True, "boundary": "before_worker_load_model"},
+                  "server_startup_boundary": "after_compile_or_warm_up_model"}
         (root / "verification.json").write_text(json.dumps(report))
         (root / "server_startup_effective.json").write_text(json.dumps(DOCUMENT))
         with self.assertRaisesRegex(ValueError, "checkpoint"):
             plugin.verify_artifacts(self.out, self.sha)
         self.assertEqual(plugin.verify_artifacts(self.out, self.sha, False)["entries"], 1)
+        report["import_mode"] = "native_tuning_with_reference_v1"
+        (root / "verification.json").write_text(json.dumps(report))
+        with self.assertRaisesRegex(ValueError, "fixed-reference replay"):
+            plugin.verify_artifacts(self.out, self.sha, False)
+        report["import_mode"] = "fixed_reference_replay_v1"
+        (root / "verification.json").write_text(json.dumps(report))
         result = subprocess.run([sys.executable, "-I", str(Path(plugin.__file__).resolve()),
                                  str(self.out), "--source-sha256", self.sha, "--startup-only"],
                                 text=True, capture_output=True)

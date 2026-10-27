@@ -7,7 +7,7 @@ in 51/132 entries. The signed target artifact passes structural checks; full
 target/draft capture is pending. This checkpoint supports no optimization
 adoption. See [the recorded result](RESULTS.md) for scope and proposed controls.
 
-The 42 CPU analysis/launcher/driver/import/server-plugin tests pass.
+The 47 CPU analysis/launcher/driver/import/server-plugin tests pass.
 Hooks were inspected against installed vLLM 0.32.0 / Torch 2.13.0+cu130 /
 FlashInfer 0.7.0.post1 sources in `qwen-prefill-dev`. The target path completed
 compilation, graph replay, capture, export and shutdown. Draft graph compatibility
@@ -85,11 +85,15 @@ and GPU-unrun. Default inference options are unchanged. Completed inference now
 gets structural route analysis even after an exact-token mismatch; overall
 failure is preserved, with diagnostic analysis saved separately.
 
-The separate [serving cache-control plugin](SERVER_INTEGRATION.md) imports a
-frozen reference table before worker warmup and verifies effective snapshots at
-startup and shutdown. The parent serving runner enables it with `FI_CONTROL=1`.
+The separate [serving cache-control plugin](SERVER_INTEGRATION.md) preloads a
+frozen reference table before model loading, replays native cache lookup without
+retuning during warmup, and verifies effective snapshots after graph capture and
+at shutdown. The parent serving runner enables it with `FI_CONTROL=1`.
 It installs no route hooks or per-lookup serving observer; Inductor settings
 remain independently selected and audited.
+The first native-tuning import failed before measured requests because cold-L2
+dense FP4 tuning ignored legacy v1 entries. Revised replay mode passes CPU tests
+and still requires GPU validation.
 
 ## What is captured
 

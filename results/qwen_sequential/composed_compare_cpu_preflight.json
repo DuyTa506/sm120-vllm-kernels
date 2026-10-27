@@ -1,0 +1,46 @@
+{
+  "scope": "CPU-only offline comparator validation; no GPU or HTTP; active launcher/source/overlay files untouched",
+  "preflights": {
+    "compare_greedy_decode": {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "http_requests": 0,
+      "gpu_work": false,
+      "variable_scenario_count": 2,
+      "malformed_fixtures_rejected": 60,
+      "script_sha256": "619350093a7726c01842caa7fa29a0ab9d3ed49ae3ef546eda8cec2c8bbe08d9",
+      "identity_sha256": "54ad98dac09acd5da578c8e9c8636930d68a1ae211f8d2318e9788df28f58b8a"
+    },
+    "compare_serving_matrix": {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "scenarios": 17,
+      "malformed_fixtures_rejected": 7,
+      "gpu_work": false,
+      "http_requests": 0
+    }
+  },
+  "historical_tables": {
+    "compare_greedy_decode": {
+      "timing_table_identical": true,
+      "rows_including_headers": 6,
+      "source_validation": "verified",
+      "comparison_status": "complete_compatible_pair",
+      "reference_sha256": "e73972f040ff07861604f16bcc4b2b117e549d8c4f83a99f0b9e93d27878fabe"
+    },
+    "compare_serving_matrix": {
+      "timing_table_identical": true,
+      "rows_including_headers": 23,
+      "source_validation": "incomplete_historical_source_capture",
+      "comparison_status": "complete_legacy_pair_source_unverified",
+      "reference_sha256": "52985d8fe07755beaeac17a2e248d98fffe8c73b560da0f77e8c02f701075f55"
+    }
+  },
+  "source_sha256": {
+    "bench/compare_greedy_decode.py": "619350093a7726c01842caa7fa29a0ab9d3ed49ae3ef546eda8cec2c8bbe08d9",
+    "bench/compare_serving_matrix.py": "df80f3b93cc3ce76ffcdda98eab2802a6e09b53735d1ed5acf69fb519f5b5bf4",
+    "bench/compare_runtime_identity.py": "54ad98dac09acd5da578c8e9c8636930d68a1ae211f8d2318e9788df28f58b8a"
+  },
+  "diff_check": "passed",
+  "status": "passed"
+}
