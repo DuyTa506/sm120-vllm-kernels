@@ -41,7 +41,10 @@ their workspace/KV penalty does not describe the new shared candidate.
    - The checkpoint block scales are kept unchanged, and the weight global scale is applied in fp32 through the alphas.
    - The calibrated static activation scales are passed in the form the MMA kernels expect.
    - Batches with fewer than 1024 tokens (decode, MTP verify, small chunks) run the existing FlashInfer CUTLASS path,
-     with identical weights, scales and autotuned tactics. Larger batches run b12x's fused dynamic kernel.
+     with the same weights and kernel family. A later [alpha audit](CUTLASS_SCALE_ROUNDING.md)
+     found 1-ULP FP32 differences in the fallback scale products; the isolated
+     `shared_exact/` correction is awaiting GPU validation. Independent startup
+     autotuning can also select different tactics. Larger batches run b12x's fused dynamic kernel.
 
    At kernel level, the fixed b12x matches CUTLASS's error against fp32 on all 5 tested layers (0.0753 vs 0.0753 …
    0.1380 vs 0.1379). It differs from CUTLASS by 1.6-2.7 % rel-L2, which is FP4 rounding-boundary noise, not bf16 noise

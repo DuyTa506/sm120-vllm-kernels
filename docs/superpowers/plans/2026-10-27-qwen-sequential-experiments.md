@@ -119,3 +119,17 @@ microbenchmarks alone do not satisfy this request.
   incomplete requests.28 saved A3/B2 result files pass its checks.
 - Agentic harness reliability fixes pass7 mocked CPU tests. No agentic GPU
   run has occurred; it remains exclusively the final combined-config task.
+- Full individual pair is running under session61591: shared `b12x_tasks_1`
+  finished17/17 serving scenarios plus20/20 needles; `next_tasks_1` is the live
+  baseline. GPU budget0.78, explicit per-phase cache salts. No agentic stage.
+- New scoped correctness follow-up, before the scalar experiment: original
+  hybrid CUTLASS fallback computes `s2 / rounded_reciprocal(a)` instead of
+  default `s2 * original_a`. CPU audit finds2335g1/2432g2 one-ULP differences.
+  Isolated `shared_exact/` restores all20,480 alpha values exactly on CPU and
+  leaves the b12x path unchanged; actual full modular-kernel GPU checks remain
+  pending. Do not edit the running shared candidate or attribute throughput
+  differences to this arithmetic without evidence.
+- Installed vLLM0.32 bench does not default to greedy. Current repo protocol
+  inherits checkpoint sampling temperature1.0/top_k20/top_p0.95; dataset seeds
+  fix prompts. Preserve this common protocol for the running pair, and use
+  explicit-greedy short decode diagnostics if the paired matrix still regresses.
