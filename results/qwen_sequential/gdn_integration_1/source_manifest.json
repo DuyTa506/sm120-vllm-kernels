@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "variant": "shared_exact_gdn",
+  "files": {
+    "scripts/serve.sh": "175fbccb2e429a845a2edbf23059f4c59f9b02db6c81736bef214037e269eca2",
+    "scripts/cudagraph_sizes.txt": "7af6a0ef65900fd308b7a70bac64c702fe65536afab8b9a0f3ca8432e3accdd8",
+    "bench/qwen_experiment.sh": "4a390518f0fa56aa1a345a08f2bf9071d322e0b3cfb3ff998e7b23476e9ae70a",
+    "bench/serving_matrix.py": "8d6e5328f9bf50fa2ff5b641fcc73f0e009a3b198e1c752d854930463cfa9578",
+    "bench/source_manifest.py": "f33d1ab4a8b4ffb4c36c5cdd0e42003ae8bf104e96b586ab559c846c3ce1e601",
+    "bench/agentic_bench.py": "63308eb8e9dfeaa834fbc3b8c68f32347d0dc9510154318e2a83e9e15af3fe69",
+    "eval/repeated_nll.py": "36543f3495a05759c231d7fce8b474f974d17fe8bfec281cc60bea51635966cf",
+    "eval/long_eval.py": "aa44130b488ea8ea546544974c5e3e92c555add8660bd14736d3c8b0af91c428",
+    "eval/ckpt_dist.py": "2db084189544fde008d081d8904b3ddf65f1c4fc4e1ea67789d8ba6d0e31e06e",
+    "kernels/moe-nvfp4/verify_logprobs.py": "57f3ba7ab06d6fe22aaec83243aa0ce3487d3ac5c360a49c7822b54bc593caff",
+    "build/vllm/v1/attention/backends/flashinfer.py": "7a8a584750950021c51a45f82b12717237c534f6516632d3465cf9b10a6af686",
+    "build/vllm/v1/attention/backends/sm120_fp8_fmha_glue.py": "141dd23f7b6b155f3f318b1cbc41183bda2a1475ef9895966afafb8fe1cf94b9",
+    "build/vllm/model_executor/layers/mamba/ops/fused_conv_post_conv.py": "d7e499b926bfe915ef0703caf1b4736b4a745ff14bb984a688fb4dc395725e3c",
+    "kernels/gdn-norm-fp8/integration_config.py": "0788ddec90b7f7e18a7ec5e5eaf02a2ee1a361b10c705210a05962c306fe4de6",
+    "bench/verify_gdn_startup.py": "2d2275595b7b5e9c98a56fa3f007aaa6a1a19ce2f774f5e14b467d2f7f3b6c31",
+    "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c",
+    "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "cce563b943dabf871f358c1ed4633f9297db4ac7a9c5db45e4f98dcb331e78a2",
+    "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "2fee3aed884d0f254cad50531de83eb0448997caca0f47084a0f25f4884a6e03",
+    "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+    "kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+    "kernels/moe-nvfp4/shared_exact/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "8c703524b0331521c0785d24677cecc03f08d0e41cdbe159193acf6123752e86",
+    "kernels/moe-nvfp4/patched/vllm/model_executor/layers/fused_moe/oracle/unquantized.py": "4dcacb2dd6d6a9db3f44fa340880042a03d4c50cc259f70a97fbcd591a9edcfd"
+  }
+}

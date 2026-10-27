@@ -1,0 +1,781 @@
+diff --git a/bench/qwen_experiment.sh b/bench/qwen_experiment.sh
+index 2bf459a..e1c4523 100755
+--- a/bench/qwen_experiment.sh
++++ b/bench/qwen_experiment.sh
+@@ -1,6 +1,6 @@
+ #!/usr/bin/env bash
+ # Run inside the docker group. Owns one disposable server for one experiment.
+-# Usage: qwen_experiment.sh TAG next|shared|shared_exact|scalar serving|quality|individual|diagnostic|decode_greedy|agentic
++# Usage: qwen_experiment.sh TAG next|shared|shared_exact|scalar|shared_exact_gdn|scalar_gdn serving|quality|individual|diagnostic|decode_greedy|agentic
+ # Agentic is a separate final-combination stage; individual never runs it.
+ set -euo pipefail
+ D=$(cd "$(dirname "$0")/.." && pwd)
+@@ -9,7 +9,7 @@ VAR=${2:?variant required}
+ SUITE=${3:?suite required}
+ [[ $TAG =~ ^[a-zA-Z0-9_-]+$ ]] || { echo "invalid tag" >&2; exit 2; }
+ case $SUITE in serving|quality|individual|diagnostic|decode_greedy|agentic) ;; *) echo "invalid suite" >&2; exit 2;; esac
+-case $VAR in next|shared|shared_exact|scalar) ;; *) echo "unvalidated/unknown variant" >&2; exit 2;; esac
++case $VAR in next|shared|shared_exact|scalar|shared_exact_gdn|scalar_gdn) ;; *) echo "unvalidated/unknown variant" >&2; exit 2;; esac
+ O=$D/results/qwen_sequential/$TAG
+ NAME=qwen-exp-$TAG
+ PORT=${PORT:-8132}
+@@ -57,14 +57,23 @@ cleanup() {
+ trap cleanup EXIT
+ flags="-e VLLM_CACHE_ROOT=/root/.cache/vllm/qwen-sequential-$VAR -v $O/serving:/bench-results"
+ args=()
+-if [[ $VAR != next ]]; then
+-  overlay=$K/$VAR/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
++MOE_VAR=${VAR%_gdn}
++GDN_OVERLAY=""
++if [[ $VAR == *_gdn ]]; then
++  GDN_OVERLAY=$D/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn
++  flags="$flags -e VLLM_GDN_NORM_FP8_FUSION=1"
++  docker run --rm --entrypoint python3 -v "$D/kernels/gdn-norm-fp8:/gdn:ro" \
++    vllm/vllm-openai:v0.32.0 /gdn/integration_config.py > "$O/compilation_config.json"
++  args+=(--compilation-config "$(cat "$O/compilation_config.json")")
++fi
++if [[ $MOE_VAR != next ]]; then
++  overlay=$K/$MOE_VAR/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py
+   flags="$flags -e VLLM_B12X_FIX_SCALES=1 -e VLLM_B12X_SHARED_WORKSPACE=1"
+   flags="$flags -v $overlay:$PKG/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py:ro"
+   flags="$flags -v $K/patched/vllm/model_executor/layers/fused_moe/oracle/unquantized.py:$PKG/model_executor/layers/fused_moe/oracle/unquantized.py:ro"
+-  args=(--moe-backend flashinfer_b12x)
++  args+=(--moe-backend flashinfer_b12x)
+ fi
+-if [[ $VAR == scalar ]]; then flags="$flags -e VLLM_B12X_SCALAR_INPUT_SCALE=1"; fi
++if [[ $MOE_VAR == scalar ]]; then flags="$flags -e VLLM_B12X_SCALAR_INPUT_SCALE=1"; fi
+ printf 'tag=%s\nvariant=%s\nsuite=%s\nconfig=next\ngpu_util=%s\n' "$TAG" "$VAR" "$SUITE" "$GPU_UTIL" > "$O/config.txt"
+ printf 'greedy_decode=%s\n' "$GREEDY_DECODE" >> "$O/config.txt"
+ printf 'nll_rounds=%s\n' "$NLL_ROUNDS" >> "$O/config.txt"
+@@ -73,11 +82,14 @@ git -C "$D" diff HEAD --binary > "$O/uncommitted.diff"
+ python3 -I "$D/bench/source_manifest.py" snapshot --root "$D" --output "$O" --variant "$VAR" > "$O/source_snapshot.log"
+ docker image inspect vllm/vllm-openai:v0.32.0 --format '{{.Id}}' > "$O/image.txt"
+ nvidia-smi -i "$GPU" --query-gpu=name,uuid,driver_version,memory.total,memory.used,clocks.sm,power.limit --format=csv > "$O/gpu_before.csv"
+-CONFIG=next NAME=$NAME PORT=$PORT GPU=$GPU NSYS=0 FLAGS="$flags" \
++CONFIG=next NAME=$NAME PORT=$PORT GPU=$GPU NSYS=0 FLAGS="$flags" GDN_OVERLAY="$GDN_OVERLAY" \
+   "$D/scripts/serve.sh" --gpu-memory-utilization "$GPU_UTIL" \
+   --enable-auto-tool-choice --tool-call-parser qwen3_coder --reasoning-parser qwen3 \
+   "${args[@]}" > "$O/start.log" 2>&1
+ docker logs "$NAME" > "$O/startup.log" 2>&1
++if [[ $VAR == *_gdn ]]; then
++  python3 -I "$D/bench/verify_gdn_startup.py" "$O/startup.log" > "$O/gdn_readiness.json"
++fi
+ docker inspect "$NAME" > "$O/container.json"
+ nvidia-smi -i "$GPU" --query-gpu=timestamp,memory.used,utilization.gpu,clocks.sm,power.draw --format=csv --loop=1 > "$O/gpu_during.csv" &
+ MONITOR_PID=$!
+diff --git a/bench/source_manifest.py b/bench/source_manifest.py
+index 19ec46e..877d517 100644
+--- a/bench/source_manifest.py
++++ b/bench/source_manifest.py
+@@ -21,10 +21,18 @@ def selected(variant):
+         'model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py',
+         'model_executor/layers/mamba/ops/fused_conv_post_conv.py',
+     ):
++        if variant.endswith('_gdn') and '/gdn/' in relative:
++            continue
+         paths.append('build/vllm/' + relative)
+-    if variant != 'next':
++    if variant.endswith('_gdn'):
++        paths.extend(('kernels/gdn-norm-fp8/integration_config.py', 'bench/verify_gdn_startup.py'))
++        paths.extend('kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/' + name
++                     for name in ('qwen_gdn_linear_attn.py', 'gdn_norm_fp8_fusion.py',
++                                  'gdn_norm_fp8_guards.py', 'gdn_norm_fp8_kernel.py', 'gdn_norm_fp8_quant_out.py'))
++    moe_variant = variant.removesuffix('_gdn')
++    if moe_variant != 'next':
+         paths += [
+-            f'kernels/moe-nvfp4/{variant}/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py',
++            f'kernels/moe-nvfp4/{moe_variant}/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py',
+             'kernels/moe-nvfp4/patched/vllm/model_executor/layers/fused_moe/oracle/unquantized.py',
+         ]
+     return paths
+@@ -62,7 +70,7 @@ def main():
+     parser.add_argument('action', choices=('snapshot', 'verify'))
+     parser.add_argument('--root', required=True, type=Path)
+     parser.add_argument('--output', required=True, type=Path)
+-    parser.add_argument('--variant', choices=('next', 'shared', 'shared_exact', 'scalar'))
++    parser.add_argument('--variant', choices=('next', 'shared', 'shared_exact', 'scalar', 'shared_exact_gdn', 'scalar_gdn'))
+     args = parser.parse_args()
+     if args.action == 'snapshot' and args.variant is None:
+         parser.error('snapshot needs --variant')
+diff --git a/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md b/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
+index b203b75..4f73082 100644
+--- a/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
++++ b/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
+@@ -159,3 +159,37 @@ microbenchmarks alone do not satisfy this request.
+ - Decode routing received the exclusive GPU slot after both scalar processes
+   exited, for c1 control/target-only/full instrumentation only. No agentic
+   replay/performance stage is scheduled at this point.
++
++- Explicit-layout GDN correction now passes initial synthetic tests plus648
++  real-weight synthetic cases and324 changed-input graph replays, including
++  unchanged output GEMM bit checks. At layer18 with strided-gate copy included,
++  warps8 full chain averages173.09→146.82us(4k),391.05→286.90us(8k),
++  925.94→584.51us(16k). These are micro timings, not full-model improvements.
++- Actual eager 8k activation capture v2 completed cleanly, followed by9 exact
++  FP8/scale/GEMM comparisons and27 graph replays on layers0/18/38, all passing.
++  First capture failed at RPC serialization of TorchVersion metadata; its
++  evidence is preserved. Cast to str and bounded RPC timeouts fix that probe.
++- Decode c1 pilot: control exited0, target-only exited1 because generated
++  tokens differ from control. Raw64-step target routes are structurally valid,
++  with zero graph padding in this sample.51/132 autotune tactics differ, so
++  attribution is unresolved. Draft capture and control follow-up remain pending;
++  no routing optimization is selected. See decode-route-capture/RESULTS.md.
++- LIVE session28410: exact_tasks_1(shared_exact individual+GREEDY_DECODE=1+
++  NLL_ROUNDS=5), followed sequentially by next_diagnostic_1(next diagnostic
++  with the same two diagnostic flags). Sources are snapshotted and verified
++  at cleanup. Do not edit runner, serving matrix, source manifest helper,
++  existing model overlays/build sources, or evaluation scripts until terminal.
++  New isolated GDN overlay preparation is CPU-only during this queue.
++
++- User explicitly confirmed compatible beneficial patches may be stacked.
++  Measure incremental retained changes on the selected parent stack; final
++  agentic remains one baseline-versus-composed-config stage. Do not assume
++  isolated percentage gains add, or repeat agentic for each addition.
++- Independent GDN integration review found actual next FX calls the opaque
++  packed GDN norm core30times, bypassing _output_projection. Its prefill path
++  directly invokes FLA despite norm.forward_native at construction. A3/B2
++  traces each contain120 FLA layer_norm_fwd calls over4 requests. Thus the
++  isolated oracle remains relevant, but integration must change the packed
++  prefill boundary and preserve packed MTP decode. Initial consumer-hook draft
++  remains unmounted and is being redesigned; no source in the active queue
++  is modified. Evidence: gdn-norm-fp8/results/qa_interface_review_cpu.json.
+diff --git a/kernels/decode-route-capture/README.md b/kernels/decode-route-capture/README.md
+index dd28fa0..cef2b66 100644
+--- a/kernels/decode-route-capture/README.md
++++ b/kernels/decode-route-capture/README.md
+@@ -7,7 +7,7 @@ in 51/132 entries. The signed target artifact passes structural checks; full
+ target/draft capture is pending. This checkpoint supports no optimization
+ adoption. See [the recorded result](RESULTS.md) for scope and proposed controls.
+ 
+-The 24 CPU analysis/launcher/driver tests and Python/shell syntax checks pass.
++The 37 CPU analysis/launcher/driver/import tests and Python/shell syntax checks pass.
+ Hooks were inspected against installed vLLM 0.32.0 / Torch 2.13.0+cu130 /
+ FlashInfer 0.7.0.post1 sources in `qwen-prefill-dev`. The target path completed
+ compilation, graph replay, capture, export and shutdown. Draft graph compatibility
+@@ -34,8 +34,8 @@ sg docker -c 'bash kernels/decode-route-capture/run.sh target_c1 --target-only -
+ sg docker -c 'bash kernels/decode-route-capture/run.sh full_c1 --concurrency 1 --compare-output /work/kernels/decode-route-capture/results/control_c1/outputs.json'
+ ```
+ 
+-These are separate queued jobs. Do not proceed to full capture after a failed
+-control/target comparison. The completed checkpoint used `review_control_c1`
++These are separate queued jobs. A failed control/target comparison requires
++inspection of the controls before further diagnostic capture. The completed checkpoint used `review_control_c1`
+ and `review_target_c1`; it stopped before the full run and released the GPU.
+ 
+ After c=1 works, repeat c=4/16/64 with fresh tags and matching controls; repeat
+@@ -78,6 +78,13 @@ pressure, and native auxiliary-output handling. It can change asynchronous
+ batching and available KV capacity. `--compare-output` fails if prompts or output
+ token IDs differ from the chosen control; it does not prove identical batching.
+ 
++The subsequently prepared [control and tactic-import options](CONTROLS.md) add
++`--native-aux-control`, optional `--autotune-json` with observed-choice
++verification, and separate baseline token-distance reporting. They are CPU-tested
++and GPU-unrun. Default inference options are unchanged. Completed inference now
++gets structural route analysis even after an exact-token mismatch; overall
++failure is preserved, with diagnostic analysis saved separately.
++
+ ## What is captured
+ 
+ `raw_routes.pt` is the authoritative artifact: each phase's route tensor remains
+diff --git a/kernels/decode-route-capture/RESULTS.md b/kernels/decode-route-capture/RESULTS.md
+index b0e93de..38cc22c 100644
+--- a/kernels/decode-route-capture/RESULTS.md
++++ b/kernels/decode-route-capture/RESULTS.md
+@@ -100,15 +100,16 @@ next controls. Draft data is absent, not inferred from target expert IDs.
+ 1. Repeat the plain c1 control against the preserved original control with the
+    same prompt, seed and output length; retain the result even if it differs.
+    Compare autotune choices as well as output IDs.
+-2. Add a native-aux-only control: enable
++2. Run the subsequently prepared `--native-aux-control`: enable
+    `aux_output_config={"enable_return_routed_experts": True}` while omitting this
+-   probe's hook installation and raw-route cloning. This control mode is proposed,
+-   not yet a CLI option. It separates the native aux path from this probe's extra
++   probe's hook installation and raw-route cloning. This mode is CPU-tested but
++   GPU-unrun. It separates the native aux path from this probe's extra
+    snapshots. Repeat it to establish its own variability.
+ 3. If independent autotuning remains a confound, arrange paired runs with
+    verified identical autotune choices while keeping their compiled graphs
+    separate. Compare native-aux-only control to target capture before adding
+-   draft capture. No such paired run has occurred yet.
++   draft capture. The optional importer and its verification are described in
++   [CONTROLS.md](CONTROLS.md). No such paired run has occurred yet.
+ 
+ Full target/draft capture remains pending a new exclusive GPU slot and a useful
+ control comparison. No further GPU work was started after release.
+diff --git a/kernels/decode-route-capture/capture_runtime.py b/kernels/decode-route-capture/capture_runtime.py
+index 68fb5dc..6e5a905 100644
+--- a/kernels/decode-route-capture/capture_runtime.py
++++ b/kernels/decode-route-capture/capture_runtime.py
+@@ -294,7 +294,7 @@ class V2RouteCapture:
+         self._patch(MTP, "on_prefill_end", phase_hook(MTP.on_prefill_end, "draft_prefill"))
+         self._patch(MTP, "on_multi_step_decode_end", phase_hook(MTP.on_multi_step_decode_end, "draft_decode"))
+ 
+-    def export(self, out, *, success, error=None):
++    def export(self, out, *, success, error=None, validate_structure=None):
+         import torch
+         from analyze import analyze_capture
+         out = Path(out)
+@@ -324,14 +324,16 @@ class V2RouteCapture:
+                 f.write(json.dumps(record, separators=(",", ":")) + "\n")
+         self.manifest["gpu_validation"] = "capture_finished_pending_analysis" if success else "failed"
+         self.manifest["error"] = error
++        self.manifest["structural_validation"] = "not_run"
+         if self.capture_draft:
+             expected = {(r["step"], phase) for r in self.targets
+                         for phase in ("draft_prefill", "draft_decode")}
+             actual = {(r["step"], r["phase"]) for r in rows if r["phase"].startswith("draft_")}
+             self.manifest["draft_capture"] = "captured_both_phases" if expected and expected == actual else "incomplete"
+         analysis_error = None
++        should_validate = success if validate_structure is None else validate_structure
+         try:
+-            if success:
++            if should_validate:
+                 if not self.targets:
+                     raise RuntimeError("no pure decode steps captured")
+                 for record in rows:
+@@ -344,11 +346,19 @@ class V2RouteCapture:
+                 if self.capture_draft and self.manifest["draft_capture"] != "captured_both_phases":
+                     raise RuntimeError("draft data incomplete; use explicit --target-only for target capture")
+                 analysis = analyze_capture(self.manifest, rows)
+-                (out / "analysis.json").write_text(json.dumps(analysis, indent=2) + "\n")
+-                self.manifest["gpu_validation"] = "captured_and_structurally_validated"
++                analysis["overall_run_success"] = success
++                analysis["control_token_ids_match"] = self.manifest.get("control_token_ids_match")
++                name = "analysis.json" if success else "analysis_diagnostic.json"
++                (out / name).write_text(json.dumps(analysis, indent=2) + "\n")
++                self.manifest["structural_validation"] = "passed"
++                if success:
++                    self.manifest["gpu_validation"] = "captured_and_structurally_validated"
+         except Exception as ex:
+-            self.manifest["gpu_validation"] = "analysis_failed"
+-            self.manifest["error"] = str(ex)
++            self.manifest["structural_validation"] = "failed"
++            self.manifest["structural_error"] = str(ex)
++            if success:
++                self.manifest["gpu_validation"] = "analysis_failed"
++                self.manifest["error"] = str(ex)
+             analysis_error = ex
+         finally:
+             (out / "manifest.json").write_text(json.dumps(self.manifest, indent=2) + "\n")
+diff --git a/kernels/decode-route-capture/run_capture.py b/kernels/decode-route-capture/run_capture.py
+index f0c9381..17b0074 100644
+--- a/kernels/decode-route-capture/run_capture.py
++++ b/kernels/decode-route-capture/run_capture.py
+@@ -74,12 +74,24 @@ def main():
+     group = parser.add_mutually_exclusive_group()
+     group.add_argument("--target-only", action="store_true")
+     group.add_argument("--control", action="store_true", help="Generate matching outputs without any route capture")
++    group.add_argument("--native-aux-control", action="store_true",
++                       help="Enable native aux routes without this probe's hooks or raw snapshots")
+     parser.add_argument("--compare-output", type=Path, help="Compare output token IDs with a prior control outputs.json")
++    parser.add_argument("--baseline-output", action="append", default=[], type=Path,
++                        help="Additional same-prompt control output for a separate token-distance envelope")
++    parser.add_argument("--autotune-json", type=Path,
++                        help="Import only this saved FI tactic JSON into the fresh isolated rank cache")
++    parser.add_argument("--require-autotune-coverage", action="store_true",
++                        help="Also fail if any observed FI cache lookup lacks an imported tactic")
+     args = parser.parse_args()
+     if not 1 <= args.concurrency <= 64 or args.prompt_offset < 0:
+         parser.error("concurrency must be 1..64 and prompt offset nonnegative")
+     if min(args.output_tokens, args.max_steps, args.max_rows) < 1:
+         parser.error("output tokens and capture limits must be positive")
++    if args.baseline_output and not args.compare_output:
++        parser.error("--baseline-output requires --compare-output")
++    if args.require_autotune_coverage and not args.autotune_json:
++        parser.error("--require-autotune-coverage requires --autotune-json")
+     if args.out.exists() and any(args.out.glob("manifest.json")):
+         parser.error("capture output already contains a manifest; use a fresh directory")
+     prompts, selected = select_prompts(args.trajectory, args.concurrency, args.prompt_offset)
+@@ -89,8 +101,10 @@ def main():
+     os.environ["VLLM_USE_V2_MODEL_RUNNER"] = "1"
+     os.environ["VLLM_MOE_SKIP_PADDING"] = "1"
+     from capture_runtime import V2RouteCapture
+-    capture = None if args.control else V2RouteCapture(args.max_steps, args.max_rows, not args.target_only)
++    capture = (None if args.control or args.native_aux_control else
++               V2RouteCapture(args.max_steps, args.max_rows, not args.target_only))
+     metadata = {"instrumentation_only": True, "mode": "control" if args.control else
++                "native_aux_control" if args.native_aux_control else
+                 "target_only" if args.target_only else "target_and_draft",
+                 "selected_prompts": selected, "trajectory": str(args.trajectory),
+                 "concurrency": args.concurrency, "output_tokens": args.output_tokens, "seed": args.seed,
+@@ -99,8 +113,12 @@ def main():
+                     "VLLM_SM120_FP8_PREFILL_NOGLUE", "VLLM_FI_KERNEL_PAGES",
+                     "VLLM_GDN_INTERNAL_CKPT", "VLLM_GDN_FUSED_CONV")}}
+     args.out.mkdir(parents=True, exist_ok=True)
+-    success, error, llm = False, None, None
++    success, error, llm, imported, generation_complete = False, None, None, None, False
+     try:
++        if args.autotune_json:
++            from autotune_import import AutotuneImport
++            imported = AutotuneImport(args.autotune_json, args.out, args.require_autotune_coverage)
++            imported.install()
+         if capture is not None:
+             capture.manifest.update(metadata)
+             capture.install()
+@@ -127,28 +145,48 @@ def main():
+         if (len(output["requests"]) != args.concurrency
+                 or len({r["request_id"] for r in output["requests"]}) != args.concurrency):
+             raise RuntimeError("incomplete or duplicate request batch in diagnostic run")
++        if any(len(r["output_token_ids"]) != args.output_tokens or r["finish_reason"] != "length"
++               for r in output["requests"]):
++            raise RuntimeError("incomplete generation in diagnostic run")
++        generation_complete = True
+         if args.compare_output:
++            from compare_outputs import compare_outputs
+             reference = json.loads(args.compare_output.read_text())
+-            same = (reference["selected_prompts"] == selected and
+-                    [x["output_token_ids"] for x in reference["requests"]] ==
+-                    [x["output_token_ids"] for x in output["requests"]])
++            comparison = compare_outputs(reference, output,
++                [json.loads(path.read_text()) for path in args.baseline_output])
++            comparison.update(reference_path=str(args.compare_output),
++                              baseline_paths=[str(path) for path in args.baseline_output])
++            (args.out / "output_comparison.json").write_text(json.dumps(comparison, indent=2) + "\n")
++            same = comparison["exact_match"]
+             metadata["control_token_ids_match"] = same
+-            if capture is not None:
+-                capture.manifest["control_token_ids_match"] = same
++            metadata["baseline_variation"] = comparison["baseline_variation"]
+             if not same:
+                 raise RuntimeError("captured run differs from control prompt selection/output token IDs")
+-        if any(len(r["output_token_ids"]) != args.output_tokens or r["finish_reason"] != "length"
+-               for r in output["requests"]):
+-            raise RuntimeError("incomplete generation in diagnostic run")
+         success = True
+     except BaseException as ex:
+         error = f"{type(ex).__name__}: {ex}"
+         raise
+     finally:
++        import_error = None
+         try:
++            if imported is not None:
++                try:
++                    imported.finalize()
++                except Exception as ex:
++                    if error is None:
++                        import_error, success = ex, False
++                        error = f"{type(ex).__name__}: {ex}"
++                    else:
++                        traceback.print_exc()
++                metadata["autotune_import"] = {"status": imported.report["status"],
++                    "source_sha256": imported.report["source_sha256"],
++                    "verification_file": "autotune/verification.json"}
++            metadata.update(success=success, error=error, generation_complete=generation_complete)
+             if capture is not None:
++                capture.manifest.update(metadata)
+                 try:
+-                    capture.export(args.out, success=success, error=error)
++                    capture.export(args.out, success=success, error=error,
++                                   validate_structure=generation_complete)
+                 except Exception:
+                     if error is None:
+                         raise
+@@ -158,6 +196,8 @@ def main():
+                 (args.out / "manifest.json").write_text(json.dumps(metadata, indent=2) + "\n")
+         finally:
+             shutdown_owned_engine(llm, args.out)
++        if import_error is not None:
++            raise import_error
+     print(args.out)
+     print("Instrumentation only: this run is not a latency/throughput baseline.")
+ 
+diff --git a/kernels/decode-route-capture/test_driver.py b/kernels/decode-route-capture/test_driver.py
+index bf4c615..e19c066 100644
+--- a/kernels/decode-route-capture/test_driver.py
++++ b/kernels/decode-route-capture/test_driver.py
+@@ -13,7 +13,8 @@ import run_capture
+ 
+ 
+ class DriverTests(unittest.TestCase):
+-    def invoke(self, *, generation_error=False, shutdown_error=False, short_batch=False):
++    def invoke(self, *, generation_error=False, shutdown_error=False, short_batch=False,
++               native_aux=False, mismatch=False):
+         events = []
+         with tempfile.TemporaryDirectory() as temp:
+             out = Path(temp)
+@@ -27,7 +28,7 @@ class DriverTests(unittest.TestCase):
+ 
+                 def export(self, path, **kwargs):
+                     events.append("export")
+-                    (path / "manifest.json").write_text(json.dumps(kwargs))
++                    (path / "manifest.json").write_text(json.dumps(dict(self.manifest, **kwargs)))
+ 
+             def shutdown():
+                 events.append("shutdown")
+@@ -45,12 +46,20 @@ class DriverTests(unittest.TestCase):
+ 
+             llm = SimpleNamespace(generate=generate,
+                                   llm_engine=SimpleNamespace(engine_core=SimpleNamespace(shutdown=shutdown)))
+-            vllm = SimpleNamespace(LLM=lambda **kwargs: llm, SamplingParams=lambda **kwargs: kwargs)
++            def construct(**kwargs):
++                self.assertEqual(kwargs["aux_output_config"]["enable_return_routed_experts"], True)
++                return llm
++            vllm = SimpleNamespace(LLM=construct, SamplingParams=lambda **kwargs: kwargs)
++            extra = ["--native-aux-control"] if native_aux else []
++            if mismatch:
++                (out / "reference.json").write_text(json.dumps({"selected_prompts": [],
++                    "requests": [{"output_token_ids": [8] * 32}]}))
++                extra += ["--compare-output", str(out / "reference.json")]
+             with patch.dict("sys.modules", {"vllm": vllm}), \
+                  patch.dict("os.environ", {}, clear=False), \
+                  patch.object(capture_runtime, "V2RouteCapture", Capture), \
+                  patch.object(run_capture, "select_prompts", return_value=([{"prompt_token_ids": [1]}], [])), \
+-                 patch("sys.argv", ["run_capture.py", "--out", str(out), "--output-tokens", "32"]), \
++                 patch("sys.argv", ["run_capture.py", "--out", str(out), "--output-tokens", "32", *extra]), \
+                  contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                 error = None
+                 try:
+@@ -85,6 +94,19 @@ class DriverTests(unittest.TestCase):
+         self.assertIsNotNone(error)
+         self.assertFalse(manifest["success"])
+ 
++    def test_native_aux_control_enables_aux_without_probe_install_or_export(self):
++        events, error, manifest, _ = self.invoke(native_aux=True)
++        self.assertEqual(events, ["generate", "shutdown"])
++        self.assertIsNone(error)
++        self.assertEqual(manifest["mode"], "native_aux_control")
++
++    def test_exact_mismatch_still_requests_structural_validation(self):
++        _, error, manifest, _ = self.invoke(mismatch=True)
++        self.assertIn("differs from control", error)
++        self.assertFalse(manifest["success"])
++        self.assertFalse(manifest["control_token_ids_match"])
++        self.assertTrue(manifest["validate_structure"])
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/kernels/gdn-norm-fp8/README.md b/kernels/gdn-norm-fp8/README.md
+index c9d7b74..82a778f 100644
+--- a/kernels/gdn-norm-fp8/README.md
++++ b/kernels/gdn-norm-fp8/README.md
+@@ -1,14 +1,54 @@
+-# GDN norm + SiLU + token FP8 prototype
++# GDN norm + SiLU + token FP8 experiment
+ 
+-**Pending GPU verification.** These standalone files have no serving hooks.
+-They were prepared while GPU experiments were assigned elsewhere. Offline
+-SM120 compilation passes with CUDA hidden; no GPU numerical comparison or
+-timing has run for this candidate. CPU-only CLI, Python AST parsing and
+-whitespace checks also pass.
+-The source/trace analysis is in
+-[`../moe-nvfp4/GDN_FUSION_RESEARCH.md`](../moe-nvfp4/GDN_FUSION_RESEARCH.md).
++The explicit-layout candidate passes the recorded standalone exact checks;
++the original automatic-layout candidate fails. Serving integration is a
++separate, default-off overlay and has **not** been tested on GPU.
+ 
+-`fused.py` implements one Triton CTA per token. Inputs are BF16 X/Z
++The GPU run ledger is [`results/EXPLICIT_GPU.md`](results/EXPLICIT_GPU.md).
++Recorded results are summarized in
++[`results/explicit_validation_summary.json`](results/explicit_validation_summary.json):
++
++- Initial explicit run: 144 numerical cases and 72 changed-input graph replays.
++- Real norm/output-projection weights from layers 0/18/38: 648 numerical
++  cases, 324 replays and 432 timing records.
++- Actual 8192-token prefill capture from those layers: 3 captured BF16 norm
++  checks, 9 exact FP8/scale/unchanged-GEMM checks and 27 replays, all passing.
++
++Exact means zero FP8-byte, scale-bit and checked GEMM-output differences.
++The oracle is installed FLA norm followed by compiled native QuantFP8.
++Saved server FX confirms the default packed GDN path calls FLA directly
++inside its opaque core, independent of the norm module's dispatch setting.
++See [`results/qa_interface_review_cpu.json`](results/qa_interface_review_cpu.json).
++The earlier `_output_projection` hook proposal would miss this packed path.
++
++Isolated CUDA-graph timings for layer 18, eight warps, including the
++baseline gate copy and the same real output GEMM (median of recorded AB/BA
++medians, microseconds):
++
++| Tokens | Reference chain | Explicit fused chain |
++| ---: | ---: | ---: |
++| 4096 | 173.09 | 146.82 |
++| 8192 | 391.05 | 286.90 |
++| 16384 | 925.94 | 584.51 |
++
++These are microbenchmarks, not measured serving improvements. Both chains
++retain their captured output buffers. Serving quality, decode cost, padded
++metadata paths and graph startup remain integration validation work.
++
++The original failure and reduction-order diagnosis are preserved in
++[`DIAGNOSIS.md`](DIAGNOSIS.md). The successful capture is
++`results/activations_8k_v2`; the first capture's RPC serialization failure
++and owned-process cleanup are recorded separately. See [`CAPTURE.md`](CAPTURE.md).
++The compiled-output fallback passes its separate exactness checks;
++[`results/FALLBACK_QUANT_OUT_GPU.md`](results/FALLBACK_QUANT_OUT_GPU.md) records
++its generated code and limited timing comparison.
++The default-off overlay and required split configuration are described in
++[`INTEGRATION_PREP.md`](INTEGRATION_PREP.md). No mounted serving sources or
++backend defaults have been changed by this experiment.
++
++`fused_explicit.py` implements one Gluon CTA per token with the FLA reduction layout.
++The frozen source docstring predates its GPU validation; the recorded results
++above are authoritative. `fused.py` remains the preserved failing candidate. Inputs are BF16 X/Z
+ `[T,32,128]`, BF16 weight `[128]`, epsilon 1e-6, no bias. Z may have the actual
+ QKVZ slice strides `(12288,128,1)`. Norm reduces each head; SiLU gating runs
+ in FP32; the result explicitly rounds through BF16 before one dynamic FP8
+@@ -21,9 +61,8 @@ and FP32 `[T,1]`. Zero rows use scale `1/(448*512)`.
+ differences against installed `ops.scaled_fp8_quant`. Exact scale bits and
+ FP8 bytes are required against the compiled reference. It stops on mismatch
+ before timing. Optional checkpoint loading tests real norm weights and the
+-unchanged CUTLASS output projection. Synthetic activations do not establish
+-model accuracy; captured activations and end-to-end serving checks remain
+-necessary even if all included cases pass.
++unchanged CUTLASS output projection. The capture checks cover one eager request and selected layers; broad model
++accuracy and integrated serving still require separate checks.
+ 
+ Run these only after the GPU is available, inside the vLLM 0.32.0 environment
+ with this directory mounted:
+@@ -34,11 +73,11 @@ python3 verify_bench.py
+ python3 verify_bench.py --help
+ 
+ # Numerical/graph validation, then timing, with synthetic weights:
+-python3 verify_bench.py --run-gpu --mode verify --warps 4 8 16
+-python3 verify_bench.py --run-gpu --mode bench --warps 4 8 16
++python3 verify_bench.py --run-gpu --mode verify --implementation explicit --warps 4 8 16
++python3 verify_bench.py --run-gpu --mode bench --implementation explicit --warps 4 8 16
+ 
+ # Real norm and output-projection weights from the mounted local snapshot:
+-python3 verify_bench.py --run-gpu --mode both --with-gemm --warps 8 \
++python3 verify_bench.py --run-gpu --mode both --implementation explicit --with-gemm --warps 8 \
+   --snapshot /root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66
+ ```
+ 
+@@ -52,12 +91,10 @@ buffers are used per timing graph. With `--with-gemm`, each chain is also
+ timed with the same real output GEMM. GPU event timings do not include Python
+ allocation overhead; CUDA graphs hold baseline temporaries in their pool.
+ 
+-Before integration, inspect generated Triton IR/PTX for the BF16 round-trip,
+-the per-head reduction layout, reciprocal and FP8 conversion, plus register
+-count and spills. Changing warp count can change reduction ordering. This
+-prototype provides a concrete experiment; exact numerical agreement and a
+-speed improvement are both unproven. A passing synthetic benchmark alone
+-does not authorize a production default or alter the current vLLM backend.
++The verifier defaults to the original candidate for provenance; pass
++`--implementation explicit` for the validated candidate. The explicit kernel
++and verifier remain frozen at their tested hashes. GPU steps require an
++exclusive scheduled slot, writable runtime caches and the local snapshot.
+ 
+ ## Offline compilation
+ 
+@@ -73,6 +110,7 @@ versions are in [`results/offline_sm120/SUMMARY.md`](results/offline_sm120/SUMMA
+ 
+ The generated code retains FP32→BF16→FP32 rounding before quantization and
+ the E4M3 conversion. The per-head reduction precedes the token-wide maximum.
+-Compilation also fuses some multiply/add operations; only the scheduled GPU
+-comparison can establish agreement with the installed reference. These
++Compilation also fuses some multiply/add operations; the original candidate subsequently failed the recorded GPU comparison.
++The separate explicit-layout offline artifacts are under
++`results/explicit_layout_offline/`; all six compiled specializations have zero spills. These
+ resource counts are preparation evidence, not a speed measurement.
+diff --git a/kernels/gdn-norm-fp8/verify_bench.py b/kernels/gdn-norm-fp8/verify_bench.py
+index 75a5bc2..24a72dd 100644
+--- a/kernels/gdn-norm-fp8/verify_bench.py
++++ b/kernels/gdn-norm-fp8/verify_bench.py
+@@ -17,7 +17,11 @@ def parse_args():
+     p.add_argument("--tokens", type=int, nargs="+", default=[1, 3, 31, 128, 1023, 1024, 1025, 4096, 8192, 16384])
+     p.add_argument("--bench-tokens", type=int, nargs="+", default=[4096, 8192, 16384])
+     p.add_argument("--warps", type=int, nargs="+", choices=(4, 8, 16), default=[8])
++    p.add_argument("--implementation", choices=("original", "explicit"), default="original",
++                   help="isolated candidate to verify; neither is a serving integration")
+     p.add_argument("--snapshot", type=Path, help="local model snapshot, for real norm/GEMM weights")
++    p.add_argument("--captured-dir", type=Path, help="verify actual captured activations; requires --mode verify")
++    p.add_argument("--failure-dir", type=Path, help="save first failing inputs/references for exact reproduction")
+     p.add_argument("--layers", type=int, nargs="+", default=[0, 18, 38])
+     p.add_argument("--with-gemm", action="store_true", help="also check/time real output GEMM; requires --snapshot")
+     p.add_argument("--replays", type=int, default=30)
+@@ -25,6 +29,8 @@ def parse_args():
+     args = p.parse_args()
+     if args.with_gemm and args.snapshot is None:
+         p.error("--with-gemm requires --snapshot")
++    if args.captured_dir is not None and args.mode != "verify":
++        p.error("--captured-dir is verification-only; use --mode verify")
+     if min(args.tokens + args.bench_tokens + [args.replays, args.buffers]) < 1:
+         p.error("token counts, replays and buffers must be positive")
+     return args
+@@ -47,7 +53,10 @@ def main():
+     from vllm.model_executor.layers.quantization.input_quant_fp8 import QuantFP8
+     from vllm.model_executor.layers.quantization.utils.quant_utils import GroupShape
+     from vllm.third_party.flash_linear_attention.ops.layernorm_guard import rmsnorm_fn
+-    from fused import fused_norm_gate_fp8
++    if args.implementation == "explicit":
++        from fused_explicit import fused_norm_gate_fp8_explicit as fused_norm_gate_fp8
++    else:
++        from fused import fused_norm_gate_fp8
+ 
+     if torch.cuda.get_device_capability() != (12, 0):
+         raise RuntimeError("This experiment is scoped to SM120")
+@@ -137,6 +146,99 @@ def main():
+     def exact(stats):
+         return stats["fp8_mismatches"] == 0 and stats["scale_bit_mismatches"] == 0
+ 
++    def save_failure(x, z, w, actual, expected, **context):
++        if args.failure_dir is None:
++            return
++        from capture_io import file_sha256, tensor_spec
++        args.failure_dir.mkdir(parents=True, exist_ok=False)
++        values = dict(x=x, z=z, weight=w, norm_reference=norm(x, z, w),
++                      q_actual=actual[0], scale_actual=actual[1],
++                      q_reference=expected[0], scale_reference=expected[1])
++        torch.save({key: value.detach().cpu().contiguous() for key, value in values.items()},
++                   args.failure_dir / "failure.pt")
++        (args.failure_dir / "context.json").write_text(json.dumps({
++            **context, "specs": {key: tensor_spec(value) for key, value in values.items()},
++            "implementation": args.implementation,
++            "fused_sha256": file_sha256(Path(__file__).with_name(
++                "fused_explicit.py" if args.implementation == "explicit" else "fused.py")),
++        }, indent=2) + "\n")
++        emit(event="failure_saved", directory=str(args.failure_dir))
++
++    def verify_captured():
++        from capture_io import file_sha256, load_capture, restore_layout
++
++        manifest = json.loads((args.captured_dir / "manifest.json").read_text())
++        if (manifest.get("schema_version") != 1 or manifest.get("status") != "complete"
++                or manifest.get("tokens") != 8192):
++            raise ValueError("Expected a complete schema-v1 8192-token capture")
++        entries = {entry["layer"]: entry for entry in manifest["captures"]}
++        if len(entries) != len(manifest["captures"]) or not set(args.layers) <= set(entries):
++            raise ValueError("Capture contains duplicate layers or lacks requested layers")
++        if args.snapshot:
++            for filename, key in (("config.json", "model_config_sha256"),
++                                  ("model.safetensors.index.json", "weight_index_sha256")):
++                if file_sha256(args.snapshot / filename) != manifest[key]:
++                    raise ValueError(f"Capture and GEMM snapshot differ: {filename}")
++        emit(event="captured_environment", capture_id=manifest["capture_id"],
++             implementation=args.implementation,
++             captured_dir=str(args.captured_dir), captured_snapshot=manifest["snapshot"],
++             note="Actual eager activations; exact compiled-quant reference, no timing")
++        for layer in args.layers:
++            entry = entries[layer]
++            attributes = entry.get("norm_attributes") or {}
++            if (attributes.get("eps") != 1e-6 or attributes.get("group_size") is not None
++                    or attributes.get("norm_before_gate") is not True or attributes.get("bias") is not False
++                    or attributes.get("activation") not in ("silu", "swish")
++                    or attributes.get("forward_method") != "forward_cuda"):
++                raise ValueError(f"Layer {layer}: unexpected captured norm attributes")
++            data = load_capture(args.captured_dir, entry, expected_tokens=8192)
++            x, z, w = (restore_layout(data[key], entry["specs"][key], device="cuda")
++                       for key in ("x", "z", "weight"))
++            saved_y = data["norm_output"].cuda()
++            replayed_y = norm(x, z, w)
++            norm_mismatches = int((replayed_y.contiguous().view(torch.int16)
++                                   != saved_y.view(torch.int16)).sum())
++            emit(event="captured_norm", layer=layer, tokens=8192,
++                 x_stride=list(x.stride()), z_stride=list(z.stride()),
++                 z_storage_offset=z.storage_offset(), bf16_mismatches=norm_mismatches)
++            if norm_mismatches:
++                raise AssertionError("Installed norm does not reproduce captured BF16 output")
++            bw = None
++            if args.snapshot:
++                checkpoint_w, bw = weights(layer)
++                if not torch.equal(w.view(torch.int16), checkpoint_w.view(torch.int16)):
++                    raise AssertionError("Captured norm weight differs from requested checkpoint")
++            # Anchor quantization to the output captured inside the real forward.
++            ref = compiled_quant(saved_y.reshape(-1, 4096))
++            eager = ops.scaled_fp8_quant(saved_y.reshape(-1, 4096), use_per_token_if_dynamic=True)
++            reference_mm = mm(ref, bw) if bw is not None else None
++            for warps in args.warps:
++                got = fused_norm_gate_fp8(x, z, w, num_warps=warps)
++                stats = compare(got, ref)
++                record = dict(event="captured_numerics", layer=layer, tokens=8192, warps=warps,
++                              compiled_reference=stats, eager_reference=compare(got, eager))
++                if bw is not None:
++                    actual_mm = mm(got, bw)
++                    record["gemm_bf16_mismatches"] = int((actual_mm.view(torch.int16)
++                                                         != reference_mm.view(torch.int16)).sum())
++                emit(**record)
++                if not exact(stats) or record.get("gemm_bf16_mismatches", 0):
++                    raise AssertionError("Captured activation/reference mismatch; do not integrate")
++                q, s = torch.empty_like(got[0]), torch.empty_like(got[1])
++                fused_norm_gate_fp8(x, z, w, out=(q, s), num_warps=warps)
++                torch.cuda.synchronize()
++                graph = torch.cuda.CUDAGraph()
++                with torch.cuda.graph(graph):
++                    fused_norm_gate_fp8(x, z, w, out=(q, s), num_warps=warps)
++                for iteration in range(3):
++                    graph.replay()
++                    replay_stats = compare((q, s), ref)
++                    emit(event="captured_graph_replay", layer=layer, warps=warps,
++                         iteration=iteration, **replay_stats)
++                    if not exact(replay_stats):
++                        raise AssertionError("Captured-input graph replay mismatch")
++            del data, x, z, w, saved_y, replayed_y, ref, eager, reference_mm, bw
++
+     def verify_case(t, kind, strided, w, bw, layer, warps):
+         x, z = inputs(t, kind, strided)
+         ref = baseline(x, z, w)
+@@ -151,6 +253,8 @@ def main():
+             record["gemm_bf16_mismatches"] = int((a.view(torch.int16) != b.view(torch.int16)).sum())
+         emit(**record)
+         if not exact(stats):
++            save_failure(x, z, w, got, ref, event="numerics", tokens=t, case=kind,
++                         strided_z=strided, layer=layer, warps=warps)
+             raise AssertionError("Compiled serving reference mismatch; do not benchmark or integrate")
+         # A second reference is diagnostic: differences between CUDA eager and
+         # compiled quantization are reported, never silently counted as equality.
+@@ -173,10 +277,13 @@ def main():
+                 x.add_(0.0078125)
+                 z.mul_(-0.5)
+                 graph.replay()
+-                replay_stats = compare((q, s), baseline(x, z, w))
++                replay_ref = baseline(x, z, w)
++                replay_stats = compare((q, s), replay_ref)
+                 emit(event="graph_replay", tokens=t, iteration=iteration, strided_z=strided,
+                      layer=layer, warps=warps, **replay_stats)
+                 if not exact(replay_stats) or ptrs != (q.data_ptr(), s.data_ptr()):
++                    save_failure(x, z, w, (q, s), replay_ref, event="graph_replay", tokens=t,
++                                 iteration=iteration, strided_z=strided, layer=layer, warps=warps)
+                     raise AssertionError("Graph replay mismatch")
+ 
+     def graph_time(fns):
+@@ -210,8 +317,14 @@ def main():
+         return {"median_us": statistics.median(times), "min_us": min(times),
+                 "max_us": max(times), "replays": args.replays, "buffers": len(fns)}
+ 
++    if args.captured_dir is not None:
++        verify_captured()
++        emit(status="PASS", scope="requested captured eager activations and graph replays only; no timing or compiled-serving equivalence claim")
++        return
++
+     layers = args.layers if args.snapshot else [None]
+     emit(event="environment", gpu=torch.cuda.get_device_name(), torch=torch.__version__,
++         implementation=args.implementation,
+          snapshot=str(args.snapshot) if args.snapshot else None,
+          note="Synthetic activations; real norm/GEMM weights only with --snapshot")
+     for layer in layers:
+diff --git a/scripts/serve.sh b/scripts/serve.sh
+index 23a81ef..0c5c78d 100755
+--- a/scripts/serve.sh
++++ b/scripts/serve.sh
+@@ -11,6 +11,7 @@
+ # env: FLAGS     extra docker args, e.g. FLAGS="-e VLLM_SM120_FP8_PREFILL=0" to ablate one patch
+ #      NSYS=1    run under `nsys launch` so scripts/nsys_capture.sh can record a window
+ #      NOSPEC=1  drop MTP speculative decoding
++#      GDN_OVERLAY optional isolated GDN source directory (CONFIG=next only)
+ #      NAME, PORT, GPU, HF_CACHE, NSYS_DIR
+ set -e
+ D=$(cd "$(dirname "$0")/.." && pwd)
+@@ -41,12 +42,22 @@ case $CONFIG in
+     [ -f $D/build/vllm/v1/attention/backends/sm120_fp8_fmha_glue.py ] || { echo "build/ predates patches 03-05: run scripts/build_patched.sh" >&2; exit 1; }
+     VARGS="$TUNED --block-size 2176"
+     B=$D/build/vllm
++    GDN_SOURCE=$B/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py
++    if [ -n "${GDN_OVERLAY:-}" ]; then
++      for source in qwen_gdn_linear_attn.py gdn_norm_fp8_fusion.py gdn_norm_fp8_guards.py gdn_norm_fp8_kernel.py gdn_norm_fp8_quant_out.py; do
++        [ -f "$GDN_OVERLAY/$source" ] || { echo "missing GDN overlay: $source" >&2; exit 1; }
++      done
++      GDN_SOURCE=$GDN_OVERLAY/qwen_gdn_linear_attn.py
++      for source in gdn_norm_fp8_fusion.py gdn_norm_fp8_guards.py gdn_norm_fp8_kernel.py gdn_norm_fp8_quant_out.py; do
++        DOCKER="$DOCKER -v $GDN_OVERLAY/$source:$PKG/model_executor/layers/mamba/gdn/$source:ro"
++      done
++    fi
+     DOCKER="$DOCKER -e VLLM_SM120_FP8_PREFILL=1 -e VLLM_SM120_FP8_PREFILL_NOGLUE=1 -e VLLM_FI_KERNEL_PAGES=16
+       -e VLLM_GDN_INTERNAL_CKPT=1 -e VLLM_GDN_FUSED_CONV=1
+       -v $D/.cache/flashinfer:/root/.cache/flashinfer
+       -v $B/v1/attention/backends/flashinfer.py:$PKG/v1/attention/backends/flashinfer.py:ro
+       -v $B/v1/attention/backends/sm120_fp8_fmha_glue.py:$PKG/v1/attention/backends/sm120_fp8_fmha_glue.py:ro
+-      -v $B/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:$PKG/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:ro
++      -v $GDN_SOURCE:$PKG/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py:ro
+       -v $B/model_executor/layers/mamba/ops/fused_conv_post_conv.py:$PKG/model_executor/layers/mamba/ops/fused_conv_post_conv.py:ro"
+     ;;
+   *) echo "unknown CONFIG=$CONFIG" >&2; exit 1 ;;

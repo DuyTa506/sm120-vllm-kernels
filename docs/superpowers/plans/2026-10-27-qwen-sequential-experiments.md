@@ -159,3 +159,60 @@ microbenchmarks alone do not satisfy this request.
 - Decode routing received the exclusive GPU slot after both scalar processes
   exited, for c1 control/target-only/full instrumentation only. No agentic
   replay/performance stage is scheduled at this point.
+
+- Explicit-layout GDN correction now passes initial synthetic tests plus648
+  real-weight synthetic cases and324 changed-input graph replays, including
+  unchanged output GEMM bit checks. At layer18 with strided-gate copy included,
+  warps8 full chain averages173.09→146.82us(4k),391.05→286.90us(8k),
+  925.94→584.51us(16k). These are micro timings, not full-model improvements.
+- Actual eager 8k activation capture v2 completed cleanly, followed by9 exact
+  FP8/scale/GEMM comparisons and27 graph replays on layers0/18/38, all passing.
+  First capture failed at RPC serialization of TorchVersion metadata; its
+  evidence is preserved. Cast to str and bounded RPC timeouts fix that probe.
+- Decode c1 pilot: control exited0, target-only exited1 because generated
+  tokens differ from control. Raw64-step target routes are structurally valid,
+  with zero graph padding in this sample.51/132 autotune tactics differ, so
+  attribution is unresolved. Draft capture and control follow-up remain pending;
+  no routing optimization is selected. See decode-route-capture/RESULTS.md.
+- COMPLETED session28410 (exit0): exact_tasks_1(shared_exact individual+GREEDY_DECODE=1+
+  NLL_ROUNDS=5), followed sequentially by next_diagnostic_1(next diagnostic
+  with the same two diagnostic flags). Sources are snapshotted and verified
+  at cleanup. Do not edit runner, serving matrix, source manifest helper,
+  existing model overlays/build sources, or evaluation scripts until terminal.
+  New isolated GDN overlay preparation is CPU-only during this queue.
+
+- User explicitly confirmed compatible beneficial patches may be stacked.
+  Measure incremental retained changes on the selected parent stack; final
+  agentic remains one baseline-versus-composed-config stage. Do not assume
+  isolated percentage gains add, or repeat agentic for each addition.
+- Independent GDN integration review found actual next FX calls the opaque
+  packed GDN norm core30times, bypassing _output_projection. Its prefill path
+  directly invokes FLA despite norm.forward_native at construction. A3/B2
+  traces each contain120 FLA layer_norm_fwd calls over4 requests. Thus the
+  isolated oracle remains relevant, but integration must change the packed
+  prefill boundary and preserve packed MTP decode. Initial consumer-hook draft
+  remains unmounted and is being redesigned; no source in the active queue
+  is modified. Evidence: gdn-norm-fp8/results/qa_interface_review_cpu.json.
+
+- Exact full serving and greedy/NLL diagnostics completed; documentation and raw
+  evidence checkpointed. Greedy decode differences are -0.73% to +1.41%; repeated
+  cold NLL mean differences are smaller than observed within-backend ranges, not
+  an equivalence confidence bound. Exact is the experimental stacking parent.
+  Runtime audit finds43/132 FI tactic differences and4/13 Inductor selections;
+  no shared/exact speed difference is attributed to alpha arithmetic.
+- Compiled-output GDN fallback passed96 FP8/scale/real-GEMM comparisons across12
+  shapes including36 changed-input graph replays. Generated kernels write Q/S
+  directly; micro timings compare against separate copies, not native-only.
+  Five-file overlay adopted it and passed9 CPU-only schema/dispatch checks.
+- FAILED session54113 (exit1, GPU/container cleaned): gdn_integration_1, shared_exact_gdn diagnostic with explicit
+  greedy decode and one cold NLL round. This is first stateful compiled integration,
+  not a speed claim. Requires exactly30 ready target GDN layers before workloads.
+  Runner/source helper/serve script and mounted overlays are frozen until terminal.
+- A verified canonical FlashInfer table import for subsequent matched serving
+  comparisons is in CPU preparation. Inductor settings remain observed, not pinned.
+
+- First GDN integration activated30 layers; FX contains30 new packed ops with
+  direct QA-to-CUTLASS consumers. All63 PIECEWISE captures succeeded. FULL
+  MTP capture stopped on an unwarmed descriptor: MRV2 rounds184 to186 tokens
+  for decode_query_len3. Warmup coverage fix is in CPU preparation; original
+  failed run/source snapshots retained. No serving or speed claim for this run.

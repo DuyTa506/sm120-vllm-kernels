@@ -1,0 +1,7 @@
+{
+  "graph_sha256": "b61cfb5912b4040bf728961049391549db8080a8f62c2de8367fb088942fe598",
+  "new_gdn_calls": 30,
+  "old_packed_gdn_calls": 0,
+  "cutlass_calls": 80,
+  "scope": "Compiled FX wiring only; startup failed at an unwarmed FULL MTP descriptor before serving"
+}
