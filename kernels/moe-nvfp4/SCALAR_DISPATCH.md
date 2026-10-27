@@ -171,3 +171,17 @@ timing repetitions/order; the extension uses three and 30, respectively.
 python3 verify_scalar_dispatch.py --gpu --tokens 1023 1024 8192 --layers 0 19
 python3 verify_scalar_dispatch.py --gpu --tokens 4096 16384 --layers 0 19 --replays 3 --repeats 30
 ```
+
+## All-layer checkpoint eligibility on CPU
+
+The [all-40-layer CPU audit](results/scalar_all_layers_eligibility_cpu.json),
+produced by [audit_scalar_eligibility_cpu.py](audit_scalar_eligibility_cpu.py),
+executes the installed activation-scale preparation expressions and the actual
+scalar-selection hook against all 30,720 cached gate/up/down input-scale tensors.
+All **40/40 target MoE layers** have finite, positive, exactly uniform prepared
+FC1 scales and select an independent `[1]` scalar preserving every vector value,
+under the recorded TP1/no-EP/BF16/static-scale/flags-enabled/threshold-1024 assumptions.
+The report records each layer's guards, exact input/source hashes, checkpoint
+revision, and checked packed-weight header shapes. CUDA remained uninitialized.
+This establishes checkpoint eligibility; it does not observe live per-layer GPU
+dispatch or extend the layers-0/19 microbenchmark into an all-layer speed claim.

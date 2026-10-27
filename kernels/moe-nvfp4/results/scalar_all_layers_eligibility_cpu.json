@@ -1,0 +1,5132 @@
+{
+  "status": "CPU_AUDIT_COMPLETE",
+  "device": "cpu",
+  "cuda_initialized": false,
+  "vllm_imported": false,
+  "torch_version": "2.13.0+cu130",
+  "python_version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "model": {
+    "id": "unsloth/Qwen3.6-35B-A3B-NVFP4-Fast",
+    "snapshot": "/root/.cache/huggingface/hub/models--unsloth--Qwen3.6-35B-A3B-NVFP4-Fast/snapshots/1c3f884bc99aac2524f6d49bcbac8c88401afd66",
+    "revision": "1c3f884bc99aac2524f6d49bcbac8c88401afd66",
+    "config_sha256": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+    "weight_index_sha256": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7",
+    "input_scale_tensor_count": 30720,
+    "ordered_input_scale_tensors_sha256": "a70ac165ed6c2cd262e038e6622e95439374e2b4408b469531c05299a0a03f73",
+    "identity_scope": "snapshot revision, config/index, exact consumed scalar bytes, and shard headers; full packed-weight shards not rehashed",
+    "shards": {
+      "model-00001-of-00005.safetensors": {
+        "file_size": 5002671628,
+        "cache_blob_name": "ae6d6df8a4bac85af79c6912b7360533107a8de89f8eb106008c872203f477b1",
+        "header_sha256": "13784fa900b93a39cf4f2cfe676adbdf1361728d4ce73742a2b99d6be58df91f",
+        "full_shard_rehashed": false
+      },
+      "model-00002-of-00005.safetensors": {
+        "file_size": 5004247852,
+        "cache_blob_name": "071ab0aa7b8e0ecf80227c6be51bfadb666d2b0566090ab261a439cbd765cb63",
+        "header_sha256": "10084897df295f52fc17810b9fd146b91d3f2f31e2f5b1d288fc91fee87ee1e3",
+        "full_shard_rehashed": false
+      },
+      "model-00003-of-00005.safetensors": {
+        "file_size": 5003987116,
+        "cache_blob_name": "e81191b3fe3fc8471cfa8be2014584864fbb03248aa1924823d1553b54243590",
+        "header_sha256": "a1f8600e1b058d00d3d86a0251d501e2c0842a75aad010777fc2b022656c41c1",
+        "full_shard_rehashed": false
+      },
+      "model-00004-of-00005.safetensors": {
+        "file_size": 5004437760,
+        "cache_blob_name": "1dcc959e513844a39a53361f539e0588a03473889e39683a4ce32791f2e84c22",
+        "header_sha256": "9d8ab79d74e906e38fd70412b021af50f1c448d3a6ed0f69b8eae85e0ca8f110",
+        "full_shard_rehashed": false
+      },
+      "model-00005-of-00005.safetensors": {
+        "file_size": 3633643668,
+        "cache_blob_name": "d6c56b1762626d3a2b7c53eddd4e3ae32c2574e79424c6d658de7f4f6405da29",
+        "header_sha256": "4dca51f2df7c2129288ab7614b68fdb53db6a1edf95223178ebeffce3343b560",
+        "full_shard_rehashed": false
+      }
+    }
+  },
+  "source_sha256": {
+    "compressed_preparation": {
+      "path": "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/compressed_tensors/compressed_tensors_moe/compressed_tensors_moe_w4a4_nvfp4.py",
+      "sha256": "719cad9dd52dc4857fb6f773190fa2da792f1108cabd66a90f03f0cf229ce6d1"
+    },
+    "format_preparation": {
+      "path": "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/utils/flashinfer_fp4_moe.py",
+      "sha256": "f8b82c03c9648682b72598e755e5f60e229034c64095275f49ad99991409952d"
+    },
+    "backend_quant_config": {
+      "path": "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/fused_moe/oracle/nvfp4.py",
+      "sha256": "7508ae9c8cc248ee14e664ec51481bb10ba38e3891e2e4a5e509be13198e5fab"
+    },
+    "activation_reduction": {
+      "path": "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/utils/quant_utils.py",
+      "sha256": "d25a4290d9b8530e38a073125ca6122b40054583814198eb5c8306adf21263d7"
+    },
+    "scalar_overlay": {
+      "path": "/work/kernels/moe-nvfp4/scalar/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py",
+      "sha256": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62"
+    },
+    "audit_script": {
+      "path": "/work/kernels/moe-nvfp4/audit_scalar_eligibility_cpu.py",
+      "sha256": "fc4dd58ed68d38a7df6d468ad5660147bc253d43af50ec34fe912e3e11996668"
+    }
+  },
+  "executed_expressions": {
+    "checkpoint_scale_reciprocals": {
+      "a13_scale": "1.0 / layer.w13_input_global_scale",
+      "a2_scale": "1.0 / layer.w2_input_global_scale"
+    },
+    "activation_reduction": "if is_global_sf_supported_for_nvfp4_backend(backend):\n    num_experts = w13.shape[0]\n    enable_eplb = layer.moe_config.moe_parallel_config.enable_eplb\n    a13_scale = amax_for_moe_activation_quant(a13_scale, enable_eplb).repeat(num_experts)\n    a2_scale = amax_for_moe_activation_quant(a2_scale, enable_eplb).repeat(num_experts)\nelse:\n    a13_scale = a13_scale.max(dim=1).values.to(torch.float32)",
+    "quant_config_reciprocals": {
+      "a1_gscale": "1.0 / a13_scale",
+      "a2_gscale": "1.0 / a2_scale"
+    },
+    "overlay_scale_statements": [
+      "dev = layer.w13_weight.device",
+      "hybrid_min = int(os.environ.get('VLLM_B12X_HYBRID_MIN_TOKENS', '1024'))",
+      "if os.environ.get('VLLM_B12X_ACT_SCALES', 'static') == 'dynamic' or self.a1_gscale is None or hybrid_min < 4:\n    a13 = torch.ones(self.num_local_experts, dtype=torch.float32, device=dev)\n    a2 = torch.ones_like(a13)\nelse:\n    a13 = (1.0 / self.a1_gscale.to(torch.float32)).expand(self.num_local_experts)\n    a2 = (1.0 / self.a2_gscale.to(torch.float32)).expand(self.num_local_experts)",
+      "self._input_global_scale = a13.contiguous()",
+      "self._hybrid_min_tokens = hybrid_min"
+    ]
+  },
+  "guard_assumptions": {
+    "tp_size": 1,
+    "pp_size": 1,
+    "ep_size": 1,
+    "ep_rank": 0,
+    "use_ep": false,
+    "enable_eplb": false,
+    "local_experts_equal_global": true,
+    "output_dtype": "torch.bfloat16",
+    "VLLM_B12X_FIX_SCALES": "1",
+    "VLLM_B12X_SCALAR_INPUT_SCALE": "1",
+    "VLLM_B12X_ACT_SCALES": "static",
+    "VLLM_B12X_HYBRID_MIN_TOKENS": "1024"
+  },
+  "model_config_guards": {
+    "num_hidden_layers": 40,
+    "num_experts": 256,
+    "num_experts_per_tok": 8,
+    "hidden_size": 2048,
+    "moe_intermediate_size": 512,
+    "hidden_act": "silu",
+    "dtype": "bfloat16"
+  },
+  "summary": {
+    "layers_audited": 40,
+    "eligible_layers": 40,
+    "finite_positive_uniform_fc1_layers": 40,
+    "all_guard_checks_passed_layers": 40,
+    "raw_gate_scale_uniform_layers": 40
+  },
+  "per_layer": [
+    {
+      "layer": 0,
+      "prefix": "model.language_model.layers.0.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "090878b6826669f97bf7eada2582c3917e617994531225cf945df0e207adf9c5",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 131.0,
+          "max": 131.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "090878b6826669f97bf7eada2582c3917e617994531225cf945df0e207adf9c5",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 131.0,
+          "max": 131.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "7374f3c0b10a1fb14ff32e64ffd6a8e818709585d5d16a65d94181c47f020c0a",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 142,
+          "min": 157.0,
+          "max": 2800.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "3599c8303fb47a7343d6eb449487215a6b54f4841fd4b9217933d7a589c15c6e",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.007633587811142206,
+        "max": 0.007633587811142206
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "9bbf8c190913e0b3f7abeb15141b6d0851154bfc2f7f65164b626084e8101ca7",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.007633587811142206,
+        "max": 0.007633587811142206
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "9bbf8c190913e0b3f7abeb15141b6d0851154bfc2f7f65164b626084e8101ca7",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.007633587811142206,
+        "max": 0.007633587811142206
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.007633587811142206,
+      "scalar_fp32_bits_hex": "3bfa232d"
+    },
+    {
+      "layer": 1,
+      "prefix": "model.language_model.layers.1.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "8bfa4923825defc1f46b26a7a4ccf46586c3be29ce2c9cb7196262b7463d732c",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 173.0,
+          "max": 173.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "8bfa4923825defc1f46b26a7a4ccf46586c3be29ce2c9cb7196262b7463d732c",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 173.0,
+          "max": 173.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "dd51935a7adc91457173531209abd3bf8a615f81976cd3f7e6b5d16107ed200e",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 141,
+          "min": 202.0,
+          "max": 1520.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "edc76e420fd311b7f67f3e5f02a51653d69e13429e0ea3e6fb4362e37a461898",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.005780346691608429,
+        "max": 0.005780346691608429
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "f42c8d5ed2b7bd300458d3fc53d019b77c2a00b525f2568ba33f7f5d894c7732",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.005780346691608429,
+        "max": 0.005780346691608429
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "f42c8d5ed2b7bd300458d3fc53d019b77c2a00b525f2568ba33f7f5d894c7732",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.005780346691608429,
+        "max": 0.005780346691608429
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.005780346691608429,
+      "scalar_fp32_bits_hex": "3bbd6910"
+    },
+    {
+      "layer": 2,
+      "prefix": "model.language_model.layers.2.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1b88c839665fb351f3aa25f6651426c45b6090e98fb342580c41efd2f4e12d86",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 203.0,
+          "max": 203.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1b88c839665fb351f3aa25f6651426c45b6090e98fb342580c41efd2f4e12d86",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 203.0,
+          "max": 203.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "2a4fc347d9f237a95fee6ea0d3acf4af30dc860536cae138d36334ecfb2e2305",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 115,
+          "min": 205.0,
+          "max": 868.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "2b78140a625be96e8511056a745cfd3551918b159abeed3f31b095b25a82f29d",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.004926108289510012,
+        "max": 0.004926108289510012
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "5e6c8bde3970782aaafaac977444523e3b48a763ad3fc0ff9ae69cf9e06916cf",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.004926108289510012,
+        "max": 0.004926108289510012
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "5e6c8bde3970782aaafaac977444523e3b48a763ad3fc0ff9ae69cf9e06916cf",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.004926108289510012,
+        "max": 0.004926108289510012
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.004926108289510012,
+      "scalar_fp32_bits_hex": "3ba16b31"
+    },
+    {
+      "layer": 3,
+      "prefix": "model.language_model.layers.3.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "bbc18c91ba27a7136f8ceb90da2d4921efde58f2d48bb0faf89522c656cd69d9",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 168.0,
+          "max": 168.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "bbc18c91ba27a7136f8ceb90da2d4921efde58f2d48bb0faf89522c656cd69d9",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 168.0,
+          "max": 168.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "8bc9403a88076b444d102fcd327a24a992df5bd6dedcfe6adc064100335f9622",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 120,
+          "min": 146.0,
+          "max": 904.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "eb36369f04397838ea8ce98148501baea3078952cea54d4001aa0839dbf62aaf",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.0059523810632526875,
+        "max": 0.0059523810632526875
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "c06088ef33c6ae3ef637c8b0411262e7d1d28109d9490cdbabfc25792dd6b18f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.0059523810632526875,
+        "max": 0.0059523810632526875
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "c06088ef33c6ae3ef637c8b0411262e7d1d28109d9490cdbabfc25792dd6b18f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.0059523810632526875,
+        "max": 0.0059523810632526875
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.0059523810632526875,
+      "scalar_fp32_bits_hex": "3bc30c31"
+    },
+    {
+      "layer": 4,
+      "prefix": "model.language_model.layers.4.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "a22fef7805af59c4d44f453204f263b08463daf1386873b85c5b798fa08c22ad",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 137.0,
+          "max": 137.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "a22fef7805af59c4d44f453204f263b08463daf1386873b85c5b798fa08c22ad",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 137.0,
+          "max": 137.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "ecce9b9e8a414b59060528a8c11cb5297c2b087264355d37f24f30ac5a16fff8",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 147,
+          "min": 143.0,
+          "max": 1200.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "27e320684824f7a3445ebf3ff0b78b5970ccb4c63e2965bb55c8e175d77f079d",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.007299270015209913,
+        "max": 0.007299270015209913
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "5de7c316f50fa47af7ad00aa29510a5a134e0c270edc67fb1800490b750099dc",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.007299270015209913,
+        "max": 0.007299270015209913
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "5de7c316f50fa47af7ad00aa29510a5a134e0c270edc67fb1800490b750099dc",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.007299270015209913,
+        "max": 0.007299270015209913
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.007299270015209913,
+      "scalar_fp32_bits_hex": "3bef2eb7"
+    },
+    {
+      "layer": 5,
+      "prefix": "model.language_model.layers.5.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "fae1accde24ec97cb91643c9b0185f4cf18310620ec313c7eddafa279dc7fe15",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 156.0,
+          "max": 156.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "fae1accde24ec97cb91643c9b0185f4cf18310620ec313c7eddafa279dc7fe15",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 156.0,
+          "max": 156.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "2cc803e66f5914923be6245dedf6661e0a6bbf113f4c9c91c488464bd8c0b107",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 148,
+          "min": 148.0,
+          "max": 1720.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "b030602177d8b7e300f31156246c08439a3e9009063780f4e79e6187da0d0b9a",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.006410256493836641,
+        "max": 0.006410256493836641
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "12af23748d37e8770675f536a36c8feb2b4121c2c2856bfbc4ba519d5454113d",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.006410256493836641,
+        "max": 0.006410256493836641
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "12af23748d37e8770675f536a36c8feb2b4121c2c2856bfbc4ba519d5454113d",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.006410256493836641,
+        "max": 0.006410256493836641
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.006410256493836641,
+      "scalar_fp32_bits_hex": "3bd20d21"
+    },
+    {
+      "layer": 6,
+      "prefix": "model.language_model.layers.6.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "e812c013304f884cd2d427c261faa765c035972daa88a98c759bd237fa0fe3ca",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 85.5,
+          "max": 85.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "e812c013304f884cd2d427c261faa765c035972daa88a98c759bd237fa0fe3ca",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 85.5,
+          "max": 85.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "0de2e9063a3c8113f1363bfa6129f36237d5b4572b3db08d02b66e39fddc5020",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 152,
+          "min": 147.0,
+          "max": 1576.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "ebdace5642657c004e9447118ab4f726815a2fdad7b4b3253cbe542e0500a19f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.011695906519889832,
+        "max": 0.011695906519889832
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "b555d45098ec4b4e5cad5541da51aef58673b5b5280da985567aee8493506a57",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.011695906519889832,
+        "max": 0.011695906519889832
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "b555d45098ec4b4e5cad5541da51aef58673b5b5280da985567aee8493506a57",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.011695906519889832,
+        "max": 0.011695906519889832
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.011695906519889832,
+      "scalar_fp32_bits_hex": "3c3fa030"
+    },
+    {
+      "layer": 7,
+      "prefix": "model.language_model.layers.7.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "6bf0eda52bec4d6a653a4bae1f46ed394fab2d485acd12a16c3df9cc2db44801",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 79.0,
+          "max": 79.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "6bf0eda52bec4d6a653a4bae1f46ed394fab2d485acd12a16c3df9cc2db44801",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 79.0,
+          "max": 79.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "49cda8a099179e1267dbfe06a327308813e76728abbfc1bffc6606102d22e007",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 151,
+          "min": 136.0,
+          "max": 1144.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "a27be7feb293410c2e8c37734ccb253881d59e2f26ec9e639630c7e94fa3366c",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012658228166401386,
+        "max": 0.012658228166401386
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "af0aec5c8cee10e6701037ae47c9481e40757bef21302a44b8ce5d98f1c7b899",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012658228166401386,
+        "max": 0.012658228166401386
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "af0aec5c8cee10e6701037ae47c9481e40757bef21302a44b8ce5d98f1c7b899",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012658228166401386,
+        "max": 0.012658228166401386
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.012658228166401386,
+      "scalar_fp32_bits_hex": "3c4f6475"
+    },
+    {
+      "layer": 8,
+      "prefix": "model.language_model.layers.8.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "cdc4c8baccb6093926fb09fd9d0e4356a7ec2694c3dbea6e2decbc4a8e1d88c5",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 80.5,
+          "max": 80.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "cdc4c8baccb6093926fb09fd9d0e4356a7ec2694c3dbea6e2decbc4a8e1d88c5",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 80.5,
+          "max": 80.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "41750ecf0edcf03dd4608550966d409186505f87c6dc2e6fc20e5504964a9e98",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 143,
+          "min": 126.5,
+          "max": 1256.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "9ba0ee9b31d04382e11486a62b569733a74738f3fb219f40a5e82661dba62352",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012422360479831696,
+        "max": 0.012422360479831696
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7e372b3f7c58d9e45b44bab630b044bd3a4ef41e7cc202bde796c401a9e73791",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012422360479831696,
+        "max": 0.012422360479831696
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7e372b3f7c58d9e45b44bab630b044bd3a4ef41e7cc202bde796c401a9e73791",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012422360479831696,
+        "max": 0.012422360479831696
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.012422360479831696,
+      "scalar_fp32_bits_hex": "3c4b8728"
+    },
+    {
+      "layer": 9,
+      "prefix": "model.language_model.layers.9.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "cdc4c8baccb6093926fb09fd9d0e4356a7ec2694c3dbea6e2decbc4a8e1d88c5",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 80.5,
+          "max": 80.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "cdc4c8baccb6093926fb09fd9d0e4356a7ec2694c3dbea6e2decbc4a8e1d88c5",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 80.5,
+          "max": 80.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "2cb74b7bb630cc6ed5fe7eccf10b39117f58eb7493843a38e59c26148c4a112a",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 155,
+          "min": 123.5,
+          "max": 1352.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "9ba0ee9b31d04382e11486a62b569733a74738f3fb219f40a5e82661dba62352",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012422360479831696,
+        "max": 0.012422360479831696
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7e372b3f7c58d9e45b44bab630b044bd3a4ef41e7cc202bde796c401a9e73791",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012422360479831696,
+        "max": 0.012422360479831696
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7e372b3f7c58d9e45b44bab630b044bd3a4ef41e7cc202bde796c401a9e73791",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012422360479831696,
+        "max": 0.012422360479831696
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.012422360479831696,
+      "scalar_fp32_bits_hex": "3c4b8728"
+    },
+    {
+      "layer": 10,
+      "prefix": "model.language_model.layers.10.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "8116c368642d7d9ae5c7623396497353219616e6a030f7a410c02b4d583f8bba",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 58.75,
+          "max": 58.75
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "8116c368642d7d9ae5c7623396497353219616e6a030f7a410c02b4d583f8bba",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 58.75,
+          "max": 58.75
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "668829c79684d4c467a383d6ef1eb8a6b575caea76f84ccbffa8de32080b5d73",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 165,
+          "min": 124.0,
+          "max": 1336.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "ba4247ac4c3aab9a0df17945a9886aeee95f223814ae8a011f2a342491822562",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01702127605676651,
+        "max": 0.01702127605676651
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "9ca92577a2240140b59c5cdc3df8f26ecf76821177b79024bb141f5b1f0d92f5",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01702127605676651,
+        "max": 0.01702127605676651
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "9ca92577a2240140b59c5cdc3df8f26ecf76821177b79024bb141f5b1f0d92f5",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01702127605676651,
+        "max": 0.01702127605676651
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.01702127605676651,
+      "scalar_fp32_bits_hex": "3c8b7034"
+    },
+    {
+      "layer": 11,
+      "prefix": "model.language_model.layers.11.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "b2447f3bdeb72f27a9e37886b89ea74634028594495a56c091474b1b5423925a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.5,
+          "max": 56.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "b2447f3bdeb72f27a9e37886b89ea74634028594495a56c091474b1b5423925a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.5,
+          "max": 56.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "ac05a3993465023035273de7b6feafdfe0f261395ad87ac63c448d2bf746d15b",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 155,
+          "min": 120.0,
+          "max": 1264.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "3852af383ee0df47f85d0dc7af025a92321b913d5910731cdb09e4cf419a65cd",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "46cd47612b025a4ceef8c2353c5f9ea35fe23b049563c5461a6f41266251c553",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "46cd47612b025a4ceef8c2353c5f9ea35fe23b049563c5461a6f41266251c553",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.017699114978313446,
+      "scalar_fp32_bits_hex": "3c90fdbc"
+    },
+    {
+      "layer": 12,
+      "prefix": "model.language_model.layers.12.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "deb1ad41af3da88a868a0a7e6eb9d452d49256db3ddb50089af291c4bce754e2",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 59.75,
+          "max": 59.75
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "deb1ad41af3da88a868a0a7e6eb9d452d49256db3ddb50089af291c4bce754e2",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 59.75,
+          "max": 59.75
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "56e12445acb8617455c929f7da13d035c36b318af3990c24d8c55afc0240e755",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 161,
+          "min": 122.5,
+          "max": 1320.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "69e7c054b331e3b838c97c1151bd8d1204bfbc1175b1267545a0e20fc3b6feda",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.016736401244997978,
+        "max": 0.016736401244997978
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "22b0c593b9831a950c46005c39fd614d94e1148adbc502a9ca2ed9b080760537",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.016736401244997978,
+        "max": 0.016736401244997978
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "22b0c593b9831a950c46005c39fd614d94e1148adbc502a9ca2ed9b080760537",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.016736401244997978,
+        "max": 0.016736401244997978
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.016736401244997978,
+      "scalar_fp32_bits_hex": "3c891ac7"
+    },
+    {
+      "layer": 13,
+      "prefix": "model.language_model.layers.13.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "b2447f3bdeb72f27a9e37886b89ea74634028594495a56c091474b1b5423925a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.5,
+          "max": 56.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "b2447f3bdeb72f27a9e37886b89ea74634028594495a56c091474b1b5423925a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.5,
+          "max": 56.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "9083efdb099edc8ad5eadff71431574cb99dd9db47bbd4a024699717f26808b2",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 154,
+          "min": 121.0,
+          "max": 1216.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "3852af383ee0df47f85d0dc7af025a92321b913d5910731cdb09e4cf419a65cd",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "46cd47612b025a4ceef8c2353c5f9ea35fe23b049563c5461a6f41266251c553",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "46cd47612b025a4ceef8c2353c5f9ea35fe23b049563c5461a6f41266251c553",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.017699114978313446,
+      "scalar_fp32_bits_hex": "3c90fdbc"
+    },
+    {
+      "layer": 14,
+      "prefix": "model.language_model.layers.14.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "f1173e08594f3487983132aaaf18e4d15db8aadbfdbc2374f4d0684b281fe1d3",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 57.0,
+          "max": 57.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "f1173e08594f3487983132aaaf18e4d15db8aadbfdbc2374f4d0684b281fe1d3",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 57.0,
+          "max": 57.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "aa407a025fcdda2be283734784a33268e0dd3e30f57ff25069d8a39901455b88",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 150,
+          "min": 163.0,
+          "max": 1288.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "6db5a3c241eba58b2748aa25f0db223738deb740bbbfc7cff74b3bfed25d92d5",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017543859779834747,
+        "max": 0.017543859779834747
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "0acda89a923ed8ea55b2e0bb9263addc6652ef8a4b8d5133da7d02af341eff50",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017543859779834747,
+        "max": 0.017543859779834747
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "0acda89a923ed8ea55b2e0bb9263addc6652ef8a4b8d5133da7d02af341eff50",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017543859779834747,
+        "max": 0.017543859779834747
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.017543859779834747,
+      "scalar_fp32_bits_hex": "3c8fb824"
+    },
+    {
+      "layer": 15,
+      "prefix": "model.language_model.layers.15.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "f1173e08594f3487983132aaaf18e4d15db8aadbfdbc2374f4d0684b281fe1d3",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 57.0,
+          "max": 57.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "f1173e08594f3487983132aaaf18e4d15db8aadbfdbc2374f4d0684b281fe1d3",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 57.0,
+          "max": 57.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "565fabd7099b68f5b6ab4c6e75a3b2798c4dc203aaea74b775d604282ec4a3d5",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 156,
+          "min": 140.0,
+          "max": 1136.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "6db5a3c241eba58b2748aa25f0db223738deb740bbbfc7cff74b3bfed25d92d5",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017543859779834747,
+        "max": 0.017543859779834747
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "0acda89a923ed8ea55b2e0bb9263addc6652ef8a4b8d5133da7d02af341eff50",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017543859779834747,
+        "max": 0.017543859779834747
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "0acda89a923ed8ea55b2e0bb9263addc6652ef8a4b8d5133da7d02af341eff50",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017543859779834747,
+        "max": 0.017543859779834747
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.017543859779834747,
+      "scalar_fp32_bits_hex": "3c8fb824"
+    },
+    {
+      "layer": 16,
+      "prefix": "model.language_model.layers.16.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "038084d2d695dbdc4fe4627d35aca2bebfab5048ea6b6afad69e0daaba5ee99d",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 54.75,
+          "max": 54.75
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "038084d2d695dbdc4fe4627d35aca2bebfab5048ea6b6afad69e0daaba5ee99d",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 54.75,
+          "max": 54.75
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "6a25ef5696fce040006e1536e0666563d2cfa2185dde1f248a472f8ee649dd21",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 156,
+          "min": 154.0,
+          "max": 1200.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "ca0f8cbdc513c92048c0b643e003d82cb8c6878676d4e702bfe584f7086e9dc1",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01826483942568302,
+        "max": 0.01826483942568302
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "efb7a5496104ac0d5e1f6e13bf3badb91866ed6b28f27dcedf5d22ea30d018ad",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01826483942568302,
+        "max": 0.01826483942568302
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "efb7a5496104ac0d5e1f6e13bf3badb91866ed6b28f27dcedf5d22ea30d018ad",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01826483942568302,
+        "max": 0.01826483942568302
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.01826483942568302,
+      "scalar_fp32_bits_hex": "3c95a025"
+    },
+    {
+      "layer": 17,
+      "prefix": "model.language_model.layers.17.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "d1d6a91009a64edf3e48d314d1d6f79ffcaea3371f3d8adee4960e2438632800",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.0,
+          "max": 56.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "d1d6a91009a64edf3e48d314d1d6f79ffcaea3371f3d8adee4960e2438632800",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.0,
+          "max": 56.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "f75aeaaf131dea78b28ea8fa53fc6e501d57af95d51224674c7e077f13f8595e",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 157,
+          "min": 112.0,
+          "max": 1072.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "41129cddccdcd72a80dcdee7cfbd062136fb13ba8d672813628903ccbbaabf83",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01785714365541935,
+        "max": 0.01785714365541935
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "b209c53e96837ec759be937813cbc6e44d214b8538e7a3ee05b6e065814401dc",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01785714365541935,
+        "max": 0.01785714365541935
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "b209c53e96837ec759be937813cbc6e44d214b8538e7a3ee05b6e065814401dc",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01785714365541935,
+        "max": 0.01785714365541935
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.01785714365541935,
+      "scalar_fp32_bits_hex": "3c924925"
+    },
+    {
+      "layer": 18,
+      "prefix": "model.language_model.layers.18.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "d1d6a91009a64edf3e48d314d1d6f79ffcaea3371f3d8adee4960e2438632800",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.0,
+          "max": 56.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "d1d6a91009a64edf3e48d314d1d6f79ffcaea3371f3d8adee4960e2438632800",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.0,
+          "max": 56.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "287547c79c3461a0ef4587ebd016e9447b11a3511d21dfa84eb9e38d637f25fa",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 155,
+          "min": 122.5,
+          "max": 1136.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "41129cddccdcd72a80dcdee7cfbd062136fb13ba8d672813628903ccbbaabf83",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01785714365541935,
+        "max": 0.01785714365541935
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "b209c53e96837ec759be937813cbc6e44d214b8538e7a3ee05b6e065814401dc",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01785714365541935,
+        "max": 0.01785714365541935
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "b209c53e96837ec759be937813cbc6e44d214b8538e7a3ee05b6e065814401dc",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01785714365541935,
+        "max": 0.01785714365541935
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.01785714365541935,
+      "scalar_fp32_bits_hex": "3c924925"
+    },
+    {
+      "layer": 19,
+      "prefix": "model.language_model.layers.19.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "2b1fbb28c6500c9b96c20e9e0e368cb744789aedd3d8e2da38c8fb5b159d06c7",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 53.75,
+          "max": 53.75
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "2b1fbb28c6500c9b96c20e9e0e368cb744789aedd3d8e2da38c8fb5b159d06c7",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 53.75,
+          "max": 53.75
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "0ceab747d45658347663c2b22fa9ac82808935befccdec9dcfa6b8cf48aaed74",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 153,
+          "min": 105.5,
+          "max": 980.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "ae384228ed726c696db931e46bd14072c0479954879cb5626bd2f0f4a392a0d5",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01860465109348297,
+        "max": 0.01860465109348297
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "b123aa5bc97702d274f7a47fde05677fe1c2500d1f5be746736bb8b579b43591",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01860465109348297,
+        "max": 0.01860465109348297
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "b123aa5bc97702d274f7a47fde05677fe1c2500d1f5be746736bb8b579b43591",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01860465109348297,
+        "max": 0.01860465109348297
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.01860465109348297,
+      "scalar_fp32_bits_hex": "3c9868c8"
+    },
+    {
+      "layer": 20,
+      "prefix": "model.language_model.layers.20.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "90781ada69135f863cc54699477b6aa411e238ccaa62d39a911fff47bd494123",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 52.75,
+          "max": 52.75
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "90781ada69135f863cc54699477b6aa411e238ccaa62d39a911fff47bd494123",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 52.75,
+          "max": 52.75
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "a17a4d1f3daeb04a5b3d16beff5dd3a3249d3ffc5b182a0a9c4047418bcbccc1",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 151,
+          "min": 96.5,
+          "max": 1136.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "2559832d7638590a3d679be0fb9b118a5002edc0ee3676e6f1b7feaee5efda30",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01895734667778015,
+        "max": 0.01895734667778015
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "039196964265e613c0acae7fa510e0fc6f6940450978fdc8758c5746e02a3fcb",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01895734667778015,
+        "max": 0.01895734667778015
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "039196964265e613c0acae7fa510e0fc6f6940450978fdc8758c5746e02a3fcb",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01895734667778015,
+        "max": 0.01895734667778015
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.01895734667778015,
+      "scalar_fp32_bits_hex": "3c9b4c70"
+    },
+    {
+      "layer": 21,
+      "prefix": "model.language_model.layers.21.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "917ff27531f05bf11306ed04e251de52d0768682e4e77af7c84d359af6226857",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 53.25,
+          "max": 53.25
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "917ff27531f05bf11306ed04e251de52d0768682e4e77af7c84d359af6226857",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 53.25,
+          "max": 53.25
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "c2e79dd42f92a6857cc9b2049fde1e6f6ac17f6f3c62b9291ff35e21fe6962b9",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 141,
+          "min": 111.5,
+          "max": 1120.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "511dfa95eb7dc4709399c4c96f7964258f96cc5237f921f7bcdeb2710aea0088",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.018779342994093895,
+        "max": 0.018779342994093895
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "fa6aaa40100cd7685364f454b87106f5e421c225a2e1d5b43a4e4b410519e716",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.018779342994093895,
+        "max": 0.018779342994093895
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "fa6aaa40100cd7685364f454b87106f5e421c225a2e1d5b43a4e4b410519e716",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.018779342994093895,
+        "max": 0.018779342994093895
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.018779342994093895,
+      "scalar_fp32_bits_hex": "3c99d723"
+    },
+    {
+      "layer": 22,
+      "prefix": "model.language_model.layers.22.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1a6d4968a307dc265ba8473d6cc75d4a4a41326bcfb76320701ae168d9ae4c4f",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 49.25,
+          "max": 49.25
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1a6d4968a307dc265ba8473d6cc75d4a4a41326bcfb76320701ae168d9ae4c4f",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 49.25,
+          "max": 49.25
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1c4f0bae8f11d8acf74b048417eb4b77f34a1234d0a56fd82081c8c7d7d11764",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 154,
+          "min": 158.0,
+          "max": 1216.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "32be558d2b96c55db838af3387e52e8ca9b343c20f8532d91b4c458ce0b02928",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020304568111896515,
+        "max": 0.020304568111896515
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7ef61405064b4365a5728823b5362bf67145bf22fbbe225e58b7e81d5a5b30de",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020304568111896515,
+        "max": 0.020304568111896515
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7ef61405064b4365a5728823b5362bf67145bf22fbbe225e58b7e81d5a5b30de",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020304568111896515,
+        "max": 0.020304568111896515
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.020304568111896515,
+      "scalar_fp32_bits_hex": "3ca655c4"
+    },
+    {
+      "layer": 23,
+      "prefix": "model.language_model.layers.23.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1aeb3c20dacdf0e6953277ebaf72c269728acda7c744be16526e323e6db1a7e0",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 47.0,
+          "max": 47.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1aeb3c20dacdf0e6953277ebaf72c269728acda7c744be16526e323e6db1a7e0",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 47.0,
+          "max": 47.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "109f322c51336666e60841ac1fafbff294a3ec35060758a66ed9c7c6c5ee03c1",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 151,
+          "min": 102.5,
+          "max": 1200.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "490049d3a85de22c994e033010187dcbbe15d183236605867f6b4e93b455c23c",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.021276595070958138,
+        "max": 0.021276595070958138
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7e8f18c26720c9c9380dc7500b75c7bba81e5404ac10c87f7c2595b6d37d9510",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.021276595070958138,
+        "max": 0.021276595070958138
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7e8f18c26720c9c9380dc7500b75c7bba81e5404ac10c87f7c2595b6d37d9510",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.021276595070958138,
+        "max": 0.021276595070958138
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.021276595070958138,
+      "scalar_fp32_bits_hex": "3cae4c41"
+    },
+    {
+      "layer": 24,
+      "prefix": "model.language_model.layers.24.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "ff0ae72bae30ed64ef992a9c9767ac454f89c6f7ebb195f726714e93c142758a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.25,
+          "max": 48.25
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "ff0ae72bae30ed64ef992a9c9767ac454f89c6f7ebb195f726714e93c142758a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.25,
+          "max": 48.25
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "fd0274b2db763ed6589bad976b7cd4566e3efd5ca87e1016fcee750e9fa520d4",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 160,
+          "min": 97.0,
+          "max": 1032.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "7004924503d10cfa1151bc0b1ad09053bdb4d781bd9ac43e6e1f64ed013a3e2c",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020725388079881668,
+        "max": 0.020725388079881668
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "30a58ccf36149ccb8cb325c31537e464064a102463686d688fcaf8a98fce1a11",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020725388079881668,
+        "max": 0.020725388079881668
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "30a58ccf36149ccb8cb325c31537e464064a102463686d688fcaf8a98fce1a11",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020725388079881668,
+        "max": 0.020725388079881668
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.020725388079881668,
+      "scalar_fp32_bits_hex": "3ca9c84a"
+    },
+    {
+      "layer": 25,
+      "prefix": "model.language_model.layers.25.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "e6428b07d455e9a79ac59010831a1233fbcdfdf6a9f2ffa2b315962a586c79ca",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.5,
+          "max": 48.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "e6428b07d455e9a79ac59010831a1233fbcdfdf6a9f2ffa2b315962a586c79ca",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.5,
+          "max": 48.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "cc918b9afbd53ef0b5c59dfafa34290e60b0a578224f1bacf9ce81bd2db72bb8",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 161,
+          "min": 105.5,
+          "max": 1048.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "66cdb27269dc03525997a5bd2c3afe66027686c2b67488f17c264d024b5b77dc",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020618556067347527,
+        "max": 0.020618556067347527
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "8bd1107ba791c106efb4a55a1803f1e4666d84a89fedda0802bf7915011d3160",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020618556067347527,
+        "max": 0.020618556067347527
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "8bd1107ba791c106efb4a55a1803f1e4666d84a89fedda0802bf7915011d3160",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020618556067347527,
+        "max": 0.020618556067347527
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.020618556067347527,
+      "scalar_fp32_bits_hex": "3ca8e83f"
+    },
+    {
+      "layer": 26,
+      "prefix": "model.language_model.layers.26.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1a6d4968a307dc265ba8473d6cc75d4a4a41326bcfb76320701ae168d9ae4c4f",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 49.25,
+          "max": 49.25
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "1a6d4968a307dc265ba8473d6cc75d4a4a41326bcfb76320701ae168d9ae4c4f",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 49.25,
+          "max": 49.25
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "73653364d6fdfdc2321597fbfd666b38715560aa1234663811ebc046696f824d",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 149,
+          "min": 105.5,
+          "max": 944.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "32be558d2b96c55db838af3387e52e8ca9b343c20f8532d91b4c458ce0b02928",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020304568111896515,
+        "max": 0.020304568111896515
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7ef61405064b4365a5728823b5362bf67145bf22fbbe225e58b7e81d5a5b30de",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020304568111896515,
+        "max": 0.020304568111896515
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "7ef61405064b4365a5728823b5362bf67145bf22fbbe225e58b7e81d5a5b30de",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020304568111896515,
+        "max": 0.020304568111896515
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.020304568111896515,
+      "scalar_fp32_bits_hex": "3ca655c4"
+    },
+    {
+      "layer": 27,
+      "prefix": "model.language_model.layers.27.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "a390bb634be3bac3b48e008eadeca4006cbd1912a50f49d2ac7ea0b7814fb345",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.0,
+          "max": 48.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "a390bb634be3bac3b48e008eadeca4006cbd1912a50f49d2ac7ea0b7814fb345",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.0,
+          "max": 48.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "830ca2d512360f49da77216060f19d33bc8d21466b8180e59fd16998ed343f60",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 157,
+          "min": 77.0,
+          "max": 868.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "dd89a3b735fa299ec33fc2f6ab7e9ecbf943105cfaf9fcfac639c5071f6e2de0",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.02083333395421505,
+        "max": 0.02083333395421505
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "443a9facb3f00b6392e36f55c46e94fc6e3c00bc2d33d7e623875ec3447df26f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.02083333395421505,
+        "max": 0.02083333395421505
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "443a9facb3f00b6392e36f55c46e94fc6e3c00bc2d33d7e623875ec3447df26f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.02083333395421505,
+        "max": 0.02083333395421505
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.02083333395421505,
+      "scalar_fp32_bits_hex": "3caaaaab"
+    },
+    {
+      "layer": 28,
+      "prefix": "model.language_model.layers.28.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "a390bb634be3bac3b48e008eadeca4006cbd1912a50f49d2ac7ea0b7814fb345",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.0,
+          "max": 48.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "a390bb634be3bac3b48e008eadeca4006cbd1912a50f49d2ac7ea0b7814fb345",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.0,
+          "max": 48.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "974e53abfdd03f499bb994930f917cccb8e498fe9de8be9e342cd1aed194cb9a",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 156,
+          "min": 95.0,
+          "max": 868.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "dd89a3b735fa299ec33fc2f6ab7e9ecbf943105cfaf9fcfac639c5071f6e2de0",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.02083333395421505,
+        "max": 0.02083333395421505
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "443a9facb3f00b6392e36f55c46e94fc6e3c00bc2d33d7e623875ec3447df26f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.02083333395421505,
+        "max": 0.02083333395421505
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "443a9facb3f00b6392e36f55c46e94fc6e3c00bc2d33d7e623875ec3447df26f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.02083333395421505,
+        "max": 0.02083333395421505
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.02083333395421505,
+      "scalar_fp32_bits_hex": "3caaaaab"
+    },
+    {
+      "layer": 29,
+      "prefix": "model.language_model.layers.29.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "ff0ae72bae30ed64ef992a9c9767ac454f89c6f7ebb195f726714e93c142758a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.25,
+          "max": 48.25
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "ff0ae72bae30ed64ef992a9c9767ac454f89c6f7ebb195f726714e93c142758a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.25,
+          "max": 48.25
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "dde18fba6a4967cf6b385017a29b5e47990782221f8627c811e5e72ee52f4553",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 156,
+          "min": 107.5,
+          "max": 776.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "7004924503d10cfa1151bc0b1ad09053bdb4d781bd9ac43e6e1f64ed013a3e2c",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020725388079881668,
+        "max": 0.020725388079881668
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "30a58ccf36149ccb8cb325c31537e464064a102463686d688fcaf8a98fce1a11",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020725388079881668,
+        "max": 0.020725388079881668
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "30a58ccf36149ccb8cb325c31537e464064a102463686d688fcaf8a98fce1a11",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020725388079881668,
+        "max": 0.020725388079881668
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.020725388079881668,
+      "scalar_fp32_bits_hex": "3ca9c84a"
+    },
+    {
+      "layer": 30,
+      "prefix": "model.language_model.layers.30.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "e6428b07d455e9a79ac59010831a1233fbcdfdf6a9f2ffa2b315962a586c79ca",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.5,
+          "max": 48.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "e6428b07d455e9a79ac59010831a1233fbcdfdf6a9f2ffa2b315962a586c79ca",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 48.5,
+          "max": 48.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "8a887653013eda0098d386799faee2e197c50fdca6f2b1eb525ba7b236a0af7b",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 150,
+          "min": 91.0,
+          "max": 708.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "66cdb27269dc03525997a5bd2c3afe66027686c2b67488f17c264d024b5b77dc",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020618556067347527,
+        "max": 0.020618556067347527
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "8bd1107ba791c106efb4a55a1803f1e4666d84a89fedda0802bf7915011d3160",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020618556067347527,
+        "max": 0.020618556067347527
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "8bd1107ba791c106efb4a55a1803f1e4666d84a89fedda0802bf7915011d3160",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.020618556067347527,
+        "max": 0.020618556067347527
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.020618556067347527,
+      "scalar_fp32_bits_hex": "3ca8e83f"
+    },
+    {
+      "layer": 31,
+      "prefix": "model.language_model.layers.31.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "d3dfea98889bf0391fca4092762bd72bc5d2b18b6af71c55ea9011f2b843801a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 50.5,
+          "max": 50.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "d3dfea98889bf0391fca4092762bd72bc5d2b18b6af71c55ea9011f2b843801a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 50.5,
+          "max": 50.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "2e7354c78266a9b8339e76812e872c1614ea3b86129e84cf4731cfb40e8db9d6",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 148,
+          "min": 64.5,
+          "max": 636.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "206c0374bfeffd96a0fcd8547073e8803067ef3dc9bfceb7efe50b8a8fb7b103",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.019801979884505272,
+        "max": 0.019801979884505272
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "1ecb6441fbb709cba457c9637bfa68e34f4773f114a73dd422cf643fe337a63f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.019801979884505272,
+        "max": 0.019801979884505272
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "1ecb6441fbb709cba457c9637bfa68e34f4773f114a73dd422cf643fe337a63f",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.019801979884505272,
+        "max": 0.019801979884505272
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.019801979884505272,
+      "scalar_fp32_bits_hex": "3ca237c3"
+    },
+    {
+      "layer": 32,
+      "prefix": "model.language_model.layers.32.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "90781ada69135f863cc54699477b6aa411e238ccaa62d39a911fff47bd494123",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 52.75,
+          "max": 52.75
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "90781ada69135f863cc54699477b6aa411e238ccaa62d39a911fff47bd494123",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 52.75,
+          "max": 52.75
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "25a87710b08798ff8512bcf1ad09fecf4ffacfb9f9e67e5bc366fcae3dd76504",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 148,
+          "min": 52.5,
+          "max": 572.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "2559832d7638590a3d679be0fb9b118a5002edc0ee3676e6f1b7feaee5efda30",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01895734667778015,
+        "max": 0.01895734667778015
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "039196964265e613c0acae7fa510e0fc6f6940450978fdc8758c5746e02a3fcb",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01895734667778015,
+        "max": 0.01895734667778015
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "039196964265e613c0acae7fa510e0fc6f6940450978fdc8758c5746e02a3fcb",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01895734667778015,
+        "max": 0.01895734667778015
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.01895734667778015,
+      "scalar_fp32_bits_hex": "3c9b4c70"
+    },
+    {
+      "layer": 33,
+      "prefix": "model.language_model.layers.33.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "15fc1df571ad88027cc2e0bba593161486f3c59f1b90757efe3bbd6509bbc7c8",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 51.5,
+          "max": 51.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "15fc1df571ad88027cc2e0bba593161486f3c59f1b90757efe3bbd6509bbc7c8",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 51.5,
+          "max": 51.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "c64278632d18ceabafcc9691a299b5329bb4040e84c907e03086db066dcb179a",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 136,
+          "min": 51.75,
+          "max": 588.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "adc3f154c22240e0ee3756d1f19427d04d60b08408c2d6f7207d6a1cb8246a2c",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.019417475908994675,
+        "max": 0.019417475908994675
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "1977c2bbe3fc299861f742ab660e16f9445c9dd2b948b5380a961685c73f70d6",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.019417475908994675,
+        "max": 0.019417475908994675
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "1977c2bbe3fc299861f742ab660e16f9445c9dd2b948b5380a961685c73f70d6",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.019417475908994675,
+        "max": 0.019417475908994675
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.019417475908994675,
+      "scalar_fp32_bits_hex": "3c9f1166"
+    },
+    {
+      "layer": 34,
+      "prefix": "model.language_model.layers.34.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "bf7ed2314a704cb60cf5e2a2916f07a5fb216bd44eb97c700c1cf8b37cf311cc",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 61.25,
+          "max": 61.25
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "bf7ed2314a704cb60cf5e2a2916f07a5fb216bd44eb97c700c1cf8b37cf311cc",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 61.25,
+          "max": 61.25
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "2961b4ef97b7a0103a3deff4f4fd65f62f429717f84fffb9fdc8a7635c898900",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 148,
+          "min": 45.25,
+          "max": 502.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "5b87a68ea2178352991656a98a62ff328be7618980ded8e93d09f9b7de1de74d",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.016326529905200005,
+        "max": 0.016326529905200005
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "f5b20812c4644853eddee5653632a06e7779edf5da348dd8c82853a539b4510e",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.016326529905200005,
+        "max": 0.016326529905200005
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "f5b20812c4644853eddee5653632a06e7779edf5da348dd8c82853a539b4510e",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.016326529905200005,
+        "max": 0.016326529905200005
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.016326529905200005,
+      "scalar_fp32_bits_hex": "3c85bf37"
+    },
+    {
+      "layer": 35,
+      "prefix": "model.language_model.layers.35.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "b2447f3bdeb72f27a9e37886b89ea74634028594495a56c091474b1b5423925a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.5,
+          "max": 56.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "b2447f3bdeb72f27a9e37886b89ea74634028594495a56c091474b1b5423925a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.5,
+          "max": 56.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "12529ec036ceba6eacac953fe9e2e00635b99358287837a918e08db94ea96b3f",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 138,
+          "min": 36.0,
+          "max": 368.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "3852af383ee0df47f85d0dc7af025a92321b913d5910731cdb09e4cf419a65cd",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "46cd47612b025a4ceef8c2353c5f9ea35fe23b049563c5461a6f41266251c553",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "46cd47612b025a4ceef8c2353c5f9ea35fe23b049563c5461a6f41266251c553",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.017699114978313446,
+      "scalar_fp32_bits_hex": "3c90fdbc"
+    },
+    {
+      "layer": 36,
+      "prefix": "model.language_model.layers.36.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "b2447f3bdeb72f27a9e37886b89ea74634028594495a56c091474b1b5423925a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.5,
+          "max": 56.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "b2447f3bdeb72f27a9e37886b89ea74634028594495a56c091474b1b5423925a",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 56.5,
+          "max": 56.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "acdb3e31e6472cfb6530f82672093df01678b9ea0a647a785b4a417e175099ec",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 146,
+          "min": 24.625,
+          "max": 326.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "3852af383ee0df47f85d0dc7af025a92321b913d5910731cdb09e4cf419a65cd",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "46cd47612b025a4ceef8c2353c5f9ea35fe23b049563c5461a6f41266251c553",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "46cd47612b025a4ceef8c2353c5f9ea35fe23b049563c5461a6f41266251c553",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.017699114978313446,
+        "max": 0.017699114978313446
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.017699114978313446,
+      "scalar_fp32_bits_hex": "3c90fdbc"
+    },
+    {
+      "layer": 37,
+      "prefix": "model.language_model.layers.37.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "944757fc47e2b08684184ec4527d7ec23f945e111e59f3ed0c4851f1760434f1",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 63.0,
+          "max": 63.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "944757fc47e2b08684184ec4527d7ec23f945e111e59f3ed0c4851f1760434f1",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 63.0,
+          "max": 63.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "00742b3e55dfb9d9f207e4359c445c01eeda2e4ac45cb64f825698ae564b1654",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 144,
+          "min": 27.5,
+          "max": 346.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "113e2efd52fc1496fc7e6893f7082e67890506615acf62c3cce0701d0e9bc19d",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01587301678955555,
+        "max": 0.01587301678955555
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "c352e2246b4994c47b55c8e1d15b0b774bf596d2c36302a529a215bbf3e5ce43",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01587301678955555,
+        "max": 0.01587301678955555
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "c352e2246b4994c47b55c8e1d15b0b774bf596d2c36302a529a215bbf3e5ce43",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.01587301678955555,
+        "max": 0.01587301678955555
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.01587301678955555,
+      "scalar_fp32_bits_hex": "3c820821"
+    },
+    {
+      "layer": 38,
+      "prefix": "model.language_model.layers.38.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "d098ba424a308fd14a429eb890e965a60c8a37368650d730cea552114dede5a6",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 90.0,
+          "max": 90.0
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "d098ba424a308fd14a429eb890e965a60c8a37368650d730cea552114dede5a6",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 90.0,
+          "max": 90.0
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "ab70fb5eb6006f8885029a2679fa4fa18f10e124ed5ded80eb551448acef1dbd",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 149,
+          "min": 25.25,
+          "max": 392.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "aafc92b20d05d2bfb20387e58301393797445d025b1e3f6f950a1e626bc3efa0",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.011111111380159855,
+        "max": 0.011111111380159855
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "5b82d894c24edc191b2b5d9364b2f57c2031c7d49a8565304341ad2d8ff747d6",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.011111111380159855,
+        "max": 0.011111111380159855
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "5b82d894c24edc191b2b5d9364b2f57c2031c7d49a8565304341ad2d8ff747d6",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.011111111380159855,
+        "max": 0.011111111380159855
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.011111111380159855,
+      "scalar_fp32_bits_hex": "3c360b61"
+    },
+    {
+      "layer": 39,
+      "prefix": "model.language_model.layers.39.mlp",
+      "experts": 256,
+      "raw_input_global_scales": {
+        "gate": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "7264a58e863ed577e350f58fe651cb23d13d76d6fbb3c9e18049767bbd46fdbe",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 81.5,
+          "max": 81.5
+        },
+        "up": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "7264a58e863ed577e350f58fe651cb23d13d76d6fbb3c9e18049767bbd46fdbe",
+          "finite": true,
+          "positive": true,
+          "uniform": true,
+          "unique_values": 1,
+          "min": 81.5,
+          "max": 81.5
+        },
+        "down": {
+          "dtype": "torch.float32",
+          "shape": [
+            256
+          ],
+          "sha256": "a493a7647e9d9193329f4783ac6e56141cb3cd43f035a8c6de494cb8e360a10d",
+          "finite": true,
+          "positive": true,
+          "uniform": false,
+          "unique_values": 166,
+          "min": 5.125,
+          "max": 438.0
+        }
+      },
+      "gate_up_raw_equal": true,
+      "loaded_gate_up_reciprocals": {
+        "dtype": "torch.float32",
+        "shape": [
+          256,
+          2
+        ],
+        "sha256": "2b99e149992859914402924e2138989a4fb056e5c0ed5445f8d88b0a0598f560",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012269938364624977,
+        "max": 0.012269938364624977
+      },
+      "processed_layer_w13_input_scale": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "fc1871ef75cf754fb95ed16638f4f948ac9426ad379a2fbff4aa38127363930a",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012269938364624977,
+        "max": 0.012269938364624977
+      },
+      "overlay_input_global_scale_before_hook": {
+        "dtype": "torch.float32",
+        "shape": [
+          256
+        ],
+        "sha256": "fc1871ef75cf754fb95ed16638f4f948ac9426ad379a2fbff4aa38127363930a",
+        "finite": true,
+        "positive": true,
+        "uniform": true,
+        "unique_values": 1,
+        "min": 0.012269938364624977,
+        "max": 0.012269938364624977
+      },
+      "all_packed_weight_shapes_checked": {
+        "gate": [
+          512,
+          1024
+        ],
+        "up": [
+          512,
+          1024
+        ],
+        "down": [
+          2048,
+          256
+        ]
+      },
+      "guards_under_recorded_assumptions": {
+        "global_experts_256": true,
+        "local_experts_equal_global": true,
+        "ep_rank_zero": true,
+        "ep_size_one": true,
+        "ep_disabled": true,
+        "topk_8": true,
+        "hidden_dim_2048": true,
+        "intermediate_per_partition_512": true,
+        "bf16_output": true,
+        "silu": true,
+        "hybrid_threshold_at_least_1024": true,
+        "input_scale_numel_256": true,
+        "finite": true,
+        "positive": true,
+        "exact_uniform": true,
+        "fix_and_scalar_flags_enabled": true
+      },
+      "eligible_under_recorded_assumptions": true,
+      "scalar_numel": 1,
+      "scalar_equals_all_vector_values": true,
+      "scalar_independent_storage": true,
+      "scalar_value": 0.012269938364624977,
+      "scalar_fp32_bits_hex": "3c4907da"
+    }
+  ],
+  "limitations": [
+    "Eligibility under explicit TP1/no-EP/BF16/static-scale/flag/threshold assumptions; this is not observation of live serving layer state or selected GPU dispatch.",
+    "The installed B12x preparation takes a maximum across all gate/up expert activation scales and repeats it; raw checkpoint per-expert uniformity is not required.",
+    "Only the actual scale-dependency AST and selection hook execute. GPU weight/block-scale layout conversion, workspace tile choice, runtime device support, kernel correctness and speed are not tested.",
+    "Small batches remain governed by the existing CUTLASS hybrid threshold; scalar eligibility does not imply every invocation uses B12x."
+  ]
+}

@@ -1,0 +1,326 @@
+{
+  "status": "passed",
+  "cpu_only": true,
+  "http_requests": 0,
+  "gpu_work": false,
+  "preflights": {
+    "compare_greedy_decode": {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "http_requests": 0,
+      "gpu_work": false,
+      "variable_scenario_count": 2,
+      "malformed_fixtures_rejected": 67,
+      "fi_shutdown_timeout_seconds": 30,
+      "shutdown_negative_fixtures": 7,
+      "script_sha256": "fc4ffbd284ded57e1923c443969dd27e15e30c4c6f8aa5d0c08577fbb9493e21",
+      "identity_sha256": "a13021656ad881c1a2f09915a8a62820dd2328386887aa1f71025991c5387d1b"
+    },
+    "compare_serving_matrix": {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "scenarios": 17,
+      "malformed_fixtures_rejected": 7,
+      "gpu_work": false,
+      "http_requests": 0
+    },
+    "compare_agentic": {
+      "status": "passed",
+      "cpu_only": true,
+      "synthetic_schema": "actual agentic_bench._replay_summary metric_version=2",
+      "valid_pair_rows": 8,
+      "rejected_fixtures": [
+        "nonproduction_inputs",
+        "summary_metric_version",
+        "summary_valid",
+        "summary_turns",
+        "summary_failed_turns",
+        "summary_out_tok_s",
+        "summary_ttft_later_p90_ms",
+        "summary_prefix_hit_rate",
+        "summary_wall_s",
+        "turn_completion",
+        "turn_requested_completion",
+        "turn_prompt",
+        "turn_turn",
+        "turn_task",
+        "turn_success",
+        "turn_stream_done",
+        "turn_completion_source",
+        "turn_ttft",
+        "turn_e2e",
+        "turn_error",
+        "missing_concurrency",
+        "extra_concurrency",
+        "duplicate_turn",
+        "error_list",
+        "failed_experiment",
+        "source_changed",
+        "different_history",
+        "unknown_config",
+        "missing_input_verification",
+        "changed_input_metadata",
+        "changed_input_source",
+        "mtp_reset",
+        "mtp_missing",
+        "mtp_changed_labels",
+        "unexpected_mtp_acceptance",
+        "changed_input_bytes",
+        "different_prompt_token_identity"
+      ],
+      "rejected_count": 37,
+      "runtime_identity_gates": "reused compare_runtime_identity; composed/FI gates have their existing CPU preflight",
+      "gpu_or_http_used": false,
+      "source_sha256": {
+        "bench/compare_agentic.py": "5b103c806daa5678fc9412624271a0c49af413717e88ff1c4ba49a44db9502e7",
+        "bench/agentic_input_manifest.py": "b2986fe4c78e0b2707848bcccdead762d603551b4724bf54d817472232c1a617",
+        "bench/test_compare_agentic.py": "9b9f0db51209c1544e5c045bde8a74ca2f77bb829adf5458439e440cfcd8ac73",
+        "bench/AGENTIC_COMPARISON.md": "6a60a5248e96401f76b9a40dd67596ab7ea7848080208dbd43cc998a89a850bb",
+        "bench/compare_runtime_identity.py": "a13021656ad881c1a2f09915a8a62820dd2328386887aa1f71025991c5387d1b",
+        "bench/compare_greedy_decode.py": "fc4ffbd284ded57e1923c443969dd27e15e30c4c6f8aa5d0c08577fbb9493e21",
+        "bench/serving_matrix.py": "8d6e5328f9bf50fa2ff5b641fcc73f0e009a3b198e1c752d854930463cfa9578",
+        "bench/agentic_bench.py": "63308eb8e9dfeaa834fbc3b8c68f32347d0dc9510154318e2a83e9e15af3fe69"
+      }
+    }
+  },
+  "memory_parser_preflight": {
+    "status": "passed",
+    "cpu_only": true,
+    "rejected_fixtures": [
+      "duplicate_available",
+      "duplicate_capacity",
+      "duplicate_concurrency",
+      "duplicate_final_graph",
+      "same_line_duplicate_graph",
+      "nan_available",
+      "infinite_graph",
+      "negative_graph",
+      "negative_available",
+      "zero_available",
+      "float_capacity",
+      "bad_comma_capacity",
+      "zero_capacity",
+      "zero_request_tokens",
+      "negative_concurrency",
+      "inconsistent_concurrency",
+      "inconsistent_final_graph",
+      "malformed_known_record",
+      "missing_estimated_number"
+    ],
+    "rejected_count": 19,
+    "checks": [
+      "final actual separate from profiling capture",
+      "explicit partial/missing fields",
+      "capacity differences reported without equality gate",
+      "zero graph pool valid",
+      "ANSI logs"
+    ],
+    "fixture_memory": {
+      "kv_available_gib": 45.5,
+      "kv_capacity_tokens": 3437190,
+      "concurrency_request_tokens": 131072,
+      "maximum_concurrency": 26.22,
+      "cuda_graph_actual_gib": 3.45,
+      "cuda_graph_estimated_gib": 4.46,
+      "status": "complete",
+      "missing_fields": [],
+      "missing_reason": null,
+      "graph_capture_events_gib": [
+        4.42,
+        3.45
+      ],
+      "source": "startup.log",
+      "startup_sha256": "e714d6cc9129ed2645d07358f13e4d90d9bc600e5e45550ec767f680102530b2",
+      "evidence_lines": {
+        "Available KV cache memory:": "(EngineCore pid=400) INFO [gpu_worker.py:759] Available KV cache memory: 45.5 GiB",
+        "GPU KV cache size:": "(EngineCore pid=400) INFO [kv_cache_utils.py:2327] GPU KV cache size: 3,437,190 tokens, Maximum concurrency for 131,072 tokens per request: 26.22x",
+        "Maximum concurrency for": "(EngineCore pid=400) INFO [kv_cache_utils.py:2327] GPU KV cache size: 3,437,190 tokens, Maximum concurrency for 131,072 tokens per request: 26.22x",
+        "CUDA graph pool memory:": "(EngineCore pid=400) INFO [gpu_worker.py:971] CUDA graph pool memory: 3.45 GiB (actual), 4.46 GiB (estimated), difference: 1.01 GiB (29.3%)."
+      },
+      "scope": "Logged startup allocation/capacity context; not a peak-memory benchmark or causal attribution."
+    },
+    "example_memory": {
+      "kv_available_gib": 45.64,
+      "kv_capacity_tokens": 3447538,
+      "concurrency_request_tokens": 131072,
+      "maximum_concurrency": 26.3,
+      "cuda_graph_actual_gib": 3.3,
+      "cuda_graph_estimated_gib": 4.33,
+      "status": "complete",
+      "missing_fields": [],
+      "missing_reason": null,
+      "graph_capture_events_gib": [
+        4.42,
+        3.3
+      ],
+      "source": "startup.log",
+      "startup_sha256": "bca2675428c175cc999e484caf15a608a989a26d221abf92a546bc84e0734007",
+      "evidence_lines": {
+        "Available KV cache memory:": "(EngineCore pid=400) INFO [gpu_worker.py:759] Available KV cache memory: 45.64 GiB",
+        "GPU KV cache size:": "(EngineCore pid=400) INFO [kv_cache_utils.py:2327] GPU KV cache size: 3,447,538 tokens, Maximum concurrency for 131,072 tokens per request: 26.30x",
+        "Maximum concurrency for": "(EngineCore pid=400) INFO [kv_cache_utils.py:2327] GPU KV cache size: 3,447,538 tokens, Maximum concurrency for 131,072 tokens per request: 26.30x",
+        "CUDA graph pool memory:": "(EngineCore pid=400) INFO [gpu_worker.py:971] CUDA graph pool memory: 3.30 GiB (actual), 4.33 GiB (estimated), difference: 1.01 GiB (29.3%)."
+      },
+      "scope": "Logged startup allocation/capacity context; not a peak-memory benchmark or causal attribution."
+    }
+  },
+  "actual_log_examples": {
+    "exact_matched_3": {
+      "parsed": {
+        "kv_available_gib": 45.5,
+        "kv_capacity_tokens": 3437190,
+        "concurrency_request_tokens": 131072,
+        "maximum_concurrency": 26.22,
+        "cuda_graph_actual_gib": 3.45,
+        "cuda_graph_estimated_gib": 4.46,
+        "status": "complete",
+        "missing_fields": [],
+        "missing_reason": null,
+        "graph_capture_events_gib": [
+          4.42,
+          3.45
+        ],
+        "source": "startup.log",
+        "startup_sha256": "005cf01391340f588c7b4bddc4816ef91e1e44309b409a4d3ef5da27e3ab794f",
+        "evidence_lines": {
+          "Available KV cache memory:": "(EngineCore pid=400) INFO 10-27 19:47:36 [gpu_worker.py:759] Available KV cache memory: 45.5 GiB",
+          "GPU KV cache size:": "(EngineCore pid=400) INFO 10-27 19:47:36 [kv_cache_utils.py:2327] GPU KV cache size: 3,437,190 tokens, Maximum concurrency for 131,072 tokens per request: 26.22x",
+          "Maximum concurrency for": "(EngineCore pid=400) INFO 10-27 19:47:36 [kv_cache_utils.py:2327] GPU KV cache size: 3,437,190 tokens, Maximum concurrency for 131,072 tokens per request: 26.22x",
+          "CUDA graph pool memory:": "(EngineCore pid=400) INFO 10-27 19:47:55 [gpu_worker.py:971] CUDA graph pool memory: 3.45 GiB (actual), 4.46 GiB (estimated), difference: 1.01 GiB (29.3%)."
+        },
+        "scope": "Logged startup allocation/capacity context; not a peak-memory benchmark or causal attribution."
+      },
+      "recorded_configuration": {
+        "tag": "exact_matched_3",
+        "variant": "shared_exact",
+        "suite": "individual",
+        "config": "next",
+        "gpu_util": "0.78",
+        "greedy_decode": "1",
+        "nll_rounds": "3",
+        "fi_control": "1",
+        "fi_source_sha256": "7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3"
+      }
+    },
+    "gdn_integration_2": {
+      "parsed": {
+        "kv_available_gib": 45.64,
+        "kv_capacity_tokens": 3447538,
+        "concurrency_request_tokens": 131072,
+        "maximum_concurrency": 26.3,
+        "cuda_graph_actual_gib": 3.3,
+        "cuda_graph_estimated_gib": 4.33,
+        "status": "complete",
+        "missing_fields": [],
+        "missing_reason": null,
+        "graph_capture_events_gib": [
+          4.28,
+          3.3
+        ],
+        "source": "startup.log",
+        "startup_sha256": "991b32d9208423635d6cad48ce9073de98fcfaa1c6af0a648c052623d6d5925f",
+        "evidence_lines": {
+          "Available KV cache memory:": "(EngineCore pid=400) INFO 10-27 19:13:16 [gpu_worker.py:759] Available KV cache memory: 45.64 GiB",
+          "GPU KV cache size:": "(EngineCore pid=400) INFO 10-27 19:13:16 [kv_cache_utils.py:2327] GPU KV cache size: 3,447,538 tokens, Maximum concurrency for 131,072 tokens per request: 26.30x",
+          "Maximum concurrency for": "(EngineCore pid=400) INFO 10-27 19:13:16 [kv_cache_utils.py:2327] GPU KV cache size: 3,447,538 tokens, Maximum concurrency for 131,072 tokens per request: 26.30x",
+          "CUDA graph pool memory:": "(EngineCore pid=400) INFO 10-27 19:14:02 [gpu_worker.py:971] CUDA graph pool memory: 3.3 GiB (actual), 4.33 GiB (estimated), difference: 1.03 GiB (31.3%)."
+        },
+        "scope": "Logged startup allocation/capacity context; not a peak-memory benchmark or causal attribution."
+      },
+      "recorded_configuration": {
+        "tag": "gdn_integration_2",
+        "variant": "shared_exact_gdn",
+        "suite": "diagnostic",
+        "config": "next",
+        "gpu_util": "0.78",
+        "greedy_decode": "1",
+        "nll_rounds": "1",
+        "fi_control": "0"
+      }
+    }
+  },
+  "example_scope": "Parser validation only. exact_matched_3 and gdn_integration_2 have different FI control/history; not a compatible causal memory comparison.",
+  "timing_table_regressions": {
+    "greedy": {
+      "timing_table_identical": true,
+      "rows": 4,
+      "memory": {
+        "baseline": {
+          "kv_available_gib": 44.62,
+          "kv_capacity_tokens": 3369930,
+          "concurrency_request_tokens": 131072,
+          "maximum_concurrency": 25.71,
+          "cuda_graph_actual_gib": 4.91,
+          "cuda_graph_estimated_gib": 5.92,
+          "status": "complete",
+          "missing_fields": [],
+          "missing_reason": null,
+          "graph_capture_events_gib": [
+            5.88,
+            4.91
+          ],
+          "source": "startup.log",
+          "startup_sha256": "bcda43f51f23d85f5d77fe7e7e7c953dca046288d681efea8e6fee8fb8c3a28b",
+          "evidence_lines": {
+            "Available KV cache memory:": "(EngineCore pid=402) INFO 10-27 18:43:10 [gpu_worker.py:759] Available KV cache memory: 44.62 GiB",
+            "GPU KV cache size:": "(EngineCore pid=402) INFO 10-27 18:43:10 [kv_cache_utils.py:2327] GPU KV cache size: 3,369,930 tokens, Maximum concurrency for 131,072 tokens per request: 25.71x",
+            "Maximum concurrency for": "(EngineCore pid=402) INFO 10-27 18:43:10 [kv_cache_utils.py:2327] GPU KV cache size: 3,369,930 tokens, Maximum concurrency for 131,072 tokens per request: 25.71x",
+            "CUDA graph pool memory:": "(EngineCore pid=402) INFO 10-27 18:43:33 [gpu_worker.py:971] CUDA graph pool memory: 4.91 GiB (actual), 5.92 GiB (estimated), difference: 1.01 GiB (20.7%)."
+          },
+          "scope": "Logged startup allocation/capacity context; not a peak-memory benchmark or causal attribution."
+        },
+        "candidate": {
+          "kv_available_gib": 45.51,
+          "kv_capacity_tokens": 3437190,
+          "concurrency_request_tokens": 131072,
+          "maximum_concurrency": 26.22,
+          "cuda_graph_actual_gib": 3.42,
+          "cuda_graph_estimated_gib": 4.46,
+          "status": "complete",
+          "missing_fields": [],
+          "missing_reason": null,
+          "graph_capture_events_gib": [
+            4.41,
+            3.42
+          ],
+          "source": "startup.log",
+          "startup_sha256": "4a9106cf5a976f2342b9e1393ae7556374c97c2a2be0cf83b360e5a59777553e",
+          "evidence_lines": {
+            "Available KV cache memory:": "(EngineCore pid=936) INFO 10-27 18:23:37 [gpu_worker.py:759] Available KV cache memory: 45.51 GiB",
+            "GPU KV cache size:": "(EngineCore pid=936) INFO 10-27 18:23:37 [kv_cache_utils.py:2327] GPU KV cache size: 3,437,190 tokens, Maximum concurrency for 131,072 tokens per request: 26.22x",
+            "Maximum concurrency for": "(EngineCore pid=936) INFO 10-27 18:23:37 [kv_cache_utils.py:2327] GPU KV cache size: 3,437,190 tokens, Maximum concurrency for 131,072 tokens per request: 26.22x",
+            "CUDA graph pool memory:": "(EngineCore pid=936) INFO 10-27 18:24:21 [gpu_worker.py:971] CUDA graph pool memory: 3.42 GiB (actual), 4.46 GiB (estimated), difference: 1.03 GiB (30.1%)."
+          },
+          "scope": "Logged startup allocation/capacity context; not a peak-memory benchmark or causal attribution."
+        },
+        "delta_candidate_minus_baseline": {
+          "kv_available_gib": 0.8900000000000006,
+          "kv_capacity_tokens": 67260,
+          "concurrency_request_tokens": 0,
+          "maximum_concurrency": 0.509999999999998,
+          "cuda_graph_actual_gib": -1.4900000000000002,
+          "cuda_graph_estimated_gib": -1.46
+        },
+        "identity_equality_required": false,
+        "interpretation": "Startup capacity and graph allocation can legitimately differ. These rounded log values are context only; they do not establish a memory saving caused by an overlay. Configuration, FI control and prior history still need their separate compatibility checks."
+      }
+    },
+    "full_serving": {
+      "timing_table_identical": true,
+      "rows_including_headers": 23
+    },
+    "agentic_synthetic": {
+      "timing_table_identical": true,
+      "rows": 8,
+      "actual_agentic_run": false
+    }
+  },
+  "source_sha256": {
+    "bench/compare_runtime_identity.py": "a13021656ad881c1a2f09915a8a62820dd2328386887aa1f71025991c5387d1b",
+    "bench/compare_greedy_decode.py": "fc4ffbd284ded57e1923c443969dd27e15e30c4c6f8aa5d0c08577fbb9493e21",
+    "bench/compare_serving_matrix.py": "4a045bec9e963936e0df26a485c8d50b0113a0cc5d28e373e72aa3b66bdcd8f3",
+    "bench/compare_agentic.py": "5b103c806daa5678fc9412624271a0c49af413717e88ff1c4ba49a44db9502e7",
+    "bench/test_runtime_memory_context.py": "6f3db1733d2c66953f54fd08907529d7e23729d37f2ec3cac2f71371cdcc3315",
+    "kernels/moe-nvfp4/SCALAR_DISPATCH.md": "f3e94862b2c573b8cf7f81b0cd6af13acbd08139cfeb348b71aeca6dd3e6bf61"
+  }
+}

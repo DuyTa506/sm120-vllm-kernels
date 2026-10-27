@@ -218,7 +218,8 @@ def markdown(report):
                      f"{row['identical_generated_texts']}/{t['completed']} |")
     lines += ["", "MTP acceptance = accepted/drafted tokens; acceptance length = 1 + accepted tokens/draft steps. "
               "Both use measured-phase counter deltas. Matching generated texts is diagnostic, not a quality score.", "",
-              report["interpretation"], "", "Validated runtime changes: " + json.dumps(report["runtime_changes"], sort_keys=True)]
+              report["interpretation"], "", IDENTITY.format_startup_memory(report["runtime_changes"]["startup_memory_context"]),
+              "", "Validated runtime changes: " + json.dumps(report["runtime_changes"], sort_keys=True)]
     if report["prior_suite_history_differs"]:
         lines += ["", "The prior suites differ: preconditioning is not identical despite matching per-case warmups. "
                   "Use this result as a diagnostic and repeat with matched run order/history before a causal timing claim."]
@@ -308,6 +309,11 @@ def preflight():
             save(prefix + "events.jsonl", "\n".join(json.dumps(e) for e in events))
         a, b = map(load, roots)
         report = compare(a, b)
+        memory_variant=copy.deepcopy(b)
+        memory_variant["startup_memory"]=IDENTITY.parse_startup_memory("Available KV cache memory: 45.5 GiB\n")
+        memory_pair=compare(a,memory_variant)["runtime_changes"]["startup_memory_context"]
+        require(memory_pair["baseline"]["status"]=="missing" and memory_pair["candidate"]["status"]=="partial"
+                and not memory_pair["identity_equality_required"], "memory context incorrectly gated runtime equality")
         require(len(report["rows"]) == 2 and all(r["change_percent"]["out_tok_s"] == 0 for r in report["rows"]),
                 "valid variable-sized pair failed")
         require(report["rows"][0]["baseline"]["mtp"]["acceptance_rate"] == 0.6, "MTP arithmetic error")

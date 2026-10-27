@@ -167,7 +167,8 @@ def markdown(report):
         lines.append(f"| {kind} | {a['num_drafts']} / {b['num_drafts']} | {a['num_draft_tokens']} / {b['num_draft_tokens']} | {a['num_accepted_tokens']} / {b['num_accepted_tokens']} | {100*a['acceptance_rate']:.2f} / {100*b['acceptance_rate']:.2f} | {a['acceptance_length']:.3f} / {b['acceptance_length']:.3f} |")
     lines+=['','Acceptance = accepted/drafted tokens; acceptance length = 1 + accepted tokens/draft steps. These aggregate all concurrencies within a set.','']
     lines+=['- '+item for item in report['limitations']]
-    lines+=['','Validated runtime changes: '+json.dumps(report['runtime_changes'],sort_keys=True)]
+    lines+=['',IDENTITY.format_startup_memory(report['runtime_changes']['startup_memory_context']),
+            '','Validated runtime changes: '+json.dumps(report['runtime_changes'],sort_keys=True)]
     return '\n'.join(lines)+'\n'
 
 

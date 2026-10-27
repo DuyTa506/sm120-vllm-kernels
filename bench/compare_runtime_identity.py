@@ -5,6 +5,7 @@ import hashlib
 import io
 import importlib.util
 import json
+import math
 from pathlib import Path
 import re
 
@@ -48,6 +49,103 @@ def require(ok, message):
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+
+MEMORY_FIELDS = ('kv_available_gib', 'kv_capacity_tokens', 'concurrency_request_tokens',
+                 'maximum_concurrency', 'cuda_graph_actual_gib', 'cuda_graph_estimated_gib')
+
+
+def parse_startup_memory(startup):
+    """Read observed startup capacity; never use profiling capture as final pool size."""
+    lines = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', startup).splitlines()
+    result = {key: None for key in MEMORY_FIELDS}
+    evidence = {}
+
+    def records(marker):
+        return [line for line in lines if marker in line]
+
+    def unique(marker, pattern):
+        found = records(marker)
+        require(sum(line.count(marker) for line in found) <= 1, 'ambiguous startup memory record: ' + marker)
+        if not found:
+            return None
+        match = re.search(pattern, found[0])
+        require(match is not None, 'malformed startup memory record: ' + marker)
+        evidence[marker] = found[0]
+        return match.groups()
+
+    def decimal(value, label, positive=False):
+        require(re.fullmatch(r'(?:0|[1-9]\d*)(?:\.\d+)?', value) is not None,
+                'invalid startup memory number: ' + label)
+        number = float(value)
+        require(math.isfinite(number) and (number > 0 if positive else number >= 0),
+                'invalid startup memory number: ' + label)
+        return number
+
+    def integer(value, label):
+        require(re.fullmatch(r'(?:[1-9]\d*|[1-9]\d{0,2}(?:,\d{3})+)', value) is not None,
+                'invalid startup memory integer: ' + label)
+        return int(value.replace(',', ''))
+
+    available = unique('Available KV cache memory:', r'Available KV cache memory:\s+(\S+)\s+GiB\s*$')
+    if available:
+        result['kv_available_gib'] = decimal(available[0], 'available KV GiB', positive=True)
+    capacity = unique('GPU KV cache size:', r'GPU KV cache size:\s+(\S+)\s+tokens(?:,|\s*$)')
+    if capacity:
+        result['kv_capacity_tokens'] = integer(capacity[0], 'KV capacity tokens')
+    concurrency = unique('Maximum concurrency for',
+        r'Maximum concurrency for\s+(\S+)\s+tokens per request:\s+(\S+)x\s*$')
+    if concurrency:
+        result['concurrency_request_tokens'] = integer(concurrency[0], 'concurrency request tokens')
+        result['maximum_concurrency'] = decimal(concurrency[1], 'maximum concurrency', positive=True)
+        if capacity:
+            precision = len(concurrency[1].partition('.')[2])
+            tolerance = .5 * 10 ** -precision + 1e-9
+            expected = result['kv_capacity_tokens'] / result['concurrency_request_tokens']
+            require(abs(result['maximum_concurrency'] - expected) <= tolerance,
+                    'KV capacity and rounded maximum concurrency disagree')
+    graph = unique('CUDA graph pool memory:',
+        r'CUDA graph pool memory:\s+(\S+)\s+GiB \(actual\),\s+(\S+)\s+GiB \(estimated\)(?:,.*)?\s*$')
+    if graph:
+        result['cuda_graph_actual_gib'] = decimal(graph[0], 'final actual CUDA graph GiB')
+        result['cuda_graph_estimated_gib'] = decimal(graph[1], 'estimated CUDA graph GiB')
+    captures = []
+    for line in records('Graph capturing finished in'):
+        match = re.search(r'Graph capturing finished in\s+(\S+)\s+secs, took\s+(\S+)\s+GiB\s*$', line)
+        require(match is not None, 'malformed graph capture completion record')
+        decimal(match[1], 'graph capture seconds')
+        captures.append(decimal(match[2], 'graph capture GiB'))
+    if graph and captures:
+        require(math.isclose(captures[-1], result['cuda_graph_actual_gib'], rel_tol=0, abs_tol=.0050001),
+                'last graph capture and final actual graph pool disagree')
+    missing = [key for key in MEMORY_FIELDS if result[key] is None]
+    return {**result, 'status': 'missing' if len(missing) == len(MEMORY_FIELDS) else 'partial' if missing else 'complete',
+            'missing_fields': missing, 'missing_reason': 'not recorded in this startup log' if missing else None,
+            'graph_capture_events_gib': captures, 'source': 'startup.log', 'startup_sha256': sha(startup.encode()),
+            'evidence_lines': evidence,
+            'scope': 'Logged startup allocation/capacity context; not a peak-memory benchmark or causal attribution.'}
+
+
+def paired_startup_memory(base, candidate):
+    return {'baseline': base, 'candidate': candidate,
+            'delta_candidate_minus_baseline': {key: candidate[key] - base[key]
+                if candidate[key] is not None and base[key] is not None else None for key in MEMORY_FIELDS},
+            'identity_equality_required': False,
+            'interpretation': 'Startup capacity and graph allocation can legitimately differ. These rounded log values are context only; '
+                              'they do not establish a memory saving caused by an overlay. Configuration, FI control and prior history still need their separate compatibility checks.'}
+
+
+def format_startup_memory(context):
+    a, b = context['baseline'], context['candidate']
+    def pair(key, integer=False):
+        return ' / '.join('not recorded' if run[key] is None else
+                          f'{run[key]:,}' if integer else f'{run[key]:.2f}' for run in (a, b))
+    return (f"Startup memory (baseline / candidate): available KV {pair('kv_available_gib')} GiB; "
+            f"KV capacity {pair('kv_capacity_tokens', True)} tokens; maximum concurrency {pair('maximum_concurrency')}x "
+            f"at {pair('concurrency_request_tokens', True)} tokens/request; final CUDA graph pool "
+            f"actual {pair('cuda_graph_actual_gib')} GiB, estimated {pair('cuda_graph_estimated_gib')} GiB. "
+            f"Extraction: {a['status']} / {b['status']}. " + context['interpretation'])
 
 
 def option(argv, key):
@@ -284,6 +382,7 @@ def load(root, text, read, *, allow_legacy_sources=False):
             'image': image, 'commit': commit, 'uncommitted_diff_sha256': diff_hash, 'gpu': gpu,
             'server_command': command, 'server_command_raw': raw_command,
             'resolved_engine_config':engine, 'resolved_engine_config_raw':engine_raw,
+            'startup_memory':parse_startup_memory(startup),
             'server_env': {k:v for k,v in env.items() if k not in VARIANT_ENV}, 'server_env_raw': env,
             'server_mounts': common_mounts, 'server_mounts_raw': mounts, 'source_manifest': sources,
             'gdn_compilation_config': compilation, 'gdn_readiness': readiness,
@@ -344,4 +443,5 @@ def compare(base, candidate, *, allow_legacy_sources=False):
             'fi_reference_sha256':base['fi_evidence']['reference_sha256'] if base['fi_control'] else None,
             'fi_import_mode':base['fi_evidence']['import_mode'] if base['fi_control'] else None,
             'inductor_pinned':False, 'inductor_config_changes':inductor_changes(base,candidate),
+            'startup_memory_context':paired_startup_memory(base['startup_memory'],candidate['startup_memory']),
             'source_validation':'incomplete_historical_source_capture' if legacy_sources else 'verified'}

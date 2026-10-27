@@ -179,6 +179,7 @@ def main():
     emit("\nPositive rate changes mean faster; negative latency changes mean faster.")
     emit("\nRuntime identity: " + changes["source_validation"] + "; FI control=" + str(changes["fi_control"]) + ".")
     emit("Validated source/config differences: `" + json.dumps(changes,sort_keys=True) + "`")
+    emit("\n" + IDENTITY.format_startup_memory(changes["startup_memory_context"]))
     for suite in ("throughput", "prefill", "decode"):
         emit(f"\n**{suite}**\n")
         emit("| task | total tok/s baseline / candidate | change | TTFT p50 ms baseline / candidate | change | ITL p50 ms baseline / candidate | output tok/s change | MTP acceptance baseline / candidate |")
