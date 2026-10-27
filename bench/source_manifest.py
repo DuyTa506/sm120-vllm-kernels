@@ -13,7 +13,7 @@ def selected(variant, fi_control=False):
     paths = [
         'scripts/serve.sh', 'scripts/cudagraph_sizes.txt',
         'bench/qwen_experiment.sh', 'bench/serving_matrix.py', 'bench/source_manifest.py',
-        'bench/agentic_bench.py', 'eval/repeated_nll.py', 'eval/long_eval.py',
+        'bench/agentic_bench.py', 'bench/agentic_input_manifest.py', 'eval/repeated_nll.py', 'eval/long_eval.py',
         'eval/ckpt_dist.py', 'kernels/moe-nvfp4/verify_logprobs.py',
     ]
     for relative in (

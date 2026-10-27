@@ -448,6 +448,7 @@ def preflight():
         save_gdn("source_verify.log",{"status":"passed","action":"verify","variant":"scalar_gdn","files":len(sources["files"])})
         container=json.loads((root/"container.json").read_text())[0]
         container["Config"]["Env"] += [k+"="+v for k,v in IDENTITY.FI_ENV.items()]
+        container["Config"]["Cmd"] += ["--shutdown-timeout", "30"]
         container["Mounts"].append({"Type":"bind","Source":"/fixture/kernels/decode-route-capture","Destination":"/opt/qwen-fi-control","RW":False,"Mode":"ro"})
         save_gdn("container.json",[container])
         document=json.loads((local/"references/next_cpu_audit_autotune.json").read_text())
@@ -499,7 +500,20 @@ def preflight():
         else:raise AssertionError("controlled-vs-unpinned pair accepted")
         def altered_effective(x):
             key=next(k for k in x if k.startswith("("));x[key]=[x[key][0],-123];return x
+        def shutdown_timeout(x, value, extra=()):
+            argv=x[0]["Config"]["Cmd"]; index=argv.index("--shutdown-timeout")
+            if value is None: del argv[index:index+2]
+            else: argv[index+1]=value
+            argv.extend(extra)
+            return x
         malformed=[
+            ("container.json",lambda x:shutdown_timeout(x,None)),
+            ("container.json",lambda x:shutdown_timeout(x,"0")),
+            ("container.json",lambda x:shutdown_timeout(x,"-1")),
+            ("container.json",lambda x:shutdown_timeout(x,"29")),
+            ("container.json",lambda x:shutdown_timeout(x,"invalid")),
+            ("container.json",lambda x:shutdown_timeout(x,"30",("--shutdown-timeout","30"))),
+            ("container.json",lambda x:shutdown_timeout(x,"30",("--shutdown-timeout=0",))),
             ("config.txt",lambda x:x.replace("fi_source_sha256="+IDENTITY.FI_SHA,"fi_source_sha256="+"0"*64)),
             ("container.json",lambda x:[{**x[0],"Mounts":[{**m,"RW":True} if m["Destination"]=="/opt/qwen-fi-control" else m for m in x[0]["Mounts"]]}]),
             (prefix+"source.json",altered_effective),
@@ -526,6 +540,7 @@ def preflight():
             finally:path.write_text(before)
     print(json.dumps({"status": "passed", "mode": "cpu_preflight", "http_requests": 0, "gpu_work": False,
                       "variable_scenario_count": 2, "malformed_fixtures_rejected": rejected,
+                      "fi_shutdown_timeout_seconds": 30, "shutdown_negative_fixtures": 7,
                       "script_sha256": sha(Path(__file__).read_bytes()),
                       "identity_sha256": sha((HERE / "compare_runtime_identity.py").read_bytes())}))
 

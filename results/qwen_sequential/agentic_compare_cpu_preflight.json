@@ -1,0 +1,243 @@
+{
+  "status": "passed",
+  "cpu_only": true,
+  "synthetic_schema": "actual agentic_bench._replay_summary metric_version=2",
+  "valid_pair_rows": 8,
+  "rejected_fixtures": [
+    "nonproduction_inputs",
+    "summary_metric_version",
+    "summary_valid",
+    "summary_turns",
+    "summary_failed_turns",
+    "summary_out_tok_s",
+    "summary_ttft_later_p90_ms",
+    "summary_prefix_hit_rate",
+    "summary_wall_s",
+    "turn_completion",
+    "turn_requested_completion",
+    "turn_prompt",
+    "turn_turn",
+    "turn_task",
+    "turn_success",
+    "turn_stream_done",
+    "turn_completion_source",
+    "turn_ttft",
+    "turn_e2e",
+    "turn_error",
+    "missing_concurrency",
+    "extra_concurrency",
+    "duplicate_turn",
+    "error_list",
+    "failed_experiment",
+    "source_changed",
+    "different_history",
+    "unknown_config",
+    "missing_input_verification",
+    "changed_input_metadata",
+    "changed_input_source",
+    "mtp_reset",
+    "mtp_missing",
+    "mtp_changed_labels",
+    "unexpected_mtp_acceptance",
+    "changed_input_bytes",
+    "different_prompt_token_identity"
+  ],
+  "rejected_count": 37,
+  "runtime_identity_gates": "reused compare_runtime_identity; composed/FI gates have their existing CPU preflight",
+  "gpu_or_http_used": false,
+  "production_input_cpu_validation": {
+    "status": "passed",
+    "input_verification": {
+      "status": "passed",
+      "action": "verify",
+      "schema_version": 1,
+      "manifest_sha256": "2dca50fff489e1c5f78c7ff6979096d3f6924a5abb3d318c0f054a400bdeaa1f",
+      "live_inputs_verified": true,
+      "inputs": {
+        "short": "e24df8aa498518add17b8188ef834ea4272ca78991513f6bbe0118f38021c680",
+        "long": "3852ffe3133be6ad2c93442682906f45990944f86e4126ff10f9c7cbf83580d8"
+      },
+      "replay_sha256": {
+        "short": "ef766727f454321aa167931abe1aaa8ef6133f52447f799a60ba20ee46c29719",
+        "long": "3eb66eddbd0564bf71b386c9d2c3907d40838b4412527d7d4d92519722793573"
+      },
+      "sources": {
+        "bench/agentic_bench.py": "63308eb8e9dfeaa834fbc3b8c68f32347d0dc9510154318e2a83e9e15af3fe69",
+        "bench/agentic_input_manifest.py": "b2986fe4c78e0b2707848bcccdead762d603551b4724bf54d817472232c1a617"
+      }
+    },
+    "inputs": {
+      "short": {
+        "sha256": "e24df8aa498518add17b8188ef834ea4272ca78991513f6bbe0118f38021c680",
+        "size_bytes": 107428,
+        "replay_sha256": "ef766727f454321aa167931abe1aaa8ef6133f52447f799a60ba20ee46c29719",
+        "base_turns": 128,
+        "base_output_tokens": 32757,
+        "cases": [
+          {
+            "concurrency": 1,
+            "copies": 1,
+            "agents": 8,
+            "turns": 128,
+            "output_tokens": 32757
+          },
+          {
+            "concurrency": 4,
+            "copies": 1,
+            "agents": 8,
+            "turns": 128,
+            "output_tokens": 32757
+          },
+          {
+            "concurrency": 8,
+            "copies": 1,
+            "agents": 8,
+            "turns": 128,
+            "output_tokens": 32757
+          },
+          {
+            "concurrency": 16,
+            "copies": 2,
+            "agents": 16,
+            "turns": 256,
+            "output_tokens": 65514
+          },
+          {
+            "concurrency": 32,
+            "copies": 4,
+            "agents": 32,
+            "turns": 512,
+            "output_tokens": 131028
+          }
+        ],
+        "per_trajectory": [
+          {
+            "task": 0,
+            "turns": 16,
+            "output_tokens": 995
+          },
+          {
+            "task": 1,
+            "turns": 16,
+            "output_tokens": 7611
+          },
+          {
+            "task": 2,
+            "turns": 16,
+            "output_tokens": 4244
+          },
+          {
+            "task": 3,
+            "turns": 16,
+            "output_tokens": 4889
+          },
+          {
+            "task": 4,
+            "turns": 16,
+            "output_tokens": 3375
+          },
+          {
+            "task": 5,
+            "turns": 16,
+            "output_tokens": 4355
+          },
+          {
+            "task": 6,
+            "turns": 16,
+            "output_tokens": 3502
+          },
+          {
+            "task": 7,
+            "turns": 16,
+            "output_tokens": 3786
+          }
+        ],
+        "validated_rows": 5
+      },
+      "long": {
+        "sha256": "3852ffe3133be6ad2c93442682906f45990944f86e4126ff10f9c7cbf83580d8",
+        "size_bytes": 1573192,
+        "replay_sha256": "3eb66eddbd0564bf71b386c9d2c3907d40838b4412527d7d4d92519722793573",
+        "base_turns": 770,
+        "base_output_tokens": 115522,
+        "cases": [
+          {
+            "concurrency": 1,
+            "copies": 1,
+            "agents": 8,
+            "turns": 770,
+            "output_tokens": 115522
+          },
+          {
+            "concurrency": 8,
+            "copies": 1,
+            "agents": 8,
+            "turns": 770,
+            "output_tokens": 115522
+          },
+          {
+            "concurrency": 32,
+            "copies": 4,
+            "agents": 32,
+            "turns": 3080,
+            "output_tokens": 462088
+          }
+        ],
+        "per_trajectory": [
+          {
+            "task": 0,
+            "turns": 57,
+            "output_tokens": 2585
+          },
+          {
+            "task": 1,
+            "turns": 55,
+            "output_tokens": 2580
+          },
+          {
+            "task": 2,
+            "turns": 120,
+            "output_tokens": 30674
+          },
+          {
+            "task": 3,
+            "turns": 120,
+            "output_tokens": 23322
+          },
+          {
+            "task": 4,
+            "turns": 120,
+            "output_tokens": 10445
+          },
+          {
+            "task": 5,
+            "turns": 120,
+            "output_tokens": 19094
+          },
+          {
+            "task": 6,
+            "turns": 120,
+            "output_tokens": 24022
+          },
+          {
+            "task": 7,
+            "turns": 58,
+            "output_tokens": 2800
+          }
+        ],
+        "validated_rows": 3
+      }
+    },
+    "timings": "synthetic CPU fixtures only, generated with actual production input lengths; no measured performance"
+  },
+  "source_sha256": {
+    "bench/compare_agentic.py": "107a1f7c57ea656c48563dc2fb1cf520e617da15fcc4f712cfddb36aed020b7f",
+    "bench/agentic_input_manifest.py": "b2986fe4c78e0b2707848bcccdead762d603551b4724bf54d817472232c1a617",
+    "bench/test_compare_agentic.py": "9b9f0db51209c1544e5c045bde8a74ca2f77bb829adf5458439e440cfcd8ac73",
+    "bench/AGENTIC_COMPARISON.md": "6a60a5248e96401f76b9a40dd67596ab7ea7848080208dbd43cc998a89a850bb",
+    "bench/compare_runtime_identity.py": "54ad98dac09acd5da578c8e9c8636930d68a1ae211f8d2318e9788df28f58b8a",
+    "bench/compare_greedy_decode.py": "619350093a7726c01842caa7fa29a0ab9d3ed49ae3ef546eda8cec2c8bbe08d9",
+    "bench/serving_matrix.py": "8d6e5328f9bf50fa2ff5b641fcc73f0e009a3b198e1c752d854930463cfa9578",
+    "bench/agentic_bench.py": "63308eb8e9dfeaa834fbc3b8c68f32347d0dc9510154318e2a83e9e15af3fe69"
+  }
+}

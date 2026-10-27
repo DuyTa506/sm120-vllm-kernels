@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "scope": "CPU-only FI shutdown contract verification; no GPU/HTTP; runtime sources unchanged by this task",
+  "fi_contract": "exactly one --shutdown-timeout 30; equals-form shadow overrides rejected; FI0 historical contract unchanged",
+  "preflights": {
+    "compare_greedy_decode": {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "http_requests": 0,
+      "gpu_work": false,
+      "variable_scenario_count": 2,
+      "malformed_fixtures_rejected": 67,
+      "fi_shutdown_timeout_seconds": 30,
+      "shutdown_negative_fixtures": 7,
+      "script_sha256": "81c0c1a4523aa07515c1b85e386bff822ea1bfdf3adcac74db0129fd159d8d65",
+      "identity_sha256": "c3f08d06b229909a31fadd79d040ba0a4139d6bdb18ad4eb20ee79ed0449db80"
+    },
+    "compare_serving_matrix": {
+      "status": "passed",
+      "mode": "cpu_preflight",
+      "scenarios": 17,
+      "malformed_fixtures_rejected": 7,
+      "gpu_work": false,
+      "http_requests": 0
+    },
+    "compare_agentic": {
+      "status": "passed",
+      "cpu_only": true,
+      "synthetic_schema": "actual agentic_bench._replay_summary metric_version=2",
+      "valid_pair_rows": 8,
+      "rejected_fixtures": [
+        "nonproduction_inputs",
+        "summary_metric_version",
+        "summary_valid",
+        "summary_turns",
+        "summary_failed_turns",
+        "summary_out_tok_s",
+        "summary_ttft_later_p90_ms",
+        "summary_prefix_hit_rate",
+        "summary_wall_s",
+        "turn_completion",
+        "turn_requested_completion",
+        "turn_prompt",
+        "turn_turn",
+        "turn_task",
+        "turn_success",
+        "turn_stream_done",
+        "turn_completion_source",
+        "turn_ttft",
+        "turn_e2e",
+        "turn_error",
+        "missing_concurrency",
+        "extra_concurrency",
+        "duplicate_turn",
+        "error_list",
+        "failed_experiment",
+        "source_changed",
+        "different_history",
+        "unknown_config",
+        "missing_input_verification",
+        "changed_input_metadata",
+        "changed_input_source",
+        "mtp_reset",
+        "mtp_missing",
+        "mtp_changed_labels",
+        "unexpected_mtp_acceptance",
+        "changed_input_bytes",
+        "different_prompt_token_identity"
+      ],
+      "rejected_count": 37,
+      "runtime_identity_gates": "reused compare_runtime_identity; composed/FI gates have their existing CPU preflight",
+      "gpu_or_http_used": false,
+      "source_sha256": {
+        "bench/compare_agentic.py": "107a1f7c57ea656c48563dc2fb1cf520e617da15fcc4f712cfddb36aed020b7f",
+        "bench/agentic_input_manifest.py": "b2986fe4c78e0b2707848bcccdead762d603551b4724bf54d817472232c1a617",
+        "bench/test_compare_agentic.py": "9b9f0db51209c1544e5c045bde8a74ca2f77bb829adf5458439e440cfcd8ac73",
+        "bench/AGENTIC_COMPARISON.md": "6a60a5248e96401f76b9a40dd67596ab7ea7848080208dbd43cc998a89a850bb",
+        "bench/compare_runtime_identity.py": "c3f08d06b229909a31fadd79d040ba0a4139d6bdb18ad4eb20ee79ed0449db80",
+        "bench/compare_greedy_decode.py": "81c0c1a4523aa07515c1b85e386bff822ea1bfdf3adcac74db0129fd159d8d65",
+        "bench/serving_matrix.py": "8d6e5328f9bf50fa2ff5b641fcc73f0e009a3b198e1c752d854930463cfa9578",
+        "bench/agentic_bench.py": "63308eb8e9dfeaa834fbc3b8c68f32347d0dc9510154318e2a83e9e15af3fe69"
+      }
+    }
+  },
+  "historical_fi0": {
+    "greedy": {
+      "status": "complete_compatible_pair",
+      "timing_table_identical": true,
+      "fi_control": false,
+      "rows": 4
+    },
+    "full_serving": {
+      "timing_table_identical": true,
+      "rows_including_headers": 23,
+      "fi_control": false
+    }
+  },
+  "source_sha256": {
+    "bench/compare_runtime_identity.py": "c3f08d06b229909a31fadd79d040ba0a4139d6bdb18ad4eb20ee79ed0449db80",
+    "bench/compare_greedy_decode.py": "81c0c1a4523aa07515c1b85e386bff822ea1bfdf3adcac74db0129fd159d8d65",
+    "bench/compare_serving_matrix.py": "df80f3b93cc3ce76ffcdda98eab2802a6e09b53735d1ed5acf69fb519f5b5bf4",
+    "bench/compare_agentic.py": "107a1f7c57ea656c48563dc2fb1cf520e617da15fcc4f712cfddb36aed020b7f"
+  }
+}

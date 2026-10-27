@@ -69,6 +69,9 @@ flags="-e VLLM_CACHE_ROOT=/root/.cache/vllm/qwen-sequential-$VAR -v $O/serving:/
 args=()
 source_args=()
 if [[ $FI_CONTROL == 1 ]]; then
+  # vLLM defaults to immediate engine abort even on docker SIGTERM.
+  # Leave time for Worker.shutdown to export the final effective tactic table.
+  args+=(--shutdown-timeout 30)
   flags="$flags -v $D/kernels/decode-route-capture:/opt/qwen-fi-control:ro"
   flags="$flags -e PYTHONPATH=/opt/qwen-fi-control -e QWEN_FI_IMPORT_JSON=/opt/qwen-fi-control/references/next_cpu_audit_autotune.json"
   flags="$flags -e QWEN_FI_IMPORT_SHA256=$FI_SOURCE_SHA -e QWEN_FI_IMPORT_OUT=/bench-results/fi_control"
@@ -142,15 +145,20 @@ if (( NLL_ROUNDS > 0 )); then
     --rounds "$NLL_ROUNDS" > "$O/repeated_nll.log" 2>&1
 fi
 if [[ $SUITE == agentic ]]; then
+  python3 -I "$D/bench/agentic_input_manifest.py" snapshot \
+    --root "$D" --output "$O" > "$O/agentic_input_snapshot.log"
   for set in short long; do
     concs=1,4,8,16,32
     [[ $set == long ]] && concs=1,8,32
     curl -fsS "$BENCH_URL/metrics" > "$O/agentic_${set}_metrics_before.txt"
     python3 -I "$D/bench/agentic_bench.py" replay \
-      "$D/results/agentic/trajectories_${set}_production.json.xz" \
+      "$O/agentic_inputs/trajectories_${set}_production.json.xz" \
       "$O/agentic_${set}.json" "$concs" > "$O/agentic_${set}.log" 2>&1
     curl -fsS "$BENCH_URL/metrics" > "$O/agentic_${set}_metrics_after.txt"
   done
+  python3 -I "$D/bench/agentic_input_manifest.py" verify \
+    --root "$D" --output "$O" > "$O/agentic_input_verify.json.tmp"
+  mv "$O/agentic_input_verify.json.tmp" "$O/agentic_input_verify.json"
   # Separate live tool-calling smoke from token-exact performance replay.
   # The repository harness simulates writes/tests; it never executes model code.
   python3 -I "$D/bench/agentic_bench.py" record "$O/agentic_live_short.json" short \

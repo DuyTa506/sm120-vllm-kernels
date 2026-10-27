@@ -1,0 +1,4 @@
+Metadata-Version: 2.1
+Name: qwen-fi-control
+Version: 0.1
+Summary: Local fixed-FlashInfer-cache experiment plugin

@@ -1,0 +1,1290 @@
+diff --git a/bench/compare_greedy_decode.py b/bench/compare_greedy_decode.py
+index a22e662..dbea77e 100644
+--- a/bench/compare_greedy_decode.py
++++ b/bench/compare_greedy_decode.py
+@@ -22,6 +22,9 @@ SPEC = importlib.util.spec_from_file_location("greedy_serving_matrix", HERE / "s
+ MATRIX = importlib.util.module_from_spec(SPEC)
+ sys.modules[SPEC.name] = MATRIX
+ SPEC.loader.exec_module(MATRIX)
++IDENTITY_SPEC = importlib.util.spec_from_file_location("paired_runtime_identity", HERE / "compare_runtime_identity.py")
++IDENTITY = importlib.util.module_from_spec(IDENTITY_SPEC)
++IDENTITY_SPEC.loader.exec_module(IDENTITY)
+ PKG = "/usr/local/lib/python3.12/dist-packages/vllm/"
+ EXPERT = "model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py"
+ ORACLE = "model_executor/layers/fused_moe/oracle/unquantized.py"
+@@ -75,10 +78,7 @@ def mtp_delta(before, after):
+ 
+ 
+ def source_extras(variant):
+-    return set() if variant == "next" else {
+-        f"kernels/moe-nvfp4/{variant}/vllm/{EXPERT}",
+-        f"kernels/moe-nvfp4/patched/vllm/{ORACLE}",
+-    }
++    return IDENTITY.source_extras(variant)
+ 
+ 
+ def load(root):
+@@ -94,65 +94,16 @@ def load(root):
+         return json.loads(text(relative))
+ 
+     require(text("exit_code.txt").strip() == "0", f"failed/incomplete experiment: {root}")
+-    config = dict(line.split("=", 1) for line in text("config.txt").splitlines())
+-    require(config["tag"] == root.name and config["greedy_decode"] == "1", "invalid greedy run identity")
+-    variant = config["variant"]
+-    require(variant in ("next", "shared", "shared_exact", "scalar"), "unknown overlay variant")
+-    image = text("image.txt").strip()
+-    commit, diff_hash = text("commit.txt").strip(), sha(text("uncommitted.diff").encode())
+-    containers = read("container.json")
+-    require(isinstance(containers, list) and len(containers) == 1, "invalid container capture")
+-    container = containers[0]
+-    require(container["Name"] == "/qwen-exp-" + config["tag"], "container identity mismatch")
+-    require(container["Image"] == image, "actual container image differs from captured image")
+-    command = container["Config"]["Cmd"][:]
+-    if variant != "next":
+-        require(option(command, "--moe-backend") == "flashinfer_b12x", "candidate backend mismatch")
+-        pos = command.index("--moe-backend")
+-        del command[pos:pos + 2]
+-    else:
+-        require("--moe-backend" not in command, "baseline unexpectedly overrides the MoE backend")
+-    speculative = json.loads(option(command, "--speculative-config"))
+-    require(speculative.get("method") == "mtp" and speculative.get("num_speculative_tokens", 0) > 0,
+-            "greedy comparison requires MTP enabled")
+-    env = dict(value.split("=", 1) for value in container["Config"]["Env"])
+-    if variant != "next":
+-        require(env.get("VLLM_B12X_FIX_SCALES") == env.get("VLLM_B12X_SHARED_WORKSPACE") == "1",
+-                "candidate scale/workspace flags missing")
+-        require(env.get("VLLM_B12X_SCALAR_INPUT_SCALE", "0") == ("1" if variant == "scalar" else "0"),
+-                "scalar flag does not match variant")
+-    identity_env = {k: v for k, v in env.items() if k not in VARIANT_ENV}
+-    gpu_rows = list(csv.DictReader(io.StringIO(text("gpu_before.csv")), skipinitialspace=True))
+-    require(len(gpu_rows) == 1, "expected one GPU identity")
+-    gpu = {key: gpu_rows[0][key].strip() for key in
+-           ("name", "uuid", "driver_version", "memory.total [MiB]", "power.limit [W]")}
+-
+-    sources = read("source_manifest.json")
+-    require(sources["schema_version"] == 1 and sources["variant"] == variant, "source manifest identity mismatch")
+-    for relative, digest in sources["files"].items():
+-        path = Path(relative)
+-        require(not path.is_absolute() and ".." not in path.parts, "unsafe source path")
+-        require(sha(text("source_files/" + relative).encode()) == digest, "source snapshot hash mismatch")
+-    verification = json.loads(text("source_verify.log"))
+-    require(verification.get("status") == "passed" and verification.get("action") == "verify"
+-            and verification.get("variant") == variant
+-            and verification.get("files") == len(sources["files"]), "source verification failed/missing")
+-    require(source_extras(variant) <= sources["files"].keys(), "overlay source not captured")
+-    for mount in container["Mounts"]:
+-        if mount["Destination"].startswith(PKG) and mount["Destination"].endswith(".py"):
+-            require(mount["RW"] is False, "runtime Python source was mounted writable")
+-            matches = [p for p in sources["files"] if mount["Source"].endswith("/" + p)]
+-            require(len(matches) == 1, "mounted source absent/ambiguous in snapshot")
+-    for relative in ("scripts/serve.sh", "scripts/cudagraph_sizes.txt", "bench/qwen_experiment.sh",
+-                     "bench/serving_matrix.py"):
+-        require(relative in sources["files"], f"missing runtime source {relative}")
+-
++    runtime = IDENTITY.load(root, text, read)
++    config = runtime["config"]
++    require(config["greedy_decode"] == "1", "invalid greedy run identity")
++    container_name = "qwen-exp-" + config["tag"]
+     directory = "serving/serving_matrix_decode/"
+     manifest, summary = read(directory + "manifest.json"), read(directory + "summary.json")
+     targets = read(directory + "expected_output_lengths.json")
+     args = manifest["arguments"]
+     require(args["suite"] == "decode" and args.get("temperature") == 0, "not explicit greedy decode")
+-    require(args["container"] == container["Name"].lstrip("/"), "request/container identity mismatch")
++    require(args["container"] == container_name, "request/container identity mismatch")
+     require(summary["status"] == "passed" and not summary.get("error"), "decode matrix failed")
+     cases = [MATRIX.Scenario(**{**c, "extra": tuple(c["extra"])}) for c in manifest["scenarios"]]
+     require(cases and all(c.suite == "decode" for c in cases), "invalid decode scenarios")
+@@ -217,27 +168,19 @@ def load(root):
+                 rows.append({"scenario": case.name, "timing": row, "mtp": mtp_delta(before, after),
+                              "input_lens": result["input_lens"], "output_lens": result["output_lens"],
+                              "generated_text_sha256": [sha(s.encode()) for s in result["generated_texts"]]})
+-    return {"name": root.name, "config": config, "image": image, "commit": commit,
+-            "uncommitted_diff_sha256": diff_hash, "gpu": gpu, "server_command": command,
+-            "server_env": identity_env, "source_manifest": sources, "manifest": manifest,
++    return {**runtime, "manifest": manifest,
+             "expected_lengths": targets, "normalized_commands": normalized_commands,
+             "rows": rows, "input_sha256": hashes}
+ 
+ 
+ def compare(base, candidate):
+-    for key in ("config", "gpu_util"):
+-        require(base["config"][key] == candidate["config"][key], f"different {key}")
+-    for key in ("image", "gpu", "server_command", "server_env", "normalized_commands", "expected_lengths"):
++    runtime_changes = IDENTITY.compare(base, candidate)
++    for key in ("normalized_commands", "expected_lengths"):
+         require(base[key] == candidate[key], f"incompatible {key}")
+     require(base["manifest"]["scenarios"] == candidate["manifest"]["scenarios"], "different scenarios/seeds")
+     require(base["manifest"]["run_nonce"] != candidate["manifest"]["run_nonce"], "runs reused cache namespace")
+     for field in ("model", "served_model_name", "temperature", "seed_offset"):
+         require(base["manifest"]["arguments"][field] == candidate["manifest"]["arguments"][field], f"different {field}")
+-    common_sources = []
+-    for run in (base, candidate):
+-        extras = source_extras(run["config"]["variant"])
+-        common_sources.append({p: value for p, value in run["source_manifest"]["files"].items() if p not in extras})
+-    require(common_sources[0] == common_sources[1], "different non-MoE runtime sources")
+     rows = []
+     for a, b in zip(base["rows"], candidate["rows"], strict=True):
+         require(a["scenario"] == b["scenario"] and a["input_lens"] == b["input_lens"]
+@@ -249,8 +192,8 @@ def compare(base, candidate):
+                      "change_percent": change, "identical_generated_texts": same})
+     prior_history_differs = base["config"]["suite"] != candidate["config"]["suite"]
+     return {"status": "complete_compatible_pair", "baseline": base, "candidate": candidate, "rows": rows,
+-            "prior_suite_history_differs": prior_history_differs,
+-            "analysis_source_sha256": {p.name: sha(p.read_bytes()) for p in (Path(__file__), HERE / "serving_matrix.py")},
++            "prior_suite_history_differs": prior_history_differs, "runtime_changes": runtime_changes,
++            "analysis_source_sha256": {p.name: sha(p.read_bytes()) for p in (Path(__file__), HERE / "serving_matrix.py", HERE / "compare_runtime_identity.py")},
+             "interpretation": "Explicit temperature zero controls sampling. MTP acceptance, generated paths, "
+                               "startup autotuning and scheduling may still vary. This pair is not a confidence interval "
+                               "or a model-quality pass. Different prior suites are recorded as a preconditioning limitation."}
+@@ -275,7 +218,7 @@ def markdown(report):
+                      f"{row['identical_generated_texts']}/{t['completed']} |")
+     lines += ["", "MTP acceptance = accepted/drafted tokens; acceptance length = 1 + accepted tokens/draft steps. "
+               "Both use measured-phase counter deltas. Matching generated texts is diagnostic, not a quality score.", "",
+-              report["interpretation"]]
++              report["interpretation"], "", "Validated runtime changes: " + json.dumps(report["runtime_changes"], sort_keys=True)]
+     if report["prior_suite_history_differs"]:
+         lines += ["", "The prior suites differ: preconditioning is not identical despite matching per-case warmups. "
+                   "Use this result as a diagnostic and repeat with matched run order/history before a causal timing claim."]
+@@ -283,6 +226,8 @@ def markdown(report):
+ 
+ 
+ def preflight():
++    require("kernels/moe-nvfp4/shared_exact/vllm/" + EXPERT in source_extras("shared_exact_gdn"),
++            "composed GDN variant must retain the original MoE parent source")
+     import copy
+     import tempfile
+ 
+@@ -302,20 +247,28 @@ def preflight():
+             save("uncommitted.diff", "")
+             save("gpu_before.csv", "name,uuid,driver_version,memory.total [MiB],power.limit [W]\nSM120,GPU-fixture,1,97887 MiB,600 W\n")
+             command = ["serve", "fixture", "--speculative-config", '{"method":"mtp","num_speculative_tokens":2}']
+-            env = ["COMMON=1", "VLLM_CACHE_ROOT=" + variant]
++            engine = "Initializing a V1 LLM engine (v0.32.0) with config: model='fixture', compilation_config={'splitting_ops': " + repr(IDENTITY.STANDARD_SPLITS+IDENTITY.AUTO_SPLITS) + ", 'pass_config': {'fuse_rope_kvcache_cat_mla': False}}, kernel_config=KernelConfig(moe_backend='" + ("auto" if variant == "next" else "flashinfer_b12x") + "')"
++            save("startup.log", engine)
++            env = ["COMMON=1", "VLLM_CACHE_ROOT=/root/.cache/vllm/qwen-sequential-" + variant]
+             if variant != "next":
+                 command += ["--moe-backend", "flashinfer_b12x"]
+                 env += ["VLLM_B12X_FIX_SCALES=1", "VLLM_B12X_SHARED_WORKSPACE=1"]
+             common = {p: b"fixture\n" for p in ("scripts/serve.sh", "scripts/cudagraph_sizes.txt",
+-                                                "bench/qwen_experiment.sh", "bench/serving_matrix.py")}
+-            contents = {**common, **{p: b"overlay\n" for p in source_extras(variant)}}
++                                                "bench/qwen_experiment.sh", "bench/serving_matrix.py", "bench/source_manifest.py")}
++            contents = {**common, **{p: b"overlay\n" for p in source_extras(variant)},
++                        **{p: b"mounted\n" for p in IDENTITY.expected_mounts(variant).values()}}
+             for name, data in contents.items():
+                 save("source_files/" + name, data.decode())
+             save("source_manifest.json", {"schema_version": 1, "variant": variant,
+                                            "files": {p: sha(data) for p, data in contents.items()}})
+             save("source_verify.log", {"status": "passed", "action": "verify", "files": len(contents), "variant": variant})
+             save("container.json", [{"Name": "/qwen-exp-" + root.name, "Image": "sha256:fixture",
+-                                      "Config": {"Cmd": command, "Env": env}, "Mounts": []}])
++                                      "Config": {"Cmd": command, "Env": env}, "Mounts": [
++                {"Type":"bind", "Source":"/fixture/" + src, "Destination":dst, "RW":False, "Mode":"ro"}
++                for dst,src in IDENTITY.expected_mounts(variant).items()] + [
++                {"Type":"bind", "Source":"/fixture/results/qwen_sequential/" + root.name + "/serving" if dst == "/bench-results" else "/fixture" + dst,
++                 "Destination":dst,"RW":dst != "/root/.cache/huggingface","Mode":"ro" if dst == "/root/.cache/huggingface" else ""}
++                for dst in ("/bench-results","/root/.cache/vllm","/root/.cache/flashinfer","/root/.cache/huggingface")]}])
+             args = MATRIX.parser().parse_args(["--container", "qwen-exp-" + root.name, "--output-dir", str(root / "serving"),
+                                                "--suite", "decode", "--temperature", "0"])
+             prefix = "serving/serving_matrix_decode/"
+@@ -401,9 +354,180 @@ def preflight():
+                 rejected += 1
+             else:
+                 raise AssertionError("incompatible pair accepted")
++        # Complete composed-run fixtures exercise disk evidence, not normalized objects.
++        root = roots[1]
++        def save_gdn(name, value):
++            path = root / name
++            path.parent.mkdir(parents=True, exist_ok=True)
++            path.write_text(value if isinstance(value, str) else json.dumps(value))
++        for variant in ("shared_exact_gdn", "scalar_gdn"):
++            save_gdn("config.txt", f"tag={root.name}\nvariant={variant}\nsuite=diagnostic\nconfig=next\ngpu_util=0.78\ngreedy_decode=1\nnll_rounds=5\n")
++            container = json.loads((root / "container.json").read_text())[0]
++            command = container["Config"]["Cmd"]
++            if "--compilation-config" in command:
++                i = command.index("--compilation-config"); del command[i:i+2]
++            compilation = {"splitting_ops": IDENTITY.STANDARD_SPLITS + IDENTITY.AUTO_SPLITS + [IDENTITY.GDN_OP],
++                           "pass_config":{"fuse_rope_kvcache_cat_mla":False}}
++            command += ["--compilation-config", json.dumps(compilation)]
++            env = {k:v for k,v in (x.split("=",1) for x in container["Config"]["Env"])}
++            env.update(VLLM_CACHE_ROOT="/root/.cache/vllm/qwen-sequential-" + variant,
++                       VLLM_GDN_NORM_FP8_FUSION="1", VLLM_B12X_SCALAR_INPUT_SCALE="1" if variant == "scalar_gdn" else "0")
++            container["Config"]["Env"] = [k+"="+v for k,v in env.items()]
++            container["Mounts"] = [m for m in container["Mounts"] if not m["Destination"].startswith(PKG)] + [
++                {"Type":"bind", "Source":"/fixture/"+src, "Destination":dst, "RW":False, "Mode":"ro"}
++                for dst,src in IDENTITY.expected_mounts(variant).items()]
++            save_gdn("container.json", [container])
++            sources = {p: v for p,v in b["source_manifest"]["files"].items()
++                       if p not in source_extras("shared_exact") and p != "build/vllm/"+IDENTITY.GDN+IDENTITY.GDN_FILES[0]}
++            for name in source_extras(variant) | set(IDENTITY.expected_mounts(variant).values()):
++                value = "mounted\n" if name in IDENTITY.expected_mounts(variant).values() else "helper\n"
++                save_gdn("source_files/"+name, value); sources[name] = sha(value.encode())
++            save_gdn("source_manifest.json", {"schema_version":1,"variant":variant,"files":sources})
++            save_gdn("source_verify.log", {"status":"passed","action":"verify","variant":variant,"files":len(sources)})
++            save_gdn("compilation_config.json", compilation)
++            layers = [i for i in range(40) if (i+1)%4]
++            startup = "Initializing a V1 LLM engine (v0.32.0) with config: model='fixture', compilation_config={'splitting_ops': " + repr(compilation["splitting_ops"]) + ", 'pass_config': {'fuse_rope_kvcache_cat_mla': False}}, kernel_config=KernelConfig(moe_backend='flashinfer_b12x')\n"
++            startup += "\n".join(f"GDN norm-FP8 ready for model.layers.{i}.linear_attn: compiled fallback" for i in layers)
++            save_gdn("startup.log", startup)
++            save_gdn("gdn_readiness.json", {"ready_layers":layers,"expected_layers":layers,"disabled":[]})
++            composed = load(root)
++            paired = compare(a, composed)
++            require(paired["runtime_changes"]["candidate_moe_parent"] == variant.removesuffix("_gdn"), "wrong MoE parent reported")
++            require(composed["gdn_enabled"] and len(composed["gdn_readiness"]["ready_layers"]) == 30, "GDN readiness not checked")
++            malformed = [
++                ("container.json", lambda x: [{**x[0],"Mounts":[m for m in x[0]["Mounts"] if not m["Destination"].endswith("gdn_norm_fp8_quant_out.py")]}]),
++                ("container.json", lambda x: [{**x[0],"Mounts":[{**m,"RW":True} if m["Destination"].endswith("gdn_norm_fp8_kernel.py") else m for m in x[0]["Mounts"]]}]),
++                ("container.json", lambda x: [{**x[0],"Mounts":[{**m,"Source":"/fixture/kernels/moe-nvfp4/shared/vllm/"+EXPERT} if m["Destination"]==PKG+EXPERT else m for m in x[0]["Mounts"]]}]),
++                ("container.json", lambda x: [{**x[0],"Config":{**x[0]["Config"],"Env":[e for e in x[0]["Config"]["Env"] if not e.startswith("VLLM_GDN_NORM_FP8_FUSION=")]}}]),
++                ("compilation_config.json", lambda x: {"splitting_ops":x["splitting_ops"][:-1]}),
++                ("compilation_config.json", lambda x: {**x,"mode":0}),
++                ("gdn_readiness.json", lambda x: {**x,"ready_layers":x["ready_layers"][:-1]}),
++                ("gdn_readiness.json", lambda x: {**x,"ready_layers":x["ready_layers"]+[0]}),
++                ("startup.log", lambda x: x.replace("'fuse_rope_kvcache_cat_mla': False", "'fuse_rope_kvcache_cat_mla': True")),
++                ("startup.log", lambda x: x+"\nGDN norm-FP8 disabled for model.layers.0.linear_attn"),
++                ("startup.log", lambda x: x.replace("vllm::"+"gdn_attention_core_norm_fp8_packed_experimental", "vllm::wrong")),
++                ("source_files/"+IDENTITY.GDN_ROOT+"gdn_norm_fp8_quant_out.py", lambda x:x+"changed"),
++            ]
++            for name,mutate in malformed:
++                path=root/name; before=path.read_text(); data=json.loads(before) if name.endswith(".json") else before
++                changed=mutate(data); path.write_text(json.dumps(changed) if name.endswith(".json") else changed)
++                try:
++                    load(root)
++                except ValueError:
++                    rejected += 1
++                else:
++                    raise AssertionError("malformed GDN evidence accepted: "+name)
++                finally:
++                    path.write_text(before)
++            for key in ("server_env", "server_command"):
++                broken=copy.deepcopy(composed)
++                if key=="server_env":broken[key]["UNRELATED_FLAG"]="1"
++                else:broken[key].append("--unrelated-override")
++                try:compare(a,broken)
++                except ValueError:rejected+=1
++                else:raise AssertionError("unrelated runtime override accepted")
++            parent_copy=copy.deepcopy(composed)
++            parent_copy["manifest"]["run_nonce"]="other"
++            expert="kernels/moe-nvfp4/"+variant.removesuffix("_gdn")+"/vllm/"+EXPERT
++            parent_copy["source_manifest"]["files"][expert]="changed-but-same-parent"
++            try:compare(composed,parent_copy)
++            except ValueError:rejected+=1
++            else:raise AssertionError("same-parent source drift accepted")
++        # Matched-FI fixture uses the frozen real reference and verifier sources,
++        # with synthetic worker evidence (no vLLM imports or device initialization).
++        local = HERE.parent / IDENTITY.FI_ROOT
++        config_path = root / "config.txt"
++        config_path.write_text(config_path.read_text()+"fi_control=1\nfi_source_sha256="+IDENTITY.FI_SHA+"\n")
++        sources=json.loads((root/"source_manifest.json").read_text())
++        sources["fi_control"]=True
++        for relative in IDENTITY.FI_FILES:
++            content=(local/relative).read_text()
++            save_gdn("source_files/"+IDENTITY.FI_ROOT+relative,content)
++            sources["files"][IDENTITY.FI_ROOT+relative]=sha(content.encode())
++        save_gdn("source_manifest.json",sources)
++        save_gdn("source_verify.log",{"status":"passed","action":"verify","variant":"scalar_gdn","files":len(sources["files"])})
++        container=json.loads((root/"container.json").read_text())[0]
++        container["Config"]["Env"] += [k+"="+v for k,v in IDENTITY.FI_ENV.items()]
++        container["Mounts"].append({"Type":"bind","Source":"/fixture/kernels/decode-route-capture","Destination":"/opt/qwen-fi-control","RW":False,"Mode":"ro"})
++        save_gdn("container.json",[container])
++        document=json.loads((local/"references/next_cpu_audit_autotune.json").read_text())
++        provenance=json.loads((local/"references/next_cpu_audit_autotune.provenance.json").read_text())
++        table_hash=provenance["reference_entries_sha256"]
++        prefix="serving/fi_control/autotune/"
++        save_gdn(prefix+"source.json",(local/"references/next_cpu_audit_autotune.json").read_text())
++        stages=("preloaded","loaded","after_warmup","server_startup","server_shutdown")
++        verification={"server_checkpoint":"shutdown_verified","source_sha256":IDENTITY.FI_SHA,
++            "import_mode":"fixed_reference_replay_v1",
++            "preload":{"path":"/bench-results/fi_control/autotune/source.json","returned":True,"boundary":"before_worker_load_model"},
++            "server_startup_boundary":"after_compile_or_warm_up_model",
++            "reference_entries_sha256":table_hash,"reference_entries":132,
++            "status":"reference_tactics_verified_without_lookup_observation",
++            "compiled_graph_cache_imported":False,"lookup_observation_enabled":False,"serving_lookup_observer":False,
++            "runtime_source_sha256":{"flashinfer_autotuner":"a"*64,"vllm_kernel_warmup":"b"*64},
++            "load_calls":[{"path":"/bench-results/fi_control/cache/autotune_import/autotune_configs_dp0_rank0.json","returned":True}],
++            "selected_inductor_config_count":1,
++            "checks":{stage:{"reference_entries":132,"actual_entries":132,"entries_sha256":table_hash,
++                             "missing":[],"extra":[],"changed":[]} for stage in stages}}
++        save_gdn(prefix+"verification.json",verification)
++        for stage in stages:
++            save_gdn(prefix+stage+"_tactics.json",{k:v for k,v in document.items() if k.startswith("(")})
++        for stage in ("startup","shutdown"):
++            save_gdn(prefix+"server_"+stage+"_effective.json",document)
++            save_gdn("fi_"+stage+"_verify.json",{"verified_stage":"server_"+stage,"source_sha256":IDENTITY.FI_SHA,
++                    "effective_entries_sha256":table_hash,"entries":132,"inductor_pinned":False,"serving_lookup_observer":False,
++                    "import_mode":"fixed_reference_replay_v1","preload_boundary":"before_worker_load_model"})
++        selected={"XBLOCK":1,"R0_BLOCK":1024,"num_warps":8}
++        save_gdn(prefix+"compiler_config_audit.json",{"files":[{"path":"fixture.best_config","selected":selected,
++                    "selected_sha256":sha(json.dumps(selected,sort_keys=True,separators=(",",":")).encode())}]})
++        controlled=load(root)
++        other=copy.deepcopy(controlled);other["manifest"]["run_nonce"]="other-controlled"
++        require(compare(controlled,other)["runtime_changes"]["fi_control"],"matched FI identity not reported")
++        # Changed/new/removed compiler kernels are observable differences, not
++        # a reason to reject a composed graph with matched FI reference tactics.
++        different=copy.deepcopy(other)
++        audit=different["fi_evidence"]["compiler_config_audit"]
++        audit["files"][0]["selected"]={"XBLOCK":2}
++        audit["files"][0]["selected_sha256"]=sha(b'{"XBLOCK":2}')
++        audit["files"].append({"path":"new_gdn.best_config","selected":{},"selected_sha256":sha(b'{}')})
++        changes=compare(controlled,different)["runtime_changes"]["inductor_config_changes"]
++        require("fixture.best_config" in changes["changed"] and "new_gdn.best_config" in changes["added"],
++                "Inductor selection/new-kernel changes were not reported")
++        reverse=compare(different,controlled)["runtime_changes"]["inductor_config_changes"]
++        require("new_gdn.best_config" in reverse["removed"],"removed Inductor kernel not reported")
++        try:compare(a,controlled)
++        except ValueError:rejected+=1
++        else:raise AssertionError("controlled-vs-unpinned pair accepted")
++        def altered_effective(x):
++            key=next(k for k in x if k.startswith("("));x[key]=[x[key][0],-123];return x
++        malformed=[
++            ("config.txt",lambda x:x.replace("fi_source_sha256="+IDENTITY.FI_SHA,"fi_source_sha256="+"0"*64)),
++            ("container.json",lambda x:[{**x[0],"Mounts":[{**m,"RW":True} if m["Destination"]=="/opt/qwen-fi-control" else m for m in x[0]["Mounts"]]}]),
++            (prefix+"source.json",altered_effective),
++            (prefix+"preloaded_tactics.json",altered_effective),
++            (prefix+"verification.json",lambda x:{**x,"import_mode":"legacy_file_load"}),
++            (prefix+"verification.json",lambda x:{**x,"preload":{**x["preload"],"returned":False}}),
++            (prefix+"verification.json",lambda x:{**x,"server_startup_boundary":"before_graph_capture"}),
++            (prefix+"server_startup_effective.json",altered_effective),
++            (prefix+"server_shutdown_effective.json",altered_effective),
++            (prefix+"verification.json",lambda x:{**x,"server_checkpoint":"warmup_verified"}),
++            (prefix+"verification.json",lambda x:{**x,"reference_entries_sha256":"0"*64}),
++            (prefix+"verification.json",lambda x:{**x,"load_calls":[{"returned":False}]}),
++            (prefix+"verification.json",lambda x:{**x,"checks":{k:v for k,v in x["checks"].items() if k!="loaded"}}),
++            ("fi_startup_verify.json",lambda x:{**x,"entries":131}),
++            ("fi_shutdown_verify.json",lambda x:{**x,"effective_entries_sha256":"0"*64}),
++            (prefix+"compiler_config_audit.json",lambda x:{"files":[{**x["files"][0],"selected":{"XBLOCK":99}}]}),
++        ]
++        for name,mutate in malformed:
++            path=root/name;before=path.read_text();value=json.loads(before) if name.endswith(".json") else before
++            changed=mutate(value);path.write_text(json.dumps(changed) if name.endswith(".json") else changed)
++            try:load(root)
++            except ValueError:rejected+=1
++            else:raise AssertionError("malformed FI evidence accepted: "+name)
++            finally:path.write_text(before)
+     print(json.dumps({"status": "passed", "mode": "cpu_preflight", "http_requests": 0, "gpu_work": False,
+                       "variable_scenario_count": 2, "malformed_fixtures_rejected": rejected,
+-                      "script_sha256": sha(Path(__file__).read_bytes())}))
++                      "script_sha256": sha(Path(__file__).read_bytes()),
++                      "identity_sha256": sha((HERE / "compare_runtime_identity.py").read_bytes())}))
+ 
+ 
+ def main():
+diff --git a/bench/compare_serving_matrix.py b/bench/compare_serving_matrix.py
+index 80f1e60..33818e5 100644
+--- a/bench/compare_serving_matrix.py
++++ b/bench/compare_serving_matrix.py
+@@ -4,38 +4,100 @@ Usage: python3 bench/compare_serving_matrix.py BASE_RUN CANDIDATE_RUN
+ Inputs are qwen_experiment.sh result directories; no server/GPU access.
+ """
+ import json
++import argparse
++from dataclasses import asdict
++import hashlib
++import importlib.util
++import math
++from types import SimpleNamespace
+ from pathlib import Path
+ import sys
+ 
+ 
++HERE=Path(__file__).resolve().parent
++SPEC=importlib.util.spec_from_file_location("serving_pair_greedy",HERE/"compare_greedy_decode.py")
++GREEDY=importlib.util.module_from_spec(SPEC);SPEC.loader.exec_module(GREEDY)
++MATRIX,IDENTITY=GREEDY.MATRIX,GREEDY.IDENTITY
++require=IDENTITY.require
++
++
++def validate_matrix(data, manifest, read, text):
++    args=dict(manifest["arguments"]);args.setdefault("temperature",None)
++    require(args["suite"]=="all", "not a full serving suite")
++    cases=MATRIX.scenarios("all",args["seed_offset"])
++    require(manifest["scenarios"]==json.loads(json.dumps([asdict(c) for c in cases])),
++            "unexpected full-matrix shapes/counts/seeds")
++    require(data["status"]=="passed" and not data.get("error") and len(data["results"])==len(cases),
++            "incomplete serving matrix")
++    summaries={r["scenario"]:r for r in data["results"]}
++    require(len(summaries)==len(cases) and set(summaries)=={c.name for c in cases}, "duplicate/missing serving rows")
++    commands=manifest["commands"]
++    require(len(commands)==2*len(cases), "missing matrix phases")
++    require(len({x["cache_salt"] for x in commands})==len(commands), "reused phase cache salt")
++    targets=read("expected_output_lengths.json")
++    events=[json.loads(line) for line in text("events.jsonl").splitlines() if line]
++    normalized=[]
++    for i,case in enumerate(cases):
++        for warmup in (True,False):
++            phase=MATRIX.phase_name(case,warmup)
++            saved=commands[2*i+(0 if warmup else 1)]
++            argv=MATRIX.bench_command(SimpleNamespace(**args),case,warmup,manifest["container_result_dir"],manifest["run_nonce"])
++            require(saved["scenario"]==case.name and saved["warmup"] is warmup and saved["command"]==argv,
++                    "benchmark command differs from declared scenario: "+phase)
++            require(saved["cache_salt"]==MATRIX.cache_salt(manifest["run_nonce"],case,warmup), "phase salt mismatch")
++            starts=[e for e in events if e.get("kind")=="command_start" and e.get("log")==phase+".log"]
++            ends=[e for e in events if e.get("kind")=="command_end" and e.get("log")==phase+".log"]
++            require(len(starts)==len(ends)==1 and starts[0]["argv"]==argv and ends[0]["returncode"]==0,
++                    "actual command/exit evidence mismatch: "+phase)
++            result=read(phase+".json")
++            row=MATRIX.result_row(result,case,warmup,targets["cases"][phase]["output_lens"])
++            require(result["total_input_tokens"]==sum(result["input_lens"])
++                    and result["total_output_tokens"]==sum(result["output_lens"]), "inconsistent token totals")
++            for field,count in (("req_s",row["completed"]),("out_tok_s",result["total_output_tokens"]),
++                                ("total_tok_s",result["total_input_tokens"]+result["total_output_tokens"])):
++                require(math.isclose(row[field],count/row["duration_s"],rel_tol=1e-8), "inconsistent timing/rate totals")
++            if not warmup:require(row==summaries[case.name],"summary differs from detailed result")
++            norm=argv[:];norm[2]="CONTAINER"
++            for flag in ("--base-url","--result-dir","--extra-body"):
++                norm[norm.index(flag)+1]="RUN_SPECIFIC"
++            normalized.append(norm)
++    return {"expected_lengths":targets,"normalized_commands":normalized}
++
++
+ def load(path):
+-    root = Path(path)
+-    if (root / "exit_code.txt").read_text().strip() != "0":
+-        raise ValueError(f"experiment did not complete successfully: {root}")
+-    matrix = root / "serving/serving_matrix_all"
+-    data = json.loads((matrix / "summary.json").read_text())
+-    manifest = json.loads((matrix / "manifest.json").read_text())
+-    if data["status"] != "passed" or len(data["results"]) != 17:
+-        raise ValueError(f"incomplete serving matrix: {root}")
+-    config = dict(line.split("=", 1) for line in (root / "config.txt").read_text().splitlines())
+-    return root, matrix, data, manifest, config
++    root=Path(path); hashes={}
++    def text(relative):
++        content=(root/relative).read_bytes();hashes[relative]=hashlib.sha256(content).hexdigest();return content.decode()
++    def read(relative):return json.loads(text(relative))
++    require(text("exit_code.txt").strip()=="0",f"experiment did not complete successfully: {root}")
++    prefix="serving/serving_matrix_all/"
++    data,manifest=read(prefix+"summary.json"),read(prefix+"manifest.json")
++    runtime=IDENTITY.load(root,text,read,allow_legacy_sources=True)
++    require(manifest["arguments"]["container"]=="qwen-exp-"+root.name,"request/container identity mismatch")
++    validated=validate_matrix(data,manifest,lambda name:read(prefix+name),lambda name:text(prefix+name))
++    data["comparison_validation"]={**validated,"runtime":runtime,"input_sha256":hashes}
++    return root,root/prefix,data,manifest,runtime["config"]
+ 
+ 
+ def counters(path):
+-    values = {}
+-    for name in ("num_drafts", "num_draft_tokens", "num_accepted_tokens"):
+-        prefix = f"vllm:spec_decode_{name}_total"
+-        values[name] = sum(float(line.split()[-1]) for line in path.read_text().splitlines()
+-                           if line.startswith(prefix + "{") or line.startswith(prefix + " "))
+-    return values
+-
+-
+-def acceptance(matrix, scenario):
+-    pre = counters(matrix / f"{scenario}.measured.metrics_before.txt")
+-    post = counters(matrix / f"{scenario}.measured.metrics_after.txt")
+-    delta = {key: post[key] - value for key, value in pre.items()}
+-    if any(value < 0 for value in delta.values()):
+-        raise ValueError("MTP counters reset during the measured phase")
++    series=GREEDY.mtp_series(path.read_text())
++    return {name:sum(values.values()) for name,values in series.items()}
++
++
++def acceptance(matrix, scenario, hashes=None):
++    def series(phase):
++        path=matrix/f"{scenario}.measured.metrics_{phase}.txt"
++        content=path.read_bytes()
++        if hashes is not None:hashes[str(path.relative_to(matrix.parent.parent))]=hashlib.sha256(content).hexdigest()
++        return GREEDY.mtp_series(content.decode())
++    pre,post=series("before"),series("after")
++    delta={}
++    for name in GREEDY.COUNTERS:
++        require(pre[name].keys()==post[name].keys(),"MTP series changed during phase")
++        changes=[post[name][key]-value for key,value in pre[name].items()]
++        require(all(value>=0 for value in changes),"MTP counters reset during measured phase")
++        delta[name]=sum(changes)
++    require(delta["num_accepted_tokens"]<=delta["num_draft_tokens"],"invalid accepted token count")
+     return (delta["num_accepted_tokens"] / delta["num_draft_tokens"]
+             if delta["num_draft_tokens"] else None)
+ 
+@@ -44,35 +106,108 @@ def change(before, after):
+     return f"{100 * (after / before - 1):+.1f}%" if before else "—"
+ 
+ 
++def preflight():
++    import copy
++    files={};cases=MATRIX.scenarios("all",0)
++    args=MATRIX.parser().parse_args(["--container","qwen-exp-fixture","--output-dir","/fixture","--suite","all"])
++    remote="/bench-results/serving_matrix_all";nonce="fixture"
++    manifest={"arguments":vars(args),"scenarios":json.loads(json.dumps([asdict(c) for c in cases])),
++              "run_nonce":nonce,"container_result_dir":remote,"commands":[]}
++    summaries=[];events=[];targets={}
++    for case in cases:
++        for warmup in (True,False):
++            phase=MATRIX.phase_name(case,warmup);n=case.warmups if warmup else case.prompts
++            argv=MATRIX.bench_command(args,case,warmup,remote,nonce)
++            manifest["commands"].append({"scenario":case.name,"warmup":warmup,"command":argv,
++                                         "cache_salt":MATRIX.cache_salt(nonce,case,warmup)})
++            events += [{"kind":"command_start","log":phase+".log","argv":argv},
++                       {"kind":"command_end","log":phase+".log","returncode":0}]
++            result={"num_prompts":n,"max_concurrency":case.concurrency,"completed":n,"failed":0,
++                    **{field:1.0 for field in MATRIX.METRICS.values()},
++                    **{field:[1.0]*n for field in MATRIX.DETAILS},
++                    "input_lens":[case.input_len]*n,"output_lens":[case.output_len]*n,
++                    "errors":[""]*n,"generated_texts":["fixture"]*n,"itls":[[] if case.output_len==1 else [.001]]*n,
++                    "duration":2.,"total_input_tokens":case.input_len*n,"total_output_tokens":case.output_len*n,
++                    "request_throughput":n/2,"output_throughput":case.output_len*n/2,
++                    "total_token_throughput":(case.input_len+case.output_len)*n/2}
++            files[phase+".json"]=result;targets[phase]={"output_lens":[case.output_len]*n}
++            if not warmup:summaries.append(MATRIX.result_row(result,case,warmup,targets[phase]["output_lens"]))
++    files["events.jsonl"]="\n".join(json.dumps(x) for x in events)
++    files["expected_output_lengths.json"]={"cases":targets}
++    data={"status":"passed","results":summaries,"error":None}
++    validate_matrix(data,manifest,files.__getitem__,files.__getitem__)
++    rejected=0
++    fixtures=[("summary",lambda d:d["results"].__setitem__(1,d["results"][0])),
++              ("manifest",lambda d:d["scenarios"][0].update(prompts=1)),
++              ("manifest",lambda d:d["commands"][1]["command"].append("--temperature")),
++              ("files",lambda d:d["long-doc.measured.json"].update(output_lens=[1]*8)),
++              ("files",lambda d:d["mixed-len.measured.json"]["output_lens"].__setitem__(0,1)),
++              ("files",lambda d:d["prefill-8192.measured.json"].update(completed=7)),
++              ("files",lambda d:d["events.jsonl"] and d.update({"events.jsonl":d["events.jsonl"].replace('"returncode": 0','"returncode": 1',1)}))]
++    for target,mutate in fixtures:
++        values={"summary":copy.deepcopy(data),"manifest":copy.deepcopy(manifest),"files":copy.deepcopy(files)}
++        mutate(values[target])
++        try:validate_matrix(values["summary"],values["manifest"],values["files"].__getitem__,values["files"].__getitem__)
++        except ValueError:rejected+=1
++        else:raise AssertionError("malformed full-matrix fixture accepted")
++    print(json.dumps({"status":"passed","mode":"cpu_preflight","scenarios":17,
++                      "malformed_fixtures_rejected":rejected,"gpu_work":False,"http_requests":0}))
++
++
+ def main():
+-    a, b = load(sys.argv[1]), load(sys.argv[2])
+-    for field in ("config", "gpu_util"):
+-        if a[4][field] != b[4][field]:
+-            raise ValueError(f"incompatible {field}")
+-    if (a[0] / "image.txt").read_text() != (b[0] / "image.txt").read_text():
+-        raise ValueError("different container images")
+-    if a[3]["scenarios"] != b[3]["scenarios"]:
+-        raise ValueError("different workload definitions/seeds")
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("baseline",nargs="?");parser.add_argument("candidate",nargs="?")
++    parser.add_argument("--preflight",action="store_true")
++    parser.add_argument("--output-prefix",type=Path)
++    args=parser.parse_args()
++    if args.preflight:
++        preflight();return
++    require(args.baseline and args.candidate,"baseline and candidate required")
++    a,b=load(args.baseline),load(args.candidate)
++    av,bv=a[2]["comparison_validation"],b[2]["comparison_validation"]
++    changes=IDENTITY.compare(av["runtime"],bv["runtime"],allow_legacy_sources=True)
++    for key in ("expected_lengths","normalized_commands"):
++        require(av[key]==bv[key],"incompatible "+key)
++    require(a[3]["run_nonce"]!=b[3]["run_nonce"],"runs reused cache namespace")
++    require(a[3]["scenarios"]==b[3]["scenarios"],"different workload definitions/seeds")
++    lines=[];paired_rows=[]
++    def emit(value=""):
++        lines.append(value)
++        print(value)
+     rows_b = {r["scenario"]: r for r in b[2]["results"]}
+-    print(f"Baseline `{a[0].name}`; candidate `{b[0].name}`; GPU utilization {a[4]['gpu_util']}.")
+-    print("\nPositive rate changes mean faster; negative latency changes mean faster.")
++    emit(f"Baseline `{a[0].name}`; candidate `{b[0].name}`; GPU utilization {a[4]['gpu_util']}.")
++    emit("\nPositive rate changes mean faster; negative latency changes mean faster.")
++    emit("\nRuntime identity: " + changes["source_validation"] + "; FI control=" + str(changes["fi_control"]) + ".")
++    emit("Validated source/config differences: `" + json.dumps(changes,sort_keys=True) + "`")
+     for suite in ("throughput", "prefill", "decode"):
+-        print(f"\n**{suite}**\n")
+-        print("| task | total tok/s baseline / candidate | change | TTFT p50 ms baseline / candidate | change | ITL p50 ms baseline / candidate | output tok/s change | MTP acceptance baseline / candidate |")
+-        print("|---|---:|---:|---:|---:|---:|---:|---:|")
++        emit(f"\n**{suite}**\n")
++        emit("| task | total tok/s baseline / candidate | change | TTFT p50 ms baseline / candidate | change | ITL p50 ms baseline / candidate | output tok/s change | MTP acceptance baseline / candidate |")
++        emit("|---|---:|---:|---:|---:|---:|---:|---:|")
+         for x in a[2]["results"]:
+             if x["suite"] != suite:
+                 continue
+             y = rows_b[x["scenario"]]
+-            rates = [acceptance(run[1], x["scenario"]) for run in (a, b)]
++            rates = [acceptance(run[1], x["scenario"],run[2]["comparison_validation"]["input_sha256"]) for run in (a, b)]
++            paired_rows.append({"scenario":x["scenario"],"baseline":x,"candidate":y,
++                                "mtp_acceptance":{"baseline":rates[0],"candidate":rates[1]}})
+             mtp = " / ".join(f"{100*r:.1f}%" if r is not None else "—" for r in rates)
+-            print(f"| {x['scenario']} | {x['total_tok_s']:.1f} / {y['total_tok_s']:.1f} | "
++            emit(f"| {x['scenario']} | {x['total_tok_s']:.1f} / {y['total_tok_s']:.1f} | "
+                   f"{change(x['total_tok_s'], y['total_tok_s'])} | "
+                   f"{x['med_ttft_ms']:.1f} / {y['med_ttft_ms']:.1f} | "
+                   f"{change(x['med_ttft_ms'], y['med_ttft_ms'])} | "
+                   f"{x['med_itl_ms']:.2f} / {y['med_itl_ms']:.2f} | "
+                   f"{change(x['out_tok_s'], y['out_tok_s'])} | {mtp} |")
+-    print("\nThese are single-run task comparisons. Dataset seeds fix prompts; sampling follows the request/model settings recorded with each run.")
++    emit("\nThese are single-run task comparisons. Dataset seeds fix prompts; sampling follows the request/model settings recorded with each run.")
++
++    if args.output_prefix is not None:
++        report={"status":"complete_compatible_pair" if changes["source_validation"]=="verified" else "complete_legacy_pair_source_unverified", "runtime_changes":changes, "rows":paired_rows,
++                "baseline":{"name":a[0].name,"validation":av,"manifest":a[3]},
++                "candidate":{"name":b[0].name,"validation":bv,"manifest":b[3]},
++                "analysis_source_sha256":{p.name:hashlib.sha256(p.read_bytes()).hexdigest()
++                    for p in (Path(__file__),HERE/"compare_runtime_identity.py",HERE/"compare_greedy_decode.py",HERE/"serving_matrix.py")}}
++        args.output_prefix.parent.mkdir(parents=True,exist_ok=True)
++        Path(str(args.output_prefix)+".json").write_text(json.dumps(report,indent=2,allow_nan=False)+"\n")
++        Path(str(args.output_prefix)+".md").write_text("\n".join(lines)+"\n")
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md b/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
+index 46282c8..2b2a1d6 100644
+--- a/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
++++ b/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
+@@ -216,3 +216,23 @@ microbenchmarks alone do not satisfy this request.
+   MTP capture stopped on an unwarmed descriptor: MRV2 rounds184 to186 tokens
+   for decode_query_len3. Warmup coverage fix is in CPU preparation; original
+   failed run/source snapshots retained. No serving or speed claim for this run.
++
++- FAILED session7614 (first startup exit1, no measured requests): scalar_matched_1 then exact_matched_1, each individual17
++  serving tasks + legacyquality + explicitgreedydecode +NLL_ROUNDS3. FI_CONTROL1
++  imports one immutable132-key reference table; startup and graceful-shutdown
++  effective table gates must pass. Six importer files, runner/sourcehelper and
++  mounted MoE/build sources are frozen. Inductor caches remain separate/unpinned.
++- GDN CPU review also found explicit split config changes vLLM defaults: baseline
++  adds two KV-update boundaries and disables rope-KV fusion. FirstGDN omitted
++  them and enabled that unrelated fusion. Generator correction is in progress;
++  retain baseline19 split ops and disabled rope fusion, then add only GDN op.
++
++- FI startup check rejected20 changed effective tactics despite132/132 exact
++  loaded entries. Dense FP4 uses cold-L2 tuning policy; FI intentionally ignores
++  legacy persisted entries while tuning under that policy. Fixed-reference replay
++  via native tune_mode=False and early loading is in CPU preparation; do not relax
++  the table identity gates. Failed scalar_matched_1 evidence is checkpointed.
++- LIVE session14108: gdn_integration_2(shared_exact_gdn diagnostic, greedy1,NLL1,
++  FI_CONTROL0). Warmup planner now covers81 sizes; completed baseline19 splits,
++  rope-fusionFalse plus GDN op. This is integration validation, not a matched
++  speed pair. Mounted GDN and runner/config sources frozen until terminal.
+diff --git a/kernels/decode-route-capture/CONTROLS.md b/kernels/decode-route-capture/CONTROLS.md
+index 8aaffeb..bacd108 100644
+--- a/kernels/decode-route-capture/CONTROLS.md
++++ b/kernels/decode-route-capture/CONTROLS.md
+@@ -3,6 +3,14 @@
+ Prepared after the failed c1 checkpoint; CPU-tested and **GPU-unrun**. Default
+ inference options are unchanged. No additional GPU job was started.
+ 
++Scheduling update: the first serving import exposed native dense FP4 cold-L2
++retuning despite a successful legacy v1 table load. The server plugin now has
++explicit early fixed-reference replay; this offline driver still uses native
++tuning. Before scheduling the matched commands below, extend the offline path
++with the same early-load/replay lifecycle and retain its observed-lookup coverage
++checks. Otherwise a changed-table failure is expected and must remain a failure.
++See [the source diagnosis and server mode](SERVER_INTEGRATION.md).
++
+ ## Options
+ 
+ - `--native-aux-control` enables vLLM's native aux connector but does not create
+diff --git a/kernels/decode-route-capture/README.md b/kernels/decode-route-capture/README.md
+index dfef742..451726a 100644
+--- a/kernels/decode-route-capture/README.md
++++ b/kernels/decode-route-capture/README.md
+@@ -7,7 +7,7 @@ in 51/132 entries. The signed target artifact passes structural checks; full
+ target/draft capture is pending. This checkpoint supports no optimization
+ adoption. See [the recorded result](RESULTS.md) for scope and proposed controls.
+ 
+-The 42 CPU analysis/launcher/driver/import/server-plugin tests pass.
++The 47 CPU analysis/launcher/driver/import/server-plugin tests pass.
+ Hooks were inspected against installed vLLM 0.32.0 / Torch 2.13.0+cu130 /
+ FlashInfer 0.7.0.post1 sources in `qwen-prefill-dev`. The target path completed
+ compilation, graph replay, capture, export and shutdown. Draft graph compatibility
+@@ -85,11 +85,15 @@ and GPU-unrun. Default inference options are unchanged. Completed inference now
+ gets structural route analysis even after an exact-token mismatch; overall
+ failure is preserved, with diagnostic analysis saved separately.
+ 
+-The separate [serving cache-control plugin](SERVER_INTEGRATION.md) imports a
+-frozen reference table before worker warmup and verifies effective snapshots at
+-startup and shutdown. The parent serving runner enables it with `FI_CONTROL=1`.
++The separate [serving cache-control plugin](SERVER_INTEGRATION.md) preloads a
++frozen reference table before model loading, replays native cache lookup without
++retuning during warmup, and verifies effective snapshots after graph capture and
++at shutdown. The parent serving runner enables it with `FI_CONTROL=1`.
+ It installs no route hooks or per-lookup serving observer; Inductor settings
+ remain independently selected and audited.
++The first native-tuning import failed before measured requests because cold-L2
++dense FP4 tuning ignored legacy v1 entries. Revised replay mode passes CPU tests
++and still requires GPU validation.
+ 
+ ## What is captured
+ 
+diff --git a/kernels/decode-route-capture/SERVER_INTEGRATION.md b/kernels/decode-route-capture/SERVER_INTEGRATION.md
+index dd3b4df..84a4c6e 100644
+--- a/kernels/decode-route-capture/SERVER_INTEGRATION.md
++++ b/kernels/decode-route-capture/SERVER_INTEGRATION.md
+@@ -1,10 +1,13 @@
+ # Fixed FlashInfer table for sequential serving comparisons
+ 
+ The optional mount-only plugin imports one immutable FlashInfer v1 JSON table
+-before the actual worker's native autotune warmup. It exports the effective table
+-after warmup and before worker shutdown. It adds no routing hooks, raw tensor
++before the actual worker loads the model. It replays that table through native
++non-tuning cache lookup during warmup and exports the effective table after graph
++capture and before worker shutdown. It adds no routing hooks, raw tensor
+ copies, or per-lookup Python observer to serving. Default launches remain unchanged.
+-CPU validation passes; the first parent-owned GPU pair is pending validation.
++CPU validation passes. The first parent-owned GPU attempt failed before measured
++requests because native cold-L2 tuning ignored the imported dense FP4 entries.
++The revised replay mode is GPU-unvalidated; see the failure diagnosis below.
+ 
+ ## Integrated launch
+ 
+@@ -24,7 +27,7 @@ are required. Do not nest another acquisition of the same lock around it.
+ The plugin is registered through `vllm.general_plugins` using the included
+ `.dist-info/entry_points.txt`. Mounting the directory on `PYTHONPATH` makes the
+ entry point available in both the API process and spawned workers. Registration
+-only installs lazy callbacks; the worker that actually warms the model creates
++only installs lazy callbacks; the worker that actually loads the model creates
+ the importer and artifacts. An existing `VLLM_PLUGINS` allowlist must include
+ `qwen_fi_control`; preserve any other required plugins.
+ 
+@@ -70,6 +73,17 @@ does not bypass FlashInfer's tactic validity checks. It supports only the
+ installed vLLM 0.32 / FlashInfer 0.7.0.post1 single-GPU, legacy-v1 cache API;
+ unsupported winner partitions fail explicitly.
+ 
++An early native load runs at entry to `Worker.load_model`, after device setup
++and before model construction, profiling or graph capture. Existing FI winners,
++file entries, or active tuning cause an explicit failure; they are never silently
++cleared. At native warmup the importer also seeds and checks the actual rank file.
++Within this controlled warmup only, both vLLM's outer and nested autotune contexts
++use FI's supported `tune_mode=False`. Native lookup and tactic validity checks
++remain active; the plugin does not force tactic IDs or invent profiling-policy
++metadata. The original context-manager API is restored even on failure. The
++startup snapshot is taken after `Worker.compile_or_warm_up_model` returns,
++including graph capture.
++
+ The source JSON is copied with exclusive creation into the actual rank path
+ resolved by vLLM, including the configuration hash and `_dp0_rank0` suffix. Only
+ JSON is imported. No CUDA graphs, JIT binaries or Inductor settings are imported.
+@@ -96,19 +110,22 @@ a successful startup gate alone is insufficient for a complete controlled run.
+ Artifacts under `serving/fi_control/autotune/` include:
+ 
+ - `source.json`: exact imported bytes, with the declared SHA256.
+-- `verification.json`: load returns, actual rank path, stage checks, reference
++- `verification.json`: early preload and rank-load returns, actual rank path, stage checks, reference
+   identity in `source_sha256`, installed-code hashes in `runtime_source_sha256`,
+-  and `server_checkpoint`.
++  `import_mode=fixed_reference_replay_v1`, and `server_checkpoint`.
+ - `server_startup_effective.json` and `server_shutdown_effective.json`: complete
+   FI-loadable snapshots, with original environment metadata and effective
+   in-memory winners overriding loaded entries.
+ - `compiler_config_audit.json`: available selected Inductor configurations and
+   hashes, recorded for comparison and never pinned by this plugin.
+ 
+-The gate requires the appropriate verified checkpoint, matching declared and
++The gate requires the replay mode, a successful preload at
++`before_worker_load_model`, and the startup boundary
++`after_compile_or_warm_up_model`, in addition to the appropriate verified checkpoint, matching declared and
+ saved-source hashes, and exact effective-entry hash equality including the key
+ set. `verify_artifacts(out, expected_sha256, require_shutdown=True)` returns
+ `verified_stage`, `source_sha256`, `effective_entries_sha256`, `entries`,
++`import_mode`, `preload_boundary`,
+ `inductor_pinned=False`, and `serving_lookup_observer=False`.
+ 
+ A paired comparator should require both runs to declare `FI_CONTROL=1`, use the
+@@ -137,16 +154,48 @@ kernels/decode-route-capture/references/next_cpu_audit_autotune.json
+ kernels/decode-route-capture/references/next_cpu_audit_autotune.provenance.json
+ ```
+ 
+-The 42 CPU tests cover actual importer flow against mocked FI/vLLM dependencies,
++The 47 CPU tests cover actual importer flow against mocked FI/vLLM dependencies,
+ source identity through both server gates, native method return preservation,
+ lazy worker ownership, missing shutdown, effective drift, rejected loads,
+ uncovered lookups, cleanup despite audit failure, entry-point discovery, and the
+-`python3 -I` CLI. No GPU or live HTTP requests are made by these tests.
++`python3 -I` CLI. They also reproduce cold-L2 retuning of a successfully loaded
++legacy table, verify replay of both nested contexts, reject preexisting winners,
++and check native API restoration after failure. No GPU or live HTTP requests are
++made by these tests.
++
++## Failed first import and the diagnosed cause
++
++`results/qwen_sequential/scalar_matched_1` retains the failed first attempt.
++The reference loaded with all 132 entries unchanged. After native warmup,
++20 `CutlassFp4GemmRunner` entries differed, including M=1 tactic 7 becoming 0
++and M=1024 tactic 13 becoming 12 for packed K=1024. The strict check aborted
++startup; no measured request or paired performance comparison was completed.
++These original artifacts and their failure status are unchanged.
++
++The installed source explains the dense-only retuning:
++
++- `flashinfer/gemm/gemm_base.py:7887-7890` configures 128x4 FP4 GEMM with
++  `use_cuda_graph=True, use_cold_l2_cache=True`.
++- `flashinfer/autotuner/autotuner.py:3304-3312` assigns legacy v1 persisted
++  entries a hot-L2 default policy.
++- The same file, `1969-1973`, deliberately skips file entries while tuning when
++  the requested policy differs. Lines `2330-2337` then profile cache misses.
++- `vllm/model_executor/warmup/kernel_warmup.py:483` opens the outer tuning context;
++  line `374` opens a nested context with default tuning enabled.
++- Saved logs show dense FP4 retuning, while MoE reports file-cache hits.
++
++Consequently, loading earlier or clearing memory winners alone cannot prevent
++this retuning. The revised control explicitly selects fixed-reference replay
++instead of claiming that a v1 JSON records cold-L2 measurement provenance. The
++old attempted mode is named `native_tuning_with_reference_v1`; it cannot pass the
++new server gate. Verification has not been relaxed.
+ 
+ ## Pending decode controls
+ 
+ The offline commands in [CONTROLS.md](CONTROLS.md) remain pending a separate root
+-GPU slot. Use the preserved original **decode control** JSON for those commands:
++GPU slot **and equivalent early fixed-reference replay integration in the offline
++driver**. Its current optional importer retains native tuning, so dense FP4 can
++hit the same cold-L2 override and correctly fail verification. Use the preserved original **decode control** JSON for those commands:
+ its warmed shapes correspond to that workload. Do not assume the serving table
+ above covers every decode/native-aux/draft lookup. The offline importer observes
+ actual lookup results and `--require-autotune-coverage` fails missing coverage.
+diff --git a/kernels/decode-route-capture/autotune_import.py b/kernels/decode-route-capture/autotune_import.py
+index c80e4ca..8102a84 100644
+--- a/kernels/decode-route-capture/autotune_import.py
++++ b/kernels/decode-route-capture/autotune_import.py
+@@ -3,6 +3,7 @@
+ No compiled-graph cache is imported. CUDA/vLLM imports occur only in install().
+ The supported implementation is FlashInfer 0.7.0.post1, vLLM 0.32, single GPU.
+ """
++import contextlib
+ import functools
+ import hashlib
+ import importlib
+@@ -68,6 +69,7 @@ class AutotuneImport:
+         self.cache_root = self.out.parent / "cache" / "autotune_import"
+         self.phase, self.observed, self.misses = "warmup", {}, {}
+         self.tuner = self.encode = None
++        self.warmup_started = False
+         self.report = {"status": "prepared_not_loaded", "source": str(self.source),
+                        "source_sha256": hashlib.sha256(self.source_bytes).hexdigest(),
+                        "reference_entries": len(self.reference), "load_calls": [],
+@@ -111,7 +113,59 @@ class AutotuneImport:
+                                           {"phase": self.phase, "key": key, "calls": 0})
+         event["calls"] += 1
+ 
+-    def install(self, *, original_warmup=None):
++    def preload(self):
++        """Native load before Worker.load_model, before profiling or graph capture.
++
++        Existing winners are a lifecycle error, not state to silently clear.
++        The actual rank file is still seeded and loaded at native warmup.
++        """
++        if self.tuner is not None:
++            raise RuntimeError("early preload must happen exactly once")
++        tuner = self._tuner_api.get()
++        with tuner._lock:
++            if (tuner._winner_cache() is not tuner.profiling_cache
++                    or tuner.profiling_cache or tuner._file_configs
++                    or tuner.is_tuning_mode):
++                raise RuntimeError("early preload must run before any existing FI choices or tuning")
++            self.tuner = tuner
++            loaded = tuner.load_configs(str(self.out / "source.json"))
++        self.report["preload"] = {"path": str(self.out / "source.json"),
++                                  "returned": bool(loaded), "boundary": "before_worker_load_model"}
++        self.write_report()
++        if loaded is not True:
++            raise RuntimeError("FlashInfer rejected the early reference preload")
++        self.verify_entries("preloaded", self._effective_entries(True))
++
++    @contextlib.contextmanager
++    def _fixed_reference_warmup(self):
++        """Replay the loaded file through FI's supported non-tuning API.
++
++        Installed dense FP4 asks for cold-L2 profiling, while persisted v1
++        entries are interpreted as legacy hot-L2. Native tune_mode=True thus
++        deliberately ignores the file. False retains native lookup/validation
++        without asserting invented measurement provenance for saved tactics.
++        Both outer and nested vLLM autotune contexts must use replay mode.
++        """
++        fi_utils = importlib.import_module("vllm.utils.flashinfer")
++        original = fi_utils.autotune
++        if self.tuner.is_tuning_mode:
++            raise RuntimeError("fixed reference warmup cannot enter active FI tuning")
++
++        @functools.wraps(original)
++        def replay(*args, **kwargs):
++            if args:
++                args = (False, *args[1:])
++            else:
++                kwargs["tune_mode"] = False
++            return original(*args, **kwargs)
++
++        fi_utils.autotune = replay
++        try:
++            yield
++        finally:
++            fi_utils.autotune = original
++
++    def install(self, *, original_warmup=None, fixed_reference=False):
+         # Set before vLLM imports/cache resolution. Only JSON is copied here;
+         # its torch.compile and FlashInfer JIT caches stay isolated and fresh.
+         os.environ["VLLM_FLASHINFER_AUTOTUNE_CACHE_DIR"] = str(self.cache_root)
+@@ -119,6 +173,9 @@ class AutotuneImport:
+         from flashinfer.autotuner.autotuner import _tactic_to_json
+         warmup = importlib.import_module("vllm.model_executor.warmup.kernel_warmup")
+         from vllm.distributed.parallel_state import get_world_group
++        self._tuner_api = AutoTuner
++        self.report["import_mode"] = ("fixed_reference_replay_v1" if fixed_reference
++                                      else "native_tuning_with_reference_v1")
+         self.encode = _tactic_to_json
+         files = {"flashinfer_autotuner": inspect.getsourcefile(AutoTuner),
+                  "vllm_kernel_warmup": getattr(warmup, "__file__", None)}
+@@ -131,8 +188,9 @@ class AutotuneImport:
+ 
+         @functools.wraps(original)
+         def run(runner, *args, **kwargs):
+-            if owner.tuner is not None:
++            if owner.warmup_started:
+                 raise RuntimeError("autotune import expects one single-GPU warmup")
++            owner.warmup_started = True
+             world = get_world_group()
+             parallel = runner.vllm_config.parallel_config
+             if world.world_size != 1 or parallel.data_parallel_size != 1:
+@@ -146,7 +204,10 @@ class AutotuneImport:
+             with path.open("xb") as f:
+                 f.write(owner.source_bytes)
+             owner.report["seeded_cache_path"] = str(path)
+-            owner.tuner = tuner = AutoTuner.get()
++            tuner = AutoTuner.get()
++            if owner.tuner is not None and tuner is not owner.tuner:
++                raise RuntimeError("FlashInfer singleton changed after early preload")
++            owner.tuner = tuner
+             if tuner._winner_cache() is not tuner.profiling_cache:
+                 raise RuntimeError("managed/v2 FlashInfer winner caches are outside this probe")
+             load, search = tuner.load_configs, tuner.search_cache
+@@ -176,7 +237,9 @@ class AutotuneImport:
+             if owner.observe_search:
+                 tuner.search_cache = observed_search
+             try:
+-                result = original(runner, *args, **kwargs)
++                mode = owner._fixed_reference_warmup() if fixed_reference else contextlib.nullcontext()
++                with mode:
++                    result = original(runner, *args, **kwargs)
+                 if not owner.report["load_calls"]:
+                     raise RuntimeError("vLLM did not attempt to load the imported autotune cache")
+                 owner.verify_entries("after_warmup", owner._effective_entries(True))
+diff --git a/kernels/decode-route-capture/qwen_fi_control_plugin.py b/kernels/decode-route-capture/qwen_fi_control_plugin.py
+index f51415f..72b4cca 100644
+--- a/kernels/decode-route-capture/qwen_fi_control_plugin.py
++++ b/kernels/decode-route-capture/qwen_fi_control_plugin.py
+@@ -1,7 +1,7 @@
+ """Mount-only vLLM general plugin; no route hooks or per-lookup serving observer.
+ 
+ The frontend registers lazy callbacks without creating an importer or output.
+-Only the worker that actually warms the model owns the import and snapshots.
++Only the worker that actually loads the model owns the import and snapshots.
+ """
+ import functools
+ import hashlib
+@@ -46,22 +46,39 @@ def register():
+     warmup = importlib.import_module("vllm.model_executor.warmup.kernel_warmup")
+     worker = importlib.import_module("vllm.v1.worker.gpu_worker").Worker
+     original_warmup, original_shutdown = warmup.flashinfer_autotune, worker.shutdown
++    original_load, original_compile = worker.load_model, worker.compile_or_warm_up_model
+ 
+-    @functools.wraps(original_warmup)
+-    def run(runner, *args, **kwargs):
++    @functools.wraps(original_load)
++    def load_model(instance, *args, **kwargs):
+         global _owner
+         if _owner is not None:
+-            raise RuntimeError("FI server plugin supports one model warmup per worker process")
++            raise RuntimeError("FI server plugin supports one model load per worker process")
+         _owner = _helpers().AutotuneImport(source, out, observe_search=False)
+         if _owner.report["source_sha256"] != expected:
+-            raise RuntimeError("FI reference changed between plugin registration and worker warmup")
+-        _owner.report.update(server_worker_pid=os.getpid(), server_checkpoint="warmup_started",
++            raise RuntimeError("FI reference changed between plugin registration and worker load")
++        _owner.report.update(server_worker_pid=os.getpid(), server_checkpoint="preload_started",
+                              serving_lookup_observer=False)
+-        _owner.install(original_warmup=original_warmup)
+         try:
+-            result = warmup.flashinfer_autotune(runner, *args, **kwargs)
++            _owner.install(original_warmup=original_warmup, fixed_reference=True)
++            _owner.preload()
++            result = original_load(instance, *args, **kwargs)
++            _owner.report["server_checkpoint"] = "model_loaded_with_reference"
++            _owner.write_report()
++            return result
++        except BaseException as ex:
++            _owner.report.update(server_checkpoint="model_load_failed", error=f"{type(ex).__name__}: {ex}")
++            _owner.write_report()
++            raise
++
++    @functools.wraps(original_compile)
++    def compile_or_warm_up_model(instance, *args, **kwargs):
++        if _owner is None:
++            raise RuntimeError("FI server warmup requires verified preload before model loading")
++        try:
++            result = original_compile(instance, *args, **kwargs)
+             _owner.finalize(stage="server_startup")
+             _owner.report["server_checkpoint"] = "warmup_verified"
++            _owner.report["server_startup_boundary"] = "after_compile_or_warm_up_model"
+             _owner.write_report()
+             return result
+         except BaseException as ex:
+@@ -88,7 +105,9 @@ def register():
+             result = original_shutdown(instance, *args, **kwargs)
+         return result
+ 
+-    warmup.flashinfer_autotune, worker.shutdown = run, shutdown
++    worker.load_model = load_model
++    worker.compile_or_warm_up_model = compile_or_warm_up_model
++    worker.shutdown = shutdown
+     _registered = True
+ 
+ 
+@@ -98,6 +117,13 @@ def verify_artifacts(out, expected_sha256, require_shutdown=True):
+     entries_sha256, tactic_entries = helpers.entries_sha256, helpers.tactic_entries
+     root = Path(out) / "autotune"
+     report = json.loads((root / "verification.json").read_text())
++    if report.get("import_mode") != "fixed_reference_replay_v1":
++        raise ValueError("missing verified fixed-reference replay mode")
++    preload = report.get("preload", {})
++    if preload.get("returned") is not True or preload.get("boundary") != "before_worker_load_model":
++        raise ValueError("missing successful reference preload before worker model loading")
++    if report.get("server_startup_boundary") != "after_compile_or_warm_up_model":
++        raise ValueError("missing startup snapshot after graph capture")
+     stage = "server_shutdown" if require_shutdown else "server_startup"
+     checkpoint = "shutdown_verified" if require_shutdown else "warmup_verified"
+     if report.get("server_checkpoint") != checkpoint and not (
+@@ -105,13 +131,17 @@ def verify_artifacts(out, expected_sha256, require_shutdown=True):
+         raise ValueError(f"missing verified {stage} checkpoint")
+     if report["source_sha256"] != expected_sha256:
+         raise ValueError("source SHA mismatch")
+-    if hashlib.sha256((root / "source.json").read_bytes()).hexdigest() != expected_sha256:
++    source_bytes = (root / "source.json").read_bytes()
++    if hashlib.sha256(source_bytes).hexdigest() != expected_sha256:
+         raise ValueError("saved source JSON SHA mismatch")
++    if entries_sha256(tactic_entries(json.loads(source_bytes))) != report["reference_entries_sha256"]:
++        raise ValueError("saved source entries do not match the declared reference entry hash")
+     effective = tactic_entries(json.loads((root / f"{stage}_effective.json").read_text()))
+     if entries_sha256(effective) != report["reference_entries_sha256"]:
+         raise ValueError("effective tactic table is not exactly the fixed reference (including keys)")
+     return {"verified_stage": stage, "source_sha256": expected_sha256,
+             "effective_entries_sha256": entries_sha256(effective), "entries": len(effective),
++            "import_mode": report["import_mode"], "preload_boundary": preload["boundary"],
+             "inductor_pinned": False, "serving_lookup_observer": False}
+ 
+ 
+diff --git a/kernels/decode-route-capture/test_autotune_import.py b/kernels/decode-route-capture/test_autotune_import.py
+index 2049845..9c79edd 100644
+--- a/kernels/decode-route-capture/test_autotune_import.py
++++ b/kernels/decode-route-capture/test_autotune_import.py
+@@ -29,11 +29,13 @@ class AutotuneImportTests(unittest.TestCase):
+         self.source = self.root / "control.json"
+         self.source.write_text(json.dumps(DOCUMENT))
+ 
+-    def setup_fake_runtime(self, imported, *, accept=True, retune=False, missing=False):
++    def setup_fake_runtime(self, imported, *, accept=True, retune=False, missing=False,
++                           cold_policy=False, fixed_reference=False):
+         class Tuner:
+             def __init__(self):
+                 self._lock = contextlib.nullcontext()
+                 self._file_configs, self.profiling_cache = {}, {}
++                self.is_tuning_mode = False
+ 
+             def _winner_cache(self):
+                 return self.profiling_cache
+@@ -45,6 +47,11 @@ class AutotuneImportTests(unittest.TestCase):
+                 return accept
+ 
+             def search_cache(self, *args):
++                if cold_policy and self.is_tuning_mode:
++                    # Installed FI ignores legacy v1 file entries under cold-L2
++                    # tuning, even when their environment metadata matches.
++                    self.profiling_cache[Key()] = (9, None)
++                    return (True, 0, 9, None)
+                 return (not missing, 0, 4, None)
+ 
+         tuner = Tuner()
+@@ -59,11 +66,25 @@ class AutotuneImportTests(unittest.TestCase):
+         path.parent.mkdir(parents=True)
+         warmup = ModuleType("vllm.model_executor.warmup.kernel_warmup")
+         warmup.resolve_flashinfer_autotune_file = lambda runner: path
++        fi_utils = ModuleType("vllm.utils.flashinfer")
++
++        @contextlib.contextmanager
++        def autotune(tune_mode=True, **kwargs):
++            previous = tuner.is_tuning_mode
++            tuner.is_tuning_mode = previous or tune_mode
++            try:
++                yield
++            finally:
++                tuner.is_tuning_mode = previous
++
++        fi_utils.autotune = autotune
+ 
+         def run(runner):
+             resolved = path.with_name("autotune_configs_dp0_rank0.json")
+             tuner.load_configs(str(resolved))
+-            result = tuner.search_cache("op", [Runner()], ((1, 2),), object())
++            with fi_utils.autotune(tune_mode=True):
++                with fi_utils.autotune(tuning_buckets=(1, 2), round_up=True):
++                    result = tuner.search_cache("op", [Runner()], ((1, 2),), object())
+             if retune:
+                 tuner.profiling_cache[Key()] = (9, None)
+             return result
+@@ -77,17 +98,65 @@ class AutotuneImportTests(unittest.TestCase):
+         mods["vllm.distributed.parallel_state"].get_world_group = lambda: SimpleNamespace(
+             world_size=1, rank_in_group=0)
+         mods[warmup.__name__] = warmup
++        mods[fi_utils.__name__] = fi_utils
+         patcher = patch.dict("sys.modules", mods)
+         patcher.start()
+         self.addCleanup(patcher.stop)
+         environment = patch.dict("os.environ", {}, clear=False)
+         environment.start()
+         self.addCleanup(environment.stop)
+-        imported.install()
++        imported.install(fixed_reference=fixed_reference)
+         runner = SimpleNamespace(vllm_config=SimpleNamespace(parallel_config=SimpleNamespace(
+             data_parallel_size=1, data_parallel_rank=0)))
+         return lambda: warmup.flashinfer_autotune(runner), tuner
+ 
++    def test_native_cold_l2_tuning_retunes_imported_legacy_file(self):
++        imported = AutotuneImport(self.source, self.root / "run")
++        run, _ = self.setup_fake_runtime(imported, cold_policy=True)
++        with self.assertRaisesRegex(RuntimeError, "after_warmup"):
++            run()
++        self.assertEqual(imported.report["checks"]["loaded"]["changed"], [])
++
++    def test_fixed_reference_replays_native_cache_without_policy_retuning(self):
++        imported = AutotuneImport(self.source, self.root / "run", observe_search=False)
++        run, tuner = self.setup_fake_runtime(imported, cold_policy=True, fixed_reference=True)
++        imported.preload()
++        self.assertEqual(imported.report["checks"]["preloaded"]["changed"], [])
++        self.assertEqual(run(), (True, 0, 4, None))
++        self.assertEqual(tuner.profiling_cache, {})
++        self.assertFalse(tuner.is_tuning_mode)
++        self.assertEqual(imported.finalize()["status"],
++                         "reference_tactics_verified_without_lookup_observation")
++        import importlib
++        fi_utils = importlib.import_module("vllm.utils.flashinfer")
++        with fi_utils.autotune(tune_mode=True):
++            self.assertTrue(tuner.is_tuning_mode)
++
++    def test_early_preload_refuses_preexisting_winners_without_clearing_them(self):
++        imported = AutotuneImport(self.source, self.root / "run")
++        _, tuner = self.setup_fake_runtime(imported, fixed_reference=True)
++        tuner.profiling_cache[object()] = (9, None)
++        with self.assertRaisesRegex(RuntimeError, "before any existing"):
++            imported.preload()
++        self.assertEqual(len(tuner.profiling_cache), 1)
++
++    def test_fixed_replay_restores_native_autotune_after_failed_verification(self):
++        import importlib
++        imported = AutotuneImport(self.source, self.root / "run")
++        run, tuner = self.setup_fake_runtime(imported, fixed_reference=True, retune=True)
++        with self.assertRaisesRegex(RuntimeError, "after_warmup"):
++            run()
++        fi_utils = importlib.import_module("vllm.utils.flashinfer")
++        with fi_utils.autotune(tune_mode=True):
++            self.assertTrue(tuner.is_tuning_mode)
++
++    def test_early_preload_rejects_metadata_failure(self):
++        imported = AutotuneImport(self.source, self.root / "run")
++        self.setup_fake_runtime(imported, fixed_reference=True, accept=False)
++        with self.assertRaisesRegex(RuntimeError, "rejected the early"):
++            imported.preload()
++        self.assertFalse(imported.report["preload"]["returned"])
++
+     def test_real_api_flow_loads_only_json_then_verifies_effective_and_observed_tactics(self):
+         original = self.source.read_bytes()
+         imported = AutotuneImport(self.source, self.root / "run", True)
+@@ -115,7 +184,8 @@ class AutotuneImportTests(unittest.TestCase):
+         expected = hashlib.sha256(self.source.read_bytes()).hexdigest()
+         out = self.root / "run"
+         imported = AutotuneImport(self.source, out, observe_search=False)
+-        run, tuner = self.setup_fake_runtime(imported)
++        run, tuner = self.setup_fake_runtime(imported, fixed_reference=True)
++        imported.preload()
+         self.assertEqual(run(), (True, 0, 4, None))
+         self.assertEqual(tuner.search_cache.__name__, "search_cache")
+         for stage, checkpoint, require_shutdown in (
+@@ -123,6 +193,7 @@ class AutotuneImportTests(unittest.TestCase):
+                 ("server_shutdown", "shutdown_verified", True)):
+             imported.finalize(stage=stage)
+             imported.report["server_checkpoint"] = checkpoint
++            imported.report["server_startup_boundary"] = "after_compile_or_warm_up_model"
+             imported.write_report()
+             checked = verify_artifacts(out, expected, require_shutdown)
+             self.assertEqual(checked["source_sha256"], expected)
+diff --git a/kernels/decode-route-capture/test_server_plugin.py b/kernels/decode-route-capture/test_server_plugin.py
+index 15422ae..c0e3544 100644
+--- a/kernels/decode-route-capture/test_server_plugin.py
++++ b/kernels/decode-route-capture/test_server_plugin.py
+@@ -45,6 +45,15 @@ class ServerPluginTests(unittest.TestCase):
+         warmup.flashinfer_autotune = tune
+ 
+         class Worker:
++            def load_model(self):
++                events.append("original_load_model")
++                return "unchanged_loaded_model"
++
++            def compile_or_warm_up_model(self):
++                result = warmup.flashinfer_autotune(object())
++                events.append("original_graph_capture")
++                return result
++
+             def shutdown(self):
+                 events.append("original_shutdown")
+                 return "cleaned"
+@@ -54,13 +63,16 @@ class ServerPluginTests(unittest.TestCase):
+                 events.append(("create_importer", observe_search))
+                 self.report = {"source_sha256": hashlib.sha256(Path(source).read_bytes()).hexdigest()}
+ 
+-            def install(self, *, original_warmup):
+-                events.append("install_importer")
++            def install(self, *, original_warmup, fixed_reference):
++                events.append(("install_importer", fixed_reference))
+                 def imported(runner):
+                     events.append("before_tuning")
+                     return original_warmup(runner)
+                 warmup.flashinfer_autotune = imported
+ 
++            def preload(self):
++                events.append("early_preload")
++
+             def finalize(self, *, stage):
+                 events.append(stage)
+                 if fail_shutdown and stage == "server_shutdown":
+@@ -84,15 +96,20 @@ class ServerPluginTests(unittest.TestCase):
+         warmup, worker = self.install_fakes()
+         self.assertEqual(self.events, [])
+         self.assertFalse(self.out.exists())
+-        self.assertEqual(warmup.flashinfer_autotune(object()), "unchanged_model_output")
+-        self.assertEqual(self.events[:4], [("create_importer", False), "install_importer",
+-                                          "before_tuning", "original_tune"])
++        instance = worker()
++        self.assertEqual(instance.load_model(), "unchanged_loaded_model")
++        self.assertEqual(self.events[:4], [("create_importer", False), ("install_importer", True),
++                                          "early_preload", "original_load_model"])
++        self.assertEqual(instance.compile_or_warm_up_model(), "unchanged_model_output")
++        self.assertEqual(self.events[4:8], ["before_tuning", "original_tune",
++                                          "original_graph_capture", "server_startup"])
+         self.assertEqual(worker().shutdown(), "cleaned")
+         self.assertEqual(self.events[-2:], ["server_shutdown", "original_shutdown"])
+ 
+     def test_shutdown_verification_error_still_cleans_up_owned_worker(self):
+         warmup, worker = self.install_fakes(fail_shutdown=True)
+-        warmup.flashinfer_autotune(object())
++        worker().load_model()
++        worker().compile_or_warm_up_model()
+         with self.assertRaisesRegex(RuntimeError, "cache drift"):
+             worker().shutdown()
+         self.assertEqual(self.events[-1], "original_shutdown")
+@@ -110,12 +127,21 @@ class ServerPluginTests(unittest.TestCase):
+         root.mkdir(parents=True)
+         (root / "source.json").write_bytes(self.source.read_bytes())
+         report = {"server_checkpoint": "warmup_verified", "source_sha256": self.sha,
+-                  "reference_entries_sha256": entries_sha256({KEY: DOCUMENT[KEY]})}
++                  "reference_entries_sha256": entries_sha256({KEY: DOCUMENT[KEY]}),
++                  "import_mode": "fixed_reference_replay_v1",
++                  "preload": {"returned": True, "boundary": "before_worker_load_model"},
++                  "server_startup_boundary": "after_compile_or_warm_up_model"}
+         (root / "verification.json").write_text(json.dumps(report))
+         (root / "server_startup_effective.json").write_text(json.dumps(DOCUMENT))
+         with self.assertRaisesRegex(ValueError, "checkpoint"):
+             plugin.verify_artifacts(self.out, self.sha)
+         self.assertEqual(plugin.verify_artifacts(self.out, self.sha, False)["entries"], 1)
++        report["import_mode"] = "native_tuning_with_reference_v1"
++        (root / "verification.json").write_text(json.dumps(report))
++        with self.assertRaisesRegex(ValueError, "fixed-reference replay"):
++            plugin.verify_artifacts(self.out, self.sha, False)
++        report["import_mode"] = "fixed_reference_replay_v1"
++        (root / "verification.json").write_text(json.dumps(report))
+         result = subprocess.run([sys.executable, "-I", str(Path(plugin.__file__).resolve()),
+                                  str(self.out), "--source-sha256", self.sha, "--startup-only"],
+                                 text=True, capture_output=True)

@@ -170,6 +170,10 @@ def load(root, text, read, *, allow_legacy_sources=False):
     require(container['Name'] == '/qwen-exp-' + config['tag'], 'container identity mismatch')
     require(container['Image'] == image, 'actual container image differs from captured image')
     raw_command = container['Config']['Cmd']; command = raw_command[:]
+    if fi_control:
+        require(option(command, '--shutdown-timeout') == '30'
+                and not any(arg.startswith('--shutdown-timeout=') for arg in command),
+                'FI control requires exactly one --shutdown-timeout 30 for shutdown evidence')
     if moe != 'next':
         require(option(command, '--moe-backend') == 'flashinfer_b12x', 'candidate backend mismatch')
         pos = command.index('--moe-backend'); del command[pos:pos+2]

@@ -1,0 +1,9 @@
+tag=scalar_matched_2
+variant=scalar
+suite=individual
+config=next
+gpu_util=0.78
+greedy_decode=1
+nll_rounds=3
+fi_control=1
+fi_source_sha256=7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3

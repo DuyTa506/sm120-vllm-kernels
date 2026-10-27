@@ -1,0 +1,11 @@
+{
+  "status": "measurements_complete_final_control_unverified",
+  "exit_code": 5,
+  "serving_cases": 17,
+  "greedy_decode_cases": 4,
+  "cold_nll_calls": 30,
+  "source_verification": "passed",
+  "startup_tactics_verified": 132,
+  "shutdown_tactics_verified": false,
+  "reason": "vLLM shutdown_timeout=0 force-killed EngineCore before Worker.shutdown exported final tactics. No baseline pair was launched."
+}
