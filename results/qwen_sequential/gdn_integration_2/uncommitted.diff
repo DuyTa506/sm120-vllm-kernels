@@ -1,0 +1,829 @@
+diff --git a/bench/compare_greedy_decode.py b/bench/compare_greedy_decode.py
+index a22e662..28416b6 100644
+--- a/bench/compare_greedy_decode.py
++++ b/bench/compare_greedy_decode.py
+@@ -22,6 +22,9 @@ SPEC = importlib.util.spec_from_file_location("greedy_serving_matrix", HERE / "s
+ MATRIX = importlib.util.module_from_spec(SPEC)
+ sys.modules[SPEC.name] = MATRIX
+ SPEC.loader.exec_module(MATRIX)
++IDENTITY_SPEC = importlib.util.spec_from_file_location("paired_runtime_identity", HERE / "compare_runtime_identity.py")
++IDENTITY = importlib.util.module_from_spec(IDENTITY_SPEC)
++IDENTITY_SPEC.loader.exec_module(IDENTITY)
+ PKG = "/usr/local/lib/python3.12/dist-packages/vllm/"
+ EXPERT = "model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py"
+ ORACLE = "model_executor/layers/fused_moe/oracle/unquantized.py"
+@@ -75,10 +78,7 @@ def mtp_delta(before, after):
+ 
+ 
+ def source_extras(variant):
+-    return set() if variant == "next" else {
+-        f"kernels/moe-nvfp4/{variant}/vllm/{EXPERT}",
+-        f"kernels/moe-nvfp4/patched/vllm/{ORACLE}",
+-    }
++    return IDENTITY.source_extras(variant)
+ 
+ 
+ def load(root):
+@@ -94,65 +94,16 @@ def load(root):
+         return json.loads(text(relative))
+ 
+     require(text("exit_code.txt").strip() == "0", f"failed/incomplete experiment: {root}")
+-    config = dict(line.split("=", 1) for line in text("config.txt").splitlines())
+-    require(config["tag"] == root.name and config["greedy_decode"] == "1", "invalid greedy run identity")
+-    variant = config["variant"]
+-    require(variant in ("next", "shared", "shared_exact", "scalar"), "unknown overlay variant")
+-    image = text("image.txt").strip()
+-    commit, diff_hash = text("commit.txt").strip(), sha(text("uncommitted.diff").encode())
+-    containers = read("container.json")
+-    require(isinstance(containers, list) and len(containers) == 1, "invalid container capture")
+-    container = containers[0]
+-    require(container["Name"] == "/qwen-exp-" + config["tag"], "container identity mismatch")
+-    require(container["Image"] == image, "actual container image differs from captured image")
+-    command = container["Config"]["Cmd"][:]
+-    if variant != "next":
+-        require(option(command, "--moe-backend") == "flashinfer_b12x", "candidate backend mismatch")
+-        pos = command.index("--moe-backend")
+-        del command[pos:pos + 2]
+-    else:
+-        require("--moe-backend" not in command, "baseline unexpectedly overrides the MoE backend")
+-    speculative = json.loads(option(command, "--speculative-config"))
+-    require(speculative.get("method") == "mtp" and speculative.get("num_speculative_tokens", 0) > 0,
+-            "greedy comparison requires MTP enabled")
+-    env = dict(value.split("=", 1) for value in container["Config"]["Env"])
+-    if variant != "next":
+-        require(env.get("VLLM_B12X_FIX_SCALES") == env.get("VLLM_B12X_SHARED_WORKSPACE") == "1",
+-                "candidate scale/workspace flags missing")
+-        require(env.get("VLLM_B12X_SCALAR_INPUT_SCALE", "0") == ("1" if variant == "scalar" else "0"),
+-                "scalar flag does not match variant")
+-    identity_env = {k: v for k, v in env.items() if k not in VARIANT_ENV}
+-    gpu_rows = list(csv.DictReader(io.StringIO(text("gpu_before.csv")), skipinitialspace=True))
+-    require(len(gpu_rows) == 1, "expected one GPU identity")
+-    gpu = {key: gpu_rows[0][key].strip() for key in
+-           ("name", "uuid", "driver_version", "memory.total [MiB]", "power.limit [W]")}
+-
+-    sources = read("source_manifest.json")
+-    require(sources["schema_version"] == 1 and sources["variant"] == variant, "source manifest identity mismatch")
+-    for relative, digest in sources["files"].items():
+-        path = Path(relative)
+-        require(not path.is_absolute() and ".." not in path.parts, "unsafe source path")
+-        require(sha(text("source_files/" + relative).encode()) == digest, "source snapshot hash mismatch")
+-    verification = json.loads(text("source_verify.log"))
+-    require(verification.get("status") == "passed" and verification.get("action") == "verify"
+-            and verification.get("variant") == variant
+-            and verification.get("files") == len(sources["files"]), "source verification failed/missing")
+-    require(source_extras(variant) <= sources["files"].keys(), "overlay source not captured")
+-    for mount in container["Mounts"]:
+-        if mount["Destination"].startswith(PKG) and mount["Destination"].endswith(".py"):
+-            require(mount["RW"] is False, "runtime Python source was mounted writable")
+-            matches = [p for p in sources["files"] if mount["Source"].endswith("/" + p)]
+-            require(len(matches) == 1, "mounted source absent/ambiguous in snapshot")
+-    for relative in ("scripts/serve.sh", "scripts/cudagraph_sizes.txt", "bench/qwen_experiment.sh",
+-                     "bench/serving_matrix.py"):
+-        require(relative in sources["files"], f"missing runtime source {relative}")
+-
++    runtime = IDENTITY.load(root, text, read)
++    config = runtime["config"]
++    require(config["greedy_decode"] == "1", "invalid greedy run identity")
++    container_name = "qwen-exp-" + config["tag"]
+     directory = "serving/serving_matrix_decode/"
+     manifest, summary = read(directory + "manifest.json"), read(directory + "summary.json")
+     targets = read(directory + "expected_output_lengths.json")
+     args = manifest["arguments"]
+     require(args["suite"] == "decode" and args.get("temperature") == 0, "not explicit greedy decode")
+-    require(args["container"] == container["Name"].lstrip("/"), "request/container identity mismatch")
++    require(args["container"] == container_name, "request/container identity mismatch")
+     require(summary["status"] == "passed" and not summary.get("error"), "decode matrix failed")
+     cases = [MATRIX.Scenario(**{**c, "extra": tuple(c["extra"])}) for c in manifest["scenarios"]]
+     require(cases and all(c.suite == "decode" for c in cases), "invalid decode scenarios")
+@@ -217,27 +168,19 @@ def load(root):
+                 rows.append({"scenario": case.name, "timing": row, "mtp": mtp_delta(before, after),
+                              "input_lens": result["input_lens"], "output_lens": result["output_lens"],
+                              "generated_text_sha256": [sha(s.encode()) for s in result["generated_texts"]]})
+-    return {"name": root.name, "config": config, "image": image, "commit": commit,
+-            "uncommitted_diff_sha256": diff_hash, "gpu": gpu, "server_command": command,
+-            "server_env": identity_env, "source_manifest": sources, "manifest": manifest,
++    return {**runtime, "manifest": manifest,
+             "expected_lengths": targets, "normalized_commands": normalized_commands,
+             "rows": rows, "input_sha256": hashes}
+ 
+ 
+ def compare(base, candidate):
+-    for key in ("config", "gpu_util"):
+-        require(base["config"][key] == candidate["config"][key], f"different {key}")
+-    for key in ("image", "gpu", "server_command", "server_env", "normalized_commands", "expected_lengths"):
++    runtime_changes = IDENTITY.compare(base, candidate)
++    for key in ("normalized_commands", "expected_lengths"):
+         require(base[key] == candidate[key], f"incompatible {key}")
+     require(base["manifest"]["scenarios"] == candidate["manifest"]["scenarios"], "different scenarios/seeds")
+     require(base["manifest"]["run_nonce"] != candidate["manifest"]["run_nonce"], "runs reused cache namespace")
+     for field in ("model", "served_model_name", "temperature", "seed_offset"):
+         require(base["manifest"]["arguments"][field] == candidate["manifest"]["arguments"][field], f"different {field}")
+-    common_sources = []
+-    for run in (base, candidate):
+-        extras = source_extras(run["config"]["variant"])
+-        common_sources.append({p: value for p, value in run["source_manifest"]["files"].items() if p not in extras})
+-    require(common_sources[0] == common_sources[1], "different non-MoE runtime sources")
+     rows = []
+     for a, b in zip(base["rows"], candidate["rows"], strict=True):
+         require(a["scenario"] == b["scenario"] and a["input_lens"] == b["input_lens"]
+@@ -249,8 +192,8 @@ def compare(base, candidate):
+                      "change_percent": change, "identical_generated_texts": same})
+     prior_history_differs = base["config"]["suite"] != candidate["config"]["suite"]
+     return {"status": "complete_compatible_pair", "baseline": base, "candidate": candidate, "rows": rows,
+-            "prior_suite_history_differs": prior_history_differs,
+-            "analysis_source_sha256": {p.name: sha(p.read_bytes()) for p in (Path(__file__), HERE / "serving_matrix.py")},
++            "prior_suite_history_differs": prior_history_differs, "runtime_changes": runtime_changes,
++            "analysis_source_sha256": {p.name: sha(p.read_bytes()) for p in (Path(__file__), HERE / "serving_matrix.py", HERE / "compare_runtime_identity.py")},
+             "interpretation": "Explicit temperature zero controls sampling. MTP acceptance, generated paths, "
+                               "startup autotuning and scheduling may still vary. This pair is not a confidence interval "
+                               "or a model-quality pass. Different prior suites are recorded as a preconditioning limitation."}
+@@ -275,7 +218,7 @@ def markdown(report):
+                      f"{row['identical_generated_texts']}/{t['completed']} |")
+     lines += ["", "MTP acceptance = accepted/drafted tokens; acceptance length = 1 + accepted tokens/draft steps. "
+               "Both use measured-phase counter deltas. Matching generated texts is diagnostic, not a quality score.", "",
+-              report["interpretation"]]
++              report["interpretation"], "", "Validated runtime changes: " + json.dumps(report["runtime_changes"], sort_keys=True)]
+     if report["prior_suite_history_differs"]:
+         lines += ["", "The prior suites differ: preconditioning is not identical despite matching per-case warmups. "
+                   "Use this result as a diagnostic and repeat with matched run order/history before a causal timing claim."]
+@@ -283,6 +226,8 @@ def markdown(report):
+ 
+ 
+ def preflight():
++    require("kernels/moe-nvfp4/shared_exact/vllm/" + EXPERT in source_extras("shared_exact_gdn"),
++            "composed GDN variant must retain the original MoE parent source")
+     import copy
+     import tempfile
+ 
+@@ -302,20 +247,28 @@ def preflight():
+             save("uncommitted.diff", "")
+             save("gpu_before.csv", "name,uuid,driver_version,memory.total [MiB],power.limit [W]\nSM120,GPU-fixture,1,97887 MiB,600 W\n")
+             command = ["serve", "fixture", "--speculative-config", '{"method":"mtp","num_speculative_tokens":2}']
+-            env = ["COMMON=1", "VLLM_CACHE_ROOT=" + variant]
++            engine = "Initializing a V1 LLM engine (v0.32.0) with config: model='fixture', compilation_config={'splitting_ops': " + repr(IDENTITY.STANDARD_SPLITS+IDENTITY.AUTO_SPLITS) + ", 'pass_config': {'fuse_rope_kvcache_cat_mla': False}}, kernel_config=KernelConfig(moe_backend='" + ("auto" if variant == "next" else "flashinfer_b12x") + "')"
++            save("startup.log", engine)
++            env = ["COMMON=1", "VLLM_CACHE_ROOT=/root/.cache/vllm/qwen-sequential-" + variant]
+             if variant != "next":
+                 command += ["--moe-backend", "flashinfer_b12x"]
+                 env += ["VLLM_B12X_FIX_SCALES=1", "VLLM_B12X_SHARED_WORKSPACE=1"]
+             common = {p: b"fixture\n" for p in ("scripts/serve.sh", "scripts/cudagraph_sizes.txt",
+                                                 "bench/qwen_experiment.sh", "bench/serving_matrix.py")}
+-            contents = {**common, **{p: b"overlay\n" for p in source_extras(variant)}}
++            contents = {**common, **{p: b"overlay\n" for p in source_extras(variant)},
++                        **{p: b"mounted\n" for p in IDENTITY.expected_mounts(variant).values()}}
+             for name, data in contents.items():
+                 save("source_files/" + name, data.decode())
+             save("source_manifest.json", {"schema_version": 1, "variant": variant,
+                                            "files": {p: sha(data) for p, data in contents.items()}})
+             save("source_verify.log", {"status": "passed", "action": "verify", "files": len(contents), "variant": variant})
+             save("container.json", [{"Name": "/qwen-exp-" + root.name, "Image": "sha256:fixture",
+-                                      "Config": {"Cmd": command, "Env": env}, "Mounts": []}])
++                                      "Config": {"Cmd": command, "Env": env}, "Mounts": [
++                {"Type":"bind", "Source":"/fixture/" + src, "Destination":dst, "RW":False, "Mode":"ro"}
++                for dst,src in IDENTITY.expected_mounts(variant).items()] + [
++                {"Type":"bind", "Source":"/fixture/results/qwen_sequential/" + root.name + "/serving" if dst == "/bench-results" else "/fixture" + dst,
++                 "Destination":dst,"RW":dst != "/root/.cache/huggingface","Mode":"ro" if dst == "/root/.cache/huggingface" else ""}
++                for dst in ("/bench-results","/root/.cache/vllm","/root/.cache/flashinfer","/root/.cache/huggingface")]}])
+             args = MATRIX.parser().parse_args(["--container", "qwen-exp-" + root.name, "--output-dir", str(root / "serving"),
+                                                "--suite", "decode", "--temperature", "0"])
+             prefix = "serving/serving_matrix_decode/"
+@@ -401,9 +354,158 @@ def preflight():
+                 rejected += 1
+             else:
+                 raise AssertionError("incompatible pair accepted")
++        # Complete composed-run fixtures exercise disk evidence, not normalized objects.
++        root = roots[1]
++        def save_gdn(name, value):
++            path = root / name
++            path.parent.mkdir(parents=True, exist_ok=True)
++            path.write_text(value if isinstance(value, str) else json.dumps(value))
++        for variant in ("shared_exact_gdn", "scalar_gdn"):
++            save_gdn("config.txt", f"tag={root.name}\nvariant={variant}\nsuite=diagnostic\nconfig=next\ngpu_util=0.78\ngreedy_decode=1\nnll_rounds=5\n")
++            container = json.loads((root / "container.json").read_text())[0]
++            command = container["Config"]["Cmd"]
++            if "--compilation-config" in command:
++                i = command.index("--compilation-config"); del command[i:i+2]
++            compilation = {"splitting_ops": IDENTITY.STANDARD_SPLITS + IDENTITY.AUTO_SPLITS + [IDENTITY.GDN_OP],
++                           "pass_config":{"fuse_rope_kvcache_cat_mla":False}}
++            command += ["--compilation-config", json.dumps(compilation)]
++            env = {k:v for k,v in (x.split("=",1) for x in container["Config"]["Env"])}
++            env.update(VLLM_CACHE_ROOT="/root/.cache/vllm/qwen-sequential-" + variant,
++                       VLLM_GDN_NORM_FP8_FUSION="1", VLLM_B12X_SCALAR_INPUT_SCALE="1" if variant == "scalar_gdn" else "0")
++            container["Config"]["Env"] = [k+"="+v for k,v in env.items()]
++            container["Mounts"] = [m for m in container["Mounts"] if not m["Destination"].startswith(PKG)] + [
++                {"Type":"bind", "Source":"/fixture/"+src, "Destination":dst, "RW":False, "Mode":"ro"}
++                for dst,src in IDENTITY.expected_mounts(variant).items()]
++            save_gdn("container.json", [container])
++            sources = {p: v for p,v in b["source_manifest"]["files"].items()
++                       if p not in source_extras("shared_exact") and p != "build/vllm/"+IDENTITY.GDN+IDENTITY.GDN_FILES[0]}
++            for name in source_extras(variant) | set(IDENTITY.expected_mounts(variant).values()):
++                value = "mounted\n" if name in IDENTITY.expected_mounts(variant).values() else "helper\n"
++                save_gdn("source_files/"+name, value); sources[name] = sha(value.encode())
++            save_gdn("source_manifest.json", {"schema_version":1,"variant":variant,"files":sources})
++            save_gdn("source_verify.log", {"status":"passed","action":"verify","variant":variant,"files":len(sources)})
++            save_gdn("compilation_config.json", compilation)
++            layers = [i for i in range(40) if (i+1)%4]
++            startup = "Initializing a V1 LLM engine (v0.32.0) with config: model='fixture', compilation_config={'splitting_ops': " + repr(compilation["splitting_ops"]) + ", 'pass_config': {'fuse_rope_kvcache_cat_mla': False}}, kernel_config=KernelConfig(moe_backend='flashinfer_b12x')\n"
++            startup += "\n".join(f"GDN norm-FP8 ready for model.layers.{i}.linear_attn: compiled fallback" for i in layers)
++            save_gdn("startup.log", startup)
++            save_gdn("gdn_readiness.json", {"ready_layers":layers,"expected_layers":layers,"disabled":[]})
++            composed = load(root)
++            paired = compare(a, composed)
++            require(paired["runtime_changes"]["candidate_moe_parent"] == variant.removesuffix("_gdn"), "wrong MoE parent reported")
++            require(composed["gdn_enabled"] and len(composed["gdn_readiness"]["ready_layers"]) == 30, "GDN readiness not checked")
++            malformed = [
++                ("container.json", lambda x: [{**x[0],"Mounts":[m for m in x[0]["Mounts"] if not m["Destination"].endswith("gdn_norm_fp8_quant_out.py")]}]),
++                ("container.json", lambda x: [{**x[0],"Mounts":[{**m,"RW":True} if m["Destination"].endswith("gdn_norm_fp8_kernel.py") else m for m in x[0]["Mounts"]]}]),
++                ("container.json", lambda x: [{**x[0],"Mounts":[{**m,"Source":"/fixture/kernels/moe-nvfp4/shared/vllm/"+EXPERT} if m["Destination"]==PKG+EXPERT else m for m in x[0]["Mounts"]]}]),
++                ("container.json", lambda x: [{**x[0],"Config":{**x[0]["Config"],"Env":[e for e in x[0]["Config"]["Env"] if not e.startswith("VLLM_GDN_NORM_FP8_FUSION=")]}}]),
++                ("compilation_config.json", lambda x: {"splitting_ops":x["splitting_ops"][:-1]}),
++                ("compilation_config.json", lambda x: {**x,"mode":0}),
++                ("gdn_readiness.json", lambda x: {**x,"ready_layers":x["ready_layers"][:-1]}),
++                ("gdn_readiness.json", lambda x: {**x,"ready_layers":x["ready_layers"]+[0]}),
++                ("startup.log", lambda x: x.replace("'fuse_rope_kvcache_cat_mla': False", "'fuse_rope_kvcache_cat_mla': True")),
++                ("startup.log", lambda x: x+"\nGDN norm-FP8 disabled for model.layers.0.linear_attn"),
++                ("startup.log", lambda x: x.replace("vllm::"+"gdn_attention_core_norm_fp8_packed_experimental", "vllm::wrong")),
++                ("source_files/"+IDENTITY.GDN_ROOT+"gdn_norm_fp8_quant_out.py", lambda x:x+"changed"),
++            ]
++            for name,mutate in malformed:
++                path=root/name; before=path.read_text(); data=json.loads(before) if name.endswith(".json") else before
++                changed=mutate(data); path.write_text(json.dumps(changed) if name.endswith(".json") else changed)
++                try:
++                    load(root)
++                except ValueError:
++                    rejected += 1
++                else:
++                    raise AssertionError("malformed GDN evidence accepted: "+name)
++                finally:
++                    path.write_text(before)
++            for key in ("server_env", "server_command"):
++                broken=copy.deepcopy(composed)
++                if key=="server_env":broken[key]["UNRELATED_FLAG"]="1"
++                else:broken[key].append("--unrelated-override")
++                try:compare(a,broken)
++                except ValueError:rejected+=1
++                else:raise AssertionError("unrelated runtime override accepted")
++            parent_copy=copy.deepcopy(composed)
++            parent_copy["manifest"]["run_nonce"]="other"
++            expert="kernels/moe-nvfp4/"+variant.removesuffix("_gdn")+"/vllm/"+EXPERT
++            parent_copy["source_manifest"]["files"][expert]="changed-but-same-parent"
++            try:compare(composed,parent_copy)
++            except ValueError:rejected+=1
++            else:raise AssertionError("same-parent source drift accepted")
++        # Matched-FI fixture uses the frozen real reference and verifier sources,
++        # with synthetic worker evidence (no vLLM imports or device initialization).
++        local = HERE.parent / IDENTITY.FI_ROOT
++        config_path = root / "config.txt"
++        config_path.write_text(config_path.read_text()+"fi_control=1\nfi_source_sha256="+IDENTITY.FI_SHA+"\n")
++        sources=json.loads((root/"source_manifest.json").read_text())
++        sources["fi_control"]=True
++        for relative in IDENTITY.FI_FILES:
++            content=(local/relative).read_text()
++            save_gdn("source_files/"+IDENTITY.FI_ROOT+relative,content)
++            sources["files"][IDENTITY.FI_ROOT+relative]=sha(content.encode())
++        save_gdn("source_manifest.json",sources)
++        save_gdn("source_verify.log",{"status":"passed","action":"verify","variant":"scalar_gdn","files":len(sources["files"])})
++        container=json.loads((root/"container.json").read_text())[0]
++        container["Config"]["Env"] += [k+"="+v for k,v in IDENTITY.FI_ENV.items()]
++        container["Mounts"].append({"Type":"bind","Source":"/fixture/kernels/decode-route-capture","Destination":"/opt/qwen-fi-control","RW":False,"Mode":"ro"})
++        save_gdn("container.json",[container])
++        document=json.loads((local/"references/next_cpu_audit_autotune.json").read_text())
++        provenance=json.loads((local/"references/next_cpu_audit_autotune.provenance.json").read_text())
++        table_hash=provenance["reference_entries_sha256"]
++        prefix="serving/fi_control/autotune/"
++        save_gdn(prefix+"source.json",(local/"references/next_cpu_audit_autotune.json").read_text())
++        stages=("loaded","after_warmup","server_startup","server_shutdown")
++        verification={"server_checkpoint":"shutdown_verified","source_sha256":IDENTITY.FI_SHA,
++            "reference_entries_sha256":table_hash,"reference_entries":132,
++            "status":"reference_tactics_verified_without_lookup_observation",
++            "compiled_graph_cache_imported":False,"lookup_observation_enabled":False,"serving_lookup_observer":False,
++            "runtime_source_sha256":{"flashinfer_autotuner":"a"*64,"vllm_kernel_warmup":"b"*64},
++            "load_calls":[{"path":"/bench-results/fi_control/cache/autotune_import/autotune_configs_dp0_rank0.json","returned":True}],
++            "selected_inductor_config_count":1,
++            "checks":{stage:{"reference_entries":132,"actual_entries":132,"entries_sha256":table_hash,
++                             "missing":[],"extra":[],"changed":[]} for stage in stages}}
++        save_gdn(prefix+"verification.json",verification)
++        for stage in ("startup","shutdown"):
++            save_gdn(prefix+"server_"+stage+"_effective.json",document)
++            save_gdn("fi_"+stage+"_verify.json",{"verified_stage":"server_"+stage,"source_sha256":IDENTITY.FI_SHA,
++                    "effective_entries_sha256":table_hash,"entries":132,"inductor_pinned":False,"serving_lookup_observer":False})
++        selected={"XBLOCK":1,"R0_BLOCK":1024,"num_warps":8}
++        save_gdn(prefix+"compiler_config_audit.json",{"files":[{"path":"fixture.best_config","selected":selected,
++                    "selected_sha256":sha(json.dumps(selected,sort_keys=True,separators=(",",":")).encode())}]})
++        controlled=load(root)
++        other=copy.deepcopy(controlled);other["manifest"]["run_nonce"]="other-controlled"
++        require(compare(controlled,other)["runtime_changes"]["fi_control"],"matched FI identity not reported")
++        try:compare(a,controlled)
++        except ValueError:rejected+=1
++        else:raise AssertionError("controlled-vs-unpinned pair accepted")
++        def altered_effective(x):
++            key=next(k for k in x if k.startswith("("));x[key]=[x[key][0],-123];return x
++        malformed=[
++            ("config.txt",lambda x:x.replace("fi_source_sha256="+IDENTITY.FI_SHA,"fi_source_sha256="+"0"*64)),
++            ("container.json",lambda x:[{**x[0],"Mounts":[{**m,"RW":True} if m["Destination"]=="/opt/qwen-fi-control" else m for m in x[0]["Mounts"]]}]),
++            (prefix+"source.json",altered_effective),
++            (prefix+"server_startup_effective.json",altered_effective),
++            (prefix+"server_shutdown_effective.json",altered_effective),
++            (prefix+"verification.json",lambda x:{**x,"server_checkpoint":"warmup_verified"}),
++            (prefix+"verification.json",lambda x:{**x,"reference_entries_sha256":"0"*64}),
++            (prefix+"verification.json",lambda x:{**x,"load_calls":[{"returned":False}]}),
++            (prefix+"verification.json",lambda x:{**x,"checks":{k:v for k,v in x["checks"].items() if k!="loaded"}}),
++            ("fi_startup_verify.json",lambda x:{**x,"entries":131}),
++            ("fi_shutdown_verify.json",lambda x:{**x,"effective_entries_sha256":"0"*64}),
++            (prefix+"compiler_config_audit.json",lambda x:{"files":[{**x["files"][0],"selected":{"XBLOCK":99}}]}),
++        ]
++        for name,mutate in malformed:
++            path=root/name;before=path.read_text();value=json.loads(before) if name.endswith(".json") else before
++            changed=mutate(value);path.write_text(json.dumps(changed) if name.endswith(".json") else changed)
++            try:load(root)
++            except ValueError:rejected+=1
++            else:raise AssertionError("malformed FI evidence accepted: "+name)
++            finally:path.write_text(before)
+     print(json.dumps({"status": "passed", "mode": "cpu_preflight", "http_requests": 0, "gpu_work": False,
+                       "variable_scenario_count": 2, "malformed_fixtures_rejected": rejected,
+-                      "script_sha256": sha(Path(__file__).read_bytes())}))
++                      "script_sha256": sha(Path(__file__).read_bytes()),
++                      "identity_sha256": sha((HERE / "compare_runtime_identity.py").read_bytes())}))
+ 
+ 
+ def main():
+diff --git a/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md b/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
+index 46282c8..07df4d3 100644
+--- a/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
++++ b/docs/superpowers/plans/2026-10-27-qwen-sequential-experiments.md
+@@ -216,3 +216,13 @@ microbenchmarks alone do not satisfy this request.
+   MTP capture stopped on an unwarmed descriptor: MRV2 rounds184 to186 tokens
+   for decode_query_len3. Warmup coverage fix is in CPU preparation; original
+   failed run/source snapshots retained. No serving or speed claim for this run.
++
++- LIVE session7614: scalar_matched_1 then exact_matched_1, each individual17
++  serving tasks + legacyquality + explicitgreedydecode +NLL_ROUNDS3. FI_CONTROL1
++  imports one immutable132-key reference table; startup and graceful-shutdown
++  effective table gates must pass. Six importer files, runner/sourcehelper and
++  mounted MoE/build sources are frozen. Inductor caches remain separate/unpinned.
++- GDN CPU review also found explicit split config changes vLLM defaults: baseline
++  adds two KV-update boundaries and disables rope-KV fusion. FirstGDN omitted
++  them and enabled that unrelated fusion. Generator correction is in progress;
++  retain baseline19 split ops and disabled rope fusion, then add only GDN op.
+diff --git a/kernels/gdn-norm-fp8/INTEGRATION_PREP.md b/kernels/gdn-norm-fp8/INTEGRATION_PREP.md
+index 49d3f93..cb72d1e 100644
+--- a/kernels/gdn-norm-fp8/INTEGRATION_PREP.md
++++ b/kernels/gdn-norm-fp8/INTEGRATION_PREP.md
+@@ -1,9 +1,12 @@
+ # Default-off packed GDN overlay
+ 
+ The isolated overlay is ready for review and scheduled GPU integration tests.
+-It has not been mounted or tested in a serving process. The frozen explicit
+-kernel passes the standalone checks summarized in README; that does not
+-validate this new stateful custom-op boundary.
++The first owned GPU smoke reached all 30 ready layers and compiled the QA
++consumer path, but failed during FULL graph profiling because derived MTP
++capture sizes were missing from startup warmup. The CPU-verified correction
++is described in `results/CAPTURE_WARMUP_FIX.md`; GPU rerun remains pending.
++The frozen explicit kernel passes standalone checks, which do not validate
++this new stateful custom-op boundary.
+ 
+ The actual MTP2 serving FX contains 30 calls to
+ `qwen_gdn_attention_core_fused_norm_packed`. That op calls the existing fused
+@@ -67,10 +70,16 @@ unquantized branch, and the supported piecewise split configuration. The
+ original compiled QuantFP8 callable is verified by its wrapped raw method.
+ Unsupported configurations leave the original producer path enabled.
+ 
+-Post-load startup constructs and warms the validated output wrapper for T1, T2, maximum scheduled
+-T and every configured graph bucket. It also warms the explicit kernel's
++Post-load startup constructs and warms the validated output wrapper for T1,
++T2, maximum scheduled T, every configured graph bucket, and each derived
++uniform-decode bucket. MRV2 rounds configured sizes up to the fixed MTP
++query length, bounded by max sequences and maximum capture size. The stored
++config list stays unchanged, so warming only that list is insufficient.
++The candidate requires fixed MTP and disables itself for dynamic speculative
++schedules or DBO, whose additional shape laws are outside this experiment. It also warms the explicit kernel's
+ prefill layout with the actual X/Z strides. It refuses startup under stream
+-capture and rejects unwarmed graph buckets in the runtime fallback. Warming
++capture and rejects unwarmed graph buckets in the runtime fallback with the
++actual padded T, actual-token count, prefill count and complete warmup list. Warming
+ is startup GPU work when the overlay is eventually enabled, not work run by
+ the CPU preparation. Real graph startup must still prove no nested compilation
+ occurs during capture; warming alone is not that proof.
+@@ -84,8 +93,12 @@ The new custom op mutates caller-owned core/Q/S, has a fake implementation,
+ and uses `eager_break_during_capture`. Its split name must be supplied **before
+ VllmConfig construction**; the helper never mutates a hashed config later.
+ `integration_config.py` reads the installed source with AST, preserves the
+-provided base JSON and all 17 standard attention split ops, and adds the new
+-name. `results/integration_compilation_config.json` records that source hash
++provided base JSON and all 19 completed baseline split ops (17 attention
++ops plus two KV-update ops), and adds the new name. It explicitly preserves
++`pass_config.fuse_rope_kvcache_cat_mla=False`. The first generator skipped
++default completion and changed this pass; the source-derived correction and
++regression are recorded in `results/SPLIT_CONFIG_FIX.md`. Unsupported explicit
++base split/pass configurations are rejected. `results/integration_compilation_config.json` records that source hash
+ and the emitted default merge.
+ 
+ ```sh
+@@ -103,7 +116,9 @@ emitted JSON via `--compilation-config`. Use a distinct compilation cache and
+ retain the selected MoE stack/configuration for the incremental comparison.
+ The flag defaults to zero. This note does not modify root's server lifecycle.
+ 
+-CPU tests cover all configuration rejections, dispatch thresholds, large
++CPU tests cover exact installed split/pass completion, MRV2 descriptor coverage, the initial missing
++186-token case, request/capture bounds, diagnostic guard failures, all
++configuration rejections, dispatch thresholds, large
+ pure-decode fallback, metadata-free zeros, padded tails with NaN padded Z,
+ original-core delegation, strided Z offset 8192, mutating fake schema and one
+ dynamic CPU Dynamo graph over T3/31/1025. They do not execute the CUDA op.
+diff --git a/kernels/gdn-norm-fp8/README.md b/kernels/gdn-norm-fp8/README.md
+index 82a778f..97eb603 100644
+--- a/kernels/gdn-norm-fp8/README.md
++++ b/kernels/gdn-norm-fp8/README.md
+@@ -2,7 +2,13 @@
+ 
+ The explicit-layout candidate passes the recorded standalone exact checks;
+ the original automatic-layout candidate fails. Serving integration is a
+-separate, default-off overlay and has **not** been tested on GPU.
++separate, default-off overlay. Its first GPU smoke reached all 30 ready
++layers and the QA→CUTLASS graph, then failed on a derived MTP capture size.
++The warmup planner is corrected and CPU-verified; a GPU rerun is pending.
++See [`results/CAPTURE_WARMUP_FIX.md`](results/CAPTURE_WARMUP_FIX.md).
++The first generator also missed two baseline KV-update split ops;
++[`results/SPLIT_CONFIG_FIX.md`](results/SPLIT_CONFIG_FIX.md) records that
++configuration correction and its CPU regression.
+ 
+ The GPU run ledger is [`results/EXPLICIT_GPU.md`](results/EXPLICIT_GPU.md).
+ Recorded results are summarized in
+diff --git a/kernels/gdn-norm-fp8/integration_config.py b/kernels/gdn-norm-fp8/integration_config.py
+index 7bc1696..98fd031 100644
+--- a/kernels/gdn-norm-fp8/integration_config.py
++++ b/kernels/gdn-norm-fp8/integration_config.py
+@@ -19,13 +19,34 @@ def add_split(base, source):
+     item = next(n for n in cls.body if isinstance(n, ast.AnnAssign)
+                 and isinstance(n.target, ast.Name) and n.target.id == "_attention_ops")
+     standard = ast.literal_eval(item.value)
++    # _attention_ops is not the completed baseline. With default splitting_ops
++    # and no Inductor graph partition, vLLM later appends both KV-update ops.
++    # Supplying our explicit list bypasses that completion, so preserve it here.
++    contains_kv = next(n for n in cls.body if isinstance(n, ast.FunctionDef)
++                       and n.name == "splitting_ops_contain_kv_cache_update")
++    kv_assignment = next(n for n in contains_kv.body if isinstance(n, ast.Assign)
++                         and any(isinstance(t, ast.Name) and t.id == "kv_cache_update_ops"
++                                 for t in n.targets))
++    standard = [*standard, *ast.literal_eval(kv_assignment.value)]
+     config = dict(base)
+-    splits = list(config.get("splitting_ops") or standard)
+-    # Preserve all explicit entries and all baseline stateful split operations.
+-    for name in [*standard, OP]:
+-        if name not in splits:
+-            splits.append(name)
++    if config.get("use_inductor_graph_partition") not in (None, False):
++        raise ValueError("GDN experiment requires the ordinary Dynamo split configuration")
++    supplied = config.get("splitting_ops")
++    if supplied is not None and not set(standard).issubset(supplied):
++        raise ValueError("Explicit base splitting_ops must preserve all19 completed baseline splits")
++    splits = list(standard if supplied is None else supplied)
++    if OP not in splits:
++        splits.append(OP)
+     config["splitting_ops"] = splits
++    passes = dict(config.get("pass_config") or {})
++    for name in ("fuse_attn_quant", "fuse_rope_kvcache", "fuse_qk_norm_rope_kvcache",
++                 "fuse_rope_kvcache_cat_mla"):
++        if passes.get(name) not in (None, False):
++            raise ValueError(f"GDN experiment requires baseline {name}=False")
++    # The normal default predicate returns False because KV updates are split.
++    # Pin this derived default so CLI and resolved engine records are explicit.
++    passes["fuse_rope_kvcache_cat_mla"] = False
++    config["pass_config"] = passes
+     return config, standard
+ 
+ 
+@@ -41,6 +62,7 @@ def main():
+     if args.manifest:
+         args.manifest.write_text(json.dumps({"source": str(args.source),
+             "sha256": hashlib.sha256(source.encode()).hexdigest(), "standard_splits": standard,
++            "baseline_split_count": len(standard), "candidate_split_count": len(result["splitting_ops"]),
+             "candidate": result, "cuda_imported": False}, indent=2) + "\n")
+ 
+ 
+diff --git a/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py b/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py
+index 61827f1..0ce7b7f 100644
+--- a/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py
++++ b/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py
+@@ -90,7 +90,7 @@ class _GdnDynamicTokenCutlass(CutlassFP8ScaledMMLinearKernel):
+         # self.quant_fp8 stays intact as oracle and ordinary Tensor fallback.
+         self._quant_out = torch.compile(
+             make_raw_quant_out(self.quant_fp8), dynamic=True, fullgraph=True)
+-        # Includes size 1, dynamic >=2, max T and every configured graph bucket.
++        # Includes configured mixed buckets AND derived rounded MTP FULL buckets.
+         with torch.inference_mode():
+             for tokens in self._warmup_sizes:
+                 x = torch.zeros((tokens, 4096), device=w.device, dtype=torch.bfloat16)
+@@ -153,15 +153,30 @@ def configure_gdn_norm_fp8(layer, vllm_config):
+         no_bias=projection.bias is None, return_bias=projection.return_bias,
+         compiled_native_quant=_is_compiled_native_quant(getattr(kernel, "quant_fp8", None)),
+         split_boundary=f"vllm::{OP_NAME}" in splits,
+-        standard_splits=set(compilation._attention_ops).issubset(splits),
++        standard_splits=set(compilation._attention_ops).union({
++            "vllm::unified_kv_cache_update", "vllm::unified_mla_kv_cache_update"
++        }).issubset(splits),
+         no_partition=not compilation.use_inductor_graph_partition,
++        baseline_passes=(not compilation.pass_config.fuse_attn_quant
++                         and not compilation.pass_config.fuse_rope_kvcache
++                         and not compilation.pass_config.fuse_qk_norm_rope_kvcache
++                         and compilation.pass_config.fuse_rope_kvcache_cat_mla is False),
++        fixed_decode_capture=(vllm_config.speculative_config is not None
++                              and vllm_config.speculative_config.method == "mtp"
++                              and not vllm_config.speculative_config.uses_dynamic_speculative_decoding()
++                              and not vllm_config.parallel_config.enable_dbo),
+     )
+     rejection = configuration_rejection(spec)
+     if rejection is not None:
+         logger.info("GDN norm-FP8 disabled for %s: %s", layer.prefix, rejection)
+         return
+-    warmups = fallback_warmup_sizes(compilation.cudagraph_capture_sizes or (),
+-                                   vllm_config.scheduler_config.max_num_batched_tokens)
++    warmups = fallback_warmup_sizes(
++        compilation.cudagraph_capture_sizes or (),
++        vllm_config.scheduler_config.max_num_batched_tokens,
++        decode_query_len=vllm_config.num_speculative_tokens + 1,
++        max_num_seqs=vllm_config.scheduler_config.max_num_seqs,
++        max_capture_size=compilation.max_cudagraph_capture_size,
++    )
+     try:
+         adapted = _GdnDynamicTokenCutlass(kernel, layer, warmups)
+     except (TypeError, ValueError) as exc:
+@@ -199,7 +214,11 @@ def packed_norm_fp8(layer, mixed_qkvz, ba, core, q, scale, metadata):
+         if not kernel._ready or kernel._quant_out is None:
+             raise RuntimeError("Compiled QuantFP8 was not warmed before capture")
+         if torch.cuda.is_current_stream_capturing() and tokens not in kernel._warmup_sizes:
+-            raise RuntimeError("Unwarmed GDN fallback CUDA graph shape")
++            raise RuntimeError(
++                f"Unwarmed GDN fallback CUDA graph shape: layer={layer.prefix}, "
++                f"tokens={tokens}, actual_tokens={actual}, "
++                f"num_prefills={metadata.num_prefills}, warmed_tokens={kernel._warmup_sizes}"
++            )
+         # Baseline quantizes all padded rows, after normalizing actual rows.
+         kernel._quant_out(core.flatten(-2), q, scale)
+         return
+diff --git a/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py b/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py
+index ad425ad..f5851c7 100644
+--- a/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py
++++ b/kernels/gdn-norm-fp8/overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py
+@@ -8,6 +8,8 @@ CONFIGURATION_KEYS = (
+     "dynamic_token", "static_channel", "dtype_bf16", "weight_shape", "no_padding",
+     "no_lora", "no_unquantized_branch", "input_parallel", "no_bias", "return_bias",
+     "compiled_native_quant", "split_boundary", "standard_splits", "no_partition",
++    "fixed_decode_capture",
++    "baseline_passes",
+ )
+ 
+ 
+@@ -37,8 +39,26 @@ def reference_rows_per_block(tokens, sm_count):
+     return min(1 << (needed - 1).bit_length(), 4)
+ 
+ 
+-def fallback_warmup_sizes(capture_sizes, max_tokens):
++def fallback_warmup_sizes(capture_sizes, max_tokens, *, decode_query_len=1,
++                          max_num_seqs=None, max_capture_size=None):
+     if max_tokens < 2 or any(t < 1 or t > max_tokens for t in capture_sizes):
+         raise ValueError("Invalid capture sizes")
++    if decode_query_len < 1 or (max_num_seqs is not None and max_num_seqs < 1):
++        raise ValueError("Invalid decode capture configuration")
+     # Torch specializes size 1 separately. Size 2 starts the dynamic >=2 path.
+-    return sorted({1, 2, max_tokens, *capture_sizes})
++    warmups = {1, 2, max_tokens, *capture_sizes}
++    if decode_query_len > 1:
++        if max_num_seqs is None:
++            raise ValueError("Speculative decode requires max_num_seqs")
++        capture_limit = max(capture_sizes, default=0) if max_capture_size is None else max_capture_size
++        if not 0 <= capture_limit <= max_tokens:
++            raise ValueError("Invalid maximum capture size")
++        limit = min(max_num_seqs * decode_query_len, capture_limit, max_tokens)
++        # MRV2 CudaGraphManager creates FULL descriptors from rounded token
++        # counts without mutating compilation_config.cudagraph_capture_sizes.
++        # Keep the original counts too: PIECEWISE and varlen decode use them.
++        for tokens in capture_sizes:
++            rounded = ((tokens + decode_query_len - 1) // decode_query_len) * decode_query_len
++            if rounded <= limit:
++                warmups.add(rounded)
++    return sorted(warmups)
+diff --git a/kernels/gdn-norm-fp8/overlay_manifest.json b/kernels/gdn-norm-fp8/overlay_manifest.json
+index 13ac791..f8d1542 100644
+--- a/kernels/gdn-norm-fp8/overlay_manifest.json
++++ b/kernels/gdn-norm-fp8/overlay_manifest.json
+@@ -4,13 +4,13 @@
+   "validated_kernel_source": "kernels/gdn-norm-fp8/fused_explicit.py",
+   "validated_kernel_sha256": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+   "files": {
+-    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "cce563b943dabf871f358c1ed4633f9297db4ac7a9c5db45e4f98dcb331e78a2",
+-    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "2fee3aed884d0f254cad50531de83eb0448997caca0f47084a0f25f4884a6e03",
++    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "29a7cecdefb0d24e1f046ff4c4cc3ec8bb6346d885609aad8d39943a4941ffe4",
++    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "9cef6757348438119660376cac9e7efba25a5595b439ea62265ad32df8885d73",
+     "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+     "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+     "overlay/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c"
+   },
+-  "scope": "Unmounted default-off packed overlay; CPU tests only; stateful GPU integration untested",
++  "scope": "Default-off packed overlay; first GPU smoke reached30 ready/QA-CUTLASS graph but failed capture warmup coverage; CPU fix prepared, repeat GPU smoke pending",
+   "required_env": {
+     "VLLM_GDN_NORM_FP8_FUSION": "1"
+   },
+@@ -24,5 +24,15 @@
+     "fullgraph": true,
+     "backend": "torch.compile default (inductor)",
+     "options": null
+-  }
++  },
++  "warmup_coverage": "T1/T2/maxT/configured buckets plus MRV2 fixed-MTP rounded FULL descriptors bounded by max_num_seqs and max capture size; runtime membership guard retained",
++  "integration_config_sha256": "b168c23d8111f917bd63fc9a5d27eadf0859b25965a45ebcf20418ea651d5bed",
++  "required_baseline_split_count": 19,
++  "required_candidate_split_count": 20,
++  "required_pass_config": {
++    "fuse_rope_kvcache_cat_mla": false
++  },
++  "capture_planner_report": "results/capture_sizes_cpu_audit.json",
++  "captured_configuration_warmup_count": 81,
++  "split_config_report": "results/integration_config_cpu_audit.json"
+ }
+diff --git a/kernels/gdn-norm-fp8/results/integration_compilation_config.json b/kernels/gdn-norm-fp8/results/integration_compilation_config.json
+index eb2c9dc..9c55bfe 100644
+--- a/kernels/gdn-norm-fp8/results/integration_compilation_config.json
++++ b/kernels/gdn-norm-fp8/results/integration_compilation_config.json
+@@ -18,8 +18,12 @@
+     "vllm::sparse_attn_indexer",
+     "vllm::rocm_aiter_sparse_attn_indexer",
+     "vllm::deepseek_v4_attention",
+-    "vllm::hpc_rope_norm_forward"
++    "vllm::hpc_rope_norm_forward",
++    "vllm::unified_kv_cache_update",
++    "vllm::unified_mla_kv_cache_update"
+   ],
++  "baseline_split_count": 19,
++  "candidate_split_count": 20,
+   "candidate": {
+     "splitting_ops": [
+       "vllm::unified_attention_with_output",
+@@ -39,8 +43,13 @@
+       "vllm::rocm_aiter_sparse_attn_indexer",
+       "vllm::deepseek_v4_attention",
+       "vllm::hpc_rope_norm_forward",
++      "vllm::unified_kv_cache_update",
++      "vllm::unified_mla_kv_cache_update",
+       "vllm::gdn_attention_core_norm_fp8_packed_experimental"
+-    ]
++    ],
++    "pass_config": {
++      "fuse_rope_kvcache_cat_mla": false
++    }
+   },
+   "cuda_imported": false
+ }
+diff --git a/kernels/gdn-norm-fp8/results/integration_cpu_preflight.json b/kernels/gdn-norm-fp8/results/integration_cpu_preflight.json
+index 4ca3d92..dc717f9 100644
+--- a/kernels/gdn-norm-fp8/results/integration_cpu_preflight.json
++++ b/kernels/gdn-norm-fp8/results/integration_cpu_preflight.json
+@@ -1,6 +1,6 @@
+ {
+   "status": "PASS",
+-  "tests": 9,
++  "tests": 11,
+   "cuda_initialized": false,
+   "cuda_visible_devices": "",
+   "forbidden_runtime_calls": [
+@@ -22,12 +22,14 @@
+     "capture_worker.py": "e081d46edf8ef1af54084caec3e39dd267d260bbbd310f6b2e7d21d165a1cf0e",
+     "capture_activations.py": "d609436204f4b2b3b38cd8c0c5a60e71ce1784f7ddbc9d12ab30395f772502fd",
+     "capture_io.py": "d8516401e2dbc29ca9282ad420a939852ecd05bc7e2b4bc9ada0d103934a6f57",
+-    "test_integration_guards.py": "e48e4f915514909638aa4af1a424f42e1b78cdd188dc7a6b3d44fe0ce52e7c25",
+-    "integration_config.py": "0788ddec90b7f7e18a7ec5e5eaf02a2ee1a361b10c705210a05962c306fe4de6",
++    "test_integration_guards.py": "d62c17117cb32155bea9d43d5ed842d1d3b1a1610137312770823ef84de39241",
++    "integration_config.py": "b168c23d8111f917bd63fc9a5d27eadf0859b25965a45ebcf20418ea651d5bed",
++    "audit_capture_sizes.py": "b8899a0ba97a343345b4c7cac3770aa9b9a75d6cd95e8e701338f62f13791ac9",
++    "audit_integration_config.py": "d7e822f0df7808fbf68471b28380cb65cadef1883bfbe400fe59b98f6229e553",
+     "fallback_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+     "verify_fallback_quant_out.py": "b6f486269609b82855fb4aeb6324fd40c4ef2b8f95cd9150f4b62918ee816589",
+-    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "cce563b943dabf871f358c1ed4633f9297db4ac7a9c5db45e4f98dcb331e78a2",
+-    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "2fee3aed884d0f254cad50531de83eb0448997caca0f47084a0f25f4884a6e03",
++    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_fusion.py": "29a7cecdefb0d24e1f046ff4c4cc3ec8bb6346d885609aad8d39943a4941ffe4",
++    "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_guards.py": "9cef6757348438119660376cac9e7efba25a5595b439ea62265ad32df8885d73",
+     "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_kernel.py": "f75ccc7e8e1b9d4e56111e739b4cd2d91ac5622054b81cf591cc7a493d1e630f",
+     "overlay/vllm/model_executor/layers/mamba/gdn/gdn_norm_fp8_quant_out.py": "1873331ed2bc6e8699d8b8c4076452f72c061475afd8c4138036c29ba2b670e2",
+     "overlay/vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "076df3cf7825556bcc84cd63dbb326cd32f1f1b17e05224940ba64b70823fa0c"
+diff --git a/kernels/gdn-norm-fp8/test_integration_guards.py b/kernels/gdn-norm-fp8/test_integration_guards.py
+index e4a7f7a..2d9b0c6 100644
+--- a/kernels/gdn-norm-fp8/test_integration_guards.py
++++ b/kernels/gdn-norm-fp8/test_integration_guards.py
+@@ -1,8 +1,9 @@
+ """CPU-only contracts and opaque-op dispatch checks; never launch Triton/vLLM."""
+ import ast
++import enum
+ import importlib.util
+ from pathlib import Path
+-from types import SimpleNamespace
++from types import MethodType, SimpleNamespace
+ import unittest
+ from unittest.mock import patch
+ 
+@@ -23,7 +24,84 @@ def extract_function(name, namespace, source="gdn_norm_fp8_fusion.py"):
+     return namespace[name]
+ 
+ 
++def resolve_installed_split_defaults(base, compilation_source, vllm_source):
++    """Run the installed split completion/predicate without platform imports."""
++    tree = ast.parse(compilation_source)
++    cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "CompilationConfig")
++    enums = [n for n in tree.body if isinstance(n, ast.ClassDef)
++             and n.name in ("CompilationMode", "CUDAGraphMode")]
++    methods = [n for n in cls.body if isinstance(n, ast.FunctionDef)
++               and n.name in ("set_splitting_ops_for_v1", "splitting_ops_contain_kv_cache_update")]
++    attention = ast.literal_eval(next(n.value for n in cls.body if isinstance(n, ast.AnnAssign)
++                                      and isinstance(n.target, ast.Name) and n.target.id == "_attention_ops"))
++    mla = next(n for n in ast.parse(vllm_source).body if isinstance(n, ast.FunctionDef)
++               and n.name == "enable_rope_kvcache_mla_fusion")
++    ns = dict(enum=enum, logger=SimpleNamespace(warning_once=lambda *a:None, info=lambda *a:None))
++    exec(compile(ast.Module(body=[*enums, *methods, mla], type_ignores=[]), "installed_config_methods", "exec"), ns)
++    passes = dict(fuse_attn_quant=False, fuse_rope_kvcache=False, fuse_qk_norm_rope_kvcache=False)
++    passes.update(base.get("pass_config", {}))
++    cfg = SimpleNamespace(mode=ns["CompilationMode"].VLLM_COMPILE,
++                          cudagraph_mode=ns["CUDAGraphMode"].FULL_AND_PIECEWISE,
++                          use_inductor_graph_partition=False,
++                          splitting_ops=base.get("splitting_ops"),
++                          pass_config=SimpleNamespace(**passes), _attention_ops=attention)
++    cfg.splitting_ops_contain_kv_cache_update = MethodType(ns["splitting_ops_contain_kv_cache_update"], cfg)
++    if "fuse_rope_kvcache_cat_mla" not in passes:
++        cfg.pass_config.fuse_rope_kvcache_cat_mla = ns["enable_rope_kvcache_mla_fusion"](SimpleNamespace(compilation_config=cfg))
++    ns["set_splitting_ops_for_v1"](cfg, "allgather_reducescatter", 1)
++    return dict(splitting_ops=cfg.splitting_ops, pass_config=vars(cfg.pass_config))
++
++
+ class IntegrationGuardsTest(unittest.TestCase):
++    def test_candidate_only_adds_gdn_to_actual_completed_baseline_splits(self):
++        from integration_config import OP, add_split
++        source_root = Path("/usr/local/lib/python3.12/dist-packages/vllm/config")
++        compilation = (source_root / "compilation.py").read_text()
++        vllm = (source_root / "vllm.py").read_text()
++        baseline = resolve_installed_split_defaults({}, compilation, vllm)
++        self.assertEqual(len(baseline["splitting_ops"]), 19)
++        self.assertEqual(baseline["splitting_ops"][-2:],
++                         ["vllm::unified_kv_cache_update", "vllm::unified_mla_kv_cache_update"])
++        self.assertIs(baseline["pass_config"]["fuse_rope_kvcache_cat_mla"], False)
++        generated, _ = add_split({}, compilation)
++        actual = resolve_installed_split_defaults(generated, compilation, vllm)
++        self.assertEqual([op for op in actual["splitting_ops"] if op != OP], baseline["splitting_ops"])
++        self.assertEqual(actual["pass_config"], baseline["pass_config"])
++        custom_base = {"backend": "inductor", "debug_dump_path": "/tmp/gdn-test",
++                       "splitting_ops": [*baseline["splitting_ops"], "test::existing"],
++                       "pass_config": {"fuse_norm_quant": False}}
++        kept, _ = add_split(custom_base, compilation)
++        self.assertEqual(kept["splitting_ops"], [*custom_base["splitting_ops"], OP])
++        self.assertEqual(kept["debug_dump_path"], "/tmp/gdn-test")
++        self.assertIs(kept["pass_config"]["fuse_norm_quant"], False)
++        self.assertNotIn("fuse_rope_kvcache_cat_mla", custom_base["pass_config"])
++        for invalid in ({"splitting_ops": []}, {"use_inductor_graph_partition": True},
++                        {"pass_config": {"fuse_rope_kvcache_cat_mla": True}}):
++            with self.assertRaises(ValueError):
++                add_split(invalid, compilation)
++
++    def test_warmup_covers_installed_mtp_full_capture_descriptors(self):
++        from audit_capture_sizes import installed_capture_descriptors
++        g = load_guards()
++        # The integration failure occurs on the second descending FULL profile
++        # descriptor: configured 184 is rounded to 186 for 3-token MTP queries.
++        sizes = [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88,
++                 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184,
++                 192, 200, 256, 1024, 16384]
++        descriptors, _ = installed_capture_descriptors(sizes, 16384, 64, 3)
++        self.assertEqual(descriptors["FULL"][:2], [192, 186])
++        warmed = g.fallback_warmup_sizes(sizes, 16384, decode_query_len=3,
++                                         max_num_seqs=64, max_capture_size=16384)
++        self.assertTrue(set(descriptors["FULL"]).issubset(warmed),
++                        f"Unwarmed actual FULL descriptors: {sorted(set(descriptors['FULL'])-set(warmed))}")
++        self.assertTrue(set(descriptors["PIECEWISE"]).issubset(warmed))
++        # Round-up respects both request and maximum-token bounds.
++        self.assertEqual(g.fallback_warmup_sizes([1, 2, 4, 8], 16,
++                         decode_query_len=3, max_num_seqs=2, max_capture_size=8),
++                         [1, 2, 3, 4, 6, 8, 16])
++        with self.assertRaises(ValueError):
++            g.fallback_warmup_sizes([1, 2], 16, decode_query_len=3)
++
+     def test_configuration_and_dispatch(self):
+         g = load_guards()
+         valid = dict.fromkeys(g.CONFIGURATION_KEYS, True)
+@@ -64,7 +142,7 @@ class IntegrationGuardsTest(unittest.TestCase):
+         quant_out = make_out(SimpleNamespace(forward_native=quant))
+         kernel = SimpleNamespace(_ready=True, _warmup_sizes=(64, 1050),
+                                  quant_fp8=quant, _quant_out=quant_out)
+-        layer = SimpleNamespace(_gdn_norm_fp8_enabled=True, _gdn_norm_fp8_sm_count=188,
++        layer = SimpleNamespace(prefix="test.linear_attn", _gdn_norm_fp8_enabled=True, _gdn_norm_fp8_sm_count=188,
+                                 norm=SimpleNamespace(weight=torch.ones(128, dtype=torch.bfloat16)),
+                                 out_proj=SimpleNamespace(scheme=SimpleNamespace(fp8_linear=kernel)))
+         def prepare(total, actual):
+@@ -92,6 +170,11 @@ class IntegrationGuardsTest(unittest.TestCase):
+         self.assertEqual(events, [("original",), ("quant", (64, 4096))])
+         self.assertTrue((args[3][31:].view(torch.uint8) == 0).all())
+         self.assertTrue((args[4][31:] == g.SCALE_FLOOR).all())
++        kernel._warmup_sizes = (3,)
++        with patch.object(torch.cuda, "is_current_stream_capturing", return_value=True):
++            with self.assertRaisesRegex(RuntimeError, r"tokens=64, actual_tokens=31.*warmed_tokens=\(3,\)"):
++                run(layer, *args, SimpleNamespace(num_actual_tokens=31, num_prefills=0))
++        kernel._warmup_sizes = (64, 1050)
+         events.clear()
+         layer.split_ba = lambda x: x.split([32, 32], dim=-1)
+         def core(**kw):

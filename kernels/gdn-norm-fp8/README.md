@@ -1,14 +1,17 @@
 # GDN norm + SiLU + token FP8 experiment
 
 The explicit-layout candidate passes the recorded standalone exact checks;
-the original automatic-layout candidate fails. Serving integration is a
-separate, default-off overlay. Its first GPU smoke reached all 30 ready
-layers and the QA→CUTLASS graph, then failed on a derived MTP capture size.
-The warmup planner is corrected and CPU-verified; a GPU rerun is pending.
-See [`results/CAPTURE_WARMUP_FIX.md`](results/CAPTURE_WARMUP_FIX.md).
-The first generator also missed two baseline KV-update split ops;
-[`results/SPLIT_CONFIG_FIX.md`](results/SPLIT_CONFIG_FIX.md) records that
-configuration correction and its CPU regression.
+the original automatic-layout candidate fails. The default-off serving
+overlay also passed a scoped stateful integration smoke: all 30 ready layers,
+completed graph capture, four greedy decode scenarios (512 measured requests)
+and ten finite NLL requests. This is not paired quality equivalence or a
+serving speedup claim. See
+[`results/INTEGRATION_GPU.md`](results/INTEGRATION_GPU.md).
+
+The first integration failed on a derived MTP capture size, and its generator
+missed two baseline KV-update splits. Both failures and their corrections are
+preserved in [`results/CAPTURE_WARMUP_FIX.md`](results/CAPTURE_WARMUP_FIX.md) and
+[`results/SPLIT_CONFIG_FIX.md`](results/SPLIT_CONFIG_FIX.md).
 
 The GPU run ledger is [`results/EXPLICIT_GPU.md`](results/EXPLICIT_GPU.md).
 Recorded results are summarized in
@@ -38,8 +41,9 @@ medians, microseconds):
 | 16384 | 925.94 | 584.51 |
 
 These are microbenchmarks, not measured serving improvements. Both chains
-retain their captured output buffers. Serving quality, decode cost, padded
-metadata paths and graph startup remain integration validation work.
+retain their captured output buffers. The owned integration smoke now covers startup/capture and request execution;
+matched quality, decode cost and targeted state/padding equivalence remain
+validation work.
 
 The original failure and reduction-order diagnosis are preserved in
 [`DIAGNOSIS.md`](DIAGNOSIS.md). The successful capture is
@@ -49,8 +53,8 @@ The compiled-output fallback passes its separate exactness checks;
 [`results/FALLBACK_QUANT_OUT_GPU.md`](results/FALLBACK_QUANT_OUT_GPU.md) records
 its generated code and limited timing comparison.
 The default-off overlay and required split configuration are described in
-[`INTEGRATION_PREP.md`](INTEGRATION_PREP.md). No mounted serving sources or
-backend defaults have been changed by this experiment.
+[`INTEGRATION_PREP.md`](INTEGRATION_PREP.md). Root mounted the candidate only
+for the owned diagnostic run; the experiment remains opt-in and default-off.
 
 `fused_explicit.py` implements one Gluon CTA per token with the FLA reduction layout.
 The frozen source docstring predates its GPU validation; the recorded results

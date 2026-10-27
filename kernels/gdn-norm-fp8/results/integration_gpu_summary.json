@@ -1,0 +1,1004 @@
+{
+  "status": "STATEFUL_INTEGRATION_PASS_SCOPED",
+  "run": "results/qwen_sequential/gdn_integration_2",
+  "variant": "shared_exact_gdn",
+  "fi_control": 0,
+  "runner_exit_code": 0,
+  "ready_layers": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    16,
+    17,
+    18,
+    20,
+    21,
+    22,
+    24,
+    25,
+    26,
+    28,
+    29,
+    30,
+    32,
+    33,
+    34,
+    36,
+    37,
+    38
+  ],
+  "source_verification": {
+    "status": "passed",
+    "action": "verify",
+    "files": 22,
+    "variant": "shared_exact_gdn"
+  },
+  "resolved_compilation_config": {
+    "mode": "CompilationMode.VLLM_COMPILE",
+    "debug_dump_path": null,
+    "cache_dir": "",
+    "compile_cache_save_format": "binary",
+    "backend": "inductor",
+    "custom_ops": [
+      "none"
+    ],
+    "ir_enable_torch_wrap": true,
+    "splitting_ops": [
+      "vllm::unified_attention_with_output",
+      "vllm::unified_mla_attention_with_output",
+      "vllm::mamba_mixer2",
+      "vllm::mamba_mixer",
+      "vllm::short_conv",
+      "vllm::qwen4_exp_ple_short_conv",
+      "vllm::qwen4_exp_qsa_with_output",
+      "vllm::qwen4_exp_qsa_prepare_with_output",
+      "vllm::linear_attention",
+      "vllm::qwen_gdn_attention_core",
+      "vllm::qwen_gdn_attention_core_fused_norm_packed",
+      "vllm::gdn_attention_core_xpu",
+      "vllm::olmo_hybrid_gdn_full_forward",
+      "vllm::sparse_attn_indexer",
+      "vllm::rocm_aiter_sparse_attn_indexer",
+      "vllm::deepseek_v4_attention",
+      "vllm::hpc_rope_norm_forward",
+      "vllm::unified_kv_cache_update",
+      "vllm::unified_mla_kv_cache_update",
+      "vllm::gdn_attention_core_norm_fp8_packed_experimental"
+    ],
+    "compile_mm_encoder": false,
+    "cudagraph_mm_encoder": false,
+    "encoder_cudagraph_token_budgets": [],
+    "encoder_cudagraph_max_vision_items_per_batch": 0,
+    "encoder_cudagraph_max_frames_per_batch": null,
+    "cudagraph_decoder_replay": true,
+    "decoder_replay_cudagraph_capture_sizes": [],
+    "decoder_replay_trim_threshold": 768,
+    "compile_sizes": [],
+    "compile_ranges_endpoints": [
+      16384
+    ],
+    "inductor_compile_config": {
+      "enable_auto_functionalized_v2": false,
+      "combo_kernels": true,
+      "benchmark_combo_kernel": true
+    },
+    "inductor_passes": {},
+    "cudagraph_mode": "CUDAGraphMode.FULL_AND_PIECEWISE",
+    "cudagraph_num_of_warmups": 1,
+    "cudagraph_capture_sizes": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      24,
+      32,
+      40,
+      48,
+      56,
+      64,
+      72,
+      80,
+      88,
+      96,
+      104,
+      112,
+      120,
+      128,
+      136,
+      144,
+      152,
+      160,
+      168,
+      176,
+      184,
+      192,
+      200,
+      208,
+      216,
+      224,
+      232,
+      240,
+      248,
+      256,
+      272,
+      288,
+      304,
+      320,
+      336,
+      352,
+      368,
+      384,
+      512,
+      1024,
+      1536,
+      2048,
+      2560,
+      3072,
+      3584,
+      4096,
+      4608,
+      5120,
+      5632,
+      6144,
+      6656,
+      7168,
+      7680,
+      8192,
+      10240,
+      12288,
+      14336,
+      16384
+    ],
+    "cudagraph_copy_inputs": false,
+    "cudagraph_specialize_lora": true,
+    "use_inductor_graph_partition": false,
+    "pass_config": {
+      "fuse_norm_quant": false,
+      "fuse_act_quant": false,
+      "fuse_attn_quant": false,
+      "fuse_allreduce_rms": false,
+      "enable_qk_norm_rope_fusion": false,
+      "fuse_rope_kvcache_cat_mla": false,
+      "fuse_act_padding": false,
+      "fuse_qk_norm_rope_kvcache": false
+    },
+    "max_cudagraph_capture_size": 16384,
+    "dynamic_shapes_config": {
+      "type": "DynamicShapesType.BACKED",
+      "evaluate_guards": false,
+      "assume_32_bit_indexing": false
+    },
+    "local_cache_dir": null,
+    "fast_moe_cold_start": false,
+    "static_all_moe_layers": []
+  },
+  "baseline_compilation_config_source": "results/qwen_sequential/exact_tasks_1/docker.log",
+  "resolved_config_matches_baseline_after_removing_gdn_split": true,
+  "graph": {
+    "cache_id": "c35103b048",
+    "new_gdn_ops": 30,
+    "old_gdn_ops": 0,
+    "qa_direct_cutlass_edges": [
+      {
+        "layer": 0,
+        "producer_submodule": "submod_1",
+        "producer_line": 781,
+        "consumer_submodule": "submod_2",
+        "cutlass_line": 796,
+        "q_input": "q",
+        "scale_input": "scale_1",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_0_modules_linear_attn_modules_out_proj_parameters_weight_, scale_1, l_self_modules_layers_modules_0_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 1,
+        "producer_submodule": "submod_3",
+        "producer_line": 901,
+        "consumer_submodule": "submod_4",
+        "cutlass_line": 916,
+        "q_input": "q_1",
+        "scale_input": "scale_3",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_1.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_1_modules_linear_attn_modules_out_proj_parameters_weight_, scale_3, l_self_modules_layers_modules_1_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 2,
+        "producer_submodule": "submod_5",
+        "producer_line": 1021,
+        "consumer_submodule": "submod_6",
+        "cutlass_line": 1036,
+        "q_input": "q_2",
+        "scale_input": "scale_5",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_2.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_2_modules_linear_attn_modules_out_proj_parameters_weight_, scale_5, l_self_modules_layers_modules_2_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 4,
+        "producer_submodule": "submod_9",
+        "producer_line": 1319,
+        "consumer_submodule": "submod_10",
+        "cutlass_line": 1334,
+        "q_input": "q_3",
+        "scale_input": "scale_9",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_3.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_4_modules_linear_attn_modules_out_proj_parameters_weight_, scale_9, l_self_modules_layers_modules_4_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 5,
+        "producer_submodule": "submod_11",
+        "producer_line": 1439,
+        "consumer_submodule": "submod_12",
+        "cutlass_line": 1454,
+        "q_input": "q_4",
+        "scale_input": "scale_11",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_4.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_5_modules_linear_attn_modules_out_proj_parameters_weight_, scale_11, l_self_modules_layers_modules_5_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 6,
+        "producer_submodule": "submod_13",
+        "producer_line": 1559,
+        "consumer_submodule": "submod_14",
+        "cutlass_line": 1574,
+        "q_input": "q_5",
+        "scale_input": "scale_13",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_5.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_6_modules_linear_attn_modules_out_proj_parameters_weight_, scale_13, l_self_modules_layers_modules_6_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 8,
+        "producer_submodule": "submod_17",
+        "producer_line": 1857,
+        "consumer_submodule": "submod_18",
+        "cutlass_line": 1872,
+        "q_input": "q_6",
+        "scale_input": "scale_17",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_6.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_8_modules_linear_attn_modules_out_proj_parameters_weight_, scale_17, l_self_modules_layers_modules_8_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 9,
+        "producer_submodule": "submod_19",
+        "producer_line": 1977,
+        "consumer_submodule": "submod_20",
+        "cutlass_line": 1992,
+        "q_input": "q_7",
+        "scale_input": "scale_19",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_7.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_9_modules_linear_attn_modules_out_proj_parameters_weight_, scale_19, l_self_modules_layers_modules_9_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 10,
+        "producer_submodule": "submod_21",
+        "producer_line": 2097,
+        "consumer_submodule": "submod_22",
+        "cutlass_line": 2112,
+        "q_input": "q_8",
+        "scale_input": "scale_21",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_8.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_10_modules_linear_attn_modules_out_proj_parameters_weight_, scale_21, l_self_modules_layers_modules_10_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 12,
+        "producer_submodule": "submod_25",
+        "producer_line": 2395,
+        "consumer_submodule": "submod_26",
+        "cutlass_line": 2410,
+        "q_input": "q_9",
+        "scale_input": "scale_25",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_9.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_12_modules_linear_attn_modules_out_proj_parameters_weight_, scale_25, l_self_modules_layers_modules_12_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 13,
+        "producer_submodule": "submod_27",
+        "producer_line": 2515,
+        "consumer_submodule": "submod_28",
+        "cutlass_line": 2530,
+        "q_input": "q_10",
+        "scale_input": "scale_27",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_10.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_13_modules_linear_attn_modules_out_proj_parameters_weight_, scale_27, l_self_modules_layers_modules_13_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 14,
+        "producer_submodule": "submod_29",
+        "producer_line": 2635,
+        "consumer_submodule": "submod_30",
+        "cutlass_line": 2650,
+        "q_input": "q_11",
+        "scale_input": "scale_29",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_11.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_14_modules_linear_attn_modules_out_proj_parameters_weight_, scale_29, l_self_modules_layers_modules_14_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 16,
+        "producer_submodule": "submod_33",
+        "producer_line": 2933,
+        "consumer_submodule": "submod_34",
+        "cutlass_line": 2948,
+        "q_input": "q_12",
+        "scale_input": "scale_33",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_12.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_16_modules_linear_attn_modules_out_proj_parameters_weight_, scale_33, l_self_modules_layers_modules_16_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 17,
+        "producer_submodule": "submod_35",
+        "producer_line": 3053,
+        "consumer_submodule": "submod_36",
+        "cutlass_line": 3068,
+        "q_input": "q_13",
+        "scale_input": "scale_35",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_13.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_17_modules_linear_attn_modules_out_proj_parameters_weight_, scale_35, l_self_modules_layers_modules_17_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 18,
+        "producer_submodule": "submod_37",
+        "producer_line": 3173,
+        "consumer_submodule": "submod_38",
+        "cutlass_line": 3188,
+        "q_input": "q_14",
+        "scale_input": "scale_37",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_14.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_18_modules_linear_attn_modules_out_proj_parameters_weight_, scale_37, l_self_modules_layers_modules_18_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 20,
+        "producer_submodule": "submod_41",
+        "producer_line": 3471,
+        "consumer_submodule": "submod_42",
+        "cutlass_line": 3486,
+        "q_input": "q_15",
+        "scale_input": "scale_41",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_15.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_20_modules_linear_attn_modules_out_proj_parameters_weight_, scale_41, l_self_modules_layers_modules_20_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 21,
+        "producer_submodule": "submod_43",
+        "producer_line": 3591,
+        "consumer_submodule": "submod_44",
+        "cutlass_line": 3606,
+        "q_input": "q_16",
+        "scale_input": "scale_43",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_16.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_21_modules_linear_attn_modules_out_proj_parameters_weight_, scale_43, l_self_modules_layers_modules_21_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 22,
+        "producer_submodule": "submod_45",
+        "producer_line": 3711,
+        "consumer_submodule": "submod_46",
+        "cutlass_line": 3726,
+        "q_input": "q_17",
+        "scale_input": "scale_45",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_17.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_22_modules_linear_attn_modules_out_proj_parameters_weight_, scale_45, l_self_modules_layers_modules_22_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 24,
+        "producer_submodule": "submod_49",
+        "producer_line": 4009,
+        "consumer_submodule": "submod_50",
+        "cutlass_line": 4024,
+        "q_input": "q_18",
+        "scale_input": "scale_49",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_18.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_24_modules_linear_attn_modules_out_proj_parameters_weight_, scale_49, l_self_modules_layers_modules_24_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 25,
+        "producer_submodule": "submod_51",
+        "producer_line": 4129,
+        "consumer_submodule": "submod_52",
+        "cutlass_line": 4144,
+        "q_input": "q_19",
+        "scale_input": "scale_51",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_19.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_25_modules_linear_attn_modules_out_proj_parameters_weight_, scale_51, l_self_modules_layers_modules_25_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 26,
+        "producer_submodule": "submod_53",
+        "producer_line": 4249,
+        "consumer_submodule": "submod_54",
+        "cutlass_line": 4264,
+        "q_input": "q_20",
+        "scale_input": "scale_53",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_20.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_26_modules_linear_attn_modules_out_proj_parameters_weight_, scale_53, l_self_modules_layers_modules_26_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 28,
+        "producer_submodule": "submod_57",
+        "producer_line": 4547,
+        "consumer_submodule": "submod_58",
+        "cutlass_line": 4562,
+        "q_input": "q_21",
+        "scale_input": "scale_57",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_21.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_28_modules_linear_attn_modules_out_proj_parameters_weight_, scale_57, l_self_modules_layers_modules_28_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 29,
+        "producer_submodule": "submod_59",
+        "producer_line": 4667,
+        "consumer_submodule": "submod_60",
+        "cutlass_line": 4682,
+        "q_input": "q_22",
+        "scale_input": "scale_59",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_22.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_29_modules_linear_attn_modules_out_proj_parameters_weight_, scale_59, l_self_modules_layers_modules_29_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 30,
+        "producer_submodule": "submod_61",
+        "producer_line": 4787,
+        "consumer_submodule": "submod_62",
+        "cutlass_line": 4802,
+        "q_input": "q_23",
+        "scale_input": "scale_61",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_23.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_30_modules_linear_attn_modules_out_proj_parameters_weight_, scale_61, l_self_modules_layers_modules_30_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 32,
+        "producer_submodule": "submod_65",
+        "producer_line": 5085,
+        "consumer_submodule": "submod_66",
+        "cutlass_line": 5100,
+        "q_input": "q_24",
+        "scale_input": "scale_65",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_24.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_32_modules_linear_attn_modules_out_proj_parameters_weight_, scale_65, l_self_modules_layers_modules_32_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 33,
+        "producer_submodule": "submod_67",
+        "producer_line": 5205,
+        "consumer_submodule": "submod_68",
+        "cutlass_line": 5220,
+        "q_input": "q_25",
+        "scale_input": "scale_67",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_25.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_33_modules_linear_attn_modules_out_proj_parameters_weight_, scale_67, l_self_modules_layers_modules_33_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 34,
+        "producer_submodule": "submod_69",
+        "producer_line": 5325,
+        "consumer_submodule": "submod_70",
+        "cutlass_line": 5340,
+        "q_input": "q_26",
+        "scale_input": "scale_69",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_26.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_34_modules_linear_attn_modules_out_proj_parameters_weight_, scale_69, l_self_modules_layers_modules_34_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 36,
+        "producer_submodule": "submod_73",
+        "producer_line": 5623,
+        "consumer_submodule": "submod_74",
+        "cutlass_line": 5638,
+        "q_input": "q_27",
+        "scale_input": "scale_73",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_27.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_36_modules_linear_attn_modules_out_proj_parameters_weight_, scale_73, l_self_modules_layers_modules_36_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 37,
+        "producer_submodule": "submod_75",
+        "producer_line": 5743,
+        "consumer_submodule": "submod_76",
+        "cutlass_line": 5758,
+        "q_input": "q_28",
+        "scale_input": "scale_75",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_28.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_37_modules_linear_attn_modules_out_proj_parameters_weight_, scale_75, l_self_modules_layers_modules_37_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      },
+      {
+        "layer": 38,
+        "producer_submodule": "submod_77",
+        "producer_line": 5863,
+        "consumer_submodule": "submod_78",
+        "cutlass_line": 5878,
+        "q_input": "q_29",
+        "scale_input": "scale_77",
+        "q_path": "views only",
+        "pre_gemm_calls": [
+          "q_29.view",
+          "view.view",
+          "torch.empty",
+          "device"
+        ],
+        "cutlass_call": "torch.ops._C.cutlass_scaled_mm(empty, view_1, l_self_modules_layers_modules_38_modules_linear_attn_modules_out_proj_parameters_weight_, scale_77, l_self_modules_layers_modules_38_modules_linear_attn_modules_out_proj_parameters_weight_scale_, None)",
+        "extra_quantization": false
+      }
+    ],
+    "proof_scope": "Saved split FX shows each FP8 Q consumed through views by existing CUTLASS with same scale; no re-quantization between producer and GEMM. Stateful CUDA implementation remains opaque."
+  },
+  "capture_completions": [
+    {
+      "label": "Capturing CUDA graphs (PIECEWISE)",
+      "completed": 63,
+      "total": 63,
+      "log_line": 199
+    },
+    {
+      "label": "Capturing CUDA graphs (FULL)",
+      "completed": 2,
+      "total": 2,
+      "log_line": 204
+    },
+    {
+      "label": "Capturing prefill CUDA graphs (PIECEWISE)",
+      "completed": 63,
+      "total": 63,
+      "log_line": 213
+    },
+    {
+      "label": "Capturing prefill CUDA graphs (FULL)",
+      "completed": 26,
+      "total": 26,
+      "log_line": 218
+    },
+    {
+      "label": "Capturing decode CUDA graphs (FULL)",
+      "completed": 11,
+      "total": 11,
+      "log_line": 221
+    },
+    {
+      "label": "Capturing CUDA graphs (PIECEWISE)",
+      "completed": 63,
+      "total": 63,
+      "log_line": 433
+    },
+    {
+      "label": "Capturing CUDA graphs (FULL)",
+      "completed": 26,
+      "total": 26,
+      "log_line": 462
+    },
+    {
+      "label": "Capturing prefill CUDA graphs (PIECEWISE)",
+      "completed": 63,
+      "total": 63,
+      "log_line": 471
+    },
+    {
+      "label": "Capturing prefill CUDA graphs (FULL)",
+      "completed": 26,
+      "total": 26,
+      "log_line": 475
+    },
+    {
+      "label": "Capturing decode CUDA graphs (FULL)",
+      "completed": 11,
+      "total": 11,
+      "log_line": 478
+    }
+  ],
+  "graph_capture_finished": [
+    {
+      "log_line": 222,
+      "text": "(EngineCore pid=400) INFO 10-27 19:13:15 [model_runner.py:1127] Graph capturing finished in 24 secs, took 4.28 GiB"
+    },
+    {
+      "log_line": 479,
+      "text": "(EngineCore pid=400) INFO 10-27 19:14:02 [model_runner.py:1127] Graph capturing finished in 17 secs, took 3.30 GiB"
+    }
+  ],
+  "inference_jit_warnings": [
+    {
+      "log_line": 538,
+      "text": "(EngineCore pid=400) WARNING 10-27 19:14:19 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _compute_local_logits_stats_kernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+    },
+    {
+      "log_line": 539,
+      "text": "(EngineCore pid=400) WARNING 10-27 19:14:19 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _rejection_kernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+    },
+    {
+      "log_line": 540,
+      "text": "(EngineCore pid=400) WARNING 10-27 19:14:19 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _resample_kernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+    },
+    {
+      "log_line": 1224,
+      "text": "(EngineCore pid=400) WARNING 10-27 19:17:15 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _fused_conv_post_conv_kernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+    },
+    {
+      "log_line": 1225,
+      "text": "(EngineCore pid=400) WARNING 10-27 19:17:15 [jit_monitor.py:140] CuTeDSL JIT compilation during inference: CPDeltaRulePrefillSm120. This causes a latency spike; consider extending warmup to cover this shape/config."
+    },
+    {
+      "log_line": 1228,
+      "text": "(EngineCore pid=400) WARNING 10-27 19:17:23 [jit_monitor.py:140] Triton kernel JIT compilation during inference: store_cache_checkpoints_kernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+    },
+    {
+      "log_line": 1229,
+      "text": "(EngineCore pid=400) WARNING 10-27 19:17:23 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _topk_log_softmax_kernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+    }
+  ],
+  "decode": {
+    "cases": [
+      {
+        "concurrency": 1,
+        "measured_requests": 8,
+        "completed": 8,
+        "failed": 0,
+        "input_tokens": 128,
+        "output_tokens": 512,
+        "source": "results/qwen_sequential/gdn_integration_2/serving/serving_matrix_decode/decode-c1.measured.json",
+        "sha256": "2830a13fdb1e3f9f2c9e21b349e80acd0d49a2a825aedae44400379b70d0e7c4"
+      },
+      {
+        "concurrency": 4,
+        "measured_requests": 24,
+        "completed": 24,
+        "failed": 0,
+        "input_tokens": 128,
+        "output_tokens": 512,
+        "source": "results/qwen_sequential/gdn_integration_2/serving/serving_matrix_decode/decode-c4.measured.json",
+        "sha256": "6cfca85424a762e0ac3c160ac3e3f28e9bd56e7d5fc5b6766a929b3a4f4c02cf"
+      },
+      {
+        "concurrency": 16,
+        "measured_requests": 96,
+        "completed": 96,
+        "failed": 0,
+        "input_tokens": 128,
+        "output_tokens": 512,
+        "source": "results/qwen_sequential/gdn_integration_2/serving/serving_matrix_decode/decode-c16.measured.json",
+        "sha256": "7bb8868e3952057d36b96b295d27f73f1f24f3a16b9a8bdbada59efb61cff085"
+      },
+      {
+        "concurrency": 64,
+        "measured_requests": 384,
+        "completed": 384,
+        "failed": 0,
+        "input_tokens": 128,
+        "output_tokens": 512,
+        "source": "results/qwen_sequential/gdn_integration_2/serving/serving_matrix_decode/decode-c64.measured.json",
+        "sha256": "490d60b38fecc3d75bda929653cb9eb7f83331b7c93268911878defaabf4e23a"
+      }
+    ],
+    "total_measured_requests": 512,
+    "temperature": 0
+  },
+  "nll": {
+    "rounds": 1,
+    "requests": 10,
+    "finite_all_scored_logprobs": true,
+    "unique_cache_salts": 10,
+    "request_settings": {
+      "model": "bench",
+      "temperature": 0,
+      "prompt_logprobs": 0,
+      "max_tokens": 1
+    },
+    "results": [
+      {
+        "prompt_id": "licenses-30000",
+        "round": 0,
+        "prompt_tokens": 6350,
+        "scored_tokens": 6349,
+        "completion_tokens": 1,
+        "nll": 0.09236886652804033,
+        "nll_last_half": 0.12294370161992604
+      },
+      {
+        "prompt_id": "licenses-60000",
+        "round": 0,
+        "prompt_tokens": 12919,
+        "scored_tokens": 12918,
+        "completion_tokens": 1,
+        "nll": 0.0884065191585674,
+        "nll_last_half": 0.07836551818130537
+      },
+      {
+        "prompt_id": "py_stdlib-30000",
+        "round": 0,
+        "prompt_tokens": 6856,
+        "scored_tokens": 6855,
+        "completion_tokens": 1,
+        "nll": 0.5290892983350145,
+        "nll_last_half": 0.42823468355146815
+      },
+      {
+        "prompt_id": "py_stdlib-60000",
+        "round": 0,
+        "prompt_tokens": 13129,
+        "scored_tokens": 13128,
+        "completion_tokens": 1,
+        "nll": 0.47898741617338453,
+        "nll_last_half": 0.41731745068778464
+      },
+      {
+        "prompt_id": "py_email-30000",
+        "round": 0,
+        "prompt_tokens": 7690,
+        "scored_tokens": 7689,
+        "completion_tokens": 1,
+        "nll": 0.7967190353221274,
+        "nll_last_half": 0.5498522337704953
+      },
+      {
+        "prompt_id": "py_email-60000",
+        "round": 0,
+        "prompt_tokens": 15225,
+        "scored_tokens": 15224,
+        "completion_tokens": 1,
+        "nll": 0.7870972156172601,
+        "nll_last_half": 0.7736920561814782
+      },
+      {
+        "prompt_id": "logprobs-0",
+        "round": 0,
+        "prompt_tokens": 788,
+        "scored_tokens": 787,
+        "completion_tokens": 1,
+        "nll": 0.24475415592104094,
+        "nll_last_half": 0.16810155420321574
+      },
+      {
+        "prompt_id": "logprobs-1",
+        "round": 0,
+        "prompt_tokens": 669,
+        "scored_tokens": 668,
+        "completion_tokens": 1,
+        "nll": 0.43366623580942487,
+        "nll_last_half": 0.1973559350398901
+      },
+      {
+        "prompt_id": "logprobs-2",
+        "round": 0,
+        "prompt_tokens": 3443,
+        "scored_tokens": 3442,
+        "completion_tokens": 1,
+        "nll": 0.4047299507054133,
+        "nll_last_half": 0.22852641395232723
+      },
+      {
+        "prompt_id": "logprobs-3",
+        "round": 0,
+        "prompt_tokens": 7604,
+        "scored_tokens": 7603,
+        "completion_tokens": 1,
+        "nll": 0.5801613954585595,
+        "nll_last_half": 0.8387491183389673
+      }
+    ],
+    "high_prefill_request_count": 8
+  },
+  "source_sha256": {
+    "results/qwen_sequential/gdn_integration_2/docker.log": "b10dc180208e9e22fe90e38e4b7d986dfc9c7dd539f6606935ef8edccd2720b9",
+    "results/qwen_sequential/gdn_integration_2/config.txt": "b4b39e774ffa252c28e70e5607c5c15d940cc4857796c367303c8e3efe8efc89",
+    "results/qwen_sequential/gdn_integration_2/exit_code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "results/qwen_sequential/gdn_integration_2/gdn_readiness.json": "6deb4b568b4452191e364ef77a37c23a108f44cbdfcbfadddc22d7d4be76bf53",
+    "results/qwen_sequential/gdn_integration_2/source_manifest.json": "15830032158c6bee86f67f7bb849cc982791e680b9ed5149b974f093f7d3a818",
+    "results/qwen_sequential/gdn_integration_2/source_verify.log": "bf3c0b773d2191078770bcd7e148eac8b4f15f21ee8a0e3b29efe1cc4cfd4990",
+    "results/qwen_sequential/gdn_integration_2/compilation_config.json": "f1e7d9692274440f7ad54c3547237218267dd55ffde1d95001c5ac9109f0a9e5",
+    "results/qwen_sequential/gdn_integration_2/repeated_nll.json": "7375e3eb11cd48bd25e81d299d165a073c7c6b2b8d9e5479f2c19d01a69596d9",
+    ".cache/vllm/qwen-sequential-shared_exact_gdn/torch_compile_cache/c35103b048/rank_0_0/backbone/computation_graph.py": "ccc694ec86c7de295957bf4ecab375261680bac030d515534f6c5169e692943b",
+    ".cache/vllm/qwen-sequential-shared_exact_gdn/torch_compile_cache/c35103b048/rank_0_0/backbone/cache_key_factors.json": "fd95d34d25ef88ba0ddc20439c7663aa5280cf004eed2d389adaa537e3d4cddf",
+    ".cache/vllm/qwen-sequential-shared_exact_gdn/torch_compile_cache/c35103b048/rank_0_0/eagle_head/computation_graph.py": "73e2c0726196166cf2540bbe408d7a6292fc6cdbfef8caa757a6d617e4303fb2",
+    ".cache/vllm/qwen-sequential-shared_exact_gdn/torch_compile_cache/c35103b048/rank_0_0/eagle_head/cache_key_factors.json": "12e4832c29d347cc0541b5c54fdc4a027507ccee17a116b365ece709452a453d",
+    "results/qwen_sequential/exact_tasks_1/docker.log": "639b5e6486629964476a7291397f6630e0968058843214518e80c80f7c0b7111"
+  },
+  "scope": "Successful startup, graph capture, actual decode and scored-prefill smoke. No paired quality/state equivalence or speedup claim; FI control disabled, one NLL round, request-conditioned mixed-state coverage not asserted."
+}

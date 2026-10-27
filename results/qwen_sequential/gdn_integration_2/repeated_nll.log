@@ -1,0 +1,11 @@
+round=0 prompt=licenses-30000 tokens=6350 nll=0.092369
+round=0 prompt=licenses-60000 tokens=12919 nll=0.088407
+round=0 prompt=py_stdlib-30000 tokens=6856 nll=0.529089
+round=0 prompt=py_stdlib-60000 tokens=13129 nll=0.478987
+round=0 prompt=py_email-30000 tokens=7690 nll=0.796719
+round=0 prompt=py_email-60000 tokens=15225 nll=0.787097
+round=0 prompt=logprobs-0 tokens=788 nll=0.244754
+round=0 prompt=logprobs-1 tokens=669 nll=0.433666
+round=0 prompt=logprobs-2 tokens=3443 nll=0.404730
+round=0 prompt=logprobs-3 tokens=7604 nll=0.580161
+{"status": "passed", "requests": 10, "interpretation": "Diagnostic collected; no model-quality pass is asserted."}

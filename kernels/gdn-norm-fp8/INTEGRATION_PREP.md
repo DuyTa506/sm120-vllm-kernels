@@ -1,14 +1,14 @@
 # Default-off packed GDN overlay
 
-The isolated overlay is ready for review and scheduled GPU integration tests.
-The first owned GPU smoke reached all 30 ready layers and compiled the QA
-consumer path, but failed during FULL graph profiling because derived MTP
-capture sizes were missing from startup warmup. The CPU-verified correction
-is described in `results/CAPTURE_WARMUP_FIX.md`; GPU rerun remains pending.
-The frozen explicit kernel passes standalone checks, which do not validate
-this new stateful custom-op boundary.
+The default-off overlay passed the second owned stateful integration smoke:
+all 30 ready layers, actual compiled QA→CUTLASS consumption, completed
+piecewise/FULL graph capture, four greedy decode scenarios and ten finite
+NLL requests. See `results/INTEGRATION_GPU.md` and its source-hashed JSON.
+This establishes execution, not paired quality/state equivalence or a speedup.
+The first capture-size failure and split-config confound remain preserved in
+`CAPTURE_WARMUP_FIX.md` and `SPLIT_CONFIG_FIX.md` under results.
 
-The actual MTP2 serving FX contains 30 calls to
+The original MTP2 serving FX contains 30 calls to
 `qwen_gdn_attention_core_fused_norm_packed`. That op calls the existing fused
 MTP decode implementation for eligible pure decode, or `_forward_core` plus
 `_rms_norm_gated_cuda` for prefill/mixed batches. The latter directly invokes
@@ -81,8 +81,8 @@ prefill layout with the actual X/Z strides. It refuses startup under stream
 capture and rejects unwarmed graph buckets in the runtime fallback with the
 actual padded T, actual-token count, prefill count and complete warmup list. Warming
 is startup GPU work when the overlay is eventually enabled, not work run by
-the CPU preparation. Real graph startup must still prove no nested compilation
-occurs during capture; warming alone is not that proof.
+the CPU preparation. The recorded second startup completed the tested graph captures with this
+warmup plan. It does not prove every unsupported or future shape is safe.
 
 The wrapper file is copied byte-for-byte into `gdn_norm_fp8_quant_out.py` in
 the overlay; its frozen docstring predates GPU validation. CPU tests verify
@@ -138,10 +138,10 @@ identical native quant source has selected different Inductor block/warp
 configurations in previous runs. CPU FX evidence does not predict the GPU
 configuration or prove elimination of separate copies.
 
-Before adopting the overlay: require all 30 ready logs, inspect compiled FX
-for the new op and QA bypass, exact small/decode and padded Q/S/GEMM checks,
-metadata-free startup and real graph replay, state-sensitive repeated serving
-requests, greedy/NLL comparison and the seven requested serving tasks. Measure
-decode regressions as well as prefill benefit. Agentic evaluation belongs only
-to the final selected combined configuration. No end-to-end improvement is
-claimed here.
+The scoped integration has established all 30 ready layers, the new-op/QA
+boundary in compiled FX, metadata-free startup, configured graph capture,
+and actual decode/scored-prefill execution. Before adoption, complete matched
+greedy/NLL and seven-task serving comparisons, measure decode regressions,
+and validate any required mixed-batch accepted-state/checkpoint parity and
+integrated padded Q/S exactness. Agentic evaluation belongs only to the final
+selected combined configuration. No end-to-end improvement is claimed here.
