@@ -49,7 +49,7 @@ References: [next](../results/next/SUMMARY.md),
 | Tiny rowwise 64×16 tile | L0/M3: 19.62 µs, about 11.2% slower than AUTO and 16.1% slower than existing skinny. Numerical/replay checks pass. | Rejected for the measured case. |
 | PDL | Focused pair pins the same 18 compiler identities/configs. Prefill TTFT falls 0.26–3.30%; decode c1/c4 rises 0.67%/4.28%. | Unselected, one pair. Later c16/c64 and NLL have a possible external-context overlap; numerical variation remains unresolved. |
 | DP4A expert reuse | Numerical screens pass checked input/operand and replay contracts. At real M3, preplanned calibrated FI direct is about 24.6 µs, DP4A reuse-on about 32–35 µs, and current scalar/CUTLASS about 49 µs. | Unselected against the stronger FI comparator. Historical M1 comparisons used a weaker FI call path; no serving or model-quality claim. |
-| Prepared FI direct | At real L19/M4, explicit native direct plus padding sanitizer takes 26.64–26.65 µs versus current scalar/CUTLASS 59.85–60.02 µs. Distinct runtime pointers pass 12 graph checks. A separate corrected-MMA screen also favors direct at M4; static wins at M8. | Integration candidate only. Actual vLLM dispatch/serving remain unconfirmed. |
+| Prepared FI direct | L19/M3 complete-call time is 24.63 µs versus current CUTLASS 49.26 µs. Live vLLM MTP-2 tracing proves native direct and sanitizer execution in M3. | Serving pair remains unselected: raw c1 throughput +9.6%, c4 −3.5%, with four of thirteen active Inductor selections different. |
 | Split B12x prefill | Actual L19 full-call timing is about 17.6% slower at M1024 and 47.4% slower at M4096 than current scalar. Pre/post arithmetic and route-domain checks pass exploratory gates. | Initial split implementation unselected at both shapes. Component measurements are diagnostic and cannot be summed into a full-call claim. |
 | Workspace tile bands | L19 full-call screen: M1024/tile32 is about 1.9% slower; M2048/tile64 about 27.1% slower; unchanged M4096/tile128 is within 0.32%. | Unselected; scratch rises from 607.8 MB to 1,400.9 MB. Native M128 already skips inactive M16 MMA fragments, so padding ratios are not compute-saving estimates. |
 | Inactive operand-load guards | Keeping M128 but adding warp-uniform guards makes L19/M1024 about 2.8× slower and M4096 about 3.4× slower. Compiled stack grows 80 → 688 bytes, with many additional local load/store instructions. | Rejected in this form. Source-level work reduction does not ensure better generated code. |
@@ -202,6 +202,38 @@ CUTLASS 49.26 µs on two real routing slices, in both orders. The integration
 policy now covers M1/M3/M4 and requires actual M3 candidate execution in its
 serving trace before accepting applicability.
 
+The corrected [ON3/OFF1 serving pair](../results/round2_snapshot/fi_direct_serving_pair1.json)
+proves that integration: ON3's live c1 trace contains 4,960 native direct and
+4,960 sanitizer graph kernels correlated to M3; OFF1 contains neither. All
+three workload completion guards pass. Both runs retain fixed MTP-2, the same
+132 FlashInfer tactics, and identical kernel/adapter/probe/generated sources.
+The focused settings use max model length 8192, max sequences 8 and the same
+nominal graph list in both modes; they are not the full production matrix.
+
+| focused task / metric | OFF1 | ON3 | raw ON change |
+|---|---:|---:|---:|
+| decode c1 output tokens/s | 286.11 | 313.56 | +9.59% |
+| decode c1 mean TPOT, ms | 2.333 | 2.177 | −6.69% |
+| decode c4 output tokens/s | 778.44 | 751.37 | −3.48% |
+| decode c4 mean TPOT, ms | 3.685 | 4.134 | +12.19% |
+| prefill 2048 mean TTFT, ms | 110.26 | 109.54 | −0.66% |
+
+These are **confounded observations, not a validated serving improvement**.
+Four of thirteen active Inductor selections differ (two backbone and two draft);
+the comparison filters actual loaded AOT directories, not the cumulative cache.
+C4 speculative acceptance length also falls 4.36%. The single short pair uses
+random-token requests, warmups and enabled prefix caching; actual cache hits
+are not independently quantified. It is not a cold-prefill or quality test.
+
+ON3 keeps its original terminal code 5 because the legacy shutdown audit
+checkpoint is absent. An explicit worker RPC after all workloads and tracing
+verifies the exact tactic table, worker/model identity, stable resources and
+runtime sources. Cleanup succeeds. OFF1 uses the same measurement code with
+a strict verifier for that explicit boundary and exits 0; the cleanup-only
+harness difference is recorded, and the missing legacy checkpoint remains
+visible. Actual graph integration is established, but promotion still needs
+a repeat with matching active compiler selections and quality checks.
+
 The [split-prefill screen](../results/round2_snapshot/b12x_split_numerical_l19_m1024.json)
 checks all 8,192 routed rows at L19/M1024. Packed input and SFA publication match
 exactly. Phase1 scales match the reference byte-for-byte; one of 4,194,304 decoded
@@ -253,8 +285,8 @@ does not make this load-skipping policy beneficial; the repair also remains
 unselected. [Artifact identities](../results/round2_snapshot/defined_fc2_artifact_digest.json)
 retain the corresponding source, output and SASS hashes.
 
-Next: finish strong-comparator decode and padding/replay checks, integrate the
-winning small-M path into vLLM, and test narrowly justified prefill mechanisms from the
+Next: repeat the integrated small-M path with matching active compiler selections,
+and collect prefill hardware counters before choosing further mechanisms from the
 [external kernel review](EXTERNAL_KERNEL_REVIEW.md). The initial split and
 workspace-band policies remain unselected. The current default and chart are
 unchanged. Benchmark the selected combined stack only after these gates;

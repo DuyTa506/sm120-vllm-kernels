@@ -967,6 +967,231 @@
     "defined_fc2_artifact_digest.json": {
       "original_worktree_path": "kernels/moe-inactive-loads-repair/results/gpu_publication_summary.json",
       "sha256": "76f457b75bff0726f9cc3cf712f1ac28b5e0932c0627f00b99f70fa8ebfab851"
+    },
+    "fi_direct_serving_pair1.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_pair1_summary.json",
+      "sha256": "05568b609054633a9a3233a2ac7a398c3e653d58a3b61ce9272cd986c076d876",
+      "original_run_exit_codes": {
+        "fi_direct_serving_on3": 5,
+        "fi_direct_serving_off1": 0
+      },
+      "evidence": {
+        "on3/exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/exit_code.txt",
+          "sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+        },
+        "on3/source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "on3/parent_source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/parent_source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/parent_source_verify.log",
+          "sha256": "e2c45713f933694992d06e6a5c7b70228533464baea92af11e89fd6efdf7df99"
+        },
+        "on3/gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "on3/container_after.txt": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/container_after.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/container_after.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "on3/trace_check.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/trace_check.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/trace_check.json",
+          "sha256": "edd0e40958ba3ea4a6140aeae963b25b0de3cfe6734bd6c9e8c2aa97963cdf84"
+        },
+        "on3/results_check.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/results_check.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/results_check.json",
+          "sha256": "a66c58764bae103e529637dfe81971e9f78da6e13c7f68fd813ae1f1025c6ec2"
+        },
+        "on3/active_inductor_configs.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/active_inductor_configs.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/active_inductor_configs.json",
+          "sha256": "4706feb5a6641bde46439c47fc5aac710bcbe32d734450001e4cbb2bc0b57e27"
+        },
+        "on3/post_workload_rpc.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/post_workload_rpc.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/post_workload_rpc.json",
+          "sha256": "25c118dadd2ecb4449141017d2c11f9f0b10d8edde093290d00847616cd6b4e8"
+        },
+        "on3/post_workload_fi_independent.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/post_workload_fi_independent.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/post_workload_fi_independent.json",
+          "sha256": "e40c3da321513ee885aee80797b1bc478b4fc6015e83dafb6e95e21a83170224"
+        },
+        "on3/experiment_sources.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/experiment_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/experiment_sources.json",
+          "sha256": "99ced78829f4cf328dd8defa29effa821e9d389f227b8463b328aada2355543c"
+        },
+        "on3/source_manifest.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/source_manifest.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/source_manifest.json",
+          "sha256": "9407df1b3b4e6e5647f4a7dd6500caf7218b9b63da0fdea3e4efdbdb3a2f9e66"
+        },
+        "on3/serving/runtime/startup.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/runtime/startup.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/runtime/startup.json",
+          "sha256": "159aff3896b0ff8742a307f5309f96d1aa35fe47c825624cec77f2f15c74b541"
+        },
+        "on3/serving/runtime/post_workload.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/runtime/post_workload.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/runtime/post_workload.json",
+          "sha256": "736575ad802d4ce2031e4f8d35970878d0a125f43aed5cecdad21e86e8f751b6"
+        },
+        "on3/serving/decode_c1.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/decode_c1.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/decode_c1.json",
+          "sha256": "b986a0666f63ef86dc60ce9e6316af803cdee89e027ccb8b2140a2cc6045947c"
+        },
+        "on3/serving/decode_c4.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/decode_c4.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/decode_c4.json",
+          "sha256": "d7f7cf2c76c4d408eef0c1f711f2228f3e113af3be24506af7a96800eb278689"
+        },
+        "on3/serving/prefill_2048.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/prefill_2048.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/prefill_2048.json",
+          "sha256": "af2f2e4469a0aae80f3c65c53c4a7b891a16cdcf617d4dfb4e10d6d1f72d69df"
+        },
+        "on3/serving/fi_control/autotune/verification.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/fi_control/autotune/verification.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/fi_control/autotune/verification.json",
+          "sha256": "e46df1e5874ab06b9abe1e57748d2cf924c1622e42e2f26b8a294c81303c7bee"
+        },
+        "on3/serving/fi_control/autotune/source.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/fi_control/autotune/source.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/fi_control/autotune/source.json",
+          "sha256": "7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3"
+        },
+        "on3/serving/fi_control/autotune/server_startup_effective.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/fi_control/autotune/server_startup_effective.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/fi_control/autotune/server_startup_effective.json",
+          "sha256": "614e8159fe76aff10a8a94d4401d7328a8f66291ebabd30720757b75de60c36f"
+        },
+        "on3/serving/fi_control/autotune/server_post_workload_effective.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/fi_control/autotune/server_post_workload_effective.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/fi_control/autotune/server_post_workload_effective.json",
+          "sha256": "614e8159fe76aff10a8a94d4401d7328a8f66291ebabd30720757b75de60c36f"
+        },
+        "off1/exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "off1/source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "off1/parent_source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/parent_source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/parent_source_verify.log",
+          "sha256": "e2c45713f933694992d06e6a5c7b70228533464baea92af11e89fd6efdf7df99"
+        },
+        "off1/gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "off1/container_after.txt": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/container_after.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/container_after.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "off1/trace_check.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/trace_check.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/trace_check.json",
+          "sha256": "86c84358b726949f62e96b0a9c1c64780a0bae57ef6bd794d72f72713fad0c58"
+        },
+        "off1/results_check.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/results_check.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/results_check.json",
+          "sha256": "a66c58764bae103e529637dfe81971e9f78da6e13c7f68fd813ae1f1025c6ec2"
+        },
+        "off1/active_inductor_configs.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/active_inductor_configs.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/active_inductor_configs.json",
+          "sha256": "72e933ade494302b8b0b173d7787ed84ce751a5460839bcabaa3a22616a613be"
+        },
+        "off1/post_workload_rpc.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/post_workload_rpc.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/post_workload_rpc.json",
+          "sha256": "a369d371181291686304ee53b9e0a20f0dba8197584b3f9be456bd990ccfbc70"
+        },
+        "off1/runtime_source_pair_parity.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/runtime_source_pair_parity.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/runtime_source_pair_parity.json",
+          "sha256": "8880d68dcc96099e029e803b9a8ccd64ade61cad0be61776504c77f395b9d085"
+        },
+        "off1/post_workload_verify_cleanup.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/post_workload_verify_cleanup.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/post_workload_verify_cleanup.json",
+          "sha256": "971439dcaa9fde56b27bc541be2ae93b8e195b193346a755cffa9650af14e495"
+        },
+        "off1/experiment_sources.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/experiment_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/experiment_sources.json",
+          "sha256": "9939fd38e840cc2b7572de9e81cbf5f97f9a8fa0a239418979dafa905fb5d357"
+        },
+        "off1/source_manifest.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/source_manifest.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/source_manifest.json",
+          "sha256": "9407df1b3b4e6e5647f4a7dd6500caf7218b9b63da0fdea3e4efdbdb3a2f9e66"
+        },
+        "off1/serving/runtime/startup.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/runtime/startup.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/runtime/startup.json",
+          "sha256": "ca6142e46dc2b333e1c2043e761f0bac743c32de9b4a541b7bd8589a7ff9015f"
+        },
+        "off1/serving/runtime/post_workload.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/runtime/post_workload.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/runtime/post_workload.json",
+          "sha256": "aa07ab491b92ddf9a325a19406ee6cb53bfba6147cd26588fbb4cee54910b471"
+        },
+        "off1/serving/decode_c1.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/decode_c1.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/decode_c1.json",
+          "sha256": "c2775d2e7cdadbfd3dac368da6fdb10e5034ffdeed897912f90bcd11782b9dac"
+        },
+        "off1/serving/decode_c4.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/decode_c4.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/decode_c4.json",
+          "sha256": "d4f9c4deb2e935f397fc366f7b4d1a8d810d8b28e90547cce9f661eb4fd83cec"
+        },
+        "off1/serving/prefill_2048.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/prefill_2048.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/prefill_2048.json",
+          "sha256": "1d478c84f977e83b06ec42b9788ad05bb7560e93e3ba955f3203a0a804c5ddf4"
+        },
+        "off1/serving/fi_control/autotune/verification.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/fi_control/autotune/verification.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/fi_control/autotune/verification.json",
+          "sha256": "4eee48f1f3f77d36486d0eafaa338badc0b2998ef08ee95f93d1e190a437ac62"
+        },
+        "off1/serving/fi_control/autotune/source.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/fi_control/autotune/source.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/fi_control/autotune/source.json",
+          "sha256": "7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3"
+        },
+        "off1/serving/fi_control/autotune/server_startup_effective.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/fi_control/autotune/server_startup_effective.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/fi_control/autotune/server_startup_effective.json",
+          "sha256": "614e8159fe76aff10a8a94d4401d7328a8f66291ebabd30720757b75de60c36f"
+        },
+        "off1/serving/fi_control/autotune/server_post_workload_effective.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/fi_control/autotune/server_post_workload_effective.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/fi_control/autotune/server_post_workload_effective.json",
+          "sha256": "614e8159fe76aff10a8a94d4401d7328a8f66291ebabd30720757b75de60c36f"
+        }
+      }
     }
   }
 }

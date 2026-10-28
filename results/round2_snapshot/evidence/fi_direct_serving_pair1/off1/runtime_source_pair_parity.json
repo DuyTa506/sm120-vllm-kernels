@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "files": {
+    "fi_direct_probe.py": true,
+    "runtime.py": true,
+    "model_identity.py": true,
+    "generated/composition.json": true,
+    "generated/vllm/envs.py": true,
+    "generated/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": true,
+    "generated/vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/__init__.py": true,
+    "generated/vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/model_identity.py": true,
+    "generated/vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/direct_native.py": true,
+    "generated/vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/direct_sanitize.py": true,
+    "generated/vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/fi_plan.py": true,
+    "generated/vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/runtime.py": true
+  },
+  "cleanup_only_harness_change": true
+}

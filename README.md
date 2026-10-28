@@ -46,8 +46,9 @@ new workspace-band experiment and initial GPU numerical checks.
 
 Latest round 2 observation: at L19/M3, prepared native FI direct with padding
 handling takes **24.63 µs**, versus **49.26 µs** for the current scalar/CUTLASS
-expert call. Pointer/replay checks pass. Live MTP-2 tracing identified M3 as the
-needed decode bucket; corrected serving integration is still being evaluated.
+expert call. Pointer/replay checks pass, and live MTP-2 traces now prove the
+candidate executes in M3. A focused serving pair has mixed results and four
+different Inductor selections; it does not establish a serving gain.
 The split-prefill and workspace-band candidates regressed and remain unselected.
 Details and saved evidence are in [the progress report](docs/PROGRESS.md).
 
