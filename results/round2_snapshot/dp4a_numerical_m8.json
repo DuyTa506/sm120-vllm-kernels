@@ -1,0 +1,542 @@
+{
+  "status": "diagnostic_complete_quant_exact",
+  "correctness_promotion": false,
+  "checks": [
+    {
+      "fixture": "real_0",
+      "offset": 0,
+      "unique_experts": 31,
+      "expert_token_multiplicities": [
+        4,
+        3,
+        4,
+        4,
+        2,
+        1,
+        1,
+        1,
+        5,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        4,
+        5,
+        1,
+        4,
+        3,
+        1,
+        1,
+        1,
+        1,
+        4
+      ],
+      "max_tokens_per_expert": 5,
+      "own_graph_eager": [
+        {
+          "reuse": false,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "baselines": {
+        "current_scalar": {
+          "factory_selection_trace": [],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.002626258647069335,
+            "max_abs": 0.000244140625
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.13446956872940063,
+            "max_abs": 0.00885965209454298
+          },
+          "scale_contract": "current scalar CUTLASS"
+        },
+        "fi_auto_calibrated": {
+          "factory_selection_trace": [
+            "_get_static_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 1.6697103136123843e+30,
+            "max_abs": 0.07080078125
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 1.0,
+            "max_abs": 0.0662996843457222
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        },
+        "fi_forced_direct_calibrated": {
+          "factory_selection_trace": [
+            "_get_direct_micro_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.022367067635059357,
+            "max_abs": 0.001708984375
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.13413354754447937,
+            "max_abs": 0.00894357543438673
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        }
+      },
+      "reuse_comparison": {
+        "exact": true,
+        "mismatch": 0.0
+      },
+      "reuse_error": {
+        "finite": true,
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "normal_vs_diagnostic": [
+        {
+          "reuse": false,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "candidate_vs_fp32": {
+        "finite": true,
+        "rel_l2": 0.13448698818683624,
+        "max_abs": 0.00884439330548048
+      }
+    },
+    {
+      "fixture": "real_64",
+      "offset": 64,
+      "unique_experts": 40,
+      "expert_token_multiplicities": [
+        3,
+        2,
+        2,
+        1,
+        1,
+        2,
+        1,
+        3,
+        1,
+        4,
+        1,
+        2,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        7,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        3,
+        1
+      ],
+      "max_tokens_per_expert": 7,
+      "own_graph_eager": [
+        {
+          "reuse": false,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "baselines": {
+        "current_scalar": {
+          "factory_selection_trace": [],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.0025897726882249117,
+            "max_abs": 0.000244140625
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.14367525279521942,
+            "max_abs": 0.008053155615925789
+          },
+          "scale_contract": "current scalar CUTLASS"
+        },
+        "fi_auto_calibrated": {
+          "factory_selection_trace": [
+            "_get_static_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 1.2482433362566371e+30,
+            "max_abs": 0.06298828125
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 1.0,
+            "max_abs": 0.06150326505303383
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        },
+        "fi_forced_direct_calibrated": {
+          "factory_selection_trace": [
+            "_get_direct_micro_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.03022036701440811,
+            "max_abs": 0.0025634765625
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.14234761893749237,
+            "max_abs": 0.008053155615925789
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        }
+      },
+      "reuse_comparison": {
+        "exact": true,
+        "mismatch": 0.0
+      },
+      "reuse_error": {
+        "finite": true,
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "normal_vs_diagnostic": [
+        {
+          "reuse": false,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "candidate_vs_fp32": {
+        "finite": true,
+        "rel_l2": 0.14367368817329407,
+        "max_abs": 0.008053155615925789
+      }
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "offset": 0,
+      "unique_experts": 8,
+      "expert_token_multiplicities": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "max_tokens_per_expert": 8,
+      "own_graph_eager": [
+        {
+          "reuse": false,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "baselines": {
+        "current_scalar": {
+          "factory_selection_trace": [],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.00263891345821321,
+            "max_abs": 0.00048828125
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.14253152906894684,
+            "max_abs": 0.009099088609218597
+          },
+          "scale_contract": "current scalar CUTLASS"
+        },
+        "fi_auto_calibrated": {
+          "factory_selection_trace": [
+            "_get_static_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 1.5775761123950966e+30,
+            "max_abs": 0.08154296875
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 1.0,
+            "max_abs": 0.08540388196706772
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        },
+        "fi_forced_direct_calibrated": {
+          "factory_selection_trace": [
+            "_get_direct_micro_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.023014279082417488,
+            "max_abs": 0.001861572265625
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.14258503913879395,
+            "max_abs": 0.009099088609218597
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        }
+      },
+      "reuse_comparison": {
+        "exact": true,
+        "mismatch": 0.0
+      },
+      "reuse_error": {
+        "finite": true,
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "normal_vs_diagnostic": [
+        {
+          "reuse": false,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "candidate_vs_fp32": {
+        "finite": true,
+        "rel_l2": 0.1425471007823944,
+        "max_abs": 0.009099088609218597
+      }
+    }
+  ],
+  "stage": {
+    "fc1_quant_payload_vs_vllm": {
+      "exact": true,
+      "mismatch": 0.0
+    },
+    "fc1_quant_scale_vs_vllm": {
+      "exact": true,
+      "mismatch": 0.0
+    },
+    "fc1_precast_vs_exact_quant_operand_fp32": {
+      "finite": true,
+      "rel_l2": 1.4914128598775278e-07,
+      "max_abs": 7.748603820800781e-07
+    },
+    "swiglu_bf16": {
+      "finite": true,
+      "rel_l2": 0.0,
+      "max_abs": 0.0
+    },
+    "fc2_quant_payload_vs_own_probe": {
+      "exact": true,
+      "mismatch": 0.0
+    },
+    "fc2_quant_scale_vs_own_probe": {
+      "exact": true,
+      "mismatch": 0.0
+    },
+    "fc2_weighted_part_vs_exact_quant_operand_fp32": {
+      "finite": true,
+      "rel_l2": 1.2391674886202964e-07,
+      "max_abs": 1.1175870895385742e-08
+    }
+  },
+  "scope": "numerical-only instrumented diagnostic; no timings",
+  "tokens": 8,
+  "dispatch_evidence": "Python constructor/factory selection trace; NOT actual GPU kernel trace",
+  "reference_precision": [
+    {
+      "stage": "full_output_offset_0",
+      "dtype": "float32",
+      "allow_tf32": false
+    },
+    {
+      "stage": "full_output_offset_64",
+      "dtype": "float32",
+      "allow_tf32": false
+    },
+    {
+      "stage": "full_output_offset_0",
+      "dtype": "float32",
+      "allow_tf32": false
+    },
+    {
+      "stage": "fc1_exact_quant_operand",
+      "dtype": "float32",
+      "allow_tf32": false
+    },
+    {
+      "stage": "fc2_exact_quant_operand",
+      "dtype": "float32",
+      "allow_tf32": false
+    }
+  ],
+  "capture_sha256": "0e161c36a6f478c0205b3a7e8b388296eccafaa2d5999cf4420fcbcd0aa2f4ac",
+  "stage_fixture": "synthetic_eight_hot_permuted",
+  "padding_changed_route_two_workspace": true,
+  "quant_contract_exact": true
+}

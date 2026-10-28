@@ -47,7 +47,10 @@ References: [next](../results/next/SUMMARY.md),
 | DeepGEMM rowwise FP8 | Small actual QKVZ operand cases improve 2.7–10.1% over the faster existing comparator; actual fused graph execution is proven. | Short serving results are mixed, with compiler/quality/lifecycle confounds. Unselected. |
 | Native swap-AB | Two matrices give identical off/on outputs in all 16 comparisons; QKVZ-shaped cases improve 2.3–4.1%. | Confirms an existing native policy, not a new model patch. |
 | Tiny rowwise 64×16 tile | L0/M3: 19.62 µs, about 11.2% slower than AUTO and 16.1% slower than existing skinny. Numerical/replay checks pass. | Rejected for the measured case. |
-| PDL | Current paired compiler/artifact controls are verified; repeated focused timing and NLL checks are queued. | Historical synthetic micro numbers are not an actual vLLM benefit. |
+| PDL | Focused pair pins the same 18 compiler identities/configs. Prefill TTFT falls 0.26–3.30%; decode c1/c4 rises 0.67%/4.28%. | Unselected, one pair. Later c16/c64 and NLL have a possible external-context overlap; numerical variation remains unresolved. |
+| DP4A expert reuse | M1/M8 numerical screens pass input-byte, quantized-operand, graph/eager and normal/instrumented checks; M8 includes eight tokens sharing all eight experts. | No timing or model-quality claim. Concurrent execution remains unvalidated. |
+| Split B12x prefill | L19/M1024 full-domain numerical and changing-route graph checks pass exploratory gates, including all-empty then restored input. | Full-call timing pending. Atomic output variation and a small phase1 quantization difference remain. |
+| Workspace tile bands | Actual M2048 wrapper uses M128 despite the functional selector choosing M64; saved routing gives 46.7% versus 65.8% useful rows. | New integration experiment. Smaller tiles also increase tile count; geometry is not a speedup measurement. |
 | GDN state replay | Current-stack shadow checks pass, including intermediate checkpoint boundaries. The first pressure workload produced zero preemptions. | Stronger pressure coverage is still required before timing/promotion. |
 
 The [round 2 snapshot](../results/round2_snapshot/manifest.json) contains hash-verified
@@ -83,6 +86,43 @@ object; pair3 qualifies native cache keys by implementation source and proves
 the actual candidate GPU symbols. This finding applies to that experiment,
 not automatically to previously measured stacks. Its [full pair summary](../results/round2_snapshot/moe_task_order_serving_pair3.json)
 retains the compiler and numerical limitations.
+
+The [focused PDL pair](../results/round2_snapshot/pdl_focused_pair1.json) completed
+six prefill cases, four greedy decode cases and 50 cold NLL probes per control.
+All prefill and c1/c4 timing finished before the reported external-context
+window. During later checks, our source-inspection import in another container
+unexpectedly initialized CUDA; we flagged the conservative overlapping interval
+instead of treating the entire run as isolated. Compiler matching is proven,
+but these modest, mixed timing changes require an independent repeat. NLL
+within-control variation persists with pinned configurations, so neither
+numerical equivalence nor a PDL-induced quality change is established.
+
+The [DP4A M1 report](../results/round2_snapshot/dp4a_numerical_m1.json) uses two
+captured input slices. FC1 input payload and scales match vLLM byte-for-byte;
+FC1 and FC2 agree with FP32 references using the same quantized operands at
+relative L2 1.54e-7 and 1.20e-7. Whole-output error against the dequantized-weight
+FP32 reference is still about 18–21%, similar to current CUTLASS in these two
+slices: the small per-stage errors do not remove NVFP4 quantization error.
+Two workspace checks are sequential isolation checks, not concurrent-stream
+coverage. There is no latency measurement yet.
+
+The [M8 follow-up](../results/round2_snapshot/dp4a_numerical_m8.json) exercises
+31 and 40 unique experts in two real slices (up to five and seven tokens sharing
+an expert), plus a controlled case where all eight tokens share eight experts
+with permuted route slots. Reuse on/off remains bitwise identical, as do normal
+versus instrumented outputs and each path's graph/eager outputs. This establishes
+cross-token reuse correctness for the checked cases, without measuring its speed.
+
+The [split-prefill screen](../results/round2_snapshot/b12x_split_numerical_l19_m1024.json)
+checks all 8,192 routed rows at L19/M1024. Packed input and SFA publication match
+exactly. Phase1 scales match the reference byte-for-byte; one of 4,194,304 decoded
+intermediate values differs in the original input, with relative L2 9.14e-5.
+Large packed-byte mismatch counts remain recorded, chiefly consistent with
+signed-zero encoding; the reference payload was not retained for a pairwise
+classification. Phase2 output differs from fixed-order FP64 reduction of the
+actual intermediate by about 0.38–0.39% relative L2; graph/eager differences are
+about 0.18–0.19%, consistent with variable BF16 atomic accumulation order.
+These pass explicitly exploratory thresholds, not production quality gates.
 
 Next: prepare shape-specific Humming integration, complete pending
 PDL/skinny/state-replay checks, and test the mechanisms identified in the

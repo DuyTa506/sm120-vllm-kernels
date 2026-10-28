@@ -56,6 +56,49 @@
       "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l39_m1024_1/screen.json",
       "sha256": "0b7a78dcfb9ac1a3cc09eeffef219a802835c437790c6f8989c8bca154b1cf59",
       "original_exit_code": "0"
+    },
+    "dp4a_numerical_m1.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_numerical_m1_1/screen.json",
+      "sha256": "27818b6e3f708c0fe8ff65fe3429251a2729692d92a5d26ff6dbd01ff5dd9d61",
+      "original_exit_code": "0"
+    },
+    "pdl_focused_pair1.json": {
+      "original_worktree_path": "kernels/pdl-swapab/results/pdl_focused_pair_1.json",
+      "sha256": "483d687e4f7425db481d4ab38b3ac126d0ab2b1f14bca407c0b8682c1a51858f",
+      "original_run_exit_codes": {
+        "pdl_focused_pin0_1": 0,
+        "pdl_focused_pin1_1": 0
+      }
+    },
+    "pdl_focused_context_window.json": {
+      "original_worktree_path": "kernels/pdl-swapab/results/pdl_focused_pin1_1/external_context_contamination.json",
+      "sha256": "7356e9c5a531c84ab83dc8b70e2b5d38a8ac1cefa56077f2b62519faf668c41d"
+    },
+    "workspace_band_geometry.json": {
+      "original_worktree_path": "kernels/moe-workspace-bands/results/route_geometry1.json",
+      "sha256": "f9cfb0b2a4d6c5adb249a075e7e5908630309730eebd74315b2f99bb0607d12a"
+    },
+    "workspace_routes_l19_m2048.json": {
+      "original_worktree_path": "kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m2048_real.json",
+      "sha256": "039742ee872c4776e01b0e0da825133340b84db457ae9c33253c82669b3a35c7"
+    },
+    "workspace_routes_l19_m3072.json": {
+      "original_worktree_path": "kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m3072_real.json",
+      "sha256": "d64f5b32909739c5c5c84e021d61a15535a1d919758fcc45f6bc458b01b2dbd6"
+    },
+    "workspace_routes_l19_m4096.json": {
+      "original_worktree_path": "kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m4096_real.json",
+      "sha256": "259c584a038836c0b5408bd14615c93b43b7e814d0a5c01edffd80228adbd95a"
+    },
+    "dp4a_numerical_m8.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_numerical_m8_1/screen.json",
+      "sha256": "56e5ea45643f8e4e0011bbc4f99a94dbc4e816acb8815d5fb2633b26e4db512a",
+      "original_exit_code": "0"
+    },
+    "b12x_split_numerical_l19_m1024.json": {
+      "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_numerical_l19_m1024_1/measurement/report.json",
+      "sha256": "2a0a25c3a67c6843fa314d437fc8e1e523a56b238c97304dd96097a907aef6b3",
+      "original_exit_code": "0"
     }
   }
 }

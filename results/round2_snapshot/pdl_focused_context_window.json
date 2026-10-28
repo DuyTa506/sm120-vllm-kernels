@@ -1,0 +1,776 @@
+{
+  "status": "external_cuda_context_contamination_reported",
+  "source": "Root reported a read-only import in qwen-prefill-dev initialized torch CUDA; process exited after approximately3.8s; no explicit kernels/allocation requested by root. Exact start uncertain.",
+  "conservative_window_utc": [
+    "2026-10-28T04:19:00+00:00",
+    "2026-10-28T04:21:00+00:00"
+  ],
+  "intervals": [
+    {
+      "scenario": "prefill-2048",
+      "command_start": "2026-10-28T04:14:31.588489+00:00",
+      "command_end": "2026-10-28T04:14:44.532638+00:00",
+      "possible_overlap": false
+    },
+    {
+      "scenario": "prefill-4096",
+      "command_start": "2026-10-28T04:14:55.403733+00:00",
+      "command_end": "2026-10-28T04:15:07.000562+00:00",
+      "possible_overlap": false
+    },
+    {
+      "scenario": "prefill-5000",
+      "command_start": "2026-10-28T04:15:25.653529+00:00",
+      "command_end": "2026-10-28T04:15:37.050913+00:00",
+      "possible_overlap": false
+    },
+    {
+      "scenario": "prefill-8192",
+      "command_start": "2026-10-28T04:15:49.639079+00:00",
+      "command_end": "2026-10-28T04:16:01.735598+00:00",
+      "possible_overlap": false
+    },
+    {
+      "scenario": "prefill-16384",
+      "command_start": "2026-10-28T04:16:14.578128+00:00",
+      "command_end": "2026-10-28T04:16:32.894016+00:00",
+      "possible_overlap": false
+    },
+    {
+      "scenario": "prefill-32768",
+      "command_start": "2026-10-28T04:16:47.927445+00:00",
+      "command_end": "2026-10-28T04:17:09.184568+00:00",
+      "possible_overlap": false
+    },
+    {
+      "scenario": "decode-c1",
+      "command_start": "2026-10-28T04:17:23.912109+00:00",
+      "command_end": "2026-10-28T04:17:43.780174+00:00",
+      "possible_overlap": false
+    },
+    {
+      "scenario": "decode-c4",
+      "command_start": "2026-10-28T04:17:58.785374+00:00",
+      "command_end": "2026-10-28T04:18:19.961185+00:00",
+      "possible_overlap": false
+    },
+    {
+      "scenario": "decode-c16",
+      "command_start": "2026-10-28T04:18:34.120020+00:00",
+      "command_end": "2026-10-28T04:19:09.778855+00:00",
+      "possible_overlap": true
+    },
+    {
+      "scenario": "decode-c64",
+      "command_start": "2026-10-28T04:19:29.513186+00:00",
+      "command_end": "2026-10-28T04:20:23.180301+00:00",
+      "possible_overlap": true
+    },
+    {
+      "scenario": "repeated_nll",
+      "command_start": "2026-10-28T04:20:24.265556+00:00",
+      "command_end": "2026-10-28T04:20:55.848817+00:00",
+      "possible_overlap": true
+    }
+  ],
+  "gpu_telemetry_samples": [
+    {
+      "utc": "2026-10-28T04:19:00.521000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "63 %",
+      "sm_clock": "2835 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:01.521000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "64 %",
+      "sm_clock": "2835 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:02.521000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "66 %",
+      "sm_clock": "2835 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:03.522000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "64 %",
+      "sm_clock": "2827 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:04.522000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2835 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:05.522000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "62 %",
+      "sm_clock": "2835 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:06.522000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "75 %",
+      "sm_clock": "2827 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:07.523000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2835 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:08.523000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2835 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:09.523000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "99 %",
+      "sm_clock": "2842 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:10.523000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2872 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:11.524000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2872 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:12.524000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:13.524000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:14.524000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:15.525000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:16.525000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:17.525000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:18.526000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:19.526000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:20.526000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:21.526000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:22.527000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:23.527000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "55 %",
+      "sm_clock": "2752 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:24.527000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:25.528000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:26.528000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:27.528000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:28.528000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2827 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:29.529000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:30.529000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2872 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:31.529000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2872 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:32.530000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:33.530000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:34.530000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:35.531000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:36.531000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:37.531000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:38.532000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:39.532000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:40.532000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:41.533000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:42.533000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:43.533000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "25 %",
+      "sm_clock": "2670 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:44.533000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:45.534000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:46.534000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:47.534000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:48.535000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:49.535000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "83 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:50.535000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "78 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:51.535000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:52.536000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:53.536000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:54.537000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "52 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:55.537000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "52 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:56.537000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "80 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:57.538000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "81 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:58.538000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "89 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:19:59.538000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:00.539000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "74 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:01.539000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "94 %",
+      "sm_clock": "2805 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:02.539000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "80 %",
+      "sm_clock": "2805 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:03.540000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:04.540000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:05.540000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:06.541000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "81 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:07.541000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "72 %",
+      "sm_clock": "2805 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:08.541000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "70 %",
+      "sm_clock": "2805 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:09.542000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "71 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:10.542000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "68 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:11.542000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "87 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:12.543000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2797 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:13.543000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "79 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:14.543000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "83 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:15.544000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "76 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:16.544000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:17.544000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "71 %",
+      "sm_clock": "2797 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:18.545000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2805 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:19.545000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "84 %",
+      "sm_clock": "2805 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:20.545000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2797 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:21.546000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2812 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:22.546000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2827 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:23.546000+00:00",
+      "memory": "77904 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2865 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:24.547000+00:00",
+      "memory": "78390 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2865 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:25.547000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2610 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:26.547000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:27.548000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:28.548000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:29.548000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "49 %",
+      "sm_clock": "2670 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:30.549000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "21 %",
+      "sm_clock": "2775 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:31.549000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2842 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:32.549000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "75 %",
+      "sm_clock": "2842 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:33.550000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2782 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:34.550000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:35.550000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2662 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:36.551000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "42 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:37.551000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "44 %",
+      "sm_clock": "2865 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:38.551000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "29 %",
+      "sm_clock": "2782 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:39.552000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "52 %",
+      "sm_clock": "2835 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:40.552000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2647 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:41.553000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2842 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:42.553000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "31 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:43.553000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "85 %",
+      "sm_clock": "2865 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:44.553000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:45.554000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2685 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:46.554000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2865 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:47.554000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "95 %",
+      "sm_clock": "2865 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:48.555000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2820 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:49.555000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2535 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:50.555000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2842 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:51.556000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2730 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:52.556000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:53.556000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2475 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:54.557000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "0 %",
+      "sm_clock": "2857 MHz"
+    },
+    {
+      "utc": "2026-10-28T04:20:55.557000+00:00",
+      "memory": "78876 MiB",
+      "utilization": "100 %",
+      "sm_clock": "2857 MHz"
+    }
+  ],
+  "limitation": "Aggregate telemetry cannot attribute activity to the external context. Window is conservative; not an exact measured contention interval.",
+  "performance_use": "Do not call whole ON run dedicated/clean. c16/c64 and NLL intersect conservative window; all prefill and decodec1/c4 finish earlier. Single pair remains insufficient for promotion."
+}

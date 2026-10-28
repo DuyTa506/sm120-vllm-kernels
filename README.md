@@ -40,6 +40,9 @@ selections differ, so the chart compares complete configurations.
 B12x implementation, DP4A expert reuse, CUTLASS policies, shared-expert fusion,
 and a same-checkpoint Marlin control. These are ongoing experiments, not added
 to the measured gains above.
+[DeepGEMM scheduling review](docs/DEEPGEMM_SCHEDULING_REVIEW.md) maps persistent
+grouping, tile selection and fusion to the actual SM120 paths, including the
+new workspace-band experiment and initial GPU numerical checks.
 
 ## Recommended configuration
 

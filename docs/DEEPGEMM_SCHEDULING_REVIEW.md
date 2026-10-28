@@ -30,7 +30,7 @@ provide relevant load/compute primitives.
 | E0: baseline | Scalar wrapper uses CUTLASS below M1024 and B12x above, with the documented conditions | Record actual dispatch; explicitly enabled FI-auto/direct are additional comparators, not assumed serving baselines. |
 | E1: persistent grouped scheduling | Native dynamic B12x has persistent task claims and compact descriptors | Queue policy, task size and weight reuse. Our long-first permutation improved a hot-layer case but has no demonstrated serving win. |
 | E2: masked grouping | Device-side route counts, valid rows and fixed-capacity graph execution already exist | Reduce padding, descriptor construction or redundant work while replaying changing/invalid routes correctly. |
-| E3: shape-specific tile selection | Installed selector chooses M16/32/64/128 from routed rows per expert | Add measured cost of skew, padding and weight reloads; compare with the current thresholds, not a fixed-M128 straw baseline. |
+| E3: shape-specific tile selection | Installed functional selector supports M16/32/64/128; the graph wrapper retains the tile chosen for its maximum capacity | First recover per-band selection in the actual wrapper, then test skew, padding and weight reload costs. Saved M2048 metadata confirms the current wrapper uses M128. |
 | E4: warp/TMA pipeline | Native MMA and pipelining are already part of the implementations | Compare concrete stage count, copy mechanism, register allocation and occupancy for FC1 K2048 versus FC2 K512. |
 | E5/E6: activation fusion / whole MoE fusion | B12x already combines expert computation and activation work | Test the newly inspected split prefill implementation against monolithic execution, accounting for extra launches and intermediate traffic. |
 | E7: hybrid dispatch | Current wrapper already separates small and large M | Re-evaluate the crossover using full-call and serving measurements; multiple implementations can win in different ranges. |
@@ -38,6 +38,20 @@ provide relevant load/compute primitives.
 For E3, installed `_select_dynamic_tile_m` changes tiles at mean routed rows
 15, 48 and 96. With E256/top8 these correspond to token-count boundaries
 480, 1536 and 3072 inside that selector; the outer backend dispatch still applies.
+Crucially, the installed graph wrapper allocates its dynamic workspace once from
+`max_num_tokens * top_k`. Dispatch retains an explicitly supplied workspace's
+tile geometry. Thus the functional selector does not imply per-call adaptation
+in our serving wrapper. An adapter with separate immutable workspace bands is
+being prepared; existing CUTLASS dispatch below M1024 remains the control.
+
+Saved L19/M2048 routing contains 16,384 expert assignments. M128 reserves 35,072
+rows in 274 expert tiles; M64 would reserve 24,896 rows in 389 tiles. That raises
+useful-row fraction from 46.7% to 65.8%, but also increases tile count by 42.0%.
+This is an offline padding calculation, **not a predicted speedup**: additional
+weight loading and scheduling can outweigh reduced padding. The largest expert
+receives 1,137 rows despite a mean of 64, illustrating why the mean alone is
+insufficient. See the [saved route analysis](../results/round2_snapshot/workspace_band_geometry.json).
+
 The [DeepGEMM MegaMoE heuristic](https://github.com/deepseek-ai/DeepGEMM/blob/5081f8513af57e61696de4f4f04b0e707ffb503e/csrc/jit_kernels/heuristics/mega_moe.hpp)
 considers expected load plus a square-root margin and a weight-reload penalty.
 Borrow that cost tradeoff, not its SM100 block sizes or numerical thresholds.
@@ -72,13 +86,21 @@ instruction alone does not establish the full numerical contract.
 ## Concrete work now
 
 - **Prefill:** an isolated adapter for experimental B12x's native NVFP4 phase1/2
-  is being prepared, reusing validated weight/scale operands. The device publisher
-  must produce a correct M128 domain; evaluate its complete cost at M1024/M4096.
+  passes its first L19/M1024 exploratory numerical screen, reusing validated
+  weight/scale operands. The device publisher's M128 domain matches byte-for-byte
+  through changed routing and graph replay; full-call timing is still pending.
+  Evaluate its complete cost at M1024/M4096.
   M64 compute tiles do not imply that the upstream M64 source-domain variant is
   valid. Its source warns against that multi-tile path.
-- **Decode:** the isolated DP4A expert-reuse port builds for SM120a. Checkpoint
-  conversion is CPU-verified; arithmetic, graph replay and concurrency still
-  require GPU validation. Compare current CUTLASS, FI-auto and forced-direct.
+- **Decode:** the isolated DP4A expert-reuse port passes the first M1 GPU
+  numerical screen: input quantized bytes match vLLM, FC1/FC2 agree with FP32
+  accumulation of the same quantized operands to about 1e-7 relative L2, and
+  graph/eager and instrumented/normal outputs match. The M8 follow-up also
+  exercises real shared experts and all eight tokens sharing eight experts;
+  reuse on/off outputs remain identical. Concurrency and timing checks remain.
+  Explicit FI-auto/direct comparators pass reciprocal-scale metadata correctly;
+  simply forcing the existing wrapper into direct-micro would violate its
+  calibrated scale convention. No speed or model-quality equivalence is claimed.
 - **Scheduler:** retain long-first as an unselected measured case. Use route
   distributions to propose a different cost-aware policy rather than repeating
   the same permutation under a new name.
