@@ -49,9 +49,10 @@ References: [next](../results/next/SUMMARY.md),
 | Tiny rowwise 64×16 tile | L0/M3: 19.62 µs, about 11.2% slower than AUTO and 16.1% slower than existing skinny. Numerical/replay checks pass. | Rejected for the measured case. |
 | PDL | Focused pair pins the same 18 compiler identities/configs. Prefill TTFT falls 0.26–3.30%; decode c1/c4 rises 0.67%/4.28%. | Unselected, one pair. Later c16/c64 and NLL have a possible external-context overlap; numerical variation remains unresolved. |
 | DP4A expert reuse | Numerical screens pass checked input/operand and replay contracts. At real M3, preplanned calibrated FI direct is about 24.6 µs, DP4A reuse-on about 32–35 µs, and current scalar/CUTLASS about 49 µs. | Unselected against the stronger FI comparator. Historical M1 comparisons used a weaker FI call path; no serving or model-quality claim. |
-| Prepared FI direct | At real L19/M4, explicit native direct plus padding sanitizer takes 26.64–26.65 µs versus current scalar/CUTLASS 59.85–60.02 µs. Distinct runtime pointers pass 12 graph checks. | Integration candidate only. Corrected FI MMA comparison and actual vLLM dispatch/serving remain pending. |
+| Prepared FI direct | At real L19/M4, explicit native direct plus padding sanitizer takes 26.64–26.65 µs versus current scalar/CUTLASS 59.85–60.02 µs. Distinct runtime pointers pass 12 graph checks. A separate corrected-MMA screen also favors direct at M4; static wins at M8. | Integration candidate only. Actual vLLM dispatch/serving remain unconfirmed. |
 | Split B12x prefill | Actual L19 full-call timing is about 17.6% slower at M1024 and 47.4% slower at M4096 than current scalar. Pre/post arithmetic and route-domain checks pass exploratory gates. | Initial split implementation unselected at both shapes. Component measurements are diagnostic and cannot be summed into a full-call claim. |
 | Workspace tile bands | L19 full-call screen: M1024/tile32 is about 1.9% slower; M2048/tile64 about 27.1% slower; unchanged M4096/tile128 is within 0.32%. | Unselected; scratch rises from 607.8 MB to 1,400.9 MB. Native M128 already skips inactive M16 MMA fragments, so padding ratios are not compute-saving estimates. |
+| Inactive operand-load guards | Keeping M128 but adding warp-uniform guards makes L19/M1024 about 2.8× slower and M4096 about 3.4× slower. Compiled stack grows 80 → 688 bytes, with many additional local load/store instructions. | Rejected in this form. Source-level work reduction does not ensure better generated code. |
 | GDN state replay | Current-stack shadow checks pass, including intermediate checkpoint boundaries. The first pressure workload produced zero preemptions. | Stronger pressure coverage is still required before timing/promotion. |
 
 The [round 2 snapshot](../results/round2_snapshot/manifest.json) contains hash-verified
@@ -162,9 +163,28 @@ times that explicit native adapter with sanitizer and current runtime arguments:
 and DP4A reuse-on 38.94–39.29 µs. Each of two reversed backend orders uses eight
 samples of 50 graph replays. Original routing, weight preparation and model
 execution are outside the measurement. The older invalid FI-auto comparator is
-explicitly excluded; corrected micro/static comparisons remain pending. The
+explicitly excluded; corrected micro/static comparisons follow below. The
 repository captures M4 rather than M3, but actual serving bucket use still needs
 trace confirmation. This result is not included in the serving chart.
+
+The subsequent [corrected bucket comparison](../results/round2_snapshot/fi_mma_bucket_summary.json)
+uses the same source/runtime/checkpoint identities at M4 and M8. Every provider
+passes five numerical fixtures before timing. Both FI paths include sanitation;
+the M4 micro path also includes route compaction. Two reversed orders give:
+
+| tokens / live rows | corrected FI MMA µs | sanitized FI direct µs | current CUTLASS µs |
+|---|---:|---:|---:|
+| M4 / 4 | 28.70 / 28.73 | 26.67 / 26.68 | 61.22 / 61.14 |
+| M4 / 3 | 32.84 / 32.84 | 26.71 / 26.67 | 49.95 / 49.99 |
+| M8 / 8 | 34.80 / 34.83 | 43.02 / 43.03 | 63.49 / 63.46 |
+| M8 / 7 | 34.80 / 34.79 | 43.07 / 43.06 | 61.33 / 61.32 |
+
+Direct is the best checked M4 path, while static wins at M8. This supports
+shape-specific dispatch, not replacing every small batch with direct. M4 micro
+graph/eager/repeat variation reaches 0.92% relative L2; its exploratory gate is
+1%, so it is not bitwise deterministic in this screen. M8 providers repeat
+exactly. Padding and all-invalid outputs are exactly zero. No production quality
+acceptance or end-to-end gain follows from these hot-layer checks.
 
 The [split-prefill screen](../results/round2_snapshot/b12x_split_numerical_l19_m1024.json)
 checks all 8,192 routed rows at L19/M1024. Packed input and SFA publication match
@@ -191,8 +211,21 @@ passes six graph transitions and its exploratory diagnostics but regresses the
 changed tile sizes. The [installed-source analysis](../results/round2_snapshot/workspace_band_source_analysis.md)
 shows that M128 tails already predicate inactive M16 MMA fragments in FC1 and
 FC2. Lower padded-row counts do not imply the corresponding removal of tensor
-core work. A narrower operand-load predicate is only a new hypothesis: preserve
-all pipeline/barrier participation and measure actual instructions/resources.
+core work. A narrower operand-load predicate was then tested while preserving
+pipeline/barrier participation. Its [first OFF/ON pair](../results/round2_snapshot/inactive_load_pair.json)
+is strongly negative: approximately 314 → 881 µs at M1024 and 437 → 1483 µs
+at M4096. Eight paired output cases pass the exploratory relative-L2 gate;
+runtime source hashes and captured operands match, and actual graph traces
+identify the correct class in each mode. The candidate remains rejected.
+
+The [compiled artifact analysis](../results/round2_snapshot/inactive_load_sass_summary.json)
+finds unchanged 168-register allocation but stack growth from 80 to 688 bytes.
+Static local-load/store instruction sites rise from 4/5 to 1,484/1,099. These are
+instruction sites, not dynamic execution counts. This supports compiler
+spilling/stack traffic as a likely mechanism; no stall profile establishes the
+sole cause. [Artifact hashes](../results/round2_snapshot/inactive_load_artifact_digest.json)
+and extracted resource reports preserve the evidence. Any repair must address
+generated code before another performance claim.
 
 Next: finish strong-comparator decode and padding/replay checks, integrate the
 winning small-M path into vLLM, and test narrowly justified prefill mechanisms from the

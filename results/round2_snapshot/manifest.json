@@ -558,6 +558,224 @@
           "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
         }
       }
+    },
+    "fi_mma_bucket_l19_m4.json": {
+      "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/measurement.json",
+      "sha256": "4cd61609ed8dff686c41d979df09a80ebeab8796bd2b85a7659748537b47a644",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/exit_code.txt",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/source_verify.log",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/gpu_after.csv",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/runtime_verify.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/runtime_verify.json",
+          "sha256": "0ee777dc54a5ca8dd4b992abb3c401fb842199bdae7a96a8aa0c5c8943a25b5b"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/process_cleanup.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/process_cleanup.json",
+          "sha256": "477c5aefbea898f0c13360fd91e1a525f0186c46fc370876142ae19e4fdab7b2"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/source_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/source_manifest.json",
+          "sha256": "d0913562d7321de870b90cf115db01192be30ceda61990b0d0b919a85b70695e"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/runtime_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/runtime_manifest.json",
+          "sha256": "83deb254bf14f2d871fd7b29f275b7999ced12a7c89ca9a19c8ac7752e8eaa44"
+        },
+        "checkpoint_identity.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/checkpoint_identity.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/checkpoint_identity.json",
+          "sha256": "560add5afee486ae58a7acc5b532812cda045fd4b02367d99f363cf598d4e20b"
+        }
+      }
+    },
+    "fi_mma_bucket_l19_m8.json": {
+      "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/measurement.json",
+      "sha256": "99ec1fe5295c1c7e7ba10a4854691f62b97242480fac9d183cc9ebf65b50e716",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/exit_code.txt",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/source_verify.log",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/gpu_after.csv",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/runtime_verify.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/runtime_verify.json",
+          "sha256": "0ee777dc54a5ca8dd4b992abb3c401fb842199bdae7a96a8aa0c5c8943a25b5b"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/process_cleanup.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/process_cleanup.json",
+          "sha256": "d28ea607e011856a0b539b59d518abafca677864383110d34df3cfae245ebb20"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/source_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/source_manifest.json",
+          "sha256": "d0913562d7321de870b90cf115db01192be30ceda61990b0d0b919a85b70695e"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/runtime_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/runtime_manifest.json",
+          "sha256": "83deb254bf14f2d871fd7b29f275b7999ced12a7c89ca9a19c8ac7752e8eaa44"
+        },
+        "checkpoint_identity.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/checkpoint_identity.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/checkpoint_identity.json",
+          "sha256": "560add5afee486ae58a7acc5b532812cda045fd4b02367d99f363cf598d4e20b"
+        }
+      }
+    },
+    "inactive_load_off.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/measurement/report.json",
+      "sha256": "5784f55caa62a6962ba9c9da86e1ad2623c50239d6c89e0ea6d5a0ddeaed2a05",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/inactive_load_off/exit_code.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/inactive_load_off/source_verify.log",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/inactive_load_off/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/inactive_load_off/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/inactive_load_off/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/process_cleanup.json",
+          "sha256": "2da59a533dd498dec714f1dd425a3813b4ba14ce0e68730879de6a96816a10f1"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_off/source_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/source_manifest.json",
+          "sha256": "6ca450810ffcb49ebdbd884b46d2bba47fd898df66b09b35289ee19682b29594"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_off/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/runtime_manifest.json",
+          "sha256": "d9386faf1b5a612844597a51212a3bf200102564cf9ede6e561d02567130d437"
+        },
+        "embedded_full_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_off/embedded_full_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/embedded_full_manifest.json",
+          "sha256": "7e2d2179202fe8bc090f2a99245ad703f2dbfa81fca2eb3a3d054e19d1c64dfa"
+        },
+        "embedded_full_resource.txt": {
+          "snapshot_path": "evidence/inactive_load_off/embedded_full_resource.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/embedded_full_resource.txt",
+          "sha256": "b98e365a8bdef8fdf7c3334f8fa28b4ff9388d13529a3505bd5f66358f7695d4"
+        }
+      }
+    },
+    "inactive_load_on.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/measurement/report.json",
+      "sha256": "62fb6f22990db367a7e97651a90107a0b1bb1660e0256c906c0cecc3d354b598",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/inactive_load_on/exit_code.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/inactive_load_on/source_verify.log",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/inactive_load_on/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/inactive_load_on/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/inactive_load_on/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/process_cleanup.json",
+          "sha256": "11b0f3a0fcc6ce5c88ed53a17398254512613151108bbba8d2065de4f71d7651"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_on/source_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/source_manifest.json",
+          "sha256": "6ca450810ffcb49ebdbd884b46d2bba47fd898df66b09b35289ee19682b29594"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_on/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/runtime_manifest.json",
+          "sha256": "0de9f9c2a93f5403153a4c1a162127d34f1f50f2c3e6c75893e77122aaea9be1"
+        },
+        "embedded_full_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_on/embedded_full_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/embedded_full_manifest.json",
+          "sha256": "25478cf6acdcccec880670757746fa28368504cd610c4248d1fd71b300f7ba82"
+        },
+        "embedded_full_resource.txt": {
+          "snapshot_path": "evidence/inactive_load_on/embedded_full_resource.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/embedded_full_resource.txt",
+          "sha256": "68dfac0111741a82b762311c344392da0d875f18fe3b28a3acc535ae58733025"
+        }
+      }
+    },
+    "fi_mma_bucket_summary.json": {
+      "original_worktree_path": "kernels/fi-static-scale-audit/results/paired_bucket_summary.json",
+      "sha256": "37d68e311bd7be819512f80f2251cc75fa1446b677b38a8f23a3678c33555c5f"
+    },
+    "inactive_load_pair.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/pair1.json",
+      "sha256": "163cadeaba83ad97e12c27ac19cba5acd551e0da79c35f665dbc514405fd0532"
+    },
+    "inactive_load_runtime_audit.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/runtime_pair_audit.json",
+      "sha256": "7c3c957e26644e403b0879884b30ba648a22f0117d251a4f53475a845967e51c"
+    },
+    "inactive_load_sass_summary.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/sass_pair_summary.json",
+      "sha256": "ba0dfa97e6a3d1963de9c420d7e7e05ba751ddf07ae9950f743057c91f3ffafc"
+    },
+    "inactive_load_artifact_digest.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/publication_summary.json",
+      "sha256": "152c1d496b60b2e5c19af48812258e3a9a0d2fc5f1422aad4248cc7cd0ce463c"
     }
   }
 }

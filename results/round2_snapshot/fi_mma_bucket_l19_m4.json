@@ -1,0 +1,751 @@
+{
+  "status": "screen_complete_no_promotion",
+  "tokens": 4,
+  "scope": "captured real L19 hot-layer complete-call graph; not vLLM latency/quality promotion",
+  "checks": [
+    {
+      "fixture": "real0",
+      "offset": 0,
+      "live": 4,
+      "repeat": {
+        "sanitized_micro_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.007924208417534828,
+            "max_abs": 0.00048828125,
+            "norm": 0.8816202282905579
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.00820302776992321,
+            "max_abs": 0.0006103515625,
+            "norm": 0.8816202282905579
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.8815913200378418
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.8815913200378418
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.8807217478752136
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.8807217478752136
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 0.8851258158683777,
+      "fp32": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.14707732200622559,
+          "max_abs": 0.0064811622723937035,
+          "norm": 0.8815586566925049
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.14700452983379364,
+          "max_abs": 0.0064353859052062035,
+          "norm": 0.8815913200378418
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.1471339911222458,
+          "max_abs": 0.0066642677411437035,
+          "norm": 0.8807217478752136
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.025716843083500862,
+          "max_abs": 0.001251220703125,
+          "norm": 0.8815586566925049
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.024849556386470795,
+          "max_abs": 0.001190185546875,
+          "norm": 0.8815913200378418
+        }
+      }
+    },
+    {
+      "fixture": "real64",
+      "offset": 64,
+      "live": 4,
+      "repeat": {
+        "sanitized_micro_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.008875328116118908,
+            "max_abs": 0.0009765625,
+            "norm": 0.9983199238777161
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.008633619174361229,
+            "max_abs": 0.0009765625,
+            "norm": 0.9983199238777161
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.9980520606040955
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.9980520606040955
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.0004011392593384
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.0004011392593384
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 0.9915412664413452,
+      "fp32": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.13969843089580536,
+          "max_abs": 0.008053155615925789,
+          "norm": 0.9983900785446167
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.13936194777488708,
+          "max_abs": 0.008053155615925789,
+          "norm": 0.9980520606040955
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.14106810092926025,
+          "max_abs": 0.008053155615925789,
+          "norm": 1.0004011392593384
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.03336276859045029,
+          "max_abs": 0.002685546875,
+          "norm": 0.9983900785446167
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.03260202705860138,
+          "max_abs": 0.0025634765625,
+          "norm": 0.9980520606040955
+        }
+      }
+    },
+    {
+      "fixture": "padded_last",
+      "offset": 0,
+      "live": 3,
+      "repeat": {
+        "sanitized_micro_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.009195628575980663,
+            "max_abs": 0.000732421875,
+            "norm": 0.6982478499412537
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.009115240536630154,
+            "max_abs": 0.0006103515625,
+            "norm": 0.6982478499412537
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.6980449557304382
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.6980449557304382
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.6970542073249817
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.6970542073249817
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 0.6986969709396362,
+      "fp32": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.1405305564403534,
+          "max_abs": 0.005884543061256409,
+          "norm": 0.6981216669082642
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.1404150128364563,
+          "max_abs": 0.006128683686256409,
+          "norm": 0.6980449557304382
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.139973446726799,
+          "max_abs": 0.005799022503197193,
+          "norm": 0.6970542073249817
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.02391553297638893,
+          "max_abs": 0.00103759765625,
+          "norm": 0.6981216669082642
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.022873058915138245,
+          "max_abs": 0.001190185546875,
+          "norm": 0.6980449557304382
+        }
+      }
+    },
+    {
+      "fixture": "all_invalid",
+      "offset": 0,
+      "live": 0,
+      "repeat": {
+        "sanitized_micro_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 0.0,
+      "fp32": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        }
+      }
+    },
+    {
+      "fixture": "restore",
+      "offset": 0,
+      "live": 4,
+      "repeat": {
+        "sanitized_micro_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.009083347395062447,
+            "max_abs": 0.0009765625,
+            "norm": 0.8815901279449463
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.00908128172159195,
+            "max_abs": 0.0009765625,
+            "norm": 0.8815901279449463
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.8815913200378418
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.8815913200378418
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.8807217478752136
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.8807217478752136
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 0.8851258158683777,
+      "fp32": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.14721807837486267,
+          "max_abs": 0.0064353859052062035,
+          "norm": 0.8817962408065796
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.14700452983379364,
+          "max_abs": 0.0064353859052062035,
+          "norm": 0.8815913200378418
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.1471339911222458,
+          "max_abs": 0.0066642677411437035,
+          "norm": 0.8807217478752136
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_micro_divisor": {
+          "finite": true,
+          "rel_l2": 0.025825703516602516,
+          "max_abs": 0.001312255859375,
+          "norm": 0.8817962408065796
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.024849556386470795,
+          "max_abs": 0.001190185546875,
+          "norm": 0.8815913200378418
+        }
+      }
+    }
+  ],
+  "timings": [
+    {
+      "fixture": "real0",
+      "live": 4,
+      "backend": "sanitized_micro_divisor",
+      "order": [
+        "sanitized_micro_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 28.70144009590149,
+      "samples_us": [
+        28.67136001586914,
+        28.752000331878662,
+        28.7174391746521,
+        28.707199096679688,
+        28.7007999420166,
+        28.699519634246826,
+        28.72704029083252,
+        28.698880672454834,
+        28.702080249786377,
+        28.691840171813965
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 4,
+      "backend": "sanitized_direct_multiplier",
+      "order": [
+        "sanitized_micro_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 26.66975975036621,
+      "samples_us": [
+        26.624000072479248,
+        26.67072057723999,
+        26.70016050338745,
+        26.68544054031372,
+        26.66879892349243,
+        26.683518886566162,
+        26.657280921936035,
+        26.667520999908447,
+        26.64896011352539,
+        26.69248104095459
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 4,
+      "backend": "current_scalar_cutlass",
+      "order": [
+        "sanitized_micro_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 61.22463941574097,
+      "samples_us": [
+        61.05088233947754,
+        61.13471984863281,
+        61.2992000579834,
+        61.264638900756836,
+        61.2608003616333,
+        61.10335826873779,
+        61.18847846984863,
+        61.329917907714844,
+        61.303038597106934,
+        61.04191780090332
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 4,
+      "backend": "current_scalar_cutlass",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_micro_divisor"
+      ],
+      "median_us": 61.138880252838135,
+      "samples_us": [
+        61.091837882995605,
+        61.137919425964355,
+        61.139841079711914,
+        61.31328105926514,
+        61.2659215927124,
+        61.23392105102539,
+        60.9657621383667,
+        61.28896236419678,
+        61.12959861755371,
+        61.03231906890869
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 4,
+      "backend": "sanitized_direct_multiplier",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_micro_divisor"
+      ],
+      "median_us": 26.68031930923462,
+      "samples_us": [
+        26.624000072479248,
+        26.728320121765137,
+        26.662399768829346,
+        26.6758394241333,
+        26.66368007659912,
+        26.69055938720703,
+        26.715519428253174,
+        26.695680618286133,
+        26.684799194335938,
+        26.670079231262207
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 4,
+      "backend": "sanitized_micro_divisor",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_micro_divisor"
+      ],
+      "median_us": 28.725759983062744,
+      "samples_us": [
+        28.671998977661133,
+        28.74687910079956,
+        28.70975971221924,
+        28.71295928955078,
+        28.730239868164062,
+        28.736000061035156,
+        28.737919330596924,
+        28.721280097961426,
+        28.7174391746521,
+        28.731520175933838
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 3,
+      "backend": "sanitized_micro_divisor",
+      "order": [
+        "sanitized_micro_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 32.836480140686035,
+      "samples_us": [
+        32.76671886444092,
+        32.83328056335449,
+        32.80319929122925,
+        32.851200103759766,
+        32.894721031188965,
+        32.8383994102478,
+        32.88383960723877,
+        32.83456087112427,
+        32.829439640045166,
+        32.881920337677
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 3,
+      "backend": "sanitized_direct_multiplier",
+      "order": [
+        "sanitized_micro_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 26.70527935028076,
+      "samples_us": [
+        26.624000072479248,
+        26.71488046646118,
+        26.696960926055908,
+        26.71679973602295,
+        26.6975998878479,
+        26.68992042541504,
+        26.712958812713623,
+        26.693120002746582,
+        26.963200569152832,
+        26.72447919845581
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 3,
+      "backend": "current_scalar_cutlass",
+      "order": [
+        "sanitized_micro_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 49.947519302368164,
+      "samples_us": [
+        49.93023872375488,
+        50.07808208465576,
+        49.932799339294434,
+        50.20607948303223,
+        50.00063896179199,
+        49.962239265441895,
+        49.869441986083984,
+        49.916157722473145,
+        49.92447853088379,
+        50.035200119018555
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 3,
+      "backend": "current_scalar_cutlass",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_micro_divisor"
+      ],
+      "median_us": 49.98975992202759,
+      "samples_us": [
+        49.97056007385254,
+        50.13440132141113,
+        49.71712112426758,
+        49.91936206817627,
+        50.02816200256348,
+        49.843201637268066,
+        50.21183967590332,
+        50.032639503479004,
+        50.00895977020264,
+        49.92512226104736
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 3,
+      "backend": "sanitized_direct_multiplier",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_micro_divisor"
+      ],
+      "median_us": 26.672319173812866,
+      "samples_us": [
+        26.624000072479248,
+        26.670079231262207,
+        26.698238849639893,
+        26.684799194335938,
+        26.645119190216064,
+        26.674559116363525,
+        26.649599075317383,
+        26.65600061416626,
+        26.684799194335938,
+        26.68544054031372
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 3,
+      "backend": "sanitized_micro_divisor",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_micro_divisor"
+      ],
+      "median_us": 32.83519983291626,
+      "samples_us": [
+        32.76799917221069,
+        32.858240604400635,
+        32.84096002578735,
+        32.81791925430298,
+        32.87487983703613,
+        32.83263921737671,
+        32.82304048538208,
+        32.81343936920166,
+        32.83776044845581,
+        32.87231922149658
+      ],
+      "replays_per_sample": 50
+    }
+  ],
+  "timing_scope": "MMA includes sanitizer+micro compaction when M4+native compute; direct includes sanitizer+native compute; CUTLASS current scalar includes input quant+compute. Excludes router and weight/view allocation. Explicit private preplanned buffers.",
+  "gate": "exploratory FP32 relativeL2<=.25; repeated graph/eager relativeL2<=.01; all-invalid/padded outputs exactlyzero; valid graph state restored before timing",
+  "factory_trace": [
+    {
+      "factory": "_get_micro_kernel",
+      "reciprocal": false
+    },
+    {
+      "factory": "_get_micro_kernel",
+      "reciprocal": false
+    }
+  ],
+  "factory_scope": "Python factory selection only; native direct compiled in constructor before trace, no CUDA trace in this screen",
+  "numeric_gate_passed": true
+}

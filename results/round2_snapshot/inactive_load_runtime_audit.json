@@ -1,0 +1,17 @@
+{
+  "runtime_sha256_equal": true,
+  "runtime_file_count": 13,
+  "capture_sha256_equal": true,
+  "metadata_differences": {
+    "import_check": {
+      "off": {
+        "cpu_tests_passed": true,
+        "stderr": "test_exact_audit (__main__.Tests.test_exact_audit) ... ok\ntest_reject_barrier_change (__main__.Tests.test_reject_barrier_change) ... ok\ntest_reproducible (__main__.Tests.test_reproducible) ... ok\ntest_unknown_source (__main__.Tests.test_unknown_source) ... ok\ntest_warp_uniform_truth_table (__main__.Tests.test_warp_uniform_truth_table) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.478s\n\nOK\n"
+      },
+      "on": {
+        "cpu_tests_passed": true,
+        "stderr": "test_exact_audit (__main__.Tests.test_exact_audit) ... ok\ntest_reject_barrier_change (__main__.Tests.test_reject_barrier_change) ... ok\ntest_reproducible (__main__.Tests.test_reproducible) ... ok\ntest_unknown_source (__main__.Tests.test_unknown_source) ... ok\ntest_warp_uniform_truth_table (__main__.Tests.test_warp_uniform_truth_table) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.494s\n\nOK\n"
+      }
+    }
+  }
+}

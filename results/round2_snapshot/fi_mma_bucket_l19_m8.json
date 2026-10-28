@@ -1,0 +1,751 @@
+{
+  "status": "screen_complete_no_promotion",
+  "tokens": 8,
+  "scope": "captured real L19 hot-layer complete-call graph; not vLLM latency/quality promotion",
+  "checks": [
+    {
+      "fixture": "real0",
+      "offset": 0,
+      "live": 8,
+      "repeat": {
+        "sanitized_static_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.6725101470947266
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.6725101470947266
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.671826958656311
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.671826958656311
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.669723629951477
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.669723629951477
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 1.6803642511367798,
+      "fp32": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.13416293263435364,
+          "max_abs": 0.00892831664532423,
+          "norm": 1.6725101470947266
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.13413354754447937,
+          "max_abs": 0.00894357543438673,
+          "norm": 1.671826958656311
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.13446956872940063,
+          "max_abs": 0.00885965209454298,
+          "norm": 1.669723629951477
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.022544799372553825,
+          "max_abs": 0.0016326904296875,
+          "norm": 1.6725101470947266
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.022457178682088852,
+          "max_abs": 0.0016937255859375,
+          "norm": 1.671826958656311
+        }
+      }
+    },
+    {
+      "fixture": "real64",
+      "offset": 64,
+      "live": 8,
+      "repeat": {
+        "sanitized_static_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2476129531860352
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2476129531860352
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2467635869979858
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2467635869979858
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2482075691223145
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2482075691223145
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 1.2384371757507324,
+      "fp32": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.1424485146999359,
+          "max_abs": 0.008174780756235123,
+          "norm": 1.2476129531860352
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.14234761893749237,
+          "max_abs": 0.008053155615925789,
+          "norm": 1.2467635869979858
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.14367525279521942,
+          "max_abs": 0.008053155615925789,
+          "norm": 1.2482075691223145
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.030306333675980568,
+          "max_abs": 0.0025634765625,
+          "norm": 1.2476129531860352
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.03020252287387848,
+          "max_abs": 0.0025634765625,
+          "norm": 1.2467635869979858
+        }
+      }
+    },
+    {
+      "fixture": "padded_last",
+      "offset": 0,
+      "live": 7,
+      "repeat": {
+        "sanitized_static_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.5911589860916138
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.5911589860916138
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.5903257131576538
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.5903257131576538
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.5884511470794678
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.5884511470794678
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 1.5976470708847046,
+      "fp32": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.13393975794315338,
+          "max_abs": 0.00892831664532423,
+          "norm": 1.5911589860916138
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.13388895988464355,
+          "max_abs": 0.00894357543438673,
+          "norm": 1.5903257131576538
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.1341591477394104,
+          "max_abs": 0.00885965209454298,
+          "norm": 1.5884511470794678
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.021700823679566383,
+          "max_abs": 0.0016326904296875,
+          "norm": 1.5911589860916138
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.02160235121846199,
+          "max_abs": 0.0016937255859375,
+          "norm": 1.5903257131576538
+        }
+      }
+    },
+    {
+      "fixture": "all_invalid",
+      "offset": 0,
+      "live": 0,
+      "repeat": {
+        "sanitized_static_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 0.0,
+      "fp32": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0,
+          "norm": 0.0
+        }
+      }
+    },
+    {
+      "fixture": "restore",
+      "offset": 0,
+      "live": 8,
+      "repeat": {
+        "sanitized_static_divisor": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.6725101470947266
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.6725101470947266
+          }
+        },
+        "sanitized_direct_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.671826958656311
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.671826958656311
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.669723629951477
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.669723629951477
+          }
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "reference_norm": 1.6803642511367798,
+      "fp32": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.13416293263435364,
+          "max_abs": 0.00892831664532423,
+          "norm": 1.6725101470947266
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.13413354754447937,
+          "max_abs": 0.00894357543438673,
+          "norm": 1.671826958656311
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.13446956872940063,
+          "max_abs": 0.00885965209454298,
+          "norm": 1.669723629951477
+        }
+      },
+      "vs_cutlass": {
+        "sanitized_static_divisor": {
+          "finite": true,
+          "rel_l2": 0.022544799372553825,
+          "max_abs": 0.0016326904296875,
+          "norm": 1.6725101470947266
+        },
+        "sanitized_direct_multiplier": {
+          "finite": true,
+          "rel_l2": 0.022457178682088852,
+          "max_abs": 0.0016937255859375,
+          "norm": 1.671826958656311
+        }
+      }
+    }
+  ],
+  "timings": [
+    {
+      "fixture": "real0",
+      "live": 8,
+      "backend": "sanitized_static_divisor",
+      "order": [
+        "sanitized_static_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 34.80544090270996,
+      "samples_us": [
+        34.8140811920166,
+        34.88640069961548,
+        34.846720695495605,
+        34.71487998962402,
+        34.79487895965576,
+        34.639999866485596,
+        34.87168073654175,
+        34.70207929611206,
+        34.82815980911255,
+        34.79680061340332
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 8,
+      "backend": "sanitized_direct_multiplier",
+      "order": [
+        "sanitized_static_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 43.02367925643921,
+      "samples_us": [
+        43.00735950469971,
+        43.02464008331299,
+        43.06367874145508,
+        43.02080154418945,
+        43.04895877838135,
+        43.031678199768066,
+        43.02271842956543,
+        43.014397621154785,
+        43.02464008331299,
+        43.02207946777344
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 8,
+      "backend": "current_scalar_cutlass",
+      "order": [
+        "sanitized_static_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 63.48576068878174,
+      "samples_us": [
+        63.46752166748047,
+        63.45856189727783,
+        63.511037826538086,
+        63.5584020614624,
+        63.54112148284912,
+        63.464322090148926,
+        63.50399971008301,
+        63.42080116271973,
+        63.464322090148926,
+        63.51168155670166
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 8,
+      "backend": "current_scalar_cutlass",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_static_divisor"
+      ],
+      "median_us": 63.45888137817383,
+      "samples_us": [
+        63.549442291259766,
+        63.45856189727783,
+        63.544960021972656,
+        63.449602127075195,
+        63.42207908630371,
+        63.41440200805664,
+        63.388800621032715,
+        63.459200859069824,
+        63.46560001373291,
+        63.53792190551758
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 8,
+      "backend": "sanitized_direct_multiplier",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_static_divisor"
+      ],
+      "median_us": 43.026559352874756,
+      "samples_us": [
+        43.0079984664917,
+        43.062400817871094,
+        43.02591800689697,
+        43.07136058807373,
+        43.02527904510498,
+        43.02591800689697,
+        43.02783966064453,
+        43.023362159729004,
+        43.02720069885254,
+        43.06431770324707
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "real0",
+      "live": 8,
+      "backend": "sanitized_static_divisor",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_static_divisor"
+      ],
+      "median_us": 34.834240674972534,
+      "samples_us": [
+        34.81663942337036,
+        34.87679958343506,
+        34.84031915664673,
+        34.82752084732056,
+        34.82304096221924,
+        34.83520030975342,
+        34.829440116882324,
+        34.83520030975342,
+        34.84992027282715,
+        34.83328104019165
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 7,
+      "backend": "sanitized_static_divisor",
+      "order": [
+        "sanitized_static_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 34.801920652389526,
+      "samples_us": [
+        34.85503911972046,
+        34.81215953826904,
+        34.80384111404419,
+        34.80000019073486,
+        34.79167938232422,
+        34.832000732421875,
+        34.83648061752319,
+        34.78912115097046,
+        34.75584030151367,
+        34.74623918533325
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 7,
+      "backend": "sanitized_direct_multiplier",
+      "order": [
+        "sanitized_static_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 43.06591987609863,
+      "samples_us": [
+        43.0079984664917,
+        43.06687831878662,
+        43.02783966064453,
+        43.10592174530029,
+        43.062400817871094,
+        43.05920124053955,
+        43.06560039520264,
+        43.10783863067627,
+        43.06879997253418,
+        43.06623935699463
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 7,
+      "backend": "current_scalar_cutlass",
+      "order": [
+        "sanitized_static_divisor",
+        "sanitized_direct_multiplier",
+        "current_scalar_cutlass"
+      ],
+      "median_us": 61.330881118774414,
+      "samples_us": [
+        61.29663944244385,
+        61.39391899108887,
+        61.33120059967041,
+        61.20768070220947,
+        61.33312225341797,
+        61.2556791305542,
+        61.32863998413086,
+        61.4137601852417,
+        61.33056163787842,
+        61.3753604888916
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 7,
+      "backend": "current_scalar_cutlass",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_static_divisor"
+      ],
+      "median_us": 61.325440406799316,
+      "samples_us": [
+        61.2556791305542,
+        61.28896236419678,
+        61.296000480651855,
+        61.37792110443115,
+        61.251840591430664,
+        61.291518211364746,
+        61.37472152709961,
+        61.36256217956543,
+        61.35488033294678,
+        61.46815776824951
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 7,
+      "backend": "sanitized_direct_multiplier",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_static_divisor"
+      ],
+      "median_us": 43.05919885635376,
+      "samples_us": [
+        43.0079984664917,
+        43.06560039520264,
+        43.050880432128906,
+        43.05727958679199,
+        43.02080154418945,
+        43.06111812591553,
+        43.09567928314209,
+        43.04128170013428,
+        43.06560039520264,
+        43.06560039520264
+      ],
+      "replays_per_sample": 50
+    },
+    {
+      "fixture": "padded_last",
+      "live": 7,
+      "backend": "sanitized_static_divisor",
+      "order": [
+        "current_scalar_cutlass",
+        "sanitized_direct_multiplier",
+        "sanitized_static_divisor"
+      ],
+      "median_us": 34.788479804992676,
+      "samples_us": [
+        34.77504014968872,
+        34.82687950134277,
+        34.892799854278564,
+        34.79167938232422,
+        34.815359115600586,
+        34.8473596572876,
+        34.70400094985962,
+        34.78528022766113,
+        34.75967884063721,
+        34.746880531311035
+      ],
+      "replays_per_sample": 50
+    }
+  ],
+  "timing_scope": "MMA includes sanitizer+micro compaction when M4+native compute; direct includes sanitizer+native compute; CUTLASS current scalar includes input quant+compute. Excludes router and weight/view allocation. Explicit private preplanned buffers.",
+  "gate": "exploratory FP32 relativeL2<=.25; repeated graph/eager relativeL2<=.01; all-invalid/padded outputs exactlyzero; valid graph state restored before timing",
+  "factory_trace": [
+    {
+      "factory": "_get_static_kernel",
+      "reciprocal": false
+    },
+    {
+      "factory": "_get_static_kernel",
+      "reciprocal": false
+    }
+  ],
+  "factory_scope": "Python factory selection only; native direct compiled in constructor before trace, no CUDA trace in this screen",
+  "numeric_gate_passed": true
+}
