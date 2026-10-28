@@ -7,6 +7,35 @@ The model is a hybrid: 30 Gated DeltaNet (linear attention) layers, 10 full-atte
 (16 Q / 2 KV heads, head_dim 256, FP8 KV cache) and a 256-expert top-8 MoE in every layer. MoE weights are NVFP4,
 and the attention/GDN projections are FP8. MTP-2 speculative decoding is on.
 
+## Progress: optimized → next → scalar
+
+Updated **2026-10-28**. This chart shows the measured configurations together;
+`optimized` is the historical reference, while `next` and `scalar` use the newer
+matched serving pair. All bars measure cold single-request TTFT in milliseconds.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/progress-prefill-dark.svg">
+  <img alt="Cold prefill TTFT for optimized, next and scalar at 2k through 32k tokens. Scalar improves on next by 18.8 percent at 8k, 9.4 percent at 16k and 7.1 percent at 32k." src="docs/img/progress-prefill-light.svg">
+</picture>
+
+| configuration | stack | status |
+|---|---|---|
+| `optimized` | scheduler tuning + patches 01–02 | historical reference |
+| `next` | optimized + patches 03–05 | recommended default |
+| `scalar` | next + scale fixes, shared b12x workspace and scalar-scale dispatch | measured opt-in stack; 17 serving tasks and final agentic pair completed |
+
+Against `next_matched_3`, scalar TTFT is **202.0 → 164.1 ms at 8k**,
+**379.4 → 343.6 ms at 16k**, and **873.3 → 811.5 ms at 32k**.
+Mixed-workload throughput changes range from −1.4% to +5.2%; the final agentic
+effects are modest and mixed. Scalar retains documented NLL caveats and remains
+opt-in. FlashInfer tactics are fixed in the serving pair; three Inductor
+selections differ, so the chart compares complete configurations.
+
+[Progress and round 2 status](docs/PROGRESS.md) ·
+[Serving comparison](results/qwen_sequential/scalar_vs_next_matched_3.serving.md) ·
+[Final agentic results](results/qwen_sequential/final_agentic_analysis.md) ·
+[Chart data](docs/img/progress-prefill-data.json) · [Regenerate chart](docs/plot_progress.py)
+
 ## Recommended configuration
 
 **`CONFIG=next`**: the tuned scheduler settings plus patches 01-05 (all env-gated, off by default).
@@ -341,7 +370,7 @@ config that stacks the verified pieces on top of optimized.
 | [`session-cache`](kernels/session-cache) | keep each session's latest GDN state across turns (per-tenant reuse) | scheduler patch | only ~7% TTFT at 1 agent on top of `--prefix-match-unit 16`; default limits evict active histories (TTFT p50 1.6 → 69 s) | partly confirmed, not recommended |
 | [`gdn-replay`](kernels/gdn-replay) | GDN decode with MTP-2: skip the three per-position fp32 state writes in verify, then replay only the accepted tokens into one slot | CUDA C++ | bit-exact (205 checks); c=64 ITL 28.6 → 26.2 ms (-8%), +7% tok/s, nothing at c <= 16 | `VLLM_GDN_STATE_REPLAY`, off by default, second-agent check not run |
 | [`fused-router`](kernels/fused-router) | router GEMM + softmax + top-8 in one kernel | CUDA C++ (`mma.sync`) | -109 us per step at c=1, 60-77 us at c=2-4, nothing from c=8; top-8 equals the fp64 reference in every real row | not integrated, changes routing for ~3% of rows |
-| [`pdl-swapab`](kernels/pdl-swapab) | PDL and swap-AB, ideas from DeepGEMM | microbenchmarks | PDL 1-2% at c=1; swap-AB already in FlashInfer | no kernel shipped |
+| [`pdl-swapab`](kernels/pdl-swapab) | PDL and swap-AB, ideas from DeepGEMM | historical synthetic microbenchmarks | historical PDL 1-2% is not a measured vLLM benefit; swap-AB already in FlashInfer | no kernel shipped |
 | [`deepgemm-sm120`](kernels/deepgemm-sm120) | DeepGEMM `nv_dev` native SM120 kernels vs ours | benchmarks | nothing to port; issue #444 does not reproduce | study only |
 | kernel page (patch 04) | decouple the cache block (2176, needed by the checkpoint) from the attention kernel page (16 instead of 64) | 6-line patch | decode +4% at c=64, prefill unchanged or faster (`results/decode_ab/SUMMARY.md`) | patch 04, in next |
 
@@ -358,7 +387,7 @@ The largest decode lever found, GDN state replay, is built (`kernels/gdn-replay`
 - `gdn-replay`: built by one agent, not yet re-run by a second. Same-step form: verify skips the state writes, one commit launch per KV-cache group replays the accepted tokens. Bit-exact against the stock kernel in all 30 layers (47,640+ row-layer-steps, 0 mismatches), MTP acceptance unchanged (0.596 and 0.599 off, 0.599 and 0.591 on), stress run with 37 aborts clean. End-to-end at c=64: ITL 28.61 → 26.23 ms (-8.3%), 3,599 → 3,859 tok/s (+7.2%); c=16 and c=32 neutral. Below 8 requests the stock path runs. Worth enabling only at about 48 or more concurrent decodes (`VLLM_GDN_STATE_REPLAY_MIN_REQS`). A first live run collapsed acceptance to 0.06 because the commit used the first KV-cache group's block table for all groups; fixed. Not checked: preemption, TP > 1. The patch is `kernels/gdn-replay/patch/04-gdn-state-replay.patch` (numbered 04 inside that directory; it is not in `patches/` yet).
 - `fused-router` (router GEMM + softmax + top-8 in one kernel, from DeepGEMM's mega-gate idea): built, 173 correctness checks pass, no end-to-end run yet. Top-8 ids match vLLM's `topk_softmax` exactly on injected logits; on the real weights the top-8 set equals the fp64 reference in every row, while vLLM's cuBLAS path picks a different set in about 2.7% of rows at M >= 4. Per step it saves 109 us at c=1 (1.8% of a 6.0 ms step) on top of the skinny BF16 GEMM, 60-77 us at c=2-4, nothing at c >= 8 (microbenchmark x 42 calls per step, an assumption). Not integrated: needs the quality check because it changes routing for ~3% of rows.
 - `deepgemm-sm120` (DeepGEMM `nv_dev`, native SM120 kernels, built and tested against our shapes): nothing to port. Dense FP8 at M <= 16: our skinny kernel is as fast or faster on all four layer shapes; at M = 8192 DeepGEMM is 6-8% slower than vLLM's CUTLASS. Grouped GEMM on the real 8k routing: DeepGEMM's MXF4 proxy (a different scale format from our NVFP4) is 20-24% slower than FlashInfer CUTLASS; its scheduler has no skew handling. Decode grouped GEMM at 3-192 tokens is 7-45% faster than our CUTLASS NVFP4, but no NVFP4 kernel was run, so the cause is unattributed (about 0.6 ms per step at most at c=1). The CUDA-graph crash of issue #444 does not reproduce on the tree that contains the fix (14 configs x 1000 replays x 48 routings, bitwise equal to eager).
-- Ideas taken from DeepGEMM, measured in `kernels/pdl-swapab`: PDL is worth 1-2% at c=1 and nothing at c >= 16 (37% of kernel boundaries already overlap, FlashInfer enables PDL on SM120); swap-AB is already in FlashInfer's CUTLASS MoE decode tile, and its padding costs at most ~0.13 ms per step. b12x is 13-16% faster than CUTLASS at M=4-8 (0.25-0.32 ms per step) but needs a numerics check first.
+- Historical `kernels/pdl-swapab` PDL numbers came from synthetic glue/skinny kernels; they do not establish an actual vLLM gain or its overlap fraction. Current controlled experiments are tracked in [Progress](docs/PROGRESS.md). Swap-AB is already in FlashInfer's CUTLASS MoE decode tile; its historical padding estimate is at most ~0.13 ms per step. Earlier b12x microbenchmarks were 13-16% faster than CUTLASS at M=4-8 (0.25-0.32 ms per step), with numerical validation still required for that path.
 - `cache-granularity`, `kv-offload`, `session-cache`: all re-run by a second agent and partly or fully confirmed; the numbers and their costs are in "Agentic caching" above.
 
 <picture>

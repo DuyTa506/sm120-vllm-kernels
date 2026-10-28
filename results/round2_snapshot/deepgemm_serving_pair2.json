@@ -1,0 +1,130 @@
+{
+  "status": "inconclusive_not_selected",
+  "scope": "One short focused serving pair; no agentic measurement",
+  "controls": {
+    "image.txt_identical": true,
+    "dg_source.json_identical": true,
+    "experiment_sources.json_identical": true,
+    "fixed_deepgemm_pdl": false,
+    "off_exit": 0,
+    "on_exit": 5,
+    "on_missing_worker_shutdown_checkpoints": true,
+    "source23_verified_both": true,
+    "fi_startup_verified_both": true,
+    "fi_shutdown_verified_off_only": true,
+    "selected_inductor_configs_pinned": false,
+    "matched_common_source_config_differences": 3
+  },
+  "tasks": {
+    "prefill": {
+      "completed": {
+        "off": 8,
+        "on": 8,
+        "relative_change_percent": 0.0
+      },
+      "duration": {
+        "off": 1.5284404517151415,
+        "on": 1.532292379066348,
+        "relative_change_percent": 0.25201684153832726
+      },
+      "output_throughput": {
+        "off": 5.234093347256538,
+        "on": 5.220935709981497,
+        "relative_change_percent": -0.25138331325209595
+      },
+      "mean_ttft_ms": {
+        "off": 190.3348013292998,
+        "on": 190.86151663213968,
+        "relative_change_percent": 0.2767309494434489
+      },
+      "mean_tpot_ms": {
+        "off": 0.0,
+        "on": 0.0,
+        "relative_change_percent": null
+      },
+      "mean_itl_ms": {
+        "off": 0.0,
+        "on": 0.0,
+        "relative_change_percent": null
+      }
+    },
+    "decode": {
+      "completed": {
+        "off": 32,
+        "on": 32,
+        "relative_change_percent": 0.0
+      },
+      "duration": {
+        "off": 2.9707970833405852,
+        "on": 2.9506545630283654,
+        "relative_change_percent": -0.6780173720101423
+      },
+      "output_throughput": {
+        "off": 1378.7545514196322,
+        "on": 1388.1665618614888,
+        "relative_change_percent": 0.682645829322226
+      },
+      "mean_ttft_ms": {
+        "off": 368.5165915376274,
+        "on": 313.51903412723914,
+        "relative_change_percent": -14.92403834001399
+      },
+      "mean_tpot_ms": {
+        "off": 8.210222365029383,
+        "on": 8.573801878896564,
+        "relative_change_percent": 4.428375964770592
+      },
+      "mean_itl_ms": {
+        "off": 22.484059091293407,
+        "on": 22.6553516487878,
+        "relative_change_percent": 0.7618400076199849
+      }
+    }
+  },
+  "nll": [
+    {
+      "tokens": 48,
+      "input_ids_sha256": "0f07c401b90965954efadd4839c9d2f7152f5ebf4069b426bd1420981548cebf",
+      "off": 1.6273163186189892,
+      "on": 1.631375255288281,
+      "delta": 0.004058936669291802,
+      "max_logprob_abs_delta": 0.5684900283813477
+    },
+    {
+      "tokens": 64,
+      "input_ids_sha256": "22427c9a0669f58bdbf52e1122974e63e7befc6e5f62f531f3461dc9747928ca",
+      "off": 1.2026767471565936,
+      "on": 1.203385324640065,
+      "delta": 0.0007085774834714176,
+      "max_logprob_abs_delta": 0.48729705810546875
+    },
+    {
+      "tokens": 96,
+      "input_ids_sha256": "9ba366a247d3529b1a0d1e204c3cc3558b274a69d780e76b2c7962e609d55eeb",
+      "off": 0.8347918940275046,
+      "on": 0.8439556626140242,
+      "delta": 0.009163768586519572,
+      "max_logprob_abs_delta": 1.5575218200683594
+    },
+    {
+      "tokens": 128,
+      "input_ids_sha256": "a6a6e5883c06ecfac32b9c440efbcd3adbceaadbc371463b62f278498344b5c0",
+      "off": 0.623656657273517,
+      "on": 0.6592263603182668,
+      "delta": 0.03556970304474971,
+      "max_logprob_abs_delta": 4.920969665050507
+    }
+  ],
+  "live_m48_graphs": {
+    "off_replays": 13,
+    "on_replays": 13,
+    "target_calls_per_replay": 30,
+    "off_inferred_qkvz_sum_ms": 0.665625,
+    "on_named_candidate_sum_ms": 0.584697,
+    "sum_reduction_percent": 12.158197183098595,
+    "off_graph_gpu_span_ms": 9.768225,
+    "on_graph_gpu_span_ms": 9.575691,
+    "limitation": "OFF mapping uses geometry inference; kernel duration sums do not establish critical-path or end-to-end causal savings"
+  },
+  "next": "Keep default-off. Distinct post-workload RPC prepared on CPU; strict shutdown verifier retained. Existing PDL pin reference covers only2/16 observed standalone identities. Defer new recording/pinned pair until higher-value candidates measured."
+}

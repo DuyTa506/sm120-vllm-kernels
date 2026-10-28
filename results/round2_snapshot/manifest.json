@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-28",
+  "scope": "Completed experimental observations; no round2 default selection or combined serving speedup. See docs/PROGRESS.md for limitations.",
+  "reports": {
+    "humming_numerical_ru.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_numerical_ru1/screen.json",
+      "sha256": "5fe7ff2796461a92d73cb028810a83bb2bf1d3fdda0fea7c2855183188777f26",
+      "original_exit_code": "0"
+    },
+    "humming_numerical_rn.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_numerical_rn1/screen.json",
+      "sha256": "cd8f2bee78365bf9da1d7a6da7164bbd1198dd38982d8cc0b6adb6d2c9a6f311",
+      "original_exit_code": "0"
+    },
+    "humming_rn_l19_m1024.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l19_m1024_1/screen.json",
+      "sha256": "f39e0dad244e378c625c478c43d9015045b0e91c8410a0990f14b57f88fcee5c",
+      "original_exit_code": "0"
+    },
+    "humming_rn_l19_m4096.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l19_m4096_1/screen.json",
+      "sha256": "6e1f8125407ae507fe13bfab0db7e4c52adc951db3ea6c178237dba62e38f465",
+      "original_exit_code": "0"
+    },
+    "moe_task_order_full_contributions.json": {
+      "original_worktree_path": "kernels/moe-task-order-diagnostic/results/task_order_diag_full_pair1.json",
+      "sha256": "303dbee0a63de0f3db29bdb64210eeb769903df6e47fe3fdf6a513bb6e2a765d"
+    },
+    "rowwise_tile_l0_m3.json": {
+      "original_worktree_path": "kernels/pdl-swapab/results/rowwise_tile_smoke_1/analysis.json",
+      "sha256": "803c0f899ad90a7e0be27d4a32ea5b03b19802bcd1a55fd8896bb224a42d1f65",
+      "original_exit_code": "0"
+    },
+    "deepgemm_serving_pair2.json": {
+      "original_worktree_path": "kernels/deepgemm-sm120/integration/results/dg_serving_pair2_summary.json",
+      "sha256": "6d14ae06d310e134f11617012dfd487d0e191aba16ac088f4ed94e81baa4ce56"
+    },
+    "native_swap_pair.json": {
+      "original_worktree_path": "kernels/pdl-swapab/results/swap_native_pair_1.json",
+      "sha256": "90e5ebb6e194b697a449c87061af851bfb93b4cc18739af1c791c51c2c960834"
+    }
+  }
+}

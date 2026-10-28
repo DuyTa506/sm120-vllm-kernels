@@ -1,0 +1,118 @@
+{
+  "rounding": {
+    "rounding": "ru",
+    "header_sha256": "570b0e5477d62e2782fd5cd24e83d75d219c64aaaa0013da4c18ce684b619775"
+  },
+  "scope": "numerical only; three backends plus independent FP32 dequantized reference",
+  "layer": 19,
+  "tokens": 1024,
+  "capture_sha256": "0e161c36a6f478c0205b3a7e8b388296eccafaa2d5999cf4420fcbcd0aa2f4ac",
+  "full_output_vs_fp32": {
+    "scalar": {
+      "finite": true,
+      "rel_l2": 0.14510250091552734,
+      "max_abs": 0.013699233531951904
+    },
+    "cutlass": {
+      "finite": true,
+      "rel_l2": 0.14494021236896515,
+      "max_abs": 0.01409097295254469
+    },
+    "humming": {
+      "finite": true,
+      "rel_l2": 0.16328498721122742,
+      "max_abs": 0.01701931655406952
+    }
+  },
+  "full_pairwise": {
+    "humming_vs_scalar": {
+      "finite": true,
+      "rel_l2": 0.1789488047361374,
+      "max_abs": 0.020263671875
+    },
+    "humming_vs_cutlass": {
+      "finite": true,
+      "rel_l2": 0.1789458990097046,
+      "max_abs": 0.0201416015625
+    },
+    "scalar_vs_cutlass": {
+      "finite": true,
+      "rel_l2": 0.026389557868242264,
+      "max_abs": 0.005859375
+    }
+  },
+  "fc1_quant_payload_vs_vllm": {
+    "exact": false,
+    "mismatch_fraction": 0.1716327667236328
+  },
+  "fc1_quant_scale_vs_vllm": {
+    "exact": false,
+    "mismatch_fraction": 0.5111770629882812
+  },
+  "fc1_dequant_input_vs_real": {
+    "finite": true,
+    "rel_l2": 0.09988482296466827,
+    "max_abs": 3.1872100830078125
+  },
+  "fc1_gemm_given_exact_humming_quant_vs_fp32": {
+    "finite": true,
+    "rel_l2": 0.001720374682918191,
+    "max_abs": 0.015624523162841797
+  },
+  "fc2_gemm_given_exact_humming_quant_vs_fp32": {
+    "finite": true,
+    "rel_l2": 0.0016594730550423265,
+    "max_abs": 0.0009672641754150391
+  },
+  "fc2_dequant_input_vs_activation": {
+    "finite": true,
+    "rel_l2": 0.09958779811859131,
+    "max_abs": 0.9083418846130371
+  },
+  "fc1_payload_vs_ru_oracle": {
+    "exact": true,
+    "mismatch_fraction": 0.0
+  },
+  "fc1_scale_vs_ru_oracle": {
+    "exact": true,
+    "mismatch_fraction": 0.0
+  },
+  "fc1_payload_vs_rn_oracle": {
+    "exact": false,
+    "mismatch_fraction": 0.1716327667236328
+  },
+  "fc1_scale_vs_rn_oracle": {
+    "exact": false,
+    "mismatch_fraction": 0.5111770629882812
+  },
+  "fc2_payload_vs_ru_oracle": {
+    "exact": true,
+    "mismatch_fraction": 0.0
+  },
+  "fc2_scale_vs_ru_oracle": {
+    "exact": true,
+    "mismatch_fraction": 0.0
+  },
+  "fc2_payload_vs_rn_oracle": {
+    "exact": false,
+    "mismatch_fraction": 0.14380264282226562
+  },
+  "fc2_scale_vs_rn_oracle": {
+    "exact": false,
+    "mismatch_fraction": 0.512451171875
+  },
+  "fc2_payload_vs_vllm_after_bf16_cast": {
+    "exact": false,
+    "mismatch_fraction": 0.14626693725585938
+  },
+  "fc2_scale_vs_vllm_after_bf16_cast": {
+    "exact": false,
+    "mismatch_fraction": 0.508056640625
+  },
+  "raw_weight_nibble_decode": {
+    "finite": true,
+    "rel_l2": 0.0,
+    "max_abs": 0.0
+  },
+  "all_outputs_finite": true
+}
