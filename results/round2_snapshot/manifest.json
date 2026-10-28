@@ -38,6 +38,24 @@
     "native_swap_pair.json": {
       "original_worktree_path": "kernels/pdl-swapab/results/swap_native_pair_1.json",
       "sha256": "90e5ebb6e194b697a449c87061af851bfb93b4cc18739af1c791c51c2c960834"
+    },
+    "moe_task_order_serving_pair3.json": {
+      "original_worktree_path": "kernels/moe-task-order-serving/results/task_order_serving_pair3_summary.json",
+      "sha256": "7a832a781e8474d387f69d25ba59dd54275af94ee43d5de4930b48b9d8f5ff08",
+      "original_run_exit_codes": {
+        "task_order_serving_a3": 0,
+        "task_order_serving_b3": 0
+      }
+    },
+    "humming_rn_l0_m1024.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l0_m1024_1/screen.json",
+      "sha256": "748661749c30bfce5d43db1bcd858b05af8ef3ed5eb33286db474558db5d518a",
+      "original_exit_code": "0"
+    },
+    "humming_rn_l39_m1024.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l39_m1024_1/screen.json",
+      "sha256": "0b7a78dcfb9ac1a3cc09eeffef219a802835c437790c6f8989c8bca154b1cf59",
+      "original_exit_code": "0"
     }
   }
 }

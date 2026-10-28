@@ -41,9 +41,9 @@ References: [next](../results/next/SUMMARY.md),
 
 | candidate | measured observation | disposition |
 |---|---|---|
-| Humming NVFP4, RN scale rounding | L19/M1024: 280.4–280.5 µs versus scalar 314.0–315.2 µs, about 10.9% lower hot-layer expert-call time. At M4096: 580.0 µs versus 433.7–433.9 µs, about 33.7% slower. | Shape-specific candidate; no global replacement and no measured serving gain yet. |
+| Humming NVFP4, RN scale rounding | M1024 hot-layer expert-call time is about 6.5% lower at L0, 10.9% at L19 and 7.5% at L39. L19/M4096 remains about 33.7% slower. | Shape-specific candidate across three checked layers; no global replacement and no measured serving gain yet. |
 | Humming numerical diagnosis | Matching scale rounding makes FC1 quantized bytes identical to vLLM. L19/M1024 output error versus FP32 is 14.490%, versus CUTLASS 14.494%. Remaining backend differences persist. | Broader layer/shape and model-quality checks remain. |
-| Native MoE task order | L19/M4096 hot-layer full-call time falls about 3.9%. All 59,198 weighted contributions across 2,048 output columns match bit-for-bit before atomic scatter in the diagnosed case. | Live vLLM graph-prefill comparison is in progress; no selected stack gain yet. |
+| Native MoE task order | L19/M4096 hot-layer full-call time falls about 3.9%; diagnosed weighted contributions match before scatter. Live pair3 verifies 40 candidate graph nodes: target kernel sum 17.226 → 17.026 ms, but nonstream request median 69.000 → 76.754 ms. | Unselected. Two of ten common Inductor configs differ; this pair establishes no serving win or isolated causal effect. |
 | DeepGEMM rowwise FP8 | Small actual QKVZ operand cases improve 2.7–10.1% over the faster existing comparator; actual fused graph execution is proven. | Short serving results are mixed, with compiler/quality/lifecycle confounds. Unselected. |
 | Native swap-AB | Two matrices give identical off/on outputs in all 16 comparisons; QKVZ-shaped cases improve 2.3–4.1%. | Confirms an existing native policy, not a new model patch. |
 | Tiny rowwise 64×16 tile | L0/M3: 19.62 µs, about 11.2% slower than AUTO and 16.1% slower than existing skinny. Numerical/replay checks pass. | Rejected for the measured case. |
@@ -58,9 +58,37 @@ switchable stack has passed CPU composition checks; its GPU evaluation is pendin
 Overlapping GEMMs need explicit dispatch priority;
 compatible changes to different operators can be composed.
 
-Next: finish task-order serving comparisons, check Humming RN on other layers at
-M1024, complete pending PDL/skinny/state-replay checks, then benchmark the selected
-combined stack. Agentic remains the final combined-stack stage.
+Humming RN M1024 now completes the planned L0/L19/L39 screen. Each case uses two
+disjoint captured input slices, repeated outputs, graph/eager comparison and
+an explicit FP32 reference with TF32 disabled. The full expert-call timing
+includes packing, quantization, GEMMs and reduction; router/top-k and initial
+weight preparation are outside it. The two timing passes are:
+
+| layer | scalar µs | Humming RN µs | Humming time change |
+|---|---:|---:|---:|
+| 0 | 329.936 / 329.744 | 308.832 / 307.792 | −6.5% |
+| 19 | 315.168 / 314.048 | 280.416 / 280.512 | −10.9% |
+| 39 | 310.896 / 310.384 | 287.200 / 287.184 | −7.5% |
+
+The percentages compare means of the two pass medians, not independent startup
+trials. Numerical differences remain: for example L39/offset0 error versus FP32
+is 9.294% for Humming and 9.252% for CUTLASS; the next captured slice reverses
+that ordering. These are diagnostic checks, not model-quality equivalence.
+Actual vLLM dispatch, preparation/memory costs and cold/multi-layer effects
+remain unmeasured for Humming.
+
+Task-order pair3 completed both source, activation, fixed-FlashInfer and cleanup
+gates. Earlier class-only substitution could reuse a baseline native cached
+object; pair3 qualifies native cache keys by implementation source and proves
+the actual candidate GPU symbols. This finding applies to that experiment,
+not automatically to previously measured stacks. Its [full pair summary](../results/round2_snapshot/moe_task_order_serving_pair3.json)
+retains the compiler and numerical limitations.
+
+Next: prepare shape-specific Humming integration, complete pending
+PDL/skinny/state-replay checks, and test the mechanisms identified in the
+[external kernel review](EXTERNAL_KERNEL_REVIEW.md): split B12x prefill,
+expert-weight reuse for decode and same-checkpoint Marlin. Then benchmark the
+selected combined stack. Agentic remains the final combined-stack stage.
 
 ## Regenerate the chart
 

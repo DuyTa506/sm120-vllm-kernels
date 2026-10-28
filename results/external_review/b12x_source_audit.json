@@ -1,0 +1,114 @@
+{
+  "scope": "Read-only source comparison; no GPU speed claim",
+  "date": "2026-10-28",
+  "runtime": {
+    "flashinfer-python": "0.7.0.post1",
+    "vllm": "0.32.0",
+    "torch": "2.13.0+cu130",
+    "experimental_b12x_directory_exists": false,
+    "installed_sources": {
+      "moe_dispatch.py": {
+        "sha256": "c518e65d6bfd7f08db1e5261e20795fd020e82e681699729171bc2fd5331239a",
+        "bytes": 123920
+      },
+      "moe_direct_micro_kernel.py": {
+        "sha256": "9b18f54588c3f24cab74dff07545f323e2af8235a4532233655a5a75498e89cc",
+        "bytes": 226207
+      },
+      "moe_dynamic_kernel.py": {
+        "sha256": "7532e1338df8e80c4b8f0bd6473c2ffeda9a5028018c77775c4e9fe2fa47b072",
+        "bytes": 3803
+      }
+    }
+  },
+  "migration_commit": "fc8fdc17f702371302a0ea780c604b099b927196",
+  "reviewed_current_head": {
+    "sha": "fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af",
+    "date": "2026-10-28T03:39:04Z",
+    "url": "https://github.com/flashinfer-ai/flashinfer/commit/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af"
+  },
+  "upstream_sources": {
+    "moe/_shared/kernels/tiny_decode.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/kernels/tiny_decode.py",
+      "bytes": 23170,
+      "sha256": "39893d9c8241136cd92a197358d721448e0a12846cb6c72327c5e663b96df3db"
+    },
+    "moe/_shared/kernels/micro.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/kernels/micro.py",
+      "bytes": 283582,
+      "sha256": "974b595d19823a7ae7df4fd200cc38a8f55f9f958ed93b172ed465e65617f9b4"
+    },
+    "moe/_shared/routing.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/routing.py",
+      "bytes": 9269,
+      "sha256": "a3871adde68352f959487ff9c68f9fb7fa246db96d78883c1b2d4dc1e48ae83f"
+    },
+    "moe/_shared/execution.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/execution.py",
+      "bytes": 50968,
+      "sha256": "eeca3be16cd0dd89830d5a1d52154d7fd16d5724f835ee698edb4e886c91db5e"
+    },
+    "moe/fused_moe/api.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/api.py",
+      "bytes": 10363,
+      "sha256": "4e82ec23274dd3c77dfa1d65f81a90f635326b5eac348dcf76471563b303ea7d"
+    },
+    "moe/fused_moe/_impl.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/_impl.py",
+      "bytes": 545844,
+      "sha256": "4ba2d51dbf1930781b5fd10b1772fb88df6c27e0b279e79054e9220e74a21928"
+    },
+    "moe/fused_moe/_preparation.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/_preparation.py",
+      "bytes": 64839,
+      "sha256": "713b00af5c29a229be64a871e71c9c5f4ed785d6dea15b57a5d8328b65b00759"
+    },
+    "moe/fused_moe/planning.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/planning.py",
+      "bytes": 33759,
+      "sha256": "b3a14ca01531e91d1a3be5ca2bb8876788f2f1382aac57eab389ac2f70abafaa"
+    },
+    "moe/fused_moe/source.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/source.py",
+      "bytes": 4182,
+      "sha256": "0ffe3cc15c031c7fd9a652d1174c7a231917c39cf4694b49d56c351b87bb0665"
+    },
+    "moe/_shared/kernels/dynamic.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/kernels/dynamic.py",
+      "bytes": 540355,
+      "sha256": "60fe09636c3892bf7af2e55e7992dca51e7743d334909a47374dce787ee14369"
+    },
+    "moe/_shared/kernels/nvfp4_phase1.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/kernels/nvfp4_phase1.py",
+      "bytes": 29181,
+      "sha256": "1e20dcd72cd05cc7f0f08a17c5712bd6b58d52e67d100cf28da85cb8f4cca904"
+    },
+    "moe/_shared/kernels/nvfp4_phase2.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/kernels/nvfp4_phase2.py",
+      "bytes": 21433,
+      "sha256": "323ac3f5b15b62f9b1f4b73e4672797e94f236ed2a6388e0494916c8766353aa"
+    },
+    "moe/fused_moe/_tuning.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/_tuning.py",
+      "bytes": 35755,
+      "sha256": "c29319c6bfa0b39de0188801b8fbd6fc1364572c09ea6aeb870e862095d9bf6a"
+    }
+  },
+  "semantic_ast_equal_merge_to_current": {
+    "moe/fused_moe/planning.py": true,
+    "moe/_shared/kernels/nvfp4_phase1.py": true,
+    "moe/_shared/kernels/nvfp4_phase2.py": true
+  },
+  "direct_micro_auto_gate": {
+    "max_tokens": 8,
+    "routed_pairs_strictly_below": 32,
+    "max_intermediate": 512,
+    "our_topk": 8,
+    "M_passing_token_pair_gate": [
+      1,
+      2,
+      3
+    ],
+    "note": "Other shape/workspace requirements still apply; actual GPU trace required."
+  }
+}

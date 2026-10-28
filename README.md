@@ -36,6 +36,11 @@ selections differ, so the chart compares complete configurations.
 [Final agentic results](results/qwen_sequential/final_agentic_analysis.md) ·
 [Chart data](docs/img/progress-prefill-data.json) · [Regenerate chart](docs/plot_progress.py)
 
+[External kernel review](docs/EXTERNAL_KERNEL_REVIEW.md): comparison with the newer
+B12x implementation, DP4A expert reuse, CUTLASS policies, shared-expert fusion,
+and a same-checkpoint Marlin control. These are ongoing experiments, not added
+to the measured gains above.
+
 ## Recommended configuration
 
 **`CONFIG=next`**: the tuned scheduler settings plus patches 01-05 (all env-gated, off by default).
