@@ -7,6 +7,9 @@ The [CUDA profiling workflow](docs/CUDA_PROFILING_WORKFLOW.md) records tools,
 trace locations and how to diagnose microbenchmark gains that do not reach serving.
 The [successful prefill counter study](docs/PREFILL_COUNTER_FINDINGS.md) now measures
 1.403 TB/s DRAM traffic for scalar L19/M1024; its scope is one native kernel.
+The [memory/GEMM notes](docs/MEMORY_AND_GEMM_NOTES.md) explain the hierarchy,
+peak versus useful FLOP/s and remaining prefill questions. Optimization is paused
+for the user's review before further experiments.
 
 Kernel and serving optimizations for **unsloth/Qwen3.6-35B-A3B-NVFP4-Fast** on **vLLM v0.32.0** with one
 **RTX PRO 6000 Blackwell** (SM120, 188 SMs, 600 W).

@@ -106,6 +106,10 @@ from ordinary performance comparisons.
 
 ## Next decision
 
+The [memory/GEMM notes](MEMORY_AND_GEMM_NOTES.md) explain the hierarchy, FLOP/s
+definitions and cache-reuse hypotheses. Optimization is paused for the user's
+review; the investigation below is a continuation point, not a queued job.
+
 Start from the existing serving timeline: determine how much prefill elapsed time
 this native kernel occupies and which M buckets actually matter. Then inspect
 whether weights/scales are redundantly fetched across tiles and whether reuse

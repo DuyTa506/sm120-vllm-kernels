@@ -9,6 +9,14 @@ It records the NVIDIA APOD / Systems → Compute workflow, correctness tools,
 existing trace locations, microbench-to-serving diagnosis and evidence required
 for promotion. Added 2026-10-28 without launching another GPU experiment.
 
+**Review checkpoint, 2026-10-28:** the user will read the recorded work before
+resuming optimization. Work is paused for that review; do not launch background
+GPU jobs. Read [MEMORY_AND_GEMM_NOTES.md](MEMORY_AND_GEMM_NOTES.md) for GDDR/HBM,
+cache/shared/register reuse, peak versus useful FLOP/s and the prefill questions
+motivated by the new counters. Suggested reading order: this handoff →
+[measured progress](PROGRESS.md) → [counter findings](PREFILL_COUNTER_FINDINGS.md)
+→ memory/GEMM notes → [profiling workflow](CUDA_PROFILING_WORKFLOW.md).
+
 ## The actual outcome
 
 **No round-2 patch has a confirmed serving improvement sufficient for promotion.**
