@@ -164,8 +164,9 @@ and DP4A reuse-on 38.94–39.29 µs. Each of two reversed backend orders uses ei
 samples of 50 graph replays. Original routing, weight preparation and model
 execution are outside the measurement. The older invalid FI-auto comparator is
 explicitly excluded; corrected micro/static comparisons follow below. The
-repository captures M4 rather than M3, but actual serving bucket use still needs
-trace confirmation. This result is not included in the serving chart.
+nominal capture-size list includes M4, but does not determine the effective
+MTP decode shape. The later live trace described below finds M3. This
+microbenchmark result is not included in the serving chart.
 
 The subsequent [corrected bucket comparison](../results/round2_snapshot/fi_mma_bucket_summary.json)
 uses the same source/runtime/checkpoint identities at M4 and M8. Every provider
@@ -185,6 +186,21 @@ graph/eager/repeat variation reaches 0.92% relative L2; its exploratory gate is
 1%, so it is not bitwise deterministic in this screen. M8 providers repeat
 exactly. Padding and all-invalid outputs are exactly zero. No production quality
 acceptance or end-to-end gain follows from these hot-layer checks.
+
+The first [complete serving diagnostic](../results/round2_snapshot/fi_direct_serving_on2_applicability.json)
+loads the actual model, validates 80 prepared handles across 40 layers and
+completes decode c1/c4 plus prefill 2k. However, its subsequent live c1 trace
+contains 108 **M3** graph replays and no candidate native-direct or sanitizer
+kernel. V2 rounds the nominal capture sizes to the MTP query length of three;
+the initial M1/M4 policy therefore misses this decode path. The applicability
+gate fails, sources/FI controls remain unchanged, and cleanup succeeds.
+These task timings are not evidence of candidate performance. The subsequent
+[M3 screen](../results/round2_snapshot/fi_direct_m3_live_timing.json) passes
+[18 distinct-pointer checks](../results/round2_snapshot/fi_direct_m3_live_pointer_checks.json)
+across M1/M3/M4 and measures sanitized native direct at 24.63 µs versus current
+CUTLASS 49.26 µs on two real routing slices, in both orders. The integration
+policy now covers M1/M3/M4 and requires actual M3 candidate execution in its
+serving trace before accepting applicability.
 
 The [split-prefill screen](../results/round2_snapshot/b12x_split_numerical_l19_m1024.json)
 checks all 8,192 routed rows at L19/M1024. Packed input and SFA publication match
@@ -226,6 +242,16 @@ spilling/stack traffic as a likely mechanism; no stall profile establishes the
 sole cause. [Artifact hashes](../results/round2_snapshot/inactive_load_artifact_digest.json)
 and extracted resource reports preserve the evidence. Any repair must address
 generated code before another performance claim.
+
+The [narrow FC2 repair](../results/round2_snapshot/defined_fc2_pair.json) defines
+operand registers before its six guarded copies. Its matched compiled artifacts
+restore the baseline stack and local load/store counts (80 bytes, 4/5 sites).
+Nevertheless, full-call timing has no positive signal: approximately 314 µs
+versus 315 µs at M1024, and 437 µs versus 443 µs at M4096. All eight exploratory
+paired cases pass, and runtime/input hashes match. Fixing the spill regression
+does not make this load-skipping policy beneficial; the repair also remains
+unselected. [Artifact identities](../results/round2_snapshot/defined_fc2_artifact_digest.json)
+retain the corresponding source, output and SASS hashes.
 
 Next: finish strong-comparator decode and padding/replay checks, integrate the
 winning small-M path into vLLM, and test narrowly justified prefill mechanisms from the

@@ -776,6 +776,197 @@
     "inactive_load_artifact_digest.json": {
       "original_worktree_path": "kernels/moe-inactive-loads/results/publication_summary.json",
       "sha256": "152c1d496b60b2e5c19af48812258e3a9a0d2fc5f1422aad4248cc7cd0ce463c"
+    },
+    "fi_direct_serving_on2_applicability.json": {
+      "sha256": "801835e5b7e7da26979702484f7f630ce97e7c17063693251372f8e8936b75a5",
+      "scope": "Root-generated diagnostic from completed run; original terminal status1 due to applicability failure.",
+      "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on2"
+    },
+    "fi_direct_m3_live_timing.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/screen.json",
+      "sha256": "6ecf5f3c00193ef9ea7ff657bae2ab030764e03c5a868a53bb442626cfb2cf0b",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/sources.json",
+          "sha256": "00a3e05d1126cb90df1e6075830c5b8fa4f54da3609a75128bad59347fdca657"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_direct_m3_live_pointer_checks.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/live_pointer_checks.json",
+      "sha256": "f35e6837f097e82c243fb94c2882418bc2379c1ad66f52167e448fb26e6c536b",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/sources.json",
+          "sha256": "00a3e05d1126cb90df1e6075830c5b8fa4f54da3609a75128bad59347fdca657"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "defined_fc2_off.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/measurement/report.json",
+      "sha256": "978a70cebea4fa62d3b69beaacaca27e7c9220697f412726336108bdfb60f89b",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/defined_fc2_off/exit_code.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/defined_fc2_off/source_verify.log",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/defined_fc2_off/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/defined_fc2_off/source_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/source_manifest.json",
+          "sha256": "4ef71711bf496f4302c930980a9eac9306772ac023103c789d9a9027be3d43f6"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/defined_fc2_off/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/runtime_manifest.json",
+          "sha256": "16aeeb2f1fa906aa28e3d158ac337e827b293f395a557e4fd99ba565a3087732"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/defined_fc2_off/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/defined_fc2_off/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/process_cleanup.json",
+          "sha256": "9edf3633b055ab81ec763e33bf1204e545c5ded16de6d17fc95d7a3a9a188af1"
+        },
+        "compiled_artifact_0/summary.json": {
+          "snapshot_path": "evidence/defined_fc2_off/compiled_artifact_0/summary.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/compiled_artifact_0/summary.json",
+          "sha256": "104bff1b286a5c9d8e7aad4309f22c5c343cda619594d91a4f552f3f83d3d4c9"
+        },
+        "compiled_artifact_0/resource.txt": {
+          "snapshot_path": "evidence/defined_fc2_off/compiled_artifact_0/resource.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/compiled_artifact_0/resource.txt",
+          "sha256": "b98e365a8bdef8fdf7c3334f8fa28b4ff9388d13529a3505bd5f66358f7695d4"
+        }
+      }
+    },
+    "defined_fc2_on.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/measurement/report.json",
+      "sha256": "095b0903546e7f1c29da408fe1c3e0af067a5182c17d820078e6a572b89cc6a3",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/defined_fc2_on/exit_code.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/defined_fc2_on/source_verify.log",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/defined_fc2_on/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/defined_fc2_on/source_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/source_manifest.json",
+          "sha256": "4ef71711bf496f4302c930980a9eac9306772ac023103c789d9a9027be3d43f6"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/defined_fc2_on/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/runtime_manifest.json",
+          "sha256": "374f405c2165358a3e2ab11ece5e1c40d2ed4317470ba3327d7ad406166292a7"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/defined_fc2_on/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/defined_fc2_on/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/process_cleanup.json",
+          "sha256": "5bbaf9bbe0f6ac37ad684e1d3ba298233ed074cfd140ccc21bf8e4ef0d967da2"
+        },
+        "compiled_artifact_0/summary.json": {
+          "snapshot_path": "evidence/defined_fc2_on/compiled_artifact_0/summary.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/compiled_artifact_0/summary.json",
+          "sha256": "aefa23e9afd920e6832595b6c51dd198ba5ad78445141e9ee1304f182774ec0c"
+        },
+        "compiled_artifact_0/resource.txt": {
+          "snapshot_path": "evidence/defined_fc2_on/compiled_artifact_0/resource.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/compiled_artifact_0/resource.txt",
+          "sha256": "4851c6463a0a6699921a09621364b28d0546b3df022575716ab6418dd155d0aa"
+        }
+      }
+    },
+    "defined_fc2_pair.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads-repair/results/paired_gpu_1.json",
+      "sha256": "4dde78929d478c1edab80b18c203102f6455681ebebd41dafbb38577f6ef0514"
+    },
+    "defined_fc2_artifact_digest.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads-repair/results/gpu_publication_summary.json",
+      "sha256": "76f457b75bff0726f9cc3cf712f1ac28b5e0932c0627f00b99f70fa8ebfab851"
     }
   }
 }

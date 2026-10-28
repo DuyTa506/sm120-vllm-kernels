@@ -44,9 +44,10 @@ to the measured gains above.
 grouping, tile selection and fusion to the actual SM120 paths, including the
 new workspace-band experiment and initial GPU numerical checks.
 
-Latest round 2 observation: at L19/M4, prepared native FI direct with padding
-handling takes **26.65 µs**, versus **59.9 µs** for the current scalar/CUTLASS
-expert call. Pointer/replay checks pass; actual vLLM serving is still unmeasured.
+Latest round 2 observation: at L19/M3, prepared native FI direct with padding
+handling takes **24.63 µs**, versus **49.26 µs** for the current scalar/CUTLASS
+expert call. Pointer/replay checks pass. Live MTP-2 tracing identified M3 as the
+needed decode bucket; corrected serving integration is still being evaluated.
 The split-prefill and workspace-band candidates regressed and remain unselected.
 Details and saved evidence are in [the progress report](docs/PROGRESS.md).
 
