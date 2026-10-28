@@ -49,6 +49,7 @@ References: [next](../results/next/SUMMARY.md),
 | Tiny rowwise 64×16 tile | L0/M3: 19.62 µs, about 11.2% slower than AUTO and 16.1% slower than existing skinny. Numerical/replay checks pass. | Rejected for the measured case. |
 | PDL | Focused pair pins the same 18 compiler identities/configs. Prefill TTFT falls 0.26–3.30%; decode c1/c4 rises 0.67%/4.28%. | Unselected, one pair. Later c16/c64 and NLL have a possible external-context overlap; numerical variation remains unresolved. |
 | DP4A expert reuse | Numerical screens pass checked input/operand and replay contracts. At real M3, preplanned calibrated FI direct is about 24.6 µs, DP4A reuse-on about 32–35 µs, and current scalar/CUTLASS about 49 µs. | Unselected against the stronger FI comparator. Historical M1 comparisons used a weaker FI call path; no serving or model-quality claim. |
+| Prepared FI direct | At real L19/M4, explicit native direct plus padding sanitizer takes 26.64–26.65 µs versus current scalar/CUTLASS 59.85–60.02 µs. Distinct runtime pointers pass 12 graph checks. | Integration candidate only. Corrected FI MMA comparison and actual vLLM dispatch/serving remain pending. |
 | Split B12x prefill | Actual L19 full-call timing is about 17.6% slower at M1024 and 47.4% slower at M4096 than current scalar. Pre/post arithmetic and route-domain checks pass exploratory gates. | Initial split implementation unselected at both shapes. Component measurements are diagnostic and cannot be summed into a full-call claim. |
 | Workspace tile bands | L19 full-call screen: M1024/tile32 is about 1.9% slower; M2048/tile64 about 27.1% slower; unchanged M4096/tile128 is within 0.32%. | Unselected; scratch rises from 607.8 MB to 1,400.9 MB. Native M128 already skips inactive M16 MMA fragments, so padding ratios are not compute-saving estimates. |
 | GDN state replay | Current-stack shadow checks pass, including intermediate checkpoint boundaries. The first pressure workload produced zero preemptions. | Stronger pressure coverage is still required before timing/promotion. |
@@ -134,6 +135,36 @@ zero against a nonzero FP32 reference. Agreement between two adapters did not
 detect that error. Its timings are excluded; the matrix stopped for an ABI
 investigation and an independent-reference sanity gate before resuming. This
 does not establish a fault in the native static kernel.
+
+The [static scale verification](../results/round2_snapshot/fi_static_scale_l19_m8.json)
+confirms the existing contract documented in [the original small-M study](../kernels/moe-nvfp4/README.md#4c-scale-semantics-in-flashinfer-b12x-flashinfer-issue):
+the MMA path needs calibrated divisor scales, whereas direct uses multipliers.
+Our newer comparator incorrectly used the same inversion flag for both paths.
+Corrected M8 static input payload and scale bytes match vLLM exactly on both
+captured slices and a restored-input replay. Output error versus FP32 is
+0.1342/0.1424, versus CUTLASS 0.1345/0.1437. This corrects the comparator;
+it is not a new native-kernel fix or a timing result.
+
+The [safe-direct checks](../results/round2_snapshot/fi_direct_padding_checks.json)
+cover 56 fixtures across M1/M3/M4/M8, including invalid routes, NaNs in skipped
+tokens, duplicate experts, changed inputs and graph replay. The adapter maps
+padding routes to zero-weight valid IDs and clears fully skipped input rows;
+the native direct kernel itself assumes valid expert IDs. Eager and graph CUDA
+traces contain both the sanitizer and native direct kernel. A subsequent
+[live-pointer check](../results/round2_snapshot/fi_direct_live_pointer_checks.json)
+passes 12 transitions across distinct input/output allocations at M1/M4,
+including interleaved graphs and eager calls. These checks are sequential;
+they do not establish concurrent-stream safety or model-quality equivalence.
+
+The [M4 complete-call screen](../results/round2_snapshot/fi_direct_m4_live_timing.json)
+times that explicit native adapter with sanitizer and current runtime arguments:
+26.64–26.65 µs on two real routing slices, versus scalar/CUTLASS 59.85–60.02 µs
+and DP4A reuse-on 38.94–39.29 µs. Each of two reversed backend orders uses eight
+samples of 50 graph replays. Original routing, weight preparation and model
+execution are outside the measurement. The older invalid FI-auto comparator is
+explicitly excluded; corrected micro/static comparisons remain pending. The
+repository captures M4 rather than M3, but actual serving bucket use still needs
+trace confirmation. This result is not included in the serving chart.
 
 The [split-prefill screen](../results/round2_snapshot/b12x_split_numerical_l19_m1024.json)
 checks all 8,192 routed rows at L19/M1024. Packed input and SFA publication match

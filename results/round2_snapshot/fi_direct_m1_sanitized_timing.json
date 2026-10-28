@@ -1,0 +1,6525 @@
+{
+  "status": "screen_complete_no_promotion",
+  "scope": "hot-layer repeated-input full-call CUDA graph screen; no serving/quality promotion; original input/routing copies and weight/scale/view preparation excluded",
+  "tokens": 1,
+  "measurement": "batched",
+  "replays_per_sample": 50,
+  "samples_per_backend": 8,
+  "checks": [
+    {
+      "fixture": "real_0",
+      "unique_experts": 8,
+      "expert_token_multiplicities": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "own_replay": {
+        "dp4a_reuse_off": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "dp4a_reuse_on": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_auto_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_native_sanitized": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      },
+      "prepared_fi_parity": {
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "fp32_errors": {
+        "dp4a_reuse_off": {
+          "finite": true,
+          "rel_l2": 0.20582295954227448,
+          "max_abs": 0.000968815409578383
+        },
+        "dp4a_reuse_on": {
+          "finite": true,
+          "rel_l2": 0.20582295954227448,
+          "max_abs": 0.000968815409578383
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.20571215450763702,
+          "max_abs": 0.000968815409578383
+        },
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.2056889832019806,
+          "max_abs": 0.000984074198640883
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.2056889832019806,
+          "max_abs": 0.000984074198640883
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.2056889832019806,
+          "max_abs": 0.000984074198640883
+        },
+        "fi_direct_native_sanitized": {
+          "finite": true,
+          "rel_l2": 0.2056889832019806,
+          "max_abs": 0.000984074198640883
+        }
+      },
+      "reference_norm": 0.0487697534263134,
+      "output_norms": {
+        "dp4a_reuse_off": 0.04867144301533699,
+        "dp4a_reuse_on": 0.04867144301533699,
+        "current_scalar_cutlass": 0.04867355525493622,
+        "fi_auto_calibrated": 0.048698339611291885,
+        "fi_direct_calibrated": 0.048698339611291885,
+        "fi_direct_preplanned_multiplier": 0.048698339611291885,
+        "fi_direct_native_sanitized": 0.048698339611291885
+      },
+      "reference_sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.2671401931345463,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "fixture": "real_64",
+      "unique_experts": 8,
+      "expert_token_multiplicities": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "own_replay": {
+        "dp4a_reuse_off": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "dp4a_reuse_on": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_auto_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_native_sanitized": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      },
+      "prepared_fi_parity": {
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "fp32_errors": {
+        "dp4a_reuse_off": {
+          "finite": true,
+          "rel_l2": 0.18406249582767487,
+          "max_abs": 0.0026851315051317215
+        },
+        "dp4a_reuse_on": {
+          "finite": true,
+          "rel_l2": 0.18406249582767487,
+          "max_abs": 0.0026851315051317215
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.18410420417785645,
+          "max_abs": 0.0026851315051317215
+        },
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.18467789888381958,
+          "max_abs": 0.0028372425585985184
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.18467789888381958,
+          "max_abs": 0.0028372425585985184
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.18467789888381958,
+          "max_abs": 0.0028372425585985184
+        },
+        "fi_direct_native_sanitized": {
+          "finite": true,
+          "rel_l2": 0.18467789888381958,
+          "max_abs": 0.0028372425585985184
+        }
+      },
+      "reference_norm": 0.18762755393981934,
+      "output_norms": {
+        "dp4a_reuse_off": 0.18713340163230896,
+        "dp4a_reuse_on": 0.18713340163230896,
+        "current_scalar_cutlass": 0.18715405464172363,
+        "fi_auto_calibrated": 0.18705108761787415,
+        "fi_direct_calibrated": 0.18705108761787415,
+        "fi_direct_preplanned_multiplier": 0.18705108761787415,
+        "fi_direct_native_sanitized": 0.18705108761787415
+      },
+      "reference_sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.24013025522232057,
+        "quality_equivalence": false
+      }
+    }
+  ],
+  "timings": [
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 14.422399997711182,
+      "samples_us": [
+        14.362239837646484,
+        14.451199769973755,
+        14.412800073623657,
+        14.401919841766357,
+        14.435199499130249,
+        14.4268798828125,
+        14.417920112609863,
+        14.435839653015137
+      ],
+      "event_batch_totals_us": [
+        718.1119918823242,
+        722.5599884986877,
+        720.6400036811829,
+        720.0959920883179,
+        721.7599749565125,
+        721.343994140625,
+        720.8960056304932,
+        721.7919826507568
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 14.42463994026184,
+      "samples_us": [
+        14.326399564743042,
+        14.408320188522339,
+        14.428160190582275,
+        14.424320459365845,
+        14.417279958724976,
+        14.4268798828125,
+        14.432640075683594,
+        14.424959421157837
+      ],
+      "event_batch_totals_us": [
+        716.3199782371521,
+        720.416009426117,
+        721.4080095291138,
+        721.2160229682922,
+        720.8639979362488,
+        721.343994140625,
+        721.6320037841797,
+        721.2479710578918
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 43.146560192108154,
+      "samples_us": [
+        42.99839973449707,
+        43.1609582901001,
+        43.12640190124512,
+        43.15135955810547,
+        43.14176082611084,
+        43.1712007522583,
+        43.11808109283447,
+        43.152642250061035
+      ],
+      "event_batch_totals_us": [
+        2149.9199867248535,
+        2158.047914505005,
+        2156.320095062256,
+        2157.5679779052734,
+        2157.088041305542,
+        2158.560037612915,
+        2155.9040546417236,
+        2157.6321125030518
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.755839109420776,
+      "samples_us": [
+        24.563839435577393,
+        24.748799800872803,
+        24.75071907043457,
+        24.7654390335083,
+        24.75519895553589,
+        24.756479263305664,
+        24.762239456176758,
+        24.7654390335083
+      ],
+      "event_batch_totals_us": [
+        1228.1919717788696,
+        1237.4399900436401,
+        1237.5359535217285,
+        1238.271951675415,
+        1237.7599477767944,
+        1237.8239631652832,
+        1238.111972808838,
+        1238.271951675415
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.754880666732788,
+      "samples_us": [
+        24.565119743347168,
+        24.762239456176758,
+        24.724481105804443,
+        24.750080108642578,
+        24.755840301513672,
+        24.763519763946533,
+        24.761600494384766,
+        24.753921031951904
+      ],
+      "event_batch_totals_us": [
+        1228.2559871673584,
+        1238.111972808838,
+        1236.2240552902222,
+        1237.504005432129,
+        1237.7920150756836,
+        1238.1759881973267,
+        1238.0800247192383,
+        1237.6960515975952
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 15.77567994594574,
+      "samples_us": [
+        15.47584056854248,
+        15.67296028137207,
+        15.932159423828125,
+        15.756800174713135,
+        15.842560529708862,
+        15.971200466156006,
+        15.760639905929565,
+        15.790719985961914
+      ],
+      "event_batch_totals_us": [
+        773.792028427124,
+        783.6480140686035,
+        796.6079711914062,
+        787.8400087356567,
+        792.1280264854431,
+        798.5600233078003,
+        788.0319952964783,
+        789.5359992980957
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "fi_direct_native_sanitized",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 16.477120518684387,
+      "samples_us": [
+        16.413439512252808,
+        16.478079557418823,
+        16.503679752349854,
+        16.47744059562683,
+        16.476800441741943,
+        16.465920209884644,
+        16.4684796333313,
+        16.487040519714355
+      ],
+      "event_batch_totals_us": [
+        820.6719756126404,
+        823.9039778709412,
+        825.1839876174927,
+        823.8720297813416,
+        823.8400220870972,
+        823.2960104942322,
+        823.4239816665649,
+        824.3520259857178
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_native_sanitized",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 16.477439999580383,
+      "samples_us": [
+        16.412160396575928,
+        16.47487998008728,
+        16.521600484848022,
+        16.486400365829468,
+        16.484479904174805,
+        16.480000019073486,
+        16.469759941101074,
+        16.472320556640625
+      ],
+      "event_batch_totals_us": [
+        820.6080198287964,
+        823.743999004364,
+        826.0800242424011,
+        824.3200182914734,
+        824.2239952087402,
+        824.0000009536743,
+        823.4879970550537,
+        823.6160278320312
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 15.68287968635559,
+      "samples_us": [
+        15.680639743804932,
+        15.569920539855957,
+        15.68511962890625,
+        15.602560043334961,
+        15.797760486602783,
+        15.834879875183105,
+        15.642880201339722,
+        15.872639417648315
+      ],
+      "event_batch_totals_us": [
+        784.0319871902466,
+        778.4960269927979,
+        784.2559814453125,
+        780.128002166748,
+        789.8880243301392,
+        791.7439937591553,
+        782.1440100669861,
+        793.6319708824158
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.750080108642578,
+      "samples_us": [
+        24.565119743347168,
+        24.734721183776855,
+        24.758400917053223,
+        24.725759029388428,
+        24.751360416412354,
+        24.748799800872803,
+        24.759039878845215,
+        24.766080379486084
+      ],
+      "event_batch_totals_us": [
+        1228.2559871673584,
+        1236.7360591888428,
+        1237.9200458526611,
+        1236.2879514694214,
+        1237.5680208206177,
+        1237.4399900436401,
+        1237.9519939422607,
+        1238.3040189743042
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.754879474639893,
+      "samples_us": [
+        24.56576108932495,
+        24.759678840637207,
+        24.749441146850586,
+        24.762239456176758,
+        24.746880531311035,
+        24.775679111480713,
+        24.759039878845215,
+        24.75071907043457
+      ],
+      "event_batch_totals_us": [
+        1228.2880544662476,
+        1237.9839420318604,
+        1237.4720573425293,
+        1238.111972808838,
+        1237.3440265655518,
+        1238.7839555740356,
+        1237.9519939422607,
+        1237.5359535217285
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 43.15711975097656,
+      "samples_us": [
+        42.99776077270508,
+        43.15711975097656,
+        43.162240982055664,
+        43.15711975097656,
+        43.15392017364502,
+        43.17311763763428,
+        43.116798400878906,
+        43.16351890563965
+      ],
+      "event_batch_totals_us": [
+        2149.888038635254,
+        2157.855987548828,
+        2158.112049102783,
+        2157.855987548828,
+        2157.696008682251,
+        2158.655881881714,
+        2155.8399200439453,
+        2158.1759452819824
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 12.437759637832642,
+      "samples_us": [
+        12.319999933242798,
+        12.460800409317017,
+        12.460800409317017,
+        12.417919635772705,
+        12.495360374450684,
+        12.414079904556274,
+        12.447999715805054,
+        12.42751955986023
+      ],
+      "event_batch_totals_us": [
+        615.9999966621399,
+        623.0400204658508,
+        623.0400204658508,
+        620.8959817886353,
+        624.7680187225342,
+        620.7039952278137,
+        622.3999857902527,
+        621.3759779930115
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 12.423999905586243,
+      "samples_us": [
+        12.31935977935791,
+        12.490240335464478,
+        12.373759746551514,
+        12.38976001739502,
+        12.462719678878784,
+        12.450560331344604,
+        12.426879405975342,
+        12.421120405197144
+      ],
+      "event_batch_totals_us": [
+        615.9679889678955,
+        624.5120167732239,
+        618.6879873275757,
+        619.488000869751,
+        623.1359839439392,
+        622.5280165672302,
+        621.3439702987671,
+        621.0560202598572
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 16.40992045402527,
+      "samples_us": [
+        16.37120008468628,
+        16.45248055458069,
+        16.41792058944702,
+        16.455039978027344,
+        16.401920318603516,
+        16.357760429382324,
+        16.3046395778656,
+        16.424319744110107
+      ],
+      "event_batch_totals_us": [
+        818.560004234314,
+        822.6240277290344,
+        820.8960294723511,
+        822.7519989013672,
+        820.0960159301758,
+        817.8880214691162,
+        815.23197889328,
+        821.2159872055054
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 16.140159964561462,
+      "samples_us": [
+        16.127359867095947,
+        16.188160181045532,
+        16.312320232391357,
+        16.152960062026978,
+        16.225279569625854,
+        16.104320287704468,
+        16.116479635238647,
+        16.067839860916138
+      ],
+      "event_batch_totals_us": [
+        806.3679933547974,
+        809.4080090522766,
+        815.6160116195679,
+        807.6480031013489,
+        811.2639784812927,
+        805.2160143852234,
+        805.8239817619324,
+        803.3919930458069
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 43.1603217124939,
+      "samples_us": [
+        43.00735950469971,
+        43.16864013671875,
+        43.11935901641846,
+        43.18336009979248,
+        43.16160202026367,
+        43.17056179046631,
+        43.15904140472412,
+        43.11552047729492
+      ],
+      "event_batch_totals_us": [
+        2150.3679752349854,
+        2158.4320068359375,
+        2155.967950820923,
+        2159.168004989624,
+        2158.0801010131836,
+        2158.5280895233154,
+        2157.952070236206,
+        2155.776023864746
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.71519947052002,
+      "samples_us": [
+        24.522879123687744,
+        24.601600170135498,
+        24.727039337158203,
+        24.847359657287598,
+        24.729599952697754,
+        24.747519493103027,
+        24.703359603881836,
+        24.59712028503418
+      ],
+      "event_batch_totals_us": [
+        1226.1439561843872,
+        1230.080008506775,
+        1236.3519668579102,
+        1242.3679828643799,
+        1236.4799976348877,
+        1237.3759746551514,
+        1235.1679801940918,
+        1229.856014251709
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.661120176315308,
+      "samples_us": [
+        24.563839435577393,
+        24.686720371246338,
+        24.657280445098877,
+        24.59712028503418,
+        24.673919677734375,
+        24.66495990753174,
+        24.627840518951416,
+        24.666879177093506
+      ],
+      "event_batch_totals_us": [
+        1228.1919717788696,
+        1234.336018562317,
+        1232.8640222549438,
+        1229.856014251709,
+        1233.6959838867188,
+        1233.247995376587,
+        1231.3920259475708,
+        1233.3439588546753
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 14.578880071640015,
+      "samples_us": [
+        14.417920112609863,
+        14.520319700241089,
+        14.646400213241577,
+        14.60927963256836,
+        14.573440551757812,
+        14.584319591522217,
+        14.540799856185913,
+        14.643199443817139
+      ],
+      "event_batch_totals_us": [
+        720.8960056304932,
+        726.0159850120544,
+        732.3200106620789,
+        730.463981628418,
+        728.6720275878906,
+        729.2159795761108,
+        727.0399928092957,
+        732.1599721908569
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_native_sanitized"
+      ],
+      "backend": "fi_direct_native_sanitized",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 16.478400230407715,
+      "samples_us": [
+        16.37503981590271,
+        16.484479904174805,
+        16.485120058059692,
+        16.475520133972168,
+        16.476800441741943,
+        16.470400094985962,
+        16.480000019073486,
+        16.480000019073486
+      ],
+      "event_batch_totals_us": [
+        818.7519907951355,
+        824.2239952087402,
+        824.2560029029846,
+        823.7760066986084,
+        823.8400220870972,
+        823.5200047492981,
+        824.0000009536743,
+        824.0000009536743
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_native_sanitized",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 16.474239826202393,
+      "samples_us": [
+        16.37503981590271,
+        16.484479904174805,
+        16.472959518432617,
+        16.48128032684326,
+        16.475520133972168,
+        16.491520404815674,
+        16.470400094985962,
+        16.46720051765442
+      ],
+      "event_batch_totals_us": [
+        818.7519907951355,
+        824.2239952087402,
+        823.6479759216309,
+        824.0640163421631,
+        823.7760066986084,
+        824.5760202407837,
+        823.5200047492981,
+        823.360025882721
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 14.539199471473694,
+      "samples_us": [
+        14.52672004699707,
+        14.543999433517456,
+        14.581120014190674,
+        14.65791940689087,
+        14.534399509429932,
+        14.521600008010864,
+        14.531840085983276,
+        14.568320512771606
+      ],
+      "event_batch_totals_us": [
+        726.3360023498535,
+        727.1999716758728,
+        729.0560007095337,
+        732.8959703445435,
+        726.7199754714966,
+        726.0800004005432,
+        726.5920042991638,
+        728.4160256385803
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.680320024490356,
+      "samples_us": [
+        24.526081085205078,
+        24.623360633850098,
+        24.684159755706787,
+        24.676480293273926,
+        24.686079025268555,
+        24.70655918121338,
+        24.67008113861084,
+        24.72383975982666
+      ],
+      "event_batch_totals_us": [
+        1226.304054260254,
+        1231.1680316925049,
+        1234.2079877853394,
+        1233.8240146636963,
+        1234.3039512634277,
+        1235.327959060669,
+        1233.504056930542,
+        1236.191987991333
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.74720001220703,
+      "samples_us": [
+        24.526081085205078,
+        24.722559452056885,
+        24.75071907043457,
+        24.750080108642578,
+        24.70463991165161,
+        24.744319915771484,
+        24.760959148406982,
+        24.815359115600586
+      ],
+      "event_batch_totals_us": [
+        1226.304054260254,
+        1236.1279726028442,
+        1237.5359535217285,
+        1237.504005432129,
+        1235.2319955825806,
+        1237.2159957885742,
+        1238.0479574203491,
+        1240.7679557800293
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 43.22783946990967,
+      "samples_us": [
+        42.99776077270508,
+        43.29343795776367,
+        43.25823783874512,
+        43.25632095336914,
+        43.2422399520874,
+        43.213438987731934,
+        43.17823886871338,
+        43.17183971405029
+      ],
+      "event_batch_totals_us": [
+        2149.888038635254,
+        2164.6718978881836,
+        2162.911891937256,
+        2162.816047668457,
+        2162.11199760437,
+        2160.6719493865967,
+        2158.911943435669,
+        2158.5919857025146
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 14.506880044937134,
+      "samples_us": [
+        14.326399564743042,
+        14.52415943145752,
+        14.499200582504272,
+        14.520319700241089,
+        14.510079622268677,
+        14.506239891052246,
+        14.507520198822021,
+        14.484479427337646
+      ],
+      "event_batch_totals_us": [
+        716.3199782371521,
+        726.207971572876,
+        724.9600291252136,
+        726.0159850120544,
+        725.5039811134338,
+        725.3119945526123,
+        725.3760099411011,
+        724.2239713668823
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_native_sanitized",
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 14.50432002544403,
+      "samples_us": [
+        14.326399564743042,
+        14.517760276794434,
+        14.50368046760559,
+        14.506880044937134,
+        14.50495958328247,
+        14.462080001831055,
+        14.46463942527771,
+        14.519040584564209
+      ],
+      "event_batch_totals_us": [
+        716.3199782371521,
+        725.8880138397217,
+        725.1840233802795,
+        725.3440022468567,
+        725.2479791641235,
+        723.1040000915527,
+        723.2319712638855,
+        725.9520292282104
+      ]
+    }
+  ],
+  "cache_paths": {
+    "flashinfer": "/work/kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/cache/flashinfer_base/.cache/flashinfer/0.7.0.post1/120f",
+    "cute": "/work/kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/cache/cute"
+  },
+  "fi_direct_preplanned_multiplier_contract": "forced direct only; input quant multipliers prepared outside graph, reciprocal flag false, cached weightviews retain same g1/g2 (no second fold); exact output parity with diagnosed reciprocal=True required",
+  "factory_trace_scope": "Python constructor/factory evidence, not actual GPU kernel trace",
+  "capture_sha256": "0e161c36a6f478c0205b3a7e8b388296eccafaa2d5999cf4420fcbcd0aa2f4ac",
+  "direct_checks": {
+    "scope": "sequential distinct per-shape/per-provider workspaces; no concurrency claim",
+    "checks": [
+      {
+        "m": 1,
+        "fixture": "valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.2056889832019806
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.2671401931345463,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.2056889832019806
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.2671401931345463,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.2056889832019806
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.2671401931345463,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "all_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "all_invalid_nan",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "one_token_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "partial_slots",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.12486657500267029
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1653894765675068,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.12486657500267029
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1653894765675068,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.12486657500267029
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1653894765675068,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "duplicate_valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.10576756298542023
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1424494369328022,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.10576756298542023
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1424494369328022,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.10576756298542023
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1424494369328022,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "restore_changed",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.18467789888381958
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.24013025522232057,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.18467789888381958
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.24013025522232057,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.18467789888381958
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.24013025522232057,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1404348909854889
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18489790916442872,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1404348909854889
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18489790916442872,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1404348909854889
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18489790916442872,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "all_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "all_invalid_nan",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "one_token_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14003942906856537
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18439836636185647,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14003942906856537
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18439836636185647,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14003942906856537
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18439836636185647,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "partial_slots",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15417860448360443
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20141588360071183,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15417860448360443
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20141588360071183,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15417860448360443
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20141588360071183,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "duplicate_valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1478501409292221
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19360529094934464,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1478501409292221
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19360529094934464,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1478501409292221
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19360529094934464,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "restore_changed",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13820484280586243
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18504997551441194,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13820484280586243
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18504997551441194,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13820484280586243
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18504997551441194,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14700452983379364
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19391748890280724,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14700452983379364
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19391748890280724,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14700452983379364
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19391748890280724,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "all_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "all_invalid_nan",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "one_token_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1467881202697754
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19364747986197473,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1467881202697754
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19364747986197473,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1467881202697754
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19364747986197473,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "partial_slots",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14818954467773438
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1960744319856167,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14818954467773438
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1960744319856167,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14818954467773438
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1960744319856167,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "duplicate_valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1567380726337433
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20533727318048478,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1567380726337433
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20533727318048478,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1567380726337433
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20533727318048478,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "restore_changed",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13936194777488708
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18633512616157533,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13936194777488708
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18633512616157533,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13936194777488708
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18633512616157533,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13413354754447937
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1780869609117508,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13413354754447937
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1780869609117508,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13413354754447937
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1780869609117508,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "all_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "all_invalid_nan",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "one_token_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13405664265155792
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.17799135133624078,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13405664265155792
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.17799135133624078,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13405664265155792
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.17799135133624078,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "partial_slots",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14875690639019012
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.197201164662838,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14875690639019012
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.197201164662838,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14875690639019012
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.197201164662838,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "duplicate_valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15733543038368225
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20727578386664391,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15733543038368225
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20727578386664391,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15733543038368225
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20727578386664391,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "restore_changed",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14234761893749237
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18959406599402429,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14234761893749237
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18959406599402429,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14234761893749237
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18959406599402429,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1404348909854889
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18489790916442872,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1404348909854889
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18489790916442872,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1404348909854889
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18489790916442872,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "all_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "all_invalid_nan",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "one_token_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14003942906856537
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18439836636185647,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14003942906856537
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18439836636185647,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14003942906856537
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18439836636185647,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "partial_slots",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15417860448360443
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20141588360071183,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15417860448360443
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20141588360071183,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15417860448360443
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20141588360071183,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "duplicate_valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1478501409292221
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19360529094934464,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1478501409292221
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19360529094934464,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1478501409292221
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19360529094934464,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 3,
+        "fixture": "restore_changed",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13820484280586243
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18504997551441194,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13820484280586243
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18504997551441194,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13820484280586243
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18504997551441194,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.2056889832019806
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.2671401931345463,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.2056889832019806
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.2671401931345463,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.2056889832019806
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.2671401931345463,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "all_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "all_invalid_nan",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "one_token_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "partial_slots",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.12486657500267029
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1653894765675068,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.12486657500267029
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1653894765675068,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.12486657500267029
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1653894765675068,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "duplicate_valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.10576756298542023
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1424494369328022,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.10576756298542023
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1424494369328022,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.10576756298542023
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1424494369328022,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 1,
+        "fixture": "restore_changed",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.18467789888381958
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.24013025522232057,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.18467789888381958
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.24013025522232057,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.18467789888381958
+            },
+            "sanitizer_errors": [
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.24013025522232057,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13413354754447937
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1780869609117508,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13413354754447937
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1780869609117508,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13413354754447937
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1780869609117508,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "all_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "all_invalid_nan",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "one_token_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13405664265155792
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.17799135133624078,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13405664265155792
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.17799135133624078,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13405664265155792
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.17799135133624078,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "partial_slots",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14875690639019012
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.197201164662838,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14875690639019012
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.197201164662838,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14875690639019012
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.197201164662838,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "duplicate_valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15733543038368225
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20727578386664391,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15733543038368225
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20727578386664391,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.15733543038368225
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20727578386664391,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 8,
+        "fixture": "restore_changed",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14234761893749237
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18959406599402429,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14234761893749237
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18959406599402429,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14234761893749237
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18959406599402429,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14700452983379364
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19391748890280724,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14700452983379364
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19391748890280724,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14700452983379364
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19391748890280724,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "all_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "all_invalid_nan",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.01,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "one_token_invalid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1467881202697754
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19364747986197473,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1467881202697754
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19364747986197473,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1467881202697754
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.19364747986197473,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "partial_slots",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14818954467773438
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1960744319856167,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14818954467773438
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1960744319856167,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.14818954467773438
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.1960744319856167,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "duplicate_valid",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1567380726337433
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20533727318048478,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1567380726337433
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20533727318048478,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.1567380726337433
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.20533727318048478,
+              "quality_equivalence": false
+            }
+          }
+        }
+      },
+      {
+        "m": 4,
+        "fixture": "restore_changed",
+        "precision": "fp32_tf32_disabled",
+        "providers": {
+          "reciprocal": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13936194777488708
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18633512616157533,
+              "quality_equivalence": false
+            }
+          },
+          "preplanned_multiplier": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13936194777488708
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18633512616157533,
+              "quality_equivalence": false
+            }
+          },
+          "native_prepared": {
+            "graph_eager": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "graph_repeat": {
+              "finite": true,
+              "rel_l2": 0.0
+            },
+            "fp32": {
+              "finite": true,
+              "rel_l2": 0.13936194777488708
+            },
+            "sanitizer_errors": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "sanity": {
+              "status": "broad_sanity_only",
+              "absolute_ceiling": 0.35,
+              "baseline_factor": 1.25,
+              "baseline_margin": 0.01,
+              "effective_limit": 0.18633512616157533,
+              "quality_equivalence": false
+            }
+          }
+        }
+      }
+    ],
+    "cuda_events": [
+      {
+        "name": "FI_DIRECT_PREPLANNED_NATIVE_EAGER",
+        "device_type": "DeviceType.CUDA"
+      },
+      {
+        "name": "_sanitize",
+        "device_type": "DeviceType.CUDA"
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinferfused_moecute_dslblackwell_sm12xmoe_direct_micro_kernelMoEDirectMicroKernel_object_at__tensorptrbf16gmemalign16o1_tensorptri8gmemalign16oi641_tensorptri8gm_0",
+        "device_type": "DeviceType.CUDA"
+      },
+      {
+        "name": "FI_DIRECT_PREPLANNED_GRAPH",
+        "device_type": "DeviceType.CUDA"
+      },
+      {
+        "name": "_sanitize",
+        "device_type": "DeviceType.CUDA"
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinferfused_moecute_dslblackwell_sm12xmoe_direct_micro_kernelMoEDirectMicroKernel_object_at__tensorptrbf16gmemalign16o1_tensorptri8gmemalign16oi641_tensorptri8gm_0",
+        "device_type": "DeviceType.CUDA"
+      }
+    ],
+    "status": "diagnostic_pass_no_serving_promotion"
+  },
+  "factory_selection": {
+    "dp4a_reuse_off": [],
+    "dp4a_reuse_on": [],
+    "current_scalar_cutlass": [],
+    "fi_auto_calibrated": [
+      "_get_direct_micro_kernel",
+      "_get_direct_micro_kernel"
+    ],
+    "fi_direct_calibrated": [
+      "_get_direct_micro_kernel",
+      "_get_direct_micro_kernel"
+    ],
+    "fi_direct_preplanned_multiplier": [
+      "_get_direct_micro_kernel",
+      "_get_direct_micro_kernel"
+    ],
+    "fi_direct_native_sanitized": []
+  }
+}

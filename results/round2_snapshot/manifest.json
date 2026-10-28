@@ -363,6 +363,201 @@
       "sha256": "657a63e03794e3bd4bfa77b23b9164e1d90d1373153622e945711879ac1ec930",
       "original_exit_code": "0",
       "disposition": "Diagnostic only: FI-auto/static returned zero for nonzero FP32 reference. Original finite/parity checks missed this; its timing is invalid. Sequential matrix stopped. Later source adds independent-reference sanity gate; no claim of a native-kernel fault."
+    },
+    "fi_static_scale_l19_m8.json": {
+      "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/measurement.json",
+      "sha256": "cbb28ad5c56a62a94fb4d9979157b8ce97b4c8dd79668f482fdb43a39d6db3bb",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/exit_code.txt",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/source_verify.log",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/gpu_after.csv",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/runtime_verify.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/runtime_verify.json",
+          "sha256": "0307d1abbdb5550a4a5ea43ef8f434f3e2273554b5190617f721ff9098aab6fd"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/process_cleanup.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/process_cleanup.json",
+          "sha256": "5889c03ea3ac7f2e1abe19440b4f069ed088e73e011c38035bd16b8b4d38d522"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/source_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/source_manifest.json",
+          "sha256": "ef7bb0325d81b17b8326c53d6c5ae25079de34e5febe5ebee1d7450be9d5b6bd"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/runtime_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/runtime_manifest.json",
+          "sha256": "a4469c496f15bcad829b827164b656df8f382a913e164ca0ec6510a93b42967f"
+        },
+        "checkpoint_identity.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/checkpoint_identity.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/checkpoint_identity.json",
+          "sha256": "560add5afee486ae58a7acc5b532812cda045fd4b02367d99f363cf598d4e20b"
+        }
+      }
+    },
+    "fi_direct_padding_checks.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/direct_checks.json",
+      "sha256": "f0fd1c37c741eeecd3adefb8904623a2035def1e175c109142d307e08f834219",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/sources.json",
+          "sha256": "3a1eb6cf6adb84d1365136526fe8e399e473da2375a2186cb9fc5f219114c407"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_direct_m1_sanitized_timing.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/screen.json",
+      "sha256": "9a6ed246d5e90c64bd3f4f9b6d2c8911b4fb8c59db7e38abfa86758f3e14282a",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/sources.json",
+          "sha256": "3a1eb6cf6adb84d1365136526fe8e399e473da2375a2186cb9fc5f219114c407"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_direct_live_pointer_checks.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/live_pointer_checks.json",
+      "sha256": "2f1110342fc1b2c3c819e2d08630203efc03b0121713b7a765b7ce618ea88672",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/sources.json",
+          "sha256": "6d217631b327f76cbe6d432254791916877830ad799b534f497406b168ab1c70"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_direct_m4_live_timing.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/screen.json",
+      "sha256": "e9929527b0c78d92c10bcbbc5d6beaa7a4b721bd279f3ad6be338830092212b7",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/sources.json",
+          "sha256": "6d217631b327f76cbe6d432254791916877830ad799b534f497406b168ab1c70"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
     }
   }
 }

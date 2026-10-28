@@ -1,0 +1,1 @@
+{"pid": 33110, "pgid": 33110, "start_ticks": "239865288", "command": ["/usr/bin/python3", "/work/kernels/fi-static-scale-audit/probe.py", "--output", "/work/kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/measurement.json"], "started": 1793163960.1442146, "state": "exited", "exit_code": 0, "ended": 1793163980.4455757, "remaining_group_pids": []}
