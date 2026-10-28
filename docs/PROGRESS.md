@@ -4,6 +4,8 @@ The current measured stack is **optimized → next → next + scalar b12x**.
 `next` remains the recommended default. Scalar is an opt-in prefill improvement
 with the quality and mixed-workload limits recorded below. Round 2 is ongoing;
 its kernel timings are not added to the serving gains in the chart.
+The current handoff is [HANDOFF.md](HANDOFF.md). The first NCU attempt failed
+with `ERR_NVGPUCTRPERM`; no counters were collected. Jobs are stopped for handoff.
 
 ![Measured prefill progression](img/progress-prefill-light.svg)
 
