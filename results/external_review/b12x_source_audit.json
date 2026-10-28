@@ -110,5 +110,12 @@
       3
     ],
     "note": "Other shape/workspace requirements still apply; actual GPU trace required."
+  },
+  "current_scalar_wrapper": {
+    "relative_worktree_path": "kernels/moe-nvfp4/scalar/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py",
+    "sha256": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62",
+    "hybrid_min_tokens": 1024,
+    "below_threshold_backend": "CUTLASS",
+    "note": "This wrapper returns before the installed FlashInfer direct-micro gate; the inner gate is not the selected current tiny-M serving path."
   }
 }

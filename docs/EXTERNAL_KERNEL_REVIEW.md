@@ -5,6 +5,10 @@ one RTX PRO 6000, with the existing attention settings and MTP2. A previous loss
 rejects that measured implementation and shape, not the whole optimization idea.
 This review identifies mechanisms to test; it adds no speedup to the progress chart.
 
+The later [DeepGEMM scheduling review](DEEPGEMM_SCHEDULING_REVIEW.md) covers the
+additional `sm120_nvfp4_ops` source and maps proposed E0–E7 experiments to
+mechanisms already present in our stack.
+
 ## B12x is already in FlashInfer, but the implementations differ
 
 Our image uses FlashInfer **0.7.0.post1** and its
@@ -72,9 +76,11 @@ The public kernel's distinct opportunity is grouping tokens that chose the same
 expert, so a CTA can reuse loaded weights. Preserve the model's expert selections;
 this changes execution order and reuse, not learned routing.
 
-Current automatic dispatch requires fewer than 32 routed pairs, so top-8 admits
-M1–3 through that gate. Test **M1/2/3/4/8** with automatic and forced-direct
-baselines. Include actual unique-expert counts, and compare reuse on/off while
+The installed FlashInfer automatic dispatch requires fewer than 32 routed pairs,
+so top-8 admits M1–3 through that internal gate. However, our scalar vLLM wrapper
+returns through **CUTLASS for M<1024**, before reaching that dispatcher. Test
+**M1/2/3/4/8** against the current CUTLASS path, explicitly enabled FlashInfer
+auto, and forced-direct baselines. Include actual unique-expert counts, and compare reuse on/off while
 holding DP4A arithmetic and PDL fixed. A warm layer loop alone cannot establish
 DRAM bandwidth savings across 40 layers.
 
