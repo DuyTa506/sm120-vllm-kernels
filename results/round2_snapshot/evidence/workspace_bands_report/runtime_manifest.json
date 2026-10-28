@@ -1,0 +1,55 @@
+{
+  "capture": "/work/kernels/moe-task-order/results/task_order_4096_1/measurement/a1/l19_m4096_real.pt",
+  "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+  "runtime_sha256": {
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/_moe_dynamic/gated.py": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_dispatch.py": "c518e65d6bfd7f08db1e5261e20795fd020e82e681699729171bc2fd5331239a",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_dynamic_kernel.py": "7532e1338df8e80c4b8f0bd6473c2ffeda9a5028018c77775c4e9fe2fa47b072",
+    "/work/kernels/moe-nvfp4/moe_common.py": "2b902b14d6e7776b3a746ba99792fbea0f0b41b28099d45f7724d2150fb402bc",
+    "/work/kernels/moe-nvfp4/test_shared_workspace.py": "fa5e63c5f4f0da020dab5a5e189f2c6b11b208e99db238d79d343abba72b2fb2",
+    "/work/kernels/moe-nvfp4/verify_scalar_dispatch.py": "137bf019d605ddaf04685ee47ef1f7843f6d93544f04e8447874dc6a749b512e",
+    "/work/kernels/moe-nvfp4/verify_shared_workspace.py": "eb52fa42ddb0bbc8e9989af5d5604dcc39f9eae3e1db857edcc0a60cb88fce5f",
+    "/work/kernels/moe-nvfp4/scalar/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62",
+    "/usr/local/lib/python3.12/dist-packages/vllm/_custom_ops.py": "36428c27bad9bf5ffe5debf9e34bccbc888adb68ad3eb972f6c9ff080e7f683e",
+    "/usr/local/lib/python3.12/dist-packages/vllm/v1/worker/workspace.py": "bcf9ea207279c38a476be4ca74137a9d3a973f1fd97d85639a383357f881eb06",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/b12x_moe.py": "c09065511e93c0ccf40e4d99f9215157aac9c26e0796ab41d1c52d396b45a2ff",
+    "/usr/local/lib/python3.12/dist-packages/vllm/_C_stable_libtorch.abi3.so": "ae9c8a293020e422e0b6b61d1024263dc476a772337f5d39d46d18baa7ce0ad9",
+    "/work/kernels/moe-task-order/results/task_order_4096_1/measurement/a1/applicability_l19_m4096_real.json": "259c584a038836c0b5408bd14615c93b43b7e814d0a5c01edffd80228adbd95a"
+  },
+  "capture_pin": {
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "sidecar_sha256": "259c584a038836c0b5408bd14615c93b43b7e814d0a5c01edffd80228adbd95a",
+    "layer": 19,
+    "tokens": 4096,
+    "pattern": "real",
+    "keys": {
+      "input": {
+        "shape": [
+          4096,
+          2048
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "ids": {
+        "shape": [
+          4096,
+          8
+        ],
+        "dtype": "torch.int32"
+      },
+      "weights": {
+        "shape": [
+          4096,
+          8
+        ],
+        "dtype": "torch.float32"
+      }
+    },
+    "metadata_scope": "Layer identity is in original sibling applicability JSON; tensor archive itself has no layer field; sidecar counts verified against archive IDs"
+  },
+  "import_check": {
+    "cpu_tests_passed": true,
+    "stderr": "test_band_boundary_and_outer_dispatch (__main__.Tests.test_band_boundary_and_outer_dispatch) ... ok\ntest_defaultoff_original_wrapper_and_source_identity (__main__.Tests.test_defaultoff_original_wrapper_and_source_identity) ... ok\ntest_env_registration_default_and_toggle (__main__.Tests.test_env_registration_default_and_toggle) ... ok\ntest_fail_closed_native_tile_change_and_unknown_owner_after_lock (__main__.Tests.test_fail_closed_native_tile_change_and_unknown_owner_after_lock) ... ok\ntest_layer_views_shared_band_scratch_and_owner_isolation (__main__.Tests.test_layer_views_shared_band_scratch_and_owner_isolation) ... ok\ntest_prepare_all_before_lock_and_no_graph_pointer_mutation (__main__.Tests.test_prepare_all_before_lock_and_no_graph_pointer_mutation) ... ok\ntest_shape_threshold_and_capacity_guards (__main__.Tests.test_shape_threshold_and_capacity_guards) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.011s\n\nOK\n"
+  },
+  "cuda_initialized": false
+}

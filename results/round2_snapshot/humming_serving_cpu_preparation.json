@@ -1,0 +1,26 @@
+{
+  "cuda_initialized": false,
+  "compile_factor_transitions": [
+    {
+      "VLLM_SM120_HUMMING_RN_M1024": false,
+      "VLLM_SM120_HUMMING_RN_PROBE": false
+    },
+    {
+      "VLLM_SM120_HUMMING_RN_M1024": true,
+      "VLLM_SM120_HUMMING_RN_PROBE": false
+    },
+    {
+      "VLLM_SM120_HUMMING_RN_M1024": true,
+      "VLLM_SM120_HUMMING_RN_PROBE": true
+    },
+    {
+      "VLLM_SM120_HUMMING_RN_M1024": false,
+      "VLLM_SM120_HUMMING_RN_PROBE": false
+    }
+  ],
+  "checkpoint_contracts": 120,
+  "all40_gate_up_globals_exact": true,
+  "checkpoint_audit_sha256": "1ad1769fca85c509383f2921e4a1cc5eb54bff478a2daf149a467df32e00c8aa",
+  "generated_env_sha256": "ef8f9cb0e836d25e4541b20854ffb0048d21ba9ab15e2d5c8ba2c88f2ac41712",
+  "extra_weight_and_local_sf_gib_estimate": 16.875
+}

@@ -48,9 +48,9 @@ References: [next](../results/next/SUMMARY.md),
 | Native swap-AB | Two matrices give identical off/on outputs in all 16 comparisons; QKVZ-shaped cases improve 2.3–4.1%. | Confirms an existing native policy, not a new model patch. |
 | Tiny rowwise 64×16 tile | L0/M3: 19.62 µs, about 11.2% slower than AUTO and 16.1% slower than existing skinny. Numerical/replay checks pass. | Rejected for the measured case. |
 | PDL | Focused pair pins the same 18 compiler identities/configs. Prefill TTFT falls 0.26–3.30%; decode c1/c4 rises 0.67%/4.28%. | Unselected, one pair. Later c16/c64 and NLL have a possible external-context overlap; numerical variation remains unresolved. |
-| DP4A expert reuse | M1/M8 numerical screens pass input-byte, quantized-operand, graph/eager and normal/instrumented checks; M8 includes eight tokens sharing all eight experts. | No timing or model-quality claim. Concurrent execution remains unvalidated. |
-| Split B12x prefill | L19/M1024 full-domain numerical and changing-route graph checks pass exploratory gates, including all-empty then restored input. | Full-call timing pending. Atomic output variation and a small phase1 quantization difference remain. |
-| Workspace tile bands | Actual M2048 wrapper uses M128 despite the functional selector choosing M64; saved routing gives 46.7% versus 65.8% useful rows. | New integration experiment. Smaller tiles also increase tile count; geometry is not a speedup measurement. |
+| DP4A expert reuse | Numerical screens pass checked input/operand and replay contracts. At real M3, preplanned calibrated FI direct is about 24.6 µs, DP4A reuse-on about 32–35 µs, and current scalar/CUTLASS about 49 µs. | Unselected against the stronger FI comparator. Historical M1 comparisons used a weaker FI call path; no serving or model-quality claim. |
+| Split B12x prefill | Actual L19 full-call timing is about 17.6% slower at M1024 and 47.4% slower at M4096 than current scalar. Pre/post arithmetic and route-domain checks pass exploratory gates. | Initial split implementation unselected at both shapes. Component measurements are diagnostic and cannot be summed into a full-call claim. |
+| Workspace tile bands | L19 full-call screen: M1024/tile32 is about 1.9% slower; M2048/tile64 about 27.1% slower; unchanged M4096/tile128 is within 0.32%. | Unselected; scratch rises from 607.8 MB to 1,400.9 MB. Native M128 already skips inactive M16 MMA fragments, so padding ratios are not compute-saving estimates. |
 | GDN state replay | Current-stack shadow checks pass, including intermediate checkpoint boundaries. The first pressure workload produced zero preemptions. | Stronger pressure coverage is still required before timing/promotion. |
 
 The [round 2 snapshot](../results/round2_snapshot/manifest.json) contains hash-verified
@@ -77,8 +77,13 @@ The percentages compare means of the two pass medians, not independent startup
 trials. Numerical differences remain: for example L39/offset0 error versus FP32
 is 9.294% for Humming and 9.252% for CUTLASS; the next captured slice reverses
 that ordering. These are diagnostic checks, not model-quality equivalence.
-Actual vLLM dispatch, preparation/memory costs and cold/multi-layer effects
-remain unmeasured for Humming.
+Actual vLLM dispatch, preparation costs and cold/multi-layer effects remain
+unmeasured for Humming. The [CPU integration estimate](../results/round2_snapshot/humming_serving_cpu_preparation.json)
+adds **16.875 GiB** for duplicate packed weights and local scales across 40 layers,
+before scratch and conversion peak. Actual allocation and KV-capacity impact are
+unmeasured. Standard serving tasks have not yet been shown to reach the exact
+M1024 eligibility bucket; a dedicated M1024 request would prove dispatch, not a
+representative serving benefit.
 
 Task-order pair3 completed both source, activation, fixed-FlashInfer and cleanup
 gates. Earlier class-only substitution could reuse a baseline native cached
@@ -104,7 +109,7 @@ relative L2 1.54e-7 and 1.20e-7. Whole-output error against the dequantized-weig
 FP32 reference is still about 18–21%, similar to current CUTLASS in these two
 slices: the small per-stage errors do not remove NVFP4 quantization error.
 Two workspace checks are sequential isolation checks, not concurrent-stream
-coverage. There is no latency measurement yet.
+coverage. These numerical reports themselves contain no latency measurement.
 
 The [M8 follow-up](../results/round2_snapshot/dp4a_numerical_m8.json) exercises
 31 and 40 unique experts in two real slices (up to five and seven tokens sharing
@@ -113,22 +118,57 @@ with permuted route slots. Reuse on/off remains bitwise identical, as do normal
 versus instrumented outputs and each path's graph/eager outputs. This establishes
 cross-token reuse correctness for the checked cases, without measuring its speed.
 
+The [historical M1 timing screen](../results/round2_snapshot/dp4a_micro_m1_historical.json)
+is not evidence that DP4A beats the best available FI route: its calibrated FI
+call still converted fixed scales during each invocation. The subsequent
+[M3 batched screen](../results/round2_snapshot/dp4a_micro_m3_batched.json) includes
+the preplanned direct path with the correct multiplier-scale ABI. On two real
+slices, that path takes 24.59–24.63 µs, DP4A reuse-on 31.86–34.88 µs, and current
+scalar/CUTLASS 49.19–49.26 µs. Thus beating the current CUTLASS path does not
+establish a win over the strongest comparator. These are repeated-input layer
+graph timings, excluding original input/routing copies and weight preparation;
+no vLLM speedup or concurrent execution claim follows.
+
+The later M8 screen exposed an invalid FI-auto/static comparator: it returned
+zero against a nonzero FP32 reference. Agreement between two adapters did not
+detect that error. Its timings are excluded; the matrix stopped for an ABI
+investigation and an independent-reference sanity gate before resuming. This
+does not establish a fault in the native static kernel.
+
 The [split-prefill screen](../results/round2_snapshot/b12x_split_numerical_l19_m1024.json)
 checks all 8,192 routed rows at L19/M1024. Packed input and SFA publication match
 exactly. Phase1 scales match the reference byte-for-byte; one of 4,194,304 decoded
 intermediate values differs in the original input, with relative L2 9.14e-5.
-Large packed-byte mismatch counts remain recorded, chiefly consistent with
-signed-zero encoding; the reference payload was not retained for a pairwise
-classification. Phase2 output differs from fixed-order FP64 reduction of the
-actual intermediate by about 0.38–0.39% relative L2; graph/eager differences are
+A later in-run comparison directly classifies 372,496 packed-byte differences
+as signed-zero-only with identical positive scales; exactly one byte remains
+different after zero-sign canonicalization. The large raw mismatch count is
+therefore not the count of numerical errors. Phase2 output differs from
+fixed-order FP64 reduction of the actual intermediate by about 0.38–0.39% relative L2; graph/eager differences are
 about 0.18–0.19%, consistent with variable BF16 atomic accumulation order.
 These pass explicitly exploratory thresholds, not production quality gates.
 
-Next: prepare shape-specific Humming integration, complete pending
-PDL/skinny/state-replay checks, and test the mechanisms identified in the
-[external kernel review](EXTERNAL_KERNEL_REVIEW.md): split B12x prefill,
-expert-weight reuse for decode and same-checkpoint Marlin. Then benchmark the
-selected combined stack. Agentic remains the final combined-stack stage.
+The [complete split timing summary](../results/round2_snapshot/b12x_split_initial_summary.json)
+records two reversed orders and a repeat at M1024. Scalar versus split medians
+are approximately 314 versus 369 µs at M1024 and 434 versus 640 µs at M4096.
+Live scalar workspaces use M128 in both component follow-ups. Standalone quant,
+publisher/clears, phase1 and phase2 measurements use different cache/preparation
+conditions from a contiguous call; their sums are not measured full-call time.
+This split implementation is not selected for serving.
+
+The [workspace-band screen](../results/round2_snapshot/workspace_bands_summary.json)
+passes six graph transitions and its exploratory diagnostics but regresses the
+changed tile sizes. The [installed-source analysis](../results/round2_snapshot/workspace_band_source_analysis.md)
+shows that M128 tails already predicate inactive M16 MMA fragments in FC1 and
+FC2. Lower padded-row counts do not imply the corresponding removal of tensor
+core work. A narrower operand-load predicate is only a new hypothesis: preserve
+all pipeline/barrier participation and measure actual instructions/resources.
+
+Next: finish strong-comparator decode and padding/replay checks, integrate the
+winning small-M path into vLLM, and test narrowly justified prefill mechanisms from the
+[external kernel review](EXTERNAL_KERNEL_REVIEW.md). The initial split and
+workspace-band policies remain unselected. The current default and chart are
+unchanged. Benchmark the selected combined stack only after these gates;
+agentic remains the final combined-stack stage.
 
 ## Regenerate the chart
 

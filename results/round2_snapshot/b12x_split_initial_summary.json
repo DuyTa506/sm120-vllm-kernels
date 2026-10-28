@@ -1,0 +1,269 @@
+{
+  "status": "initial split implementation unselected at both tested prefill shapes",
+  "runs": [
+    {
+      "tag": "split_prefill_timing_l19_m1024_1",
+      "exit_code": 0,
+      "m": 1024,
+      "numerical_pre_passed": true,
+      "numerical_post_passed": true,
+      "scalar_workspace_runtime": null,
+      "orders": [
+        {
+          "order": [
+            "scalar",
+            "split",
+            "cutlass"
+          ],
+          "median_us": {
+            "scalar": 313.6611270904541,
+            "split": 369.2134475708008,
+            "cutlass": 327.20863342285156
+          },
+          "range_us": {
+            "scalar": [
+              313.3030319213867,
+              313.9174461364746
+            ],
+            "split": [
+              368.8652801513672,
+              369.54113006591797
+            ],
+            "cutlass": [
+              326.7379379272461,
+              328.5811233520508
+            ]
+          },
+          "split_vs_scalar_percent": 17.710935682612128
+        },
+        {
+          "order": [
+            "cutlass",
+            "split",
+            "scalar"
+          ],
+          "median_us": {
+            "cutlass": 326.92224502563477,
+            "split": 368.8038444519043,
+            "scalar": 313.9475154876709
+          },
+          "range_us": {
+            "cutlass": [
+              326.3283157348633,
+              328.3763122558594
+            ],
+            "split": [
+              368.4966278076172,
+              369.11102294921875
+            ],
+            "scalar": [
+              313.4252738952637,
+              314.20352935791016
+            ]
+          },
+          "split_vs_scalar_percent": 17.473089054080337
+        }
+      ],
+      "components": []
+    },
+    {
+      "tag": "split_prefill_components_l19_m1024_1",
+      "exit_code": 0,
+      "m": 1024,
+      "numerical_pre_passed": true,
+      "numerical_post_passed": true,
+      "scalar_workspace_runtime": {
+        "tile_m": 128,
+        "task_count": 462,
+        "physical_tiles": 231,
+        "scope": "Live field read after graph warmup, outside timing"
+      },
+      "orders": [
+        {
+          "order": [
+            "scalar",
+            "split",
+            "cutlass"
+          ],
+          "median_us": {
+            "scalar": 313.5583972930908,
+            "split": 369.23391342163086,
+            "cutlass": 327.4547195434571
+          },
+          "range_us": {
+            "scalar": [
+              313.3433532714844,
+              314.08063888549805
+            ],
+            "split": [
+              369.08992767333984,
+              369.5008087158203
+            ],
+            "cutlass": [
+              326.2464141845703,
+              328.1100845336914
+            ]
+          },
+          "split_vs_scalar_percent": 17.756027779571394
+        },
+        {
+          "order": [
+            "cutlass",
+            "split",
+            "scalar"
+          ],
+          "median_us": {
+            "cutlass": 327.13727951049805,
+            "split": 368.7014389038086,
+            "scalar": 313.59968185424805
+          },
+          "range_us": {
+            "cutlass": [
+              326.0825729370117,
+              327.47520446777344
+            ],
+            "split": [
+              368.3123016357422,
+              368.9267349243164
+            ],
+            "scalar": [
+              313.4662437438965,
+              313.93728256225586
+            ]
+          },
+          "split_vs_scalar_percent": 17.570731170311028
+        }
+      ],
+      "components": [
+        {
+          "order": [
+            "quant",
+            "publisher_and_clears",
+            "phase1",
+            "phase2"
+          ],
+          "median_us": {
+            "quant": 6.144000217318535,
+            "publisher_and_clears": 38.91199827194214,
+            "phase1": 198.65599274635315,
+            "phase2": 92.16000139713287
+          }
+        },
+        {
+          "order": [
+            "phase2",
+            "phase1",
+            "publisher_and_clears",
+            "quant"
+          ],
+          "median_us": {
+            "phase2": 90.11200070381165,
+            "phase1": 198.65599274635315,
+            "publisher_and_clears": 38.91199827194214,
+            "quant": 6.144000217318535
+          }
+        }
+      ]
+    },
+    {
+      "tag": "split_prefill_timing_l19_m4096_1",
+      "exit_code": 0,
+      "m": 4096,
+      "numerical_pre_passed": true,
+      "numerical_post_passed": true,
+      "scalar_workspace_runtime": {
+        "tile_m": 128,
+        "task_count": 735,
+        "physical_tiles": 400,
+        "scope": "Live field read after graph warmup, outside timing"
+      },
+      "orders": [
+        {
+          "order": [
+            "scalar",
+            "split",
+            "cutlass"
+          ],
+          "median_us": {
+            "scalar": 433.66399765014654,
+            "split": 639.9587059020996,
+            "cutlass": 625.3363227844238
+          },
+          "range_us": {
+            "scalar": [
+              431.6371154785156,
+              435.1180648803711
+            ],
+            "split": [
+              638.1568145751953,
+              640.9011077880859
+            ],
+            "cutlass": [
+              624.640007019043,
+              626.7494583129883
+            ]
+          },
+          "split_vs_scalar_percent": 47.57017169278115
+        },
+        {
+          "order": [
+            "cutlass",
+            "split",
+            "scalar"
+          ],
+          "median_us": {
+            "cutlass": 627.2204780578614,
+            "split": 639.0784072875977,
+            "scalar": 434.1763114929199
+          },
+          "range_us": {
+            "cutlass": [
+              625.0086212158203,
+              627.957763671875
+            ],
+            "split": [
+              638.1568145751953,
+              639.3446350097656
+            ],
+            "scalar": [
+              433.5001754760742,
+              434.8108673095703
+            ]
+          },
+          "split_vs_scalar_percent": 47.19329230333174
+        }
+      ],
+      "components": [
+        {
+          "order": [
+            "quant",
+            "publisher_and_clears",
+            "phase1",
+            "phase2"
+          ],
+          "median_us": {
+            "quant": 14.336000196635723,
+            "publisher_and_clears": 86.01599931716919,
+            "phase1": 301.08800530433655,
+            "phase2": 216.048002243042
+          }
+        },
+        {
+          "order": [
+            "phase2",
+            "phase1",
+            "publisher_and_clears",
+            "quant"
+          ],
+          "median_us": {
+            "phase2": 215.03999829292297,
+            "phase1": 301.05599761009216,
+            "publisher_and_clears": 86.01599931716919,
+            "quant": 14.336000196635723
+          }
+        }
+      ]
+    }
+  ],
+  "component_scope": "Standalone graph components have full-call preparation/output reset outside events; caches/state differ. Never sum as measured full call."
+}

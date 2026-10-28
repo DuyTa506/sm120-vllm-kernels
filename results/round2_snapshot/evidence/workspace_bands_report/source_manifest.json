@@ -1,0 +1,9 @@
+{
+  "workspace_adapter.py": "ee5083a0c806f38f4d46b8b744516a99730b210abe595e5458b2b51d139a1189",
+  "test_workspace_adapter.py": "86b2b703cb939115f77203c7aeaeacf8a5a1accc08a8cb4198696e43dd303dac",
+  "micrograph.py": "3fc4760295e91a8d28d6044377bcacf5befd546ed47ff1e19a99ffdba38c07e6",
+  "process_guard.py": "ada49ef3b8452bac4f6269ea166427cdf3e90ce3fda6335ab3a6374adbf66bd4",
+  "run.sh": "eae6a3c33571a3aa27d95668686250866de48df4d6577859f6b3fdec9568f64f",
+  "provenance.py": "63dbf5c37abd414517915504d99487a65a550eee966c6231a8d8b80efdace5a1",
+  "capture_manifest.json": "3664f6353b5ac56f72d78f570163ce54c70920ecdc465ab236de7c9d436ff6d2"
+}
