@@ -1,0 +1,227 @@
+[
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 796.671986579895,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004351905547082424,
+      "max_abs": 0.001953125
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.004367574583739042,
+      "max_abs": 0.001953125
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  },
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 780.7679772377014,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004460575059056282,
+      "max_abs": 0.001220703125
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.004408642649650574,
+      "max_abs": 0.00146484375
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  },
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 842.6240086555481,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004302747547626495,
+      "max_abs": 0.0009765625
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.004287208896130323,
+      "max_abs": 0.0009765625
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  },
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 854.0800213813782,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004368134308606386,
+      "max_abs": 0.0009765625
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.004355655051767826,
+      "max_abs": 0.0009765625
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  },
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 811.0079765319824,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004161463119089603,
+      "max_abs": 0.0009765625
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.004231918137520552,
+      "max_abs": 0.001220703125
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  },
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 837.8559947013855,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004452589899301529,
+      "max_abs": 0.001220703125
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.004409841261804104,
+      "max_abs": 0.001220703125
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  },
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 845.1520204544067,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004852214828133583,
+      "max_abs": 0.00146484375
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.0048264493234455585,
+      "max_abs": 0.0009765625
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  },
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 819.0720081329346,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004187464248389006,
+      "max_abs": 0.0009765625
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.004231206141412258,
+      "max_abs": 0.00146484375
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  },
+  {
+    "status": "passed",
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "tokens": 1024,
+    "layer": 19,
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "range": "scalar_L19_M1024",
+    "outside_range_event_us": 792.5440073013306,
+    "before_after": {
+      "finite": true,
+      "rel_l2": 0.004175754729658365,
+      "max_abs": 0.0009765625
+    },
+    "after_fresh": {
+      "finite": true,
+      "rel_l2": 0.004254406783729792,
+      "max_abs": 0.001220703125
+    },
+    "tile_m": 128,
+    "scope": "Counter diagnostic; no speed or production quality claim"
+  }
+]

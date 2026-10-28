@@ -5,7 +5,9 @@ The current measured stack is **optimized → next → next + scalar b12x**.
 with the quality and mixed-workload limits recorded below. Round 2 is ongoing;
 its kernel timings are not added to the serving gains in the chart.
 The current handoff is [HANDOFF.md](HANDOFF.md). The first NCU attempt failed
-with `ERR_NVGPUCTRPERM`; no counters were collected. Jobs are stopped for handoff.
+with `ERR_NVGPUCTRPERM`; the user subsequently collected attempt2 successfully.
+The [verified counter findings](PREFILL_COUNTER_FINDINGS.md) show 311.68 µs and
+1.403 TB/s for the native scalar L19/M1024 kernel. No new serving patch is promoted.
 The [CUDA profiling workflow](CUDA_PROFILING_WORKFLOW.md) documents the next
 diagnostic process; its addition introduces no new benchmark result.
 

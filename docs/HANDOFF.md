@@ -21,8 +21,10 @@ for promotion. Added 2026-10-28 without launching another GPU experiment.
   selections differ. Do not present this as a causal speedup.
 - Split prefill, workspace tile bands and two operand-load guard variants
   did not beat the current scalar baseline. They are excluded from composition.
-- Nsight Compute was finally attempted. It failed with **ERR_NVGPUCTRPERM**.
-  There are **no hardware counters and no counter-based bottleneck conclusion**.
+- The first Nsight Compute attempt failed with **ERR_NVGPUCTRPERM**. The user
+  subsequently supplied a successful attempt2: native scalar L19/M1024 is
+  311.68 µs at 1.403 TB/s DRAM. See [counter findings](PREFILL_COUNTER_FINDINGS.md)
+  for the report, DRAM-first interpretation and its isolated-kernel limits.
 - The current default is still `next`; `scalar` is the existing measured opt-in
   stack, with its previously documented quality/mixed-workload limitations.
 
@@ -203,7 +205,7 @@ sharing the same cache family is not a substitute. Filter actual AOT directories
 from model logs, not the cumulative cache inventory. Then repeat on/off with
 matched selections before claiming a serving gain or composing this patch.
 
-## Prefill: completed exclusions and the current blocker
+## Prefill: completed exclusions and successful counter follow-up
 
 | EXP path | Result |
 |---|---|
@@ -211,22 +213,32 @@ matched selections before claiming a serving gain or composing this patch.
 | `kernels/moe-workspace-bands/` | Smaller tile policy ~1.9% slower at M1024, ~27.1% slower at M2048, with much larger scratch. Native M128 already skips inactive MMA fragments. Excluded. |
 | `kernels/moe-inactive-loads/RESULT.md` | 31 load guards make calls ~2.8×/3.4× slower. Stack80→688 bytes; static LDL/STL sites4/5→1484/1099. Excluded. |
 | `kernels/moe-inactive-loads-repair/RESULT.md` | Six FC2 guards with explicitly defined operands restore stack80 and LDL/STL4/5, but timing is +0.306%/+1.288% slower. Excluded. |
-| `kernels/prefill-counter-study/` | Minimal NCU baseline harness, now attempted and blocked by counter access. |
+| `kernels/prefill-counter-study/` | Attempt1 permission failure; user-supplied attempt2 successfully collected counters via a temporary container with SYS_ADMIN. |
 
-Last run:
+Historical first run:
 `kernels/prefill-counter-study/results/scalar_l19_m1024_counters_1/`.
 `classification.json` says `counter_permission_unavailable`; `run.log` contains
 `ERR_NVGPUCTRPERM`; exit1 is preserved. Source71/runtime13/capture verification
 and exact profiler/application cleanup pass. No counters were collected.
 An outside-range ~919 µs event was measured under profiler injection; **do not
 use it as ordinary baseline timing**. No driver, permission or system changes
-were made. Do not blindly rerun this command until counter access is resolved.
+were made in that first attempt.
+
+**Latest evidence:** `scalar_l19_m1024_counters_2/counters.ncu-rep` was imported
+offline after the user collected it. One native kernel, nine application replay
+reports, profiler exit0. DRAM 1.402691 TB/s, duration311.68 µs, L2 hit60.39%,
+L2 throughput34.25%, tensor/SM20.87%. The [counter findings](PREFILL_COUNTER_FINDINGS.md)
+and [published raw evidence](../results/prefill_counter_study_2/manifest.json)
+supersede the permission-blocked status for that execution route. This is strong
+evidence to target DRAM traffic/throughput at M1024, not a serving-wide diagnosis.
+The outer attempt1 audit bundle is not present for attempt2; preserve that limit.
 
 The harness is application replay/strict, one NVTX-filtered baseline kernel,
 cache-control none and clock-control none. Its portable NCU payload is a local
 copy of the installed tool, under ignored `tools/`; no package installation.
-Existing Nsight Systems traces establish kernel time and geometry but do not
-settle DRAM/L2/shared-memory/compute/stall limits.
+Existing Systems traces provide application context; the new NCU report adds
+six metrics for one isolated kernel. Stalls, achieved occupancy and achieved
+clocks were not collected. Do not extrapolate to other shapes without evidence.
 
 ## Other tracks: do not lose or accidentally promote them
 
@@ -255,9 +267,11 @@ settle DRAM/L2/shared-memory/compute/stall limits.
    Do not launch the incomplete pin table as a controlled benchmark.
 3. Run a matched, repeated on/off screen, check quality, then expand to the
    repository task matrix if beneficial. Current raw +9.6% is not confirmed.
-4. For prefill, counter access is an external prerequisite for the prepared NCU
-   study. Report it plainly; do not change driver permissions implicitly or
-   invent bottleneck conclusions. Existing negative implementations stay excluded.
+4. For prefill, read the successful counter findings and attribute the kernel's
+   share of serving prefill time. Choose one traffic/reuse or bandwidth-utilization
+   hypothesis; keep full-call timing independent of profiling. Counter access
+   works through the user's temporary-container route. Existing negative variants
+   stay excluded; no new GPU job is automatically queued.
 5. Compose only justified changes, publish the measured configuration/chart,
    and perform the final combined agentic evaluation.
 

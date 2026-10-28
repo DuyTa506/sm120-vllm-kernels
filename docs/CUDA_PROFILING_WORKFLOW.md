@@ -72,7 +72,7 @@ behavior; unprofiled measurements establish the performance claim.
 |---|---|---|
 | CUDA events + host monotonic timing | How long does GPU work / the complete request take? | Events must enclose the intended stream dependencies; synchronize the completion event before reading. Host timing of an async launch alone is not GPU time. Use the existing harness. |
 | Nsight Systems (`nsys`) + NVTX | Which CPU/GPU work, gaps and dependencies dominate the application? Does the candidate run? | Host 2025.3.2; live ON3/OFF1 reports already exist. Start here. |
-| Nsight Compute (`ncu`) | Which resource or latency mechanism limits a selected kernel? | Host 2025.3.1; local container payload exists. First collection failed with `ERR_NVGPUCTRPERM`; no counters. |
+| Nsight Compute (`ncu`) | Which resource or latency mechanism limits a selected kernel? | Host 2025.3.1; attempt1 permission failure, attempt2 successfully imported. See [counter findings](PREFILL_COUNTER_FINDINGS.md). |
 | PyTorch Profiler / vLLM profiling hooks | Which framework operator, shape or call stack produced the work? | Optional focused diagnostic when CUDA names are insufficient; richer instrumentation adds overhead. Not a replacement for normal timing. |
 | Compute Sanitizer | Is there an invalid access, uninitialized read, shared-memory hazard or synchronization error? | Host executable 2025.3.1 verified by `--version`; this handoff does not claim a sanitizer run. |
 | `cuobjdump`, `nvdisasm`, compiler resource reports | Did the compiler emit the intended MMA, loads, barriers and resource usage? | Available on host; offline disassembly was used for the load-guard experiment. Static instruction sites are not executed instruction counts. |
@@ -153,11 +153,13 @@ but so can launch latency, other layers and MTP. Reordering dispatch must preser
 the model's selected experts and weights; changing routing is a quality change.
 [NVIDIA Compute Triage](https://docs.nvidia.com/nsight-compute/ComputeTriage/index.html).
 
-**Current blocker:** the prepared prefill study failed because GPU performance
-counters are unavailable to the profiling process. This is not a negative kernel
-result. Do not rerun unchanged or infer counter values. Counter access needs an
-explicit administrator/container-policy resolution before retry; this note
-does not change those permissions. Systems CUDA/NVTX analysis remains usable.
+**Updated access status:** attempt1 failed because the profiling process lacked
+counter access. The user collected attempt2 in a temporary container with
+`CAP_SYS_ADMIN`; the report now verifies successful collection. This does not
+change the persistent dev container's capabilities or host driver policy.
+See the [counter findings](PREFILL_COUNTER_FINDINGS.md) for measured values,
+scope and audit limitations. Use the shared GPU lock and normal source/cleanup
+protocol for future collections; do not infer those checks from raw counters alone.
 [NVIDIA's error explanation](https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-nsightcompute).
 
 ## 6. Check correctness, then measure one change
@@ -222,7 +224,8 @@ and terminal result files for status.
 | `kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/traces/live.nsys-rep` and `live.sqlite` | Baseline timeline for operation/step attribution. Pair is confounded by 4/13 active Inductor selection differences. |
 | `kernels/dp4a-expert-reuse/serving/inductor_pin/` | Unfinished control prototype; reference is `incomplete_fail_closed`, not ready for a controlled GPU run. |
 | `kernels/prefill-counter-study/results/scalar_l19_m1024_counters_1/` | `classification.json`/`run.log`: counter permission failure, exit1, no counters. Outside-range ~919 µs timing under injection is not a normal baseline. |
-| `kernels/prefill-counter-study/` | Existing focused application-replay harness, NVTX filter, source/capture checks and cleanup; consult it after counter access is resolved. |
+| `kernels/prefill-counter-study/results/scalar_l19_m1024_counters_2/` | Successful user-supplied report: scalar L19/M1024, 311.68 µs, DRAM1.403 TB/s. Published copy and analysis are linked in [counter findings](PREFILL_COUNTER_FINDINGS.md). |
+| `kernels/prefill-counter-study/` | Existing focused application-replay harness, NVTX filter, source/capture checks and cleanup. Attempt2 used the direct process runner, so the full outer audit bundle is absent. |
 
 Current conclusions remain those in the [handoff](HANDOFF.md): M3 layer micro
 49.26→24.63 µs and live integration are established; the short c1/c4 serving pair
@@ -269,6 +272,6 @@ Decision: retain / conditional / reject / unresolved; next discriminating check:
 ```
 
 The next agent should first analyze existing timelines and resolve the narrow
-M3 compiler-control gap. For prefill, use Systems to rank costs while the NCU
-permission issue remains unresolved. Choose the next kernel experiment from that
-evidence. No background GPU run or permission change is started by this handoff.
+M3 compiler-control gap. For prefill, combine Systems attribution with the new
+M1024 DRAM evidence, then choose one traffic/reuse or bandwidth-utilization
+experiment. No background GPU run or permission change is started by this note.

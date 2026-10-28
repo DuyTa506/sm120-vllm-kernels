@@ -1,19 +1,26 @@
 {
-  "status": "counter_permission_unavailable",
-  "counter_values_obtained": false,
-  "performance_conclusion": null,
-  "no_retry": true,
-  "artifact_sha256": {
-    "run.log": "252071521ed49c4794bc8c083a32b32c4eb846068f19486d168a845034c355c6",
-    "classification.json": "e2c4ea0c265504595a79b05f9c7924ae4487e6425c72e87a9710e25359cae66b",
-    "process.json": "eddeaba8e51be03e235adabab6ca715cb0e5a63c825c425b5d067bc7b9143923",
-    "process_cleanup.json": "f93294deca67f0a2730f841fbd2d0128eafcd8f836cd5472c79c2ed5ba1256f1",
-    "runtime_verify.json": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515",
-    "source_manifest.json": "3a2b70a63bce344c110ee4ab4c7e00c5e10c6ee9455e74c19a45e65b45549c0d",
-    "runtime_manifest.json": "d704a071d9ff2dae69b016facfdaac77ef6ac99a3f449babe51fc239f4a7055e",
-    "gpu_after.csv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "exit_code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
-    "passes/37843_240349010/process.json": "ce7dd40f73113bc6d08c8231890f961a40a525426681c01cb87565f3456bf86b",
-    "passes/37843_240349010/report.json": "1131bba64713fbbd2d690223728d234ca36514b84f01bf36aa278c276814f859"
+  "status": "counters_collected",
+  "counter_values_obtained": true,
+  "latest_run": "scalar_l19_m1024_counters_2",
+  "summary": "../../results/prefill_counter_study_2/summary.json",
+  "report_sha256": "4580f7d0f490672e3efccab07c26e5ec7b249a541ba57f29d6467d68cf71a14b",
+  "previous_attempt": {
+    "status": "counter_permission_unavailable",
+    "counter_values_obtained": false,
+    "performance_conclusion": null,
+    "no_retry": true,
+    "artifact_sha256": {
+      "run.log": "252071521ed49c4794bc8c083a32b32c4eb846068f19486d168a845034c355c6",
+      "classification.json": "e2c4ea0c265504595a79b05f9c7924ae4487e6425c72e87a9710e25359cae66b",
+      "process.json": "eddeaba8e51be03e235adabab6ca715cb0e5a63c825c425b5d067bc7b9143923",
+      "process_cleanup.json": "f93294deca67f0a2730f841fbd2d0128eafcd8f836cd5472c79c2ed5ba1256f1",
+      "runtime_verify.json": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515",
+      "source_manifest.json": "3a2b70a63bce344c110ee4ab4c7e00c5e10c6ee9455e74c19a45e65b45549c0d",
+      "runtime_manifest.json": "d704a071d9ff2dae69b016facfdaac77ef6ac99a3f449babe51fc239f4a7055e",
+      "gpu_after.csv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "passes/37843_240349010/process.json": "ce7dd40f73113bc6d08c8231890f961a40a525426681c01cb87565f3456bf86b",
+      "passes/37843_240349010/report.json": "1131bba64713fbbd2d690223728d234ca36514b84f01bf36aa278c276814f859"
+    }
   }
 }
