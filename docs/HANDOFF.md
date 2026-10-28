@@ -4,6 +4,11 @@ Updated 2026-10-28, 13:30 Asia/Ho_Chi_Minh. The user requested a quick handoff
 because progress had become difficult to track. Work is being handed over,
 not declared complete. Do not restart the research from scratch.
 
+**Before the next optimization, read [CUDA_PROFILING_WORKFLOW.md](CUDA_PROFILING_WORKFLOW.md).**
+It records the NVIDIA APOD / Systems → Compute workflow, correctness tools,
+existing trace locations, microbench-to-serving diagnosis and evidence required
+for promotion. Added 2026-10-28 without launching another GPU experiment.
+
 ## The actual outcome
 
 **No round-2 patch has a confirmed serving improvement sufficient for promotion.**
@@ -243,7 +248,8 @@ settle DRAM/L2/shared-memory/compute/stall limits.
 
 ## Resume order
 
-1. Read this file and inspect the local worktree inventory. Preserve experiments.
+1. Read this file and the [profiling workflow](CUDA_PROFILING_WORKFLOW.md), inspect
+   the local inventory, and analyze existing timelines. Preserve experiments.
 2. Finish the narrow compiler-control evidence for the real M3 integration;
    record actual constructor/first-launch usage if CPU linkage cannot resolve it.
    Do not launch the incomplete pin table as a controlled benchmark.
