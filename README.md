@@ -379,13 +379,15 @@ optimized config still wins and the prefix hit rate stays at 94%.
 These experiments use the current scalar-MoE composition as their parent where
 applicable. None has been selected for a new composed serving configuration.
 Operator results below do not replace the task matrix or final agentic evaluation.
+An outcome index of every round-two experiment, including which raw results are not published,
+is in [docs/ROUND2_EXPERIMENTS.md](docs/ROUND2_EXPERIMENTS.md).
 
 | candidate | measured evidence | remaining gate |
 |---|---|---|
 | [DeepGEMM rowwise FP8 epilogue](kernels/deepgemm-sm120/README.md) | 21 actual QKVZ operand cells: 2.70–10.06% lower latency than the faster CUTLASS/skinny comparator; nine extra buckets pass; vLLM trace proves 30 fused calls per M48 replay | short serving pair is inconclusive: +0.68% decode throughput but +4.43% TPOT, NLL drift, three differing common Inductor configs and missing final audit; unselected; large-prefill cells lose |
 | [Native NVFP4 task ordering](kernels/moe-task-order/README.md) | L19/M4096 full-call ABBA: baseline 434.98/434.30 us, long-first 417.94/417.65 us (~3.9% lower); full-2048-column contributions and FP64 reference match exactly | [diagnostic](kernels/moe-task-order-diagnostic/README.md) identifies BF16 atomic-order drift on this case; uninstrumented vLLM timing and model-quality checks still required |
 | [Layer-specific MoE dispatch](kernels/moe-layer-dispatch/README.md) | CUTLASS slower in all 12 sampled calibration/held-out cells; numerical gate also failed | no policy selected; negative result applies only to sampled shapes/routes |
-| [PDL / swap-AB](kernels/pdl-swapab/README.md) | PDL paired artifact/config proof passes, NLL shift unresolved; two native swap matrices: all 16 off/on outputs identical, QKVZ-shaped N12288/K2048 latency 2.3–4.1% lower | repeated PDL quality/timing pending; [swap report](kernels/pdl-swapab/results/swap_native_pair_1.json) retains process-sensitive M1/M16 results; this verifies existing native policy, not a new model patch |
+| [PDL / swap-AB](kernels/pdl-swapab/README.md) | PDL paired artifact/config proof passes, NLL shift unresolved; two native swap matrices: all 16 off/on outputs identical, QKVZ-shaped N12288/K2048 latency 2.3–4.1% lower | repeated PDL quality/timing pending; [swap report](results/round2_snapshot/native_swap_pair.json) retains process-sensitive M1/M16 results; this verifies existing native policy, not a new model patch |
 | [GDN state replay](kernels/gdn-replay/README.md) | current-stack shadow passes: 869,070 checked rows including 630 intermediate-boundary rows; 32 complete long outputs and 91 completed/37 aborted stress requests without errors | actual preemption and paired serving timing still pending; historical gains are not new-stack results |
 | [Humming NVFP4](kernels/humming-sm120/README.md) | L19/M1024 diagnosis isolates scale rounding: private RN variant matches vLLM FC1 quantized bytes exactly; output relative L2 versus scalar falls from 17.89% to 2.86% | RN error versus independent FP32 reference is 14.490%, versus CUTLASS 14.494%; remaining FC2 rounding differences need broader checks. Earlier ~8.6% timing gain belongs to RU, not RN; no model speedup claimed |
 
