@@ -1,0 +1,39 @@
+{
+  "decision": "not_selected_no_positive_fullcall_signal",
+  "quality_equivalence": false,
+  "candidate_sha256": "db422c6ea3c32a58e9a93339ec66d369955ddf6b43a69b41815821bb75c8eb1e",
+  "hashes": {
+    "paired_gpu_1.json": "4dde78929d478c1edab80b18c203102f6455681ebebd41dafbb38577f6ef0514",
+    "defined_fc2_off_1/source_manifest.json": "4ef71711bf496f4302c930980a9eac9306772ac023103c789d9a9027be3d43f6",
+    "defined_fc2_off_1/runtime_manifest.json": "16aeeb2f1fa906aa28e3d158ac337e827b293f395a557e4fd99ba565a3087732",
+    "defined_fc2_off_1/measurement/report.json": "978a70cebea4fa62d3b69beaacaca27e7c9220697f412726336108bdfb60f89b",
+    "defined_fc2_off_1/measurement/outputs.pt": "70d696ff16b36d4e4118457cedf83004ae2bd98edfb740440eef9079663c05be",
+    "defined_fc2_off_1/measurement/trace_m1024.json": "6de7d1a7e80f0c44b01a62142ca39a3f56bbb64a854c1de9cb8e709a65a5ae31",
+    "defined_fc2_off_1/measurement/trace_m4096.json": "8d209f9a08fdf28f2ec042201aac97dbcdcb02f4c832299ce6da80a5da955dac",
+    "defined_fc2_off_1/compiled_artifact_0/summary.json": "104bff1b286a5c9d8e7aad4309f22c5c343cda619594d91a4f552f3f83d3d4c9",
+    "defined_fc2_off_1/compiled_artifact_0/kernel.cubin": "167c4e371dff3dcde9e05717cbd66a260d0d5f75b152767ce55739292cd75af9",
+    "defined_fc2_off_1/compiled_artifact_0/resource.txt": "b98e365a8bdef8fdf7c3334f8fa28b4ff9388d13529a3505bd5f66358f7695d4",
+    "defined_fc2_off_1/compiled_artifact_0/sass.txt": "2ac220734d8662bac97af995ae5c4b9d1d05194fbe9c5faba42cf2ae0dc8be05",
+    "defined_fc2_on_1/source_manifest.json": "4ef71711bf496f4302c930980a9eac9306772ac023103c789d9a9027be3d43f6",
+    "defined_fc2_on_1/runtime_manifest.json": "374f405c2165358a3e2ab11ece5e1c40d2ed4317470ba3327d7ad406166292a7",
+    "defined_fc2_on_1/measurement/report.json": "095b0903546e7f1c29da408fe1c3e0af067a5182c17d820078e6a572b89cc6a3",
+    "defined_fc2_on_1/measurement/outputs.pt": "885476003f6414141309b172113903c127317b2834d07a320ba62dd06dbf9879",
+    "defined_fc2_on_1/measurement/trace_m1024.json": "a48432e5291d4c6cbca4435d0186e8c8f9c2dcfd56cca0b31047eed65b792195",
+    "defined_fc2_on_1/measurement/trace_m4096.json": "22fd18b548751c4e996a9dbf7a94be303aff05481c7fbc0387a3378fe517bb8a",
+    "defined_fc2_on_1/compiled_artifact_0/summary.json": "aefa23e9afd920e6832595b6c51dd198ba5ad78445141e9ee1304f182774ec0c",
+    "defined_fc2_on_1/compiled_artifact_0/kernel.cubin": "d0287a826b337392beb55afde7f5a4c91011a204aa068f261bc62609b527ab0c",
+    "defined_fc2_on_1/compiled_artifact_0/resource.txt": "4851c6463a0a6699921a09621364b28d0546b3df022575716ab6418dd155d0aa",
+    "defined_fc2_on_1/compiled_artifact_0/sass.txt": "bd8685f6c1ee93c180b7e7eedfd8f6999d2942a82cb9cdc75fdc57fa54d5cc0d"
+  },
+  "latency_changes_percent": {
+    "1024": 0.305854736850697,
+    "4096": 1.2880557711173912
+  },
+  "max_paired_rel_l2": 0.004377658013254404,
+  "limitations": [
+    "single sequential pair",
+    "no production quality equivalence",
+    "no dynamic instruction/stall attribution",
+    "no before-atomic contribution expansion for nonwinning candidate"
+  ]
+}

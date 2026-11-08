@@ -1,0 +1,83 @@
+{
+  "status": "diagnostic_pair_passed",
+  "quality_equivalence": false,
+  "checks": [
+    {
+      "case": "1024_actual",
+      "rel_l2": 0.005402380600571632,
+      "max_abs": 0.001708984375,
+      "finite": true
+    },
+    {
+      "case": "1024_changed_input_routes",
+      "rel_l2": 0.005464378744363785,
+      "max_abs": 0.000244140625,
+      "finite": true
+    },
+    {
+      "case": "1024_sparse_tail",
+      "rel_l2": 0.004877359140664339,
+      "max_abs": 0.0001220703125,
+      "finite": true
+    },
+    {
+      "case": "1024_restored",
+      "rel_l2": 0.005386070813983679,
+      "max_abs": 0.001708984375,
+      "finite": true
+    },
+    {
+      "case": "4096_actual",
+      "rel_l2": 0.003989925608038902,
+      "max_abs": 0.001953125,
+      "finite": true
+    },
+    {
+      "case": "4096_changed_input_routes",
+      "rel_l2": 0.00364753813482821,
+      "max_abs": 0.00048828125,
+      "finite": true
+    },
+    {
+      "case": "4096_sparse_tail",
+      "rel_l2": 0.004341660998761654,
+      "max_abs": 0.000152587890625,
+      "finite": true
+    },
+    {
+      "case": "4096_restored",
+      "rel_l2": 0.003961318638175726,
+      "max_abs": 0.001953125,
+      "finite": true
+    }
+  ],
+  "timings": [
+    {
+      "tokens": 1024,
+      "off_us": [
+        314.41599130630493,
+        314.1759932041168,
+        314.64000046253204
+      ],
+      "on_us": [
+        880.8480203151703,
+        871.6639876365662,
+        891.184002161026
+      ]
+    },
+    {
+      "tokens": 4096,
+      "off_us": [
+        437.3600035905838,
+        436.91200017929077,
+        438.06399405002594
+      ],
+      "on_us": [
+        1483.024001121521,
+        1480.0000190734863,
+        1486.1599802970886
+      ]
+    }
+  ],
+  "scope": "Separate startup single pair; no selection or speed attribution without repeat, artifact and numerical review"
+}

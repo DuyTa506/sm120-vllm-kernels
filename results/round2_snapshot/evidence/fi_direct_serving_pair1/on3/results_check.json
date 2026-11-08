@@ -1,0 +1,1 @@
+{"decode_c1": {"passed": true, "completed": 8, "output_tokens": 1024}, "decode_c4": {"passed": true, "completed": 16, "output_tokens": 2048}, "prefill_2048": {"passed": true, "completed": 8, "output_tokens": 8}}

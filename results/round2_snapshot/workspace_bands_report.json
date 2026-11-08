@@ -1,0 +1,365 @@
+{
+  "status": "passed",
+  "scope": "Exact L19 capture prefixes; complete scalar apply, graph span timing; no serving or quality equivalence claim",
+  "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+  "checkpoint_identity": {
+    "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+    "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+  },
+  "cases": [
+    {
+      "tokens": 1024,
+      "wrapper_state": {
+        "tile_m": 32,
+        "dynamic_id": 128451554513200,
+        "output_ptr": 128449893105664,
+        "fold_ptr": 128441064093184,
+        "views_id": 128451555460112
+      },
+      "checks": [
+        {
+          "name": "actual",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.009141072630882263,
+            "max_abs": 0.00244140625
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.006148006767034531,
+            "max_abs": 0.001220703125
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.026764923706650734,
+            "max_abs": 0.00634765625
+          }
+        },
+        {
+          "name": "changed_input_routes",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.008822954259812832,
+            "max_abs": 0.00048828125
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.006392162758857012,
+            "max_abs": 0.000244140625
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.02668287418782711,
+            "max_abs": 0.0013427734375
+          }
+        },
+        {
+          "name": "restored",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.009143826551735401,
+            "max_abs": 0.00244140625
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.00605311244726181,
+            "max_abs": 0.001220703125
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.026770588010549545,
+            "max_abs": 0.00634765625
+          }
+        }
+      ],
+      "timing_passes": [
+        {
+          "order": [
+            0,
+            1
+          ],
+          "baseline_us": 319.6000009775162,
+          "shared_us": 325.6480097770691
+        },
+        {
+          "order": [
+            1,
+            0
+          ],
+          "baseline_us": 319.2159980535507,
+          "shared_us": 325.312003493309
+        }
+      ]
+    },
+    {
+      "tokens": 2048,
+      "wrapper_state": {
+        "tile_m": 64,
+        "dynamic_id": 128451553092640,
+        "output_ptr": 128439629643776,
+        "fold_ptr": 128441064083968,
+        "views_id": 128464025392992
+      },
+      "checks": [
+        {
+          "name": "actual",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.0091874273493886,
+            "max_abs": 0.005859375
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.00578411016613245,
+            "max_abs": 0.00390625
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.025881340727210045,
+            "max_abs": 0.008544921875
+          }
+        },
+        {
+          "name": "changed_input_routes",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.008856762200593948,
+            "max_abs": 0.00048828125
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.006315605714917183,
+            "max_abs": 0.000244140625
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.026873266324400902,
+            "max_abs": 0.0013427734375
+          }
+        },
+        {
+          "name": "restored",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.009201697073876858,
+            "max_abs": 0.005859375
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.005972086917608976,
+            "max_abs": 0.0029296875
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.025889655575156212,
+            "max_abs": 0.008544921875
+          }
+        }
+      ],
+      "timing_passes": [
+        {
+          "order": [
+            0,
+            1
+          ],
+          "baseline_us": 339.6959900856018,
+          "shared_us": 431.60000443458557
+        },
+        {
+          "order": [
+            1,
+            0
+          ],
+          "baseline_us": 339.9360030889511,
+          "shared_us": 431.87201023101807
+        }
+      ]
+    },
+    {
+      "tokens": 4096,
+      "wrapper_state": {
+        "tile_m": 128,
+        "dynamic_id": 128451553094704,
+        "output_ptr": 128438983720960,
+        "fold_ptr": 128441064066560,
+        "views_id": 128451562958976
+      },
+      "checks": [
+        {
+          "name": "actual",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.003014262532815337,
+            "max_abs": 0.0029296875
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.0029809758998453617,
+            "max_abs": 0.0029296875
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.02481159381568432,
+            "max_abs": 0.01171875
+          }
+        },
+        {
+          "name": "changed_input_routes",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.0024750656448304653,
+            "max_abs": 0.00048828125
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.0026996207889169455,
+            "max_abs": 0.00048828125
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.024490635842084885,
+            "max_abs": 0.0028076171875
+          }
+        },
+        {
+          "name": "restored",
+          "band_vs_parent": {
+            "finite": true,
+            "rel_l2": 0.0032742093317210674,
+            "max_abs": 0.0029296875
+          },
+          "band_graph_vs_fresh": {
+            "finite": true,
+            "rel_l2": 0.0030299853533506393,
+            "max_abs": 0.00244140625
+          },
+          "band_vs_cutlass": {
+            "finite": true,
+            "rel_l2": 0.024810828268527985,
+            "max_abs": 0.01171875
+          }
+        }
+      ],
+      "timing_passes": [
+        {
+          "order": [
+            0,
+            1
+          ],
+          "baseline_us": 442.4639940261841,
+          "shared_us": 441.0720020532608
+        },
+        {
+          "order": [
+            1,
+            0
+          ],
+          "baseline_us": 442.3360079526901,
+          "shared_us": 441.8080002069473
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "tokens": 4096,
+      "state": {
+        "tile_m": 128,
+        "dynamic_id": 128451553094704,
+        "output_ptr": 128438983720960,
+        "fold_ptr": 128441064066560,
+        "views_id": 128451562958976
+      },
+      "error": {
+        "finite": true,
+        "rel_l2": 0.0032899146899580956,
+        "max_abs": 0.001953125
+      }
+    },
+    {
+      "tokens": 1024,
+      "state": {
+        "tile_m": 32,
+        "dynamic_id": 128451554513200,
+        "output_ptr": 128449893105664,
+        "fold_ptr": 128441064093184,
+        "views_id": 128451555460112
+      },
+      "error": {
+        "finite": true,
+        "rel_l2": 0.009123238734900951,
+        "max_abs": 0.00244140625
+      }
+    },
+    {
+      "tokens": 2048,
+      "state": {
+        "tile_m": 64,
+        "dynamic_id": 128451553092640,
+        "output_ptr": 128439629643776,
+        "fold_ptr": 128441064083968,
+        "views_id": 128464025392992
+      },
+      "error": {
+        "finite": true,
+        "rel_l2": 0.009212140925228596,
+        "max_abs": 0.005859375
+      }
+    },
+    {
+      "tokens": 4096,
+      "state": {
+        "tile_m": 128,
+        "dynamic_id": 128451553094704,
+        "output_ptr": 128438983720960,
+        "fold_ptr": 128441064066560,
+        "views_id": 128451562958976
+      },
+      "error": {
+        "finite": true,
+        "rel_l2": 0.002758582355454564,
+        "max_abs": 0.00146484375
+      }
+    },
+    {
+      "tokens": 2048,
+      "state": {
+        "tile_m": 64,
+        "dynamic_id": 128451553092640,
+        "output_ptr": 128439629643776,
+        "fold_ptr": 128441064083968,
+        "views_id": 128464025392992
+      },
+      "error": {
+        "finite": true,
+        "rel_l2": 0.009233159944415092,
+        "max_abs": 0.005859375
+      }
+    },
+    {
+      "tokens": 1024,
+      "state": {
+        "tile_m": 32,
+        "dynamic_id": 128451554513200,
+        "output_ptr": 128449893105664,
+        "fold_ptr": 128441064093184,
+        "views_id": 128451555460112
+      },
+      "error": {
+        "finite": true,
+        "rel_l2": 0.009145282208919525,
+        "max_abs": 0.00244140625
+      }
+    }
+  ],
+  "gate": {
+    "finite": true,
+    "rel_l2_max": 0.02,
+    "scope": "Exploratory screen vs current scalar, not production quality acceptance"
+  },
+  "scratch_allocation_bytes": {
+    "parent": 607809536,
+    "three_bands": 1400907776
+  },
+  "quality_equivalence": false
+}

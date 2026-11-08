@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-28",
+  "scope": "Pinned source review only; no measurement of this external repository on our GPU",
+  "sm120_nvfp4_ops": {
+    "head": {
+      "sha": "6e0a06eb8321d6c9c7713446a60560b3cff92350",
+      "date": "2026-09-27T16:20:11Z"
+    },
+    "sources": {
+      "src/grouped_gemm/kernels.cuh": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/src/grouped_gemm/kernels.cuh",
+        "bytes": 16310,
+        "sha256": "83a1349f88d12164ccdda7b61ea75eec2c538f69d609d7105ef1d7d0eaa72eb5"
+      },
+      "src/grouped_gemm/grouped_gemm.cu": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/src/grouped_gemm/grouped_gemm.cu",
+        "bytes": 5861,
+        "sha256": "d22dc9454af6ced0814bf49b014f67c0b28391dcbe8ef894e7d624cae84427e8"
+      },
+      "src/common/gemm_config.cuh": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/src/common/gemm_config.cuh",
+        "bytes": 6432,
+        "sha256": "1ee7287124f88b3dd2dd560497d6538277c1d10ddf48d751b9ef7a47cc87f2ce"
+      },
+      "src/fused_moe/fused_moe.cu": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/src/fused_moe/fused_moe.cu",
+        "bytes": 6645,
+        "sha256": "8c7fedf56a22dda366c3495b6dd341e1491c541998ede2982fd05703e7d33051"
+      },
+      "src/fused_moe/count_and_gather.cu": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/src/fused_moe/count_and_gather.cu",
+        "bytes": 5186,
+        "sha256": "dba1ec2fa5545c2be889d2ffe87d1874e26cf01b06410676853fe030c2ae5817"
+      },
+      "src/fused_moe/activation.cu": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/src/fused_moe/activation.cu",
+        "bytes": 8902,
+        "sha256": "41fcfb467c052b387509e211db8c660588f337cab21a41ca7e3e129e20d11791"
+      },
+      "src/fused_moe/reduce.cu": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/src/fused_moe/reduce.cu",
+        "bytes": 2137,
+        "sha256": "49d675ba762ae464e0981b3129996aaafbc8616758f8f2c6c5ad1e2044ad6145"
+      },
+      "include/sm120_nvfp4/grouped_gemm.hpp": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/include/sm120_nvfp4/grouped_gemm.hpp",
+        "bytes": 1085,
+        "sha256": "ee75910c3e0460c3f951d77f11ae946e22c557624e7c7b0d713a6d8a0257b896"
+      },
+      "docs/ARCHITECTURE.md": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/docs/ARCHITECTURE.md",
+        "bytes": 10164,
+        "sha256": "187269c70eddcce882d226b8d9780a499c05dd4d2c4f4d5cab5a7a1314f22c9e"
+      },
+      "README.md": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/README.md",
+        "bytes": 16298,
+        "sha256": "27142261da2136fdf70460b0f80d51b41cceb2feb503f3de4751b8a1ee6bb8cb"
+      },
+      "docs/PERFORMANCE.md": {
+        "url": "https://raw.githubusercontent.com/xinyang-zhou/sm120_nvfp4_ops/6e0a06eb8321d6c9c7713446a60560b3cff92350/docs/PERFORMANCE.md",
+        "bytes": 14438,
+        "sha256": "b79af43ccc48d9a5f1b1d4f79b415eac831fe5860524d065fc64b4fed0117ab1"
+      }
+    }
+  },
+  "deepgemm": {
+    "main": {
+      "sha": "5081f8513af57e61696de4f4f04b0e707ffb503e",
+      "date": "2026-10-20T05:07:07Z",
+      "sources": {
+        "csrc/jit_kernels/heuristics/mega_moe.hpp": {
+          "url": "https://raw.githubusercontent.com/deepseek-ai/DeepGEMM/5081f8513af57e61696de4f4f04b0e707ffb503e/csrc/jit_kernels/heuristics/mega_moe.hpp",
+          "sha256": "24961c1f738a504b7f965d9513059b7f400d466746ed4251844a0a221a0ca11e",
+          "bytes": 11904
+        },
+        "csrc/jit_kernels/heuristics/sm100.hpp": {
+          "url": "https://raw.githubusercontent.com/deepseek-ai/DeepGEMM/5081f8513af57e61696de4f4f04b0e707ffb503e/csrc/jit_kernels/heuristics/sm100.hpp",
+          "sha256": "0d658df9eacacbc3648bde7c3ab895ca64eac2618ce8e98791926cee246da6eb",
+          "bytes": 14684
+        },
+        "deep_gemm/include/deep_gemm/impls/sm100_fp8_fp4_gemm_1d1d.cuh": {
+          "url": "https://raw.githubusercontent.com/deepseek-ai/DeepGEMM/5081f8513af57e61696de4f4f04b0e707ffb503e/deep_gemm/include/deep_gemm/impls/sm100_fp8_fp4_gemm_1d1d.cuh",
+          "sha256": "f567031e4f6e2b86b0ee99560c3eaff0160623a82e01aff0559fbeb3c2ec17b4",
+          "bytes": 35001
+        }
+      }
+    },
+    "nv_dev": {
+      "sha": "b64107f2b9599ca76445b7f62eedf66bae1d095b",
+      "date": "2026-09-24T05:26:51Z",
+      "sources": {
+        "README.md": {
+          "url": "https://raw.githubusercontent.com/deepseek-ai/DeepGEMM/b64107f2b9599ca76445b7f62eedf66bae1d095b/README.md",
+          "sha256": "b4ba00ffd67ade9966820afd55557ef460d570e42af1794c1c4db7e88d0e4f18",
+          "bytes": 20356
+        },
+        "deep_gemm/include/deep_gemm/mma/sm120.cuh": {
+          "url": "https://raw.githubusercontent.com/deepseek-ai/DeepGEMM/b64107f2b9599ca76445b7f62eedf66bae1d095b/deep_gemm/include/deep_gemm/mma/sm120.cuh",
+          "sha256": "5199232b50c8b9518a60f377cb3b1286c8fb14e6129369e2e1c2415073b3217c",
+          "bytes": 7187
+        },
+        "deep_gemm/include/deep_gemm/scheduler/sm120_gemm.cuh": {
+          "url": "https://raw.githubusercontent.com/deepseek-ai/DeepGEMM/b64107f2b9599ca76445b7f62eedf66bae1d095b/deep_gemm/include/deep_gemm/scheduler/sm120_gemm.cuh",
+          "sha256": "3d186b16abece603c148f299de0a6e8c975f463284421bbce99621537d7a5763",
+          "bytes": 16548
+        }
+      }
+    }
+  },
+  "nv_dev_sm120_paths": [
+    "csrc/apis/sm120_gemm.hpp",
+    "csrc/jit_kernels/heuristics/sm120.hpp",
+    "csrc/jit_kernels/heuristics/sm120_config.hpp",
+    "csrc/jit_kernels/impls/sm120_bf16_gemm.hpp",
+    "csrc/jit_kernels/impls/sm120_bmk_bnk_mn.hpp",
+    "csrc/jit_kernels/impls/sm120_fp8_fp4_gemm_1d1d.hpp",
+    "csrc/jit_kernels/impls/sm120_fp8_fp4_sparse_mqa_logits.hpp",
+    "csrc/jit_kernels/impls/sm120_mqa_logits.hpp",
+    "csrc/jit_kernels/impls/sm120_padding.hpp",
+    "csrc/jit_kernels/impls/sm120_runtime.hpp",
+    "csrc/jit_kernels/impls/sm120_tf32_hc_prenorm_gemm.hpp",
+    "deep_gemm/include/deep_gemm/common/sm120_utils.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_bf16_gemm.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_bmk_bnk_mn.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_fp4_mqa_logits.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_fp4_paged_mqa_logits.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_fp8_fp4_gemm_1d1d.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_fp8_fp4_sparse_mqa_logits.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_fp8_mqa_logits.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_fp8_paged_mqa_logits.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_padding.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_split_k_reduce.cuh",
+    "deep_gemm/include/deep_gemm/impls/sm120_tf32_hc_prenorm_gemm.cuh",
+    "deep_gemm/include/deep_gemm/mma/sm120.cuh",
+    "deep_gemm/include/deep_gemm/scheduler/sm120_gemm.cuh",
+    "deep_gemm/include/deep_gemm/scheduler/sm120_paged_mqa_logits.cuh",
+    "tests/sm120_exercise.py",
+    "tests/sm120_reference_heuristic.py",
+    "tests/sm120_test_storage.py",
+    "tests/test_sm120_attention.py",
+    "tests/test_sm120_bf16_einsum.py",
+    "tests/test_sm120_bf16_einsum_tma.py",
+    "tests/test_sm120_bf16_gemm.py",
+    "tests/test_sm120_bf16_odd_n.py",
+    "tests/test_sm120_gemm.py",
+    "tests/test_sm120_gemm_regressions.py",
+    "tests/test_sm120_hyperconnection.py",
+    "tests/test_sm120_mixed_quant_regressions.py",
+    "tests/test_sm120_native_rejections.py",
+    "tests/test_sm120_quant_layout_regressions.py",
+    "tests/test_sm120_sf_public_compat.py"
+  ],
+  "local_critical_files": {}
+}

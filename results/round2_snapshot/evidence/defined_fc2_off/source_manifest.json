@@ -1,0 +1,16 @@
+{
+  "prepare.py": "43469d75700fe10b7731065495ac947d6d295e00ac347c2834ac780cfc937097",
+  "plugin.py": "8cd3984f8d927ca697328494f97e8852567c50d8b84614e5f20bc2c7ee31952b",
+  "gated_defined_fc2.py": "db422c6ea3c32a58e9a93339ec66d369955ddf6b43a69b41815821bb75c8eb1e",
+  "manifest.json": "6dcb7052e4c7271f718ff832d99bd5e204334b1934465f97c46e803ff2ecc14d",
+  "test_source.py": "af87ea52639aec1dfff736ee6b5aac2add83122d6f56c13435a8027805788e17",
+  "test_runtime.py": "bc0103faa216997b61123392bcbac43337cc94991c01e04504e97ff0cff2f30a",
+  "micrograph.py": "24a3a53d1a9a1a619ab8cd66f0ac217b8d0a1fe41353282037a9c11e9fd8607f",
+  "process_guard.py": "2b1e1068a5d0b01c8fbb0d7ae4ad1ef1784ed28daf755a263e61eabeee433ea5",
+  "run.sh": "fc5880c03437adf345c0b3798b52c55c379cbca01788db8b5150206a1c5c4a6e",
+  "provenance.py": "77637d005e9ecbb50da235506c7b0649711fb1e5b09228232a82f310fb2d4921",
+  "capture_manifest.json": "3664f6353b5ac56f72d78f570163ce54c70920ecdc465ab236de7c9d436ff6d2",
+  "artifacts.py": "7fcdc93e6aedd2cec3a7588e237012f5e4e6975591dbdecbe669283e2b1dee72",
+  "inspect_artifact.py": "4021afc637d30062af25a8313694b97f13b7bff19ddef3fbe2f6b3fdb7cb1cc6",
+  "compare.py": "274f7a4a7c9ceca166be11a5cd30670fcd4ea2cf7e65ce691b2071ac8850f3cf"
+}

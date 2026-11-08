@@ -1,0 +1,45 @@
+{
+  "decision": "reject_initial_variant_no_gpu_repeat",
+  "quality_equivalence": false,
+  "artifact_sha256": {
+    "pair1.json": "163cadeaba83ad97e12c27ac19cba5acd551e0da79c35f665dbc514405fd0532",
+    "runtime_pair_audit.json": "7c3c957e26644e403b0879884b30ba648a22f0117d251a4f53475a845967e51c",
+    "sass_pair_summary.json": "ba0dfa97e6a3d1963de9c420d7e7e05ba751ddf07ae9950f743057c91f3ffafc",
+    "inactive_load_off_1/source_manifest.json": "6ca450810ffcb49ebdbd884b46d2bba47fd898df66b09b35289ee19682b29594",
+    "inactive_load_off_1/runtime_manifest.json": "d9386faf1b5a612844597a51212a3bf200102564cf9ede6e561d02567130d437",
+    "inactive_load_off_1/measurement/report.json": "5784f55caa62a6962ba9c9da86e1ad2623c50239d6c89e0ea6d5a0ddeaed2a05",
+    "inactive_load_off_1/measurement/outputs.pt": "23cf30c2e533fec9d46000b74eb5e84bb2159b3d774c9d3f0460a6479144a5c5",
+    "inactive_load_off_1/embedded_full_manifest.json": "7e2d2179202fe8bc090f2a99245ad703f2dbfa81fca2eb3a3d054e19d1c64dfa",
+    "inactive_load_off_1/embedded_full.cubin": "167c4e371dff3dcde9e05717cbd66a260d0d5f75b152767ce55739292cd75af9",
+    "inactive_load_off_1/embedded_full_resource.txt": "b98e365a8bdef8fdf7c3334f8fa28b4ff9388d13529a3505bd5f66358f7695d4",
+    "inactive_load_off_1/embedded_full_sass.txt": "2ac220734d8662bac97af995ae5c4b9d1d05194fbe9c5faba42cf2ae0dc8be05",
+    "inactive_load_off_1/measurement/trace_m1024.json": "df827ef1e337934f6fca12117752c32217af8bb62452225abe360b635c5ea77b",
+    "inactive_load_off_1/measurement/trace_m4096.json": "5905aedc61eec3ad11288588422e0e191a92ad67296f0c8fc781d7432136ec2b",
+    "inactive_load_on_1/source_manifest.json": "6ca450810ffcb49ebdbd884b46d2bba47fd898df66b09b35289ee19682b29594",
+    "inactive_load_on_1/runtime_manifest.json": "0de9f9c2a93f5403153a4c1a162127d34f1f50f2c3e6c75893e77122aaea9be1",
+    "inactive_load_on_1/measurement/report.json": "62fb6f22990db367a7e97651a90107a0b1bb1660e0256c906c0cecc3d354b598",
+    "inactive_load_on_1/measurement/outputs.pt": "daf982e851e5e04a6899321de20897c5bfc47a9eb30e60a3989d006ee3667d2d",
+    "inactive_load_on_1/embedded_full_manifest.json": "25478cf6acdcccec880670757746fa28368504cd610c4248d1fd71b300f7ba82",
+    "inactive_load_on_1/embedded_full.cubin": "92d870991336fb00aff0081201d310c0cbd7d471ecc426d025461c2e46bf3e51",
+    "inactive_load_on_1/embedded_full_resource.txt": "68dfac0111741a82b762311c344392da0d875f18fe3b28a3acc535ae58733025",
+    "inactive_load_on_1/embedded_full_sass.txt": "10714e052c4e30094846525572a45f9756ec4da582e819df261005a38732e6ff",
+    "inactive_load_on_1/measurement/trace_m1024.json": "5bca6933f0e6fea24ec0b8689b90fa77e20d12087431bfb4a312d71a02a1024c",
+    "inactive_load_on_1/measurement/trace_m4096.json": "38691043030f9cccd232f435447f43d414d133b67c16695c64db05a379590ee4"
+  },
+  "timing": [
+    {
+      "tokens": 1024,
+      "median_block_off_us": 314.41599130630493,
+      "median_block_on_us": 880.8480203151703,
+      "latency_change_percent": 180.1536959540476
+    },
+    {
+      "tokens": 4096,
+      "median_block_off_us": 437.3600035905838,
+      "median_block_on_us": 1483.024001121521,
+      "latency_change_percent": 239.08541909328122
+    }
+  ],
+  "causal_scope": "Large static LDL/STL and stack growth consistent with conditional fragment liveness/spilling, not a stall-profile proof",
+  "proposal": "RESULT.md CPU-only defined-zero FC2-only experiment; not implemented"
+}

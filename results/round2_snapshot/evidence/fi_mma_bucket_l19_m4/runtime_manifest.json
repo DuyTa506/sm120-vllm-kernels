@@ -1,0 +1,40 @@
+{
+  "capture": "/work/kernels/moe-nvfp4/data/moe_inputs.pt",
+  "capture_sha256": "0e161c36a6f478c0205b3a7e8b388296eccafaa2d5999cf4420fcbcd0aa2f4ac",
+  "runtime_sha256": {
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_dispatch.py": "c518e65d6bfd7f08db1e5261e20795fd020e82e681699729171bc2fd5331239a",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_activation.py": "ce4c28f512c7d8cff08e7dfe8a2717713bde112752a137ef09acddd77f420b2b",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_static_kernel.py": "c7b6f24b94d7939cc0eb917ab15cef4c34f3dc12bf75e15fc9dc316ee7327f3f",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_micro_kernel.py": "ccb6f65a22314961693493242f78f62ca58f79a319ecd0cb51bf6d7d8e7125c6",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_dynamic_kernel.py": "7532e1338df8e80c4b8f0bd6473c2ffeda9a5028018c77775c4e9fe2fa47b072",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/_moe_dynamic/gated.py": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/_moe_dynamic/generic.py": "3f0be67f2c7f62f20f243baa073af26d9b2a1aff21b1a54eca50961d139b590f",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/cute_dsl/utils.py": "971faf2b712c8d973cf7b81fdb97b12d04d0fb9ff350c314981c1049b3816a25",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/cute_dsl/fp4_common.py": "a430b3171c7c972a2b98a176e5a47ddcaf36ac71e6231420e961e269d0d045d1",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/gemm/kernels/dense_blockscaled_gemm_sm120_b12x.py": "6739702e27afad21767b71024678b35c6892e3f9c74aaff375fb3f6734399f86",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_w4a16_fp4_helpers.py": "3115cf3e73064cbf2c339d5fd2cec1c49206f34283c281faef2d1c2d290a6c73",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/__init__.py": "3cc4d107a17a9fbebee6109ea21b4453f85a943466c24681a16366b970b25083",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_w4a16_host.py": "49622d643b9acc602715bfbfbfa4ffc75b000fbc26ffcb8247326554edec0e43",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_w4a16_compiler.py": "83e0e32a82f99dcdd28a9bfdacecf34cd868a3f4f8fbb3f6da4f63b765a0018f",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_w4a16_route_pack.py": "ecf89b722084ab65b8877f7f7c3f6072de659b29c9436707edc05f86f47d1b24",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_w4a16_kernel.py": "1e3e587333d03afe598a454573cb6c9bbb63ed6af3bfe76cdd77af67ba8d839d",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/triton_compact.py": "bbcb7762850773f1608729cb1e651029c489930b7ea0973452896a337c17ee2a",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_w4a16_activations.py": "d95ae610cd28d8ceba67f259e842d42d284fa9657e9a24721cc8f72358a9e7e8",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_w4a16_prepare.py": "85d8a930939705db01a748380753283cdeff187e87a5febaad7363e5dd24c8e4",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/moe_direct_micro_kernel.py": "9b18f54588c3f24cab74dff07545f323e2af8235a4532233655a5a75498e89cc",
+    "/usr/local/lib/python3.12/dist-packages/flashinfer/fused_moe/cute_dsl/blackwell_sm12x/_moe_dynamic/__init__.py": "a2c19aa9794c30cbcf3029d145e11801575db53f7d9cf24c12e83424d0cdc2fd",
+    "/work/kernels/moe-nvfp4/moe_common.py": "2b902b14d6e7776b3a746ba99792fbea0f0b41b28099d45f7724d2150fb402bc",
+    "/work/kernels/moe-nvfp4/test_shared_workspace.py": "fa5e63c5f4f0da020dab5a5e189f2c6b11b208e99db238d79d343abba72b2fb2",
+    "/work/kernels/moe-nvfp4/verify_scalar_dispatch.py": "137bf019d605ddaf04685ee47ef1f7843f6d93544f04e8447874dc6a749b512e",
+    "/work/kernels/moe-nvfp4/verify_shared_workspace.py": "eb52fa42ddb0bbc8e9989af5d5604dcc39f9eae3e1db857edcc0a60cb88fce5f",
+    "/work/kernels/moe-nvfp4/scalar/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62",
+    "/usr/local/lib/python3.12/dist-packages/vllm/_custom_ops.py": "36428c27bad9bf5ffe5debf9e34bccbc888adb68ad3eb972f6c9ff080e7f683e",
+    "/usr/local/lib/python3.12/dist-packages/vllm/_C_stable_libtorch.abi3.so": "ae9c8a293020e422e0b6b61d1024263dc476a772337f5d39d46d18baa7ce0ad9"
+  },
+  "capture_key": "hidden[19]",
+  "shape": [
+    8192,
+    2048
+  ],
+  "cuda_initialized": false
+}

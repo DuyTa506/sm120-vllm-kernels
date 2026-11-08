@@ -1,0 +1,62 @@
+{
+  "metric": "Median cold single-request TTFT (ms), lower is better",
+  "lengths": [
+    2048,
+    4096,
+    5000,
+    8192,
+    16384,
+    32768
+  ],
+  "series": {
+    "optimized": [
+      88.13,
+      118.34,
+      138.85,
+      201.63,
+      398.33,
+      885.0
+    ],
+    "next": [
+      70.53106650710106,
+      108.94502676092088,
+      122.18471453525126,
+      201.9828730262816,
+      379.3506205547601,
+      873.3112155459821
+    ],
+    "scalar": [
+      68.19230341352522,
+      100.54359305649996,
+      115.4423977714032,
+      164.07877346500754,
+      343.6318861786276,
+      811.4952626638114
+    ]
+  },
+  "source_sha256": {
+    "results/prefill/ttft_optimized.txt": "efd3bbcc7c521a57f425edb885930c8fc8b8ccc70fb5f0aeabf921d1c61563c1",
+    "results/qwen_sequential/next_matched_3/serving/serving_matrix_all/prefill-2048.measured.json": "b2680cf706feea4a81c288df42c8f1380638a7f5bda58c6505f875ae4f1c2832",
+    "results/qwen_sequential/next_matched_3/serving/serving_matrix_all/prefill-4096.measured.json": "6d2e38e7aa69308e169f19eea1ee3acc12b53994a8c9eedd8ed27402d51e1df1",
+    "results/qwen_sequential/next_matched_3/serving/serving_matrix_all/prefill-5000.measured.json": "3d7a1b4127efa601226e862bad8dd814ed1f26833e260c189231729bc8b2a07e",
+    "results/qwen_sequential/next_matched_3/serving/serving_matrix_all/prefill-8192.measured.json": "2ce46d16b44c8ad9fbab54ecd9d80f52f7c0be0ae72c18a1fcf499047c4abf5e",
+    "results/qwen_sequential/next_matched_3/serving/serving_matrix_all/prefill-16384.measured.json": "f8d1666a04541b5b333cde05037f1fea955603ab368e331bddea995df2892042",
+    "results/qwen_sequential/next_matched_3/serving/serving_matrix_all/prefill-32768.measured.json": "ce57a319f5069dd94ec9029b2b275f80fe3522bf9d16a23648a8fd3983145f81",
+    "results/qwen_sequential/scalar_matched_3/serving/serving_matrix_all/prefill-2048.measured.json": "6b355da4011891e07eb5950dc252a5f4ec5f1650e4a5775ed84a7b2ddba124c3",
+    "results/qwen_sequential/scalar_matched_3/serving/serving_matrix_all/prefill-4096.measured.json": "f9ae9e3cb3c874b585f4832a4f83106e2829f51e2a2e41436fbddf90291d94e9",
+    "results/qwen_sequential/scalar_matched_3/serving/serving_matrix_all/prefill-5000.measured.json": "c283ffe338254cf113214dc53e45b0ba911e8d87f3db83f75f81497cbe791e58",
+    "results/qwen_sequential/scalar_matched_3/serving/serving_matrix_all/prefill-8192.measured.json": "34844b539793243b3181e94d46d4dec33a0a511751b19a4211bf68c3a16a9ba1",
+    "results/qwen_sequential/scalar_matched_3/serving/serving_matrix_all/prefill-16384.measured.json": "360bb725bf8e822e5945d6c88572de7d39e63af63112dce64a99737ad5dde8d7",
+    "results/qwen_sequential/scalar_matched_3/serving/serving_matrix_all/prefill-32768.measured.json": "21ec1ebc53c5f062208446f614476feace57fb07ac8f8cfbc4a7b0a99af79e14"
+  },
+  "scalar_change_vs_next_percent": [
+    -3.3159332608991066,
+    -7.711626637953661,
+    -5.5181343996207115,
+    -18.76599683595056,
+    -9.415757465718022,
+    -7.078341807796917
+  ],
+  "scope": "Progress reference across measured configurations. optimized is historical; next/scalar are the matched_3 pair. Do not infer an isolated patch effect or combine this with kernel microbenchmarks.",
+  "limits": "Eight measured requests per length for next/scalar; one run per configuration; fixed FlashInfer table, three differing Inductor selections. Scalar remains opt-in with documented quality and agentic limits."
+}

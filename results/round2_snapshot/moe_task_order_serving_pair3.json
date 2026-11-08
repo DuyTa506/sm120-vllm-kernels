@@ -1,0 +1,47 @@
+{
+  "status": "unselected; valid activation screen, serving attribution confounded",
+  "run_order": [
+    "task_order_serving_b3",
+    "task_order_serving_a3"
+  ],
+  "provenance_checks": {
+    "experiment_sources.json": true,
+    "source_manifest.json": true,
+    "image.txt": true,
+    "checkpoint_identity": true,
+    "prompt_ids": true,
+    "nll_ids": true,
+    "compile_factors_differ": true
+  },
+  "off_median_nonstream_ms": 68.99985251948237,
+  "on_median_nonstream_ms": 76.75386569462717,
+  "on_latency_change_percent": 11.237724273331473,
+  "off_target_sum_ms": 17.22589,
+  "on_target_sum_ms": 17.025923,
+  "target_sum_reduction_percent": 1.1608514857577856,
+  "off_nll": [
+    0.23519827322296752,
+    0.25202260524848813,
+    0.20955543825113582,
+    0.18340482041624584
+  ],
+  "on_nll": [
+    0.22988677554611353,
+    0.19761691783105262,
+    0.22087807546079521,
+    0.19847508670010627
+  ],
+  "compiler_mapping": {
+    "standalone_functions_per_profile": 25,
+    "best_configs_per_profile": 10,
+    "common_exact_source_configs": 10,
+    "changed_selected_configs": 2
+  },
+  "limitations": [
+    "One ON then OFF startup pair; no repeat/order reversal",
+    "Two unchanged producer kernels selected different compiler configurations; do not attribute E2E/NLL deltas exclusively to task order",
+    "Trace target durations are sums, not critical path or isolated same-routing pair",
+    "Cold NLL has within-control variation; four repetitions do not establish model quality",
+    "Queue proof covers last retained actual call; trace covers 40 actual native graph nodes"
+  ]
+}

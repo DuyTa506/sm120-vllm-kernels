@@ -1,0 +1,1 @@
+{"profile": "on", "native_kernel_events": 4960, "sanitizer_events": 4960, "live_markers": ["FI_DIRECT_LIVE_GRAPH_M3"], "native_correlated": {"FI_DIRECT_LIVE_GRAPH_M3": 4960}, "passed": true}

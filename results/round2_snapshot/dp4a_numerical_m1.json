@@ -1,0 +1,317 @@
+{
+  "status": "diagnostic_complete_quant_exact",
+  "correctness_promotion": false,
+  "checks": [
+    {
+      "offset": 0,
+      "own_graph_eager": [
+        {
+          "reuse": false,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "baselines": {
+        "current_scalar": {
+          "factory_selection_trace": [],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.0024041717406362295,
+            "max_abs": 1.52587890625e-05
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.20571215450763702,
+            "max_abs": 0.000968815409578383
+          },
+          "scale_contract": "current scalar CUTLASS"
+        },
+        "fi_auto_calibrated": {
+          "factory_selection_trace": [
+            "_get_direct_micro_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.02772977203130722,
+            "max_abs": 9.918212890625e-05
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.2056889832019806,
+            "max_abs": 0.000984074198640883
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        },
+        "fi_forced_direct_calibrated": {
+          "factory_selection_trace": [
+            "_get_direct_micro_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.02772977203130722,
+            "max_abs": 9.918212890625e-05
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.2056889832019806,
+            "max_abs": 0.000984074198640883
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        }
+      },
+      "reuse_comparison": {
+        "exact": true,
+        "mismatch": 0.0
+      },
+      "reuse_error": {
+        "finite": true,
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "normal_vs_diagnostic": [
+        {
+          "reuse": false,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "candidate_vs_fp32": {
+        "finite": true,
+        "rel_l2": 0.20582295954227448,
+        "max_abs": 0.000968815409578383
+      }
+    },
+    {
+      "offset": 64,
+      "own_graph_eager": [
+        {
+          "reuse": false,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "comparison": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "baselines": {
+        "current_scalar": {
+          "factory_selection_trace": [],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.0024206514935940504,
+            "max_abs": 6.103515625e-05
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.18410420417785645,
+            "max_abs": 0.0026851315051317215
+          },
+          "scale_contract": "current scalar CUTLASS"
+        },
+        "fi_auto_calibrated": {
+          "factory_selection_trace": [
+            "_get_direct_micro_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.025085918605327606,
+            "max_abs": 0.000347137451171875
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.18467789888381958,
+            "max_abs": 0.0028372425585985184
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        },
+        "fi_forced_direct_calibrated": {
+          "factory_selection_trace": [
+            "_get_direct_micro_kernel"
+          ],
+          "candidate_error": {
+            "finite": true,
+            "rel_l2": 0.025085918605327606,
+            "max_abs": 0.000347137451171875
+          },
+          "fp32_error": {
+            "finite": true,
+            "rel_l2": 0.18467789888381958,
+            "max_abs": 0.0028372425585985184
+          },
+          "scale_contract": "explicit launch_sm120_moe reciprocal=True; calibrated a13/a2; weight alpha folded once internally"
+        }
+      },
+      "reuse_comparison": {
+        "exact": true,
+        "mismatch": 0.0
+      },
+      "reuse_error": {
+        "finite": true,
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "normal_vs_diagnostic": [
+        {
+          "reuse": false,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        {
+          "reuse": true,
+          "own_graph_eager": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "diagnostic": {
+            "exact": true,
+            "mismatch": 0.0
+          },
+          "error": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      ],
+      "candidate_vs_fp32": {
+        "finite": true,
+        "rel_l2": 0.18406249582767487,
+        "max_abs": 0.0026851315051317215
+      }
+    }
+  ],
+  "stage": {
+    "fc1_quant_payload_vs_vllm": {
+      "exact": true,
+      "mismatch": 0.0
+    },
+    "fc1_quant_scale_vs_vllm": {
+      "exact": true,
+      "mismatch": 0.0
+    },
+    "fc1_precast_vs_exact_quant_operand_fp32": {
+      "finite": true,
+      "rel_l2": 1.5357971960838768e-07,
+      "max_abs": 3.5762786865234375e-07
+    },
+    "swiglu_bf16": {
+      "finite": true,
+      "rel_l2": 0.0,
+      "max_abs": 0.0
+    },
+    "fc2_quant_payload_vs_own_probe": {
+      "exact": true,
+      "mismatch": 0.0
+    },
+    "fc2_quant_scale_vs_own_probe": {
+      "exact": true,
+      "mismatch": 0.0
+    },
+    "fc2_weighted_part_vs_exact_quant_operand_fp32": {
+      "finite": true,
+      "rel_l2": 1.2011840055947687e-07,
+      "max_abs": 9.313225746154785e-10
+    }
+  },
+  "scope": "numerical-only instrumented diagnostic; no timings",
+  "tokens": 1,
+  "dispatch_evidence": "Python constructor/factory selection trace; NOT actual GPU kernel trace",
+  "reference_precision": [
+    {
+      "stage": "full_output_offset_0",
+      "dtype": "float32",
+      "allow_tf32": false
+    },
+    {
+      "stage": "full_output_offset_64",
+      "dtype": "float32",
+      "allow_tf32": false
+    },
+    {
+      "stage": "fc1_exact_quant_operand",
+      "dtype": "float32",
+      "allow_tf32": false
+    },
+    {
+      "stage": "fc2_exact_quant_operand",
+      "dtype": "float32",
+      "allow_tf32": false
+    }
+  ],
+  "capture_sha256": "0e161c36a6f478c0205b3a7e8b388296eccafaa2d5999cf4420fcbcd0aa2f4ac",
+  "padding_changed_route_two_workspace": true,
+  "quant_contract_exact": true
+}

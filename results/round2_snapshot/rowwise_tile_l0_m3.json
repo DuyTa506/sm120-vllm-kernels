@@ -1,0 +1,263 @@
+{
+  "status": "validated_actual_operator_screen",
+  "cases": [
+    {
+      "layer": 0,
+      "m": 3,
+      "n": 12288,
+      "k": 2048,
+      "authoritative_generated_template": {
+        "off": {
+          "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.ebd1a75f209bc85f0ecfcb2a97cc332e/kernel.cu",
+          "kernel_source_sha256": "fb990dd384603bbc67d3d15ec939a0f262ab01c3d95c3cc3758c5cbad4e99ce7",
+          "cubin_sha256": "0c593561d2ea1c57c9e08f11bf8d5162b3030f9952465f8e437b74495f843f9b",
+          "jit_meta_sha256": "a9ffd9e08211520ba2453d393fa7a8cc274035d5a92e6f3c1de1ec2104c92665",
+          "effective_m": 3,
+          "effective_n": 12288,
+          "k": 2048,
+          "block_m": 64,
+          "block_n": 128,
+          "block_k": 128,
+          "pipeline_stages": 3,
+          "grid_ctas": 188,
+          "epilogue": "epilogue::transform::EpilogueRowChannel",
+          "split_k": 1,
+          "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace.",
+          "finalized_policy_trace": {
+            "policy": "off",
+            "effective_m": "3",
+            "effective_n": "12288",
+            "k": "2048",
+            "block_m": "64",
+            "block_n": "128",
+            "block_k": "128",
+            "logical_tiles": "96",
+            "grid_ctas": "188",
+            "first_wave_work": "96",
+            "smem": "92672",
+            "stages": "3",
+            "split_k": "1"
+          }
+        },
+        "on": {
+          "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.00b922fb20e4c478316359d5def8f81a/kernel.cu",
+          "kernel_source_sha256": "b93018575a3e9bed76532ca174ff191cabbbe326837443ca8a6aae57abc83c66",
+          "cubin_sha256": "33faa46e7f448685428b283b0b3404cb535487111026b7a4ce32c4ee5f99da8e",
+          "jit_meta_sha256": "e52c60c2353790494405a71ed9ed5e160be392395883b9a19c19b8c10c7f9218",
+          "effective_m": 12288,
+          "effective_n": 3,
+          "k": 2048,
+          "block_m": 128,
+          "block_n": 16,
+          "block_k": 64,
+          "pipeline_stages": 10,
+          "grid_ctas": 188,
+          "epilogue": "epilogue::transform::EpilogueRowChannelSwapped",
+          "split_k": 1,
+          "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace.",
+          "finalized_policy_trace": {
+            "policy": "auto_swap",
+            "effective_m": "12288",
+            "effective_n": "3",
+            "k": "2048",
+            "block_m": "128",
+            "block_n": "16",
+            "block_k": "64",
+            "logical_tiles": "96",
+            "grid_ctas": "188",
+            "first_wave_work": "96",
+            "smem": "98816",
+            "stages": "10",
+            "split_k": "1"
+          }
+        },
+        "tile64": {
+          "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.1c2abca88814a7dadaa1e6b9b66f2008/kernel.cu",
+          "kernel_source_sha256": "691f36d8d1bbc25903ce592b3622c49c573b04cf78051b90251a4b6f53d75e7c",
+          "cubin_sha256": "7d16beef43662f9bbb1baeedad57b3f3eda05283e02603ff3db68265d74aa410",
+          "jit_meta_sha256": "05b399ff4a6ef6350dfd0c1bc5e6754c6e4e430bce010f0526310148a63a382f",
+          "effective_m": 12288,
+          "effective_n": 3,
+          "k": 2048,
+          "block_m": 64,
+          "block_n": 16,
+          "block_k": 64,
+          "pipeline_stages": 16,
+          "grid_ctas": 188,
+          "epilogue": "epilogue::transform::EpilogueRowChannelSwapped",
+          "split_k": 1,
+          "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace.",
+          "finalized_policy_trace": {
+            "policy": "64x16",
+            "effective_m": "12288",
+            "effective_n": "3",
+            "k": "2048",
+            "block_m": "64",
+            "block_n": "16",
+            "block_k": "64",
+            "logical_tiles": "192",
+            "grid_ctas": "188",
+            "first_wave_work": "188",
+            "smem": "88320",
+            "stages": "16",
+            "split_k": "1"
+          }
+        }
+      },
+      "timing_comparison": {
+        "off": {
+          "median_us_by_order": [
+            18.346074002760428,
+            18.336592449082268
+          ],
+          "latency_reduction_percent": {
+            "cutlass": [
+              7.703545056349414,
+              8.04457628171299
+            ],
+            "skinny": [
+              -8.529058203904993,
+              -8.556692774999819
+            ]
+          }
+        },
+        "on": {
+          "median_us_by_order": [
+            17.640295955869888,
+            17.62429597201171
+          ],
+          "latency_reduction_percent": {
+            "cutlass": [
+              11.254212719373612,
+              11.616642604501582
+            ],
+            "skinny": [
+              -4.353918241071719,
+              -4.339739704750745
+            ]
+          }
+        },
+        "tile64": {
+          "median_us_by_order": [
+            19.62014812010306,
+            19.621926325338855
+          ],
+          "latency_reduction_percent": {
+            "cutlass": [
+              1.2938617448958523,
+              1.598808261354434
+            ],
+            "skinny": [
+              -16.066042084835708,
+              -16.166154298755785
+            ]
+          }
+        },
+        "tile64_vs_auto_reduction_percent": [
+          -11.223463422530422,
+          -11.334525682611595
+        ],
+        "on_vs_off_reduction_percent": [
+          3.847024964492929,
+          3.8845629527323067
+        ]
+      },
+      "raw_timings": {
+        "cutlass": [
+          [
+            19.877333331991125,
+            19.811555191322608,
+            19.9952589140998
+          ],
+          [
+            19.94074053234524,
+            19.81985127484357,
+            19.97511033658628
+          ]
+        ],
+        "skinny": [
+          [
+            16.904296698393644,
+            16.86399954336661,
+            16.946962586155646
+          ],
+          [
+            16.891259286138748,
+            16.85807440016005,
+            16.967111163669163
+          ]
+        ],
+        "off": [
+          [
+            18.346074002760428,
+            18.288592497507732,
+            18.427259392208523
+          ],
+          [
+            18.336592449082268,
+            18.287407027350532,
+            18.388147707338685
+          ]
+        ],
+        "on": [
+          [
+            17.640295955869888,
+            17.61777754183169,
+            17.704295891302603
+          ],
+          [
+            17.62429597201171,
+            17.57866696075157,
+            17.665185310222483
+          ]
+        ],
+        "tile64": [
+          [
+            19.62014812010306,
+            19.524739848242866,
+            20.17896263687699
+          ],
+          [
+            19.621926325338855,
+            19.59466713446158,
+            19.658667069894296
+          ]
+        ]
+      },
+      "initial_numerics": {
+        "cutlass": {
+          "relative_l2_vs_cutlass": 0.0,
+          "relative_l2_vs_fp32": 0.0016674283185139436,
+          "bit_mismatches_vs_cutlass": 0
+        },
+        "skinny": {
+          "relative_l2_vs_cutlass": 2.935070487670009e-07,
+          "relative_l2_vs_fp32": 0.0016674283185123668,
+          "bit_mismatches_vs_cutlass": 1
+        },
+        "off": {
+          "relative_l2_vs_cutlass": 0.0,
+          "relative_l2_vs_fp32": 0.0016674283185139436,
+          "bit_mismatches_vs_cutlass": 0
+        },
+        "on": {
+          "relative_l2_vs_cutlass": 0.0,
+          "relative_l2_vs_fp32": 0.0016674283185139436,
+          "bit_mismatches_vs_cutlass": 0
+        },
+        "tile64": {
+          "relative_l2_vs_cutlass": 0.0,
+          "relative_l2_vs_fp32": 0.0016674283185139436,
+          "bit_mismatches_vs_cutlass": 0
+        }
+      },
+      "native_selection_trace": {
+        "off": "ROWWISE_SWAP_V1 m=3 n=12288 k=2048 selected=0\nSM120GemmDesc(gemm_type=0, kernel_type=0, m=3, n=12288, k=2048, num_groups=1, major_a=0, major_b=0, mma_kind=1, a_dtype=Float8_e4m3fn, b_dtype=Float8_e4m3fn, cd_dtype=BFloat16, with_accumulation=0, num_sms=188, tc_util=100, compiled_dims=nk, max_gran_k=128, cd_n_contiguous=1, ensure_zero_padding=1, expected_m=0, expected_n=0, expected_k=0, expected_num_groups=0): SM120GemmConfig(layout=Layout(swap_ab=0, block_m=64, block_n=128, block_k=128, cluster_m=1, cluster_n=1), storage_config=StorageConfig(load_block_m=64, load_block_n=128, store_block_m=64, store_block_n=0, swizzle_a_mode=128, swizzle_b_mode=128, swizzle_cd_mode=128), pipeline_config=PipelineConfig(smem_size=92672, num_stages=3, num_tma_store_stages=0), launch_config=LaunchConfig(num_sms=188, num_sms_per_cluster=1, num_threads=384, num_tma_threads=128, num_math_threads=256, num_non_epilogue_threads=0, num_epilogue_threads=0), split_k=1), LayoutInfo(num_waves=1, last_wave_util=96, num_cycles=31493)\nROWWISE_POLICY_V1 policy=off effective_m=3 effective_n=12288 k=2048 block_m=64 block_n=128 block_k=128 logical_tiles=96 grid_ctas=188 first_wave_work=96 smem=92672 stages=3 split_k=1\n",
+        "on": "Making TMA desc: global memory: 2048 3, shared memory: 128 64, outer stride: 2048, swizzle: 128 (base: 0), elem size: 1, pointer: 128389550160384\nMaking TMA desc: global memory: 2048 12288, shared memory: 128 128, outer stride: 2048, swizzle: 128 (base: 0), elem size: 1, pointer: 128389524488192\nMaking TMA desc: global memory: 4 4, shared memory: 64 1, outer stride: 4, swizzle: 0 (base: 0), elem size: 4, pointer: 128389550223360\nMaking TMA desc: global memory: 12288 4, shared memory: 128 1, outer stride: 12288, swizzle: 0 (base: 0), elem size: 4, pointer: 128389550493696\nMaking TMA desc: global memory: 12288 3, shared memory: 64 64, outer stride: 12288, swizzle: 128 (base: 0), elem size: 2, pointer: 128389550371328\nROWWISE_SWAP_V1 m=3 n=12288 k=2048 selected=1\nSM120GemmDesc(gemm_type=0, kernel_type=0, m=12288, n=3, k=2048, num_groups=1, major_a=0, major_b=0, mma_kind=1, a_dtype=Float8_e4m3fn, b_dtype=Float8_e4m3fn, cd_dtype=BFloat16, with_accumulation=0, num_sms=188, tc_util=100, compiled_dims=nk, max_gran_k=128, cd_n_contiguous=0, ensure_zero_padding=1, expected_m=0, expected_n=0, expected_k=0, expected_num_groups=0): SM120GemmConfig(layout=Layout(swap_ab=0, block_m=128, block_n=16, block_k=64, cluster_m=1, cluster_n=1), storage_config=StorageConfig(load_block_m=128, load_block_n=16, store_block_m=128, store_block_n=0, swizzle_a_mode=64, swizzle_b_mode=64, swizzle_cd_mode=0), pipeline_config=PipelineConfig(smem_size=98816, num_stages=10, num_tma_store_stages=0), launch_config=LaunchConfig(num_sms=188, num_sms_per_cluster=1, num_threads=384, num_tma_threads=128, num_math_threads=256, num_non_epilogue_threads=0, num_epilogue_threads=0), split_k=1), LayoutInfo(num_waves=1, last_wave_util=96, num_cycles=25291)\nROWWISE_POLICY_V1 policy=auto_swap effective_m=12288 effective_n=3 k=2048 block_m=128 block_n=16 block_k=64 logical_tiles=96 grid_ctas=188 first_wave_work=96 smem=98816 stages=10 split_k=1\n",
+        "tile64": "Making TMA desc: global memory: 2048 12288, shared memory: 64 128, outer stride: 2048, swizzle: 64 (base: 0), elem size: 1, pointer: 128389524488192\nMaking TMA desc: global memory: 2048 3, shared memory: 64 16, outer stride: 2048, swizzle: 64 (base: 0), elem size: 1, pointer: 128389550160384\nMaking TMA desc: global memory: 12288 4, shared memory: 128 1, outer stride: 12288, swizzle: 0 (base: 0), elem size: 4, pointer: 128389550493696\nMaking TMA desc: global memory: 4 4, shared memory: 16 1, outer stride: 4, swizzle: 0 (base: 0), elem size: 4, pointer: 128389550223360\nMaking TMA desc: global memory: 12288 12288, shared memory: 16 128, outer stride: 12288, swizzle: 0 (base: 0), elem size: 2, pointer: 128389550690304\nROWWISE_SWAP_V1 m=3 n=12288 k=2048 selected=1\nROWWISE_POLICY_V1 policy=64x16 effective_m=12288 effective_n=3 k=2048 block_m=64 block_n=16 block_k=64 logical_tiles=192 grid_ctas=188 first_wave_work=188 smem=88320 stages=16 split_k=1\n"
+      }
+    }
+  ],
+  "input_result_sha256": "9a8ecc5635b93a65d6d2491f0553f043485270aa3745528bdf567d5d194debf6",
+  "interpretation": "Positive reduction is faster; negative is slower. Every orientation is retained even if slower. Forward/reverse backend-order medians are separate; no confidence interval, no vLLM throughput or model quality claim."
+}

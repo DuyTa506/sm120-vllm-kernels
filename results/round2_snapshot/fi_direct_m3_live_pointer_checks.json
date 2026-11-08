@@ -1,0 +1,347 @@
+{
+  "status": "pass_no_serving_promotion",
+  "rows": [
+    {
+      "m": 1,
+      "mode": "graph_A",
+      "pointers": [
+        123866248633344,
+        123866248637440,
+        123866248641024,
+        123866251210752
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.2671401931345463,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 1,
+      "mode": "graph_B",
+      "pointers": [
+        123866251214848,
+        123866248638976,
+        123866248640512,
+        123866251218944
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.24013025522232057,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 1,
+      "mode": "graph_A_after_B",
+      "pointers": [
+        123866248633344,
+        123866248637440,
+        123866248641024,
+        123866251210752
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.2671401931345463,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 1,
+      "mode": "eager_C",
+      "pointers": [
+        123866251223040,
+        123866248641536,
+        123866251227648,
+        123866251228160
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.2390656976401806,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 1,
+      "mode": "graph_B_after_C",
+      "pointers": [
+        123866251214848,
+        123866248638976,
+        123866248640512,
+        123866251218944
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.24013025522232057,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 1,
+      "mode": "eager_A",
+      "pointers": [
+        123866248633344,
+        123866248637440,
+        123866248641024,
+        123866251210752
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.2671401931345463,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 3,
+      "mode": "graph_A",
+      "pointers": [
+        123866251214848,
+        123866248636928,
+        123866248636416,
+        123866251411456
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.18489790916442872,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 3,
+      "mode": "graph_B",
+      "pointers": [
+        123866251436032,
+        123866248637440,
+        123866251214336,
+        123866251236352
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.18504997551441194,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 3,
+      "mode": "graph_A_after_B",
+      "pointers": [
+        123866251214848,
+        123866248636928,
+        123866248636416,
+        123866251411456
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.18489790916442872,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 3,
+      "mode": "eager_C",
+      "pointers": [
+        123866251248640,
+        123866248638976,
+        123866248641024,
+        123866251260928
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.1940348541736603,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 3,
+      "mode": "graph_B_after_C",
+      "pointers": [
+        123866251436032,
+        123866248637440,
+        123866251214336,
+        123866251236352
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.18504997551441194,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 3,
+      "mode": "eager_A",
+      "pointers": [
+        123866251214848,
+        123866248636928,
+        123866248636416,
+        123866251411456
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.18489790916442872,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 4,
+      "mode": "graph_A",
+      "pointers": [
+        123866251297792,
+        123866248637440,
+        123866248638976,
+        123866251383808
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.19391748890280724,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 4,
+      "mode": "graph_B",
+      "pointers": [
+        123866251400192,
+        123866248638464,
+        123866248640000,
+        123866251426816
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.18633512616157533,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 4,
+      "mode": "graph_A_after_B",
+      "pointers": [
+        123866251297792,
+        123866248637440,
+        123866248638976,
+        123866251383808
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.19391748890280724,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 4,
+      "mode": "eager_C",
+      "pointers": [
+        123866251210752,
+        123866248639488,
+        123866251421184,
+        123866251227136
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.1955059340596199,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 4,
+      "mode": "graph_B_after_C",
+      "pointers": [
+        123866251400192,
+        123866248638464,
+        123866248640000,
+        123866251426816
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.18633512616157533,
+        "quality_equivalence": false
+      }
+    },
+    {
+      "m": 4,
+      "mode": "eager_A",
+      "pointers": [
+        123866251297792,
+        123866248637440,
+        123866248638976,
+        123866251383808
+      ],
+      "exact_best_plan": true,
+      "sanity": {
+        "status": "broad_sanity_only",
+        "absolute_ceiling": 0.35,
+        "baseline_factor": 1.25,
+        "baseline_margin": 0.01,
+        "effective_limit": 0.19391748890280724,
+        "quality_equivalence": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "scope": "singleON3/OFF1 pair; ON3terminal5shutdownaudit with verifiedmeasurementboundary; no quality/promotion",
+  "tasks": {
+    "decode_c1": {
+      "output_throughput": {
+        "on": 313.5560323756831,
+        "off": 286.10924182120755,
+        "on_vs_off_pct": 9.593115685381237
+      },
+      "mean_ttft_ms": {
+        "on": 131.01032056147233,
+        "off": 150.4835716332309,
+        "on_vs_off_pct": -12.940449818150345
+      },
+      "mean_tpot_ms": {
+        "on": 2.176694258475515,
+        "off": 2.332638928072718,
+        "on_vs_off_pct": -6.68533255277739
+      },
+      "spec_decode_acceptance_length": {
+        "on": 2.729946524064171,
+        "off": 2.720744680851064,
+        "on_vs_off_pct": 0.3382104641376671
+      }
+    },
+    "decode_c4": {
+      "output_throughput": {
+        "on": 751.3655366593032,
+        "off": 778.4444226278961,
+        "on_vs_off_pct": -3.47858950253368
+      },
+      "mean_ttft_ms": {
+        "on": 140.1649034814909,
+        "off": 171.92128361784853,
+        "on_vs_off_pct": -18.47146523576836
+      },
+      "mean_tpot_ms": {
+        "on": 4.133958519366753,
+        "off": 3.6847498746841825,
+        "on_vs_off_pct": 12.191021370780874
+      },
+      "spec_decode_acceptance_length": {
+        "on": 2.6186224489795915,
+        "off": 2.737967914438503,
+        "on_vs_off_pct": -4.35890664859696
+      }
+    },
+    "prefill_2048": {
+      "output_throughput": {
+        "on": 9.083945717330105,
+        "off": 9.033279190453186,
+        "on_vs_off_pct": 0.560887423146017
+      },
+      "mean_ttft_ms": {
+        "on": 109.53633999451995,
+        "off": 110.26080511510372,
+        "on_vs_off_pct": -0.6570468262294016
+      },
+      "mean_tpot_ms": {
+        "on": 0.0,
+        "off": 0.0
+      },
+      "spec_decode_acceptance_length": {
+        "on": null,
+        "off": null
+      }
+    }
+  },
+  "inductor": {
+    "shared_equal": 9,
+    "changed": [
+      {
+        "key": "519d4a9eab671bd634bb4a79c028bca35dc0db7fac88417512463b2fa9617b65.best_config",
+        "on": [
+          {
+            "path": "torch_compile_cache/torch_aot_compile/8bed63ae8e7f80bac80bb9c456e16d7235a17f521fb1d3c90dc86a14a4a1e633/inductor_cache/le/519d4a9eab671bd634bb4a79c028bca35dc0db7fac88417512463b2fa9617b65.best_config",
+            "selected": {
+              "XBLOCK": 1,
+              "R0_BLOCK": 1024,
+              "num_warps": 8,
+              "num_stages": 1
+            },
+            "selected_sha256": "237690c02a4cd63071be48ec87d96a2cd54621791e0f48f14b3084038fef05db"
+          }
+        ],
+        "off": [
+          {
+            "path": "torch_compile_cache/torch_aot_compile/dfd861db0cb576f70d71b4cd0c6325d12c6ba0a717dce98fbb562d15cf26de19/inductor_cache/le/519d4a9eab671bd634bb4a79c028bca35dc0db7fac88417512463b2fa9617b65.best_config",
+            "selected": {
+              "XBLOCK": 2,
+              "R0_BLOCK": 1024,
+              "num_warps": 16,
+              "num_stages": 1
+            },
+            "selected_sha256": "0603e6750a9064822ec416f252e3030fef564dc5d2dfef7306e27a45af00cb2f"
+          }
+        ]
+      },
+      {
+        "key": "9862bcde2d8a1a651f6020ef85d6f8bd65ebbe7ee38470f8c8c8dc332744c6cf.best_config",
+        "on": [
+          {
+            "path": "torch_compile_cache/torch_aot_compile/1caa76d5fe69ea6805605d0f0ed884470c1fe23b010103a19fb1700e01afb260/inductor_cache/vn/9862bcde2d8a1a651f6020ef85d6f8bd65ebbe7ee38470f8c8c8dc332744c6cf.best_config",
+            "selected": {
+              "XBLOCK": 1024,
+              "num_warps": 4,
+              "num_stages": 1
+            },
+            "selected_sha256": "868318931c108e3aecf5ff69d79c2c8ca05ac7dac6f07d8114180b5c143e2c11"
+          }
+        ],
+        "off": [
+          {
+            "path": "torch_compile_cache/torch_aot_compile/e874230d9ab312cd4d54295a8594e03e08ca51b9c8fca749c009f9ebef191c3a/inductor_cache/vn/9862bcde2d8a1a651f6020ef85d6f8bd65ebbe7ee38470f8c8c8dc332744c6cf.best_config",
+            "selected": {
+              "XBLOCK": 512,
+              "num_warps": 8,
+              "num_stages": 1
+            },
+            "selected_sha256": "a178e07a5bd4cbfe8da6f0f508c749d61230e88067085fd037c8991d8280a6be"
+          }
+        ]
+      },
+      {
+        "key": "fd2513ff9579135a6484b3d51cfbf207d69a14a6e38b35808526c7cb327e989f.best_config",
+        "on": [
+          {
+            "path": "torch_compile_cache/torch_aot_compile/8bed63ae8e7f80bac80bb9c456e16d7235a17f521fb1d3c90dc86a14a4a1e633/inductor_cache/hs/fd2513ff9579135a6484b3d51cfbf207d69a14a6e38b35808526c7cb327e989f.best_config",
+            "selected": {
+              "XBLOCK": 2,
+              "R0_BLOCK": 1024,
+              "num_warps": 16,
+              "num_stages": 1
+            },
+            "selected_sha256": "0603e6750a9064822ec416f252e3030fef564dc5d2dfef7306e27a45af00cb2f"
+          }
+        ],
+        "off": [
+          {
+            "path": "torch_compile_cache/torch_aot_compile/dfd861db0cb576f70d71b4cd0c6325d12c6ba0a717dce98fbb562d15cf26de19/inductor_cache/hs/fd2513ff9579135a6484b3d51cfbf207d69a14a6e38b35808526c7cb327e989f.best_config",
+            "selected": {
+              "XBLOCK": 1,
+              "R0_BLOCK": 1024,
+              "num_warps": 8,
+              "num_stages": 1
+            },
+            "selected_sha256": "237690c02a4cd63071be48ec87d96a2cd54621791e0f48f14b3084038fef05db"
+          }
+        ]
+      },
+      {
+        "key": "fff7920075c6299b122f6067e29220099b96671889b7b30705d1eab20ed01607.best_config",
+        "on": [
+          {
+            "path": "torch_compile_cache/torch_aot_compile/1caa76d5fe69ea6805605d0f0ed884470c1fe23b010103a19fb1700e01afb260/inductor_cache/e6/fff7920075c6299b122f6067e29220099b96671889b7b30705d1eab20ed01607.best_config",
+            "selected": {
+              "XBLOCK": 1,
+              "R0_BLOCK": 4096,
+              "num_warps": 16,
+              "num_stages": 1
+            },
+            "selected_sha256": "6657c897824dcdee5afcf8faf825e75841e2c391d9de22c98216b2ec960f50ee"
+          }
+        ],
+        "off": [
+          {
+            "path": "torch_compile_cache/torch_aot_compile/e874230d9ab312cd4d54295a8594e03e08ca51b9c8fca749c009f9ebef191c3a/inductor_cache/e6/fff7920075c6299b122f6067e29220099b96671889b7b30705d1eab20ed01607.best_config",
+            "selected": {
+              "XBLOCK": 1,
+              "R0_BLOCK": 1024,
+              "num_warps": 8,
+              "num_stages": 1
+            },
+            "selected_sha256": "237690c02a4cd63071be48ec87d96a2cd54621791e0f48f14b3084038fef05db"
+          }
+        ]
+      }
+    ],
+    "only_on": [],
+    "only_off": []
+  }
+}

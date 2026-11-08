@@ -1,0 +1,1532 @@
+{
+  "status": "verified_native_policy_repeat",
+  "rows": [
+    {
+      "m": 1,
+      "n": 2048,
+      "k": 4096,
+      "runs": [
+        {
+          "run": "swap_native_matrix_1",
+          "median_us": {
+            "off": 10.870400071144104,
+            "on": 8.351200073957443
+          },
+          "median_latency_reduction_percent": 23.17485999318437,
+          "paired_sample_reduction_percent": {
+            "min": 22.620273900378585,
+            "median": 23.25230864768595,
+            "max": 24.563792354715485
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=64, block_k=128",
+              "num_stages=5",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=64, block_n=16, block_k=64",
+              "num_stages=16",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.fe10eea1246288b3b5b07e292b885f3e/kernel.cu",
+              "kernel_source_sha256": "6f6a11527a79f05947570c28b33c98c6ffde4b373aaf977c0e88d1baed120c6b",
+              "cubin_sha256": "671ef1ac8dde58b39a795b8df353a58e299f179c3a76edf9753088440c827dca",
+              "jit_meta_sha256": "fe560d25e9f7414f8d9599d6b0140fb1bdb3b876abf69170553adf30f96af867",
+              "effective_m": 1,
+              "effective_n": 2048,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 64,
+              "block_k": 128,
+              "pipeline_stages": 5,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.c038fa533db10ee78e3548a254230f17/kernel.cu",
+              "kernel_source_sha256": "54e11c701d6fc893eb7f575a633ecc7167714926d1718481264ff67c573e1ab1",
+              "cubin_sha256": "a4b2745b6282e5cd2d449ce31372b2f7da353907e1b02054753487e650ee2663",
+              "jit_meta_sha256": "73ab6aa9c74571579c0665ae52f3b1eed3409e7b1a65a0c0d78becc94d71d818",
+              "effective_m": 2048,
+              "effective_n": 1,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 16,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 671088640,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016111669829115272,
+              "max_error_over_rms": 0.009896975010633469,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016111669829115272,
+              "max_error_over_rms": 0.009896975010633469,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016111669829115272,
+              "max_error_over_rms": 0.009896975010633469,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016111669829115272,
+              "max_error_over_rms": 0.009896975010633469,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        },
+        {
+          "run": "swap_native_matrix_2",
+          "median_us": {
+            "off": 8.578799664974213,
+            "on": 8.312399685382843
+          },
+          "median_latency_reduction_percent": 3.1053293000772086,
+          "paired_sample_reduction_percent": {
+            "min": 2.709401611235418,
+            "median": 3.0343993751014153,
+            "max": 3.563971779486108
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=64, block_k=128",
+              "num_stages=5",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=64, block_n=16, block_k=64",
+              "num_stages=16",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.fe10eea1246288b3b5b07e292b885f3e/kernel.cu",
+              "kernel_source_sha256": "6f6a11527a79f05947570c28b33c98c6ffde4b373aaf977c0e88d1baed120c6b",
+              "cubin_sha256": "905b06e01b33c75a324f3b925c4981091277a1bfeabb263bb0298337f8e9fb5e",
+              "jit_meta_sha256": "14584ffdf6545650bfd6550e064035e8b7409a7000d24e8276c409a87ae1c2b4",
+              "effective_m": 1,
+              "effective_n": 2048,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 64,
+              "block_k": 128,
+              "pipeline_stages": 5,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.c038fa533db10ee78e3548a254230f17/kernel.cu",
+              "kernel_source_sha256": "54e11c701d6fc893eb7f575a633ecc7167714926d1718481264ff67c573e1ab1",
+              "cubin_sha256": "7f275e2225bc267ac87781c8d77ea3e9493fd8edae51dee4182a5a2a680f57e5",
+              "jit_meta_sha256": "4c46d8dfa75efa0da0c44645c44332b2c50414744d872577616ceffdb137ff9a",
+              "effective_m": 2048,
+              "effective_n": 1,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 16,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 671088640,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.001606534468010068,
+              "max_error_over_rms": 0.008085625246167183,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.001606534468010068,
+              "max_error_over_rms": 0.008085625246167183,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.001606534468010068,
+              "max_error_over_rms": 0.008085625246167183,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.001606534468010068,
+              "max_error_over_rms": 0.008085625246167183,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        }
+      ]
+    },
+    {
+      "m": 1,
+      "n": 12288,
+      "k": 2048,
+      "runs": [
+        {
+          "run": "swap_native_matrix_1",
+          "median_us": {
+            "off": 18.09777816136678,
+            "on": 17.52177763868261
+          },
+          "median_latency_reduction_percent": 3.1827140190819336,
+          "paired_sample_reduction_percent": {
+            "min": 2.265117589027199,
+            "median": 3.2135597253661996,
+            "max": 4.428328558742423
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=128, block_k=128",
+              "num_stages=3",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=128, block_n=16, block_k=64",
+              "num_stages=10",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.3781c6dbb9f8abfa4ec0e668bd4da34e/kernel.cu",
+              "kernel_source_sha256": "fce99ef0a9e9b92314f5fdb7445beedb79901f5423858433c3e38bf20b0931de",
+              "cubin_sha256": "9e3c7c5061e2d560d17f150045561660f0bb52a6d527945a63cd4f0738a6e459",
+              "jit_meta_sha256": "fad3bc2315c7347e0c12ee20d85be1248a95318db39bb859d2a25d60142e0ac7",
+              "effective_m": 1,
+              "effective_n": 12288,
+              "k": 2048,
+              "block_m": 64,
+              "block_n": 128,
+              "block_k": 128,
+              "pipeline_stages": 3,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.89dbc6bd5d0392d4301a7825a493b6a8/kernel.cu",
+              "kernel_source_sha256": "a73cdb90259f4ef982f47fbf7c2d0cdf260ddb9f79fab55025ec50b46381e409",
+              "cubin_sha256": "5b53e1b43697f09754b3f4e94e67c0bc0a6f35d7785dfc32c4fb2dad1678836e",
+              "jit_meta_sha256": "63d1189a827e71268b1970643767ce7293929e6ea3ebf2f09344580167aa6fd8",
+              "effective_m": 12288,
+              "effective_n": 1,
+              "k": 2048,
+              "block_m": 128,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 10,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 679477248,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016495215240865946,
+              "max_error_over_rms": 0.008933703415095806,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016495215240865946,
+              "max_error_over_rms": 0.008933703415095806,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016495215240865946,
+              "max_error_over_rms": 0.008933703415095806,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016495215240865946,
+              "max_error_over_rms": 0.008933703415095806,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        },
+        {
+          "run": "swap_native_matrix_2",
+          "median_us": {
+            "off": 18.08355583084954,
+            "on": 17.535999969199853
+          },
+          "median_latency_reduction_percent": 3.0279214263579046,
+          "paired_sample_reduction_percent": {
+            "min": 2.5945872933200054,
+            "median": 3.058628583866252,
+            "max": 3.5797696202698237
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=128, block_k=128",
+              "num_stages=3",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=128, block_n=16, block_k=64",
+              "num_stages=10",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.3781c6dbb9f8abfa4ec0e668bd4da34e/kernel.cu",
+              "kernel_source_sha256": "fce99ef0a9e9b92314f5fdb7445beedb79901f5423858433c3e38bf20b0931de",
+              "cubin_sha256": "c549f76de911cd0d86aad4b2e8c9c8179d2bbe34790a5d5e2ce8476e51c7ca2f",
+              "jit_meta_sha256": "6d2ab827f3cfd8f6d0e18bef9a80e51db0b849ff14f19f32bdaf6d3a0f9ddd19",
+              "effective_m": 1,
+              "effective_n": 12288,
+              "k": 2048,
+              "block_m": 64,
+              "block_n": 128,
+              "block_k": 128,
+              "pipeline_stages": 3,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.89dbc6bd5d0392d4301a7825a493b6a8/kernel.cu",
+              "kernel_source_sha256": "a73cdb90259f4ef982f47fbf7c2d0cdf260ddb9f79fab55025ec50b46381e409",
+              "cubin_sha256": "25693f6c2c9bb7d7672c7f2f4106e87cd57f848f8f53cfca6d6fbc1f267a461c",
+              "jit_meta_sha256": "a0e05bce19b5ff617cdee56bb48e3049b2bc9e98b02ce19eb0378cf4f0231746",
+              "effective_m": 12288,
+              "effective_n": 1,
+              "k": 2048,
+              "block_m": 128,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 10,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 679477248,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016640126705169678,
+              "max_error_over_rms": 0.015099245123565197,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016640126705169678,
+              "max_error_over_rms": 0.015099245123565197,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016640126705169678,
+              "max_error_over_rms": 0.015099245123565197,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016640126705169678,
+              "max_error_over_rms": 0.015099245123565197,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        }
+      ]
+    },
+    {
+      "m": 3,
+      "n": 2048,
+      "k": 4096,
+      "runs": [
+        {
+          "run": "swap_native_matrix_1",
+          "median_us": {
+            "off": 9.459199756383896,
+            "on": 8.410000056028366
+          },
+          "median_latency_reduction_percent": 11.091844208569945,
+          "paired_sample_reduction_percent": {
+            "min": 8.512346210032762,
+            "median": 11.321952570450245,
+            "max": 12.930386089735514
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=64, block_k=128",
+              "num_stages=5",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=64, block_n=16, block_k=64",
+              "num_stages=16",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.fe10eea1246288b3b5b07e292b885f3e/kernel.cu",
+              "kernel_source_sha256": "6f6a11527a79f05947570c28b33c98c6ffde4b373aaf977c0e88d1baed120c6b",
+              "cubin_sha256": "671ef1ac8dde58b39a795b8df353a58e299f179c3a76edf9753088440c827dca",
+              "jit_meta_sha256": "fe560d25e9f7414f8d9599d6b0140fb1bdb3b876abf69170553adf30f96af867",
+              "effective_m": 3,
+              "effective_n": 2048,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 64,
+              "block_k": 128,
+              "pipeline_stages": 5,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.6ad5444f236ce0c8d48f86a71050bf31/kernel.cu",
+              "kernel_source_sha256": "c5469a88def2bbe2a4d2970c679654a84f5284604ecaf4125627928a74172e05",
+              "cubin_sha256": "654fe4e3d6a5bf6091e11e70d2cf6cea2b2394f8df6148f6fca621b2d4db4b03",
+              "jit_meta_sha256": "b37907d7088e225d279b254dd5ac888374f4fc4aa552ab9f74ca4ab97b1d2bf2",
+              "effective_m": 2048,
+              "effective_n": 3,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 16,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 671088640,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016199619276449084,
+              "max_error_over_rms": 0.01079479232430458,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016199619276449084,
+              "max_error_over_rms": 0.01079479232430458,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016199619276449084,
+              "max_error_over_rms": 0.01079479232430458,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016199619276449084,
+              "max_error_over_rms": 0.01079479232430458,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        },
+        {
+          "run": "swap_native_matrix_2",
+          "median_us": {
+            "off": 9.334000200033188,
+            "on": 8.38799998164177
+          },
+          "median_latency_reduction_percent": 10.134992480373583,
+          "paired_sample_reduction_percent": {
+            "min": 8.67171560369917,
+            "median": 10.220073008097753,
+            "max": 11.601047201980707
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=64, block_k=128",
+              "num_stages=5",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=64, block_n=16, block_k=64",
+              "num_stages=16",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.fe10eea1246288b3b5b07e292b885f3e/kernel.cu",
+              "kernel_source_sha256": "6f6a11527a79f05947570c28b33c98c6ffde4b373aaf977c0e88d1baed120c6b",
+              "cubin_sha256": "905b06e01b33c75a324f3b925c4981091277a1bfeabb263bb0298337f8e9fb5e",
+              "jit_meta_sha256": "14584ffdf6545650bfd6550e064035e8b7409a7000d24e8276c409a87ae1c2b4",
+              "effective_m": 3,
+              "effective_n": 2048,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 64,
+              "block_k": 128,
+              "pipeline_stages": 5,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.6ad5444f236ce0c8d48f86a71050bf31/kernel.cu",
+              "kernel_source_sha256": "c5469a88def2bbe2a4d2970c679654a84f5284604ecaf4125627928a74172e05",
+              "cubin_sha256": "74baaa6ca9f924636b4af7e76b6c3fcceb963389fb62561de729db205ecd2014",
+              "jit_meta_sha256": "d32ab0923f594e2fbe444a34e5dfa0c70042a828578628982deb5def4562a032",
+              "effective_m": 2048,
+              "effective_n": 3,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 16,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 671088640,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0017046027351170778,
+              "max_error_over_rms": 0.01273508369922638,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0017046027351170778,
+              "max_error_over_rms": 0.01273508369922638,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0017046027351170778,
+              "max_error_over_rms": 0.01273508369922638,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0017046027351170778,
+              "max_error_over_rms": 0.01273508369922638,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        }
+      ]
+    },
+    {
+      "m": 3,
+      "n": 12288,
+      "k": 2048,
+      "runs": [
+        {
+          "run": "swap_native_matrix_1",
+          "median_us": {
+            "off": 18.394073954334967,
+            "on": 17.646222202866166
+          },
+          "median_latency_reduction_percent": 4.065721130215161,
+          "paired_sample_reduction_percent": {
+            "min": 3.7321637328432633,
+            "median": 4.090440277289842,
+            "max": 5.093869520200311
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=128, block_k=128",
+              "num_stages=3",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=128, block_n=16, block_k=64",
+              "num_stages=10",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.3781c6dbb9f8abfa4ec0e668bd4da34e/kernel.cu",
+              "kernel_source_sha256": "fce99ef0a9e9b92314f5fdb7445beedb79901f5423858433c3e38bf20b0931de",
+              "cubin_sha256": "9e3c7c5061e2d560d17f150045561660f0bb52a6d527945a63cd4f0738a6e459",
+              "jit_meta_sha256": "fad3bc2315c7347e0c12ee20d85be1248a95318db39bb859d2a25d60142e0ac7",
+              "effective_m": 3,
+              "effective_n": 12288,
+              "k": 2048,
+              "block_m": 64,
+              "block_n": 128,
+              "block_k": 128,
+              "pipeline_stages": 3,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.574546e659d3f0126c076fadf5df5d99/kernel.cu",
+              "kernel_source_sha256": "29dde2c25120befb00cafb6ffbcce52566121f269f3e9c0ea4eef5724bb17a84",
+              "cubin_sha256": "6868268dc962ff1ce47caa04a60e5de0a3e37e07ca01a858a3d5519075d4f698",
+              "jit_meta_sha256": "524413dd71ac707744de96a810bdcfd0c20d4a3ef129a0ab41fe78ca39084c58",
+              "effective_m": 12288,
+              "effective_n": 3,
+              "k": 2048,
+              "block_m": 128,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 10,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 679477248,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016682943096384406,
+              "max_error_over_rms": 0.016992662101984024,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016682943096384406,
+              "max_error_over_rms": 0.016992662101984024,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016682943096384406,
+              "max_error_over_rms": 0.016992662101984024,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016682943096384406,
+              "max_error_over_rms": 0.016992662101984024,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        },
+        {
+          "run": "swap_native_matrix_2",
+          "median_us": {
+            "off": 18.110815021726822,
+            "on": 17.59644459795069
+          },
+          "median_latency_reduction_percent": 2.840128526292507,
+          "paired_sample_reduction_percent": {
+            "min": 1.952689472362834,
+            "median": 2.8057048417941877,
+            "max": 3.410276551665292
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=128, block_k=128",
+              "num_stages=3",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=128, block_n=16, block_k=64",
+              "num_stages=10",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.3781c6dbb9f8abfa4ec0e668bd4da34e/kernel.cu",
+              "kernel_source_sha256": "fce99ef0a9e9b92314f5fdb7445beedb79901f5423858433c3e38bf20b0931de",
+              "cubin_sha256": "c549f76de911cd0d86aad4b2e8c9c8179d2bbe34790a5d5e2ce8476e51c7ca2f",
+              "jit_meta_sha256": "6d2ab827f3cfd8f6d0e18bef9a80e51db0b849ff14f19f32bdaf6d3a0f9ddd19",
+              "effective_m": 3,
+              "effective_n": 12288,
+              "k": 2048,
+              "block_m": 64,
+              "block_n": 128,
+              "block_k": 128,
+              "pipeline_stages": 3,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.574546e659d3f0126c076fadf5df5d99/kernel.cu",
+              "kernel_source_sha256": "29dde2c25120befb00cafb6ffbcce52566121f269f3e9c0ea4eef5724bb17a84",
+              "cubin_sha256": "f13413d0ca214ea2ee56a3dbed890a7124ccd8f085f4ad050f40c4c5f276e9c7",
+              "jit_meta_sha256": "331ddaa0c4ba8a3f755632b39b73f4890e5a3c4fed4958799e3d92e08f552682",
+              "effective_m": 12288,
+              "effective_n": 3,
+              "k": 2048,
+              "block_m": 128,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 10,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 679477248,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.001652911421842873,
+              "max_error_over_rms": 0.013257287442684174,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.001652911421842873,
+              "max_error_over_rms": 0.013257287442684174,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.001652911421842873,
+              "max_error_over_rms": 0.013257287442684174,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.001652911421842873,
+              "max_error_over_rms": 0.013257287442684174,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        }
+      ]
+    },
+    {
+      "m": 8,
+      "n": 2048,
+      "k": 4096,
+      "runs": [
+        {
+          "run": "swap_native_matrix_1",
+          "median_us": {
+            "off": 9.325200319290161,
+            "on": 8.3856001496315
+          },
+          "median_latency_reduction_percent": 10.075924778956214,
+          "paired_sample_reduction_percent": {
+            "min": 9.281360730492105,
+            "median": 10.117816950423176,
+            "max": 10.944551128466118
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=64, block_k=128",
+              "num_stages=5",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=64, block_n=16, block_k=64",
+              "num_stages=16",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.fe10eea1246288b3b5b07e292b885f3e/kernel.cu",
+              "kernel_source_sha256": "6f6a11527a79f05947570c28b33c98c6ffde4b373aaf977c0e88d1baed120c6b",
+              "cubin_sha256": "671ef1ac8dde58b39a795b8df353a58e299f179c3a76edf9753088440c827dca",
+              "jit_meta_sha256": "fe560d25e9f7414f8d9599d6b0140fb1bdb3b876abf69170553adf30f96af867",
+              "effective_m": 8,
+              "effective_n": 2048,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 64,
+              "block_k": 128,
+              "pipeline_stages": 5,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.1f4122e9668949f4390b04efca76ab66/kernel.cu",
+              "kernel_source_sha256": "2b796c9e74504fbf5efd58d1a0e0cfe19dcaf899a236a732ca87ec51abef65eb",
+              "cubin_sha256": "1666d027fa5a466ebec4bd0bc1bd6347e96a18a543520a4d7f90c4c54211eea2",
+              "jit_meta_sha256": "363faa36735eb9634c93bdadb00e499edbbec1abcde778da7b11407540ccdb87",
+              "effective_m": 2048,
+              "effective_n": 8,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 16,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 671088640,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016546968836337328,
+              "max_error_over_rms": 0.011497515253722668,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016546968836337328,
+              "max_error_over_rms": 0.011497515253722668,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016546968836337328,
+              "max_error_over_rms": 0.011497515253722668,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016546968836337328,
+              "max_error_over_rms": 0.011497515253722668,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        },
+        {
+          "run": "swap_native_matrix_2",
+          "median_us": {
+            "off": 9.443999826908112,
+            "on": 8.376800268888474
+          },
+          "median_latency_reduction_percent": 11.300292011642599,
+          "paired_sample_reduction_percent": {
+            "min": 10.388835609506463,
+            "median": 11.335447616306915,
+            "max": 12.496333544973282
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=64, block_k=128",
+              "num_stages=5",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=64, block_n=16, block_k=64",
+              "num_stages=16",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.fe10eea1246288b3b5b07e292b885f3e/kernel.cu",
+              "kernel_source_sha256": "6f6a11527a79f05947570c28b33c98c6ffde4b373aaf977c0e88d1baed120c6b",
+              "cubin_sha256": "905b06e01b33c75a324f3b925c4981091277a1bfeabb263bb0298337f8e9fb5e",
+              "jit_meta_sha256": "14584ffdf6545650bfd6550e064035e8b7409a7000d24e8276c409a87ae1c2b4",
+              "effective_m": 8,
+              "effective_n": 2048,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 64,
+              "block_k": 128,
+              "pipeline_stages": 5,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.1f4122e9668949f4390b04efca76ab66/kernel.cu",
+              "kernel_source_sha256": "2b796c9e74504fbf5efd58d1a0e0cfe19dcaf899a236a732ca87ec51abef65eb",
+              "cubin_sha256": "193c78070e6eb19127c9b15c7201099c40ece944c2856a053fed0a0e576c7c0f",
+              "jit_meta_sha256": "cb80f49b3e650a270b02fafb16ad2edc101910d43d897761223d7d7eb0f2143a",
+              "effective_m": 2048,
+              "effective_n": 8,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 16,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 671088640,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016891713021323085,
+              "max_error_over_rms": 0.012321232818067074,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016891713021323085,
+              "max_error_over_rms": 0.012321232818067074,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016891713021323085,
+              "max_error_over_rms": 0.012321232818067074,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016891713021323085,
+              "max_error_over_rms": 0.012321232818067074,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        }
+      ]
+    },
+    {
+      "m": 8,
+      "n": 12288,
+      "k": 2048,
+      "runs": [
+        {
+          "run": "swap_native_matrix_1",
+          "median_us": {
+            "off": 18.036148062458746,
+            "on": 17.55614854671337
+          },
+          "median_latency_reduction_percent": 2.661319446276167,
+          "paired_sample_reduction_percent": {
+            "min": -6.583635831267998,
+            "median": 2.6778082234086065,
+            "max": 6.7403733106432
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=128, block_k=128",
+              "num_stages=3",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=128, block_n=16, block_k=64",
+              "num_stages=10",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.3781c6dbb9f8abfa4ec0e668bd4da34e/kernel.cu",
+              "kernel_source_sha256": "fce99ef0a9e9b92314f5fdb7445beedb79901f5423858433c3e38bf20b0931de",
+              "cubin_sha256": "9e3c7c5061e2d560d17f150045561660f0bb52a6d527945a63cd4f0738a6e459",
+              "jit_meta_sha256": "fad3bc2315c7347e0c12ee20d85be1248a95318db39bb859d2a25d60142e0ac7",
+              "effective_m": 8,
+              "effective_n": 12288,
+              "k": 2048,
+              "block_m": 64,
+              "block_n": 128,
+              "block_k": 128,
+              "pipeline_stages": 3,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.a2183d7754dd1483e55638c8a1deb231/kernel.cu",
+              "kernel_source_sha256": "1efdfa35434498086b3170bd35f5521ceaf8b10c9a811e6408ceb4c600af0e54",
+              "cubin_sha256": "fffc78b51ba71a4b26168a76585b2466d1f49b8f9169fe8fd926c89f6ac142c7",
+              "jit_meta_sha256": "60b98021368909befb680279ab4d668e4e23d4f1ce66de98d38d0dbc8bcd5760",
+              "effective_m": 12288,
+              "effective_n": 8,
+              "k": 2048,
+              "block_m": 128,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 10,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 679477248,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016608458245173097,
+              "max_error_over_rms": 0.01733522303402424,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016608458245173097,
+              "max_error_over_rms": 0.01733522303402424,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016608458245173097,
+              "max_error_over_rms": 0.01733522303402424,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016608458245173097,
+              "max_error_over_rms": 0.01733522303402424,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        },
+        {
+          "run": "swap_native_matrix_2",
+          "median_us": {
+            "off": 18.1357032722897,
+            "on": 17.59407365763629
+          },
+          "median_latency_reduction_percent": 2.9865376959546275,
+          "paired_sample_reduction_percent": {
+            "min": 2.2159730896593732,
+            "median": 3.0085009226733073,
+            "max": 3.8205922357931965
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=128, block_k=128",
+              "num_stages=3",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=128, block_n=16, block_k=64",
+              "num_stages=10",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.3781c6dbb9f8abfa4ec0e668bd4da34e/kernel.cu",
+              "kernel_source_sha256": "fce99ef0a9e9b92314f5fdb7445beedb79901f5423858433c3e38bf20b0931de",
+              "cubin_sha256": "c549f76de911cd0d86aad4b2e8c9c8179d2bbe34790a5d5e2ce8476e51c7ca2f",
+              "jit_meta_sha256": "6d2ab827f3cfd8f6d0e18bef9a80e51db0b849ff14f19f32bdaf6d3a0f9ddd19",
+              "effective_m": 8,
+              "effective_n": 12288,
+              "k": 2048,
+              "block_m": 64,
+              "block_n": 128,
+              "block_k": 128,
+              "pipeline_stages": 3,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.a2183d7754dd1483e55638c8a1deb231/kernel.cu",
+              "kernel_source_sha256": "1efdfa35434498086b3170bd35f5521ceaf8b10c9a811e6408ceb4c600af0e54",
+              "cubin_sha256": "ef52cf397862bab017736eb375d8a12767be1feebf2c1aece236c0cdae4debf8",
+              "jit_meta_sha256": "6ff18f8a84d90b94735e1c41d8473c485da36738abaa78e1b1c3e0a277e180aa",
+              "effective_m": 12288,
+              "effective_n": 8,
+              "k": 2048,
+              "block_m": 128,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 10,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 679477248,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016624731943011284,
+              "max_error_over_rms": 0.015740206465125084,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016624731943011284,
+              "max_error_over_rms": 0.015740206465125084,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016624731943011284,
+              "max_error_over_rms": 0.015740206465125084,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016624731943011284,
+              "max_error_over_rms": 0.015740206465125084,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        }
+      ]
+    },
+    {
+      "m": 16,
+      "n": 2048,
+      "k": 4096,
+      "runs": [
+        {
+          "run": "swap_native_matrix_1",
+          "median_us": {
+            "off": 10.265599936246872,
+            "on": 8.550000190734863
+          },
+          "median_latency_reduction_percent": 16.712123559913795,
+          "paired_sample_reduction_percent": {
+            "min": 15.995766490022433,
+            "median": 16.7205161369666,
+            "max": 17.193251151651957
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=64, block_k=128",
+              "num_stages=5",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=64, block_n=16, block_k=64",
+              "num_stages=16",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.fe10eea1246288b3b5b07e292b885f3e/kernel.cu",
+              "kernel_source_sha256": "6f6a11527a79f05947570c28b33c98c6ffde4b373aaf977c0e88d1baed120c6b",
+              "cubin_sha256": "671ef1ac8dde58b39a795b8df353a58e299f179c3a76edf9753088440c827dca",
+              "jit_meta_sha256": "fe560d25e9f7414f8d9599d6b0140fb1bdb3b876abf69170553adf30f96af867",
+              "effective_m": 16,
+              "effective_n": 2048,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 64,
+              "block_k": 128,
+              "pipeline_stages": 5,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.b7bfbf3598eebea1b81764e1efd86711/kernel.cu",
+              "kernel_source_sha256": "c15aef5712bbb475c42a46b998be32b7738be869ca5f0e821b637efcb2dc6114",
+              "cubin_sha256": "7b231b25d58ae93c9e07ac86207a74b1f0fbd326ce9b702f6c4ab51202c28ecf",
+              "jit_meta_sha256": "29ca434edbb3b8cc910009b99bbf7a41e4ef949e44ef76936606215cb08606f5",
+              "effective_m": 2048,
+              "effective_n": 16,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 16,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 671088640,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016614515334367752,
+              "max_error_over_rms": 0.011686794459819794,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016614515334367752,
+              "max_error_over_rms": 0.011686794459819794,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016614515334367752,
+              "max_error_over_rms": 0.011686794459819794,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016614515334367752,
+              "max_error_over_rms": 0.011686794459819794,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        },
+        {
+          "run": "swap_native_matrix_2",
+          "median_us": {
+            "off": 8.715199679136276,
+            "on": 8.574000000953674
+          },
+          "median_latency_reduction_percent": 1.620154252123751,
+          "paired_sample_reduction_percent": {
+            "min": 1.3137337777899494,
+            "median": 1.6624546506849525,
+            "max": 2.1532396521177555
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=64, block_k=128",
+              "num_stages=5",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=64, block_n=16, block_k=64",
+              "num_stages=16",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.fe10eea1246288b3b5b07e292b885f3e/kernel.cu",
+              "kernel_source_sha256": "6f6a11527a79f05947570c28b33c98c6ffde4b373aaf977c0e88d1baed120c6b",
+              "cubin_sha256": "905b06e01b33c75a324f3b925c4981091277a1bfeabb263bb0298337f8e9fb5e",
+              "jit_meta_sha256": "14584ffdf6545650bfd6550e064035e8b7409a7000d24e8276c409a87ae1c2b4",
+              "effective_m": 16,
+              "effective_n": 2048,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 64,
+              "block_k": 128,
+              "pipeline_stages": 5,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.b7bfbf3598eebea1b81764e1efd86711/kernel.cu",
+              "kernel_source_sha256": "c15aef5712bbb475c42a46b998be32b7738be869ca5f0e821b637efcb2dc6114",
+              "cubin_sha256": "49ed997232702921144e05fa43679a7d9d4df401f2b1465b9f1143e530f6db41",
+              "jit_meta_sha256": "44e5af2b73bb4380b349c44c55cd09a22394803a3cffb12791d33546997eba49",
+              "effective_m": 2048,
+              "effective_n": 16,
+              "k": 4096,
+              "block_m": 64,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 16,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 4,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 671088640,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016362721798941493,
+              "max_error_over_rms": 0.011596987023949623,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016362721798941493,
+              "max_error_over_rms": 0.011596987023949623,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016362721798941493,
+              "max_error_over_rms": 0.011596987023949623,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016362721798941493,
+              "max_error_over_rms": 0.011596987023949623,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        }
+      ]
+    },
+    {
+      "m": 16,
+      "n": 12288,
+      "k": 2048,
+      "runs": [
+        {
+          "run": "swap_native_matrix_1",
+          "median_us": {
+            "off": 18.17718479368422,
+            "on": 17.71140760845608
+          },
+          "median_latency_reduction_percent": 2.5624275184239487,
+          "paired_sample_reduction_percent": {
+            "min": 1.8248415505944804,
+            "median": 2.6235428239655856,
+            "max": 3.795837191586793
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=128, block_k=128",
+              "num_stages=3",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=128, block_n=16, block_k=64",
+              "num_stages=10",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.3781c6dbb9f8abfa4ec0e668bd4da34e/kernel.cu",
+              "kernel_source_sha256": "fce99ef0a9e9b92314f5fdb7445beedb79901f5423858433c3e38bf20b0931de",
+              "cubin_sha256": "9e3c7c5061e2d560d17f150045561660f0bb52a6d527945a63cd4f0738a6e459",
+              "jit_meta_sha256": "fad3bc2315c7347e0c12ee20d85be1248a95318db39bb859d2a25d60142e0ac7",
+              "effective_m": 16,
+              "effective_n": 12288,
+              "k": 2048,
+              "block_m": 64,
+              "block_n": 128,
+              "block_k": 128,
+              "pipeline_stages": 3,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.aa702b16fb91c73d34a1ecd578b6acf5/kernel.cu",
+              "kernel_source_sha256": "43e9aa5a9c03cdb5db355b94138bb7f21ed7934fbae5a5be02eff26c96931dd7",
+              "cubin_sha256": "4403504d65621572a5081a2360a762a732730617bf588e0c58fd15adfff51537",
+              "jit_meta_sha256": "b0b375df1a02812b7010c1a873bbfbf42cbd839ef654fc8a17c1c618ea47857a",
+              "effective_m": 12288,
+              "effective_n": 16,
+              "k": 2048,
+              "block_m": 128,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 10,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 679477248,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016592458123341203,
+              "max_error_over_rms": 0.017286088317632675,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016592458123341203,
+              "max_error_over_rms": 0.017286088317632675,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016592458123341203,
+              "max_error_over_rms": 0.017286088317632675,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016592458123341203,
+              "max_error_over_rms": 0.017286088317632675,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        },
+        {
+          "run": "swap_native_matrix_2",
+          "median_us": {
+            "off": 18.134518905922217,
+            "on": 17.71140760845608
+          },
+          "median_latency_reduction_percent": 2.333181815636476,
+          "paired_sample_reduction_percent": {
+            "min": 1.5504890529671078,
+            "median": 2.376767743599495,
+            "max": 2.7984329965951127
+          },
+          "observed_pre_finalization_config": {
+            "off": [
+              "block_m=64, block_n=128, block_k=128",
+              "num_stages=3",
+              "split_k=1"
+            ],
+            "on": [
+              "block_m=128, block_n=16, block_k=64",
+              "num_stages=10",
+              "split_k=1"
+            ]
+          },
+          "authoritative_generated_template": {
+            "off": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.3781c6dbb9f8abfa4ec0e668bd4da34e/kernel.cu",
+              "kernel_source_sha256": "fce99ef0a9e9b92314f5fdb7445beedb79901f5423858433c3e38bf20b0931de",
+              "cubin_sha256": "c549f76de911cd0d86aad4b2e8c9c8179d2bbe34790a5d5e2ce8476e51c7ca2f",
+              "jit_meta_sha256": "6d2ab827f3cfd8f6d0e18bef9a80e51db0b849ff14f19f32bdaf6d3a0f9ddd19",
+              "effective_m": 16,
+              "effective_n": 12288,
+              "k": 2048,
+              "block_m": 64,
+              "block_n": 128,
+              "block_k": 128,
+              "pipeline_stages": 3,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            },
+            "on": {
+              "kernel_source": "jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.aa702b16fb91c73d34a1ecd578b6acf5/kernel.cu",
+              "kernel_source_sha256": "43e9aa5a9c03cdb5db355b94138bb7f21ed7934fbae5a5be02eff26c96931dd7",
+              "cubin_sha256": "059250f829f19c51d68592cf9267b9ef4945dcc656efc788cd104427f1747fb9",
+              "jit_meta_sha256": "ae82fdbf8a617a26043c957a86a39aef3c10fac5aebea8ba09c48c88b7626bc1",
+              "effective_m": 12288,
+              "effective_n": 16,
+              "k": 2048,
+              "block_m": 128,
+              "block_n": 16,
+              "block_k": 64,
+              "pipeline_stages": 10,
+              "grid_ctas": 188,
+              "epilogue": "epilogue::transform::EpilogueIdentity",
+              "split_k": 1,
+              "proof_scope": "Unique exact template/cubin in isolated run cache matched to frozen direct-call dimensions, orientation trace, tile and epilogue. Not an independent per-request profiler trace."
+            }
+          },
+          "weight_pool_bytes": 679477248,
+          "reference_error": {
+            "off": {
+              "relative_rms": 0.0016613584011793137,
+              "max_error_over_rms": 0.01661171205341816,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016613584011793137,
+              "max_error_over_rms": 0.01661171205341816,
+              "finite": true
+            }
+          },
+          "changed_input_replay": {
+            "off": {
+              "relative_rms": 0.0016613584011793137,
+              "max_error_over_rms": 0.01661171205341816,
+              "finite": true
+            },
+            "on": {
+              "relative_rms": 0.0016613584011793137,
+              "max_error_over_rms": 0.01661171205341816,
+              "finite": true
+            }
+          },
+          "on_vs_off_error": {
+            "relative_rms": 0.0,
+            "max_error_over_rms": 0.0,
+            "finite": true
+          }
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "kernels/pdl-swapab/results/swap_native_matrix_1": {
+      "result_sha256": "64a1a88ac9a4983d153824076b4ce2b7c67e840d439394260934714f8659cee6",
+      "source_fingerprint_sha256": "9dd537c5a1fa07a869b23b9ef63e8b697fb204e3d710c5a1a61423cb5649949a"
+    },
+    "kernels/pdl-swapab/results/swap_native_matrix_2": {
+      "result_sha256": "75e52c97c8cddb8182bece04509b401a515b9d1ae8164234cf164bdc61c3145f",
+      "source_fingerprint_sha256": "9dd537c5a1fa07a869b23b9ef63e8b697fb204e3d710c5a1a61423cb5649949a"
+    }
+  },
+  "split_k_correction": "DG_PRINT_CONFIGS logs get_best_sm120_config before caller finalizes split-K. Original traces preserved. Generated template parameters are authoritative: N2048/K4096 off/on splitK4; N12288/K2048 off/on splitK1.",
+  "binary_sha256": "93488bde73201c38ffc670ff79ee14089052f5aa7a9fd0a396b603b232a3137c",
+  "script_sha256": "ef0f00585e7404989b0623d6dbbaee369f529cbf324aa79a93cefe9f2cc6d020",
+  "analysis_sha256": "5a23c6461a7020a683fda33dbf2a7f3baf369a48dcba9f912457cbadf496c239",
+  "interpretation": "Native UE8M0 FP8 policy off/on with same operands within each cell; policy includes tile/stage changes. Existing auto-swap already enables this path. Fresh reversed-cell RNG consumption differs, so matched cells across runs do not claim identical tensors. No vLLM/NVFP4 integration or model speedup established. Per-run reductions retained; no pooled headline or confidence interval."
+}

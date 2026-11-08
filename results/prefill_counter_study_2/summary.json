@@ -1,0 +1,81 @@
+{
+  "status": "counters_collected",
+  "scope": "One warmed scalar L19 M1024 native fused kernel; not full-call or serving speed proof",
+  "original_worktree_path": "kernels/prefill-counter-study/results/scalar_l19_m1024_counters_2",
+  "import_tool": "/usr/local/cuda/bin/ncu",
+  "kernel": "kernel_cutlass_kernel_flashinferfused_moecute_dslblackwell_sm12x_moe_dynamicgatedMoEGatedDynamicKernel_object_at__tensorptrbf16gmemalign16o204820481_tensorptri32gmemo1_tensorptrf32gmemo1__0",
+  "kernel_records": 1,
+  "application_replay_passes": 9,
+  "profiler_exit_code": 0,
+  "metrics": {
+    "gpu__time_duration.sum": {
+      "value": 311.68,
+      "unit": "us"
+    },
+    "dram__bytes.sum.per_second": {
+      "value": 1.402691,
+      "unit": "Tbyte/s"
+    },
+    "lts__t_sector_hit_rate.pct": {
+      "value": 60.387926,
+      "unit": "%"
+    },
+    "lts__throughput.avg.pct_of_peak_sustained_elapsed": {
+      "value": 34.245851,
+      "unit": "%"
+    },
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed": {
+      "value": 20.870297,
+      "unit": "%"
+    },
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed": {
+      "value": 20.870297,
+      "unit": "%"
+    }
+  },
+  "launch": {
+    "Grid Size": "(1, 1, 188)",
+    "Block Size": "(288, 1, 1)",
+    "launch__registers_per_thread": "168",
+    "launch__shared_mem_per_block": "102.400000",
+    "launch__occupancy_limit_registers": "1.000000",
+    "launch__occupancy_limit_shared_mem": "1.000000",
+    "launch__waves_per_multiprocessor": "1",
+    "launch__sm_count": "188"
+  },
+  "identity": {
+    "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+    "checkpoint_identity": {
+      "config.json": "46cb11d0ce8048b7efa09694c7725ab8be6f0c02d4b2421c1d89316aae280850",
+      "model.safetensors.index.json": "d0ab515cf0dcc4fae3daf192b9c6af1d3a9b0e79a4e699892bc18a3013315fd7"
+    },
+    "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445"
+  },
+  "derived": {
+    "dram_total_bytes_approx": 437190730.88,
+    "dram_direction_breakdown_available": false,
+    "assumed_peak_bandwidth_bytes_per_second": 1790000000000.0,
+    "peak_bandwidth_source": "User-supplied device ceiling; not a collected DRAM peak metric",
+    "bandwidth_fraction_of_assumed_peak": 0.7836262569832402,
+    "constant_bytes_ideal_time_us": 244.2406317765363,
+    "constant_bytes_ideal_time_reduction_fraction": 0.21637374301675982,
+    "constant_bytes_ideal_speedup": 1.2761185464225548,
+    "packed_weight_bytes": 402653184,
+    "block_scale_bytes": 50331648,
+    "packed_plus_block_scales_bytes": 452984832,
+    "useful_flops": 51539607552,
+    "useful_tflops_per_second": 165.36065051334703,
+    "resident_warp_ceiling_fraction": 0.1875
+  },
+  "interpretation": "Strong evidence DRAM traffic/throughput is the primary target for this isolated case; not proof of an exclusive limiter or a serving-wide limit",
+  "limits": [
+    "DRAM byte rate aggregates traffic; no read/write split was collected",
+    "18.75% is the 9/48 resident-warp ceiling, not a collected achieved-occupancy metric",
+    "Persistent one-wave grid does not imply no latency hiding or only one work tile per CTA",
+    "No achieved-clock or stall/eligible-warp counters in this metric set",
+    "Nine application replays are not nine independent performance trials",
+    "Application output checks compare repeat executions, not FP32/model-quality equivalence",
+    "Attempt2 lacks the full outer run.sh source/runtime/cleanup audit bundle; per-pass native-source/capture/checkpoint identities are available",
+    "Cache-control none and clock-control none; warmed isolated layer is not the 40-layer serving cache regime"
+  ]
+}

@@ -1,0 +1,1746 @@
+{
+  "status": "screen_complete_no_promotion",
+  "scope": "hot-layer repeated-input full-call CUDA graph screen; no serving/quality promotion; original input/routing copies and weight/scale/view preparation excluded",
+  "tokens": 3,
+  "measurement": "batched",
+  "replays_per_sample": 50,
+  "samples_per_backend": 8,
+  "checks": [
+    {
+      "fixture": "real_0",
+      "unique_experts": 23,
+      "expert_token_multiplicities": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "own_replay": {
+        "dp4a_reuse_off": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "dp4a_reuse_on": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_auto_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      },
+      "prepared_fi_parity": {
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "fp32_errors": {
+        "dp4a_reuse_off": {
+          "finite": true,
+          "rel_l2": 0.1399269849061966,
+          "max_abs": 0.005792845040559769
+        },
+        "dp4a_reuse_on": {
+          "finite": true,
+          "rel_l2": 0.1399269849061966,
+          "max_abs": 0.005792845040559769
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.13991832733154297,
+          "max_abs": 0.005762327462434769
+        },
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.1404348909854889,
+          "max_abs": 0.006235241889953613
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.1404348909854889,
+          "max_abs": 0.006235241889953613
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.1404348909854889,
+          "max_abs": 0.006235241889953613
+        }
+      }
+    },
+    {
+      "fixture": "real_64",
+      "unique_experts": 20,
+      "expert_token_multiplicities": [
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "own_replay": {
+        "dp4a_reuse_off": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "dp4a_reuse_on": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_auto_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      },
+      "prepared_fi_parity": {
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "fp32_errors": {
+        "dp4a_reuse_off": {
+          "finite": true,
+          "rel_l2": 0.14007596671581268,
+          "max_abs": 0.007904373109340668
+        },
+        "dp4a_reuse_on": {
+          "finite": true,
+          "rel_l2": 0.14007596671581268,
+          "max_abs": 0.007904373109340668
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.14003998041152954,
+          "max_abs": 0.007904373109340668
+        },
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.13820484280586243,
+          "max_abs": 0.008148513734340668
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.13820484280586243,
+          "max_abs": 0.008148513734340668
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.13820484280586243,
+          "max_abs": 0.008148513734340668
+        }
+      }
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "unique_experts": 8,
+      "expert_token_multiplicities": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "own_replay": {
+        "dp4a_reuse_off": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "dp4a_reuse_on": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_auto_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_calibrated": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        },
+        "fi_direct_preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0
+          }
+        }
+      },
+      "prepared_fi_parity": {
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.0,
+          "max_abs": 0.0
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "fp32_errors": {
+        "dp4a_reuse_off": {
+          "finite": true,
+          "rel_l2": 0.12211505323648453,
+          "max_abs": 0.009040601551532745
+        },
+        "dp4a_reuse_on": {
+          "finite": true,
+          "rel_l2": 0.12211505323648453,
+          "max_abs": 0.009040601551532745
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.12212575972080231,
+          "max_abs": 0.009040601551532745
+        },
+        "fi_auto_calibrated": {
+          "finite": true,
+          "rel_l2": 0.12213430553674698,
+          "max_abs": 0.009284742176532745
+        },
+        "fi_direct_calibrated": {
+          "finite": true,
+          "rel_l2": 0.12213430553674698,
+          "max_abs": 0.009284742176532745
+        },
+        "fi_direct_preplanned_multiplier": {
+          "finite": true,
+          "rel_l2": 0.12213430553674698,
+          "max_abs": 0.009284742176532745
+        }
+      }
+    }
+  ],
+  "timings": [
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 34.904000759124756,
+      "samples_us": [
+        35.12320041656494,
+        35.04319906234741,
+        35.03040075302124,
+        34.75712060928345,
+        34.9068808555603,
+        34.90112066268921,
+        34.69183921813965,
+        34.83263969421387
+      ],
+      "event_batch_totals_us": [
+        1756.160020828247,
+        1752.1599531173706,
+        1751.520037651062,
+        1737.8560304641724,
+        1745.3440427780151,
+        1745.0560331344604,
+        1734.5919609069824,
+        1741.6319847106934
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 34.874560832977295,
+      "samples_us": [
+        34.84287977218628,
+        34.85824108123779,
+        34.92608070373535,
+        34.89151954650879,
+        34.883201122283936,
+        34.91199970245361,
+        34.865920543670654,
+        34.863998889923096
+      ],
+      "event_batch_totals_us": [
+        1742.143988609314,
+        1742.9120540618896,
+        1746.3040351867676,
+        1744.5759773254395,
+        1744.1600561141968,
+        1745.5999851226807,
+        1743.2960271835327,
+        1743.1999444961548
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 49.189441204071045,
+      "samples_us": [
+        49.15264129638672,
+        49.1974401473999,
+        49.25759792327881,
+        49.17056083679199,
+        49.230079650878906,
+        49.18144226074219,
+        49.176321029663086,
+        49.26208019256592
+      ],
+      "event_batch_totals_us": [
+        2457.632064819336,
+        2459.872007369995,
+        2462.8798961639404,
+        2458.5280418395996,
+        2461.5039825439453,
+        2459.0721130371094,
+        2458.8160514831543,
+        2463.104009628296
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.810879945755005,
+      "samples_us": [
+        32.7673602104187,
+        32.83008098602295,
+        32.790400981903076,
+        32.84735918045044,
+        32.83328056335449,
+        32.82624006271362,
+        32.79551982879639,
+        32.79423952102661
+      ],
+      "event_batch_totals_us": [
+        1638.368010520935,
+        1641.5040493011475,
+        1639.5200490951538,
+        1642.367959022522,
+        1641.6640281677246,
+        1641.3120031356812,
+        1639.7759914398193,
+        1639.7119760513306
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.82719969749451,
+      "samples_us": [
+        32.76799917221069,
+        32.826879024505615,
+        32.82624006271362,
+        32.83711910247803,
+        32.828800678253174,
+        32.80384063720703,
+        32.833919525146484,
+        32.8275203704834
+      ],
+      "event_batch_totals_us": [
+        1638.3999586105347,
+        1641.3439512252808,
+        1641.3120031356812,
+        1641.8559551239014,
+        1641.4400339126587,
+        1640.1920318603516,
+        1641.6959762573242,
+        1641.37601852417
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.60479974746704,
+      "samples_us": [
+        24.576001167297363,
+        24.644479751586914,
+        24.624640941619873,
+        24.607999324798584,
+        24.60223913192749,
+        24.600958824157715,
+        24.607360363006592,
+        24.600958824157715
+      ],
+      "event_batch_totals_us": [
+        1228.8000583648682,
+        1232.2239875793457,
+        1231.2320470809937,
+        1230.3999662399292,
+        1230.1119565963745,
+        1230.0479412078857,
+        1230.3680181503296,
+        1230.0479412078857
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.63039994239807,
+      "samples_us": [
+        24.576001167297363,
+        24.591360092163086,
+        24.625279903411865,
+        24.635519981384277,
+        24.618239402770996,
+        24.673280715942383,
+        24.64576005935669,
+        24.675838947296143
+      ],
+      "event_batch_totals_us": [
+        1228.8000583648682,
+        1229.5680046081543,
+        1231.2639951705933,
+        1231.7759990692139,
+        1230.9119701385498,
+        1233.6640357971191,
+        1232.2880029678345,
+        1233.7919473648071
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.8656005859375,
+      "samples_us": [
+        32.76799917221069,
+        32.87872076034546,
+        32.860798835754395,
+        32.86400079727173,
+        32.86144018173218,
+        32.87359952926636,
+        32.86720037460327,
+        32.86720037460327
+      ],
+      "event_batch_totals_us": [
+        1638.3999586105347,
+        1643.936038017273,
+        1643.0399417877197,
+        1643.2000398635864,
+        1643.072009086609,
+        1643.6799764633179,
+        1643.3600187301636,
+        1643.3600187301636
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.86272048950195,
+      "samples_us": [
+        32.76864051818848,
+        32.84287929534912,
+        32.875521183013916,
+        32.8601598739624,
+        32.86272048950195,
+        32.87935972213745,
+        32.86272048950195,
+        32.867839336395264
+      ],
+      "event_batch_totals_us": [
+        1638.4320259094238,
+        1642.143964767456,
+        1643.7760591506958,
+        1643.0079936981201,
+        1643.1360244750977,
+        1643.9679861068726,
+        1643.1360244750977,
+        1643.3919668197632
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 49.25663948059082,
+      "samples_us": [
+        49.19295787811279,
+        49.244160652160645,
+        49.28895950317383,
+        49.280638694763184,
+        49.258880615234375,
+        49.23520088195801,
+        49.254398345947266,
+        49.319682121276855
+      ],
+      "event_batch_totals_us": [
+        2459.6478939056396,
+        2462.208032608032,
+        2464.4479751586914,
+        2464.031934738159,
+        2462.9440307617188,
+        2461.7600440979004,
+        2462.7199172973633,
+        2465.984106063843
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.87168025970459,
+      "samples_us": [
+        32.75455951690674,
+        32.92608022689819,
+        32.88383960723877,
+        32.8601598739624,
+        32.85887956619263,
+        32.88448095321655,
+        32.88320064544678,
+        32.858240604400635
+      ],
+      "event_batch_totals_us": [
+        1637.727975845337,
+        1646.3040113449097,
+        1644.1919803619385,
+        1643.0079936981201,
+        1642.9439783096313,
+        1644.2240476608276,
+        1644.1600322723389,
+        1642.9120302200317
+      ]
+    },
+    {
+      "fixture": "real_0",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 31.5721595287323,
+      "samples_us": [
+        31.27232074737549,
+        31.573119163513184,
+        31.73248052597046,
+        31.690239906311035,
+        31.439359188079834,
+        31.571199893951416,
+        31.531519889831543,
+        31.705598831176758
+      ],
+      "event_batch_totals_us": [
+        1563.6160373687744,
+        1578.6559581756592,
+        1586.624026298523,
+        1584.5119953155518,
+        1571.9679594039917,
+        1578.5599946975708,
+        1576.5759944915771,
+        1585.279941558838
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.817920446395874,
+      "samples_us": [
+        32.73600101470947,
+        32.86400079727173,
+        32.860798835754395,
+        32.958080768585205,
+        32.82624006271362,
+        32.80639886856079,
+        32.77184009552002,
+        32.809600830078125
+      ],
+      "event_batch_totals_us": [
+        1636.8000507354736,
+        1643.2000398635864,
+        1643.0399417877197,
+        1647.9040384292603,
+        1641.3120031356812,
+        1640.3199434280396,
+        1638.592004776001,
+        1640.4800415039062
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.9913604259491,
+      "samples_us": [
+        33.00159931182861,
+        33.00800085067749,
+        32.91840076446533,
+        32.999680042266846,
+        33.0182409286499,
+        32.94784069061279,
+        32.98304080963135,
+        32.94975996017456
+      ],
+      "event_batch_totals_us": [
+        1650.0799655914307,
+        1650.4000425338745,
+        1645.9200382232666,
+        1649.9840021133423,
+        1650.9120464324951,
+        1647.3920345306396,
+        1649.1520404815674,
+        1647.487998008728
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 49.2243218421936,
+      "samples_us": [
+        49.23327922821045,
+        49.20767784118652,
+        49.22560214996338,
+        49.17503833770752,
+        49.256958961486816,
+        49.203200340270996,
+        49.256958961486816,
+        49.22304153442383
+      ],
+      "event_batch_totals_us": [
+        2461.6639614105225,
+        2460.383892059326,
+        2461.280107498169,
+        2458.751916885376,
+        2462.847948074341,
+        2460.16001701355,
+        2462.847948074341,
+        2461.1520767211914
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.819199562072754,
+      "samples_us": [
+        32.76864051818848,
+        32.80447959899902,
+        32.81791925430298,
+        32.83328056335449,
+        32.83071994781494,
+        32.81343936920166,
+        32.826879024505615,
+        32.82047986984253
+      ],
+      "event_batch_totals_us": [
+        1638.4320259094238,
+        1640.2239799499512,
+        1640.895962715149,
+        1641.6640281677246,
+        1641.535997390747,
+        1640.671968460083,
+        1641.3439512252808,
+        1641.0239934921265
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.82143950462341,
+      "samples_us": [
+        32.76799917221069,
+        32.817280292510986,
+        32.83711910247803,
+        32.77888059616089,
+        32.82495975494385,
+        32.82047986984253,
+        32.8223991394043,
+        32.83200025558472
+      ],
+      "event_batch_totals_us": [
+        1638.3999586105347,
+        1640.8640146255493,
+        1641.8559551239014,
+        1638.9440298080444,
+        1641.2479877471924,
+        1641.0239934921265,
+        1641.1199569702148,
+        1641.6000127792358
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.58944082260132,
+      "samples_us": [
+        24.57535982131958,
+        24.608640670776367,
+        24.586880207061768,
+        24.5849609375,
+        24.603519439697266,
+        24.588160514831543,
+        24.590721130371094,
+        24.600958824157715
+      ],
+      "event_batch_totals_us": [
+        1228.767991065979,
+        1230.4320335388184,
+        1229.3440103530884,
+        1229.248046875,
+        1230.1759719848633,
+        1229.4080257415771,
+        1229.5360565185547,
+        1230.0479412078857
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.595199823379517,
+      "samples_us": [
+        24.576640129089355,
+        24.59712028503418,
+        24.62912082672119,
+        24.618239402770996,
+        24.584319591522217,
+        24.61184024810791,
+        24.593279361724854,
+        24.586880207061768
+      ],
+      "event_batch_totals_us": [
+        1228.8320064544678,
+        1229.856014251709,
+        1231.4560413360596,
+        1230.9119701385498,
+        1229.2159795761108,
+        1230.5920124053955,
+        1229.6639680862427,
+        1229.3440103530884
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.807040214538574,
+      "samples_us": [
+        32.76799917221069,
+        32.79680013656616,
+        32.79616117477417,
+        32.817280292510986,
+        32.83200025558472,
+        32.83008098602295,
+        32.79423952102661,
+        32.836480140686035
+      ],
+      "event_batch_totals_us": [
+        1638.3999586105347,
+        1639.840006828308,
+        1639.8080587387085,
+        1640.8640146255493,
+        1641.6000127792358,
+        1641.5040493011475,
+        1639.7119760513306,
+        1641.8240070343018
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.80735969543457,
+      "samples_us": [
+        32.74688005447388,
+        32.821760177612305,
+        32.814719676971436,
+        32.799999713897705,
+        32.79808044433594,
+        32.819199562072754,
+        32.78656005859375,
+        32.81599998474121
+      ],
+      "event_batch_totals_us": [
+        1637.3440027236938,
+        1641.0880088806152,
+        1640.7359838485718,
+        1639.9999856948853,
+        1639.9040222167969,
+        1640.9599781036377,
+        1639.3280029296875,
+        1640.7999992370605
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 49.21760082244873,
+      "samples_us": [
+        49.19295787811279,
+        49.205121994018555,
+        49.269118309020996,
+        49.20703887939453,
+        49.30560111999512,
+        49.26208019256592,
+        49.22431945800781,
+        49.21088218688965
+      ],
+      "event_batch_totals_us": [
+        2459.6478939056396,
+        2460.2560997009277,
+        2463.45591545105,
+        2460.3519439697266,
+        2465.280055999756,
+        2463.104009628296,
+        2461.2159729003906,
+        2460.5441093444824
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 31.85536026954651,
+      "samples_us": [
+        32.0198392868042,
+        31.791999340057373,
+        31.87648057937622,
+        31.88096046447754,
+        32.1068811416626,
+        31.748480796813965,
+        31.795198917388916,
+        31.834239959716797
+      ],
+      "event_batch_totals_us": [
+        1600.99196434021,
+        1589.5999670028687,
+        1593.824028968811,
+        1594.048023223877,
+        1605.3440570831299,
+        1587.4240398406982,
+        1589.7599458694458,
+        1591.7119979858398
+      ]
+    },
+    {
+      "fixture": "real_64",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 30.765440464019775,
+      "samples_us": [
+        30.709118843078613,
+        30.813438892364502,
+        30.774400234222412,
+        30.767359733581543,
+        30.76416015625,
+        30.76672077178955,
+        30.74496030807495,
+        30.736639499664307
+      ],
+      "event_batch_totals_us": [
+        1535.4559421539307,
+        1540.671944618225,
+        1538.7200117111206,
+        1538.3679866790771,
+        1538.2080078125,
+        1538.3360385894775,
+        1537.2480154037476,
+        1536.8319749832153
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 23.79167914390564,
+      "samples_us": [
+        23.74527931213379,
+        23.78943920135498,
+        23.7939190864563,
+        24.029440879821777,
+        24.01344060897827,
+        23.868160247802734,
+        23.72351884841919,
+        23.768320083618164
+      ],
+      "event_batch_totals_us": [
+        1187.2639656066895,
+        1189.471960067749,
+        1189.695954322815,
+        1201.4720439910889,
+        1200.6720304489136,
+        1193.4080123901367,
+        1186.1759424209595,
+        1188.4160041809082
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 20.062079429626465,
+      "samples_us": [
+        20.059518814086914,
+        20.069758892059326,
+        20.064640045166016,
+        20.096640586853027,
+        20.057599544525146,
+        20.115840435028076,
+        19.757440090179443,
+        19.3503999710083
+      ],
+      "event_batch_totals_us": [
+        1002.9759407043457,
+        1003.4879446029663,
+        1003.2320022583008,
+        1004.8320293426514,
+        1002.8799772262573,
+        1005.7920217514038,
+        987.8720045089722,
+        967.519998550415
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 38.911999464035034,
+      "samples_us": [
+        38.87104034423828,
+        38.891520500183105,
+        38.89983892440796,
+        38.96064043045044,
+        38.971519470214844,
+        38.93120050430298,
+        38.82047891616821,
+        38.92416000366211
+      ],
+      "event_batch_totals_us": [
+        1943.552017211914,
+        1944.5760250091553,
+        1944.991946220398,
+        1948.032021522522,
+        1948.5759735107422,
+        1946.560025215149,
+        1941.0239458084106,
+        1946.2080001831055
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.80447959899902,
+      "samples_us": [
+        32.76799917221069,
+        32.8275203704834,
+        32.792320251464844,
+        32.8166389465332,
+        32.83328056335449,
+        32.78656005859375,
+        32.82495975494385,
+        32.780799865722656
+      ],
+      "event_batch_totals_us": [
+        1638.3999586105347,
+        1641.37601852417,
+        1639.6160125732422,
+        1640.8319473266602,
+        1641.6640281677246,
+        1639.3280029296875,
+        1641.2479877471924,
+        1639.0399932861328
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.80384063720703,
+      "samples_us": [
+        32.76799917221069,
+        32.79680013656616,
+        32.7839994430542,
+        32.77888059616089,
+        32.8108811378479,
+        32.82111883163452,
+        32.83711910247803,
+        32.82111883163452
+      ],
+      "event_batch_totals_us": [
+        1638.3999586105347,
+        1639.840006828308,
+        1639.19997215271,
+        1638.9440298080444,
+        1640.544056892395,
+        1641.055941581726,
+        1641.8559551239014,
+        1641.055941581726
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "dp4a_reuse_off",
+        "dp4a_reuse_on",
+        "current_scalar_cutlass",
+        "fi_auto_calibrated",
+        "fi_direct_calibrated",
+        "fi_direct_preplanned_multiplier"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.597760438919067,
+      "samples_us": [
+        24.576001167297363,
+        24.59712028503418,
+        24.60223913192749,
+        24.598400592803955,
+        24.623360633850098,
+        24.5849609375,
+        24.62656021118164,
+        24.595201015472412
+      ],
+      "event_batch_totals_us": [
+        1228.8000583648682,
+        1229.856014251709,
+        1230.1119565963745,
+        1229.9200296401978,
+        1231.1680316925049,
+        1229.248046875,
+        1231.328010559082,
+        1229.7600507736206
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_preplanned_multiplier",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 24.601279497146606,
+      "samples_us": [
+        24.576001167297363,
+        24.600319862365723,
+        24.636800289154053,
+        24.60223913192749,
+        24.62399959564209,
+        24.60416078567505,
+        24.584319591522217,
+        24.595839977264404
+      ],
+      "event_batch_totals_us": [
+        1228.8000583648682,
+        1230.0159931182861,
+        1231.8400144577026,
+        1230.1119565963745,
+        1231.1999797821045,
+        1230.2080392837524,
+        1229.2159795761108,
+        1229.7919988632202
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_direct_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.796159982681274,
+      "samples_us": [
+        32.76799917221069,
+        32.790400981903076,
+        32.82047986984253,
+        32.83456087112427,
+        32.792320251464844,
+        32.8275203704834,
+        32.792959213256836,
+        32.79936075210571
+      ],
+      "event_batch_totals_us": [
+        1638.3999586105347,
+        1639.5200490951538,
+        1641.0239934921265,
+        1641.7280435562134,
+        1639.6160125732422,
+        1641.37601852417,
+        1639.6479606628418,
+        1639.9680376052856
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "fi_auto_calibrated",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 32.79360055923462,
+      "samples_us": [
+        32.76799917221069,
+        32.77888059616089,
+        32.82815933227539,
+        32.82624006271362,
+        32.79936075210571,
+        32.780799865722656,
+        32.787840366363525,
+        32.799999713897705
+      ],
+      "event_batch_totals_us": [
+        1638.3999586105347,
+        1638.9440298080444,
+        1641.4079666137695,
+        1641.3120031356812,
+        1639.9680376052856,
+        1639.0399932861328,
+        1639.3920183181763,
+        1639.9999856948853
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "current_scalar_cutlass",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 38.932799100875854,
+      "samples_us": [
+        38.91200065612793,
+        38.901119232177734,
+        38.967039585113525,
+        38.94079923629761,
+        38.961920738220215,
+        38.9247989654541,
+        38.96127939224243,
+        38.91776084899902
+      ],
+      "event_batch_totals_us": [
+        1945.6000328063965,
+        1945.0559616088867,
+        1948.3519792556763,
+        1947.0399618148804,
+        1948.0960369110107,
+        1946.239948272705,
+        1948.0639696121216,
+        1945.8880424499512
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_on",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 17.669439911842346,
+      "samples_us": [
+        17.530879974365234,
+        17.846399545669556,
+        17.523200511932373,
+        17.969919443130493,
+        17.846399545669556,
+        17.555840015411377,
+        17.632639408111572,
+        17.70624041557312
+      ],
+      "event_batch_totals_us": [
+        876.5439987182617,
+        892.3199772834778,
+        876.1600255966187,
+        898.4959721565247,
+        892.3199772834778,
+        877.7920007705688,
+        881.6319704055786,
+        885.312020778656
+      ]
+    },
+    {
+      "fixture": "synthetic_eight_hot_permuted",
+      "order": [
+        "fi_direct_preplanned_multiplier",
+        "fi_direct_calibrated",
+        "fi_auto_calibrated",
+        "current_scalar_cutlass",
+        "dp4a_reuse_on",
+        "dp4a_reuse_off"
+      ],
+      "backend": "dp4a_reuse_off",
+      "measurement": "batched",
+      "replays_per_sample": 50,
+      "median_us": 22.544639110565186,
+      "samples_us": [
+        22.517120838165283,
+        22.55743980407715,
+        22.558720111846924,
+        22.54784107208252,
+        22.54080057144165,
+        22.544639110565186,
+        22.544639110565186,
+        22.544639110565186
+      ],
+      "event_batch_totals_us": [
+        1125.8560419082642,
+        1127.8719902038574,
+        1127.9360055923462,
+        1127.392053604126,
+        1127.0400285720825,
+        1127.2319555282593,
+        1127.2319555282593,
+        1127.2319555282593
+      ]
+    }
+  ],
+  "cache_paths": {
+    "flashinfer": "/work/kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/cache/flashinfer_base/.cache/flashinfer/0.7.0.post1/120f",
+    "cute": "/work/kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/cache/cute"
+  },
+  "fi_direct_preplanned_multiplier_contract": "forced direct only; input quant multipliers prepared outside graph, reciprocal flag false, cached weightviews retain same g1/g2 (no second fold); exact output parity with diagnosed reciprocal=True required",
+  "factory_trace_scope": "Python constructor/factory evidence, not actual GPU kernel trace",
+  "capture_sha256": "0e161c36a6f478c0205b3a7e8b388296eccafaa2d5999cf4420fcbcd0aa2f4ac",
+  "factory_selection": {
+    "dp4a_reuse_off": [],
+    "dp4a_reuse_on": [],
+    "current_scalar_cutlass": [],
+    "fi_auto_calibrated": [
+      "_get_direct_micro_kernel",
+      "_get_direct_micro_kernel"
+    ],
+    "fi_direct_calibrated": [
+      "_get_direct_micro_kernel",
+      "_get_direct_micro_kernel"
+    ],
+    "fi_direct_preplanned_multiplier": [
+      "_get_direct_micro_kernel",
+      "_get_direct_micro_kernel"
+    ]
+  }
+}

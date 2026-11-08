@@ -1,0 +1,1197 @@
+{
+  "date": "2026-10-28",
+  "scope": "Completed experimental observations; no round2 default selection or combined serving speedup. See docs/PROGRESS.md for limitations.",
+  "reports": {
+    "humming_numerical_ru.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_numerical_ru1/screen.json",
+      "sha256": "5fe7ff2796461a92d73cb028810a83bb2bf1d3fdda0fea7c2855183188777f26",
+      "original_exit_code": "0"
+    },
+    "humming_numerical_rn.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_numerical_rn1/screen.json",
+      "sha256": "cd8f2bee78365bf9da1d7a6da7164bbd1198dd38982d8cc0b6adb6d2c9a6f311",
+      "original_exit_code": "0"
+    },
+    "humming_rn_l19_m1024.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l19_m1024_1/screen.json",
+      "sha256": "f39e0dad244e378c625c478c43d9015045b0e91c8410a0990f14b57f88fcee5c",
+      "original_exit_code": "0"
+    },
+    "humming_rn_l19_m4096.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l19_m4096_1/screen.json",
+      "sha256": "6e1f8125407ae507fe13bfab0db7e4c52adc951db3ea6c178237dba62e38f465",
+      "original_exit_code": "0"
+    },
+    "moe_task_order_full_contributions.json": {
+      "original_worktree_path": "kernels/moe-task-order-diagnostic/results/task_order_diag_full_pair1.json",
+      "sha256": "303dbee0a63de0f3db29bdb64210eeb769903df6e47fe3fdf6a513bb6e2a765d"
+    },
+    "rowwise_tile_l0_m3.json": {
+      "original_worktree_path": "kernels/pdl-swapab/results/rowwise_tile_smoke_1/analysis.json",
+      "sha256": "803c0f899ad90a7e0be27d4a32ea5b03b19802bcd1a55fd8896bb224a42d1f65",
+      "original_exit_code": "0"
+    },
+    "deepgemm_serving_pair2.json": {
+      "original_worktree_path": "kernels/deepgemm-sm120/integration/results/dg_serving_pair2_summary.json",
+      "sha256": "6d14ae06d310e134f11617012dfd487d0e191aba16ac088f4ed94e81baa4ce56"
+    },
+    "native_swap_pair.json": {
+      "original_worktree_path": "kernels/pdl-swapab/results/swap_native_pair_1.json",
+      "sha256": "90e5ebb6e194b697a449c87061af851bfb93b4cc18739af1c791c51c2c960834"
+    },
+    "moe_task_order_serving_pair3.json": {
+      "original_worktree_path": "kernels/moe-task-order-serving/results/task_order_serving_pair3_summary.json",
+      "sha256": "7a832a781e8474d387f69d25ba59dd54275af94ee43d5de4930b48b9d8f5ff08",
+      "original_run_exit_codes": {
+        "task_order_serving_a3": 0,
+        "task_order_serving_b3": 0
+      }
+    },
+    "humming_rn_l0_m1024.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l0_m1024_1/screen.json",
+      "sha256": "748661749c30bfce5d43db1bcd858b05af8ef3ed5eb33286db474558db5d518a",
+      "original_exit_code": "0"
+    },
+    "humming_rn_l39_m1024.json": {
+      "original_worktree_path": "kernels/humming-sm120/results/humming_rn_l39_m1024_1/screen.json",
+      "sha256": "0b7a78dcfb9ac1a3cc09eeffef219a802835c437790c6f8989c8bca154b1cf59",
+      "original_exit_code": "0"
+    },
+    "dp4a_numerical_m1.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_numerical_m1_1/screen.json",
+      "sha256": "27818b6e3f708c0fe8ff65fe3429251a2729692d92a5d26ff6dbd01ff5dd9d61",
+      "original_exit_code": "0"
+    },
+    "pdl_focused_pair1.json": {
+      "original_worktree_path": "kernels/pdl-swapab/results/pdl_focused_pair_1.json",
+      "sha256": "483d687e4f7425db481d4ab38b3ac126d0ab2b1f14bca407c0b8682c1a51858f",
+      "original_run_exit_codes": {
+        "pdl_focused_pin0_1": 0,
+        "pdl_focused_pin1_1": 0
+      }
+    },
+    "pdl_focused_context_window.json": {
+      "original_worktree_path": "kernels/pdl-swapab/results/pdl_focused_pin1_1/external_context_contamination.json",
+      "sha256": "7356e9c5a531c84ab83dc8b70e2b5d38a8ac1cefa56077f2b62519faf668c41d"
+    },
+    "workspace_band_geometry.json": {
+      "original_worktree_path": "kernels/moe-workspace-bands/results/route_geometry1.json",
+      "sha256": "f9cfb0b2a4d6c5adb249a075e7e5908630309730eebd74315b2f99bb0607d12a"
+    },
+    "workspace_routes_l19_m2048.json": {
+      "original_worktree_path": "kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m2048_real.json",
+      "sha256": "039742ee872c4776e01b0e0da825133340b84db457ae9c33253c82669b3a35c7"
+    },
+    "workspace_routes_l19_m3072.json": {
+      "original_worktree_path": "kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m3072_real.json",
+      "sha256": "d64f5b32909739c5c5c84e021d61a15535a1d919758fcc45f6bc458b01b2dbd6"
+    },
+    "workspace_routes_l19_m4096.json": {
+      "original_worktree_path": "kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m4096_real.json",
+      "sha256": "259c584a038836c0b5408bd14615c93b43b7e814d0a5c01edffd80228adbd95a"
+    },
+    "dp4a_numerical_m8.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_numerical_m8_1/screen.json",
+      "sha256": "56e5ea45643f8e4e0011bbc4f99a94dbc4e816acb8815d5fb2633b26e4db512a",
+      "original_exit_code": "0"
+    },
+    "b12x_split_numerical_l19_m1024.json": {
+      "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_numerical_l19_m1024_1/measurement/report.json",
+      "sha256": "2a0a25c3a67c6843fa314d437fc8e1e523a56b238c97304dd96097a907aef6b3",
+      "original_exit_code": "0"
+    },
+    "b12x_split_timing_l19_m1024.json": {
+      "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m1024_1/measurement/report.json",
+      "sha256": "7f11a807bb26b18ca6f66d7c4875eaf330b42cb604fd26f0812e8600963723ae",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/b12x_split_timing_l19_m1024/exit_code.txt",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m1024_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/b12x_split_timing_l19_m1024/source_verify.log",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m1024_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/b12x_split_timing_l19_m1024/gpu_after.csv",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m1024_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/b12x_split_timing_l19_m1024/runtime_verify.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m1024_1/runtime_verify.json",
+          "sha256": "006c8e9171b9e9953db68050cbc875da896007e53bfcc689b1ed83f2b6d9b86f"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/b12x_split_timing_l19_m1024/process_cleanup.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m1024_1/process_cleanup.json",
+          "sha256": "e71503647f74b306aa278cdde576f0c6c97b7018b1cdea602562ffee1c5d48dc"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/b12x_split_timing_l19_m1024/source_manifest.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m1024_1/source_manifest.json",
+          "sha256": "dbc37f6a08bcbb28f694aa9ba9d89ba3f4ed269c4d73f5aa828ddad31efcbd25"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/b12x_split_timing_l19_m1024/runtime_manifest.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m1024_1/runtime_manifest.json",
+          "sha256": "cdb70c26a1c0c032ede154274b99c10b12b417f15df00d37c0f7b118f77aa60c"
+        }
+      }
+    },
+    "b12x_split_components_l19_m1024.json": {
+      "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_components_l19_m1024_1/measurement/report.json",
+      "sha256": "738a2731b0194b6a94dbcecfab733d21ccc0a69d077816f60b639cf6ccf7b5c7",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/b12x_split_components_l19_m1024/exit_code.txt",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_components_l19_m1024_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/b12x_split_components_l19_m1024/source_verify.log",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_components_l19_m1024_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/b12x_split_components_l19_m1024/gpu_after.csv",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_components_l19_m1024_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/b12x_split_components_l19_m1024/runtime_verify.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_components_l19_m1024_1/runtime_verify.json",
+          "sha256": "006c8e9171b9e9953db68050cbc875da896007e53bfcc689b1ed83f2b6d9b86f"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/b12x_split_components_l19_m1024/process_cleanup.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_components_l19_m1024_1/process_cleanup.json",
+          "sha256": "b8e90621fd665e915f42fe40df1a3d05e8d325e0fd3491203ff5ae8a69b2ec31"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/b12x_split_components_l19_m1024/source_manifest.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_components_l19_m1024_1/source_manifest.json",
+          "sha256": "d8119aa43e77859239dd948d027edb123bfec7ac3cc250fc17bda4a310416afa"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/b12x_split_components_l19_m1024/runtime_manifest.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_components_l19_m1024_1/runtime_manifest.json",
+          "sha256": "cdb70c26a1c0c032ede154274b99c10b12b417f15df00d37c0f7b118f77aa60c"
+        }
+      }
+    },
+    "b12x_split_timing_components_l19_m4096.json": {
+      "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m4096_1/measurement/report.json",
+      "sha256": "717a4e02e7ba82d17a77b6aec3859474703308578c321d6cf01380680d1101b6",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/b12x_split_timing_components_l19_m4096/exit_code.txt",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m4096_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/b12x_split_timing_components_l19_m4096/source_verify.log",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m4096_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/b12x_split_timing_components_l19_m4096/gpu_after.csv",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m4096_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/b12x_split_timing_components_l19_m4096/runtime_verify.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m4096_1/runtime_verify.json",
+          "sha256": "006c8e9171b9e9953db68050cbc875da896007e53bfcc689b1ed83f2b6d9b86f"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/b12x_split_timing_components_l19_m4096/process_cleanup.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m4096_1/process_cleanup.json",
+          "sha256": "f9fa6e2d85bcda1e97e85bb94ef9a1cda66a13562bf5f4f227d9bf0f58883cac"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/b12x_split_timing_components_l19_m4096/source_manifest.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m4096_1/source_manifest.json",
+          "sha256": "d8119aa43e77859239dd948d027edb123bfec7ac3cc250fc17bda4a310416afa"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/b12x_split_timing_components_l19_m4096/runtime_manifest.json",
+          "original_worktree_path": "kernels/b12x-split-prefill/results/split_prefill_timing_l19_m4096_1/runtime_manifest.json",
+          "sha256": "cdb70c26a1c0c032ede154274b99c10b12b417f15df00d37c0f7b118f77aa60c"
+        }
+      }
+    },
+    "b12x_split_initial_summary.json": {
+      "original_worktree_path": "kernels/b12x-split-prefill/results/initial_split_summary.json",
+      "sha256": "1710532a3ad81c759fdb4a00ea649036fd88fdfc94ec441c8f986a4f36c57c7a"
+    },
+    "workspace_bands_report.json": {
+      "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/measurement/report.json",
+      "sha256": "7c3f367b47c53e0692442bc2c2525d8320f114f27b0cd617f25eebffffe3bbc6",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/workspace_bands_report/exit_code.txt",
+          "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/workspace_bands_report/source_verify.log",
+          "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/workspace_bands_report/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/workspace_bands_report/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/workspace_bands_report/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/process_cleanup.json",
+          "sha256": "bdff0290ad31b5193f3be67bda6759d7deb7bc85f24ec4d7b96397b29335a589"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/workspace_bands_report/source_manifest.json",
+          "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/source_manifest.json",
+          "sha256": "51b47aa0986da2e76f5f127e713c13aa89d15bc6f1901a599872f556ed05a5e8"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/workspace_bands_report/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/runtime_manifest.json",
+          "sha256": "2f2a37277be99f6047d90980cccf9391176471876019b007a7b6edce6ada6344"
+        }
+      }
+    },
+    "workspace_bands_summary.json": {
+      "original_worktree_path": "kernels/moe-workspace-bands/results/workspace_bands_smoke_1/screen_summary.json",
+      "sha256": "4da9585db5071ffbbefbb71fbbbfed265c9709961999e76362d51ac737c6e770"
+    },
+    "workspace_band_source_analysis.md": {
+      "original_worktree_path": "kernels/moe-workspace-bands/WORKSPACE_RESULT.md",
+      "sha256": "ccf334615de99f971fd27a5e9c9236382b26196cc2df08efd9c4ed02de02a0b2"
+    },
+    "dp4a_micro_m3_batched.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/screen.json",
+      "sha256": "a1a1d1bf738223c3c1d66e8589aa4116469cdb53c162c2c77a1eee418950d3cc",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/dp4a_micro_m3_batched/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/dp4a_micro_m3_batched/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/dp4a_micro_m3_batched/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/dp4a_micro_m3_batched/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/dp4a_micro_m3_batched/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/sources.json",
+          "sha256": "91cecfc077c7fa79c4a7871426a6b3dfecc784522f7f522762032cabd199fa18"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/dp4a_micro_m3_batched/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_batched1/runtime_sources.json",
+          "sha256": "e66fad84d7651bc8bfbf0110849b1ffd77ff831ac571fa2e90e35ebe88ae5c43"
+        }
+      }
+    },
+    "dp4a_micro_m1_historical.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_1/screen.json",
+      "sha256": "90e84034197efe16cc10c578bfe858d99b212d59381e54ba21805d20607e709d",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/dp4a_micro_m1_historical/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/dp4a_micro_m1_historical/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/dp4a_micro_m1_historical/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/dp4a_micro_m1_historical/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/dp4a_micro_m1_historical/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_1/sources.json",
+          "sha256": "312c088a8742476c10419cdf5482e819050066839c5c8e590419e6f1007a15d1"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/dp4a_micro_m1_historical/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_1/runtime_sources.json",
+          "sha256": "e66fad84d7651bc8bfbf0110849b1ffd77ff831ac571fa2e90e35ebe88ae5c43"
+        }
+      }
+    },
+    "humming_serving_cpu_preparation.json": {
+      "original_worktree_path": "kernels/humming-sm120/serving/cpu_check.json",
+      "sha256": "9df6ebde8aabe427b22ac98ff26aa3212d0f6725e12d1b2eb46cf4b1beee7dfe"
+    },
+    "dp4a_micro_m8_invalid_auto.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m8_batched1/screen.json",
+      "sha256": "657a63e03794e3bd4bfa77b23b9164e1d90d1373153622e945711879ac1ec930",
+      "original_exit_code": "0",
+      "disposition": "Diagnostic only: FI-auto/static returned zero for nonzero FP32 reference. Original finite/parity checks missed this; its timing is invalid. Sequential matrix stopped. Later source adds independent-reference sanity gate; no claim of a native-kernel fault."
+    },
+    "fi_static_scale_l19_m8.json": {
+      "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/measurement.json",
+      "sha256": "cbb28ad5c56a62a94fb4d9979157b8ce97b4c8dd79668f482fdb43a39d6db3bb",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/exit_code.txt",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/source_verify.log",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/gpu_after.csv",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/runtime_verify.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/runtime_verify.json",
+          "sha256": "0307d1abbdb5550a4a5ea43ef8f434f3e2273554b5190617f721ff9098aab6fd"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/process_cleanup.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/process_cleanup.json",
+          "sha256": "5889c03ea3ac7f2e1abe19440b4f069ed088e73e011c38035bd16b8b4d38d522"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/source_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/source_manifest.json",
+          "sha256": "ef7bb0325d81b17b8326c53d6c5ae25079de34e5febe5ebee1d7450be9d5b6bd"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/runtime_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/runtime_manifest.json",
+          "sha256": "a4469c496f15bcad829b827164b656df8f382a913e164ca0ec6510a93b42967f"
+        },
+        "checkpoint_identity.json": {
+          "snapshot_path": "evidence/fi_static_scale_l19_m8/checkpoint_identity.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_static_scale_l19_m8_1/checkpoint_identity.json",
+          "sha256": "560add5afee486ae58a7acc5b532812cda045fd4b02367d99f363cf598d4e20b"
+        }
+      }
+    },
+    "fi_direct_padding_checks.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/direct_checks.json",
+      "sha256": "f0fd1c37c741eeecd3adefb8904623a2035def1e175c109142d307e08f834219",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/sources.json",
+          "sha256": "3a1eb6cf6adb84d1365136526fe8e399e473da2375a2186cb9fc5f219114c407"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_padding_checks/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_direct_m1_sanitized_timing.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/screen.json",
+      "sha256": "9a6ed246d5e90c64bd3f4f9b6d2c8911b4fb8c59db7e38abfa86758f3e14282a",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/sources.json",
+          "sha256": "3a1eb6cf6adb84d1365136526fe8e399e473da2375a2186cb9fc5f219114c407"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_m1_sanitized_timing/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m1_batched_checks1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_direct_live_pointer_checks.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/live_pointer_checks.json",
+      "sha256": "2f1110342fc1b2c3c819e2d08630203efc03b0121713b7a765b7ce618ea88672",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/sources.json",
+          "sha256": "6d217631b327f76cbe6d432254791916877830ad799b534f497406b168ab1c70"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_live_pointer_checks/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_direct_m4_live_timing.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/screen.json",
+      "sha256": "e9929527b0c78d92c10bcbbc5d6beaa7a4b721bd279f3ad6be338830092212b7",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/sources.json",
+          "sha256": "6d217631b327f76cbe6d432254791916877830ad799b534f497406b168ab1c70"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_m4_live_timing/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m4_live1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_mma_bucket_l19_m4.json": {
+      "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/measurement.json",
+      "sha256": "4cd61609ed8dff686c41d979df09a80ebeab8796bd2b85a7659748537b47a644",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/exit_code.txt",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/source_verify.log",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/gpu_after.csv",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/runtime_verify.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/runtime_verify.json",
+          "sha256": "0ee777dc54a5ca8dd4b992abb3c401fb842199bdae7a96a8aa0c5c8943a25b5b"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/process_cleanup.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/process_cleanup.json",
+          "sha256": "477c5aefbea898f0c13360fd91e1a525f0186c46fc370876142ae19e4fdab7b2"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/source_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/source_manifest.json",
+          "sha256": "d0913562d7321de870b90cf115db01192be30ceda61990b0d0b919a85b70695e"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/runtime_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/runtime_manifest.json",
+          "sha256": "83deb254bf14f2d871fd7b29f275b7999ced12a7c89ca9a19c8ac7752e8eaa44"
+        },
+        "checkpoint_identity.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m4/checkpoint_identity.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m4_1/checkpoint_identity.json",
+          "sha256": "560add5afee486ae58a7acc5b532812cda045fd4b02367d99f363cf598d4e20b"
+        }
+      }
+    },
+    "fi_mma_bucket_l19_m8.json": {
+      "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/measurement.json",
+      "sha256": "99ec1fe5295c1c7e7ba10a4854691f62b97242480fac9d183cc9ebf65b50e716",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/exit_code.txt",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/source_verify.log",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/gpu_after.csv",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/runtime_verify.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/runtime_verify.json",
+          "sha256": "0ee777dc54a5ca8dd4b992abb3c401fb842199bdae7a96a8aa0c5c8943a25b5b"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/process_cleanup.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/process_cleanup.json",
+          "sha256": "d28ea607e011856a0b539b59d518abafca677864383110d34df3cfae245ebb20"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/source_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/source_manifest.json",
+          "sha256": "d0913562d7321de870b90cf115db01192be30ceda61990b0d0b919a85b70695e"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/runtime_manifest.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/runtime_manifest.json",
+          "sha256": "83deb254bf14f2d871fd7b29f275b7999ced12a7c89ca9a19c8ac7752e8eaa44"
+        },
+        "checkpoint_identity.json": {
+          "snapshot_path": "evidence/fi_mma_bucket_l19_m8/checkpoint_identity.json",
+          "original_worktree_path": "kernels/fi-static-scale-audit/results/fi_mma_bucket_l19_m8_1/checkpoint_identity.json",
+          "sha256": "560add5afee486ae58a7acc5b532812cda045fd4b02367d99f363cf598d4e20b"
+        }
+      }
+    },
+    "inactive_load_off.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/measurement/report.json",
+      "sha256": "5784f55caa62a6962ba9c9da86e1ad2623c50239d6c89e0ea6d5a0ddeaed2a05",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/inactive_load_off/exit_code.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/inactive_load_off/source_verify.log",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/inactive_load_off/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/inactive_load_off/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/inactive_load_off/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/process_cleanup.json",
+          "sha256": "2da59a533dd498dec714f1dd425a3813b4ba14ce0e68730879de6a96816a10f1"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_off/source_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/source_manifest.json",
+          "sha256": "6ca450810ffcb49ebdbd884b46d2bba47fd898df66b09b35289ee19682b29594"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_off/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/runtime_manifest.json",
+          "sha256": "d9386faf1b5a612844597a51212a3bf200102564cf9ede6e561d02567130d437"
+        },
+        "embedded_full_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_off/embedded_full_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/embedded_full_manifest.json",
+          "sha256": "7e2d2179202fe8bc090f2a99245ad703f2dbfa81fca2eb3a3d054e19d1c64dfa"
+        },
+        "embedded_full_resource.txt": {
+          "snapshot_path": "evidence/inactive_load_off/embedded_full_resource.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_off_1/embedded_full_resource.txt",
+          "sha256": "b98e365a8bdef8fdf7c3334f8fa28b4ff9388d13529a3505bd5f66358f7695d4"
+        }
+      }
+    },
+    "inactive_load_on.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/measurement/report.json",
+      "sha256": "62fb6f22990db367a7e97651a90107a0b1bb1660e0256c906c0cecc3d354b598",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/inactive_load_on/exit_code.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/inactive_load_on/source_verify.log",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/inactive_load_on/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/inactive_load_on/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/inactive_load_on/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/process_cleanup.json",
+          "sha256": "11b0f3a0fcc6ce5c88ed53a17398254512613151108bbba8d2065de4f71d7651"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_on/source_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/source_manifest.json",
+          "sha256": "6ca450810ffcb49ebdbd884b46d2bba47fd898df66b09b35289ee19682b29594"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_on/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/runtime_manifest.json",
+          "sha256": "0de9f9c2a93f5403153a4c1a162127d34f1f50f2c3e6c75893e77122aaea9be1"
+        },
+        "embedded_full_manifest.json": {
+          "snapshot_path": "evidence/inactive_load_on/embedded_full_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/embedded_full_manifest.json",
+          "sha256": "25478cf6acdcccec880670757746fa28368504cd610c4248d1fd71b300f7ba82"
+        },
+        "embedded_full_resource.txt": {
+          "snapshot_path": "evidence/inactive_load_on/embedded_full_resource.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads/results/inactive_load_on_1/embedded_full_resource.txt",
+          "sha256": "68dfac0111741a82b762311c344392da0d875f18fe3b28a3acc535ae58733025"
+        }
+      }
+    },
+    "fi_mma_bucket_summary.json": {
+      "original_worktree_path": "kernels/fi-static-scale-audit/results/paired_bucket_summary.json",
+      "sha256": "37d68e311bd7be819512f80f2251cc75fa1446b677b38a8f23a3678c33555c5f"
+    },
+    "inactive_load_pair.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/pair1.json",
+      "sha256": "163cadeaba83ad97e12c27ac19cba5acd551e0da79c35f665dbc514405fd0532"
+    },
+    "inactive_load_runtime_audit.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/runtime_pair_audit.json",
+      "sha256": "7c3c957e26644e403b0879884b30ba648a22f0117d251a4f53475a845967e51c"
+    },
+    "inactive_load_sass_summary.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/sass_pair_summary.json",
+      "sha256": "ba0dfa97e6a3d1963de9c420d7e7e05ba751ddf07ae9950f743057c91f3ffafc"
+    },
+    "inactive_load_artifact_digest.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads/results/publication_summary.json",
+      "sha256": "152c1d496b60b2e5c19af48812258e3a9a0d2fc5f1422aad4248cc7cd0ce463c"
+    },
+    "fi_direct_serving_on2_applicability.json": {
+      "sha256": "801835e5b7e7da26979702484f7f630ce97e7c17063693251372f8e8936b75a5",
+      "scope": "Root-generated diagnostic from completed run; original terminal status1 due to applicability failure.",
+      "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on2"
+    },
+    "fi_direct_m3_live_timing.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/screen.json",
+      "sha256": "6ecf5f3c00193ef9ea7ff657bae2ab030764e03c5a868a53bb442626cfb2cf0b",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/sources.json",
+          "sha256": "00a3e05d1126cb90df1e6075830c5b8fa4f54da3609a75128bad59347fdca657"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_timing/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "fi_direct_m3_live_pointer_checks.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/live_pointer_checks.json",
+      "sha256": "f35e6837f097e82c243fb94c2882418bc2379c1ad66f52167e448fb26e6c536b",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/gpu_after.csv",
+          "sha256": "cae79969ce448872401f5d9bcd1d52bbefa1a5450cf3a5658f62f068ab59294b"
+        },
+        "child_after.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/child_after.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/child_after.json",
+          "sha256": "853bcad4d951662eb4ec6186d2b6648a705a6f76cd389fdc6d779121340db7d1"
+        },
+        "sources.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/sources.json",
+          "sha256": "00a3e05d1126cb90df1e6075830c5b8fa4f54da3609a75128bad59347fdca657"
+        },
+        "runtime_sources.json": {
+          "snapshot_path": "evidence/fi_direct_m3_live_pointer_checks/runtime_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/results/dp4a_micro_m3_live1/runtime_sources.json",
+          "sha256": "2f6864d52b6aeb7518079f85c5318bb79b4fe612aa85e941bdd1a57eaf597157"
+        }
+      }
+    },
+    "defined_fc2_off.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/measurement/report.json",
+      "sha256": "978a70cebea4fa62d3b69beaacaca27e7c9220697f412726336108bdfb60f89b",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/defined_fc2_off/exit_code.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/defined_fc2_off/source_verify.log",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/defined_fc2_off/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/defined_fc2_off/source_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/source_manifest.json",
+          "sha256": "4ef71711bf496f4302c930980a9eac9306772ac023103c789d9a9027be3d43f6"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/defined_fc2_off/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/runtime_manifest.json",
+          "sha256": "16aeeb2f1fa906aa28e3d158ac337e827b293f395a557e4fd99ba565a3087732"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/defined_fc2_off/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/defined_fc2_off/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/process_cleanup.json",
+          "sha256": "9edf3633b055ab81ec763e33bf1204e545c5ded16de6d17fc95d7a3a9a188af1"
+        },
+        "compiled_artifact_0/summary.json": {
+          "snapshot_path": "evidence/defined_fc2_off/compiled_artifact_0/summary.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/compiled_artifact_0/summary.json",
+          "sha256": "104bff1b286a5c9d8e7aad4309f22c5c343cda619594d91a4f552f3f83d3d4c9"
+        },
+        "compiled_artifact_0/resource.txt": {
+          "snapshot_path": "evidence/defined_fc2_off/compiled_artifact_0/resource.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_off_1/compiled_artifact_0/resource.txt",
+          "sha256": "b98e365a8bdef8fdf7c3334f8fa28b4ff9388d13529a3505bd5f66358f7695d4"
+        }
+      }
+    },
+    "defined_fc2_on.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/measurement/report.json",
+      "sha256": "095b0903546e7f1c29da408fe1c3e0af067a5182c17d820078e6a572b89cc6a3",
+      "original_exit_code": "0",
+      "evidence": {
+        "exit_code.txt": {
+          "snapshot_path": "evidence/defined_fc2_on/exit_code.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "source_verify.log": {
+          "snapshot_path": "evidence/defined_fc2_on/source_verify.log",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gpu_after.csv": {
+          "snapshot_path": "evidence/defined_fc2_on/gpu_after.csv",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source_manifest.json": {
+          "snapshot_path": "evidence/defined_fc2_on/source_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/source_manifest.json",
+          "sha256": "4ef71711bf496f4302c930980a9eac9306772ac023103c789d9a9027be3d43f6"
+        },
+        "runtime_manifest.json": {
+          "snapshot_path": "evidence/defined_fc2_on/runtime_manifest.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/runtime_manifest.json",
+          "sha256": "374f405c2165358a3e2ab11ece5e1c40d2ed4317470ba3327d7ad406166292a7"
+        },
+        "runtime_verify.json": {
+          "snapshot_path": "evidence/defined_fc2_on/runtime_verify.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/runtime_verify.json",
+          "sha256": "bd97fc5cb884ac0dfec0731ce15dddbfff0f4280be3481a07f79c05a5388b515"
+        },
+        "process_cleanup.json": {
+          "snapshot_path": "evidence/defined_fc2_on/process_cleanup.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/process_cleanup.json",
+          "sha256": "5bbaf9bbe0f6ac37ad684e1d3ba298233ed074cfd140ccc21bf8e4ef0d967da2"
+        },
+        "compiled_artifact_0/summary.json": {
+          "snapshot_path": "evidence/defined_fc2_on/compiled_artifact_0/summary.json",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/compiled_artifact_0/summary.json",
+          "sha256": "aefa23e9afd920e6832595b6c51dd198ba5ad78445141e9ee1304f182774ec0c"
+        },
+        "compiled_artifact_0/resource.txt": {
+          "snapshot_path": "evidence/defined_fc2_on/compiled_artifact_0/resource.txt",
+          "original_worktree_path": "kernels/moe-inactive-loads-repair/results/defined_fc2_on_1/compiled_artifact_0/resource.txt",
+          "sha256": "4851c6463a0a6699921a09621364b28d0546b3df022575716ab6418dd155d0aa"
+        }
+      }
+    },
+    "defined_fc2_pair.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads-repair/results/paired_gpu_1.json",
+      "sha256": "4dde78929d478c1edab80b18c203102f6455681ebebd41dafbb38577f6ef0514"
+    },
+    "defined_fc2_artifact_digest.json": {
+      "original_worktree_path": "kernels/moe-inactive-loads-repair/results/gpu_publication_summary.json",
+      "sha256": "76f457b75bff0726f9cc3cf712f1ac28b5e0932c0627f00b99f70fa8ebfab851"
+    },
+    "fi_direct_serving_pair1.json": {
+      "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_pair1_summary.json",
+      "sha256": "05568b609054633a9a3233a2ac7a398c3e653d58a3b61ce9272cd986c076d876",
+      "original_run_exit_codes": {
+        "fi_direct_serving_on3": 5,
+        "fi_direct_serving_off1": 0
+      },
+      "evidence": {
+        "on3/exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/exit_code.txt",
+          "sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+        },
+        "on3/source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "on3/parent_source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/parent_source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/parent_source_verify.log",
+          "sha256": "e2c45713f933694992d06e6a5c7b70228533464baea92af11e89fd6efdf7df99"
+        },
+        "on3/gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "on3/container_after.txt": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/container_after.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/container_after.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "on3/trace_check.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/trace_check.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/trace_check.json",
+          "sha256": "edd0e40958ba3ea4a6140aeae963b25b0de3cfe6734bd6c9e8c2aa97963cdf84"
+        },
+        "on3/results_check.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/results_check.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/results_check.json",
+          "sha256": "a66c58764bae103e529637dfe81971e9f78da6e13c7f68fd813ae1f1025c6ec2"
+        },
+        "on3/active_inductor_configs.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/active_inductor_configs.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/active_inductor_configs.json",
+          "sha256": "4706feb5a6641bde46439c47fc5aac710bcbe32d734450001e4cbb2bc0b57e27"
+        },
+        "on3/post_workload_rpc.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/post_workload_rpc.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/post_workload_rpc.json",
+          "sha256": "25c118dadd2ecb4449141017d2c11f9f0b10d8edde093290d00847616cd6b4e8"
+        },
+        "on3/post_workload_fi_independent.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/post_workload_fi_independent.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/post_workload_fi_independent.json",
+          "sha256": "e40c3da321513ee885aee80797b1bc478b4fc6015e83dafb6e95e21a83170224"
+        },
+        "on3/experiment_sources.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/experiment_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/experiment_sources.json",
+          "sha256": "99ced78829f4cf328dd8defa29effa821e9d389f227b8463b328aada2355543c"
+        },
+        "on3/source_manifest.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/source_manifest.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/source_manifest.json",
+          "sha256": "9407df1b3b4e6e5647f4a7dd6500caf7218b9b63da0fdea3e4efdbdb3a2f9e66"
+        },
+        "on3/serving/runtime/startup.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/runtime/startup.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/runtime/startup.json",
+          "sha256": "159aff3896b0ff8742a307f5309f96d1aa35fe47c825624cec77f2f15c74b541"
+        },
+        "on3/serving/runtime/post_workload.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/runtime/post_workload.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/runtime/post_workload.json",
+          "sha256": "736575ad802d4ce2031e4f8d35970878d0a125f43aed5cecdad21e86e8f751b6"
+        },
+        "on3/serving/decode_c1.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/decode_c1.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/decode_c1.json",
+          "sha256": "b986a0666f63ef86dc60ce9e6316af803cdee89e027ccb8b2140a2cc6045947c"
+        },
+        "on3/serving/decode_c4.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/decode_c4.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/decode_c4.json",
+          "sha256": "d7f7cf2c76c4d408eef0c1f711f2228f3e113af3be24506af7a96800eb278689"
+        },
+        "on3/serving/prefill_2048.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/prefill_2048.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/prefill_2048.json",
+          "sha256": "af2f2e4469a0aae80f3c65c53c4a7b891a16cdcf617d4dfb4e10d6d1f72d69df"
+        },
+        "on3/serving/fi_control/autotune/verification.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/fi_control/autotune/verification.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/fi_control/autotune/verification.json",
+          "sha256": "e46df1e5874ab06b9abe1e57748d2cf924c1622e42e2f26b8a294c81303c7bee"
+        },
+        "on3/serving/fi_control/autotune/source.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/fi_control/autotune/source.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/fi_control/autotune/source.json",
+          "sha256": "7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3"
+        },
+        "on3/serving/fi_control/autotune/server_startup_effective.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/fi_control/autotune/server_startup_effective.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/fi_control/autotune/server_startup_effective.json",
+          "sha256": "614e8159fe76aff10a8a94d4401d7328a8f66291ebabd30720757b75de60c36f"
+        },
+        "on3/serving/fi_control/autotune/server_post_workload_effective.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/on3/serving/fi_control/autotune/server_post_workload_effective.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_on3/serving/fi_control/autotune/server_post_workload_effective.json",
+          "sha256": "614e8159fe76aff10a8a94d4401d7328a8f66291ebabd30720757b75de60c36f"
+        },
+        "off1/exit_code.txt": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/exit_code.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/exit_code.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "off1/source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/source_verify.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "off1/parent_source_verify.log": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/parent_source_verify.log",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/parent_source_verify.log",
+          "sha256": "e2c45713f933694992d06e6a5c7b70228533464baea92af11e89fd6efdf7df99"
+        },
+        "off1/gpu_after.csv": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/gpu_after.csv",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/gpu_after.csv",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "off1/container_after.txt": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/container_after.txt",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/container_after.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "off1/trace_check.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/trace_check.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/trace_check.json",
+          "sha256": "86c84358b726949f62e96b0a9c1c64780a0bae57ef6bd794d72f72713fad0c58"
+        },
+        "off1/results_check.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/results_check.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/results_check.json",
+          "sha256": "a66c58764bae103e529637dfe81971e9f78da6e13c7f68fd813ae1f1025c6ec2"
+        },
+        "off1/active_inductor_configs.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/active_inductor_configs.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/active_inductor_configs.json",
+          "sha256": "72e933ade494302b8b0b173d7787ed84ce751a5460839bcabaa3a22616a613be"
+        },
+        "off1/post_workload_rpc.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/post_workload_rpc.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/post_workload_rpc.json",
+          "sha256": "a369d371181291686304ee53b9e0a20f0dba8197584b3f9be456bd990ccfbc70"
+        },
+        "off1/runtime_source_pair_parity.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/runtime_source_pair_parity.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/runtime_source_pair_parity.json",
+          "sha256": "8880d68dcc96099e029e803b9a8ccd64ade61cad0be61776504c77f395b9d085"
+        },
+        "off1/post_workload_verify_cleanup.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/post_workload_verify_cleanup.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/post_workload_verify_cleanup.json",
+          "sha256": "971439dcaa9fde56b27bc541be2ae93b8e195b193346a755cffa9650af14e495"
+        },
+        "off1/experiment_sources.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/experiment_sources.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/experiment_sources.json",
+          "sha256": "9939fd38e840cc2b7572de9e81cbf5f97f9a8fa0a239418979dafa905fb5d357"
+        },
+        "off1/source_manifest.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/source_manifest.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/source_manifest.json",
+          "sha256": "9407df1b3b4e6e5647f4a7dd6500caf7218b9b63da0fdea3e4efdbdb3a2f9e66"
+        },
+        "off1/serving/runtime/startup.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/runtime/startup.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/runtime/startup.json",
+          "sha256": "ca6142e46dc2b333e1c2043e761f0bac743c32de9b4a541b7bd8589a7ff9015f"
+        },
+        "off1/serving/runtime/post_workload.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/runtime/post_workload.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/runtime/post_workload.json",
+          "sha256": "aa07ab491b92ddf9a325a19406ee6cb53bfba6147cd26588fbb4cee54910b471"
+        },
+        "off1/serving/decode_c1.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/decode_c1.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/decode_c1.json",
+          "sha256": "c2775d2e7cdadbfd3dac368da6fdb10e5034ffdeed897912f90bcd11782b9dac"
+        },
+        "off1/serving/decode_c4.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/decode_c4.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/decode_c4.json",
+          "sha256": "d4f9c4deb2e935f397fc366f7b4d1a8d810d8b28e90547cce9f661eb4fd83cec"
+        },
+        "off1/serving/prefill_2048.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/prefill_2048.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/prefill_2048.json",
+          "sha256": "1d478c84f977e83b06ec42b9788ad05bb7560e93e3ba955f3203a0a804c5ddf4"
+        },
+        "off1/serving/fi_control/autotune/verification.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/fi_control/autotune/verification.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/fi_control/autotune/verification.json",
+          "sha256": "4eee48f1f3f77d36486d0eafaa338badc0b2998ef08ee95f93d1e190a437ac62"
+        },
+        "off1/serving/fi_control/autotune/source.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/fi_control/autotune/source.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/fi_control/autotune/source.json",
+          "sha256": "7b5146f9b3c1e7cc09586c2087988ea8aaf9da1d86da036539a32dec4b335ec3"
+        },
+        "off1/serving/fi_control/autotune/server_startup_effective.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/fi_control/autotune/server_startup_effective.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/fi_control/autotune/server_startup_effective.json",
+          "sha256": "614e8159fe76aff10a8a94d4401d7328a8f66291ebabd30720757b75de60c36f"
+        },
+        "off1/serving/fi_control/autotune/server_post_workload_effective.json": {
+          "snapshot_path": "evidence/fi_direct_serving_pair1/off1/serving/fi_control/autotune/server_post_workload_effective.json",
+          "original_worktree_path": "kernels/dp4a-expert-reuse/serving/results/fi_direct_serving_off1/serving/fi_control/autotune/server_post_workload_effective.json",
+          "sha256": "614e8159fe76aff10a8a94d4401d7328a8f66291ebabd30720757b75de60c36f"
+        }
+      }
+    }
+  }
+}

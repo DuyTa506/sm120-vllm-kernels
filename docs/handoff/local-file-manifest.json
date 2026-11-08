@@ -1,0 +1,87 @@
+{
+  "snapshot_utc": "2026-10-28T06:36:21.257035+00:00",
+  "scope": "Local resume inventory; experiments are largely uncommitted in the worktree, not included in published implementation source.",
+  "paths": {
+    "kernels/dp4a-expert-reuse/serving/runtime.py": {
+      "sha256": "233aa10b128b5810e278520c1a36a01539768187f5c4fa63781fde190829579f",
+      "bytes": 3777
+    },
+    "kernels/dp4a-expert-reuse/serving/model_identity.py": {
+      "sha256": "a81d1fff0f3f284f1bc6f54ede383adebceab4197831ad153be775586f83f5ab",
+      "bytes": 1429
+    },
+    "kernels/dp4a-expert-reuse/serving/run.sh": {
+      "sha256": "f695c6236a0dda01c77975512604c75f5747e9d29bab0badb089fb4814e535d4",
+      "bytes": 6469
+    },
+    "kernels/dp4a-expert-reuse/serving/fi_direct_probe.py": {
+      "sha256": "70e2e79d289fa52277b23416b5710e3fbe74dc7a9a0daf5e7234049f6e578cd7",
+      "bytes": 4290
+    },
+    "kernels/dp4a-expert-reuse/serving/verify_post_workload.py": {
+      "sha256": "b156bd6906cf225e96a0910526da0df9f587809f401b07a9e57cc48faf6d0c96",
+      "bytes": 3980
+    },
+    "kernels/dp4a-expert-reuse/serving/generated/composition.json": {
+      "sha256": "5d838f11403fb2b85f98cc7c13396914636020f4d46977c01ede1ba79de08972",
+      "bytes": 2793
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/off1_reference.json": {
+      "sha256": "fbe87b2894249c6877ed8436aea97204117c33b21061c2512336f04f70cecff3",
+      "bytes": 319242
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/README.md": {
+      "sha256": "d8f06a228f4211b18aadf594e10afbc3fd8a48e2d07fc7f7ff225ea6eeb41c77",
+      "bytes": 2920
+    },
+    "kernels/prefill-counter-study/protocol.py": {
+      "sha256": "1b7a372d6eaec580c3000e27ed8a8ada96c8a7f97c3108540909e65f3d9fe619",
+      "bytes": 1252
+    },
+    "kernels/prefill-counter-study/RESULT.md": {
+      "sha256": "54cc132f7d8517318a5ecf3c7cd24fb8e588454a029e5884439aa5718ad2948f",
+      "bytes": 1956
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/check_constructors_cpu.py": {
+      "sha256": "c4f203215ba9458fca3e5339ae55d91efabea30c1885768294ab51ab62e147ee",
+      "bytes": 3681
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/extract_off_reference.py": {
+      "sha256": "4cefa5f734909eb07a328f9860a84dba6779996dfa7ad599d9582c18d098ad98",
+      "bytes": 4754
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/off1_aot_source_binding.json": {
+      "sha256": "4fac6e30b5676b6d33512a6e9503ebdac465cc3f94c4d0ef604ea9b7db7074c4",
+      "bytes": 53663
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/off1_cpu_constructors.json": {
+      "sha256": "cf33009e894e4e1f92a68f3064773c0f9d4ab716d0bbce7fbe4c87c33b0691ae",
+      "bytes": 554496
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/off1_cpu_constructors_cold.json": {
+      "sha256": "f73f7d723a9996f1a2820e2bafcb802ab588cc97c9f922c7f83f0d99f56f1cf1",
+      "bytes": 558063
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/off1_reference_incomplete_semantic.json": {
+      "sha256": "9b09571db28323723eb1c18ef45f6043b0305a46f4dc84ac47dc5ac4668e5dfe",
+      "bytes": 228730
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/pin_bootstrap/sitecustomize.py": {
+      "sha256": "c01f5ac840ca0649d8db469379d5db9714651a25f7a96c7407dc0e1512705f4a",
+      "bytes": 519
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/pin_inductor_core.py": {
+      "sha256": "25e8a1f4586af52fd01cef5ad2b59e5d7d0d9e7f1b07a5323a169798fdea1f46",
+      "bytes": 6012
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/pin_inductor_hook.py": {
+      "sha256": "e222c7de2f10884d66a6de5fb7995045ec6706a26e1bdd404a5ced9110017ef6",
+      "bytes": 4248
+    },
+    "kernels/dp4a-expert-reuse/serving/inductor_pin/test_qualified_pin.py": {
+      "sha256": "a112bfe0d2874fbf285abd7df65bf7b0ab1c3c9dab701d4f5e452a7b995e15d2",
+      "bytes": 869
+    }
+  },
+  "agents_stopped": true
+}

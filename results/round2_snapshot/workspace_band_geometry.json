@@ -1,0 +1,129 @@
+{
+  "scope": "Offline geometry of saved actual L19 routing; not a latency or DRAM-traffic model.",
+  "limitation": "Smaller M tiles reduce padding but increase tile count, scheduling and possible weight reloads. Native kernels and both full calls must be measured.",
+  "cases": [
+    {
+      "source": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m2048_real.json",
+      "source_sha256": "039742ee872c4776e01b0e0da825133340b84db457ae9c33253c82669b3a35c7",
+      "layer": 19,
+      "tokens": 2048,
+      "routed_rows": 16384,
+      "nonempty_experts": 224,
+      "max_rows_per_expert": 1137,
+      "observed_wrapper_tile_m": 128,
+      "functional_selector_tile_m": 64,
+      "candidates": [
+        {
+          "tile_m": 16,
+          "expert_m_tiles": 1137,
+          "padded_rows": 18192,
+          "useful_row_fraction": 0.9006156552330695,
+          "unused_rows": 1808
+        },
+        {
+          "tile_m": 32,
+          "expert_m_tiles": 638,
+          "padded_rows": 20416,
+          "useful_row_fraction": 0.8025078369905956,
+          "unused_rows": 4032
+        },
+        {
+          "tile_m": 64,
+          "expert_m_tiles": 389,
+          "padded_rows": 24896,
+          "useful_row_fraction": 0.6580976863753213,
+          "unused_rows": 8512
+        },
+        {
+          "tile_m": 128,
+          "expert_m_tiles": 274,
+          "padded_rows": 35072,
+          "useful_row_fraction": 0.46715328467153283,
+          "unused_rows": 18688
+        }
+      ]
+    },
+    {
+      "source": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m3072_real.json",
+      "source_sha256": "d64f5b32909739c5c5c84e021d61a15535a1d919758fcc45f6bc458b01b2dbd6",
+      "layer": 19,
+      "tokens": 3072,
+      "routed_rows": 24576,
+      "nonempty_experts": 235,
+      "max_rows_per_expert": 2028,
+      "observed_wrapper_tile_m": 128,
+      "functional_selector_tile_m": 128,
+      "candidates": [
+        {
+          "tile_m": 16,
+          "expert_m_tiles": 1650,
+          "padded_rows": 26400,
+          "useful_row_fraction": 0.9309090909090909,
+          "unused_rows": 1824
+        },
+        {
+          "tile_m": 32,
+          "expert_m_tiles": 893,
+          "padded_rows": 28576,
+          "useful_row_fraction": 0.8600223964165733,
+          "unused_rows": 4000
+        },
+        {
+          "tile_m": 64,
+          "expert_m_tiles": 522,
+          "padded_rows": 33408,
+          "useful_row_fraction": 0.735632183908046,
+          "unused_rows": 8832
+        },
+        {
+          "tile_m": 128,
+          "expert_m_tiles": 339,
+          "padded_rows": 43392,
+          "useful_row_fraction": 0.5663716814159292,
+          "unused_rows": 18816
+        }
+      ]
+    },
+    {
+      "source": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/moe-task-order/results/task_order_geometry_1/measurement/geometry/applicability_l19_m4096_real.json",
+      "source_sha256": "259c584a038836c0b5408bd14615c93b43b7e814d0a5c01edffd80228adbd95a",
+      "layer": 19,
+      "tokens": 4096,
+      "routed_rows": 32768,
+      "nonempty_experts": 238,
+      "max_rows_per_expert": 2918,
+      "observed_wrapper_tile_m": 128,
+      "functional_selector_tile_m": 128,
+      "candidates": [
+        {
+          "tile_m": 16,
+          "expert_m_tiles": 2158,
+          "padded_rows": 34528,
+          "useful_row_fraction": 0.9490268767377201,
+          "unused_rows": 1760
+        },
+        {
+          "tile_m": 32,
+          "expert_m_tiles": 1151,
+          "padded_rows": 36832,
+          "useful_row_fraction": 0.889661164205039,
+          "unused_rows": 4064
+        },
+        {
+          "tile_m": 64,
+          "expert_m_tiles": 649,
+          "padded_rows": 41536,
+          "useful_row_fraction": 0.7889060092449923,
+          "unused_rows": 8768
+        },
+        {
+          "tile_m": 128,
+          "expert_m_tiles": 400,
+          "padded_rows": 51200,
+          "useful_row_fraction": 0.64,
+          "unused_rows": 18432
+        }
+      ]
+    }
+  ]
+}

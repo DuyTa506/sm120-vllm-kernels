@@ -1,0 +1,146 @@
+{
+  "scope": "FC2 full2048 columns; instrumented diagnostic only",
+  "source_provenance": {
+    "a0": {
+      "file": "/work/kernels/moe-task-order-diagnostic/results/task_order_diag_full_a1/measurement/diagnostic.pt",
+      "sha256": "7f07503a32ed96a183d97d4d90988e7c6d0b59a7d2fc32001549b8cf71ba4d1b",
+      "contributions": 59198,
+      "atomic_vs_fixed_fp64": {
+        "rel_l2": 0.004371635648084758,
+        "max_abs": 0.00377655029296875
+      }
+    },
+    "a1": {
+      "file": "/work/kernels/moe-task-order-diagnostic/results/task_order_diag_full_a1/measurement/diagnostic_repeat1.pt",
+      "sha256": "b452ced24bdb731527ace03373c4083f1f0508904e5a06ef16be51e5ff649ccb",
+      "contributions": 59198,
+      "atomic_vs_fixed_fp64": {
+        "rel_l2": 0.004353844155508125,
+        "max_abs": 0.00377655029296875
+      }
+    },
+    "b0": {
+      "file": "/work/kernels/moe-task-order-diagnostic/results/task_order_diag_full_b1/measurement/diagnostic.pt",
+      "sha256": "4833a82ced483d0dab96f17161b5673252c35af17f80eed93d65e59670b9a477",
+      "contributions": 59198,
+      "atomic_vs_fixed_fp64": {
+        "rel_l2": 0.004037772547473515,
+        "max_abs": 0.0027465522289276123
+      }
+    },
+    "b1": {
+      "file": "/work/kernels/moe-task-order-diagnostic/results/task_order_diag_full_b1/measurement/diagnostic_repeat1.pt",
+      "sha256": "1e2fc8cd3cb118df97dc887e2d42d8e717ac5e511dfa80f2cb233cb7df7bb13b",
+      "contributions": 59198,
+      "atomic_vs_fixed_fp64": {
+        "rel_l2": 0.0040343225016094345,
+        "max_abs": 0.0027465522289276123
+      }
+    }
+  },
+  "pairs": [
+    {
+      "a": "a0",
+      "b": "a1",
+      "payload_bit_mismatches": 0,
+      "payload_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "reference_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "atomic_error": {
+        "rel_l2": 0.0032606925414692665,
+        "max_abs": 0.0029296875
+      }
+    },
+    {
+      "a": "b0",
+      "b": "b1",
+      "payload_bit_mismatches": 0,
+      "payload_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "reference_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "atomic_error": {
+        "rel_l2": 0.003277650856130389,
+        "max_abs": 0.00146484375
+      }
+    },
+    {
+      "a": "a0",
+      "b": "b0",
+      "payload_bit_mismatches": 0,
+      "payload_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "reference_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "atomic_error": {
+        "rel_l2": 0.004749335902007692,
+        "max_abs": 0.001953125
+      }
+    },
+    {
+      "a": "a0",
+      "b": "b1",
+      "payload_bit_mismatches": 0,
+      "payload_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "reference_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "atomic_error": {
+        "rel_l2": 0.004752167179936073,
+        "max_abs": 0.001953125
+      }
+    },
+    {
+      "a": "a1",
+      "b": "b0",
+      "payload_bit_mismatches": 0,
+      "payload_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "reference_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "atomic_error": {
+        "rel_l2": 0.004748025789787041,
+        "max_abs": 0.001953125
+      }
+    },
+    {
+      "a": "a1",
+      "b": "b1",
+      "payload_bit_mismatches": 0,
+      "payload_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "reference_error": {
+        "rel_l2": 0.0,
+        "max_abs": 0.0
+      },
+      "atomic_error": {
+        "rel_l2": 0.004750542798308416,
+        "max_abs": 0.001953125
+      }
+    }
+  ],
+  "coverage": "all four captured calls canonicalized with strict missing/duplicate/invalid-row checks"
+}

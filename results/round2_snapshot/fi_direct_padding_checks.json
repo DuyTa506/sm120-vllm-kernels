@@ -1,0 +1,5128 @@
+{
+  "scope": "sequential distinct per-shape/per-provider workspaces; no concurrency claim",
+  "checks": [
+    {
+      "m": 1,
+      "fixture": "valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.2056889832019806
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.2671401931345463,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.2056889832019806
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.2671401931345463,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.2056889832019806
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.2671401931345463,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "all_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "all_invalid_nan",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "one_token_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "partial_slots",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.12486657500267029
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1653894765675068,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.12486657500267029
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1653894765675068,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.12486657500267029
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1653894765675068,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "duplicate_valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.10576756298542023
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1424494369328022,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.10576756298542023
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1424494369328022,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.10576756298542023
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1424494369328022,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "restore_changed",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.18467789888381958
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.24013025522232057,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.18467789888381958
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.24013025522232057,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.18467789888381958
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.24013025522232057,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1404348909854889
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18489790916442872,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1404348909854889
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18489790916442872,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1404348909854889
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18489790916442872,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "all_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "all_invalid_nan",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "one_token_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14003942906856537
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18439836636185647,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14003942906856537
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18439836636185647,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14003942906856537
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18439836636185647,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "partial_slots",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15417860448360443
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20141588360071183,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15417860448360443
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20141588360071183,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15417860448360443
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20141588360071183,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "duplicate_valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1478501409292221
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19360529094934464,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1478501409292221
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19360529094934464,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1478501409292221
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19360529094934464,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "restore_changed",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13820484280586243
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18504997551441194,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13820484280586243
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18504997551441194,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13820484280586243
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18504997551441194,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14700452983379364
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19391748890280724,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14700452983379364
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19391748890280724,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14700452983379364
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19391748890280724,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "all_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "all_invalid_nan",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "one_token_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1467881202697754
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19364747986197473,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1467881202697754
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19364747986197473,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1467881202697754
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19364747986197473,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "partial_slots",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14818954467773438
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1960744319856167,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14818954467773438
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1960744319856167,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14818954467773438
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1960744319856167,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "duplicate_valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1567380726337433
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20533727318048478,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1567380726337433
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20533727318048478,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1567380726337433
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20533727318048478,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "restore_changed",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13936194777488708
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18633512616157533,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13936194777488708
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18633512616157533,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13936194777488708
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18633512616157533,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13413354754447937
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1780869609117508,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13413354754447937
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1780869609117508,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13413354754447937
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1780869609117508,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "all_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "all_invalid_nan",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "one_token_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13405664265155792
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.17799135133624078,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13405664265155792
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.17799135133624078,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13405664265155792
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.17799135133624078,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "partial_slots",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14875690639019012
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.197201164662838,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14875690639019012
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.197201164662838,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14875690639019012
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.197201164662838,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "duplicate_valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15733543038368225
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20727578386664391,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15733543038368225
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20727578386664391,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15733543038368225
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20727578386664391,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "restore_changed",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14234761893749237
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18959406599402429,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14234761893749237
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18959406599402429,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14234761893749237
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18959406599402429,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1404348909854889
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18489790916442872,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1404348909854889
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18489790916442872,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1404348909854889
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18489790916442872,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "all_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "all_invalid_nan",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "one_token_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14003942906856537
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18439836636185647,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14003942906856537
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18439836636185647,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14003942906856537
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18439836636185647,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "partial_slots",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15417860448360443
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20141588360071183,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15417860448360443
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20141588360071183,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15417860448360443
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20141588360071183,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "duplicate_valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1478501409292221
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19360529094934464,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1478501409292221
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19360529094934464,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1478501409292221
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19360529094934464,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 3,
+      "fixture": "restore_changed",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13820484280586243
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18504997551441194,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13820484280586243
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18504997551441194,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13820484280586243
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18504997551441194,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.2056889832019806
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.2671401931345463,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.2056889832019806
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.2671401931345463,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.2056889832019806
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.2671401931345463,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "all_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "all_invalid_nan",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "one_token_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "partial_slots",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.12486657500267029
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1653894765675068,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.12486657500267029
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1653894765675068,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.12486657500267029
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1653894765675068,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "duplicate_valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.10576756298542023
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1424494369328022,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.10576756298542023
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1424494369328022,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.10576756298542023
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1424494369328022,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 1,
+      "fixture": "restore_changed",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.18467789888381958
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.24013025522232057,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.18467789888381958
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.24013025522232057,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.18467789888381958
+          },
+          "sanitizer_errors": [
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.24013025522232057,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13413354754447937
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1780869609117508,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13413354754447937
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1780869609117508,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13413354754447937
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1780869609117508,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "all_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "all_invalid_nan",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "one_token_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13405664265155792
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.17799135133624078,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13405664265155792
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.17799135133624078,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13405664265155792
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.17799135133624078,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "partial_slots",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14875690639019012
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.197201164662838,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14875690639019012
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.197201164662838,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14875690639019012
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.197201164662838,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "duplicate_valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15733543038368225
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20727578386664391,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15733543038368225
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20727578386664391,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.15733543038368225
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20727578386664391,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 8,
+      "fixture": "restore_changed",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14234761893749237
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18959406599402429,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14234761893749237
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18959406599402429,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14234761893749237
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18959406599402429,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14700452983379364
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19391748890280724,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14700452983379364
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19391748890280724,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14700452983379364
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19391748890280724,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "all_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "all_invalid_nan",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.01,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "one_token_invalid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1467881202697754
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19364747986197473,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1467881202697754
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19364747986197473,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1467881202697754
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.19364747986197473,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "partial_slots",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14818954467773438
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1960744319856167,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14818954467773438
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1960744319856167,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.14818954467773438
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.1960744319856167,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "duplicate_valid",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1567380726337433
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20533727318048478,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1567380726337433
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20533727318048478,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.1567380726337433
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.20533727318048478,
+            "quality_equivalence": false
+          }
+        }
+      }
+    },
+    {
+      "m": 4,
+      "fixture": "restore_changed",
+      "precision": "fp32_tf32_disabled",
+      "providers": {
+        "reciprocal": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13936194777488708
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18633512616157533,
+            "quality_equivalence": false
+          }
+        },
+        "preplanned_multiplier": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13936194777488708
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18633512616157533,
+            "quality_equivalence": false
+          }
+        },
+        "native_prepared": {
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0
+          },
+          "fp32": {
+            "finite": true,
+            "rel_l2": 0.13936194777488708
+          },
+          "sanitizer_errors": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sanity": {
+            "status": "broad_sanity_only",
+            "absolute_ceiling": 0.35,
+            "baseline_factor": 1.25,
+            "baseline_margin": 0.01,
+            "effective_limit": 0.18633512616157533,
+            "quality_equivalence": false
+          }
+        }
+      }
+    }
+  ],
+  "cuda_events": [
+    {
+      "name": "FI_DIRECT_PREPLANNED_NATIVE_EAGER",
+      "device_type": "DeviceType.CUDA"
+    },
+    {
+      "name": "_sanitize",
+      "device_type": "DeviceType.CUDA"
+    },
+    {
+      "name": "kernel_cutlass_kernel_flashinferfused_moecute_dslblackwell_sm12xmoe_direct_micro_kernelMoEDirectMicroKernel_object_at__tensorptrbf16gmemalign16o1_tensorptri8gmemalign16oi641_tensorptri8gm_0",
+      "device_type": "DeviceType.CUDA"
+    },
+    {
+      "name": "FI_DIRECT_PREPLANNED_GRAPH",
+      "device_type": "DeviceType.CUDA"
+    },
+    {
+      "name": "_sanitize",
+      "device_type": "DeviceType.CUDA"
+    },
+    {
+      "name": "kernel_cutlass_kernel_flashinferfused_moecute_dslblackwell_sm12xmoe_direct_micro_kernelMoEDirectMicroKernel_object_at__tensorptrbf16gmemalign16o1_tensorptri8gmemalign16oi641_tensorptri8gm_0",
+      "device_type": "DeviceType.CUDA"
+    }
+  ],
+  "status": "diagnostic_pass_no_serving_promotion"
+}

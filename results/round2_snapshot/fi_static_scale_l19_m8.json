@@ -1,0 +1,669 @@
+{
+  "status": "numerical_gate_passed_no_promotion",
+  "scope": "M8 real L19 static scale numerical diagnostic, no timing or serving promotion",
+  "checks": [
+    {
+      "offset": 0,
+      "repeat": {
+        "old_static_true": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        },
+        "corrected_static_false": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.6725101470947266
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.6725101470947266
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.669723629951477
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.669723629951477
+          }
+        }
+      },
+      "quantization": {
+        "old_static_true": {
+          "scale_mismatch_examples": [
+            {
+              "pair": 16,
+              "block": 0,
+              "actual": 3,
+              "expected": 90
+            },
+            {
+              "pair": 16,
+              "block": 1,
+              "actual": 2,
+              "expected": 83
+            },
+            {
+              "pair": 16,
+              "block": 2,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 3,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 4,
+              "actual": 4,
+              "expected": 91
+            },
+            {
+              "pair": 16,
+              "block": 5,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 6,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 7,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 8,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 9,
+              "actual": 4,
+              "expected": 91
+            },
+            {
+              "pair": 16,
+              "block": 10,
+              "actual": 15,
+              "expected": 106
+            },
+            {
+              "pair": 16,
+              "block": 11,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 12,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 13,
+              "actual": 4,
+              "expected": 90
+            },
+            {
+              "pair": 16,
+              "block": 14,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 15,
+              "actual": 3,
+              "expected": 88
+            }
+          ],
+          "routes": 64,
+          "scale_mismatches": 8192,
+          "scale_bytes": 8192,
+          "payload_mismatches": 23736,
+          "canonical_payload_mismatches": 23736,
+          "payload_bytes": 65536,
+          "scale_nonzero": 8112
+        },
+        "corrected_static_false": {
+          "scale_mismatch_examples": [],
+          "routes": 64,
+          "scale_mismatches": 0,
+          "scale_bytes": 8192,
+          "payload_mismatches": 0,
+          "canonical_payload_mismatches": 0,
+          "payload_bytes": 65536,
+          "scale_nonzero": 8192
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "fp32": {
+        "old_static_true": {
+          "finite": true,
+          "rel_l2": 1.0,
+          "max_abs": 0.0662996843457222,
+          "norm": 0.0
+        },
+        "corrected_static_false": {
+          "finite": true,
+          "rel_l2": 0.13416293263435364,
+          "max_abs": 0.00892831664532423,
+          "norm": 1.6725101470947266
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.13446956872940063,
+          "max_abs": 0.00885965209454298,
+          "norm": 1.669723629951477
+        }
+      },
+      "corrected_vs_cutlass": {
+        "finite": true,
+        "rel_l2": 0.022544799372553825,
+        "max_abs": 0.0016326904296875,
+        "norm": 1.6725101470947266
+      },
+      "reference_norm": 1.6803642511367798
+    },
+    {
+      "offset": 64,
+      "repeat": {
+        "old_static_true": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        },
+        "corrected_static_false": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2476129531860352
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2476129531860352
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2482075691223145
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.2482075691223145
+          }
+        }
+      },
+      "quantization": {
+        "old_static_true": {
+          "scale_mismatch_examples": [
+            {
+              "pair": 16,
+              "block": 0,
+              "actual": 4,
+              "expected": 92
+            },
+            {
+              "pair": 16,
+              "block": 1,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 2,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 3,
+              "actual": 4,
+              "expected": 91
+            },
+            {
+              "pair": 16,
+              "block": 4,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 5,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 6,
+              "actual": 4,
+              "expected": 90
+            },
+            {
+              "pair": 16,
+              "block": 7,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 8,
+              "actual": 4,
+              "expected": 91
+            },
+            {
+              "pair": 16,
+              "block": 9,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 10,
+              "actual": 11,
+              "expected": 103
+            },
+            {
+              "pair": 16,
+              "block": 11,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 12,
+              "actual": 6,
+              "expected": 97
+            },
+            {
+              "pair": 16,
+              "block": 13,
+              "actual": 3,
+              "expected": 90
+            },
+            {
+              "pair": 16,
+              "block": 14,
+              "actual": 4,
+              "expected": 91
+            },
+            {
+              "pair": 16,
+              "block": 15,
+              "actual": 5,
+              "expected": 95
+            }
+          ],
+          "routes": 64,
+          "scale_mismatches": 8192,
+          "scale_bytes": 8192,
+          "payload_mismatches": 22496,
+          "canonical_payload_mismatches": 22496,
+          "payload_bytes": 65536,
+          "scale_nonzero": 8192
+        },
+        "corrected_static_false": {
+          "scale_mismatch_examples": [],
+          "routes": 64,
+          "scale_mismatches": 0,
+          "scale_bytes": 8192,
+          "payload_mismatches": 0,
+          "canonical_payload_mismatches": 0,
+          "payload_bytes": 65536,
+          "scale_nonzero": 8192
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "fp32": {
+        "old_static_true": {
+          "finite": true,
+          "rel_l2": 1.0,
+          "max_abs": 0.06150326505303383,
+          "norm": 0.0
+        },
+        "corrected_static_false": {
+          "finite": true,
+          "rel_l2": 0.1424485146999359,
+          "max_abs": 0.008174780756235123,
+          "norm": 1.2476129531860352
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.14367525279521942,
+          "max_abs": 0.008053155615925789,
+          "norm": 1.2482075691223145
+        }
+      },
+      "corrected_vs_cutlass": {
+        "finite": true,
+        "rel_l2": 0.030306333675980568,
+        "max_abs": 0.0025634765625,
+        "norm": 1.2476129531860352
+      },
+      "reference_norm": 1.2384371757507324
+    },
+    {
+      "offset": 0,
+      "repeat": {
+        "old_static_true": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 0.0
+          }
+        },
+        "corrected_static_false": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.6725101470947266
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.6725101470947266
+          }
+        },
+        "current_scalar_cutlass": {
+          "graph_repeat": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.669723629951477
+          },
+          "graph_eager": {
+            "finite": true,
+            "rel_l2": 0.0,
+            "max_abs": 0.0,
+            "norm": 1.669723629951477
+          }
+        }
+      },
+      "quantization": {
+        "old_static_true": {
+          "scale_mismatch_examples": [
+            {
+              "pair": 16,
+              "block": 0,
+              "actual": 3,
+              "expected": 90
+            },
+            {
+              "pair": 16,
+              "block": 1,
+              "actual": 2,
+              "expected": 83
+            },
+            {
+              "pair": 16,
+              "block": 2,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 3,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 4,
+              "actual": 4,
+              "expected": 91
+            },
+            {
+              "pair": 16,
+              "block": 5,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 6,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 7,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 8,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 9,
+              "actual": 4,
+              "expected": 91
+            },
+            {
+              "pair": 16,
+              "block": 10,
+              "actual": 15,
+              "expected": 106
+            },
+            {
+              "pair": 16,
+              "block": 11,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 12,
+              "actual": 3,
+              "expected": 88
+            },
+            {
+              "pair": 16,
+              "block": 13,
+              "actual": 4,
+              "expected": 90
+            },
+            {
+              "pair": 16,
+              "block": 14,
+              "actual": 3,
+              "expected": 89
+            },
+            {
+              "pair": 16,
+              "block": 15,
+              "actual": 3,
+              "expected": 88
+            }
+          ],
+          "routes": 64,
+          "scale_mismatches": 8192,
+          "scale_bytes": 8192,
+          "payload_mismatches": 23736,
+          "canonical_payload_mismatches": 23736,
+          "payload_bytes": 65536,
+          "scale_nonzero": 8112
+        },
+        "corrected_static_false": {
+          "scale_mismatch_examples": [],
+          "routes": 64,
+          "scale_mismatches": 0,
+          "scale_bytes": 8192,
+          "payload_mismatches": 0,
+          "canonical_payload_mismatches": 0,
+          "payload_bytes": 65536,
+          "scale_nonzero": 8192
+        }
+      },
+      "reference_precision": {
+        "dtype": "float32",
+        "allow_tf32": false
+      },
+      "fp32": {
+        "old_static_true": {
+          "finite": true,
+          "rel_l2": 1.0,
+          "max_abs": 0.0662996843457222,
+          "norm": 0.0
+        },
+        "corrected_static_false": {
+          "finite": true,
+          "rel_l2": 0.13416293263435364,
+          "max_abs": 0.00892831664532423,
+          "norm": 1.6725101470947266
+        },
+        "current_scalar_cutlass": {
+          "finite": true,
+          "rel_l2": 0.13446956872940063,
+          "max_abs": 0.00885965209454298,
+          "norm": 1.669723629951477
+        }
+      },
+      "corrected_vs_cutlass": {
+        "finite": true,
+        "rel_l2": 0.022544799372553825,
+        "max_abs": 0.0016326904296875,
+        "norm": 1.6725101470947266
+      },
+      "reference_norm": 1.6803642511367798
+    }
+  ],
+  "gate": "exploratory: finite/nonzero, FP32 relL2<=.25, graph repeat/eager exact, input scale bytes exact, signed-zero-canonical payload exact",
+  "factory_trace": [
+    {
+      "factory": "_get_static_kernel",
+      "reciprocal": true
+    },
+    {
+      "factory": "_get_static_kernel",
+      "reciprocal": true
+    },
+    {
+      "factory": "_get_static_kernel",
+      "reciprocal": false
+    },
+    {
+      "factory": "_get_static_kernel",
+      "reciprocal": false
+    }
+  ],
+  "factory_scope": "Python factory evidence, not Nsight kernel trace",
+  "scales": {
+    "a13": 0.01860465109348297,
+    "a2": 0.009478673338890076
+  },
+  "fp4_common_sha256": "a430b3171c7c972a2b98a176e5a47ddcaf36ac71e6231420e961e269d0d045d1",
+  "gates": [
+    {
+      "offset": 0,
+      "name": "corrected_static_false",
+      "passed": true
+    },
+    {
+      "offset": 0,
+      "name": "current_scalar_cutlass",
+      "passed": true
+    },
+    {
+      "offset": 0,
+      "name": "input_quant_exact",
+      "passed": true
+    },
+    {
+      "offset": 64,
+      "name": "corrected_static_false",
+      "passed": true
+    },
+    {
+      "offset": 64,
+      "name": "current_scalar_cutlass",
+      "passed": true
+    },
+    {
+      "offset": 64,
+      "name": "input_quant_exact",
+      "passed": true
+    },
+    {
+      "offset": 0,
+      "name": "corrected_static_false",
+      "passed": true
+    },
+    {
+      "offset": 0,
+      "name": "current_scalar_cutlass",
+      "passed": true
+    },
+    {
+      "offset": 0,
+      "name": "input_quant_exact",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "CPU_AUDIT.md": "80284c3175137ea2918e723b823181973c505668fb4e025206088acd80a5a5a8",
+  "bucket_probe.py": "53a1df476167e09fc445fec37bd820a287e46c6a947480b86c07445598e69ace",
+  "mma_plan.py": "a197fed36045b2edb99066efdc3cd64f24aafe3cd19d589a241b86fca1528530",
+  "probe.py": "a76c60c791b61cd6da084db2a5120e3fb24ff1592f9592233a8a49806c26ba96",
+  "process_guard.py": "6888e998d3c5854848ed9882b804b0bbe90453126a1b14757857f4a338f34425",
+  "provenance.py": "79a2f33d431a62137d258e31154c476e55e8ca8c2b39119756127f8891700bd1",
+  "run.sh": "7c3590393c329c5ee52c035782bb1fe9b106ddb95f38ac43a1012fdda4ac37b5",
+  "vendor_direct/direct_native.py": "1d9735ebca1f2c818b21cbbc862156f768abc5b8726bfe2e91ed4d724c66fcf6",
+  "vendor_direct/direct_sanitize.py": "fdccc9ff244977e573d765727f9d2a5be54b94e50daea27cf2263524a4b9ad87",
+  "vendor_direct/fi_plan.py": "17d553a86edd4fbc3d06e4db9053fe19a6e42c7bf5d9fd72b07e776afeaa68a3",
+  "vendor_direct/origin.json": "009c68a54fbad17cddd5f220e2708dfd09fa17cac867a6a71c67bc60fe4c59fb"
+}
