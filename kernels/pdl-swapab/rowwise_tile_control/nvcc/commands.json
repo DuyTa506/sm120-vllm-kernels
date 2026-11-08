@@ -1,0 +1,142 @@
+{
+  "tile64_m1": {
+    "command": [
+      "/usr/local/cuda-13.0/bin/nvcc",
+      "/work/nvcc/tile64_m1.cu",
+      "--cubin",
+      "--output-file",
+      "/work/nvcc/tile64_m1.cubin",
+      "--gpu-architecture=sm_120f",
+      "-O3",
+      "--compiler-options=-O3",
+      "--ptxas-options=--register-usage-level=10",
+      "-std=c++20",
+      "--compiler-options=-fPIC",
+      "--compiler-options=-fconcepts",
+      "--expt-relaxed-constexpr",
+      "--expt-extended-lambda",
+      "--diag-suppress=39,161,174,177,186,940",
+      "--compiler-options=-Wno-deprecated-declarations,-Wno-abi",
+      "--include-path",
+      "/work/src/deep_gemm/include"
+    ],
+    "original_source": "results/swap_native_matrix_1/jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.c038fa533db10ee78e3548a254230f17/kernel.cu",
+    "original_source_sha256": "54e11c701d6fc893eb7f575a633ecc7167714926d1718481264ff67c573e1ab1",
+    "source_sha256": "fb9ebb8f9e34c12a30505efbd1f0ceb2afd5f8670a90021c7f4082337b4c4653",
+    "policy": {
+      "block_m": 64,
+      "block_n": 16,
+      "block_k": 64,
+      "stages": 16,
+      "smem": 88320,
+      "grid_ctas": 188,
+      "logical_tiles": 192,
+      "split_k": 1
+    }
+  },
+  "tile64_m16": {
+    "command": [
+      "/usr/local/cuda-13.0/bin/nvcc",
+      "/work/nvcc/tile64_m16.cu",
+      "--cubin",
+      "--output-file",
+      "/work/nvcc/tile64_m16.cubin",
+      "--gpu-architecture=sm_120f",
+      "-O3",
+      "--compiler-options=-O3",
+      "--ptxas-options=--register-usage-level=10",
+      "-std=c++20",
+      "--compiler-options=-fPIC",
+      "--compiler-options=-fconcepts",
+      "--expt-relaxed-constexpr",
+      "--expt-extended-lambda",
+      "--diag-suppress=39,161,174,177,186,940",
+      "--compiler-options=-Wno-deprecated-declarations,-Wno-abi",
+      "--include-path",
+      "/work/src/deep_gemm/include"
+    ],
+    "original_source": "results/swap_native_matrix_1/jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.b7bfbf3598eebea1b81764e1efd86711/kernel.cu",
+    "original_source_sha256": "c15aef5712bbb475c42a46b998be32b7738be869ca5f0e821b637efcb2dc6114",
+    "source_sha256": "1b043e298fb95cab76810f4296fba800c7ccb8cd7ba995cbe77de5ab1b8e51b9",
+    "policy": {
+      "block_m": 64,
+      "block_n": 16,
+      "block_k": 64,
+      "stages": 16,
+      "smem": 88320,
+      "grid_ctas": 188,
+      "logical_tiles": 192,
+      "split_k": 1
+    }
+  },
+  "tile64_m3": {
+    "command": [
+      "/usr/local/cuda-13.0/bin/nvcc",
+      "/work/nvcc/tile64_m3.cu",
+      "--cubin",
+      "--output-file",
+      "/work/nvcc/tile64_m3.cubin",
+      "--gpu-architecture=sm_120f",
+      "-O3",
+      "--compiler-options=-O3",
+      "--ptxas-options=--register-usage-level=10",
+      "-std=c++20",
+      "--compiler-options=-fPIC",
+      "--compiler-options=-fconcepts",
+      "--expt-relaxed-constexpr",
+      "--expt-extended-lambda",
+      "--diag-suppress=39,161,174,177,186,940",
+      "--compiler-options=-Wno-deprecated-declarations,-Wno-abi",
+      "--include-path",
+      "/work/src/deep_gemm/include"
+    ],
+    "original_source": "results/swap_native_matrix_1/jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.6ad5444f236ce0c8d48f86a71050bf31/kernel.cu",
+    "original_source_sha256": "c5469a88def2bbe2a4d2970c679654a84f5284604ecaf4125627928a74172e05",
+    "source_sha256": "9557bf4342a12130c7cb556aac2cd1a45bccb0dbd3debdc69cfd353d05617f9e",
+    "policy": {
+      "block_m": 64,
+      "block_n": 16,
+      "block_k": 64,
+      "stages": 16,
+      "smem": 88320,
+      "grid_ctas": 188,
+      "logical_tiles": 192,
+      "split_k": 1
+    }
+  },
+  "tile64_m8": {
+    "command": [
+      "/usr/local/cuda-13.0/bin/nvcc",
+      "/work/nvcc/tile64_m8.cu",
+      "--cubin",
+      "--output-file",
+      "/work/nvcc/tile64_m8.cubin",
+      "--gpu-architecture=sm_120f",
+      "-O3",
+      "--compiler-options=-O3",
+      "--ptxas-options=--register-usage-level=10",
+      "-std=c++20",
+      "--compiler-options=-fPIC",
+      "--compiler-options=-fconcepts",
+      "--expt-relaxed-constexpr",
+      "--expt-extended-lambda",
+      "--diag-suppress=39,161,174,177,186,940",
+      "--compiler-options=-Wno-deprecated-declarations,-Wno-abi",
+      "--include-path",
+      "/work/src/deep_gemm/include"
+    ],
+    "original_source": "results/swap_native_matrix_1/jit_cache/cache/sm120_fp8_fp4_gemm_1d1d.1f4122e9668949f4390b04efca76ab66/kernel.cu",
+    "original_source_sha256": "2b796c9e74504fbf5efd58d1a0e0cfe19dcaf899a236a732ca87ec51abef65eb",
+    "source_sha256": "59752bdfa00b589c339144660dce88ffc5ffc1f98fad8b0bfbe4040f99a9eaf7",
+    "policy": {
+      "block_m": 64,
+      "block_n": 16,
+      "block_k": 64,
+      "stages": 16,
+      "smem": 88320,
+      "grid_ctas": 188,
+      "logical_tiles": 192,
+      "split_k": 1
+    }
+  }
+}

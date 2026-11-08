@@ -1,0 +1,23 @@
+{
+  "profiles": [
+    {
+      "profile": "off",
+      "flag": false,
+      "compile_factors_sha256": "80db6190cb9ffd274651d7417834dcd1bb73f29376e2101d04bdea7194ed26bb",
+      "old_disk_key": "dynamic_e256_k2048_n512_t8_0bcf10fbd27429e1",
+      "new_disk_key": "dynamic_e256_k2048_n512_t8_a7027526ae6f1f2c",
+      "native_source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+      "cuda_initialized": false
+    },
+    {
+      "profile": "on",
+      "flag": true,
+      "compile_factors_sha256": "089877dbf5575415773c0ddfe2c84531ff1718298b7057e97321235c59f4626c",
+      "old_disk_key": "dynamic_e256_k2048_n512_t8_0bcf10fbd27429e1",
+      "new_disk_key": "dynamic_e256_k2048_n512_t8_2c405d7d368a5f54",
+      "native_source_sha256": "7fd2da260329fff25820bd31185bec34661595572c90f0171149604877e2e9e7",
+      "cuda_initialized": false
+    }
+  ],
+  "scope": "CPU identity checks only; actual candidate execution still requires live trace and queue proof"
+}

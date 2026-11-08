@@ -1,0 +1,12 @@
+{
+  "layer": 19,
+  "tokens": 1024,
+  "blocks": 131072,
+  "calibration_multiplier": 53.75,
+  "scale_bytes_changed": 67001,
+  "changed_fraction": 0.5111770629882812,
+  "max_scale_relative_change": 0.125,
+  "cuda_initialized": false,
+  "capture_sha256": "0e161c36a6f478c0205b3a7e8b388296eccafaa2d5999cf4420fcbcd0aa2f4ac",
+  "scope": "CPU E4M3 scale RN versus upward increment; not a GPU payload or output accuracy result"
+}

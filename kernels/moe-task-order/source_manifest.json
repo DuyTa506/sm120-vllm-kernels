@@ -1,0 +1,10 @@
+{
+  "baseline_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+  "candidate_sha256": "7fd2da260329fff25820bd31185bec34661595572c90f0171149604877e2e9e7",
+  "changed_methods": [
+    "publish_variable_deferred_tasks",
+    "initialize_route_q0_and_publish"
+  ],
+  "default": "baseline",
+  "scope": "device-only permutation of unchanged task descriptors; no routing/scale/MMA edits"
+}

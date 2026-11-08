@@ -1,0 +1,19 @@
+{
+  "cuda_initialized": false,
+  "gpu_api_invoked": false,
+  "build": "CPU nvcc sm120a compilation + module import only",
+  "sha256": {
+    "qf_moe_port.cu": "1f4943f24a7c0c0140312f5479fb87dedadb2a91b0e122deeb8472c7da04dead",
+    "qf_moe_diag.cu": "8a498e293145b0cb0332f38315fdfac8dd8fc692da3f12ea5841621062afdfaf",
+    "prepare_port.py": "fd188e1e477407b6cd5d70735d5971ea3b2d3ad88fcd74dae9e59d48162515fd",
+    "prepare_diagnostic.py": "ae2a0d578292763d3da223aad5da9536d9b5c88cb251ef0876b690501f900b31",
+    "guards.txt": "c87c34b6393a0ba7d4c4c648292a1e506082061944ad78b13d89afd4e685bcf4",
+    "prepare.py": "395064e30d0a6012eda4156ad7cd3c54debdebb73da08a457876e8c936381241",
+    "build_cpu.py": "09a02e4a348dd44604a94f86edb147f836d35c452384392868078322b023066f",
+    "check_checkpoint_cpu.py": "ffc6d23906dbaebf092cc20e0895539590df493af5cb56abdf56e40fd89129d4",
+    "build/dp4a_expert_reuse_sm120.so": "d46a6b3ef4a9300a426a39e6e024bf71ea72ca4c13e0b347ec497936d372f596",
+    "build/build.ninja": "77cad79e117b05e759ac83bdee7a1296a9e8cf61000270ebe7a5fae98528212a",
+    "build_diag/dp4a_expert_reuse_diag.so": "dad7e5c0d9e2305bd89c45216f265acb739c1e90bd07008d78aa469ee0eda182",
+    "build_diag/build.ninja": "66ec03d3395a7379b6c4acd4a5b68768af11d1165a1744b10b97ce46ad0cdc73"
+  }
+}

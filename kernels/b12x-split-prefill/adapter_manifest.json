@@ -1,0 +1,17 @@
+{
+  "nvfp4_phase1.py": {
+    "upstream_sha256": "1e20dcd72cd05cc7f0f08a17c5712bd6b58d52e67d100cf28da85cb8f4cca904",
+    "adapter_sha256": "0b2d507b86eff3c4707688f40925577bcb5df599895dcc0184c578830b8c9dfc",
+    "change": "Import namespace only"
+  },
+  "nvfp4_phase2.py": {
+    "upstream_sha256": "323ac3f5b15b62f9b1f4b73e4672797e94f236ed2a6388e0494916c8766353aa",
+    "adapter_sha256": "dc6624e8f2c7379190972d03d3ea474159a620206819d470332eae61f39a2184",
+    "change": "Import namespace only"
+  },
+  "split_intrinsics.py": {
+    "upstream_sha256": "5ae416d2e0db4759dc3e61965b8665efb498c4d95232c65bccc4086bf8d492c3",
+    "adapter_sha256": "5ae416d2e0db4759dc3e61965b8665efb498c4d95232c65bccc4086bf8d492c3",
+    "change": "Unmodified"
+  }
+}

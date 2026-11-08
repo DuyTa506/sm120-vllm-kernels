@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "purpose": "Conservative investigation trigger for a scheduling-only PDL change; not a model-quality acceptance threshold.",
+  "minimum_cold_rounds_per_variant": 5,
+  "maximum_absolute_prompt_mean_nll_delta": 0.001,
+  "maximum_within_variant_prompt_nll_range": 0.001,
+  "rationale": "A 0.001 nat/token change corresponds to roughly a 0.1% perplexity multiplier. Both improvement and regression trigger investigation because mathematical computation is intended to remain unchanged. This budget is preregistered for the next focused pair and is not fitted to the smoke result.",
+  "reference": "Fresh pinned PDL0 control using exactly the same frozen kernel reference, FI tactics and workload as PDL1.",
+  "decision": "If repeats are missing, report insufficient_repeats. Any absolute mean shift or within-mode range above budget blocks numerical-equivalence language. Passing budgets only means no large shift observed on these ten probes; it does not establish model quality or statistical equivalence."
+}

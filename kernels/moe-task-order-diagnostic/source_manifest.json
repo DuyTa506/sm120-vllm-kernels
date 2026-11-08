@@ -1,0 +1,12 @@
+{
+  "baseline": {
+    "source": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/moe-task-order/gated_baseline.py",
+    "source_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+    "diagnostic_sha256": "e0f5dee5d63961336cca3baab92e2f56afabbc422be2a1296838e1ebc42ac60f"
+  },
+  "long_first": {
+    "source": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/moe-task-order/gated_long_first.py",
+    "source_sha256": "7fd2da260329fff25820bd31185bec34661595572c90f0171149604877e2e9e7",
+    "diagnostic_sha256": "6a8ab892cc6231a13b107ef35ab85d6c478faaa8df629ca10a1cfc37b9112f34"
+  }
+}

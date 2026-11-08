@@ -1,0 +1,9 @@
+{
+  "base": "isolated decode-roofline/round2 generated source; not active serving proof",
+  "base_sha256": {
+    "vllm/envs.py": "0af2b26167d97ee1396ecb8dde74cdae987625fdc51f1de2d0b02f7bcab37ff2",
+    "vllm/model_executor/kernels/linear/scaled_mm/cutlass.py": "3a8862eadc5df3e78fd8226a71a5a44f5144fe753f6cac9f7d88c591129f7469",
+    "vllm/model_executor/kernels/linear/scaled_mm/sm120_skinny_fp8.py": "98547058058308c844cadce7018fab5e2fcc17f50e3ece9aeca51aa047b22e5f",
+    "vllm/model_executor/kernels/linear/scaled_mm/sm120_skinny_fp8.cu": "188f3d6bd5d351f3d6d699be58a2eac9f39beab95331fdd8befb1d4bb129c0c0"
+  }
+}

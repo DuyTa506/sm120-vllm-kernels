@@ -1,0 +1,182 @@
+{
+  "cuda_initialized": false,
+  "installed_spec_source_sha256": "39ea5be3054f97238f81ba070ea661f1b5975a6268ced5f413d4a057ea449d4a",
+  "description": "actual installed spec instances with representative CPU-only fixture geometry; not observed runtime allocation",
+  "geometry": {
+    "num_blocks": 50,
+    "max_model_len": 16384,
+    "groups": [
+      {
+        "index": 0,
+        "layers": [
+          "fixture.full"
+        ],
+        "spec_class": "FullAttentionSpec",
+        "spec_fields": {
+          "block_size": 2176,
+          "dcp_sharded": true,
+          "block_stride_alignment": null,
+          "max_tp_shards": null,
+          "num_kv_heads": 2,
+          "head_size": 256,
+          "dtype": {
+            "torch_dtype": "torch.float8_e4m3fn"
+          },
+          "head_size_v": 256,
+          "kv_quant_mode": 0,
+          "page_size_padded": null,
+          "num_head_slots": null,
+          "state_content_bytes": null,
+          "tokens_per_state": 1,
+          "sliding_window": null,
+          "attention_chunk_size": null,
+          "non_causal": false
+        },
+        "page_size_bytes": 2228224,
+        "max_request_memory_bytes": 17825792,
+        "max_request_resident_blocks": 8
+      },
+      {
+        "index": 1,
+        "layers": [
+          "fixture.gdn.0"
+        ],
+        "spec_class": "MambaSpec",
+        "spec_fields": {
+          "block_size": 2176,
+          "dcp_sharded": false,
+          "block_stride_alignment": null,
+          "shapes": [
+            [
+              16,
+              128,
+              128
+            ],
+            [
+              4096,
+              4
+            ]
+          ],
+          "dtypes": [
+            {
+              "torch_dtype": "torch.float32"
+            },
+            {
+              "torch_dtype": "torch.bfloat16"
+            }
+          ],
+          "page_size_padded": null,
+          "mamba_type": {
+            "enum_type": "vllm.v1.attention.backends.registry.MambaAttentionBackendEnum",
+            "name": "MAMBA2",
+            "value": "vllm.v1.attention.backends.mamba2_attn.Mamba2AttentionBackend"
+          },
+          "mamba_cache_mode": "align",
+          "num_speculative_blocks": 2,
+          "num_prefill_checkpoint_blocks": 1,
+          "prefill_checkpoint_alignment": 64,
+          "num_heads": 1,
+          "tokens_per_state": -1,
+          "tp_replicated": false
+        },
+        "page_size_bytes": 1081344,
+        "max_request_memory_bytes": 5406720,
+        "max_request_resident_blocks": 5
+      },
+      {
+        "index": 2,
+        "layers": [
+          "fixture.gdn.1"
+        ],
+        "spec_class": "MambaSpec",
+        "spec_fields": {
+          "block_size": 2176,
+          "dcp_sharded": false,
+          "block_stride_alignment": null,
+          "shapes": [
+            [
+              16,
+              128,
+              128
+            ],
+            [
+              4096,
+              4
+            ]
+          ],
+          "dtypes": [
+            {
+              "torch_dtype": "torch.float32"
+            },
+            {
+              "torch_dtype": "torch.bfloat16"
+            }
+          ],
+          "page_size_padded": null,
+          "mamba_type": {
+            "enum_type": "vllm.v1.attention.backends.registry.MambaAttentionBackendEnum",
+            "name": "MAMBA2",
+            "value": "vllm.v1.attention.backends.mamba2_attn.Mamba2AttentionBackend"
+          },
+          "mamba_cache_mode": "align",
+          "num_speculative_blocks": 2,
+          "num_prefill_checkpoint_blocks": 1,
+          "prefill_checkpoint_alignment": 64,
+          "num_heads": 1,
+          "tokens_per_state": -1,
+          "tp_replicated": false
+        },
+        "page_size_bytes": 1081344,
+        "max_request_memory_bytes": 5406720,
+        "max_request_resident_blocks": 5
+      },
+      {
+        "index": 3,
+        "layers": [
+          "fixture.gdn.2"
+        ],
+        "spec_class": "MambaSpec",
+        "spec_fields": {
+          "block_size": 2176,
+          "dcp_sharded": false,
+          "block_stride_alignment": null,
+          "shapes": [
+            [
+              16,
+              128,
+              128
+            ],
+            [
+              4096,
+              4
+            ]
+          ],
+          "dtypes": [
+            {
+              "torch_dtype": "torch.float32"
+            },
+            {
+              "torch_dtype": "torch.bfloat16"
+            }
+          ],
+          "page_size_padded": null,
+          "mamba_type": {
+            "enum_type": "vllm.v1.attention.backends.registry.MambaAttentionBackendEnum",
+            "name": "MAMBA2",
+            "value": "vllm.v1.attention.backends.mamba2_attn.Mamba2AttentionBackend"
+          },
+          "mamba_cache_mode": "align",
+          "num_speculative_blocks": 2,
+          "num_prefill_checkpoint_blocks": 1,
+          "prefill_checkpoint_alignment": 64,
+          "num_heads": 1,
+          "tokens_per_state": -1,
+          "tp_replicated": false
+        },
+        "page_size_bytes": 1081344,
+        "max_request_memory_bytes": 5406720,
+        "max_request_resident_blocks": 5
+      }
+    ]
+  }
+}

@@ -1,0 +1,2 @@
+[vllm.general_plugins]
+skinny_round2_probe = skinny_round2_probe:register

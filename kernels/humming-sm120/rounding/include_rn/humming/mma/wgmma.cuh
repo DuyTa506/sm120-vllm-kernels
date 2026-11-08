@@ -1,0 +1,258 @@
+#pragma once
+
+#include <humming/memory/s2r_loader/loader_as.cuh>
+#include <humming/utils/all.cuh>
+
+
+template <uint32_t swizzle_bytes = 128>
+CUDA_INLINE uint64_t make_wgmma_smem_desc(uint32_t addr) {
+  static_assert(swizzle_bytes == 128 || swizzle_bytes == 64);
+
+  constexpr uint64_t swizzle_type = swizzle_bytes == 128 ? 1 : 2;
+  constexpr uint64_t stride = (swizzle_bytes * 8) >> 4;
+  constexpr uint64_t desc_base = (swizzle_type << 62) | (stride << 32);
+
+  uint64_t desc = desc_base;
+  reinterpret_cast<uint32_t *>(&desc)[0] = (addr >> 4) & 0x3fff;
+
+  return desc;
+};
+
+
+template <class Ctx, class ArithClass>
+struct WGMMA {
+public:
+  using MmaOpClass = typename Ctx::MmaOpClass;
+  using MmaShape = typename Ctx::MmaShape;
+  using SharedStorage = typename Ctx::SharedStorage;
+  using BlockShape = typename Ctx::BlockShape;
+  using WarpShape = typename Ctx::WarpShape;
+  using ElementA = typename Ctx::ElementA;
+  using ElementQB = typename Ctx::ElementQB;
+  using ElementB = typename Ctx::ElementB;
+  using CRegistersType = typename MmaOpClass::CRegisters;
+  using CRegistersArrayType = CRegistersType[WarpShape::N * 4 / MmaShape::N][WarpShape::M / MmaShape::M];
+
+  static constexpr bool kHasZeroPoint = Ctx::kHasZeroPoint;
+  static constexpr bool kIsFpZeroPoint = Ctx::kIsFpZeroPoint;
+  static constexpr bool kUseFusedE8m0Scale = Ctx::kUseFusedE8m0Scale;
+
+  static constexpr uint32_t kPartMmaShapeK = 256 / ElementA::kBits;
+  static constexpr uint32_t kSwizzleBytes = ElementA::kBits * BlockShape::K >= 1024 ? 128 : 64;
+  static constexpr uint32_t kNumWarpShapeNSplits = !Ctx::kUsePackedKLayout && WarpShape::N == ElementA::kBits * 2 ? 2 : 1;
+
+  static constexpr bool kUsePackedKLayout = Ctx::kUsePackedKLayout;
+  static constexpr uint32_t kPackedKFactor = Ctx::kPackedKFactor;
+  static constexpr uint32_t kWarpIters = Ctx::kWarpIters;
+  static constexpr uint32_t kNumKSlabs = WarpShape::K / kPartMmaShapeK;
+  static constexpr uint32_t kRegsBKDim = kUsePackedKLayout ? kNumKSlabs : (kPartMmaShapeK / MmaShape::K);
+
+  Ctx &ctx;
+  ArithClass &arith;
+  uint32_t regs_qb[2][kUsePackedKLayout ? kNumKSlabs * ElementQB::kBits / 2 : ElementQB::kBits * (16 / ElementA::kBits)];
+  typename MmaOpClass::BRegisters regs_b[2][kUsePackedKLayout ? 1 : (WarpShape::N * 4 / MmaShape::N / kPackedKFactor)][kRegsBKDim];
+  alignas(16) CRegistersArrayType regs_c[2];
+  uint32_t smem_offset = 0;
+  uint32_t m_scale_offset = 0;
+
+  CUDA_INLINE
+  WGMMA(Ctx &ctx, ArithClass &arith)
+      : ctx(ctx), arith(arith) {
+    constexpr uint32_t kSwizzleSizeK = kSwizzleBytes * 8 / ElementA::kBits;
+    static_assert(kSwizzleSizeK >= WarpShape::K);
+
+    const uint32_t row_offset = ctx.m_warp_offset();
+    const uint32_t col_offset = ctx.k_warp_offset();
+
+    smem_offset = row_offset * (kSwizzleBytes / 16);
+    smem_offset += (col_offset % kSwizzleSizeK) * ElementA::kBits / 128;
+    smem_offset += (col_offset / kSwizzleSizeK) * (BlockShape::M * kSwizzleBytes / 16);
+    smem_offset = smem_offset * sizeof(int4);
+  }
+
+  CUDA_INLINE
+  void zero_accum() {
+    uint32_t *regs_c_ptr = regs_c_as_ptr();
+    PRAGMA_UNROLL
+    for (uint32_t i = 0; i < sizeof(regs_c) / 4; i++) {
+      regs_c_ptr[i] = 0;
+    };
+  };
+
+  CUDA_INLINE
+  void transform_b(uint32_t buffer_id, uint32_t iter_id) {
+    if constexpr (Ctx::kUseWgmmaSs || Ctx::kUseLdmatrixDequant) {
+      return;
+    } else if constexpr (kUseFusedE8m0Scale) {
+      uint32_t *regs_b_ptr = reinterpret_cast<uint32_t *>(regs_b[buffer_id]);
+      constexpr uint32_t kTransformIters = kUsePackedKLayout ? kNumKSlabs : WarpShape::N / 16;
+      fused_dequant_for_mxfp4<ElementB, kTransformIters, true>(regs_qb[buffer_id], regs_b_ptr, arith.bs[buffer_id]);
+    } else {
+      if constexpr (ElementQB::kBits == 1 && kNumWarpShapeNSplits == 2) {
+        regs_qb[buffer_id][0] = regs_qb[buffer_id][0] >> (ctx.warp_id() % 2 * (ElementA::kBits / 2));
+      }
+
+      constexpr uint32_t kTransformIters = kUsePackedKLayout ? kNumKSlabs : (WarpShape::N / (MmaShape::N / 4));
+      PRAGMA_UNROLL
+      for (uint32_t i = 0; i < kTransformIters; i++) {
+        uint32_t *regs_b_ptr;
+        if constexpr (kUsePackedKLayout) {
+          regs_b_ptr = reinterpret_cast<uint32_t *>(regs_b[buffer_id][0][i]);
+        } else {
+          regs_b_ptr = reinterpret_cast<uint32_t *>(regs_b[buffer_id][i / kPackedKFactor][i % kPackedKFactor]);
+        }
+        uint32_t zp_index = kUsePackedKLayout ? iter_id : i;
+        uint4 zp_vals = arith.prepare_zp_for_dequant(buffer_id, zp_index);
+        if constexpr (!kUsePackedKLayout && kHasZeroPoint && !kIsFpZeroPoint) {
+          // Ordinary weights retain MMA's N-major mini-block order while
+          // dequantizing. Match the zero points before converting to RS order.
+          uint32_t tmp = zp_vals.y;
+          zp_vals.y = zp_vals.z;
+          zp_vals.z = tmp;
+        }
+        uint32_t *zp_vals_ptr = reinterpret_cast<uint32_t *>(&zp_vals);
+        dequant<ElementQB, ElementB, kHasZeroPoint, kIsFpZeroPoint, kNumWarpShapeNSplits>(regs_qb[buffer_id], regs_b_ptr, i, zp_vals_ptr);
+        if constexpr (!kUsePackedKLayout) {
+          uint32_t tmp = regs_b_ptr[1];
+          regs_b_ptr[1] = regs_b_ptr[2];
+          regs_b_ptr[2] = tmp;
+        }
+        arith.may_apply_bs_and_zp_on_b(regs_b_ptr, i, buffer_id);
+      };
+    }
+  };
+
+  CUDA_INLINE
+  void issue(uint32_t stage_id, uint32_t iter_id) {
+    static_assert(WarpShape::M == MmaShape::M);
+    static_assert(kPartMmaShapeK == MmaShape::K);
+    uint32_t buffer_id = iter_id % 2;
+
+    const uint32_t smem_base = cast_smem_ptr_to_uint(&ctx.smem);
+    const uint32_t stage_addr = smem_base + offsetof(SharedStorage, stages) + stage_id * sizeof(typename SharedStorage::StageStorage);
+    const uint64_t stage_desc = make_wgmma_smem_desc<kSwizzleBytes>(stage_addr + smem_offset);
+    constexpr uint32_t kItersPerHalf = kUsePackedKLayout ? 1 : kWarpIters;
+    constexpr uint32_t kNumIters = kUsePackedKLayout ? 1 : (WarpShape::N / (MmaShape::N / 4) / kPackedKFactor);
+    constexpr uint32_t kRunKLoop = (kUsePackedKLayout || Ctx::kUseWgmmaSsKBatch) ? kNumKSlabs : kPackedKFactor;
+
+    uint32_t delta_m = kUsePackedKLayout ? iter_id : 0;
+    uint32_t delta_j = final_regs_c_index() == 0 ? delta_m : 0;
+
+    fence_accumulators(delta_j);
+    wgmma_fence();
+
+    PRAGMA_UNROLL
+    for (uint32_t k = 0; k < kRunKLoop; k++) {
+      uint32_t k_slab = (kUsePackedKLayout || Ctx::kUseWgmmaSsKBatch) ? k : ((iter_id % kItersPerHalf) * kPackedKFactor + k);
+      uint64_t desc = stage_desc;
+      reinterpret_cast<uint32_t *>(&desc)[0] += k_slab * 2;
+
+      bool scale_d = true;
+      if constexpr (ElementA::kBits != 16 && Ctx::kInputScaleGroupSize > 0) {
+        scale_d = (k_slab * kPartMmaShapeK) % Ctx::kInputScaleGroupSize > 0;
+      }
+      if constexpr (!kUseFusedE8m0Scale && ElementA::kBits != 16 && Ctx::kWeightScaleGroupSize > 0) {
+        scale_d = scale_d && (k_slab * kPartMmaShapeK) % Ctx::kWeightScaleGroupSize > 0;
+      }
+
+      PRAGMA_UNROLL
+      for (uint32_t j = 0; j < kNumIters; j++) {
+        if constexpr (Ctx::kUseWgmmaSs) {
+          static_assert(Ctx::kUseFlatWeight);
+          uint32_t row = ctx.n_warp_id() / 4 * (WarpShape::N * 4) + j * MmaShape::N;
+          if constexpr (Ctx::kUseWgmmaTmaNPermute) {
+            constexpr uint32_t kFragmentPlaneRows = BlockShape::N / WarpShape::N * 16;
+            row = ctx.n_warp_id() / 4 * MmaShape::N + j * kFragmentPlaneRows;
+          }
+          uint32_t col = ctx.k_warp_offset() + k_slab * kPartMmaShapeK;
+          uint32_t offset = (col * ElementQB::kBits / 128 * BlockShape::N + row) * 16;
+          const uint32_t b_addr = stage_addr + offsetof(typename SharedStorage::StageStorage, b);
+          uint32_t b_start = ((b_addr + offset) >> 4) & 0x3fff;
+          uint64_t b_desc = b_start | (uint64_t(BlockShape::N) << 16) | (uint64_t(8) << 32);
+          MmaOpClass::fma(desc, b_desc, regs_c[0][delta_j + j][0], scale_d);
+        } else {
+          MmaOpClass::fma(desc, regs_b[buffer_id][j][k], regs_c[0][delta_j + j][0], scale_d);
+        }
+      }
+    }
+
+    wgmma_commit();
+  }
+
+  CUDA_INLINE
+  void wait_and_promote(uint32_t stage_id, uint32_t iter_id) {
+    constexpr uint32_t kNumIters = kUsePackedKLayout ? 1 : (WarpShape::N / (MmaShape::N / 4) / kPackedKFactor);
+    constexpr uint32_t kRunKLoop = (kUsePackedKLayout || Ctx::kUseWgmmaSsKBatch) ? kNumKSlabs : kPackedKFactor;
+    uint32_t delta_m = kUsePackedKLayout ? iter_id : 0;
+    uint32_t delta_j = final_regs_c_index() == 0 ? delta_m : 0;
+    wgmma_wait<0>();
+    fence_accumulators(delta_j);
+
+    if constexpr (Ctx::kWgmmaUseLateAS) {
+      // Load AS only when this fragment's partial accumulators are promoted.
+      constexpr bool kApplyWeightScaleOnC = !kUseFusedE8m0Scale && (Ctx::kIsGroupWeightScale || Ctx::kIsBlockWeightScale);
+      const uint32_t k_end = (kUsePackedKLayout || Ctx::kUseWgmmaSsKBatch) ? WarpShape::K : (iter_id + 1) * kPartMmaShapeK;
+      bool should_promote = k_end == WarpShape::K || k_end % Ctx::kInputScaleGroupSize == 0;
+      if constexpr (kApplyWeightScaleOnC) should_promote |= k_end % Ctx::kWeightScaleGroupSize == 0;
+      if (should_promote) {
+        const uint32_t scale_iter = (kUsePackedKLayout || Ctx::kUseWgmmaSsKBatch) ? 0 : iter_id;
+        S2RMemoryLoaderAS<Ctx> loader(ctx);
+        loader.seek(m_scale_offset);
+        loader.load(ctx.smem.stages[stage_id].as, arith.regs_as_as_ptr(iter_id % 2), scale_iter);
+      }
+    }
+
+    PRAGMA_UNROLL
+    for (uint32_t k = 0; k < kRunKLoop; k++) {
+      PRAGMA_UNROLL
+      for (uint32_t j = 0; j < kNumIters; j++) {
+        arith.may_apply_as_and_bs_on_wgmma_c(regs_c_as_ptr(), j, k, iter_id, delta_m);
+      }
+    }
+  };
+
+  CUDA_INLINE void run(uint32_t stage_id, uint32_t iter_id) {
+    issue(stage_id, iter_id);
+    wait_and_promote(stage_id, iter_id);
+  }
+
+  CUDA_INLINE void fence_accumulators(uint32_t delta_j) {
+    constexpr uint32_t kNumIters = kUsePackedKLayout ? 1 : (WarpShape::N / (MmaShape::N / 4) / kPackedKFactor);
+    PRAGMA_UNROLL
+    for (uint32_t j = 0; j < kNumIters; j++)
+      fence_regs(regs_c[0][delta_j + j][0]);
+  }
+
+  template <class T>
+  CUDA_INLINE void fence_regs(T &regs) {
+    PRAGMA_UNROLL
+    for (uint32_t r = 0; r < sizeof(T) / 4; r++) {
+      warpgroup_fence_operand(regs[r]);
+    }
+  };
+
+  template <class T = uint32_t>
+  CUDA_INLINE T *regs_qb_as_ptr(uint32_t buffer_id) {
+    if constexpr (Ctx::kUseLdmatrixDequant || std::is_same<ElementB, ElementQB>::value) {
+      return reinterpret_cast<T *>(regs_b[buffer_id]);
+    } else {
+      return reinterpret_cast<T *>(regs_qb[buffer_id]);
+    };
+  };
+
+  template <class T = uint32_t>
+  CUDA_INLINE T *regs_c_as_ptr(uint32_t buffer_id = 0) {
+    return reinterpret_cast<T *>(regs_c[buffer_id]);
+  };
+
+  static constexpr uint32_t final_regs_c_index() {
+    if constexpr (ElementA::kBits < 16 && Ctx::kInputScaleGroupSize > 0) return 1;
+    if constexpr (ElementA::kBits < 16 && !kUseFusedE8m0Scale && (Ctx::kIsGroupWeightScale || Ctx::kIsBlockWeightScale)) return 1;
+    return 0;
+  };
+
+  template <class T = uint32_t>
+  CUDA_INLINE T *final_regs_c_as_ptr() {
+    return regs_c_as_ptr<T>(final_regs_c_index());
+  };
+};

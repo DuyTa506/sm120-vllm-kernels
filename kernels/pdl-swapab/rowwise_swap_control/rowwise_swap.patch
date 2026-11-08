@@ -1,0 +1,127 @@
+--- a/csrc/apis/gemm.hpp
++++ b/csrc/apis/gemm.hpp
+@@ -1,3 +1,5 @@
++#include <cstdio>
++#include <cstdlib>
+ #pragma once
+ 
+ #include "../utils/compatibility.hpp"
+@@ -1017,7 +1019,49 @@
+         m, n, k, gran_a, gran_b, major, major, "nk", std::nullopt, false, std::nullopt, sa, sb);
+ }
+ 
++static void fp8_rowwise_gemm_nt_sm120_tiny(const std::pair<torch::Tensor, torch::Tensor>& a,
++                                     const std::pair<torch::Tensor, torch::Tensor>& b,
++                                     const torch::Tensor& d,
++                                     const torch::Tensor& sa,
++                                     const torch::Tensor& sb,
++                                     const bool swap_ab) {
++    DG_HOST_ASSERT(a.first.is_cuda());
++    const c10::cuda::CUDAGuard device_guard(a.first.device());
++    DG_HOST_ASSERT(at::cuda::getDeviceProperties(a.first.get_device())->major == 12);
++    DG_HOST_ASSERT(a.first.dim() == 2 and b.first.dim() == 2 and d.dim() == 2);
++    DG_HOST_ASSERT(a.first.is_contiguous() and b.first.is_contiguous() and d.is_contiguous());
++    DG_HOST_ASSERT(a.first.scalar_type() == torch::kFloat8_e4m3fn and b.first.scalar_type() == torch::kFloat8_e4m3fn);
++    DG_HOST_ASSERT(d.scalar_type() == torch::kBFloat16);
++    const int m = a.first.size(0), n = b.first.size(0), k = a.first.size(1);
++    DG_HOST_ASSERT(m >= 1 and m <= 16 and n > 0 and k > 0 and k % 128 == 0);
++    DG_HOST_ASSERT(b.first.size(1) == k and d.size(0) == m and d.size(1) == n);
++    DG_HOST_ASSERT(sa.scalar_type() == torch::kFloat and sb.scalar_type() == torch::kFloat);
++    DG_HOST_ASSERT(sa.is_contiguous() and sb.is_contiguous() and sa.numel() == m and sb.numel() == n);
++    for (const auto& tensor : {a.second, b.first, b.second, d, sa, sb})
++        DG_HOST_ASSERT(tensor.is_cuda() and tensor.device() == a.first.device());
++    auto recipe = std::make_optional(std::make_tuple(1, 1, 128));
++    const auto [sfa, sfb, gran_a, gran_b] = layout::transform_sf_pair_into_required_layout(
++        a.second, b.second, m, n, k, recipe, std::nullopt, std::nullopt,
++        std::nullopt, std::nullopt, false);
++    constexpr auto major = cute::UMMA::Major::K;
++    if (std::getenv("DG_ROWWISE_SWAP_TRACE")) {
++        std::printf("ROWWISE_SWAP_V1 m=%d n=%d k=%d selected=%d\n", m, n, k, static_cast<int>(swap_ab));
++        std::fflush(stdout);
++    }
++    if (swap_ab) {
++        // Effective row is original output channel; effective column is token.
++        // Swapped epilogue retains original (acc * token_scale) * channel_scale.
++        sm120_fp8_fp4_gemm_1d1d(b.first, sfb, a.first, sfa, std::nullopt, d,
++            n, m, k, gran_b, gran_a, major, major, "nk", std::nullopt, true, std::nullopt, sb, sa);
++    } else {
++        sm120_fp8_fp4_gemm_1d1d(a.first, sfa, b.first, sfb, std::nullopt, d,
++            m, n, k, gran_a, gran_b, major, major, "nk", std::nullopt, false, std::nullopt, sa, sb);
++    }
++}
++
+ static void register_apis(pybind11::module_& m) {
++    m.def("fp8_rowwise_gemm_nt_sm120_tiny", &fp8_rowwise_gemm_nt_sm120_tiny,
++          py::arg("a"), py::arg("b"), py::arg("d"), py::arg("sa"), py::arg("sb"), py::arg("swap_ab"));
+     m.def("fp8_rowwise_gemm_nt_sm120", &fp8_rowwise_gemm_nt_sm120,
+           py::arg("a"), py::arg("b"), py::arg("d"), py::arg("sa"), py::arg("sb"));
+ 
+--- a/csrc/jit_kernels/impls/sm120_fp8_fp4_gemm_1d1d.hpp
++++ b/csrc/jit_kernels/impls/sm120_fp8_fp4_gemm_1d1d.hpp
+@@ -264,7 +264,9 @@
+     DG_HOST_ASSERT(row_scale.has_value() == col_scale.has_value());
+     if (row_scale.has_value()) {
+         // Experimental path deliberately rejects unverified reduction/swap contracts.
+-        DG_HOST_ASSERT(config.split_k_factor == 1 and not swap_ab and not c.has_value());
++        DG_HOST_ASSERT(config.split_k_factor == 1 and not c.has_value());
++        // Only the explicitly tiny API may use the transposed row/channel path.
++        if (swap_ab) DG_HOST_ASSERT(n >= 1 and n <= 16);
+         DG_HOST_ASSERT(not alpha.has_value() and not epilogue_type.has_value());
+     }
+ 
+@@ -298,7 +300,8 @@
+     const int split_k = config.split_k_factor;
+     auto epilogue = make_epilogue_input(m, n, epilogue_type, split_k > 1 ? std::nullopt : alpha);
+     if (row_scale.has_value()) {
+-        epilogue.type = "epilogue::transform::EpilogueRowChannel";
++        epilogue.type = swap_ab ? "epilogue::transform::EpilogueRowChannelSwapped"
++                                : "epilogue::transform::EpilogueRowChannel";
+         epilogue.args.row_scale = row_scale->data_ptr<float>();
+         epilogue.args.col_scale = col_scale->data_ptr<float>();
+     }
+--- a/deep_gemm/include/deep_gemm/epilogue/transform.cuh
++++ b/deep_gemm/include/deep_gemm/epilogue/transform.cuh
+@@ -20,6 +20,8 @@
+ 
+ // Marker: coordinate-aware application is performed by the SM120 normal epilogue.
+ struct EpilogueRowChannel: EpilogueIdentity {};
++// Effective row is channel, column is token; multiply token scale first.
++struct EpilogueRowChannelSwapped: EpilogueIdentity {};
+ 
+ // Scale only the product term of a BLAS-style linear combination. Supporting an
+ // arbitrary beta requires a separate C load/initialization path and does not belong
+--- a/deep_gemm/include/deep_gemm/impls/sm120_fp8_fp4_gemm_1d1d.cuh
++++ b/deep_gemm/include/deep_gemm/impls/sm120_fp8_fp4_gemm_1d1d.cuh
+@@ -1366,7 +1366,8 @@
+                 ? scheduler.current_group_idx * shape_cd_m + shape_m
+                 : is_k_grouped_contiguous(kGemmType) ? shape_m * (scheduler.current_group_idx + 1) : shape_m;
+ 
+-            if constexpr (cute::is_same_v<epilogue_type_t, epilogue::transform::EpilogueRowChannel>) {
++            if constexpr (cute::is_same_v<epilogue_type_t, epilogue::transform::EpilogueRowChannel> or
++                          cute::is_same_v<epilogue_type_t, epilogue::transform::EpilogueRowChannelSwapped>) {
+                 DG_STATIC_ASSERT(kSplitKFactor == 1 and kGemmType == GemmType::Normal,
+                                  "Row/channel epilogue supports normal non-split GEMM only");
+                 #pragma unroll
+@@ -1381,11 +1382,17 @@
+                         const uint32_t col = n_base + (n_tile_base + nt) * MMA_N + thread_id * 2;
+                         const float sb0 = col < shape_n ? epilogue.col_scale[col] : 0.0f;
+                         const float sb1 = col + 1 < shape_n ? epilogue.col_scale[col + 1] : 0.0f;
+-                        // Preserve FP32 (acc * token_scale) * channel_scale, round to BF16 only at store.
+-                        accum[ai + 0] = __fmul_rn(__fmul_rn(accum[ai + 0], sa0), sb0);
+-                        accum[ai + 1] = __fmul_rn(__fmul_rn(accum[ai + 1], sa0), sb1);
+-                        accum[ai + 2] = __fmul_rn(__fmul_rn(accum[ai + 2], sa1), sb0);
+-                        accum[ai + 3] = __fmul_rn(__fmul_rn(accum[ai + 3], sa1), sb1);
++                        // Preserve FP32 (acc * token_scale) * channel_scale in BOTH orientations.
++                        const auto scale = [](float value, float row, float col) {
++                            if constexpr (cute::is_same_v<epilogue_type_t, epilogue::transform::EpilogueRowChannelSwapped>)
++                                return __fmul_rn(__fmul_rn(value, col), row);
++                            else
++                                return __fmul_rn(__fmul_rn(value, row), col);
++                        };
++                        accum[ai + 0] = scale(accum[ai + 0], sa0, sb0);
++                        accum[ai + 1] = scale(accum[ai + 1], sa0, sb1);
++                        accum[ai + 2] = scale(accum[ai + 2], sa1, sb0);
++                        accum[ai + 3] = scale(accum[ai + 3], sa1, sb1);
+                     }
+                 }
+             }

@@ -1,0 +1,162 @@
+{
+  "baseline_sha256": "993783308233288ddfa77293e9dbabdc825ba5bfdcc4dcc41e842a895ec33445",
+  "candidate_sha256": "e9a51824298ba0c35e9b3fce0e93d82dfaff3563ab8e382d21c2c130cb9b4df8",
+  "sites": [
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1788,
+      "destination": "crA_fc1[None, None, 0]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1793,
+      "destination": "crB_fc1[None, None, 0]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1798,
+      "destination": "crB_up_fc1[None, None, 0]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1806,
+      "destination": "fz_crSFA_fc1[None, None, 0]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1811,
+      "destination": "fz_crSFB_fc1_half[None, None, 0]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1816,
+      "destination": "fz_crSFB_up_fc1_half[None, None, 0]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1983,
+      "destination": "crA_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1988,
+      "destination": "crB_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1993,
+      "destination": "crB_up_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1998,
+      "destination": "fz_crSFA_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 2003,
+      "destination": "fz_crSFB_fc1_half[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 2008,
+      "destination": "fz_crSFB_up_fc1_half[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1866,
+      "destination": "crA_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1871,
+      "destination": "crB_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1876,
+      "destination": "crB_up_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1895,
+      "destination": "fz_crSFA_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1900,
+      "destination": "fz_crSFB_fc1_half[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1905,
+      "destination": "fz_crSFB_up_fc1_half[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1933,
+      "destination": "crA_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1938,
+      "destination": "crB_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1943,
+      "destination": "crB_up_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1962,
+      "destination": "fz_crSFA_fc1[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1967,
+      "destination": "fz_crSFB_fc1_half[None, None, k_next]"
+    },
+    {
+      "method": "fc1_gate_up_swiglu_to_sC_tail",
+      "line": 1972,
+      "destination": "fz_crSFB_up_fc1_half[None, None, k_next]"
+    },
+    {
+      "method": "fc2_accumulate_slice_tail",
+      "line": 2494,
+      "destination": "fz_crSFB[None, None, 0]"
+    },
+    {
+      "method": "fc2_accumulate_slice_tail",
+      "line": 2481,
+      "destination": "crB[None, None, 0]"
+    },
+    {
+      "method": "fc2_accumulate_slice_tail",
+      "line": 2487,
+      "destination": "crB[None, None, 0]"
+    },
+    {
+      "method": "fc2_accumulate_slice_tail",
+      "line": 2518,
+      "destination": "fz_crSFB[None, None, k_next]"
+    },
+    {
+      "method": "fc2_accumulate_slice_tail",
+      "line": 2507,
+      "destination": "crB[None, None, k_next]"
+    },
+    {
+      "method": "fc2_accumulate_slice_tail",
+      "line": 2513,
+      "destination": "crB[None, None, k_next]"
+    },
+    {
+      "method": "kernel",
+      "line": 4693,
+      "destination": "load_fc2_a_fragments"
+    }
+  ],
+  "scope": "M128/I512/K2048; 24 FC1-tail copies, 6 FC2-tail copies, 1 FC2 A/SFA call; no scheduling changes"
+}

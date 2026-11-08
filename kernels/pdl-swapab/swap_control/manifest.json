@@ -1,0 +1,15 @@
+{
+  "status": "CPU_prepared_not_built",
+  "source_root": "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/kernels/deepgemm-sm120/src",
+  "file": "csrc/apis/sm120_gemm.hpp",
+  "base_sha256": "4f9217df242d576147be5e8edaf668a2aa3721f304024ed12e42de86a9e8fbb0",
+  "patched_sha256": "867940b09b7dfb04a916c9ed92b5482587da612549a115680a953d583da6ee6a",
+  "patch_sha256": "30aef11d07c4ee0d29e752c06a70e7bebca925d22db18f8c7a7c23caa09ccb01",
+  "scope": "Native dense same-dtype FP8 or packed FP4, original eligible M1..16 only, row-contiguous output, no accumulation. No rowwise adapter or NVFP4 format conversion.",
+  "controls": [
+    "auto",
+    "off",
+    "on"
+  ],
+  "unsupported_force_on": "Fails original eligibility gate; never silently falls back."
+}

@@ -1,0 +1,2 @@
+[vllm.general_plugins]
+task_order_probe = task_order_probe:register

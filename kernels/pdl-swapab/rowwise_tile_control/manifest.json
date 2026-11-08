@@ -1,0 +1,24 @@
+{
+  "status": "CPU_prepared_not_built",
+  "base_fingerprint_sha256": "e8a951e4e662c63e144932e424689c37d39e05bd61dd44eae5d51e53f0a36aa1",
+  "files": {
+    "csrc/apis/gemm.hpp": {
+      "base_sha256": "cd7e83248b16bcaac769d2ec2c77f1a9116da1a3b6b05b15ca01646146262212",
+      "patched_sha256": "d762433cc6d1c845fbaefd672710cbddc3295af68dcf7152ffb6c41c53ce0bfc"
+    },
+    "csrc/jit_kernels/impls/sm120_fp8_fp4_gemm_1d1d.hpp": {
+      "base_sha256": "ec11e9af895993ad9cafaaf0542c011211048d8b4de961a328ca35f7c964d4f9",
+      "patched_sha256": "8e09078eea7be35745b719acc40a75c5898324afe81a5dd101a28de3cb1be8ab"
+    },
+    "deep_gemm/include/deep_gemm/epilogue/transform.cuh": {
+      "base_sha256": "41f5222dd4316578752848965c7f060db0f9129f5cf929c22fb1224766825846",
+      "patched_sha256": "f5d85abf33cc3e4deda2ce103a4eceef63aea070da0de17ca6a257c1ce10d888"
+    },
+    "deep_gemm/include/deep_gemm/impls/sm120_fp8_fp4_gemm_1d1d.cuh": {
+      "base_sha256": "38b84b3d2bef2e5f5da0571327fe43bd03598f8798782e527dc5f6d51bb0bc3a",
+      "patched_sha256": "bb347c6e7e8f809dd59d58b4df741d12b721d779cc2412bc1b62e522707bc602"
+    }
+  },
+  "patch_sha256": "da1d33b7ab67284eafe04c22374896ff5efc9b8897114a176cc05bef065634a9",
+  "scope": "Explicit 64x16x64 alternative for swapped effective12288xM x2048, M1..16. AUTO/off remain separate; no splitK/noC/scale-order changes."
+}

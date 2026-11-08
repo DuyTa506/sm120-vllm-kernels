@@ -1,0 +1,26 @@
+{
+  "status": "CPU_ready_GPU_not_run",
+  "scope": "actual tiny-M rowwise off/on vs CUTLASS and exact skinny; no orientation speed presumption",
+  "files": {
+    "run_rowwise_swap_control.sh": "93f1846040b7bbabde67c17baf129d5e5e47539fa6a170ae411bce7568dfc49b",
+    "replay_rowwise_swap.py": "0564e9d1107eded207cb02f3a6d034d5b01f1d350eb6ce9d5ae9c80a172f8b2d",
+    "prepare_rowwise_swap.py": "e12381ce79cf68b7be1e159251d262e5a554aae93610293fe1ebd46939ab5f47",
+    "verify_rowwise_freeze.py": "ea8b88c25ea3f662b526fbf7efa256a47e8d5c33c2a4faa374277c8fcd2e0e76",
+    "prepare_rowwise_nvcc.py": "a280b37a02edbd38d3cc041b1139955212dfc0ec93ae56cb3e231d574540656b",
+    "test_rowwise_swap_contract.py": "136267788bb92e697ac4ad1cbfed1f474f892ed8a54819010816f597f1ee81c8",
+    "rowwise_swap_control/manifest.json": "cf7ff95eb322e518334c26afddaa6e4cd9c2f9b62cdeaaca7ac47a71abb0c64d",
+    "rowwise_swap_control/build_result.json": "4ebe5191b8f97422358ad182df5e4c4275b81dbc68a6952f51b62fa2eef4fa3b",
+    "rowwise_swap_control/nvcc/results.json": "dbfa8f529ed9f5ca0a85712be2342d147112215fa72f5a98c9d462638aa5f3dc",
+    "rowwise_swap_control/rowwise_swap.patch": "f8be0f023b2c483155f917f94f43984b0441208961a64c00abf039da8f0388af",
+    "rowwise_swap_control/base_fingerprint.json": "bbffbea38eb18e6abb84f7b860ae297e1b57b06d99729fbf6c8be0cbe5d112e2",
+    "../deepgemm-sm120/common.py": "90e59d63091daf7efc46561737dc19f4a8cb271e5e362e9f01f434ec7d9fdef1",
+    "../deepgemm-sm120/source_fingerprint.py": "cb140a34a971093e79e4e2138bc28cb10ced8a60b98edbc26502c6332ea57e26",
+    "../deepgemm-sm120/skinny_comparator/manifest.json": "dfdc3a9ed48f325042720ecabfb68cde93edf3a9db678eb99e463fd515a46a2a",
+    "../deepgemm-sm120/results/gdn_actual_capture_round2_1/results.json": "94910493bbdd9e9c04f2353ff8ab6a7fde70757b5b548f291e34c040196f67cf",
+    "rowwise_swap_control/src/csrc/apis/gemm.hpp": "d762433cc6d1c845fbaefd672710cbddc3295af68dcf7152ffb6c41c53ce0bfc",
+    "rowwise_swap_control/src/csrc/jit_kernels/impls/sm120_fp8_fp4_gemm_1d1d.hpp": "ec11e9af895993ad9cafaaf0542c011211048d8b4de961a328ca35f7c964d4f9",
+    "rowwise_swap_control/src/deep_gemm/include/deep_gemm/epilogue/transform.cuh": "f5d85abf33cc3e4deda2ce103a4eceef63aea070da0de17ca6a257c1ce10d888",
+    "rowwise_swap_control/src/deep_gemm/include/deep_gemm/impls/sm120_fp8_fp4_gemm_1d1d.cuh": "bb347c6e7e8f809dd59d58b4df741d12b721d779cc2412bc1b62e522707bc602",
+    "rowwise_swap_control/src/deep_gemm/_C.cpython-312-x86_64-linux-gnu.so": "5ebceb521d7ad34c22464ea678c1d391bd642c590aef91f9e6d39373b7162e68"
+  }
+}

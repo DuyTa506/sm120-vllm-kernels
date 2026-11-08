@@ -1,0 +1,14 @@
+{
+  "direct_sanitize.py": {
+    "source": "kernels/dp4a-expert-reuse/direct_sanitize.py",
+    "sha256": "fdccc9ff244977e573d765727f9d2a5be54b94e50daea27cf2263524a4b9ad87"
+  },
+  "fi_plan.py": {
+    "source": "kernels/dp4a-expert-reuse/fi_plan.py",
+    "sha256": "17d553a86edd4fbc3d06e4db9053fe19a6e42c7bf5d9fd72b07e776afeaa68a3"
+  },
+  "direct_native.py": {
+    "source": "kernels/dp4a-expert-reuse/direct_native.py",
+    "sha256": "1d9735ebca1f2c818b21cbbc862156f768abc5b8726bfe2e91ed4d724c66fcf6"
+  }
+}

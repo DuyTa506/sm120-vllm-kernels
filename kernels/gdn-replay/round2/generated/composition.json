@@ -1,0 +1,22 @@
+{
+  "baseline_sha256": {
+    "vllm/envs.py": "e963af06cf6c775fe285147e0d811ea5b4d679e5cbd6958980ec2a0d1da70694",
+    "vllm/v1/worker/gpu/model_states/mamba_hybrid.py": "262de489e3c02a2b1b93acd2a0d88ddced82ecebe050ca95ea91ba3fe501e6f4",
+    "vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "c82a390240c77032414d916ed705780716cd696f90722eb99eb89419f0aa262c"
+  },
+  "patch_sha256": "1e277a5393fca5f7c5526d5e9e1f6bb7d68e813d4572833359e9f1e0c76b1c92",
+  "generated_sha256": {
+    "serve.sh": "94266ce12aa90da676c94ba6990f6bc86900284604fac8ab56d0ec1ae6df16e1",
+    "patch.log": "212bd92f23aa180d48ef9941ad4f708a1445f743269022f721b75f4d42771350",
+    "vllm/envs.py": "0226f965763f9fee60e2ee9af1979fb59cb6022cc67101221cc21d60a82712a3",
+    "vllm/model_executor/layers/mamba/ops/fused_conv_post_conv.py": "d7e499b926bfe915ef0703caf1b4736b4a745ff14bb984a688fb4dc395725e3c",
+    "vllm/model_executor/layers/mamba/gdn/gdn_state_replay.py": "3aee3dbab609b76010378ffff4d3ee8388040457946724f4517eca8b4d2c831e",
+    "vllm/model_executor/layers/mamba/gdn/gdn_replay.cu": "9582fb07a1ea3c62c4dabc407711bb912a98c41ce91706bf2dc146f6aaedf2d6",
+    "vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py": "51e2939321564fe51a86a2a13f51edb11fecc916d71c1eec0c0aeb27bce1f3ad",
+    "vllm/model_executor/layers/mamba/gdn/qwen_gdn_linear_attn.py.orig": "c82a390240c77032414d916ed705780716cd696f90722eb99eb89419f0aa262c",
+    "vllm/v1/worker/gpu/model_states/mamba_hybrid.py": "37be3fddf3355326ea51f90484f38f4c093677cc71853d04e4fb1c89f7eaad30",
+    "vllm/v1/attention/backends/sm120_fp8_fmha_glue.py": "141dd23f7b6b155f3f318b1cbc41183bda2a1475ef9895966afafb8fe1cf94b9",
+    "vllm/v1/attention/backends/flashinfer.py": "7a8a584750950021c51a45f82b12717237c534f6516632d3465cf9b10a6af686"
+  },
+  "debug_extension": "all-row shadow plus intermediate-boundary slot equality; authoritative stock path"
+}

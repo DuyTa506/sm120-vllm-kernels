@@ -1,0 +1,8 @@
+{
+  "cpu_only": true,
+  "source_sha256": "c518e65d6bfd7f08db1e5261e20795fd020e82e681699729171bc2fd5331239a",
+  "adapter_sha256": "f81f0ab4df4522ad59a26ff3c7bc27b5884ce9f682ac6f72b925ada6a8ad18ee",
+  "explicit_reciprocal_flag": true,
+  "no_unit_scale_substitution": true,
+  "scope": "AST ABI/flag and existing actual-checkpoint algebra audit; not CUDA correctness"
+}

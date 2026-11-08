@@ -318,6 +318,31 @@ optimized config still wins and the prefix hit rate stays at 94%.
 
 ### Kernel work (`kernels/`)
 
+#### Round-two experiments (2026-10-28)
+
+These experiments use the current scalar-MoE composition as their parent where
+applicable. None has been selected for a new composed serving configuration.
+Operator results below do not replace the task matrix or final agentic evaluation.
+
+| candidate | measured evidence | remaining gate |
+|---|---|---|
+| [DeepGEMM rowwise FP8 epilogue](kernels/deepgemm-sm120/README.md) | 21 actual QKVZ operand cells: 2.70–10.06% lower latency than the faster CUTLASS/skinny comparator; nine extra buckets pass; vLLM trace proves 30 fused calls per M48 replay | short serving pair is inconclusive: +0.68% decode throughput but +4.43% TPOT, NLL drift, three differing common Inductor configs and missing final audit; unselected; large-prefill cells lose |
+| [Native NVFP4 task ordering](kernels/moe-task-order/README.md) | L19/M4096 full-call ABBA: baseline 434.98/434.30 us, long-first 417.94/417.65 us (~3.9% lower); full-2048-column contributions and FP64 reference match exactly | [diagnostic](kernels/moe-task-order-diagnostic/README.md) identifies BF16 atomic-order drift on this case; uninstrumented vLLM timing and model-quality checks still required |
+| [Layer-specific MoE dispatch](kernels/moe-layer-dispatch/README.md) | CUTLASS slower in all 12 sampled calibration/held-out cells; numerical gate also failed | no policy selected; negative result applies only to sampled shapes/routes |
+| [PDL / swap-AB](kernels/pdl-swapab/README.md) | PDL paired artifact/config proof passes, NLL shift unresolved; two native swap matrices: all 16 off/on outputs identical, QKVZ-shaped N12288/K2048 latency 2.3–4.1% lower | repeated PDL quality/timing pending; [swap report](kernels/pdl-swapab/results/swap_native_pair_1.json) retains process-sensitive M1/M16 results; this verifies existing native policy, not a new model patch |
+| [GDN state replay](kernels/gdn-replay/README.md) | current-stack shadow passes: 869,070 checked rows including 630 intermediate-boundary rows; 32 complete long outputs and 91 completed/37 aborted stress requests without errors | actual preemption and paired serving timing still pending; historical gains are not new-stack results |
+| [Humming NVFP4](kernels/humming-sm120/README.md) | L19/M1024 diagnosis isolates scale rounding: private RN variant matches vLLM FC1 quantized bytes exactly; output relative L2 versus scalar falls from 17.89% to 2.86% | RN error versus independent FP32 reference is 14.490%, versus CUTLASS 14.494%; remaining FC2 rounding differences need broader checks. Earlier ~8.6% timing gain belongs to RU, not RN; no model speedup claimed |
+
+The tiny rowwise FP8 swap extension remains unselected: L0/M3 AUTO takes
+17.77–17.81 us versus existing skinny 17.00–17.04 us. A separate 64×16 tile
+passes numerical/replay checks but takes 19.62 us, about 11.2% slower than its
+matched AUTO control. More logical work tiles did not improve this measured case.
+
+The [execution record](docs/superpowers/plans/2026-10-28-sm120-round2-execution.md)
+retains failed runs and the active queue. Agentic is reserved for the final
+selected composition. The kernel summaries and figures below retain their
+historical measurement scope.
+
 Each area has its own directory with a README, benchmarks and correctness tests. An independent agent re-runs
 every claimed gain before it is integrated. Numbers below are from each area's README; "next" is the candidate
 config that stacks the verified pieces on top of optimized.
@@ -341,7 +366,7 @@ config that stacks the verified pieces on top of optimized.
 | [`session-cache`](kernels/session-cache) | keep each session's latest GDN state across turns (per-tenant reuse) | scheduler patch | only ~7% TTFT at 1 agent on top of `--prefix-match-unit 16`; default limits evict active histories (TTFT p50 1.6 → 69 s) | partly confirmed, not recommended |
 | [`gdn-replay`](kernels/gdn-replay) | GDN decode with MTP-2: skip the three per-position fp32 state writes in verify, then replay only the accepted tokens into one slot | CUDA C++ | bit-exact (205 checks); c=64 ITL 28.6 → 26.2 ms (-8%), +7% tok/s, nothing at c <= 16 | `VLLM_GDN_STATE_REPLAY`, off by default, second-agent check not run |
 | [`fused-router`](kernels/fused-router) | router GEMM + softmax + top-8 in one kernel | CUDA C++ (`mma.sync`) | -109 us per step at c=1, 60-77 us at c=2-4, nothing from c=8; top-8 equals the fp64 reference in every real row | not integrated, changes routing for ~3% of rows |
-| [`pdl-swapab`](kernels/pdl-swapab) | PDL and swap-AB, ideas from DeepGEMM | microbenchmarks | PDL 1-2% at c=1; swap-AB already in FlashInfer | no kernel shipped |
+| [`pdl-swapab`](kernels/pdl-swapab) | PDL and swap-AB, ideas from DeepGEMM | historical synthetic microbenchmarks; current serving controls above | historical PDL 1-2% is not a measured vLLM benefit; swap-AB already in FlashInfer | no kernel shipped |
 | [`deepgemm-sm120`](kernels/deepgemm-sm120) | DeepGEMM `nv_dev` native SM120 kernels vs ours | benchmarks | nothing to port; issue #444 does not reproduce | study only |
 | kernel page (patch 04) | decouple the cache block (2176, needed by the checkpoint) from the attention kernel page (16 instead of 64) | 6-line patch | decode +4% at c=64, prefill unchanged or faster (`results/decode_ab/SUMMARY.md`) | patch 04, in next |
 
@@ -358,7 +383,7 @@ The largest decode lever found, GDN state replay, is built (`kernels/gdn-replay`
 - `gdn-replay`: built by one agent, not yet re-run by a second. Same-step form: verify skips the state writes, one commit launch per KV-cache group replays the accepted tokens. Bit-exact against the stock kernel in all 30 layers (47,640+ row-layer-steps, 0 mismatches), MTP acceptance unchanged (0.596 and 0.599 off, 0.599 and 0.591 on), stress run with 37 aborts clean. End-to-end at c=64: ITL 28.61 → 26.23 ms (-8.3%), 3,599 → 3,859 tok/s (+7.2%); c=16 and c=32 neutral. Below 8 requests the stock path runs. Worth enabling only at about 48 or more concurrent decodes (`VLLM_GDN_STATE_REPLAY_MIN_REQS`). A first live run collapsed acceptance to 0.06 because the commit used the first KV-cache group's block table for all groups; fixed. Not checked: preemption, TP > 1. The patch is `kernels/gdn-replay/patch/04-gdn-state-replay.patch` (numbered 04 inside that directory; it is not in `patches/` yet).
 - `fused-router` (router GEMM + softmax + top-8 in one kernel, from DeepGEMM's mega-gate idea): built, 173 correctness checks pass, no end-to-end run yet. Top-8 ids match vLLM's `topk_softmax` exactly on injected logits; on the real weights the top-8 set equals the fp64 reference in every row, while vLLM's cuBLAS path picks a different set in about 2.7% of rows at M >= 4. Per step it saves 109 us at c=1 (1.8% of a 6.0 ms step) on top of the skinny BF16 GEMM, 60-77 us at c=2-4, nothing at c >= 8 (microbenchmark x 42 calls per step, an assumption). Not integrated: needs the quality check because it changes routing for ~3% of rows.
 - `deepgemm-sm120` (DeepGEMM `nv_dev`, native SM120 kernels, built and tested against our shapes): nothing to port. Dense FP8 at M <= 16: our skinny kernel is as fast or faster on all four layer shapes; at M = 8192 DeepGEMM is 6-8% slower than vLLM's CUTLASS. Grouped GEMM on the real 8k routing: DeepGEMM's MXF4 proxy (a different scale format from our NVFP4) is 20-24% slower than FlashInfer CUTLASS; its scheduler has no skew handling. Decode grouped GEMM at 3-192 tokens is 7-45% faster than our CUTLASS NVFP4, but no NVFP4 kernel was run, so the cause is unattributed (about 0.6 ms per step at most at c=1). The CUDA-graph crash of issue #444 does not reproduce on the tree that contains the fix (14 configs x 1000 replays x 48 routings, bitwise equal to eager).
-- Ideas taken from DeepGEMM, measured in `kernels/pdl-swapab`: PDL is worth 1-2% at c=1 and nothing at c >= 16 (37% of kernel boundaries already overlap, FlashInfer enables PDL on SM120); swap-AB is already in FlashInfer's CUTLASS MoE decode tile, and its padding costs at most ~0.13 ms per step. b12x is 13-16% faster than CUTLASS at M=4-8 (0.25-0.32 ms per step) but needs a numerics check first.
+- Historical `kernels/pdl-swapab` PDL numbers came from synthetic glue/skinny kernels; they do not establish an actual vLLM gain or its overlap fraction. Current pinned serving controls above supersede that interpretation. Swap-AB is already in FlashInfer's CUTLASS MoE decode tile; its historical padding estimate is at most ~0.13 ms per step. Earlier b12x microbenchmarks were 13-16% faster than CUTLASS at M=4-8 (0.25-0.32 ms per step), with numerical validation still required for that path.
 - `cache-granularity`, `kv-offload`, `session-cache`: all re-run by a second agent and partly or fully confirmed; the numbers and their costs are in "Agentic caching" above.
 
 <picture>

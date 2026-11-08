@@ -1,0 +1,15 @@
+{
+  "module_name": "sm120_skinny_fp8",
+  "compile_flags": [
+    "-O3",
+    "-std=c++17",
+    "-gencode=arch=compute_120a,code=sm_120a"
+  ],
+  "TORCH_CUDA_ARCH_LIST": "7.5 8.0 8.6 8.9 9.0 10.0 12.0",
+  "scope": "existing repository candidate comparator; not proof of active CONFIGnext dispatch",
+  "files": {
+    "sm120_skinny_fp8.cu": "188f3d6bd5d351f3d6d699be58a2eac9f39beab95331fdd8befb1d4bb129c0c0",
+    "reference_dispatch.py": "1678cfaac2f953dde197efa2502233a6c1844969f135dbd21befc49ea1b7a982",
+    "build/sm120_skinny_fp8.so": "e79b3b3fe588d3b928b8a87f5e2d377af2c61790e89bbe52b3cd6ae158034452"
+  }
+}

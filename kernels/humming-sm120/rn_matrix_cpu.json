@@ -1,0 +1,69 @@
+{
+  "cuda_initialized": false,
+  "capture_sha256": "0e161c36a6f478c0205b3a7e8b388296eccafaa2d5999cf4420fcbcd0aa2f4ac",
+  "cases": [
+    {
+      "layer": 19,
+      "tokens": 1024,
+      "capture_offsets": [
+        0,
+        1024
+      ],
+      "command": "sg docker -c 'bash kernels/humming-sm120/run_micro.sh humming_rn_l19_m1024_1 indexed 1024 screen_rn 19'"
+    },
+    {
+      "layer": 19,
+      "tokens": 4096,
+      "capture_offsets": [
+        0,
+        4096
+      ],
+      "command": "sg docker -c 'bash kernels/humming-sm120/run_micro.sh humming_rn_l19_m4096_1 indexed 4096 screen_rn 19'"
+    },
+    {
+      "layer": 0,
+      "tokens": 1024,
+      "capture_offsets": [
+        0,
+        1024
+      ],
+      "command": "sg docker -c 'bash kernels/humming-sm120/run_micro.sh humming_rn_l0_m1024_1 indexed 1024 screen_rn 0'"
+    },
+    {
+      "layer": 0,
+      "tokens": 4096,
+      "capture_offsets": [
+        0,
+        4096
+      ],
+      "command": "sg docker -c 'bash kernels/humming-sm120/run_micro.sh humming_rn_l0_m4096_1 indexed 4096 screen_rn 0'"
+    },
+    {
+      "layer": 39,
+      "tokens": 1024,
+      "capture_offsets": [
+        0,
+        1024
+      ],
+      "command": "sg docker -c 'bash kernels/humming-sm120/run_micro.sh humming_rn_l39_m1024_1 indexed 1024 screen_rn 39'"
+    },
+    {
+      "layer": 39,
+      "tokens": 4096,
+      "capture_offsets": [
+        0,
+        4096
+      ],
+      "command": "sg docker -c 'bash kernels/humming-sm120/run_micro.sh humming_rn_l39_m4096_1 indexed 4096 screen_rn 39'"
+    }
+  ],
+  "comparison_order": [
+    "scalar",
+    "cutlass",
+    "humming",
+    "humming",
+    "cutlass",
+    "scalar"
+  ],
+  "limitations": "hot-layer screen; disjoint rows from same capture, not independent-prompt validation; each command needs GPU lease"
+}

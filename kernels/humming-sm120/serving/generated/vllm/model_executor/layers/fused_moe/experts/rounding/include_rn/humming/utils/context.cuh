@@ -1,0 +1,219 @@
+#pragma once
+
+#include <humming/utils/base.cuh>
+#include <humming/utils/storage.cuh>
+
+struct KernelParams {
+  uint32_t shape_m;
+  uint32_t top_k;
+  bool use_int64_expert_layout;
+  const void *a;
+  const void *b;
+  const void *as;
+  const void *as2;
+  const void *bs;
+  const void *bzp;
+  const void *bias;
+  const void *c;
+  const void *bs2;
+  const uint32_t *sorted_ids_ptr;
+  const uint32_t *expert_ids_ptr;
+  const uint32_t *num_tokens_padded_ptr;
+  const uint32_t *expert_layout_ptr;
+  CUtensorMap *tensor_map_buffer;
+  int32_t *locks;
+};
+
+template <
+    class MmaOpClass_, class ProblemShape_, class BlockShape_, class WarpShape_, class PadShape_,
+    class ElementA_, class ElementQB_, class ElementC_, class ElementBS_,
+    class LayerConfig_, class ComputeConfig_, class TuningConfig_>
+struct KernelContext : LayerConfig_, ComputeConfig_, TuningConfig_ {
+  using MmaOpClass = MmaOpClass_;
+  using ProblemShape = ProblemShape_;
+  using BlockShape = BlockShape_;
+  using WarpShape = WarpShape_;
+  using PadShape = PadShape_;
+  using ElementA = ElementA_;
+  using ElementQB = ElementQB_;
+  using ElementB = typename MmaOpClass::ElementB;
+  using ElementC = ElementC_;
+  using ElementBS = ElementBS_;
+  using LayerConfig = LayerConfig_;
+  using ComputeConfig = ComputeConfig_;
+  using TuningConfig = TuningConfig_;
+  using MmaShape = typename MmaOpClass::MmaShape;
+
+  using SharedStorage = ::SharedStorage<
+      MmaOpClass, BlockShape, WarpShape, ElementA, ElementQB, ElementBS,
+      LayerConfig, ComputeConfig, TuningConfig>;
+
+  static constexpr bool kIsDenseGemm = ComputeConfig::kGemmType == GemmType::DENSE;
+  static constexpr bool kIsIndexedGemm = ComputeConfig::kGemmType == GemmType::INDEXED;
+  static constexpr bool kIsGroupedContiguousGemm = ComputeConfig::kGemmType == GemmType::GROUPED_CONTIGUOUS;
+  static constexpr bool kIsGroupedMaskedGemm = ComputeConfig::kGemmType == GemmType::GROUPED_MASKED;
+  static constexpr bool kIsGroupedGemm = kIsGroupedContiguousGemm || kIsGroupedMaskedGemm;
+
+  static constexpr bool kUseWmma = TuningConfig::kMmaType == MmaType::MMA;
+  static constexpr bool kUseUmma = TuningConfig::kMmaType == MmaType::UMMA;
+  static constexpr bool kUseWgmma = TuningConfig::kMmaType == MmaType::WGMMA;
+  static constexpr bool kUseCpAsync = LayerConfig::kSmVersion >= 80;
+  static constexpr bool kUseMBarrier = kUseUmma || TuningConfig::kUseWarpSpec || TuningConfig::kUseTma;
+  static constexpr bool kUseWgmmaSs = kUseWgmma && std::is_same<ElementB, ElementQB>::value;
+  static constexpr bool kUseWgmmaTmaNPermute = kUseWgmmaSs && TuningConfig::kUseTmaB;
+  static constexpr bool kUseWgmmaTmaAPack = kUseWgmma && TuningConfig::kUseTmaA && ElementA::kBits >= 8 && !kIsIndexedGemm &&
+      (ProblemShape::K - PadShape::K) * ElementA::kBits % 1024 == 0 && BlockShape::K * ElementA::kBits > 1024;
+  static constexpr bool kUseWgmmaCpAsyncNPermute = kUseWgmmaSs && !TuningConfig::kUseTmaB && WarpShape::N > 16;
+  static constexpr bool kUseWgmmaSsNLayout = kUseWgmmaSs && !kUseWgmmaTmaNPermute && !kUseWgmmaCpAsyncNPermute;
+  static constexpr bool kUseMxmma = TuningConfig::kMmaType == MmaType::MXMMA;
+
+  static constexpr bool kUseBlockScaledMma = LayerConfig::kUseBlockScaledMma;
+  static constexpr bool kUseMmaGroupScaleLayout1 = !USE_PPU && kUseWmma && ElementA::kBits < 16 &&
+                                                   LayerConfig::kIsGroupWeightScale && !LayerConfig::kUseFusedE8m0Scale;
+  static constexpr bool kUseUmmaSplitLoads = false;
+  static constexpr bool kUseUmmaSeparateInputScale = false;
+  static constexpr bool kUseUmmaAsyncActivationLoads = false;
+  static constexpr bool kUseUmmaCooperativeTma = false;
+
+  static constexpr bool kUsePackedKLayout = LayerConfig::kUsePackedKLayout;
+  static_assert(!kUsePackedKLayout || WarpShape::K == 128);
+  static constexpr uint32_t kPackedKFactor = kUsePackedKLayout ? 2 : 1;
+  static constexpr bool kIsFp8Input = ElementA::kBits == 8 && ElementA::kIsFloatingPointType;
+  static constexpr bool kCanBatchWgmmaSsTypes = kIsFp8Input && MmaOpClass::kCTypeBits == 32;
+  static constexpr bool kCanBatchWgmmaSsAS = LayerConfig::kInputScaleGroupSize == 0 || LayerConfig::kInputScaleGroupSize >= 128;
+  static constexpr bool kCanBatchWgmmaSsK = WarpShape::K == 128 && kCanBatchWgmmaSsAS;
+  static constexpr bool kCanBatchWgmmaSsBS = LayerConfig::kWeightScaleGroupSize == 0 || LayerConfig::kWeightScaleGroupSize >= 128;
+  static constexpr bool kUseWgmmaSsKBatch = kUseWgmmaSs && kCanBatchWgmmaSsTypes && kCanBatchWgmmaSsK && kCanBatchWgmmaSsBS;
+
+
+  static constexpr uint32_t M_WARPS = BlockShape::M / WarpShape::M;
+  static constexpr uint32_t N_WARPS = BlockShape::N / WarpShape::N;
+  static constexpr uint32_t K_WARPS = BlockShape::K / WarpShape::K;
+  static_assert(!kUseWgmma || TuningConfig::kNumStages >= 3);
+  static_assert(!kUseWgmma || N_WARPS % 4 == 0);
+
+  static constexpr uint32_t kPartMmaShapeK = 256 / ElementA::kBits;
+  static constexpr uint32_t kWarpIters = kUseWgmmaSsKBatch ? 1 : (kUsePackedKLayout ? (WarpShape::N / 16) : (WarpShape::K / kPartMmaShapeK));
+
+  // With a single fragment, next-stage prefetch aliases the current scale buffer.
+  // Group AS and non-fused BS must survive until accumulator promotion has finished.
+  static constexpr bool kPreserveASForPromotion = LayerConfig::kIsGroupInputScale && !TuningConfig::kWgmmaUseLateAS;
+  static constexpr bool kPreserveBSForPromotion = !LayerConfig::kUseFusedE8m0Scale && (LayerConfig::kIsGroupWeightScale || LayerConfig::kIsBlockWeightScale);
+  static constexpr bool kUseWgmmaLateScalePrefetch = TuningConfig::kWgmmaSplitIssueWait && kWarpIters == 1 && (kPreserveASForPromotion || kPreserveBSForPromotion);
+
+  static constexpr uint32_t kUseWarpSpec = TuningConfig_::kUseWarpSpec;
+  static constexpr uint32_t kNumThreads = TuningConfig_::kNumThreads;
+  static constexpr uint32_t kNumMathThreads = TuningConfig_::kNumMathThreads;
+  static constexpr uint32_t kNumLoadThreads = TuningConfig_::kNumLoadThreads;
+  static constexpr uint32_t kLoadThreadOffset = kNumThreads - kNumLoadThreads;
+  static constexpr uint32_t kMultiCastSize = TuningConfig_::kMultiCastSizeA * TuningConfig_::kMultiCastSizeB;
+  static constexpr uint32_t kRasterGroupM = TuningConfig_::kRasterGroupM;
+
+  SharedStorage &smem;
+  const KernelParams &params;
+  uint32_t row_index_buffer = 0;
+
+  CUDA_INLINE KernelContext(SharedStorage &smem, const KernelParams &params)
+      : smem(smem), params(params) {}
+
+  CUDA_INLINE uint32_t math_thread_id() { return threadIdx.x; }
+  CUDA_INLINE uint32_t warp_id() { return threadIdx.x / 32; }
+  CUDA_INLINE uint32_t lane_id() { return threadIdx.x % 32; }
+  CUDA_INLINE uint32_t load_thread_id() { return threadIdx.x - kLoadThreadOffset; }
+  CUDA_INLINE uint32_t cluster_rank() { return blockIdx.x % kMultiCastSize; }
+
+  CUDA_INLINE uint32_t *get_rd_row_index() {
+    if constexpr (!kIsIndexedGemm) return nullptr;
+    else if constexpr (kUseWarpSpec) return row_index_buffer ? smem.rd_row_index_next : smem.rd_row_index;
+    else return smem.rd_row_index;
+  }
+
+  CUDA_INLINE uint32_t *get_wr_row_index() {
+    if constexpr (!kIsIndexedGemm) return nullptr;
+    else if constexpr (kUseWarpSpec) return row_index_buffer ? smem.wr_row_index_next : smem.wr_row_index;
+    else return smem.wr_row_index;
+  }
+
+  CUDA_INLINE uint32_t m_warp_id() { return M_WARPS == 1 ? 0 : (warp_id() / N_WARPS % M_WARPS); }
+  CUDA_INLINE uint32_t n_warp_id() { return N_WARPS == 1 ? 0 : (warp_id() % N_WARPS); }
+  CUDA_INLINE uint32_t k_warp_id() { return K_WARPS == 1 ? 0 : (warp_id() / (M_WARPS * N_WARPS)); }
+
+  CUDA_INLINE uint32_t m_warp_offset() { return m_warp_id() * WarpShape::M; }
+  // N16 fragment index in the contiguous SS accumulator layout.
+  CUDA_INLINE uint32_t wgmma_ss_n_tile(uint32_t fragment) {
+    return n_warp_id() / 4 * (WarpShape::N / 16 * 4) + n_warp_id() % 4 + fragment * 4;
+  }
+  CUDA_INLINE uint32_t n_warp_offset() { return n_warp_id() * WarpShape::N; }
+  CUDA_INLINE uint32_t k_warp_offset() { return k_warp_id() * WarpShape::K; }
+
+  CUDA_INLINE bool is_math_thread() { return threadIdx.x < kNumMathThreads; }
+  CUDA_INLINE bool is_load_thread() { return threadIdx.x >= kLoadThreadOffset; }
+
+  CUDA_INLINE static void sync_math_threads() { sync_part_threads<kNumMathThreads, kNumThreads, kUseWarpSpec ? 1 : 0>(); }
+  CUDA_INLINE static void sync_load_threads() { sync_part_threads<kNumLoadThreads, kNumThreads, kUseWarpSpec ? 2 : 0>(); }
+};
+
+
+// Output visits logical 128-channel partitions; dequantization can share a stage.
+template <class... ContextArgs>
+struct UmmaPipelineContext : KernelContext<ContextArgs...> {
+  using Base = KernelContext<ContextArgs...>;
+  using Base::Base;
+  using BlockShape = typename Base::BlockShape;
+  using WarpShape = typename Base::WarpShape;
+  using TuningConfig = typename Base::TuningConfig;
+  static_assert(BlockShape::M == WarpShape::M, "UMMA requires block M to equal warp M");
+  static_assert(BlockShape::K == WarpShape::K, "UMMA requires block K to equal warp K");
+  static constexpr bool kHasStageWeightScale = Base::kIsGroupWeightScale || Base::kIsBlockWeightScale;
+  static constexpr bool kCanSplitWeightScaleLoad = !kHasStageWeightScale || Base::kUseTmaBS;
+  static constexpr bool kCanSplitZeroPointLoad =
+      !Base::kHasZeroPoint || (Base::kIsGroupWeightScale && Base::kUseTmaBZP);
+  static constexpr bool kCanSplitInputScaleLoad = !Base::kIsGroupInputScale || Base::kUseTmaAS;
+  static constexpr bool kHasTmaWeightLoads = Base::kUseTmaB && kCanSplitWeightScaleLoad && kCanSplitZeroPointLoad;
+  static constexpr bool kHasTmaActivationLoads = Base::kUseTmaA && kCanSplitInputScaleLoad;
+  static constexpr bool kUseUmmaSplitLoads = kHasTmaActivationLoads && kHasTmaWeightLoads;
+  static constexpr bool kUseUmmaSeparateInputScale = Base::kUseUmmaSs && kUseUmmaSplitLoads;
+  static constexpr bool kUseUmmaAsyncActivationLoads = Base::kUseUmmaSs && !Base::kUseTmaA && kHasTmaWeightLoads;
+  // A cooperative completion is consumed by the issuer. Scale preparation must
+  // not need generic reads of B/BS in the other CTA before that completion.
+  static constexpr bool kCanPrepareScalesBeforeWeights =
+      !Base::kUseBlockScaledMma || !Base::kIsGroupWeightScale || Base::SharedStorage::kUseUmmaDirectWeightScale;
+  static constexpr bool kUseUmmaCooperativeTma = (kUseUmmaSeparateInputScale || kUseUmmaAsyncActivationLoads) &&
+                                                 Base::kUmmaCtaGroupSize == 2 && kCanPrepareScalesBeforeWeights && !Base::kHasZeroPoint &&
+                                                 Base::kMultiCastSizeA == 1 && Base::kMultiCastSizeB == 1;
+  static constexpr uint32_t kLoadThreadOffset = 0;
+  static constexpr uint32_t kNumLoadThreads = TuningConfig::kNumLoadThreads;
+  static constexpr uint32_t kNumMathThreads = 128;
+  uint32_t math_group = 0;
+
+  CUDA_INLINE uint32_t math_thread_id() { return threadIdx.x % 128; }
+  CUDA_INLINE uint32_t load_thread_id() { return threadIdx.x; }
+  CUDA_INLINE uint32_t warp_id() { return math_group * 4 + math_thread_id() / 32; }
+  CUDA_INLINE uint32_t m_warp_id() { return 0; }
+  CUDA_INLINE uint32_t n_warp_id() { return warp_id() % Base::N_WARPS; }
+  CUDA_INLINE uint32_t k_warp_id() { return 0; }
+  CUDA_INLINE uint32_t m_warp_offset() { return 0; }
+  CUDA_INLINE uint32_t n_warp_offset() { return n_warp_id() * WarpShape::N; }
+  CUDA_INLINE uint32_t k_warp_offset() { return 0; }
+  CUDA_INLINE bool is_load_thread() { return threadIdx.x < kNumLoadThreads; }
+  CUDA_INLINE bool is_math_thread() { return threadIdx.x >= 128 && threadIdx.x < 256; }
+
+  CUDA_INLINE bool is_dequant_thread() { return threadIdx.x >= 256; }
+  CUDA_INLINE uint32_t dequant_group_id() { return (threadIdx.x - 256) / 128; }
+
+  CUDA_INLINE bool is_issuer_thread() { return threadIdx.x >= kNumLoadThreads && threadIdx.x < kNumLoadThreads + 32; }
+
+  CUDA_INLINE static void sync_math_threads() {
+    if constexpr (TuningConfig::kNumCtasPerSm > 2) {
+      // A dynamic barrier ID reserves all named barriers, limiting residency to two CTAs.
+      if (threadIdx.x < 256) sync_part_threads<128, Base::kNumThreads, 1>();
+      else if (threadIdx.x < 384) sync_part_threads<128, Base::kNumThreads, 3>();
+      else sync_part_threads<128, Base::kNumThreads, 4>();
+    } else {
+      uint32_t barrier_id = threadIdx.x < 256 ? 1 : (threadIdx.x < 384 ? 3 : 4);
+      asm volatile("bar.sync %0, 128;" ::"r"(barrier_id) : "memory");
+    }
+  }
+
+  CUDA_INLINE static void sync_load_threads() { sync_part_threads<kNumLoadThreads, Base::kNumThreads, 2>(); }
+};

@@ -1,0 +1,3291 @@
+{
+  "cuda_initialized": false,
+  "results": [
+    {
+      "layer": 0,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 131.0,
+      "max": 131.0
+    },
+    {
+      "layer": 0,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 131.0,
+      "max": 131.0
+    },
+    {
+      "layer": 0,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 142,
+      "min": 157.0,
+      "max": 2800.0
+    },
+    {
+      "layer": 0,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 0,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 96,
+      "min": 18432.0,
+      "max": 60928.0
+    },
+    {
+      "layer": 0,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 96,
+      "min": 18432.0,
+      "max": 60928.0
+    },
+    {
+      "layer": 0,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 118,
+      "min": 13952.0,
+      "max": 54784.0
+    },
+    {
+      "layer": 0,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 1,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 173.0,
+      "max": 173.0
+    },
+    {
+      "layer": 1,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 173.0,
+      "max": 173.0
+    },
+    {
+      "layer": 1,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 141,
+      "min": 202.0,
+      "max": 1520.0
+    },
+    {
+      "layer": 1,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 1,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 83,
+      "min": 22400.0,
+      "max": 59136.0
+    },
+    {
+      "layer": 1,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 83,
+      "min": 22400.0,
+      "max": 59136.0
+    },
+    {
+      "layer": 1,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 106,
+      "min": 15360.0,
+      "max": 57088.0
+    },
+    {
+      "layer": 1,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 2,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 203.0,
+      "max": 203.0
+    },
+    {
+      "layer": 2,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 203.0,
+      "max": 203.0
+    },
+    {
+      "layer": 2,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 115,
+      "min": 205.0,
+      "max": 868.0
+    },
+    {
+      "layer": 2,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 2,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 62,
+      "min": 22144.0,
+      "max": 56064.0
+    },
+    {
+      "layer": 2,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 62,
+      "min": 22144.0,
+      "max": 56064.0
+    },
+    {
+      "layer": 2,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 79,
+      "min": 9344.0,
+      "max": 55808.0
+    },
+    {
+      "layer": 2,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 3,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 168.0,
+      "max": 168.0
+    },
+    {
+      "layer": 3,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 168.0,
+      "max": 168.0
+    },
+    {
+      "layer": 3,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 120,
+      "min": 146.0,
+      "max": 904.0
+    },
+    {
+      "layer": 3,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 3,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 88,
+      "min": 12416.0,
+      "max": 56320.0
+    },
+    {
+      "layer": 3,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 88,
+      "min": 12416.0,
+      "max": 56320.0
+    },
+    {
+      "layer": 3,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 113,
+      "min": 5152.0,
+      "max": 57088.0
+    },
+    {
+      "layer": 3,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 4,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 137.0,
+      "max": 137.0
+    },
+    {
+      "layer": 4,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 137.0,
+      "max": 137.0
+    },
+    {
+      "layer": 4,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 147,
+      "min": 143.0,
+      "max": 1200.0
+    },
+    {
+      "layer": 4,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 4,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 85,
+      "min": 11264.0,
+      "max": 55040.0
+    },
+    {
+      "layer": 4,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 85,
+      "min": 11264.0,
+      "max": 55040.0
+    },
+    {
+      "layer": 4,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 103,
+      "min": 11776.0,
+      "max": 57856.0
+    },
+    {
+      "layer": 4,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 5,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 156.0,
+      "max": 156.0
+    },
+    {
+      "layer": 5,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 156.0,
+      "max": 156.0
+    },
+    {
+      "layer": 5,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 148,
+      "min": 148.0,
+      "max": 1720.0
+    },
+    {
+      "layer": 5,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 5,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 81,
+      "min": 13696.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 5,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 81,
+      "min": 13696.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 5,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 97,
+      "min": 11840.0,
+      "max": 58368.0
+    },
+    {
+      "layer": 5,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 6,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 85.5,
+      "max": 85.5
+    },
+    {
+      "layer": 6,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 85.5,
+      "max": 85.5
+    },
+    {
+      "layer": 6,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 152,
+      "min": 147.0,
+      "max": 1576.0
+    },
+    {
+      "layer": 6,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 6,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 84,
+      "min": 11520.0,
+      "max": 57856.0
+    },
+    {
+      "layer": 6,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 84,
+      "min": 11520.0,
+      "max": 57856.0
+    },
+    {
+      "layer": 6,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 96,
+      "min": 9728.0,
+      "max": 57856.0
+    },
+    {
+      "layer": 6,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 7,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 79.0,
+      "max": 79.0
+    },
+    {
+      "layer": 7,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 79.0,
+      "max": 79.0
+    },
+    {
+      "layer": 7,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 151,
+      "min": 136.0,
+      "max": 1144.0
+    },
+    {
+      "layer": 7,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 7,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 83,
+      "min": 13888.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 7,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 83,
+      "min": 13888.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 7,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 88,
+      "min": 8160.0,
+      "max": 56064.0
+    },
+    {
+      "layer": 7,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 8,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 80.5,
+      "max": 80.5
+    },
+    {
+      "layer": 8,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 80.5,
+      "max": 80.5
+    },
+    {
+      "layer": 8,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 143,
+      "min": 126.5,
+      "max": 1256.0
+    },
+    {
+      "layer": 8,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 8,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 97,
+      "min": 13504.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 8,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 97,
+      "min": 13504.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 8,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 100,
+      "min": 9984.0,
+      "max": 56832.0
+    },
+    {
+      "layer": 8,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 9,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 80.5,
+      "max": 80.5
+    },
+    {
+      "layer": 9,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 80.5,
+      "max": 80.5
+    },
+    {
+      "layer": 9,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 155,
+      "min": 123.5,
+      "max": 1352.0
+    },
+    {
+      "layer": 9,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 9,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 104,
+      "min": 13888.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 9,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 104,
+      "min": 13888.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 9,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 110,
+      "min": 12416.0,
+      "max": 57088.0
+    },
+    {
+      "layer": 9,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 10,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 58.75,
+      "max": 58.75
+    },
+    {
+      "layer": 10,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 58.75,
+      "max": 58.75
+    },
+    {
+      "layer": 10,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 165,
+      "min": 124.0,
+      "max": 1336.0
+    },
+    {
+      "layer": 10,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 10,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 112,
+      "min": 10112.0,
+      "max": 55040.0
+    },
+    {
+      "layer": 10,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 112,
+      "min": 10112.0,
+      "max": 55040.0
+    },
+    {
+      "layer": 10,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 115,
+      "min": 11008.0,
+      "max": 56064.0
+    },
+    {
+      "layer": 10,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 11,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.5,
+      "max": 56.5
+    },
+    {
+      "layer": 11,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.5,
+      "max": 56.5
+    },
+    {
+      "layer": 11,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 155,
+      "min": 120.0,
+      "max": 1264.0
+    },
+    {
+      "layer": 11,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 11,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 115,
+      "min": 12160.0,
+      "max": 54784.0
+    },
+    {
+      "layer": 11,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 115,
+      "min": 12160.0,
+      "max": 54784.0
+    },
+    {
+      "layer": 11,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 110,
+      "min": 12288.0,
+      "max": 55808.0
+    },
+    {
+      "layer": 11,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 12,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 59.75,
+      "max": 59.75
+    },
+    {
+      "layer": 12,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 59.75,
+      "max": 59.75
+    },
+    {
+      "layer": 12,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 161,
+      "min": 122.5,
+      "max": 1320.0
+    },
+    {
+      "layer": 12,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 12,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 95,
+      "min": 12544.0,
+      "max": 53504.0
+    },
+    {
+      "layer": 12,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 95,
+      "min": 12544.0,
+      "max": 53504.0
+    },
+    {
+      "layer": 12,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 103,
+      "min": 11776.0,
+      "max": 57856.0
+    },
+    {
+      "layer": 12,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 13,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.5,
+      "max": 56.5
+    },
+    {
+      "layer": 13,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.5,
+      "max": 56.5
+    },
+    {
+      "layer": 13,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 154,
+      "min": 121.0,
+      "max": 1216.0
+    },
+    {
+      "layer": 13,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 13,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 107,
+      "min": 12288.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 13,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 107,
+      "min": 12288.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 13,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 103,
+      "min": 8960.0,
+      "max": 55808.0
+    },
+    {
+      "layer": 13,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 14,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 57.0,
+      "max": 57.0
+    },
+    {
+      "layer": 14,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 57.0,
+      "max": 57.0
+    },
+    {
+      "layer": 14,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 150,
+      "min": 163.0,
+      "max": 1288.0
+    },
+    {
+      "layer": 14,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 14,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 105,
+      "min": 12608.0,
+      "max": 53760.0
+    },
+    {
+      "layer": 14,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 105,
+      "min": 12608.0,
+      "max": 53760.0
+    },
+    {
+      "layer": 14,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 120,
+      "min": 11072.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 14,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 15,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 57.0,
+      "max": 57.0
+    },
+    {
+      "layer": 15,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 57.0,
+      "max": 57.0
+    },
+    {
+      "layer": 15,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 156,
+      "min": 140.0,
+      "max": 1136.0
+    },
+    {
+      "layer": 15,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 15,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 103,
+      "min": 13440.0,
+      "max": 54016.0
+    },
+    {
+      "layer": 15,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 103,
+      "min": 13440.0,
+      "max": 54016.0
+    },
+    {
+      "layer": 15,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 94,
+      "min": 6400.0,
+      "max": 55040.0
+    },
+    {
+      "layer": 15,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 16,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 54.75,
+      "max": 54.75
+    },
+    {
+      "layer": 16,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 54.75,
+      "max": 54.75
+    },
+    {
+      "layer": 16,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 156,
+      "min": 154.0,
+      "max": 1200.0
+    },
+    {
+      "layer": 16,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 16,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 108,
+      "min": 11328.0,
+      "max": 57088.0
+    },
+    {
+      "layer": 16,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 108,
+      "min": 11328.0,
+      "max": 57088.0
+    },
+    {
+      "layer": 16,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 110,
+      "min": 10688.0,
+      "max": 54016.0
+    },
+    {
+      "layer": 16,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 17,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.0,
+      "max": 56.0
+    },
+    {
+      "layer": 17,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.0,
+      "max": 56.0
+    },
+    {
+      "layer": 17,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 157,
+      "min": 112.0,
+      "max": 1072.0
+    },
+    {
+      "layer": 17,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 17,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 115,
+      "min": 8832.0,
+      "max": 52992.0
+    },
+    {
+      "layer": 17,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 115,
+      "min": 8832.0,
+      "max": 52992.0
+    },
+    {
+      "layer": 17,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 103,
+      "min": 6208.0,
+      "max": 54016.0
+    },
+    {
+      "layer": 17,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 18,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.0,
+      "max": 56.0
+    },
+    {
+      "layer": 18,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.0,
+      "max": 56.0
+    },
+    {
+      "layer": 18,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 155,
+      "min": 122.5,
+      "max": 1136.0
+    },
+    {
+      "layer": 18,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 18,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 111,
+      "min": 12992.0,
+      "max": 52992.0
+    },
+    {
+      "layer": 18,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 111,
+      "min": 12992.0,
+      "max": 52992.0
+    },
+    {
+      "layer": 18,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 114,
+      "min": 7936.0,
+      "max": 51456.0
+    },
+    {
+      "layer": 18,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 19,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 53.75,
+      "max": 53.75
+    },
+    {
+      "layer": 19,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 53.75,
+      "max": 53.75
+    },
+    {
+      "layer": 19,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 153,
+      "min": 105.5,
+      "max": 980.0
+    },
+    {
+      "layer": 19,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 19,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 109,
+      "min": 11008.0,
+      "max": 52992.0
+    },
+    {
+      "layer": 19,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 109,
+      "min": 11008.0,
+      "max": 52992.0
+    },
+    {
+      "layer": 19,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 97,
+      "min": 7008.0,
+      "max": 54528.0
+    },
+    {
+      "layer": 19,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 20,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 52.75,
+      "max": 52.75
+    },
+    {
+      "layer": 20,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 52.75,
+      "max": 52.75
+    },
+    {
+      "layer": 20,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 151,
+      "min": 96.5,
+      "max": 1136.0
+    },
+    {
+      "layer": 20,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 20,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 116,
+      "min": 11840.0,
+      "max": 54784.0
+    },
+    {
+      "layer": 20,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 116,
+      "min": 11840.0,
+      "max": 54784.0
+    },
+    {
+      "layer": 20,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 103,
+      "min": 8064.0,
+      "max": 56064.0
+    },
+    {
+      "layer": 20,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 21,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 53.25,
+      "max": 53.25
+    },
+    {
+      "layer": 21,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 53.25,
+      "max": 53.25
+    },
+    {
+      "layer": 21,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 141,
+      "min": 111.5,
+      "max": 1120.0
+    },
+    {
+      "layer": 21,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 21,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 125,
+      "min": 10048.0,
+      "max": 53504.0
+    },
+    {
+      "layer": 21,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 125,
+      "min": 10048.0,
+      "max": 53504.0
+    },
+    {
+      "layer": 21,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 102,
+      "min": 7008.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 21,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 22,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 49.25,
+      "max": 49.25
+    },
+    {
+      "layer": 22,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 49.25,
+      "max": 49.25
+    },
+    {
+      "layer": 22,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 154,
+      "min": 158.0,
+      "max": 1216.0
+    },
+    {
+      "layer": 22,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 22,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 126,
+      "min": 12608.0,
+      "max": 53504.0
+    },
+    {
+      "layer": 22,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 126,
+      "min": 12608.0,
+      "max": 53504.0
+    },
+    {
+      "layer": 22,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 131,
+      "min": 7776.0,
+      "max": 52992.0
+    },
+    {
+      "layer": 22,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 23,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 47.0,
+      "max": 47.0
+    },
+    {
+      "layer": 23,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 47.0,
+      "max": 47.0
+    },
+    {
+      "layer": 23,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 151,
+      "min": 102.5,
+      "max": 1200.0
+    },
+    {
+      "layer": 23,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 23,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 125,
+      "min": 8768.0,
+      "max": 53760.0
+    },
+    {
+      "layer": 23,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 125,
+      "min": 8768.0,
+      "max": 53760.0
+    },
+    {
+      "layer": 23,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 122,
+      "min": 6400.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 23,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 24,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.25,
+      "max": 48.25
+    },
+    {
+      "layer": 24,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.25,
+      "max": 48.25
+    },
+    {
+      "layer": 24,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 160,
+      "min": 97.0,
+      "max": 1032.0
+    },
+    {
+      "layer": 24,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 24,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 118,
+      "min": 11648.0,
+      "max": 54016.0
+    },
+    {
+      "layer": 24,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 118,
+      "min": 11648.0,
+      "max": 54016.0
+    },
+    {
+      "layer": 24,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 106,
+      "min": 11840.0,
+      "max": 56064.0
+    },
+    {
+      "layer": 24,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 25,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.5,
+      "max": 48.5
+    },
+    {
+      "layer": 25,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.5,
+      "max": 48.5
+    },
+    {
+      "layer": 25,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 161,
+      "min": 105.5,
+      "max": 1048.0
+    },
+    {
+      "layer": 25,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 25,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 121,
+      "min": 10176.0,
+      "max": 52480.0
+    },
+    {
+      "layer": 25,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 121,
+      "min": 10176.0,
+      "max": 52480.0
+    },
+    {
+      "layer": 25,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 112,
+      "min": 11264.0,
+      "max": 57088.0
+    },
+    {
+      "layer": 25,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 26,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 49.25,
+      "max": 49.25
+    },
+    {
+      "layer": 26,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 49.25,
+      "max": 49.25
+    },
+    {
+      "layer": 26,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 149,
+      "min": 105.5,
+      "max": 944.0
+    },
+    {
+      "layer": 26,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 26,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 117,
+      "min": 10560.0,
+      "max": 53504.0
+    },
+    {
+      "layer": 26,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 117,
+      "min": 10560.0,
+      "max": 53504.0
+    },
+    {
+      "layer": 26,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 127,
+      "min": 11264.0,
+      "max": 52736.0
+    },
+    {
+      "layer": 26,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 27,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.0,
+      "max": 48.0
+    },
+    {
+      "layer": 27,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.0,
+      "max": 48.0
+    },
+    {
+      "layer": 27,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 157,
+      "min": 77.0,
+      "max": 868.0
+    },
+    {
+      "layer": 27,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 27,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 120,
+      "min": 8064.0,
+      "max": 51200.0
+    },
+    {
+      "layer": 27,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 120,
+      "min": 8064.0,
+      "max": 51200.0
+    },
+    {
+      "layer": 27,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 104,
+      "min": 8704.0,
+      "max": 55552.0
+    },
+    {
+      "layer": 27,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 28,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.0,
+      "max": 48.0
+    },
+    {
+      "layer": 28,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.0,
+      "max": 48.0
+    },
+    {
+      "layer": 28,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 156,
+      "min": 95.0,
+      "max": 868.0
+    },
+    {
+      "layer": 28,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 28,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 129,
+      "min": 8160.0,
+      "max": 51456.0
+    },
+    {
+      "layer": 28,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 129,
+      "min": 8160.0,
+      "max": 51456.0
+    },
+    {
+      "layer": 28,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 111,
+      "min": 7424.0,
+      "max": 51456.0
+    },
+    {
+      "layer": 28,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 29,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.25,
+      "max": 48.25
+    },
+    {
+      "layer": 29,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.25,
+      "max": 48.25
+    },
+    {
+      "layer": 29,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 156,
+      "min": 107.5,
+      "max": 776.0
+    },
+    {
+      "layer": 29,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 29,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 138,
+      "min": 10304.0,
+      "max": 51968.0
+    },
+    {
+      "layer": 29,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 138,
+      "min": 10304.0,
+      "max": 51968.0
+    },
+    {
+      "layer": 29,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 117,
+      "min": 11008.0,
+      "max": 53760.0
+    },
+    {
+      "layer": 29,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 30,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.5,
+      "max": 48.5
+    },
+    {
+      "layer": 30,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 48.5,
+      "max": 48.5
+    },
+    {
+      "layer": 30,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 150,
+      "min": 91.0,
+      "max": 708.0
+    },
+    {
+      "layer": 30,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 30,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 140,
+      "min": 10432.0,
+      "max": 51712.0
+    },
+    {
+      "layer": 30,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 140,
+      "min": 10432.0,
+      "max": 51712.0
+    },
+    {
+      "layer": 30,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 115,
+      "min": 9920.0,
+      "max": 51968.0
+    },
+    {
+      "layer": 30,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 31,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 50.5,
+      "max": 50.5
+    },
+    {
+      "layer": 31,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 50.5,
+      "max": 50.5
+    },
+    {
+      "layer": 31,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 148,
+      "min": 64.5,
+      "max": 636.0
+    },
+    {
+      "layer": 31,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 31,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 129,
+      "min": 11008.0,
+      "max": 49664.0
+    },
+    {
+      "layer": 31,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 129,
+      "min": 11008.0,
+      "max": 49664.0
+    },
+    {
+      "layer": 31,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 116,
+      "min": 7520.0,
+      "max": 51200.0
+    },
+    {
+      "layer": 31,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 32,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 52.75,
+      "max": 52.75
+    },
+    {
+      "layer": 32,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 52.75,
+      "max": 52.75
+    },
+    {
+      "layer": 32,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 148,
+      "min": 52.5,
+      "max": 572.0
+    },
+    {
+      "layer": 32,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 32,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 148,
+      "min": 9728.0,
+      "max": 49664.0
+    },
+    {
+      "layer": 32,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 148,
+      "min": 9728.0,
+      "max": 49664.0
+    },
+    {
+      "layer": 32,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 126,
+      "min": 9600.0,
+      "max": 51200.0
+    },
+    {
+      "layer": 32,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 33,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 51.5,
+      "max": 51.5
+    },
+    {
+      "layer": 33,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 51.5,
+      "max": 51.5
+    },
+    {
+      "layer": 33,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 136,
+      "min": 51.75,
+      "max": 588.0
+    },
+    {
+      "layer": 33,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 33,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 130,
+      "min": 8704.0,
+      "max": 50688.0
+    },
+    {
+      "layer": 33,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 130,
+      "min": 8704.0,
+      "max": 50688.0
+    },
+    {
+      "layer": 33,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 132,
+      "min": 7008.0,
+      "max": 49664.0
+    },
+    {
+      "layer": 33,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 34,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 61.25,
+      "max": 61.25
+    },
+    {
+      "layer": 34,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 61.25,
+      "max": 61.25
+    },
+    {
+      "layer": 34,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 148,
+      "min": 45.25,
+      "max": 502.0
+    },
+    {
+      "layer": 34,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 34,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 135,
+      "min": 7264.0,
+      "max": 48384.0
+    },
+    {
+      "layer": 34,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 135,
+      "min": 7264.0,
+      "max": 48384.0
+    },
+    {
+      "layer": 34,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 140,
+      "min": 8256.0,
+      "max": 48128.0
+    },
+    {
+      "layer": 34,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 35,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.5,
+      "max": 56.5
+    },
+    {
+      "layer": 35,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.5,
+      "max": 56.5
+    },
+    {
+      "layer": 35,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 138,
+      "min": 36.0,
+      "max": 368.0
+    },
+    {
+      "layer": 35,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 35,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 144,
+      "min": 6688.0,
+      "max": 49664.0
+    },
+    {
+      "layer": 35,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 144,
+      "min": 6688.0,
+      "max": 49664.0
+    },
+    {
+      "layer": 35,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 117,
+      "min": 7040.0,
+      "max": 51200.0
+    },
+    {
+      "layer": 35,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 36,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.5,
+      "max": 56.5
+    },
+    {
+      "layer": 36,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 56.5,
+      "max": 56.5
+    },
+    {
+      "layer": 36,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 146,
+      "min": 24.625,
+      "max": 326.0
+    },
+    {
+      "layer": 36,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 36,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 150,
+      "min": 6304.0,
+      "max": 48384.0
+    },
+    {
+      "layer": 36,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 150,
+      "min": 6304.0,
+      "max": 48384.0
+    },
+    {
+      "layer": 36,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 132,
+      "min": 9216.0,
+      "max": 48384.0
+    },
+    {
+      "layer": 36,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 37,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 63.0,
+      "max": 63.0
+    },
+    {
+      "layer": 37,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 63.0,
+      "max": 63.0
+    },
+    {
+      "layer": 37,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 144,
+      "min": 27.5,
+      "max": 346.0
+    },
+    {
+      "layer": 37,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 37,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 144,
+      "min": 7104.0,
+      "max": 47104.0
+    },
+    {
+      "layer": 37,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 144,
+      "min": 7104.0,
+      "max": 47104.0
+    },
+    {
+      "layer": 37,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 137,
+      "min": 9856.0,
+      "max": 49152.0
+    },
+    {
+      "layer": 37,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 38,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 90.0,
+      "max": 90.0
+    },
+    {
+      "layer": 38,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 90.0,
+      "max": 90.0
+    },
+    {
+      "layer": 38,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 149,
+      "min": 25.25,
+      "max": 392.0
+    },
+    {
+      "layer": 38,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 38,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 154,
+      "min": 6816.0,
+      "max": 47616.0
+    },
+    {
+      "layer": 38,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 154,
+      "min": 6816.0,
+      "max": 47616.0
+    },
+    {
+      "layer": 38,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 141,
+      "min": 10496.0,
+      "max": 47616.0
+    },
+    {
+      "layer": 38,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 39,
+      "kind": "input_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 81.5,
+      "max": 81.5
+    },
+    {
+      "layer": 39,
+      "kind": "input_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 1,
+      "min": 81.5,
+      "max": 81.5
+    },
+    {
+      "layer": 39,
+      "kind": "input_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 166,
+      "min": 5.125,
+      "max": 438.0
+    },
+    {
+      "layer": 39,
+      "kind": "input_global_scale",
+      "gate_up_exact_equal": true
+    },
+    {
+      "layer": 39,
+      "kind": "weight_global_scale",
+      "projection": "gate_proj",
+      "count": 256,
+      "unique": 141,
+      "min": 7168.0,
+      "max": 44032.0
+    },
+    {
+      "layer": 39,
+      "kind": "weight_global_scale",
+      "projection": "up_proj",
+      "count": 256,
+      "unique": 141,
+      "min": 7168.0,
+      "max": 44032.0
+    },
+    {
+      "layer": 39,
+      "kind": "weight_global_scale",
+      "projection": "down_proj",
+      "count": 256,
+      "unique": 150,
+      "min": 4128.0,
+      "max": 49152.0
+    },
+    {
+      "layer": 39,
+      "kind": "weight_global_scale",
+      "gate_up_exact_equal": true
+    }
+  ],
+  "contracts": [
+    {
+      "layer": 0,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.007633587811142206
+    },
+    {
+      "layer": 0,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.007633587811142206
+    },
+    {
+      "layer": 0,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.006369426846504211
+    },
+    {
+      "layer": 1,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.005780346691608429
+    },
+    {
+      "layer": 1,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.005780346691608429
+    },
+    {
+      "layer": 1,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.004950494971126318
+    },
+    {
+      "layer": 2,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.004926108289510012
+    },
+    {
+      "layer": 2,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.004926108289510012
+    },
+    {
+      "layer": 2,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.004878048785030842
+    },
+    {
+      "layer": 3,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.0059523810632526875
+    },
+    {
+      "layer": 3,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.0059523810632526875
+    },
+    {
+      "layer": 3,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.006849315017461777
+    },
+    {
+      "layer": 4,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.007299270015209913
+    },
+    {
+      "layer": 4,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.007299270015209913
+    },
+    {
+      "layer": 4,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.00699300691485405
+    },
+    {
+      "layer": 5,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.006410256493836641
+    },
+    {
+      "layer": 5,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.006410256493836641
+    },
+    {
+      "layer": 5,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.006756756920367479
+    },
+    {
+      "layer": 6,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.011695906519889832
+    },
+    {
+      "layer": 6,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.011695906519889832
+    },
+    {
+      "layer": 6,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.006802720949053764
+    },
+    {
+      "layer": 7,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012658228166401386
+    },
+    {
+      "layer": 7,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012658228166401386
+    },
+    {
+      "layer": 7,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.007352941203862429
+    },
+    {
+      "layer": 8,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012422360479831696
+    },
+    {
+      "layer": 8,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012422360479831696
+    },
+    {
+      "layer": 8,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.007905138656497002
+    },
+    {
+      "layer": 9,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012422360479831696
+    },
+    {
+      "layer": 9,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012422360479831696
+    },
+    {
+      "layer": 9,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.008097166195511818
+    },
+    {
+      "layer": 10,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01702127605676651
+    },
+    {
+      "layer": 10,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01702127605676651
+    },
+    {
+      "layer": 10,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.008064515888690948
+    },
+    {
+      "layer": 11,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017699114978313446
+    },
+    {
+      "layer": 11,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017699114978313446
+    },
+    {
+      "layer": 11,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.008333333767950535
+    },
+    {
+      "layer": 12,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.016736401244997978
+    },
+    {
+      "layer": 12,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.016736401244997978
+    },
+    {
+      "layer": 12,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.008163264952600002
+    },
+    {
+      "layer": 13,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017699114978313446
+    },
+    {
+      "layer": 13,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017699114978313446
+    },
+    {
+      "layer": 13,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.00826446246355772
+    },
+    {
+      "layer": 14,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017543859779834747
+    },
+    {
+      "layer": 14,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017543859779834747
+    },
+    {
+      "layer": 14,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.0061349691823124886
+    },
+    {
+      "layer": 15,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017543859779834747
+    },
+    {
+      "layer": 15,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017543859779834747
+    },
+    {
+      "layer": 15,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.0071428571827709675
+    },
+    {
+      "layer": 16,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01826483942568302
+    },
+    {
+      "layer": 16,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01826483942568302
+    },
+    {
+      "layer": 16,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.006493506487458944
+    },
+    {
+      "layer": 17,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01785714365541935
+    },
+    {
+      "layer": 17,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01785714365541935
+    },
+    {
+      "layer": 17,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.008928571827709675
+    },
+    {
+      "layer": 18,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01785714365541935
+    },
+    {
+      "layer": 18,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01785714365541935
+    },
+    {
+      "layer": 18,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.008163264952600002
+    },
+    {
+      "layer": 19,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01860465109348297
+    },
+    {
+      "layer": 19,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01860465109348297
+    },
+    {
+      "layer": 19,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.009478673338890076
+    },
+    {
+      "layer": 20,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01895734667778015
+    },
+    {
+      "layer": 20,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01895734667778015
+    },
+    {
+      "layer": 20,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.010362694039940834
+    },
+    {
+      "layer": 21,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.018779342994093895
+    },
+    {
+      "layer": 21,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.018779342994093895
+    },
+    {
+      "layer": 21,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.008968610316514969
+    },
+    {
+      "layer": 22,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020304568111896515
+    },
+    {
+      "layer": 22,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020304568111896515
+    },
+    {
+      "layer": 22,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.006329114083200693
+    },
+    {
+      "layer": 23,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.021276595070958138
+    },
+    {
+      "layer": 23,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.021276595070958138
+    },
+    {
+      "layer": 23,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.009756097570061684
+    },
+    {
+      "layer": 24,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020725388079881668
+    },
+    {
+      "layer": 24,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020725388079881668
+    },
+    {
+      "layer": 24,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.010309278033673763
+    },
+    {
+      "layer": 25,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020618556067347527
+    },
+    {
+      "layer": 25,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020618556067347527
+    },
+    {
+      "layer": 25,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.009478673338890076
+    },
+    {
+      "layer": 26,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020304568111896515
+    },
+    {
+      "layer": 26,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020304568111896515
+    },
+    {
+      "layer": 26,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.009478673338890076
+    },
+    {
+      "layer": 27,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.02083333395421505
+    },
+    {
+      "layer": 27,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.02083333395421505
+    },
+    {
+      "layer": 27,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012987012974917889
+    },
+    {
+      "layer": 28,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.02083333395421505
+    },
+    {
+      "layer": 28,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.02083333395421505
+    },
+    {
+      "layer": 28,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.010526316240429878
+    },
+    {
+      "layer": 29,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020725388079881668
+    },
+    {
+      "layer": 29,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020725388079881668
+    },
+    {
+      "layer": 29,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.009302325546741486
+    },
+    {
+      "layer": 30,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020618556067347527
+    },
+    {
+      "layer": 30,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.020618556067347527
+    },
+    {
+      "layer": 30,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.010989011265337467
+    },
+    {
+      "layer": 31,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.019801979884505272
+    },
+    {
+      "layer": 31,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.019801979884505272
+    },
+    {
+      "layer": 31,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01550387591123581
+    },
+    {
+      "layer": 32,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01895734667778015
+    },
+    {
+      "layer": 32,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01895734667778015
+    },
+    {
+      "layer": 32,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01904761977493763
+    },
+    {
+      "layer": 33,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.019417475908994675
+    },
+    {
+      "layer": 33,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.019417475908994675
+    },
+    {
+      "layer": 33,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.019323671236634254
+    },
+    {
+      "layer": 34,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.016326529905200005
+    },
+    {
+      "layer": 34,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.016326529905200005
+    },
+    {
+      "layer": 34,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.0220994483679533
+    },
+    {
+      "layer": 35,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017699114978313446
+    },
+    {
+      "layer": 35,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017699114978313446
+    },
+    {
+      "layer": 35,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.02777777798473835
+    },
+    {
+      "layer": 36,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017699114978313446
+    },
+    {
+      "layer": 36,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.017699114978313446
+    },
+    {
+      "layer": 36,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.04060913622379303
+    },
+    {
+      "layer": 37,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01587301678955555
+    },
+    {
+      "layer": 37,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.01587301678955555
+    },
+    {
+      "layer": 37,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.036363635212183
+    },
+    {
+      "layer": 38,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.011111111380159855
+    },
+    {
+      "layer": 38,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.011111111380159855
+    },
+    {
+      "layer": 38,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.039603959769010544
+    },
+    {
+      "layer": 39,
+      "projection": "gate_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012269938364624977
+    },
+    {
+      "layer": 39,
+      "projection": "up_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.012269938364624977
+    },
+    {
+      "layer": 39,
+      "projection": "down_proj",
+      "exact": true,
+      "effective_dequant_scale": 0.19512194395065308
+    }
+  ],
+  "source_sha256": {
+    "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/utils/quant_utils.py": "d25a4290d9b8530e38a073125ca6122b40054583814198eb5c8306adf21263d7",
+    "/usr/local/lib/python3.12/dist-packages/humming/schema/base.py": "23dbcd7d0023b4a33027720c7eeb4f06ab1956935d80e88858fef2a6d70bebaf"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "profiles": [
+    {
+      "profile": "off",
+      "sha256": "41fdaef25fa8fe8d4669fdaeefee8fc9e632ca5f8edf10d55a96ba4ad90602e8"
+    },
+    {
+      "profile": "bf16",
+      "sha256": "37d2c4946b5f99ea7879ceb8356365d8b9e22c0d9a6969172cd4b2212e4a521a"
+    },
+    {
+      "profile": "fp8",
+      "sha256": "167ede769d3fe6310b5823dc36a0d297107d2384160adec104d3f866a1f98c4c"
+    },
+    {
+      "profile": "both",
+      "sha256": "a3a8438e6dd93ffef643057ff1baf900720cc2c64ad1d84c841cb646f13e743c"
+    },
+    {
+      "profile": "fp8_m32",
+      "sha256": "680b6a4af0f9e209b8fb01d4edda77398691e07ab419842e2324dd71b418297e"
+    }
+  ],
+  "cuda_initialized": false
+}

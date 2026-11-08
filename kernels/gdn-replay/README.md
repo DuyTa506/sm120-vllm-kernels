@@ -178,3 +178,21 @@ c=64 (2.9 ms scaled to the 353 us/layer in the trace), 1.6 ms at c=32 and 0.6 ms
 - Recommendation: keep it default-off. Enable `VLLM_GDN_STATE_REPLAY=1` (and prefer
   `VLLM_GDN_STATE_REPLAY_MIN_REQS=32`) only for deployments that routinely run >= 48 concurrent decodes; there it is
   a bit-exact, +7 % throughput change. Do not pursue the deferred form for ~2 ms more.
+
+## Round-two composition audit (2026-10-28)
+
+The existing replay patch passes a CPU-only dry-run against the current
+`CONFIG=next` GDN source plus pristine vLLM0.32 image `envs.py` and
+`mamba_hybrid.py`. All hunks apply without fuzz; the GDN hunks have line offsets
+because the next stack contains the existing prefill/conv changes. Exact input
+hashes and patch output are retained in
+[`results/round2_composition_audit/audit.json`](results/round2_composition_audit/audit.json)
+and [`patch_check.log`](results/round2_composition_audit/patch_check.log).
+
+This proves source applicability only. The historical serving gains above are
+not measurements on the new scalar-MoE composition. Current-stack shadow/state
+checks, actual preemption coverage and paired high-concurrency serving runs
+remain pending. A dynamic MTP-depth experiment is being prepared separately;
+its combination with state replay also remains unverified. The replay CUDA code
+uses per-row query lengths, but that alone does not prove cross-step state,
+metadata and graph behavior when proposal depth changes.

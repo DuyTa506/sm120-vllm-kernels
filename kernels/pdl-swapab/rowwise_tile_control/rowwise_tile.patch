@@ -1,0 +1,52 @@
+--- a/csrc/jit_kernels/impls/sm120_fp8_fp4_gemm_1d1d.hpp
++++ b/csrc/jit_kernels/impls/sm120_fp8_fp4_gemm_1d1d.hpp
+@@ -1,3 +1,6 @@
++#include <cstdio>
++#include <cstdlib>
++#include <cstring>
+ #pragma once
+ 
+ #include <limits>
+@@ -260,6 +263,26 @@
+     };
+ 
+     auto config = get_best_sm120_config<SM120ArchSpec>(desc);
++    const char* rowwise_tile = std::getenv("DG_ROWWISE_SWAP_TILE");
++    const bool narrow = rowwise_tile and std::strcmp(rowwise_tile, "64x16") == 0;
++    DG_HOST_ASSERT(not rowwise_tile or std::strcmp(rowwise_tile, "auto") == 0 or narrow);
++    if (narrow) {
++        DG_HOST_ASSERT(row_scale.has_value() and col_scale.has_value() and swap_ab);
++        DG_HOST_ASSERT(m == 12288 and n >= 1 and n <= 16 and k == 2048);
++        DG_HOST_ASSERT(not c.has_value() and not alpha.has_value());
++        const auto candidates = SM120ArchSpec::get_layout_candidates(desc);
++        int matches = 0;
++        for (const auto& layout : candidates) {
++            if (layout.block_m == 64 and layout.block_n == 16 and layout.block_k == 64) {
++                config.layout = layout;
++                ++ matches;
++            }
++        }
++        DG_HOST_ASSERT(matches == 1); // Fail if native legality/selection changes.
++        config.storage_config = SM120ArchSpec::get_storage_config(desc, config.layout);
++        config.pipeline_config = SM120ArchSpec::get_pipeline_config(desc, config.layout, config.storage_config);
++        config.launch_config = SM120ArchSpec::get_launch_config(desc, config.layout);
++    }
+     config.split_k_factor = SM120ArchSpec::get_split_k_factor(desc, config.layout);
+     DG_HOST_ASSERT(row_scale.has_value() == col_scale.has_value());
+     if (row_scale.has_value()) {
+@@ -268,6 +291,15 @@
+         // Only the explicitly tiny API may use the transposed row/channel path.
+         if (swap_ab) DG_HOST_ASSERT(n >= 1 and n <= 16);
+         DG_HOST_ASSERT(not alpha.has_value() and not epilogue_type.has_value());
++        if (std::getenv("DG_ROWWISE_SWAP_TRACE")) {
++            const int logical_tiles = ceil_div(m, config.layout.block_m) * ceil_div(n, config.layout.block_n);
++            std::printf("ROWWISE_POLICY_V1 policy=%s effective_m=%d effective_n=%d k=%d block_m=%d block_n=%d block_k=%d logical_tiles=%d grid_ctas=%d first_wave_work=%d smem=%d stages=%d split_k=%d\n",
++                narrow ? "64x16" : (swap_ab ? "auto_swap" : "off"), m, n, k,
++                config.layout.block_m, config.layout.block_n, config.layout.block_k,
++                logical_tiles, config.launch_config.num_sms, std::min(logical_tiles, config.launch_config.num_sms),
++                config.pipeline_config.smem_size, config.pipeline_config.num_stages, config.split_k_factor);
++            std::fflush(stdout);
++        }
+     }
+ 
+     const auto cd = c.value_or(d);

@@ -1,0 +1,8 @@
+{
+  "cuda_initialized": false,
+  "flag0_compile_sha256": "c8db40afa1e0c7b32e190459e0232f1a9840675f3dc309bc66543ba25b031faf",
+  "flag1_compile_sha256": "1e40b8d7092f17722dba99c94789192911544674721c86595bded9ef20abb86a",
+  "flag_registered": true,
+  "method": "load composed envs source under isolated module; same non-dynamic factors, no installed file change",
+  "limitation": "VLLM_DP_RANK_LOCAL skipped by isolated module lookup in both cases"
+}

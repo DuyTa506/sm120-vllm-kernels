@@ -1,0 +1,13 @@
+{
+  "status": "CPU_extension_and_four_narrow_NVCC_instantiations_passed",
+  "extension_sha256": "94dfdf2bf3cfdfe7f7b73b8d9815cebc3499a24fa6b00d18f9e70d892a1a5df1",
+  "build_log_sha256": "df366eefb01f005ec6a6d50468719640b2a76ed0992fb7b14c226ef39da821cd",
+  "nvcc_results_sha256": "1de1672b0a9634556220c965620fffd7fc1fdea48b35b669d3cd462e931d7e62",
+  "no_gpu_exposed": true,
+  "template_instantiations": [
+    "tile64_m1",
+    "tile64_m16",
+    "tile64_m3",
+    "tile64_m8"
+  ]
+}

@@ -1,0 +1,325 @@
+#pragma once
+
+#include <humming/utils/base.cuh>
+
+CUDA_INLINE uint64_t create_tma_cache_policy() {
+  uint64_t policy;
+  asm("createpolicy.fractional.L2::evict_first.b64 %0, 1.0;" : "=l"(policy));
+  return policy;
+}
+
+CUDA_INLINE
+void prefetch_tensor_map(const void *desc_ptr) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+  asm volatile("prefetch.tensormap [%0];"
+               :
+               : "l"(gmem_int_desc)
+               : "memory");
+};
+
+template <uint32_t kMultiCastSize = 1, bool kEvictFirst = false>
+CUDA_INLINE void tma_load_1d(const void *desc_ptr, void *smem_ptr, void *mbar_ptr, uint32_t crd0) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+  uint32_t smem_int_mbar = cast_smem_ptr_to_uint(mbar_ptr);
+  uint32_t smem_int_ptr = cast_smem_ptr_to_uint(smem_ptr);
+
+  if constexpr (kMultiCastSize == 1 && kEvictFirst) {
+    uint64_t policy = create_tma_cache_policy();
+    asm volatile("cp.async.bulk.tensor.1d.shared::cta.global.mbarrier::complete_tx::bytes.L2::cache_hint"
+                 " [%0], [%1, {%3}], [%2], %4;"
+                 :
+                 : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "l"(policy)
+                 : "memory");
+  } else if constexpr (kMultiCastSize == 1) {
+    asm volatile("cp.async.bulk.tensor.1d.shared::cta.global.mbarrier::complete_tx::bytes"
+                 " [%0], [%1, {%3}], [%2];"
+                 :
+                 : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0)
+                 : "memory");
+  } else {
+    constexpr uint16_t cast_mask = (1 << kMultiCastSize) - 1;
+    if constexpr (kEvictFirst) {
+      uint64_t policy = create_tma_cache_policy();
+      asm volatile("cp.async.bulk.tensor.1d.shared::cluster.global.mbarrier::complete_tx::bytes.multicast::cluster.L2::cache_hint"
+                   " [%0], [%1, {%4}], [%2], %3, %5;"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "h"(cast_mask), "r"(crd0), "l"(policy)
+                   : "memory");
+    } else {
+      asm volatile("cp.async.bulk.tensor.1d.shared::cluster.global.mbarrier::complete_tx::bytes.multicast::cluster"
+                   " [%0], [%1, {%4}], [%2], %3;"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "h"(cast_mask), "r"(crd0)
+                   : "memory");
+    }
+  }
+}
+
+template <bool kEvictFirst = false>
+CUDA_INLINE void tma_prefetch_1d(const void *desc_ptr, uint32_t crd0) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+
+  if constexpr (kEvictFirst) {
+    uint64_t policy = create_tma_cache_policy();
+    asm volatile("cp.async.bulk.prefetch.tensor.1d.L2.global.L2::cache_hint"
+                 " [%0, {%1}], %2;"
+                 :
+                 : "l"(gmem_int_desc), "r"(crd0), "l"(policy)
+                 : "memory");
+  } else {
+    asm volatile("cp.async.bulk.prefetch.tensor.1d.L2.global"
+                 " [%0, {%1}];"
+                 :
+                 : "l"(gmem_int_desc), "r"(crd0)
+                 : "memory");
+  }
+}
+
+template <bool kEvictFirst = false>
+CUDA_INLINE void tma_prefetch_2d(const void *desc_ptr, uint32_t crd0, uint32_t crd1) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+
+  if constexpr (kEvictFirst) {
+    uint64_t policy = create_tma_cache_policy();
+    asm volatile("cp.async.bulk.prefetch.tensor.2d.L2.global.L2::cache_hint"
+                 " [%0, {%1, %2}], %3;"
+                 :
+                 : "l"(gmem_int_desc), "r"(crd0), "r"(crd1), "l"(policy)
+                 : "memory");
+  } else {
+    asm volatile("cp.async.bulk.prefetch.tensor.2d.L2.global"
+                 " [%0, {%1, %2}];"
+                 :
+                 : "l"(gmem_int_desc), "r"(crd0), "r"(crd1)
+                 : "memory");
+  }
+}
+
+template <bool kEvictFirst = false>
+CUDA_INLINE void tma_prefetch_3d(const void *desc_ptr, uint32_t crd0, uint32_t crd1, uint32_t crd2) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+
+  if constexpr (kEvictFirst) {
+    uint64_t policy = create_tma_cache_policy();
+    asm volatile("cp.async.bulk.prefetch.tensor.3d.L2.global.L2::cache_hint"
+                 " [%0, {%1, %2, %3}], %4;"
+                 :
+                 : "l"(gmem_int_desc), "r"(crd0), "r"(crd1), "r"(crd2), "l"(policy)
+                 : "memory");
+  } else {
+    asm volatile("cp.async.bulk.prefetch.tensor.3d.L2.global"
+                 " [%0, {%1, %2, %3}];"
+                 :
+                 : "l"(gmem_int_desc), "r"(crd0), "r"(crd1), "r"(crd2)
+                 : "memory");
+  }
+}
+
+
+template <uint32_t kMultiCastSize = 1, bool kEvictFirst = false, uint32_t kCtaGroupSize = 1>
+CUDA_INLINE void tma_load_2d(const void *desc_ptr, void *smem_ptr, void *mbar_ptr, uint32_t crd0, uint32_t crd1) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+  uint32_t smem_int_mbar = cast_smem_ptr_to_uint(mbar_ptr);
+  uint32_t smem_int_ptr = cast_smem_ptr_to_uint(smem_ptr);
+
+  if constexpr (kCtaGroupSize == 2) {
+    static_assert(kMultiCastSize == 1);
+    smem_int_mbar = cast_smem_ptr_to_uint(__cluster_map_shared_rank(mbar_ptr, 0));
+    if constexpr (kEvictFirst) {
+      uint64_t policy = create_tma_cache_policy();
+      asm volatile("cp.async.bulk.tensor.2d.cta_group::2.shared::cluster.global.mbarrier::complete_tx::bytes.L2::cache_hint"
+                   " [%0], [%1, {%3, %4}], [%2], %5;"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "r"(crd1), "l"(policy)
+                   : "memory");
+    } else {
+      asm volatile("cp.async.bulk.tensor.2d.cta_group::2.shared::cluster.global.mbarrier::complete_tx::bytes"
+                   " [%0], [%1, {%3, %4}], [%2];"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "r"(crd1)
+                   : "memory");
+    }
+  } else if constexpr (kMultiCastSize == 1 && kEvictFirst) {
+    uint64_t policy = create_tma_cache_policy();
+    asm volatile("cp.async.bulk.tensor.2d.shared::cta.global.mbarrier::complete_tx::bytes.L2::cache_hint"
+                 " [%0], [%1, {%3, %4}], [%2], %5;"
+                 :
+                 : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "r"(crd1), "l"(policy)
+                 : "memory");
+  } else if constexpr (kMultiCastSize == 1) {
+    asm volatile("cp.async.bulk.tensor.2d.shared::cta.global.mbarrier::complete_tx::bytes"
+                 " [%0], [%1, {%3, %4}], [%2];"
+                 :
+                 : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "r"(crd1)
+                 : "memory");
+  } else {
+    constexpr uint16_t cast_mask = (1 << kMultiCastSize) - 1;
+    if constexpr (kEvictFirst) {
+      uint64_t policy = create_tma_cache_policy();
+      asm volatile("cp.async.bulk.tensor.2d.shared::cluster.global.mbarrier::complete_tx::bytes.multicast::cluster.L2::cache_hint"
+                   " [%0], [%1, {%4, %5}], [%2], %3, %6;"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "h"(cast_mask), "r"(crd0), "r"(crd1), "l"(policy)
+                   : "memory");
+    } else {
+      asm volatile("cp.async.bulk.tensor.2d.shared::cluster.global.mbarrier::complete_tx::bytes.multicast::cluster"
+                   " [%0], [%1, {%4, %5}], [%2], %3;"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "h"(cast_mask), "r"(crd0), "r"(crd1)
+                   : "memory");
+    }
+  }
+}
+
+template <uint32_t kMultiCastSize = 1, bool kEvictFirst = false, uint32_t kCtaGroupSize = 1>
+CUDA_INLINE void tma_load_3d(const void *desc_ptr, void *smem_ptr, void *mbar_ptr, uint32_t crd0, uint32_t crd1, uint32_t crd2) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+  uint32_t smem_int_mbar = cast_smem_ptr_to_uint(mbar_ptr);
+  uint32_t smem_int_ptr = cast_smem_ptr_to_uint(smem_ptr);
+
+  if constexpr (kCtaGroupSize == 2) {
+    static_assert(kMultiCastSize == 1);
+    smem_int_mbar = cast_smem_ptr_to_uint(__cluster_map_shared_rank(mbar_ptr, 0));
+    if constexpr (kEvictFirst) {
+      uint64_t policy = create_tma_cache_policy();
+      asm volatile("cp.async.bulk.tensor.3d.cta_group::2.shared::cluster.global.mbarrier::complete_tx::bytes.L2::cache_hint"
+                   " [%0], [%1, {%3, %4, %5}], [%2], %6;"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "r"(crd1), "r"(crd2), "l"(policy)
+                   : "memory");
+    } else {
+      asm volatile("cp.async.bulk.tensor.3d.cta_group::2.shared::cluster.global.mbarrier::complete_tx::bytes"
+                   " [%0], [%1, {%3, %4, %5}], [%2];"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "r"(crd1), "r"(crd2)
+                   : "memory");
+    }
+  } else if constexpr (kMultiCastSize == 1 && kEvictFirst) {
+    uint64_t policy = create_tma_cache_policy();
+    asm volatile("cp.async.bulk.tensor.3d.shared::cta.global.mbarrier::complete_tx::bytes.L2::cache_hint"
+                 " [%0], [%1, {%3, %4, %5}], [%2], %6;"
+                 :
+                 : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "r"(crd1), "r"(crd2), "l"(policy)
+                 : "memory");
+  } else if constexpr (kMultiCastSize == 1) {
+    asm volatile("cp.async.bulk.tensor.3d.shared::cta.global.mbarrier::complete_tx::bytes"
+                 " [%0], [%1, {%3, %4, %5}], [%2];"
+                 :
+                 : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "r"(crd0), "r"(crd1), "r"(crd2)
+                 : "memory");
+  } else {
+    constexpr uint16_t cast_mask = (1 << kMultiCastSize) - 1;
+    if constexpr (kEvictFirst) {
+      uint64_t policy = create_tma_cache_policy();
+      asm volatile("cp.async.bulk.tensor.3d.shared::cluster.global.mbarrier::complete_tx::bytes.multicast::cluster.L2::cache_hint"
+                   " [%0], [%1, {%4, %5, %6}], [%2], %3, %7;"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "h"(cast_mask), "r"(crd0), "r"(crd1), "r"(crd2), "l"(policy)
+                   : "memory");
+    } else {
+      asm volatile("cp.async.bulk.tensor.3d.shared::cluster.global.mbarrier::complete_tx::bytes.multicast::cluster"
+                   " [%0], [%1, {%4, %5, %6}], [%2], %3;"
+                   :
+                   : "r"(smem_int_ptr), "l"(gmem_int_desc), "r"(smem_int_mbar), "h"(cast_mask), "r"(crd0), "r"(crd1), "r"(crd2)
+                   : "memory");
+    }
+  }
+}
+
+CUDA_INLINE void tma_store_2d(void *smem_ptr, const void *desc_ptr, uint32_t crd0, uint32_t crd1) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+  uint32_t smem_int_ptr = cast_smem_ptr_to_uint(smem_ptr);
+
+  asm volatile("cp.async.bulk.tensor.2d.global.shared::cta.bulk_group"
+               " [%0, {%2, %3}], [%1];"
+               :
+               : "l"(gmem_int_desc), "r"(smem_int_ptr), "r"(crd0), "r"(crd1)
+               : "memory");
+}
+
+CUDA_INLINE void tma_reduce_add_2d(void *smem_ptr, const void *desc_ptr, uint32_t crd0, uint32_t crd1) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(desc_ptr);
+  uint32_t smem_int_ptr = cast_smem_ptr_to_uint(smem_ptr);
+
+  asm volatile("cp.reduce.async.bulk.tensor.2d.global.shared::cta.add.bulk_group"
+               " [%0, {%2, %3}], [%1];"
+               :
+               : "l"(gmem_int_desc), "r"(smem_int_ptr), "r"(crd0), "r"(crd1)
+               : "memory");
+}
+
+CUDA_INLINE void tma_store_3d(void *smem_ptr, const void *desc_ptr, uint32_t crd0, uint32_t crd1, uint32_t crd2) {
+  uint64_t descriptor = reinterpret_cast<uint64_t>(desc_ptr);
+  uint32_t smem = cast_smem_ptr_to_uint(smem_ptr);
+  asm volatile("cp.async.bulk.tensor.3d.global.shared::cta.bulk_group [%0, {%2, %3, %4}], [%1];" ::"l"(descriptor), "r"(smem), "r"(crd0), "r"(crd1), "r"(crd2) : "memory");
+}
+
+CUDA_INLINE void tma_reduce_add_3d(void *smem_ptr, const void *desc_ptr, uint32_t crd0, uint32_t crd1, uint32_t crd2) {
+  uint64_t descriptor = reinterpret_cast<uint64_t>(desc_ptr);
+  uint32_t smem = cast_smem_ptr_to_uint(smem_ptr);
+  asm volatile("cp.reduce.async.bulk.tensor.3d.global.shared::cta.add.bulk_group [%0, {%2, %3, %4}], [%1];" ::"l"(descriptor), "r"(smem), "r"(crd0), "r"(crd1), "r"(crd2) : "memory");
+}
+
+CUDA_INLINE void tma_expect_tx(void *mbar_ptr, uint32_t bytes) {
+  uint32_t smem_int_ptr = cast_smem_ptr_to_uint(mbar_ptr);
+  asm volatile("mbarrier.arrive.expect_tx.shared::cta.b64 _, [%0], %1;\n"
+               :
+               : "r"(smem_int_ptr), "r"(bytes)
+               : "memory");
+};
+
+CUDA_INLINE void tma_commit_store_group() {
+  asm volatile("cp.async.bulk.commit_group;\n");
+};
+
+CUDA_INLINE void tma_fence_async_shared() {
+  asm volatile("fence.proxy.async.shared::cta;\n" ::: "memory");
+};
+
+template <uint32_t N, bool only_wait_read = false>
+CUDA_INLINE void tma_wait_store_group() {
+  if constexpr (only_wait_read) {
+    asm volatile("cp.async.bulk.wait_group.read %0;\n" ::"n"(N));
+  } else {
+    asm volatile("cp.async.bulk.wait_group %0;\n" ::"n"(N));
+  }
+};
+
+template <uint32_t ord>
+CUDA_INLINE void tensor_map_replace_global_dim(void *smem_desc_ptr, uint32_t value) {
+  uint32_t smem_int_ptr = cast_smem_ptr_to_uint(smem_desc_ptr);
+  asm volatile("tensormap.replace.tile.global_dim.shared::cta.b1024.b32 [%0], %1, %2;\n"
+               :
+               : "r"(smem_int_ptr), "n"(ord), "r"(value)
+               : "memory");
+};
+
+CUDA_INLINE void tensor_map_release_cta() {
+  asm volatile("fence.proxy.tensormap::generic.release.cta;");
+};
+
+CUDA_INLINE void tensor_map_acquire_cta(const void *gmem_desc_ptr) {
+  uint64_t gmem_int_desc = reinterpret_cast<uint64_t>(gmem_desc_ptr);
+  asm volatile("fence.proxy.tensormap::generic.acquire.cta [%0], 128;" ::"l"(gmem_int_desc)
+               : "memory");
+};
+
+template <uint32_t kMultiCastSize = 1>
+CUDA_INLINE void tma_load_5d(const void *desc_ptr, void *smem_ptr, void *mbar_ptr,
+                            uint32_t c0, uint32_t c1, uint32_t c2, uint32_t c3, uint32_t c4) {
+  uint32_t smem = cast_smem_ptr_to_uint(smem_ptr);
+  uint32_t mbar = cast_smem_ptr_to_uint(mbar_ptr);
+  uint64_t desc = reinterpret_cast<uint64_t>(desc_ptr);
+  if constexpr (kMultiCastSize == 1) {
+    asm volatile("cp.async.bulk.tensor.5d.shared::cta.global.mbarrier::complete_tx::bytes"
+                 " [%0], [%1, {%3, %4, %5, %6, %7}], [%2];"
+                 :: "r"(smem), "l"(desc), "r"(mbar),
+                    "r"(c0), "r"(c1), "r"(c2), "r"(c3), "r"(c4) : "memory");
+  } else {
+    constexpr uint16_t mask = (1 << kMultiCastSize) - 1;
+    asm volatile("cp.async.bulk.tensor.5d.shared::cluster.global.mbarrier::complete_tx::bytes.multicast::cluster"
+                 " [%0], [%1, {%4, %5, %6, %7, %8}], [%2], %3;"
+                 :: "r"(smem), "l"(desc), "r"(mbar), "h"(mask),
+                    "r"(c0), "r"(c1), "r"(c2), "r"(c3), "r"(c4) : "memory");
+  }
+}

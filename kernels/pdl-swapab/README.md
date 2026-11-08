@@ -1,10 +1,253 @@
 # pdl-swapab: two DeepGEMM ideas (PDL, swap-AB) for MTP-2 decode on SM120
 
 Config: `unsloth/Qwen3.6-35B-A3B-NVFP4-Fast`, vLLM v0.32.0 image, RTX PRO 6000 Blackwell (SM120, 188 SMs),
-MTP-2, CUDA graphs. DeepGEMM only supports SM90/SM100, so only the ideas were used, no code.
-Everything here is measured on the GPU or read from existing nsys traces; nothing was shipped or patched.
+MTP-2, CUDA graphs. The original experiments below reused PDL/swap-AB ideas rather
+than integrating DeepGEMM code. The current DeepGEMM `nv_dev` branch includes
+SM120 kernels; that implementation is evaluated in the separate DeepGEMM track.
+Historical measurements below are retained with their original scope; the round-2
+sections distinguish completed GPU diagnostics from CPU-only preparation.
 
-## Summary
+## Round 2 status (2026-10-28)
+
+Actual vLLM PDL0/1 testing is now implemented in `run_vllm_pdl.sh`, with
+explicit container PDL environment, fresh per-run compiler caches, frozen
+launcher/helper snapshots and the fixed 132-entry FI reference. The first
+PDL0/PDL1 diagnostics finished with exit 0; no serving speedup is established yet. See
+[ROUND2_PLAN.md](ROUND2_PLAN.md) for the subsequent focused prefill pair.
+
+`audit_pdl_artifacts.py` binds generated wrappers to the exact AOT model files
+named by the current startup log, using pickle opcode inspection without
+executing pickle code. PDL0 has 14 backbone and 2 eagle wrappers and no
+PDL launch markers. This is saved-artifact evidence, not runtime overlap.
+`compare_pdl.py` retains the common strict identity/workload/FI checks and
+reports its narrow normalization of PDL/cache/container naming differences.
+
+The historical small-M timings below used unit activation scales and a real
+fourth token. They do **not** establish drop-in equivalence with this
+checkpoint's calibrated scales, or that current c1 routes a padded fourth row.
+Those contracts require separate tests before a serving dispatch is valid.
+
+PDL0 baseline `pdl0_probe_1`: all four greedy cases and ten cold NLL requests
+completed. Common strict identity/workload validation, 23 runtime-source hashes,
+frozen PDL driver/helper hashes, and 132-entry FI startup/shutdown checks passed.
+Owned container removed and compute GPU empty at lease release. NLL collection
+is diagnostic, not a standalone quality pass.
+
+| Greedy case | Output tokens/s | Median TPOT (ms) | MTP acceptance |
+|---|---:|---:|---:|
+| decode-c1 | 438.59 | 2.123 | 93.52% |
+| decode-c4 | 1255.28 | 2.770 | 89.31% |
+| decode-c16 | 2578.73 | 5.606 | 86.57% |
+| decode-c64 | 4968.02 | 12.068 | 86.63% |
+
+Evidence: [strict baseline validation](results/pdl0_probe_1/pdl_baseline_validation.json),
+[AOT binding](results/pdl0_probe_1/pdl_aot_binding.json). Baseline only; await PDL1
+and repeat evidence before deciding whether to keep the switch.
+
+### First actual-vLLM pair: diagnostic, not a keep decision
+
+Both runs completed with source/FI checks passing. PDL1 binds all 14 backbone
+and 2 eagle AOT wrappers with wait/launch metadata; generated PTX contains
+`griddepcontrol.wait` and `griddepcontrol.launch_dependents`. PDL0 has zero
+participating wrappers. Actual overlapping consumer execution remains unproven.
+
+| Case | PDL0 output tok/s | PDL1 output tok/s | Change | Identical generated texts |
+|---|---:|---:|---:|---:|
+| c1 | 438.59 | 442.52 | +0.90% | 2/8 |
+| c4 | 1255.28 | 1270.21 | +1.19% | 6/24 |
+| c16 | 2578.73 | 2561.12 | -0.68% | 16/96 |
+| c64 | 4968.02 | 5180.90 | +4.29% | 60/384 |
+
+The ten cold NLL prompts were measured once per mode. `logprobs-2` rises from
+0.358821 to 0.432513 (+0.073692); `logprobs-0` rises by 0.037769. No same-mode
+noise range exists for this pair, so these differences cannot be dismissed and
+no quality equivalence is established. Repeated same-mode cold NLL is required
+before interpreting the mode difference.
+
+FI tactics were fixed, but Inductor was **not pinned**. All 13 observed tuning
+entries map into 8 matching function-body groups after removing only GDC wait/
+signal expression statements; 3 groups select different configurations:
+zeroing 1024/4-warps → 512/8-warps, one reduction selection 2/16-warps →
+1/8-warps, and mul/silu/slice XBLOCK 256 → 128. This is observed `best_config`
+evidence, not an exhaustive binary/runtime-selection comparison. The timing
+and NLL differences cannot be attributed solely to PDL.
+
+Evidence: [strict pair](results/pdl_probe_pair_1.json),
+[NLL](results/pdl_probe_pair_1.nll.json),
+[codegen/config audit](results/pdl_probe_pair_1.codegen.json).
+A separate frozen `run_vllm_pdl_focused.sh` is ready for the original six-case
+prefill sweep plus four greedy cases; queue the reverse order PDL1 then PDL0.
+The first diagnostic had no prefill timing sweep. Agentic remains final composed
+stack only, and PDL is not promoted by this result.
+
+### Controlled Inductor pair (NLL/config smoke completed; no timing claim)
+
+`pdl_record0_1` stopped during compile with a dtype-serialization error; its
+failure artifacts are retained. The fix explicitly encodes Torch/Triton dtype
+constants and rejects unknown object types. A CPU regression reconstructs the
+exact failed QK/rope constructor without initializing CUDA.
+
+`pdl_record0_2` completed startup plus ten cold NLL requests with exit 0,
+source/FI/event gates passing. It records 18 full kernel identities; all have
+constructor and first-launch evidence. The deterministic intersection reference
+is [pdl_controlled_reference_v1.json](results/pdl_controlled_reference_v1.json),
+SHA256 `6cfd53ede3b3b99ce7a858ab2c78e067100ce20c697188ebd1da4e9bc317ac27`.
+This deliberately defines a **new controlled baseline**, not a replay of the
+historical winning configurations. Empty intersections and unknown identities
+fail closed.
+
+`pdl_pin0_1` and `pdl_pin1_1` completed with exit 0, the same six frozen
+executable sources/reference, 23 runtime-source checks, and fixed 132-entry FI
+startup/shutdown verification. Both have 18 constructor and first-launch
+identities with identical selected configurations. The strict
+[pair report](results/pdl_pin_pair_1.json) passes its configuration contract.
+
+All 16 actual saved backbone/eagle wrappers map to the same 12 source identities.
+PDL0 additionally serializes 96 singleton autotuner states; PDL1 instead stores
+compiled Triton bundles without those states. The audit therefore checks both
+formats explicitly: 107 PDL0 / 111 PDL1 bundled records bind exact generated
+source locations and full constructor identities to bundled PTX/cubin hashes,
+compiled warps/CTAs/stages, and guarded first-launch singleton configurations.
+Shared compiled fragments are matched across the same saved model. Full constexpr
+choices come from actual first-launch events, not inferred from warp count.
+The two extra wrapper identities were absent from the older serialized-state-only
+count. Missing/changed source, wrapper digest, bundle or singleton choices fail
+closed; nine CPU negative/positive fixtures cover these boundaries.
+
+Singleton compilation creates no `.best_config` files. The directory-local
+comparator replaces only the common nonempty-file assumption with complete
+AOT/reference/first-launch evidence. FI/source/runtime checks remain intact and
+original artifacts are preserved.
+
+**Numerical behavior remains unresolved.** Exact prompt descriptors, probe
+source, request settings and scored token-ID hashes match for all ten prompts.
+For example, `logprobs-2` changes **0.428639 → 0.282102** (−0.146537);
+`logprobs-3` changes 0.572588 → 0.584938 (+0.012350). This is not tokenization
+drift, and a lower NLL is not proof of equivalent computation. Each side has one
+cold round, so neither self-noise nor layer reproducibility is established.
+[NLL details](results/pdl_pin_pair_1.nll.json).
+
+No prefill/greedy throughput was measured in this pinned smoke. The separate
+`run_vllm_pdl_pin_focused.sh` prepares six prefill cases, four greedy cases and
+**five cold NLL rounds** per mode. Unknown lazy identities abort: if new workload
+identities appear, record the extended workload and establish a new common
+reference before rerunning both controls. No agentic benchmark is run here.
+
+### Native swap-AB ablation (two fresh-process matrices completed)
+
+[SWAP_AB_ROUND2.md](SWAP_AB_ROUND2.md) separates native same-format FP8/FP4
+eligibility from the rowwise adapter and calibrated NVFP4 model contracts.
+The isolated native override extension SHA256 is
+`93488bde73201c38ffc670ff79ee14089052f5aa7a9fd0a396b603b232a3137c`.
+Forced off/on keeps the original eligibility guard, identical FP8 bytes/scales
+within each comparison, PDL disabled and a weight pool of at least 640 MiB.
+Both matrices use 25 alternating off/on samples per case; the second fresh
+process reverses shape and M order. Sources, binary and all 6,946 fingerprinted
+entries match. Both exit/cleanup codes are 0 and GPU vacancy is recorded.
+
+| M | N×K | off µs, run 1 / 2 | on µs, run 1 / 2 | latency reduction, run 1 / 2 |
+|---:|---:|---:|---:|---:|
+| 1 | 2048×4096 | 10.870 / 8.579 | 8.351 / 8.312 | 23.17% / 3.11% |
+| 3 | 2048×4096 | 9.459 / 9.334 | 8.410 / 8.388 | 11.09% / 10.13% |
+| 8 | 2048×4096 | 9.325 / 9.444 | 8.386 / 8.377 | 10.08% / 11.30% |
+| 16 | 2048×4096 | 10.266 / 8.715 | 8.550 / 8.574 | 16.71% / 1.62% |
+| 1 | 12288×2048 | 18.098 / 18.084 | 17.522 / 17.536 | 3.18% / 3.03% |
+| 3 | 12288×2048 | 18.394 / 18.111 | 17.646 / 17.596 | 4.07% / 2.84% |
+| 8 | 12288×2048 | 18.036 / 18.136 | 17.556 / 17.594 | 2.66% / 2.99% |
+| 16 | 12288×2048 | 18.177 / 18.135 | 17.711 / 17.711 | 2.56% / 2.33% |
+
+All sixteen comparisons have **bit-identical off/on BF16 outputs** and pass
+changed-input CUDA-graph replay. Against FP32 dequantized operands, relative RMS
+error is at most 0.001705. This establishes this native UE8M0 FP8 mechanism,
+not numerical equivalence for calibrated NVFP4 checkpoint inference.
+
+The selected policies differ beyond orientation. N2048×K4096 changes
+64×64×128 / 5 stages to effective weight-major 64×16×64 / 16 stages;
+N12288×K2048 changes 64×128×128 / 3 stages to 128×16×64 / 10 stages.
+Generated template/cubin audit shows **split-K 4 for both orientations at
+N2048×K4096, and split-K 1 for both at N12288×K2048**. The original
+`DG_PRINT_CONFIGS` trace printed the default split-K before finalization; it is
+preserved as observed and is not authoritative for this field. Exact per-cell
+source/cubin hashes and final template parameters are in the repeated report.
+These are **total swap-policy effects**. The initial one-cell
+smoke showed 22.85% at M3, but the matrix repeats show about 10–11% there;
+M1/M16 non-swap timings also vary substantially by process/order. Report the
+paired run values, not a pooled maximum. Fresh reversed-cell RNG consumption
+also differs, so operands are identical off/on within each case, not asserted
+identical across processes.
+
+Evidence: [validated repeated matrix](results/swap_native_pair_1.json),
+[first matrix](results/swap_native_matrix_1/results.json),
+[reverse matrix](results/swap_native_matrix_2/results.json),
+[initial smoke](results/swap_native_smoke_1/results.json).
+Reproduce with `run_swap_ab_control.sh TAG --ms 1,3,8,16 --shapes
+2048x4096,12288x2048 --iterations 25`, then a new tag and reversed cell order.
+
+**Native auto-swap already selects this policy.** This experiment validates its
+benefit; it does not create a new vLLM patch. Porting it to the same-byte rowwise
+adapter still requires exchanging row/column scale axes and checking transposed
+stores; native UE8M0 scales cannot substitute for checkpoint NVFP4 scales.
+
+### Same-byte rowwise swap prototype (first actual-operand smoke completed)
+
+The native ablation led to a separate model-format-compatible candidate:
+[rowwise_swap_control/PLAN.md](rowwise_swap_control/PLAN.md). A new M1..16 API
+retains actual FP8 bytes and FP32 token/channel scales. A dedicated swapped
+epilogue preserves token-then-channel multiplication order while the original
+M>=32 API remains unchanged. Split-K and accumulation remain rejected.
+
+The isolated extension build and five NVCC device-template instantiations pass
+without a GPU; four CPU fixtures and actual capture/comparator provenance checks
+also pass. The replay targets real QKVZ layer0/9/29 slices against CUTLASS and the exact
+skinny `(1,4)` dispatch, with changed activation/scales and cold CUDA graphs.
+
+The first smoke, **layer0/M3**, completed exit0/cleanup0 with all 20 frozen inputs
+and source fingerprint verified. DG off/on outputs are bit-identical to CUTLASS
+for the original input, a second actual activation slice, zero token scale and
+nonuniform token/channel scales. Every changed-input graph matches eager; M0/17
+reject. Full FP32-reference relative-L2 is at most 0.001686 on these cases.
+
+| backend | forward order µs | reverse order µs |
+|---|---:|---:|
+| CUTLASS | 20.041 | 20.094 |
+| existing skinny `(1,4)` | **17.001** | **17.039** |
+| DG rowwise off | 18.481 | 18.472 |
+| DG rowwise swap | 17.765 | 17.805 |
+
+Swap improves the DG operator by **3.61–3.87%** and beats CUTLASS by about 11.4%,
+but is **4.50% slower than the existing skinny candidate**. Thus this smoke does
+not justify replacing the composed dispatch. It establishes a functioning
+same-byte small-M rowwise swap contract; other M/layers are not measured yet.
+[Raw result](results/rowwise_swap_smoke_1/results.json),
+[validated comparison](results/rowwise_swap_smoke_1/analysis.json).
+No vLLM integration has been performed. The focused PDL runner remains frozen
+and queued separately.
+
+The separate [rowwise_tile_control](rowwise_tile_control/PLAN.md) candidate now
+has an actual layer0/M3 GPU smoke. Its valid64×16×64 swapped policy raises logical
+work tiles from96 to192 within the same188-CTA persistent grid. Final trace and
+generated template binding confirm88320B shared memory/16stages/split-K1; AUTO
+uses98816B/10stages/split-K1. All original/changed-input/scale checks pass, with
+DG outputs bit-identical to CUTLASS.
+
+| backend | forward order µs | reverse order µs |
+|---|---:|---:|
+| CUTLASS | 19.877 | 19.941 |
+| existing skinny | **16.904** | **16.891** |
+| DG rowwise off | 18.346 | 18.337 |
+| DG AUTO swap | 17.640 | 17.624 |
+| DG forced64×16 swap | 19.620 | 19.622 |
+
+The narrower tile is **11.22–11.33% slower than AUTO** and **16.07–16.17% slower
+than skinny**. Increasing first-wave active work did not improve this operator.
+This candidate is not promoted; its complete result remains recorded.
+[Raw smoke](results/rowwise_tile_smoke_1/results.json),
+[validated comparison and finalized policies](results/rowwise_tile_smoke_1/analysis.json).
+Exit/cleanup0, frozen20-source checks and source fingerprint pass; owned container
+removed and GPU empty at lease release. No vLLM micro-effect is claimed.
+
+## Historical summary
+
 
 | idea | verdict | size of the prize (c=1 step, ~6.4 ms) | what it would take |
 |---|---|---|---|
@@ -250,3 +493,28 @@ Reproduce: `./build.sh && ./run_pdl_gpu_v2.sh`; `./run_cold_moe_gpu.sh 3 4 8 16 
 Limits: the PDL chain uses synthetic weights and an amax-quant stand-in for the Triton glue, one GPU, one clock
 state (2850 MHz idle at start); the decode-graph gap numbers come from a node-level trace of the base config
 (not the skinny patches); nothing was run end to end.
+
+## Focused pinned PDL pair — 2026-10-28
+
+**Not selected.** Both controls completed six prefill cases, four greedy decode cases and five rounds of ten cold NLL probes (exit0/cleanup0). The strict comparator verified the same18 constructor/first-launch identities and singleton configs, plus12 model-bound identities. OFF binds96 serialized autotuners+107 bundled artifacts; ON binds111 bundled artifacts. Both FI shutdown checks retain132 fixed-reference entries and source checks pass.
+
+An external read-only import in another container initialized CUDA during ON. Root reports no explicit GPU kernels/allocation requested, but exact start is uncertain; the conservative04:19–04:21UTC window overlaps c16/c64 measured commands and NLL. All six prefill and c1/c4 finish before that window. Aggregate GPU telemetry cannot assign activity to that context. The pair is not a clean dedicated-GPU comparison.
+
+| Scenario | Metric | OFF ms | ON ms | ON change | Scope |
+|---|---|---:|---:|---:|---|
+| prefill-2048 | median TTFT | 64.145 | 63.461 | -1.07% | outside reported context window; single pair |
+| prefill-4096 | median TTFT | 99.231 | 95.954 | -3.30% | outside reported context window; single pair |
+| prefill-5000 | median TTFT | 112.847 | 112.554 | -0.26% | outside reported context window; single pair |
+| prefill-8192 | median TTFT | 186.483 | 181.815 | -2.50% | outside reported context window; single pair |
+| prefill-16384 | median TTFT | 359.225 | 348.944 | -2.86% | outside reported context window; single pair |
+| prefill-32768 | median TTFT | 801.622 | 794.258 | -0.92% | outside reported context window; single pair |
+| decode-c1 | median TPOT | 2.099 | 2.113 | +0.67% | outside reported context window; single pair |
+| decode-c4 | median TPOT | 2.888 | 3.012 | +4.28% | outside reported context window; single pair |
+| decode-c16 | median TPOT | 5.453 | 5.633 | +3.29% | possible external-context overlap |
+| decode-c64 | median TPOT | 11.644 | 11.789 | +1.24% | possible external-context overlap |
+
+Observed prefill reductions are modest (0.26–3.30%) and require an independent reversed-order repeat before any benefit claim. Decode c1/c4 regress0.67%/4.28% in this pair; the other decode cases are flagged above. Do not infer actual producer-consumer overlap from these timings.
+
+NLL remains unresolved even with compiler configurations pinned. Maximum within-control range: OFF0.085944, ON0.156225nat/token; logprobs-1 mean shifts+0.029119 and logprobs-2+0.009721. All10 prompts exceed the preregistered within-mode0.001 investigation trigger and7 means exceed its absolute-shift trigger. The policy reports `investigate_numerical_change`, not numerical/quality equivalence. ON NLL also overlaps the conservative external-context window.
+
+Evidence: `results/pdl_focused_pair_1.json` (compiler proof plus explicit performance-validity qualifier), preserved original comparator output `pdl_focused_pair_1.compiler_verified_original.json`, per-control `pin_aot_verify.json`, and `pdl_focused_pin1_1/external_context_contamination.json` with exact command intervals and GPU samples. No reference expansion occurred. No stack or agentic run was started.

@@ -1,0 +1,31 @@
+{
+  "capture_sha256": "9d0b753bc792bf0785087c03e156449a27899697ebb6c4816fe18c82d871abe4",
+  "sidecar_sha256": "259c584a038836c0b5408bd14615c93b43b7e814d0a5c01edffd80228adbd95a",
+  "layer": 19,
+  "tokens": 4096,
+  "pattern": "real",
+  "keys": {
+    "input": {
+      "shape": [
+        4096,
+        2048
+      ],
+      "dtype": "torch.bfloat16"
+    },
+    "ids": {
+      "shape": [
+        4096,
+        8
+      ],
+      "dtype": "torch.int32"
+    },
+    "weights": {
+      "shape": [
+        4096,
+        8
+      ],
+      "dtype": "torch.float32"
+    }
+  },
+  "metadata_scope": "Layer identity is in original sibling applicability JSON; tensor archive itself has no layer field; sidecar counts verified against archive IDs"
+}

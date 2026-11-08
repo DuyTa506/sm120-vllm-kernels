@@ -1,0 +1,24 @@
+    TORCH_CHECK(x.is_cuda() && x.dim()==2 && x.size(1)==H);
+    TORCH_CHECK(topk_ids.dim()==2 && topk_w.dim()==2);
+    TORCH_CHECK(topk_w.size(0)==x.size(0) && topk_w.size(1)==TOPK);
+    TORCH_CHECK(w13.dim()==3 && w2.dim()==3 && w13.size(0)==256 && w2.size(0)==256);
+    TORCH_CHECK(w13.scalar_type()==at::kByte && w2.scalar_type()==at::kByte);
+    TORCH_CHECK(w13_sf.dim()==3 && w2_sf.dim()==3);
+    TORCH_CHECK(w13_sf.scalar_type()==at::kByte && w2_sf.scalar_type()==at::kByte);
+    TORCH_CHECK(w13_sf.size(0)==256 && w13_sf.size(1)==2*I && w13_sf.size(2)==HB);
+    TORCH_CHECK(w2_sf.size(0)==256 && w2_sf.size(1)==H && w2_sf.size(2)==IB);
+    TORCH_CHECK(g1_alpha.dim()==1 && g2_alpha.dim()==1 && g1_alpha.scalar_type()==at::kFloat && g2_alpha.scalar_type()==at::kFloat);
+    TORCH_CHECK(a1_gs.dim()==1 && a2_gs.dim()==1);
+    TORCH_CHECK(hq.dim()==1 && hsf.dim()==1 && part_out.dim()==1 && done.dim()==1 && out.dim()==2);
+    // Contiguous byte intervals, not only equal pointers: reject shifted aliases.
+    const at::Tensor* writes[]={&hq,&hsf,&part_out,&done,&out};
+    const at::Tensor* reads[]={&x,&topk_ids,&topk_w,&w13,&w13_sf,&g1_alpha,&a1_gs,&w2,&w2_sf,&g2_alpha,&a2_gs};
+    auto disjoint=[](const at::Tensor* a,const at::Tensor* b) {
+        const auto a0=reinterpret_cast<uintptr_t>(a->data_ptr());
+        const auto b0=reinterpret_cast<uintptr_t>(b->data_ptr());
+        TORCH_CHECK(a0 + a->nbytes() <= b0 || b0 + b->nbytes() <= a0,"overlapping writable/input storage");
+    };
+    for (int j=0;j<5;++j) {
+        for (const auto* r:reads) disjoint(writes[j],r);
+        for (int k=0;k<j;++k) disjoint(writes[j],writes[k]);
+    }

@@ -1,0 +1,146 @@
+{
+  "revision": "fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af",
+  "pin_evidence": "Existing fetch manifest URL+SHA and archived GitHub tree; local bytes verified against fetch manifest",
+  "files": {
+    "moe/_shared/kernels/nvfp4_phase1.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/kernels/nvfp4_phase1.py",
+      "bytes": 29181,
+      "sha256": "1e20dcd72cd05cc7f0f08a17c5712bd6b58d52e67d100cf28da85cb8f4cca904",
+      "verified_local_sha256": "1e20dcd72cd05cc7f0f08a17c5712bd6b58d52e67d100cf28da85cb8f4cca904",
+      "imports": [
+        "from __future__ import annotations",
+        "import cuda.bindings.driver as cuda",
+        "import cutlass",
+        "import cutlass.cute as cute",
+        "from cutlass.cutlass_dsl import Int32, Int64, Uint32",
+        "from b12x._lib.intrinsics import cp_async4_shared_global, cp_async_u32_shared_global, fabs_f32, get_ptr_as_int64, ld_shared_bf16_to_f32, ld_shared_u32, nvfp4_mma_m16n8k64_f32_e2m1, pack_f32x2_to_bfloat2, quantize_block_fp4, shared_ptr_to_u32, st_global_u64, st_global_u32, st_shared_u32"
+      ]
+    },
+    "moe/_shared/kernels/nvfp4_phase2.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/kernels/nvfp4_phase2.py",
+      "bytes": 21433,
+      "sha256": "323ac3f5b15b62f9b1f4b73e4672797e94f236ed2a6388e0494916c8766353aa",
+      "verified_local_sha256": "323ac3f5b15b62f9b1f4b73e4672797e94f236ed2a6388e0494916c8766353aa",
+      "imports": [
+        "from __future__ import annotations",
+        "import cuda.bindings.driver as cuda",
+        "import cutlass",
+        "import cutlass.cute as cute",
+        "from cutlass.cutlass_dsl import Int32, Int64, Uint32",
+        "from b12x._lib.intrinsics import cp_async4_shared_global, cp_async_u32_shared_global, get_ptr_as_int64, ld_shared_u32, nvfp4_mma_m16n8k64_f32_e2m1, pack_f32x2_to_bfloat2, scatter_add_bf16x2, shared_ptr_to_u32, st_global_u32"
+      ]
+    },
+    "moe/_shared/kernels/dynamic.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/_shared/kernels/dynamic.py",
+      "bytes": 540355,
+      "sha256": "60fe09636c3892bf7af2e55e7992dca51e7743d334909a47374dce787ee14369",
+      "verified_local_sha256": "60fe09636c3892bf7af2e55e7992dca51e7743d334909a47374dce787ee14369",
+      "imports": [
+        "from __future__ import annotations",
+        "from typing import Tuple",
+        "import cuda.bindings.driver as cuda",
+        "import cutlass",
+        "import cutlass.cute as cute",
+        "import cutlass.pipeline as pipeline",
+        "import cutlass.utils as utils",
+        "import cutlass.utils.blockscaled_layout as blockscaled_utils",
+        "from cutlass.cutlass_dsl import Int32, Int64, Uint8, Uint32, Uint64, T, dsl_user_op, extract_mlir_values, new_from_mlir_values",
+        "from cutlass._mlir.dialects import llvm",
+        "from cutlass.cute.nvgpu import cpasync",
+        "from b12x._lib.quant.nvfp4_csf_inline import InlineNvfp4Reader",
+        "from b12x._lib.intrinsics import atomic_add_global_i32, bfloat2_to_float2_scaled, broadcast_f32_to_half2, cp_async4_shared_global, cp_async_u32_shared_global, cp_async_u64_shared_global, e2m1x8_mul_residual_to_e4m3x8, e2m1x8_to_qmma_e2m1x8, fabs_f32, fmax_f32, fp8_e4m3_to_f32, ld_shared_f32, ld_shared_i32_relaxed, ld_shared_u32, ld_shared_v2_u32, ld_shared_v4_u32, ld_global_v4_u32, atomic_add_shared_i32, mxfp8_mma_m16n8k32_f32_e4m3, mxfp8_mma_m16n8k32_f32_e2m1, quantize_block_fp4, quantize_block_fp4_fast, quantize_block_fp8_mx, get_ptr_as_int64, st_global_f32, st_global_i32, shared_ptr_to_u32, st_shared_f32, st_shared_u8, st_shared_u32, st_global_u64, st_global_v4_u32, warp_reduce",
+        "from b12x._lib.smem import make_smem_memrange_alias",
+        "from b12x._lib.dense_gemm import DenseGemmKernel, _expand_packed_b_stage_smem, _reshape_acc_to_mn, sm120_make_smem_layout_sfa, sm120_make_smem_layout_sfb",
+        "from b12x.moe._shared.kernels.mxfp6_moe import moe_emit_mma_k_block, moe_mxfp6_quantize_input_block_containers, moe_mxfp6_store_expanded_global",
+        "from b12x._lib.intrinsics import scatter_add_bf16x2, scatter_add_v4_bf16x2",
+        "from b12x.moe._shared.kernels.activations import SITU, SITU_DEFAULT_BETA, SITU_DEFAULT_LINEAR_BETA, SWIGLUOAI_UNINTERLEAVE, is_gated_moe_activation, normalize_moe_activation, normalize_swiglu_alpha_for_activation, normalize_swiglu_beta_for_activation, normalize_swiglu_limit_for_activation",
+        "from b12x.moe._shared.kernels.w4a8_trellis_decode import _w4a8_had128_quad, _w4a8_stage_trellis_b_tile, _w4a8_trellis_lane_geom, _w4a8_trellis_pair_words, _w4a8_trellis_permute_k32",
+        "from b12x.moe._shared.kernels.w4a8_phase1 import W4A8MaterializedPhase1Kernel",
+        "from b12x.moe._shared.kernels.w4a8_phase2 import W4A8MaterializedPhase2Kernel",
+        "from b12x.moe._shared.kernels.nvfp4_phase1 import Nvfp4MaterializedPhase1Kernel",
+        "from b12x.moe._shared.kernels.nvfp4_phase2 import Nvfp4MaterializedPhase2Kernel"
+      ]
+    },
+    "moe/fused_moe/_tuning.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/_tuning.py",
+      "bytes": 35755,
+      "sha256": "c29319c6bfa0b39de0188801b8fbd6fc1364572c09ea6aeb870e862095d9bf6a",
+      "verified_local_sha256": "c29319c6bfa0b39de0188801b8fbd6fc1364572c09ea6aeb870e862095d9bf6a",
+      "imports": [
+        "from __future__ import annotations",
+        "from b12x._lib.quant.block_codec import BLOCK_CODECS, block_codec",
+        "from dataclasses import dataclass, replace",
+        "from b12x.preparation import DeviceIdentity, FrozenMapping, Knob, ParameterBinding, ParameterSpace, TuningContract, make_fixed_contract"
+      ]
+    },
+    "moe/fused_moe/planning.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/planning.py",
+      "bytes": 33759,
+      "sha256": "b3a14ca01531e91d1a3be5ca2bb8876788f2f1382aac57eab389ac2f70abafaa",
+      "verified_local_sha256": "b3a14ca01531e91d1a3be5ca2bb8876788f2f1382aac57eab389ac2f70abafaa",
+      "imports": [
+        "from __future__ import annotations",
+        "from b12x._lib.quant.block_codec import BLOCK_CODECS",
+        "import os",
+        "from dataclasses import dataclass, replace",
+        "from enum import Enum",
+        "import torch",
+        "from .._shared.execution import MoEWeightPreparationPlan",
+        "from .._shared.kernels.activations import is_gated_moe_activation",
+        "from ._impl import plan_b12x_fp4_moe_weights, prepare_b12x_fp4_moe_weights, prepare_b12x_trellis_v2_weights, prepare_b12x_iq2_xs_weights, prepare_b12x_x4t_weights",
+        "from .config import TrellisConfig",
+        "from .source import PackedSource, TrellisSource, WeightSource",
+        "from .trellis_layout import TrellisStaging",
+        "from .weights import CsfScalePlanes, Nvfp4CsfWeights, PackedWeights, Mxfp4CsfWeights, IQ2XSWeights, PreparedExperts, PreparedWeightFormat, ScaleEncoding, TrellisWeights, WeightEncoding, WeightPacking"
+      ]
+    },
+    "moe/fused_moe/_impl.py": {
+      "url": "https://raw.githubusercontent.com/flashinfer-ai/flashinfer/fc4df7ee1a1edbd713ff1438c25f8de6b3e5d3af/flashinfer/experimental/b12x/moe/fused_moe/_impl.py",
+      "bytes": 545844,
+      "sha256": "4ba2d51dbf1930781b5fd10b1772fb88df6c27e0b279e79054e9220e74a21928",
+      "verified_local_sha256": "4ba2d51dbf1930781b5fd10b1772fb88df6c27e0b279e79054e9220e74a21928",
+      "imports": [
+        "from __future__ import annotations",
+        "from b12x._lib.quant.block_codec import BLOCK_CODECS",
+        "import os",
+        "import logging",
+        "import time",
+        "from collections.abc import Mapping, Sequence",
+        "from contextlib import contextmanager, suppress",
+        "from dataclasses import dataclass, field, replace",
+        "from typing import Any, Dict, Tuple",
+        "import cuda.bindings.driver as cuda",
+        "import cutlass",
+        "import cutlass.cute as cute",
+        "import triton",
+        "import triton.language as tl",
+        "import torch",
+        "import torch.nn.functional as F",
+        "from torch.profiler import record_function",
+        "from b12x._lib.compile_plan import launch_triton, planning",
+        "from b12x._lib.program_cache import register_program_cache",
+        "from b12x._lib.compiler import KernelCompileSpec, compile as b12x_compile",
+        "from b12x._lib.intrinsics import align_up, as_grouped_scale_view, swizzle_block_scale",
+        "from b12x._lib.utils import current_cuda_stream, get_max_active_clusters, get_num_sm, make_ptr",
+        "from cutlass.cutlass_dsl import Int32",
+        "from b12x.moe._shared.routing import route_topk as triton_route_topk, _validate_score_options",
+        "from b12x.moe._shared.kernels.relu2 import MoEDynamicKernelRelu2, MoEMicroKernelRelu2",
+        "from b12x.moe._shared.kernels.silu import MoEDynamicKernelSilu, MoEDynamicKernelSwiGLUOAI, MoEMicroKernelSilu, MoEMicroKernelSwiGLUOAI",
+        "from b12x.moe._shared.kernels.situ import MoEDynamicKernelSitu, MoEMicroKernelSitu",
+        "from b12x.moe._shared.kernels.activations import SITU, SWIGLUOAI_UNINTERLEAVE, is_gated_moe_activation, moe_activation_w1_rows, normalize_moe_activation, normalize_swiglu_alpha_for_activation, normalize_swiglu_beta_for_activation, normalize_swiglu_limit_for_activation",
+        "from b12x.moe._shared.kernels.micro import _BLOCK_DIM as _DIRECT_MICRO_BLOCK_DIM, MoEMicroKernelBackend, _direct_k_segments_for_k, _direct_k_segments_supported",
+        "from b12x.moe._shared.execution import MoEExecutionPlan, MoERegime, GemmEngine, MoESpec, MoEWeightPreparationPlan, OutputReduction, PreparedWeightLayout, WeightPreparationTransform, WorkScheduler, lower_moe_execution, make_moe_spec, plan_moe_weight_preparation",
+        "from b12x.moe._shared.execution import _SOURCE_FORMATS as _EXECUTION_SOURCE_FORMATS, _TRELLIS_SOURCE_FORMATS as _EXECUTION_TRELLIS_SOURCE_FORMATS",
+        "from b12x.moe._shared.trellis_codebooks import LUT_E4M3",
+        "from b12x.preparation import DeviceIdentity",
+        "from b12x._lib.runtime_control import raise_if_kernel_resolution_frozen",
+        "from b12x._lib.scratch import ScratchBufferSpec, scratch_buffer_spec, scratch_tensor",
+        "from ._route_pack_cache import route_pack_prewarm_key",
+        "from ._tuning import MoeDecodeConfig, MoeDecodeQuery"
+      ]
+    }
+  },
+  "installed_version": "0.7.0.post1",
+  "installed_experimental_package": false,
+  "missing_intrinsic": "nvfp4_mma_m16n8k64_f32_e2m1"
+}

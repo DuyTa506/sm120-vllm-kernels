@@ -1,0 +1,19 @@
+{
+  "input_sha256": {
+    "kernels/gdn-replay/patch/a/vllm/envs.py": "e963af06cf6c775fe285147e0d811ea5b4d679e5cbd6958980ec2a0d1da70694",
+    "kernels/decode-roofline/vllm/model_executor/layers/utils.py": "fc3d6fcfe0aeea6d8fbbb892093f0efbb26e7ad8fff29d137d46c5dba7f8973c",
+    "kernels/decode-roofline/vllm/model_executor/layers/skinny_bf16_gemm.py": "749dd66bf4174c3b39320772265ab8281c7790a007613f9329c43e5c89253f3a",
+    "kernels/dense-fp8-gemm/patch/b/vllm/model_executor/kernels/linear/scaled_mm/cutlass.py": "3a8862eadc5df3e78fd8226a71a5a44f5144fe753f6cac9f7d88c591129f7469",
+    "kernels/dense-fp8-gemm/patch/b/vllm/model_executor/kernels/linear/scaled_mm/sm120_skinny_fp8.py": "1678cfaac2f953dde197efa2502233a6c1844969f135dbd21befc49ea1b7a982",
+    "kernels/dense-fp8-gemm/patch/b/vllm/model_executor/kernels/linear/scaled_mm/sm120_skinny_fp8.cu": "188f3d6bd5d351f3d6d699be58a2eac9f39beab95331fdd8befb1d4bb129c0c0"
+  },
+  "generated_sha256": {
+    "vllm/envs.py": "0af2b26167d97ee1396ecb8dde74cdae987625fdc51f1de2d0b02f7bcab37ff2",
+    "vllm/model_executor/layers/skinny_bf16_gemm.py": "749dd66bf4174c3b39320772265ab8281c7790a007613f9329c43e5c89253f3a",
+    "vllm/model_executor/layers/utils.py": "cdcd8491b5c1e6185817c278a6c58e24a9afc7e6eda1fbc52a7915f79c3e048c",
+    "vllm/model_executor/kernels/linear/scaled_mm/sm120_skinny_fp8.py": "98547058058308c844cadce7018fab5e2fcc17f50e3ece9aeca51aa047b22e5f",
+    "vllm/model_executor/kernels/linear/scaled_mm/cutlass.py": "3a8862eadc5df3e78fd8226a71a5a44f5144fe753f6cac9f7d88c591129f7469",
+    "vllm/model_executor/kernels/linear/scaled_mm/sm120_skinny_fp8.cu": "188f3d6bd5d351f3d6d699be58a2eac9f39beab95331fdd8befb1d4bb129c0c0"
+  },
+  "scope": "cache-key registration only; original BF16/FP8 numerical kernels and dispatch predicates retained"
+}

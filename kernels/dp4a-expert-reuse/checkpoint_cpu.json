@@ -1,0 +1,13 @@
+{
+  "layer": 19,
+  "experts": 256,
+  "cuda_initialized": false,
+  "weights_and_scale_bytes_exact": true,
+  "effective_scales_exact": true,
+  "swizzle_cpu_adaptation": "removed exactly one forced .cuda() transfer; mathematical body unchanged",
+  "source_sha256": {
+    "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/utils/nvfp4_utils.py": "08e6157f52d6c48e8f3ce108c13e5a002fb308ce2d1099b176334154d39eec84",
+    "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/utils/flashinfer_fp4_moe.py": "f8b82c03c9648682b72598e755e5f60e229034c64095275f49ad99991409952d",
+    "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/quantization/utils/quant_utils.py": "d25a4290d9b8530e38a073125ca6122b40054583814198eb5c8306adf21263d7"
+  }
+}

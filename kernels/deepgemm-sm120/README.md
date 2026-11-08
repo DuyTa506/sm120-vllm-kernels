@@ -2,11 +2,11 @@
 
 Question: can DeepGEMM's native SM120 kernels (branch `origin/nv_dev`, commit b64107f) or their scheduling ideas beat what
 vLLM v0.32.0 runs for `unsloth/Qwen3.6-35B-A3B-NVFP4-Fast` on one RTX PRO 6000 Blackwell (SM120, 188 SMs), and are they CUDA-graph safe?
-Everything here is a benchmark; the original DeepGEMM clone and vLLM were not touched. Nothing is committed.
+Everything here is a benchmark; no DeepGEMM adapter is integrated into vLLM. Round 2 uses the existing compiled study source read-only and stores separate evidence.
 
 ## Short answer
 
-* **No kernel or idea from DeepGEMM is worth integrating.** Dense FP8: our shipped skinny kernel (`kernels/dense-fp8-gemm`) is faster
+* **The original proxy study did not establish an integration win.** Its quantization contracts differ from the deployed model; the round-2 experiment below reopens the compatible FP8 path. Original dense FP8: our shipped skinny kernel (`kernels/dense-fp8-gemm`) is faster
   than DeepGEMM at M <= 16 on all four decode shapes (DeepGEMM only wins by ~1.2 us on gdn_qkvz at M = 32-64), and at prefill (M = 8192) DeepGEMM is 6-8 % *slower* than vLLM's CUTLASS (628-637 vs 674-677 TFLOPS).
 * **Grouped GEMM, prefill (real 8k routing, hottest expert 6007 rows):** DeepGEMM's FP4 kernel (MXF4, a proxy, see below) needs 690-712 us for
   GEMM1+GEMM2, our FlashInfer CUTLASS NVFP4 GEMMs need 572 us (cold weights): DeepGEMM is 20-24 % slower, FP8 is 1017-1038 us. Skew costs
@@ -18,8 +18,84 @@ Everything here is a benchmark; the original DeepGEMM clone and vLLM were not to
 * **CUDA graphs: issue #444 does not reproduce** on b64107f, which already contains PR #447 (merged into `nv_dev` on 2026-09-23 as a23e1f0, it is not "unmerged").
   14 configurations x 1000 replays with 48 different routings (empty experts, one/eight hot experts, different totals, all-empty): no error,
   every replay bitwise equal to an eager call. DeepGEMM's own SM120 suite passes (73/73 + 342/342).
-* Recommendation: do not port. If anything is followed up, it is a profile (ncu) of our FlashInfer GEMM1 kernel at 3-12 tokens against
+* Original-study recommendation: no direct port on that evidence alone. A remaining follow-up is a profile (ncu) of our FlashInfer GEMM1 kernel at 3-12 tokens against
   DeepGEMM's BM=32 kernel to find where the ~7 us per GEMM at 3 tokens goes. Upper bound if all of it were recoverable: 15 us x 40 layers = 0.6 ms of a 6.5 ms c=1 step; not demonstrated.
+
+## Round 2: same-byte row/token and channel FP8 adapter (2026-10-28)
+
+Unlike the original dense proxy, this experiment gives both implementations identical FP8 bytes and original arbitrary FP32 token/channel scales. DeepGEMM receives unit packed UE8M0 scales and produces FP32 scratch; a fused standalone epilogue applies the original scales and casts once to BF16. Both paths use preallocated BF16 output, so output allocation is excluded. Scale preparation is also excluded. These are synthetic Qwen-shaped inputs, not checkpoint activations or a vLLM integration.
+
+The granted smoke used GDN QKVZ N=12288,K=2048, 11 weight copies (264 MiB, above L2), CUDA graphs, and two passes in opposite order, 30 replays each. Numbers below average the two pass medians; raw medians/min/max are retained.
+
+| M | CUTLASS us | DG FP32 core us | Full adapter us | Adapter change vs CUTLASS | Initial relative L2 | Initial BF16 mismatches |
+|---|---:|---:|---:|---:|---:|---:|
+| 32 | 19.815 | 18.403 | 19.934 | 0.60% slower | 5.58e-6 | 2 / 393216 |
+| 64 | 21.206 | 18.679 | 20.588 | 2.92% faster | 1.42e-5 | 2 / 786432 |
+
+Sampled FP64 reference errors matched CUTLASS for both shapes (relative L2 0.001547 and 0.001664). Three mutations of both activation bytes and token scales replayed bitwise equal to eager adapter output, with fresh CUTLASS comparisons finite and relative L2 <=2.60e-5. The harness's <=1% screening threshold is **not production numerical acceptance**. Results are not bitwise identical to CUTLASS.
+
+**Conclusion:** the standalone adapter has a small M=64 microbenchmark gain and no M=32 gain. Its extra scratch/epilogue costs approximately 1.53/1.91 us relative to the DG core. This motivates testing a fused scale epilogue; it does not yet justify deployment, establish a prefill win, or beat the existing composed kernel configuration. Next gates are independent repetition, prefill shapes, comparison to the existing skinny candidate, representative numerical checks, and measured vLLM task effect. Agentic evaluation remains for the final composed configuration.
+
+Evidence: [successful smoke2](results/rowwise_adapter_round2_smoke2/results.json), [log](results/rowwise_adapter_round2_smoke2/run.log), and [plan/contract audit](ROUND2_PLAN.md). Launcher exit=0, cleanup=0; exact owned container absence and empty postrun compute-process list were recorded, and all three harness source hashes passed postrun verification. The launcher snapshots the actual scripts, image ID, source revision/diff and isolated caches.
+
+Provenance caveat: `source_revision.txt` in smoke1/2 reports the enclosing repository revision because this source was originally unpacked with `git archive`; it does **not** prove the DeepGEMM revision. `b64107f...` is the intended study pin, not a newly verified tree identity. Later runs fingerprint actual source/header/extension bytes and label the enclosing revision separately. The isolated fused experiment exports [its patch](patches/rowwise_epilogue_round2.patch) and a byte fingerprint of the actual original source, including the loaded extension.
+
+The first [smoke1](results/rowwise_adapter_round2_smoke1/results.json) failed **before measurement**, because legacy source include symlinks point to `/work/src/third-party/cutlass`, while the first launcher mounted it at `/src`. The corrected launcher preserves `/work/src` read-only and mounts the frozen harness separately at `/harness`; a CPU-only container check confirmed headers readable. Failed evidence is retained unchanged; exit=1, cleanup=0, no lingering container or GPU compute process.
+
+Reproduce with a fresh result tag after reserving the shared GPU lock:
+
+```bash
+./run_rowwise_adapter.sh NEW_TAG --shapes gdn_qkvz --ms 32,64 --iters 30
+```
+
+### Fused native row/channel epilogue and boundary results
+
+The isolated [five-file patch](patches/rowwise_epilogue_round2.patch) adds coordinate-aware scaling inside the SM120 accumulator epilogue, removing the standalone FP32 scratch round-trip. The new API rejects split-K, swapped operands, accumulation, M<32, noncontiguous operands and non-BF16 output. It multiplies FP32 `(acc * sa) * sb` explicitly before BF16 conversion. The isolated host extension built successfully; offline NVCC compiled both TMA and direct-store template variants without accessing GPU. Runtime-selected kernels in these measurements use swizzle-CD=128 (TMA store), so direct-store numerical execution remains untested.
+
+Actual GPU [smoke](results/rowwise_fused_round2_smoke1/results.json) and [boundary/prefill expansion](results/rowwise_fused_round2_qkvz_expand1/results.json), QKVZ N=12288,K=2048:
+
+| M | CUTLASS us | Fused DG us | Fused change vs CUTLASS |
+|---|---:|---:|---:|
+| 32 | 19.971 | 18.703 | 6.35% faster |
+| 33 | 21.290 | 18.599 | 12.64% faster |
+| 63 | 21.886 | 19.283 | 11.89% faster |
+| 64 | 21.891 | 19.077 | 12.85% faster |
+| 65 | 21.817 | 20.093 | 7.90% faster |
+| 1024 | 90.732 | 95.077 | 4.79% slower |
+| 4096 | 318.126 | 360.638 | 13.36% slower |
+
+All seven initial outputs and all three changed-input/scale checks per case were **bitwise equal to the standalone adapter**, while retaining the separate CUTLASS rounding differences. Changed-input graph replay matched eager execution. Both jobs exited0, cleanup0, with unchanged source fingerprints and empty postrun compute/container observations. These are two timing orders within one job per shape, not independent repeated runs or actual checkpoint validation. Small-M gains are promising; large prefill does not win. The current skinny dispatch and actual captured operands must be compared before vLLM promotion.
+
+The subsequent [medium-M map](results/rowwise_fused_round2_qkvz_medium1/results.json) narrows the promising geometry: M96=21.137→19.512us (7.69% faster), M128=22.073→20.441us (7.39% faster), M192=24.886→33.693us (35.39% slower), M256=30.755→33.943us (10.37% slower), and M512=51.818→53.163us (2.60% slower). All numerical/replay screens passed, including exact fused-versus-standalone comparisons. This suggests studying a **32–128-row QKVZ dispatch region**, not replacing prefill GEMMs globally. Exact boundaries, independent repetitions, captured operands and existing-stack comparisons remain required.
+
+The separate [original adapter prefill screen](results/rowwise_adapter_round2_prefill1/results.json) also passed numerical/replay checks but lost all four cells:
+
+| shape | M | CUTLASS us | DG FP32 core us | Full standalone adapter us |
+|---|---:|---:|---:|---:|
+| QKVZ | 1024 | 90.278 | 95.580 | 108.487 |
+| QKVZ | 4096 | 319.489 | 380.139 | 523.505 |
+| GDN output | 1024 | 30.290 | 33.319 | 37.456 |
+| GDN output | 4096 | 102.117 | 118.287 | 129.125 |
+
+Timing order/clock drift was visible (e.g. QKVZ4096 CUTLASS302.5→336.4us); the standalone loss remained in both passes. These averages describe the observed burst runs and should not be treated as stable sustained throughput. No prefill or agentic improvement is claimed.
+
+### Actual runtime operands: operator validation passed
+
+A separate [capture-only vLLM run](results/gdn_actual_capture_round2_1/results.json) loaded snapshot `1c3f884bc99aac2524f6d49bcbac8c88401afd66` and consumed 1024 tokens of the repository's real-text prompt. This was the pristine image in eager/no-MTP mode, **not the composed scalar+next serving configuration**. After initialization, a capture wrapper identified actual GDN QKVZ modules by runtime weight pointer at layers0/9/29 and saved exact FP8 A/B bytes, token/channel scales and baseline outputs, preserving shapes/strides. Runtime source copies, image ID, checkpoint config/index hashes, prompt hashes and tensor/artifact hashes are recorded. Whole checkpoint shard files were not separately hashed; exact runtime weight tensor bytes were.
+
+[Actual replay1](results/gdn_actual_replay_round2_1/results.json) passed all21 layer/M cases for M32/33/63/64/65/96/128. Fresh CUTLASS on the full captured1024 rows first matched captured output **bitwise** for all three layers. Fused versus fresh CUTLASS relative L2, including changed actual row slices, was at most2.633e-5; initial outputs had at most13 BF16 mismatches. Sampled FP64 reference errors equaled baseline. Changed actual activation bytes/scales replayed exactly between CUDA graph and eager fused execution.
+
+Every cell was faster than CUTLASS in the measured two-order replay, by6.59–14.05%. This validates the operator contract on actual model operands and repeats the synthetic gain, but is not an end-to-end or NLL result. The existing repository skinny candidate is being compared separately; its presence in a source directory does not prove it is active in `CONFIGnext`. No serving integration is claimed yet.
+
+Both capture and replay exited0/cleanup0 with unchanged fingerprints and empty postrun owned-container/GPU-process observations. Captured tensor `.pt` files are local ignored artifacts; JSON manifests preserve their hashes.
+
+### Strongest existing candidate comparison
+
+[Actual replay2](results/gdn_actual_replay_round2_2/results.json) compared all21 cells against both CUTLASS and the exact existing repository skinny kernel (original source/flags, `(2,4)` configuration for M32–64, CUTLASS fallback above64). Source, wrapper and compiled extension hashes are in `skinny_manifest` in the result. This is a candidate comparison, not evidence that skinny is active in the current serving stack.
+
+All21 existing-candidate numerical checks executed; maximum relative L2 versus CUTLASS was8.454e-5. Fused DG beat the **faster measured comparator in each cell**: M32 by2.70–2.89%, M33 by5.97–7.35%, M63 by8.82–9.38%, M64 by9.03–10.06%, M65 by7.62–7.98%, M96 by7.35–7.85%, and M128 by6.54–7.00%. Replay2 exited0/cleanup0 with verified artifact hashes and no lingering owned container/GPU process.
+
+An opt-in serving integration is prepared under `integration/`, but has not run in vLLM yet. It registers its flag in compile factors, prebuilds unit scale metadata/kernel configurations during weight loading, then uses an opaque custom op for a conservative exact verified-M set. It composes DG→existing skinny→CUTLASS only where dtype/layout/scale checks allow; other shapes and bias use the original path. The subsequent [actual bucket replay](results/gdn_actual_replay_round2_buckets1/results.json) passed9/9cells at M48/80/112. Fused gains over the best comparator were5.61–6.39%,7.27–7.92%,6.95–7.48%, respectively; these buckets are now in the conservative integration set. An intended c16/MTP test still must prove the live GPU path rather than infer it from the flag.
 
 ## What was run, and what the numbers mean
 
@@ -300,3 +376,7 @@ Is there a mechanism that is measurably better than ours **and** applicable to o
 * `bench_dense.py`, `bench_grouped.py`, `graph_safety.py`, `bench_ours_cold.py`, `bench_ours_kernels.py`, `bench_dg_kernels.py`, `common.py`, `summarize.py`, `build_readme.py`.
 * `results/*.jsonl` (raw), `results/*.log` (job logs). `ours_ref/` = copy of the shipped skinny kernel used as the dense reference. `patches/force_bm32_block_n.patch`.
 * `src/` (357 MB DeepGEMM tree + submodules), `home/` (JIT cache) are git-ignored and regenerable with `setup.sh`.
+
+The first actual vLLM integration control (`integration/results/dg_serving_off1`) passed 30-module runtime eligibility auditing and an NSYS gate proving live M48 graph replay with zero candidate kernels. The matched candidate `dg_serving_on1` failed before serving because unit-scale initialization inherited vLLM's BF16 default dtype. Both missing float32 annotations are now fixed and covered by a CPU regression of the actual preparation function. An additional audit found vLLM enabled DeepGEMM PDL globally while the operator microtests used DeepJIT's false default; the controlled plugin now pins false in both profiles and asserts it at startup/shutdown. A fresh same-source pair is required. No end-to-end speedup or model-quality conclusion is available from this first attempt.
+
+Corrected actual-vLLM pair `dg_serving_off2`/`dg_serving_on2` proves all 30 QKVZ replacements execute inside live M48 graphs: 30 fused nodes/replay, median summed candidate time 0.584697 ms versus OFF inferred-QKVZ geometry 0.665625 ms (~12.16% lower). **This is not a selected serving improvement.** One short decode screen gives +0.68% throughput but worse mean TPOT (+4.43%); prefill fallback is flat. NLL differs, three mapped common-source Inductor configs differ, and ON lacks worker shutdown checkpoints (exit5). Keep default-off; full context and immutable evidence are in `integration/README.md` and `integration/results/dg_serving_pair2_summary.json`. Agentic remains reserved for the final selected composition.

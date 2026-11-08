@@ -6,3 +6,17 @@ ours_ref/skinny/.build/
 data/*.pt
 results/warm_*.log
 __pycache__/
+
+# Recreated by prepare_fused_rowwise.py; review the exported patch and fingerprint.
+fused_src/
+# Keep experiment JSON/log/provenance; JIT caches are reproducible binary artifacts.
+results/*/jit_cache/
+results/*/triton/
+results/*/inductor/
+results/*/home/
+
+# Local installed-source audit copy; prose records paths and exact observations.
+native_b12x_audit/
+fused_compile_checks/*.cubin
+
+skinny_comparator/build/

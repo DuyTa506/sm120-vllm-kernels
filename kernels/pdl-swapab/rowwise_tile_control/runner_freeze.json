@@ -1,0 +1,26 @@
+{
+  "status": "CPU_ready_GPU_not_run",
+  "scope": "Five comparators: CUTLASS, skinny, rowwise off, auto swap, forced64x16; no speed presumption.",
+  "files": {
+    "run_rowwise_tile_control.sh": "cbd5d05afde68e50f166ca5de15d8ede93bc411fb9c682414ccb36284330f278",
+    "replay_rowwise_tile.py": "d5f4cf292c4c7685030813dad889822aece162ad5bde2ebff0e6a1665062142a",
+    "prepare_rowwise_tile.py": "fcd82dd3d03d00b53db36b5d9c8d9ecd2b02cda35103cead32bf3ff4da6891dc",
+    "verify_rowwise_tile_freeze.py": "ea8b88c25ea3f662b526fbf7efa256a47e8d5c33c2a4faa374277c8fcd2e0e76",
+    "prepare_rowwise_tile_nvcc.py": "fe3cd56357f551ccf1df2ba17e3dfe5ea56b5f8be73802f4572af0fe112df1d8",
+    "test_rowwise_tile_contract.py": "fc8e8ff5ec06db85677fae2a49cce4d43e6c423e5794b68f5dd50f7a117d3bc7",
+    "rowwise_tile_control/manifest.json": "aa414beea7fb68396da81e92923cc215f5e6bc41bed25fea94b80791160ac6cf",
+    "rowwise_tile_control/build_result.json": "d6dc828e0f235e758ecd12a9ab9cd56ade3ab8f1b3007f274ac5c506adc06884",
+    "rowwise_tile_control/nvcc/results.json": "1de1672b0a9634556220c965620fffd7fc1fdea48b35b669d3cd462e931d7e62",
+    "rowwise_tile_control/rowwise_tile.patch": "da1d33b7ab67284eafe04c22374896ff5efc9b8897114a176cc05bef065634a9",
+    "rowwise_tile_control/base_fingerprint.json": "e8a951e4e662c63e144932e424689c37d39e05bd61dd44eae5d51e53f0a36aa1",
+    "../deepgemm-sm120/common.py": "90e59d63091daf7efc46561737dc19f4a8cb271e5e362e9f01f434ec7d9fdef1",
+    "../deepgemm-sm120/source_fingerprint.py": "cb140a34a971093e79e4e2138bc28cb10ced8a60b98edbc26502c6332ea57e26",
+    "../deepgemm-sm120/skinny_comparator/manifest.json": "dfdc3a9ed48f325042720ecabfb68cde93edf3a9db678eb99e463fd515a46a2a",
+    "../deepgemm-sm120/results/gdn_actual_capture_round2_1/results.json": "94910493bbdd9e9c04f2353ff8ab6a7fde70757b5b548f291e34c040196f67cf",
+    "rowwise_tile_control/src/csrc/apis/gemm.hpp": "d762433cc6d1c845fbaefd672710cbddc3295af68dcf7152ffb6c41c53ce0bfc",
+    "rowwise_tile_control/src/csrc/jit_kernels/impls/sm120_fp8_fp4_gemm_1d1d.hpp": "8e09078eea7be35745b719acc40a75c5898324afe81a5dd101a28de3cb1be8ab",
+    "rowwise_tile_control/src/deep_gemm/include/deep_gemm/epilogue/transform.cuh": "f5d85abf33cc3e4deda2ce103a4eceef63aea070da0de17ca6a257c1ce10d888",
+    "rowwise_tile_control/src/deep_gemm/include/deep_gemm/impls/sm120_fp8_fp4_gemm_1d1d.cuh": "bb347c6e7e8f809dd59d58b4df741d12b721d779cc2412bc1b62e522707bc602",
+    "rowwise_tile_control/src/deep_gemm/_C.cpython-312-x86_64-linux-gnu.so": "94dfdf2bf3cfdfe7f7b73b8d9815cebc3499a24fa6b00d18f9e70d892a1a5df1"
+  }
+}

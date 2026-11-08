@@ -1,0 +1,7 @@
+{
+  "base_image": "vllm/vllm-openai:v0.32.0",
+  "base_sha256": "e963af06cf6c775fe285147e0d811ea5b4d679e5cbd6958980ec2a0d1da70694",
+  "generated_sha256": "e7d89900d0e0cbba1edb1a85504d1077593da1baf70346e3f1735423507633fd",
+  "flag": "VLLM_SM120_TASK_ORDER_LONG_FIRST",
+  "default": false
+}

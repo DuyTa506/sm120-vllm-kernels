@@ -1,0 +1,49 @@
+{
+  "cpu_only": true,
+  "downloaded_code_executed": false,
+  "source_sha256": {
+    "moe_direct_micro_kernel.py": "9b18f54588c3f24cab74dff07545f323e2af8235a4532233655a5a75498e89cc",
+    "moe_dispatch.py": "c518e65d6bfd7f08db1e5261e20795fd020e82e681699729171bc2fd5331239a",
+    "qf_moe.cu": "158649bd31de55e60bcb170ccd1ac491e691e579ef8e4e35857099c1a4a75d08"
+  },
+  "original": {
+    "H": 2560,
+    "I": 640,
+    "TOPK": 10,
+    "MAXT": 8,
+    "HB": 160,
+    "IB": 40,
+    "HQ": 40,
+    "IQ": 10,
+    "fc1_register_quads": 10,
+    "fc2_register_quads": 5,
+    "fc1_tiles": 40,
+    "fc2_tiles": 20,
+    "max_fc1_dynamic_smem": 25600,
+    "partial_bytes": 6553600
+  },
+  "target": {
+    "H": 2048,
+    "I": 512,
+    "TOPK": 8,
+    "MAXT": 8,
+    "HB": 128,
+    "IB": 32,
+    "HQ": 32,
+    "IQ": 8,
+    "fc1_register_quads": 8,
+    "fc2_register_quads": 4,
+    "fc1_tiles": 32,
+    "fc2_tiles": 16,
+    "max_fc1_dynamic_smem": 20480,
+    "partial_bytes": 4194304
+  },
+  "exact_fp4_product_pairs": 256,
+  "scale_layout_bijection": true,
+  "route_fixtures_unique_experts": [
+    12,
+    8,
+    64
+  ],
+  "note": "Does not prove CUDA quantization parity, actual layout identity, races, or speed."
+}

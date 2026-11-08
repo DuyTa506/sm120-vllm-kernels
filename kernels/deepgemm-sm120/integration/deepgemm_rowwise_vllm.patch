@@ -1,0 +1,46 @@
+--- a/vllm/envs.py
++++ b/vllm/envs.py
+@@ -2493,3 +2493,8 @@
+     "VLLM_SM120_SKINNY_FP8": lambda: os.getenv("VLLM_SM120_SKINNY_FP8", "0") == "1",
+     "VLLM_SM120_SKINNY_FP8_MAX_M": lambda: int(os.getenv("VLLM_SM120_SKINNY_FP8_MAX_M", "64")),
+ })
++
++# DG rowwise candidate flag participates in compile_factors().
++environment_variables.update({
++    "VLLM_SM120_DG_ROWWISE_FP8": lambda: os.getenv("VLLM_SM120_DG_ROWWISE_FP8", "0") == "1",
++})
+--- a/vllm/model_executor/kernels/linear/scaled_mm/cutlass.py
++++ b/vllm/model_executor/kernels/linear/scaled_mm/cutlass.py
+@@ -210,6 +210,15 @@
+         # keep the logical output width so runtime can slice away static padding.
+         self.logical_output_size = weight.shape[1]
+         self.use_sm120_skinny = self._sm120_skinny_ok(layer, weight)
++        from . import sm120_dg_rowwise_fp8
++        weight_scale = getattr(layer, weight_scale_name, None)
++        self.use_sm120_dg_rowwise = (
++            sm120_dg_rowwise_fp8.ENABLED
++            and self.config.activation_quant_key.scale.group_shape.is_per_token()
++            and not self.config.activation_quant_key.scale.static
++            and self.config.out_dtype in (None, torch.bfloat16)
++            and sm120_dg_rowwise_fp8.prepare_for_weight(weight, weight_scale)
++        )
+ 
+         pad_k = (16 - weight.shape[0] % 16) % 16
+         pad_n = (16 - weight.shape[1] % 16) % 16
+@@ -279,6 +288,16 @@
+         output_shape: list,
+     ) -> torch.Tensor:
+         if (
++            getattr(self, "use_sm120_dg_rowwise", False)
++            and bias is None
++            and out_dtype == torch.bfloat16
++        ):
++            output = torch.ops.vllm.sm120_dg_rowwise_fp8_mm(
++                A, B, As, Bs, getattr(self, "use_sm120_skinny", False)
++            )
++            return output.view(*output_shape[:-1], B.shape[1])
++
++        if (
+             getattr(self, "use_sm120_skinny", False)
+             and bias is None
+             and out_dtype == torch.bfloat16

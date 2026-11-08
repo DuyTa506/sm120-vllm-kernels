@@ -1,0 +1,22 @@
+{
+  "scope": "CPU-only experimental scalar overlay M1/M4, default off; no serving claim",
+  "source": {
+    "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/moe-nvfp4/scalar/vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "d965685b7b29811f78efc46e0b6906e37efe601d12b21a119ca36d610059cc62",
+    "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/humming-sm120/serving/source/envs.py": "e963af06cf6c775fe285147e0d811ea5b4d679e5cbd6958980ec2a0d1da70694",
+    "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/dp4a-expert-reuse/serving/runtime.py": "233aa10b128b5810e278520c1a36a01539768187f5c4fa63781fde190829579f",
+    "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/dp4a-expert-reuse/serving/model_identity.py": "a81d1fff0f3f284f1bc6f54ede383adebceab4197831ad153be775586f83f5ab",
+    "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/dp4a-expert-reuse/fi_plan.py": "17d553a86edd4fbc3d06e4db9053fe19a6e42c7bf5d9fd72b07e776afeaa68a3",
+    "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/dp4a-expert-reuse/direct_native.py": "1d9735ebca1f2c818b21cbbc862156f768abc5b8726bfe2e91ed4d724c66fcf6",
+    "/home/aiqk3/Desktop/duy_dev/training_space/sm120-vllm-kernels/.build/worktrees/qwen-prefill/kernels/dp4a-expert-reuse/direct_sanitize.py": "fdccc9ff244977e573d765727f9d2a5be54b94e50daea27cf2263524a4b9ad87"
+  },
+  "generated": {
+    "vllm/envs.py": "d28c0a2f886c106521e540edeba6c621182628a99ebd3a5f8779714acc99fa27",
+    "vllm/model_executor/layers/fused_moe/experts/flashinfer_b12x_moe.py": "11aa132f1b2d83dffe3a2fb16cb2235b9955dc10e985a04843e76f64d25b6dbe",
+    "vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/model_identity.py": "a81d1fff0f3f284f1bc6f54ede383adebceab4197831ad153be775586f83f5ab",
+    "vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/direct_native.py": "1d9735ebca1f2c818b21cbbc862156f768abc5b8726bfe2e91ed4d724c66fcf6",
+    "vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/direct_sanitize.py": "7f97d963d64b907c2d43ff3597f93f37f04e295f8316566fb38982a36bc98ea8",
+    "vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/fi_plan.py": "17d553a86edd4fbc3d06e4db9053fe19a6e42c7bf5d9fd72b07e776afeaa68a3",
+    "vllm/model_executor/layers/fused_moe/experts/sm120_fi_direct/runtime.py": "233aa10b128b5810e278520c1a36a01539768187f5c4fa63781fde190829579f"
+  }
+}

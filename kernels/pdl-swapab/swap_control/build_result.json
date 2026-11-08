@@ -1,0 +1,8 @@
+{
+  "status": "CPU_build_complete_GPU_not_run",
+  "binary_sha256": "93488bde73201c38ffc670ff79ee14089052f5aa7a9fd0a396b603b232a3137c",
+  "build_log_sha256": "2063150086894d23a6b3ddc1fdb566e8e4ed5a1e30df5a720a7dbd1efb85e6be",
+  "no_gpu_exposed": true,
+  "binary": "kernels/pdl-swapab/swap_control/src/deep_gemm/_C.cpython-312-x86_64-linux-gnu.so",
+  "compiler_exit_code": 0
+}

@@ -1,0 +1,161 @@
+#pragma once
+
+#include <humming/datatype/base_conversion.cuh>
+#include <humming/datatype/dequant.cuh>
+#include <humming/datatype/dtypes.cuh>
+#include <humming/utils/all.cuh>
+
+
+template <class TargetType, class SourceType, bool kHasZeroPoint = false>
+CUDA_INLINE constexpr uint32_t get_dtype_dequant_exp_offset() {
+  // E8M0 scales for FP16 are prepacked with the FP16 exponent bias.
+  if constexpr (std::is_same<TargetType, Float16>::value && std::is_same<SourceType, Float8E8M0>::value) return 0;
+  if constexpr (TargetType::kIsFloatingPointType) {
+    if constexpr (TargetType::kExponentBits >= 1 && TargetType::kBits > SourceType::kBits) {
+      if constexpr (SourceType::kIsFloatingPointType) {
+        if constexpr (SourceType::kExponentBits == 0) {
+          if constexpr (TargetType::kBits == 16) return 0;
+          return (1 << (TargetType::kExponentBits - 1)) - 2 + TargetType::kMantissaBits;
+        } else {
+          constexpr uint32_t source_exp_offset = 1 << (SourceType::kExponentBits - 1);
+          constexpr uint32_t target_exp_offset = 1 << (TargetType::kExponentBits - 1);
+          return target_exp_offset - source_exp_offset;
+        }
+      }
+
+      if constexpr (TargetType::kBits != 16 && SourceType::kIsIntegerType) {
+        constexpr uint32_t target_exp_offset = 1 << (TargetType::kExponentBits - 1);
+        return target_exp_offset - 2 + TargetType::kMantissaBits;
+      }
+
+      if constexpr (std::is_same<TargetType, BFloat16>::value && SourceType::kIsIntegerType) {
+        if constexpr (kHasZeroPoint && SourceType::kBits > 6) {
+          constexpr uint32_t target_exp_offset = 1 << (TargetType::kExponentBits - 1);
+          return target_exp_offset - 2 + TargetType::kMantissaBits;
+        }
+        if constexpr (!kHasZeroPoint && SourceType::kBits > 7) {
+          constexpr uint32_t target_exp_offset = 1 << (TargetType::kExponentBits - 1);
+          return target_exp_offset - 2 + TargetType::kMantissaBits;
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+
+template <typename T, uint32_t kExpOffset>
+CUDA_INLINE constexpr T prepare_exp_scale_factor() {
+  static_assert(std::is_same<T, half2>::value || std::is_same<T, nv_bfloat162>::value || std::is_same<T, float>::value);
+
+  T val;
+  uint32_t &val_uint = *reinterpret_cast<uint32_t *>(&val);
+  if constexpr (std::is_same<T, half2>::value) {
+    val_uint = (kExpOffset * 0x00010001 + 0x000F000F) << 10;
+  } else if constexpr (std::is_same<T, nv_bfloat162>::value) {
+    val_uint = (kExpOffset * 0x00010001 + 0x007F007F) << 7;
+  } else if constexpr (std::is_same<T, float>::value) {
+    val_uint = (kExpOffset + 0x007F) << 23;
+  }
+
+  return val;
+}
+
+
+template <
+    class ElementA, class ElementQB, class ElementB, class ElementBS, bool kHasZeroPoint,
+    bool kNativeMixed = false, bool kNativeDequantB = false, bool kNativeDequantBS = false>
+CUDA_INLINE constexpr uint32_t get_total_exp_offset() {
+  uint32_t offset = 0;
+
+  if constexpr (ElementA::kBits == 16 && !kNativeDequantBS)
+    offset += get_dtype_dequant_exp_offset<ElementA, ElementBS>();
+  if constexpr (!kNativeMixed && !kNativeDequantB)
+    offset += get_dtype_dequant_exp_offset<ElementB, ElementQB, kHasZeroPoint>();
+
+  return offset;
+};
+
+
+template <
+    class ElementA, class ElementQB, class ElementB, class ElementBS, bool kHasZeroPoint,
+    bool kIsF16Accum, bool kIsGroupInputScale, bool kIsGroupWeightScale,
+    bool kNativeMixed = false, bool kNativeDequantB = false, bool kNativeDequantBS = false>
+CUDA_INLINE constexpr uint2 get_mainloop_exp_offset() {
+  uint32_t total_offset = get_total_exp_offset<
+      ElementA, ElementQB, ElementB, ElementBS, kHasZeroPoint, kNativeMixed, kNativeDequantB, kNativeDequantBS>();
+
+  // channelwise float8 scales must be applied on epilogue pipeline
+  if constexpr (ElementA::kBits == 16 && ElementBS::kBits == 8 && !kIsGroupWeightScale && !kNativeDequantBS) {
+    total_offset -= get_dtype_dequant_exp_offset<ElementA, ElementBS>();
+  }
+
+  uint2 offset = {0, 0};
+
+  if constexpr (ElementA::kBits == 16) {
+    uint32_t max_allowed_offset = (1 << (ElementA::kExponentBits - 1)) - 1;
+    if constexpr (std::is_same<ElementA, Float16>::value) {
+      max_allowed_offset = max_allowed_offset - ElementQB::kBits + 1;
+    } else if constexpr (kHasZeroPoint && ElementQB::kBits <= 6) {
+      max_allowed_offset = max_allowed_offset - ElementQB::kBits + 1;
+    } else if constexpr (!kHasZeroPoint && ElementQB::kBits <= 7) {
+      max_allowed_offset = max_allowed_offset - ElementQB::kBits + 1;
+    }
+
+    offset.x = MIN(max_allowed_offset, total_offset);
+
+    if constexpr (std::is_same<ElementA, BFloat16>::value && ElementBS::kBits == 8 && kIsGroupWeightScale && !kNativeDequantBS) {
+      constexpr uint32_t scale_offset = get_dtype_dequant_exp_offset<ElementA, ElementBS>();
+      offset.y = MIN(total_offset - offset.x, scale_offset);
+
+      // With floating-point weights the whole offset can go on the group scales instead of
+      // every dequantized weight, as long as the largest scale (below 2^(2^(E-1)+1)) stays
+      // under the bf16 maximum of 2^128; the epilogue applies the rest.
+      if constexpr (ElementQB::kIsFloatingPointType && !kHasZeroPoint) {
+        constexpr int32_t max_scale_log2 = (1 << (ElementBS::kExponentBits - 1)) + 1;
+        constexpr int32_t max_scale_offset = (int32_t)scale_offset + 128 - max_scale_log2;
+        if (max_scale_offset > (int32_t)(offset.y)) {
+          offset.y = MIN(total_offset, (uint32_t)max_scale_offset);
+          offset.x = 0;
+        }
+      }
+    }
+  }
+
+  if constexpr (ElementA::kBits != 16 && kIsF16Accum && kIsGroupWeightScale) {
+    offset.y = MIN(total_offset, 2);
+  }
+
+  return offset;
+};
+
+
+template <
+    class ElementA, class ElementQB, class ElementB, class ElementC, class ElementBS, bool kHasZeroPoint,
+    bool kIsF16Accum, bool kIsGroupInputScale, bool kIsGroupWeightScale,
+    bool kNativeMixed = false, bool kNativeDequantB = false, bool kNativeDequantBS = false>
+CUDA_INLINE constexpr uint2 get_epilogue_exp_offset() {
+  uint32_t total_offset = get_total_exp_offset<
+      ElementA, ElementQB, ElementB, ElementBS, kHasZeroPoint, kNativeMixed, kNativeDequantB, kNativeDequantBS>();
+
+  uint2 offset = {0, 0};
+  if constexpr (ElementBS::kBits == 8 && !kIsGroupWeightScale) {
+    if constexpr (kNativeScaleDequantSupported<ElementBS, ElementC>) {
+      if constexpr (ElementA::kBits == 16)
+        total_offset -= get_dtype_dequant_exp_offset<ElementA, ElementBS>();
+    } else {
+      offset.y = get_dtype_dequant_exp_offset<ElementC, ElementBS>();
+    }
+  }
+
+  uint2 mainloop_offset = get_mainloop_exp_offset<
+      ElementA, ElementQB, ElementB, ElementBS, kHasZeroPoint,
+      kIsF16Accum, kIsGroupInputScale, kIsGroupWeightScale,
+      kNativeMixed, kNativeDequantB, kNativeDequantBS>();
+
+  offset.x = total_offset - mainloop_offset.x - mainloop_offset.y;
+  if constexpr (ElementA::kBits == 16) offset.x -= offset.y;
+
+  return offset;
+};
